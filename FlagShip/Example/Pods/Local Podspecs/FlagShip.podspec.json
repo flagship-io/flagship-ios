@@ -1,0 +1,22 @@
+{
+  "name": "FlagShip",
+  "version": "0.1.0",
+  "summary": "A short description of FlagShip.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Adel/FlagShip",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Adel": "adel@abtasty.com"
+  },
+  "source": {
+    "git": "https://github.com/Adel/FlagShip.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "FlagShip/Classes/**/*"
+}

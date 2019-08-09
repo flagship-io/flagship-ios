@@ -1,0 +1,27 @@
+PODS:
+  - FlagShip (0.1.0)
+  - Nimble (7.3.4)
+  - Quick (1.2.0)
+
+DEPENDENCIES:
+  - FlagShip (from `../`)
+  - Nimble (~> 7.0)
+  - Quick (~> 1.2.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
+
+EXTERNAL SOURCES:
+  FlagShip:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FlagShip: 1b48397a7ff9b65953c94d25a6ff3613880bfa4d
+  Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+
+PODFILE CHECKSUM: 5206511b43a888985330a426ca9ffdf7c200019c
+
+COCOAPODS: 1.5.3
