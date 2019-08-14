@@ -37,7 +37,7 @@ class ViewController: UIViewController {
 
     @IBAction func sendAction(){
         
-        let eventAction = FSEventTrack("iosCategory", "iosAction", "iosLabel", 3.14)
+        let eventAction = FSEventTrack(.Action_Tracking, "iosAction", "iosLabel", 3.14)
         ABFlagShip.sharedInstance.sendTracking(eventAction)
         
     }

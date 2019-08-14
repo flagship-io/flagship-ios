@@ -20,9 +20,6 @@ extension ABService{
         case .PAGE:
             break
             
-        case .VISITOR:
-            break
-            
             
         case .TRANSACTION:
             break
@@ -46,9 +43,11 @@ extension ABService{
     internal func sendEvent(_ event:FSEventTrack){
         
         do {
-            let data = try JSONSerialization.data(withJSONObject: event.bodyTrack as Any, options:[])
+            let data = try JSONSerialization.data(withJSONObject: event.bodyTrack as Any, options:.prettyPrinted)
             
-           print(" @@@@@@@@@@@@@@@ Send Event \( event.bodyTrack) @@@@@@@@@@@@@@@@@@@@@@@@@")
+            let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments )
+
+           print(" @@@@@@@@@@@@@@@ Send Event \(json) @@@@@@@@@@@@@@@@@@@@@@@@@")
             
             var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
            

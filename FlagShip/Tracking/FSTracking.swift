@@ -8,16 +8,37 @@
 import Foundation
 
 
-public enum FSTypeTrack: Int {
+public enum FSTypeTrack: String {
     
-    case PAGE        = 1
-    case VISITOR     = 2
-    case TRANSACTION = 3
-    case ITEM        = 4
-    case EVENT       = 5
+    case PAGE        = "PAGEVIEW"
+    case TRANSACTION = "TRANSACTION"
+    case ITEM        = "ITEM"
+    case EVENT       = "EVENT"
     
-    case None   = 0
+    case None   = "None"
+    
+    
 }
+
+
+public enum FSCategoryEvent: Int {
+    
+    case Action_Tracking     = 1
+    case User_Engagement     = 2
+    
+    
+    
+    public var categoryString:String{
+        
+        switch self {
+        case .Action_Tracking:
+            return "Action Tracking"
+        case .User_Engagement:
+            return "User Engagement"
+        }
+    }
+}
+
 
 
 
@@ -29,15 +50,11 @@ public protocol FSTrackingProtocol {
     
     var bodyTrack:Dictionary<String,Any>? { get }
     
-    var bodyTrackBis:Dictionary<String,(String,Int,Double, Float, Bool)>? { get }
-
-    
 }
 
 public class FSTracking :FSTrackingProtocol{
-    public var bodyTrackBis: Dictionary<String, (String, Int, Double, Float, Bool)>?
     
-    
+    // Here will add all commun args
     
     public var bodyTrack: Dictionary<String, Any>?{
         
@@ -58,7 +75,6 @@ public class FSTracking :FSTrackingProtocol{
     
     init() {
         
-        
         clientId = ABFlagShip.sharedInstance.clientId
         visitorId = ABFlagShip.sharedInstance.visitorId
     }
@@ -70,45 +86,126 @@ public class FSTracking :FSTrackingProtocol{
 public class FSPageTrack:FSTracking{
     
     
-    
-    
+    override init() {
+        
+        super.init()
+        self.type = .PAGE
+    }
 }
 
 
-
-// Visitor Event
-public class FSVisitorTrack:FSTracking{
-    
-    
-    
-}
+//
+//// Visitor Event
+//public class FSVisitorTrack:FSTracking{
+//
+//
+//
+//}
 
 // Transaction
 public class FSTransactionTrack:FSTracking{
     
+    // Required
+    var transactionId:String!
+    var affiliation:String!
     
+    // Optional
+    var revenue:Double?
+    var shipping:Double?
+    var tax:Double?
+    var currency:String?
+    var couponCode:String?
+    var paymentMethod:String?
+    var ShippingMethod:String?
+    var itemCount:Int?
+    
+    
+    public init(_ transactionId:String!, _ affiliation:String!) {
+        
+        super.init()
+        
+        self.type          = .TRANSACTION
+        
+        self.affiliation   = affiliation
+  
+    }
+    
+    
+    public  override var bodyTrack: Dictionary<String, Any>?{
+        
+        get {
+            
+            return nil
+        }
+        
+    }
     
 }
 
 
-// Item
+///////////////////////////////////// Item ///////////////////////////////////////
+
 public class FSItemTrack:FSTracking{
     
     
+    var transactionId:String!
+    var name:String!
+    var price:Double?
+    var quantity:Int?
+    var code:String?
+    var category:String?
     
+    
+    public init(_ transactionId:String!, _ name:String!) {
+        
+        super.init()
+        
+        self.type          = .ITEM
+        self.transactionId = transactionId
+        self.name          = name
+        self.price         = nil
+        self.quantity      = nil
+        self.code          = nil
+        self.category      = nil
+    }
+    
+    
+    
+    public init(_ transactionId:String!, _ name:String!, _ price:Double?, _ quantity:Int?, _ code: String?, _ category:String? ) {
+        
+        super.init()
+        
+        self.type          = .ITEM
+        self.transactionId = transactionId
+        self.name          = name
+        self.price         = price
+        self.quantity      = quantity
+        self.code          = code
+        self.category      = category
+    }
+    
+    
+    public  override var bodyTrack: Dictionary<String, Any>?{
+        
+        get {
+            
+            return nil
+        }
+        
+    }
 }
 
 
-// Event
+// //////////////////////////  Event ////////////////////////////////:
 public class FSEventTrack:FSTracking{
     
-    var category:String!
+    var category:FSCategoryEvent!
     var ation:String!
     var label:String?
-    var value:Float?
+    var value:Double?
     
     
-    public init(_ eventCategory:String, _ eventAction:String, _ eventLabel:String?, _ eventValue:Float) {
+    public init(_ eventCategory:FSCategoryEvent, _ eventAction:String, _ eventLabel:String?, _ eventValue:Double) {
         
     
         super.init()  /// Set dans la base les element vitales
@@ -126,7 +223,7 @@ public class FSEventTrack:FSTracking{
         
     }
     
-    public init(_ eventCategory:String, _ eventAction:String){
+    public init(_ eventCategory:FSCategoryEvent, _ eventAction:String){
         
         super.init()  /// Set dans la base les element vitales
         
@@ -145,24 +242,27 @@ public class FSEventTrack:FSTracking{
     public  override var bodyTrack: Dictionary<String, Any>?{
         
         get {
-            
-            return ["cid":self.clientId,"t":"event", "vid":self.visitorId,"ec":self.category, "ea":self.ation, "el":label, "cst":Date.timeIntervalBetween1970AndReferenceDate]
+            /// Refractor later this part
+            if (self.label != nil && self.value != nil){
+                return ["cid":self.clientId,
+                        "t"  :self.type.rawValue,
+                        "ec" : self.category.categoryString,
+                        "vid":self.visitorId,
+                        "ea" :self.ation,
+                        "el" :self.label ,
+                        "ev" :self.value,
+                        "ds" :self.dataSource,
+                        "cst":Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate) as Any]
+            }else{
+                return ["cid":self.clientId,
+                        "t"  :self.type.rawValue,
+                        "ec" : self.category.categoryString,
+                        "vid":self.visitorId,
+                        "ea" :self.ation,
+                        "ds" :self.dataSource,
+                        "cst":Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate) as Any]
+            }
         }
+
     }
-    
-    
-//    "cid": "{{acountId}}",
-//    "dl": "http%3A%2F%2Fabtastylab.com%2F60511af14f5e48764b83d36ddb8ece5a%2F",
-//    "ic": "SKU47",
-//    "in": "Shoe",
-//    "ip": 3.5,
-//    "iq": 4,
-//    "iv": "Blue",
-//    "t": "ITEM",
-//    "tid": "OD564",
-//    "vid": "18100217380532936",
-//    "ds": "APP"
-//
-    
-    
 }
