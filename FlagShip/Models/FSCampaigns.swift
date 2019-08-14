@@ -15,7 +15,7 @@ public class FSCampaigns:Decodable{
     
     public var visitorId:String!
     
-    public var campaigns:[FSCampaign]?
+    public var campaigns:[FSCampaign] = []
     
     
     required public  init(from decoder: Decoder) throws{
@@ -34,6 +34,31 @@ public class FSCampaigns:Decodable{
         case visitorId
         case campaigns
     }
+    
+    
+    //// Get relative information tracking for Value
+    public func getRelativeInfoTrackForValue(_ keyValue:String)->[String:String]?{
+        
+        for item:FSCampaign in self.campaigns{
+            
+            guard let value = item.variation?.modifications?.value else{
+                
+                print("no modification at all")
+                return nil
+            }
+            if value.keys.contains(keyValue){
+                
+                return ["idVar": item.variation!.idVariation, "idCamp":item.idCampaign]
+                
+            }else{
+                return nil
+            }
+        }
+        return ["":""]
+    }
+    
+    
+    
 }
 
 
@@ -43,7 +68,7 @@ public class FSCampaigns:Decodable{
 public class FSCampaign:Decodable{
     
     
-    public  var idCampaign:String?
+    public  var idCampaign:String = ""
     public var variationGroupId:String?
     public var variation:FSVariation?
     
@@ -80,7 +105,7 @@ public class FSCampaign:Decodable{
 ////////////////// Variation /////////////
 public class FSVariation:Decodable{
     
-    public var idVariation:String?
+    public var idVariation:String = ""
     public var modifications:FSModifications?
     
     

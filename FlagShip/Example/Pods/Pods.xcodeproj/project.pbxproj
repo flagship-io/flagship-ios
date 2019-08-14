@@ -80,6 +80,8 @@
 		8B4D406922FC6002008ADF14 /* ABFlagShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D406722FC6001008ADF14 /* ABFlagShip.swift */; };
 		8B4D406A22FC6002008ADF14 /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D406822FC6002008ADF14 /* ABService.swift */; };
 		8B4D406E22FC64C8008ADF14 /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D406D22FC64C8008ADF14 /* FSFlagShip+Context.swift */; };
+		8B4D40732301B181008ADF14 /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D40722301B181008ADF14 /* ABService+Tracking.swift */; };
+		8B4D40782302BF19008ADF14 /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D40772302BF19008ADF14 /* FSTracking.swift */; };
 		8F69EDCC09739459EB61749494F1E002 /* CwlCatchException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98850E69E79A22F785C62AD3F78101FF /* CwlCatchException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		9108613C28FC0D1A7948C6B4FE64932F /* Nimble-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BBC52A92D344D11854EECE7548D3536 /* Nimble-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9206A04569BFB2E3C83EF0BDD3E6CE32 /* Callsite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C9E93FDAF76CEA15A9E23CC159DED1 /* Callsite.swift */; };
@@ -261,8 +263,10 @@
 		8B4D406222FC5EEF008ADF14 /* FSContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSContext.swift; sourceTree = "<group>"; };
 		8B4D406322FC5EEF008ADF14 /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
 		8B4D406722FC6001008ADF14 /* ABFlagShip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShip.swift; sourceTree = "<group>"; };
-		8B4D406822FC6002008ADF14 /* ABService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABService.swift; sourceTree = "<group>"; };
+		8B4D406822FC6002008ADF14 /* ABService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ABService.swift; path = ../ABService.swift; sourceTree = "<group>"; };
 		8B4D406D22FC64C8008ADF14 /* FSFlagShip+Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSFlagShip+Context.swift"; sourceTree = "<group>"; };
+		8B4D40722301B181008ADF14 /* ABService+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ABService+Tracking.swift"; sourceTree = "<group>"; };
+		8B4D40772302BF19008ADF14 /* FSTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTracking.swift; sourceTree = "<group>"; };
 		8CD4F9099E164CEAA1A3D77B0C9043B2 /* Pods-FlagShip_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FlagShip_Tests-umbrella.h"; sourceTree = "<group>"; };
 		8EF0EA564D82AB46B710DC6096C1EA6B /* QuickConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QuickConfiguration.m; path = Sources/QuickObjectiveC/Configuration/QuickConfiguration.m; sourceTree = "<group>"; };
 		9245B48A46AAC45502A6B8A2AB745038 /* HooksPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HooksPhase.swift; path = Sources/Quick/Hooks/HooksPhase.swift; sourceTree = "<group>"; };
@@ -429,6 +433,7 @@
 		6A13AF60E8CA6E2CC2C052577FD0AA58 /* FlagShip */ = {
 			isa = PBXGroup;
 			children = (
+				8B4D40762302BF07008ADF14 /* Tracking */,
 				8B4D406022FC5ED7008ADF14 /* Core */,
 				8B4D405B22FC5EAA008ADF14 /* Models */,
 				0BAE646416E2D56EA1B5C226CC12CF73 /* ReplaceMe.swift */,
@@ -578,14 +583,31 @@
 		8B4D406022FC5ED7008ADF14 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8B4D40712301B14B008ADF14 /* Service */,
 				8B4D406722FC6001008ADF14 /* ABFlagShip.swift */,
-				8B4D406822FC6002008ADF14 /* ABService.swift */,
 				8B4D406322FC5EEF008ADF14 /* FlagShipError.swift */,
 				8B4D406122FC5EEF008ADF14 /* FSConstant.swift */,
 				8B4D406222FC5EEF008ADF14 /* FSContext.swift */,
 				8B4D406D22FC64C8008ADF14 /* FSFlagShip+Context.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		8B4D40712301B14B008ADF14 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8B4D406822FC6002008ADF14 /* ABService.swift */,
+				8B4D40722301B181008ADF14 /* ABService+Tracking.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		8B4D40762302BF07008ADF14 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				8B4D40772302BF19008ADF14 /* FSTracking.swift */,
+			);
+			path = Tracking;
 			sourceTree = "<group>";
 		};
 		8D4B4BECCC7802CF0D7F915623F2EABD /* Development Pods */ = {
@@ -870,12 +892,14 @@
 				8B4D406522FC5EEF008ADF14 /* FSContext.swift in Sources */,
 				8B4D406A22FC6002008ADF14 /* ABService.swift in Sources */,
 				7659B7F682A4B9A4C8F02CCC72594BB3 /* FlagShip-dummy.m in Sources */,
+				8B4D40732301B181008ADF14 /* ABService+Tracking.swift in Sources */,
 				8B4D405E22FC5EAA008ADF14 /* FSCampaigns.swift in Sources */,
 				8B4D405F22FC5EAA008ADF14 /* FSCampaigns+Modifications.swift in Sources */,
 				8B4D406922FC6002008ADF14 /* ABFlagShip.swift in Sources */,
 				8B4D406622FC5EEF008ADF14 /* FlagShipError.swift in Sources */,
 				F7D4367484E06368F2C2F65A6AA18BC6 /* ReplaceMe.swift in Sources */,
 				8B4D406422FC5EEF008ADF14 /* FSConstant.swift in Sources */,
+				8B4D40782302BF19008ADF14 /* FSTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

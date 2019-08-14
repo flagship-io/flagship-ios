@@ -44,10 +44,24 @@
                                     <action selector="back" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1DY-he-ieF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogf-BV-RGx">
+                                <rect key="frame" x="87.5" y="577" width="200" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.67843137249999996" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="E0O-Zv-z0l"/>
+                                    <constraint firstAttribute="height" constant="40" id="hqq-C9-n5H"/>
+                                </constraints>
+                                <state key="normal" title="Send Event"/>
+                                <connections>
+                                    <action selector="sendAction" destination="vXZ-lx-hvc" eventType="touchUpInside" id="zTF-8V-3N9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="eov-9i-ehn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="100" id="20R-9n-mRN"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="Ogf-BV-RGx" secondAttribute="bottom" constant="50" id="AnY-Te-12g"/>
+                            <constraint firstItem="Ogf-BV-RGx" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Qmj-Nw-Yah"/>
                             <constraint firstItem="oKU-sU-6WI" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="U1D-yu-Qkc"/>
                             <constraint firstItem="oKU-sU-6WI" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="aqg-SN-CXN"/>
                             <constraint firstItem="eov-9i-ehn" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="hHc-8q-MF0"/>
@@ -64,7 +78,7 @@
         <!--Shome Screen-->
         <scene sceneID="xF4-Px-qs0">
             <objects>
-                <viewController id="Cgx-bI-fVZ" customClass="FShomeScreen" customModule="Flagship_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Cgx-bI-fVZ" customClass="FShomeScreen" customModule="FlagShip_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JzI-Ds-hMp"/>
                         <viewControllerLayoutGuide type="bottom" id="y4I-7P-RKZ"/>

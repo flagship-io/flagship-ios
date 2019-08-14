@@ -46,9 +46,6 @@ public class FSContext{
     public func  addBoolenCtx(_ key:String, _ bool:Bool){
         
         self.currentContext.updateValue(bool, forKey: key)
-        
-      //  self.currentContext.setValue(bool, forKey: key)
-        
     }
 
     
@@ -142,6 +139,5 @@ public class FSContext{
         
         self.currentContext.removeAll()
     }
-    
     
 }

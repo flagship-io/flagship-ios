@@ -55,7 +55,7 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         ABFlagShip.sharedInstance.updateContext("basketNumber", numberValue)
  
         // Start FlagShip
-        ABFlagShip.sharedInstance.startFlagShip("myId") { (state) in
+        ABFlagShip.sharedInstance.startFlagShip("GOTA") { (state) in
             
             
             DispatchQueue.main.async {

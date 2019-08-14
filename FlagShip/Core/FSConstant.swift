@@ -12,7 +12,22 @@ import Foundation
 let FlagShipEndPoint = "https://decision-api.canarybay.io/v1/"
 
 
+
+
+
+///// GET CAMPAIGNS /////////////////////////////////
 let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns"
+
+
+
+
+
+
+
+
+///////////// ARIANE ////////////////////////////////
+
+let FSDATA_ARIANE = "https://ariane.abtasty.com"
 
 
 

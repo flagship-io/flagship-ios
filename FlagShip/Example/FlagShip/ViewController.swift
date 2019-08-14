@@ -33,5 +33,16 @@ class ViewController: UIViewController {
         self.dismiss(animated: true) {
         }
     }
+
+
+    @IBAction func sendAction(){
+        
+        let eventAction = FSEventTrack("iosCategory", "iosAction", "iosLabel", 3.14)
+        ABFlagShip.sharedInstance.sendTracking(eventAction)
+        
+    }
+
+
+
 }
 

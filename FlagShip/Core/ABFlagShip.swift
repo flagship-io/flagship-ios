@@ -43,7 +43,7 @@ public class ABFlagShip:NSObject{
     
     /// Init With Id /////
     
-    public func startFlagShip(_ visitorId:String, /* _ context:FSContext,*/ onFlagShipReady:@escaping(FlagshipState)->Void){
+    public func startFlagShip(_ visitorId:String, onFlagShipReady:@escaping(FlagshipState)->Void){
         do {
             try self.readClientIfFromPlist()
             
@@ -89,32 +89,85 @@ public class ABFlagShip:NSObject{
         self.clientId = cId
     }
     
+    
+    
+    /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
+    
     // Bool
     public func shipBooleanValue(_ key:String, defaultBool:Bool) -> Bool {
         
+        // Activate
+        
+        self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
+        
     }
     
     // String
     public func shipStringeValue(_ key:String, defaultString:String) -> String{
         
+        self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readStringFromContext(key, defaultString: defaultString)
     }
     
     /// Double
     public func shipDoubleValue(_ key:String, defaultDouble:Double) -> Double{
         
+        self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readDoubleFromContext(key, defaultDouble: defaultDouble)
     }
     
     // Float
     public func shipFloatValue(_ key:String, defaulfloat:Float) -> Float{
         
+        self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
     // Integer
     public func shipIntValue(_ key:String, defaultInt:Int) -> Int{
         
+        self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readIntFromContext(key, defaultInt: defaultInt)
+    }
+    
+    
+    //////////////////////////// UPDATE CONTEXT ////////////////////////
+    
+    public func updateContext(_ newValue:[String:(String,Int,Float,Bool,Double)]){
+        
+        self.context.currentContext.merge(newValue) { (_, new) in new }
+    }
+    
+    
+    
+    ///////////////////////////// Get update Modifications //////////////////////
+    
+    public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
+        
+        
+        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+            
+            if (error == nil){
+                // Set Campaigns
+                self.campaigns = campaigns
+                self.context.updateModification(campaigns)
+                onFlagUpdateDone(FlagshipState.Ready)
+                
+            }else{
+                onFlagUpdateDone(FlagshipState.NotReady)
+            }
+        }
+    }
+    
+    
+    
+    /////////////////////////// Send EVENT TRACKING /////////////////////////////////
+    
+    
+    public func sendTracking<T: FSTrackingProtocol>(_ event:T){
+        
+        // In the futur  If panic Buttton ......... here block the operation
+        
+        self.service.sendTracking(event)
     }
 }
