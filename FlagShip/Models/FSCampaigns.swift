@@ -48,7 +48,7 @@ public class FSCampaigns:Decodable{
             }
             if value.keys.contains(keyValue){
                 
-                return ["idVar": item.variation!.idVariation, "idCamp":item.idCampaign]
+                return ["vaid": item.variation!.idVariation, "caid":item.variationGroupId ?? ""]
                 
             }else{
                 return nil

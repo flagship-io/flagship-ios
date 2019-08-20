@@ -55,7 +55,7 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         ABFlagShip.sharedInstance.updateContext("basketNumber", numberValue)
  
         // Start FlagShip
-        ABFlagShip.sharedInstance.startFlagShip("Mer14_With_Int64") { (state) in
+        ABFlagShip.sharedInstance.startFlagShip("eventWithValue16H") { (state) in
             
             
             DispatchQueue.main.async {

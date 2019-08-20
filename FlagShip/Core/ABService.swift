@@ -32,7 +32,7 @@ class ABService {
         
         do {
             
-            let params:NSMutableDictionary = ["visitor_id":visitorId, "context":currentContext]
+            let params:NSMutableDictionary = ["visitor_id":visitorId, "context":currentContext, "trigger_hit":false]
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
             var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetCampaigns, clientId))!)
@@ -94,12 +94,54 @@ class ABService {
         // Before send Activate
         // prepare somme actions
         
-        guard let infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
+        guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
+            print("No infos track for activate ..... Exit the activate ")
+
             return
         }
         
-        print( "##############@ The activate will apply \(infosTrack) ######################@")
+        do {
+            // Set Visitor Id
+            infosTrack.updateValue(visitorId, forKey: "vid")
+            // Set Client Id
+            infosTrack.updateValue(clientId, forKey: "cid")
+            
+            let data = try JSONSerialization.data(withJSONObject: infosTrack, options:[])
+            
+            var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
+            request.httpMethod = "POST"
+            request.httpBody = data
+           
+            let session = URLSession(configuration:URLSessionConfiguration.default)
+            session.dataTask(with: request) { (responseData, response, error) in
+                
+                let httpResponse = response as? HTTPURLResponse
+                
+                switch (httpResponse?.statusCode){
+                    
+                case 200,204:
+                    
+                    print("...Activate Done ........................")
+                    break
+                case 403:
+                    
+                    break
+                    
+                case 400:
+                    
+                    break
+                default:
+                    print("Error onrequesting")
+                }
+                
+                }.resume()
+            
+        }catch{
+            
+            print("error on Activate")
+
+        }
     }
     
 }

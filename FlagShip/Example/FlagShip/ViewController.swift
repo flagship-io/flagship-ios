@@ -37,10 +37,30 @@ class ViewController: UIViewController {
 
     @IBAction func sendAction(){
         
-        let eventAction = FSEventTrack(.Action_Tracking, "iosAction", "iosLabel", 3.14)
+        let eventAction = FSEventTrack(.Action_Tracking, "iosAction", "iosLabel", 3)
+        
+       // let eventAction = FSEventTrack(.Action_Tracking, "iosEventWithoutValue")
+
         ABFlagShip.sharedInstance.sendTracking(eventAction)
         
     }
+    
+    
+    @IBAction func sendPageEvent(){
+        
+        let eventPage = FSPageTrack()
+        
+        // add event
+        
+        eventPage.userIp = "168.13.12.0"
+        eventPage.sessionNumber = 12
+        eventPage.screenResolution = "200x200"
+        
+        ABFlagShip.sharedInstance.sendTracking(eventPage)
+        
+    }
+    
+    
 
 
 

@@ -14,9 +14,14 @@ let FlagShipEndPoint = "https://decision-api.canarybay.io/v1/"
 
 
 
-
 ///// GET CAMPAIGNS /////////////////////////////////
 let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns"
+
+
+///// ACTIVATE ///////////////
+
+let FSActivate = FlagShipEndPoint + "activate"
+
 
 
 

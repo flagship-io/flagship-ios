@@ -97,7 +97,6 @@ public class ABFlagShip:NSObject{
     public func shipBooleanValue(_ key:String, defaultBool:Bool) -> Bool {
         
         // Activate
-        
         self.service.activateCampaignRelativetoKey(key,campaigns)
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
         

@@ -10,40 +10,19 @@ import Foundation
 extension ABService{
     
     
-    
     public func sendTracking< T: FSTrackingProtocol>(_ event:T){
         
-        
-        switch event.type {
-            
-            
-        case .PAGE:
-            break
-            
-            
-        case .TRANSACTION:
-            break
-            
-        case .ITEM:
-            break
-            
-        case .EVENT:
-            
-            self.sendEvent(event as! FSEventTrack)
-            break
-            
-        default: break
-            
-        }
+        self.sendEvent(event)
     }
     
     
     ////////////////////: Send Event ...///////////////////////////////////////////////:
     
-    internal func sendEvent(_ event:FSEventTrack){
+    internal func sendEvent< T: FSTrackingProtocol>(_ event:T){
         
         do {
-            let data = try JSONSerialization.data(withJSONObject: event.bodyTrack as Any, options:.prettyPrinted)
+            
+            let data = try JSONSerialization.data(withJSONObject:event.bodyTrack as Any, options:.prettyPrinted)
             
             let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments )
 
