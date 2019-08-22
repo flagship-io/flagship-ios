@@ -18,6 +18,8 @@ class ABService {
     
     var offLineTracking:FSOfflineTracking!
     
+    var cacheManager:FSCacheManager!
+    
     
     init(_ clientId:String, _ visitorId:String) {
         
@@ -26,6 +28,8 @@ class ABService {
         self.visitorId = visitorId
         
         offLineTracking = FSOfflineTracking(self)
+        
+        cacheManager = FSCacheManager()
      }
     
     
@@ -64,6 +68,9 @@ class ABService {
                             
                             let decoder = JSONDecoder()
                             let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
+                            
+                            /// Save also the data in the Directory
+                            self.cacheManager.saveCampaignsInCache(responseData)
                             onGetCampaign(objectDecoded, nil)
                             
                         } catch {

@@ -90,7 +90,7 @@ public class FSOfflineTracking{
             // Path
             url.appendPathComponent("ABTasty", isDirectory: true)
             
-            FileManager.default.fileExists(atPath: url.path)
+           // FileManager.default.fileExists(atPath: url.path) // check .here 
             
             // create directory
             do {
