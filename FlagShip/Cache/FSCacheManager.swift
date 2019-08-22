@@ -30,5 +30,6 @@ class FSCacheManager {
     // Write Campaign on Directory
     func saveCampaignsInCache(_ campaigns:FSCampaigns){
         
+        
     }
 }

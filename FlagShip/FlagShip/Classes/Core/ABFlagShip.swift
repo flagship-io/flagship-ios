@@ -77,8 +77,7 @@ public class ABFlagShip:NSObject{
         }
         
         // Purge data event
-
-        DispatchQueue(label: "FlushStoredEvents").async(execute:DispatchWorkItem {
+        DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
             self.service.offLineTracking.flushStoredEvents()
         })
  

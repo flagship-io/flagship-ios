@@ -10,12 +10,13 @@ import Foundation
 
 public enum FlagshipError:Error {
     
-    
     case BadPlist
     
     case ClientId_Error
     
     case GetCampaignError
+    
+    case StoredEventError
 }
 
 
