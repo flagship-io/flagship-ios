@@ -52,11 +52,11 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         loadingActivity.startAnimating()
         self.startButton.addSubview(loadingActivity)
         
-        ABFlagShip.sharedInstance.updateContext("basketNumber", numberValue)
- 
+        ABFlagShip.sharedInstance.context("basketNumber", numberValue)
+
+        
         // Start FlagShip
         ABFlagShip.sharedInstance.startFlagShip("eventWithValue16H") { (state) in
-            
             
             DispatchQueue.main.async {
                 

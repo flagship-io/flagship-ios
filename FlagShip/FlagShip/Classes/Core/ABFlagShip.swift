@@ -75,7 +75,36 @@ public class ABFlagShip:NSObject{
                 onFlagShipReady(FlagshipState.NotReady)
             }
         }
+        
+        // Purge data event
+
+        DispatchQueue(label: "FlushStoredEvents").async(execute:DispatchWorkItem {
+            self.service.offLineTracking.flushStoredEvents()
+        })
+ 
+        
     }
+    
+    
+    func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
+        
+        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+            
+            if (error == nil){
+                
+                // Set Campaigns
+                self.campaigns = campaigns
+                self.context.updateModification(campaigns)
+                onGetCampaign(nil)
+                
+            }else{
+                
+                onGetCampaign(.GetCampaignError)
+            }
+        }
+    }
+    
+    
     
     
     private func readClientIfFromPlist() throws{

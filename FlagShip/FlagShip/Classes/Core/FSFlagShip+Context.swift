@@ -12,19 +12,19 @@ extension ABFlagShip{
     ////////////////////// UPDATES ////////////////////////
     
     // Update boolean context
-    public func updateContext(_ key:String,  _ boolean:Bool){
+    public func context(_ key:String,  _ boolean:Bool){
         
         self.context.addBoolenCtx(key, boolean)
     }
     
     // Update Number Context
-    public func updateContext(_ key:String,  _ double:Double){
+    public func context(_ key:String,  _ double:Double){
         
         self.context.addDoubleCtx(key, double)
     }
     
     // Update Context Text
-    public func updateContext(_ key:String,  _ text:String){
+    public func context(_ key:String,  _ text:String){
         
         self.context.addStringCtx(key, text)
     }
@@ -32,7 +32,7 @@ extension ABFlagShip{
     
     // Update Float
     // Update Context Text
-    public func updateContext(_ key:String,  _ float:Float){
+    public func context(_ key:String,  _ float:Float){
         
         self.context.addFloatCtx(key, float)
     }

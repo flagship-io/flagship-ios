@@ -48,19 +48,26 @@ public protocol FSTrackingProtocol {
     
     var type:FSTypeTrack { get }
     
-    
     var bodyTrack:Dictionary<String,Any> { get }
     
-    //var communBodyTrack:Dictionary<String,Any> { get }
-
-    
+    var fileName:String! { get }
 }
 
 public class FSTracking :FSTrackingProtocol{
     
+    
+    public var fileName: String! {
+        
+        get {
+            
+            let formatDate = DateFormatter()
+            formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
+            return String(format: "%@.json",formatDate.string(from: Date()))
+        }
+    }
+    
+    
     // Here will add all commun args
-    
-    
     public var type: FSTypeTrack = .None
     
     // Required

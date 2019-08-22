@@ -20,20 +20,29 @@ extension ABService{
     
     internal func sendEvent< T: FSTrackingProtocol>(_ event:T){
         
+        /// Check if the connexion is available
+        
+        if (self.offLineTracking.isConnexionAvailable() == false ){
+            
+            print("The connexion is not available ..... The event will be saved in Data Base")
+            
+            self.offLineTracking.saveEvent(event)
+            
+            return
+        }
+        
         do {
             
             let data = try JSONSerialization.data(withJSONObject:event.bodyTrack as Any, options:.prettyPrinted)
             
-            let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments )
+          //  let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments )
 
-           print(" @@@@@@@@@@@@@@@ Send Event \(json) @@@@@@@@@@@@@@@@@@@@@@@@@")
+         //  print(" @@@@@@@@@@@@@@@ Send Event \(json) @@@@@@@@@@@@@@@@@@@@@@@@@")
             
             var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
            
             request.httpMethod = "POST"
             request.httpBody = data
-            
-            
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             
             let session = URLSession(configuration:URLSessionConfiguration.default)

@@ -12,8 +12,13 @@
     "Adel": "adel@abtasty.com"
   },
   "source": {
-    "git": "https://github.com/Adel/FlagShip.git",
+    "git": "git@gitlab.com:abtasty/mobile/flagship-ios.git",
     "tag": "0.1.0"
+  },
+  "dependencies": {
+    "ReachabilitySwift": [
+
+    ]
   },
   "platforms": {
     "ios": "8.0"
