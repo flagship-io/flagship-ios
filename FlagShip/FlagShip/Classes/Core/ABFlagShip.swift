@@ -60,18 +60,19 @@ public class ABFlagShip:NSObject{
         // Get All Campaign for the moment
         self.service = ABService(self.clientId, self.visitorId)
         
+        // Au départ mettre a dispo les campaigns du cache.
+        self.campaigns =  self.service.cacheManager.readCampaignFromCache()
+        self.context.updateModification(self.campaigns)
+        
+        // Mettre à jour les campaigns
         self.service.getCampaigns(context.currentContext) { (campaigns, error) in
             
             if (error == nil){
-                
                 // Set Campaigns
                 self.campaigns = campaigns
                 self.context.updateModification(campaigns)
                 onFlagShipReady(FlagshipState.Ready)
-                
-                
             }else{
-                
                 onFlagShipReady(FlagshipState.NotReady)
             }
         }
@@ -80,8 +81,6 @@ public class ABFlagShip:NSObject{
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
             self.service.offLineTracking.flushStoredEvents()
         })
- 
-        
     }
     
     

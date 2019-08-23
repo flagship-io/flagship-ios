@@ -47,6 +47,8 @@ class ABService {
             request.httpMethod = "POST"
             request.httpBody = data
             
+            request.timeoutInterval = 10
+            
  
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -56,37 +58,48 @@ class ABService {
             
             session.dataTask(with: request) { (responseData, response, error) in
                 
-                let httpResponse = response as? HTTPURLResponse
-                
-                switch (httpResponse?.statusCode){
+                if (error == nil){
                     
-                case 200:
-                    
-                    if(responseData != nil){
+                    let httpResponse = response as? HTTPURLResponse
+                    switch (httpResponse?.statusCode){
                         
-                        do {
+                    case 200:
+                        
+                        if(responseData != nil){
                             
-                            let decoder = JSONDecoder()
-                            let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
-                            
-                            /// Save also the data in the Directory
-                            self.cacheManager.saveCampaignsInCache(responseData)
-                            onGetCampaign(objectDecoded, nil)
-                            
-                        } catch {
-                            
-                            print(error)
+                            do {
+                                
+                                let decoder = JSONDecoder()
+                                let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
+                                
+                                // Print Json response
+                                
+                                let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                                print(" @@@@@@@@@@@@@@ Get Campaign is \(dico)  \n @@@@@@@@@@@@")
+                                
+                                /// Save also the data in the Directory
+                                self.cacheManager.saveCampaignsInCache(responseData)
+                                onGetCampaign(objectDecoded, nil)
+                                
+                            } catch {
+                                
+                                onGetCampaign(nil, FlagshipError.GetCampaignError)
+                                print(error.localizedDescription)
+                            }
                         }
+                        
+                        break
+                    case 403:
+                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+                        
+                    case 400:
+                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+                    default:
+                        print("none")
                     }
+                }else{
                     
-                    break
-                case 403:
                     onGetCampaign(nil, FlagshipError.GetCampaignError)
-                    
-                case 400:
-                    onGetCampaign(nil, FlagshipError.GetCampaignError)
-                default:
-                    print("none")
                 }
                 
                 }.resume()

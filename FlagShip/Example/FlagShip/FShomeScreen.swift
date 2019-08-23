@@ -53,10 +53,11 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         self.startButton.addSubview(loadingActivity)
         
         ABFlagShip.sharedInstance.context("basketNumber", numberValue)
+        ABFlagShip.sharedInstance.context("isVipUser", true)
 
-        
+
         // Start FlagShip
-        ABFlagShip.sharedInstance.startFlagShip("eventWithValue16H") { (state) in
+        ABFlagShip.sharedInstance.startFlagShip("adel") { (state) in
             
             DispatchQueue.main.async {
                 
@@ -101,6 +102,13 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
             }
         }
         return true
+    }
+    
+    
+    
+    @IBAction func goToBannerTest(){
+        
+        self.performSegue(withIdentifier: "goToBannerTest", sender: nil)
     }
     
     

@@ -9,18 +9,35 @@ import Foundation
 
 class FSCacheManager {
     
-    
-    var urlCampaign:URL?
-    
-//    init() {
-//        // Create Url cache
-//        self.urlCampaign = createUrlForCache()
-//    }
-    
-    
     // Get All Event
     func readCampaignFromCache()->FSCampaigns?{
         
+        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            // Path
+            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
+            // add file name
+            url.appendPathComponent("campaigns.json")
+            
+            if (FileManager.default.fileExists(atPath: url.path) == true){
+                
+                do{
+                    
+                    let data = try Data(contentsOf: url)
+                    
+                    let object =  try JSONDecoder().decode(FSCampaigns.self, from: data)
+                    
+                    return object
+                }catch{
+                    
+                    fatalError(error.localizedDescription)
+                }
+                
+            }else{
+                
+                print("URL For cache already exist")
+                return nil
+            }
+        }
         return nil
     }
     
