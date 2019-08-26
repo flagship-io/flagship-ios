@@ -29,5 +29,7 @@ public enum FlagshipState:Error {
     case NotReady
     
     case Pending
+    
+    case Updated
 }
 

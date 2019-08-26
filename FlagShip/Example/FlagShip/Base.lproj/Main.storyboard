@@ -29,7 +29,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="j4E-Pp-C8W"/>
                                     <constraint firstAttribute="width" constant="300" id="yFz-xZ-CWh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -68,7 +68,7 @@
                                     <action selector="sendPageEvent" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yy6-ea-43g"/>
                                 </connections>
                             </button>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIP Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQS-cK-oa2">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIP message " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQS-cK-oa2">
                                 <rect key="frame" x="87.5" y="311" width="200" height="45"/>
                                 <color key="backgroundColor" red="0.32156862749999998" green="0.61568627450000002" blue="0.96078431369999995" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
@@ -80,7 +80,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.89019607840000003" green="0.93725490199999995" blue="0.99215686270000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rQS-cK-oa2" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="1As-3i-rgU"/>
                             <constraint firstItem="eov-9i-ehn" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="100" id="20R-9n-mRN"/>
@@ -129,7 +129,7 @@
                                     <action selector="onClickStart" destination="Cgx-bI-fVZ" eventType="touchUpInside" id="PYk-5g-cFg"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBv-Rw-Mib">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBv-Rw-Mib">
                                 <rect key="frame" x="10" y="100" width="120" height="40"/>
                                 <color key="backgroundColor" red="0.69803921570000005" green="0.75294117650000003" blue="0.81176470590000005" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
@@ -178,7 +178,7 @@
                                     <action selector="updateContext" destination="Cgx-bI-fVZ" eventType="touchUpInside" id="ILK-YO-6s8"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j8D-mr-X0L">
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="j8D-mr-X0L">
                                 <rect key="frame" x="140" y="100" width="200" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="1sD-Jz-fdH"/>

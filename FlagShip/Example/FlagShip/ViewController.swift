@@ -19,9 +19,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.mainTitle.text = ABFlagShip.sharedInstance.shipStringeValue("titleBtn", defaultString: "Mer")
+        self.mainTitle.text = ABFlagShip.sharedInstance.shipStringeValue("titleBtn", defaultString: "Mer",printModification: true)
         
-        let isVip = ABFlagShip.sharedInstance.shipBooleanValue("Feature1", defaultBool: false)
+        let isVip = ABFlagShip.sharedInstance.shipBooleanValue("Feature1", defaultBool: false,printModification: true)
         
         self.newFeature.isHidden = !isVip
     }

@@ -24,7 +24,7 @@ class FSBannerViewController: UIViewController {
         self.bannerBtn.layer.cornerRadius = 10
         self.bannerBtn.layer.masksToBounds = true
         
-        let title = ABFlagShip.sharedInstance.shipStringeValue("bannerTitle", defaultString: "More Infos")
+        let title = ABFlagShip.sharedInstance.shipStringeValue("bannerTitle", defaultString: "More Infos",printModification: true)
         self.bannerBtn.setTitle(title, for: .normal)
     }
     

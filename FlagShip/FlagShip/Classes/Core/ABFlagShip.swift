@@ -84,7 +84,7 @@ public class ABFlagShip:NSObject{
     }
     
     
-    func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
+    public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
         self.service.getCampaigns(context.currentContext) { (campaigns, error) in
             
@@ -98,6 +98,27 @@ public class ABFlagShip:NSObject{
             }else{
                 
                 onGetCampaign(.GetCampaignError)
+            }
+        }
+    }
+    
+    
+    public func updateContext(_ contextvalues:Dictionary<String,Any>, _ sync:Bool, onSyncIsDone:@escaping(FlagshipState)->Void){
+        
+        self.context.currentContext.merge(contextvalues) { (_, new) in new }
+        
+        if (sync){
+            
+            self.getCampaigns { (error) in
+                
+                if (error == nil){
+                    
+                    onSyncIsDone(.Updated)
+                    
+                }else{
+                    
+                    onSyncIsDone(.NotReady)
+                }
             }
         }
     }
@@ -121,38 +142,56 @@ public class ABFlagShip:NSObject{
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
     // Bool
-    public func shipBooleanValue(_ key:String, defaultBool:Bool) -> Bool {
+    public func shipBooleanValue(_ key:String, defaultBool:Bool, printModification:Bool) -> Bool {
         
-        // Activate
-        self.service.activateCampaignRelativetoKey(key,campaigns)
+        if printModification{
+            // Activate
+            self.service.activateCampaignRelativetoKey(key,campaigns)
+        }
+        
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
+        
+        
         
     }
     
     // String
-    public func shipStringeValue(_ key:String, defaultString:String) -> String{
+    public func shipStringeValue(_ key:String, defaultString:String, printModification:Bool) -> String{
         
-        self.service.activateCampaignRelativetoKey(key,campaigns)
+        if printModification{
+            
+            self.service.activateCampaignRelativetoKey(key,campaigns)
+        }
         return context.readStringFromContext(key, defaultString: defaultString)
     }
     
     /// Double
-    public func shipDoubleValue(_ key:String, defaultDouble:Double) -> Double{
+    public func shipDoubleValue(_ key:String, defaultDouble:Double, printModification:Bool) -> Double{
         
-        self.service.activateCampaignRelativetoKey(key,campaigns)
+        if printModification{
+            
+            self.service.activateCampaignRelativetoKey(key,campaigns)
+        }
         return context.readDoubleFromContext(key, defaultDouble: defaultDouble)
     }
     
     // Float
-    public func shipFloatValue(_ key:String, defaulfloat:Float) -> Float{
+    public func shipFloatValue(_ key:String, defaulfloat:Float, printModification:Bool) -> Float{
         
-        self.service.activateCampaignRelativetoKey(key,campaigns)
+        if printModification{
+            
+            self.service.activateCampaignRelativetoKey(key,campaigns)
+        }
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
     // Integer
-    public func shipIntValue(_ key:String, defaultInt:Int) -> Int{
+    public func shipIntValue(_ key:String, defaultInt:Int, printModification:Bool) -> Int{
         
-        self.service.activateCampaignRelativetoKey(key,campaigns)
+        if printModification{
+            
+            self.service.activateCampaignRelativetoKey(key,campaigns)
+        }
+        
         return context.readIntFromContext(key, defaultInt: defaultInt)
     }
     
@@ -188,7 +227,6 @@ public class ABFlagShip:NSObject{
     
     
     /////////////////////////// Send EVENT TRACKING /////////////////////////////////
-    
     
     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
