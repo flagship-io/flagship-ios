@@ -86,9 +86,9 @@
 		85D78981B120948E041502409254B4F5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4E51A6F0CBB6DB0EDC2CE63193D3142 /* Foundation.framework */; };
 		8AA1573A6E580F689A48C3237CC36268 /* Contain.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4F868B509D15B789903AB2E42E9A41 /* Contain.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		8AF9D7A32551E661331E8B28F5C2ED56 /* Pods-FlagShip_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A14620A402BCF2A2D1F3BF658DB44BC /* Pods-FlagShip_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B14FA42230D97CD007311C7 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14FA41230D97CD007311C7 /* FSCacheManager.swift */; };
 		8B17426076A1679CAF224B21A31476F2 /* Pods-FlagShip_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E71AB5B2FA1365C260051DA113A4C39C /* Pods-FlagShip_Tests-dummy.m */; };
 		8B23816E231523C7007379CA /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23816D231523C7007379CA /* FSLogger.swift */; };
+		8B2381702316D160007379CA /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23816F2316D160007379CA /* FSCacheManager.swift */; };
 		8B85D67B230D5A6E003EC017 /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FBAF7CACA419950AFA4E17FC92053 /* ABService.swift */; };
 		8F69EDCC09739459EB61749494F1E002 /* CwlCatchException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6632D002C4E529598FB46CA66E5EDD1E /* CwlCatchException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		9108613C28FC0D1A7948C6B4FE64932F /* Nimble-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C64DB21EFB273C363DAF269CC5113E /* Nimble-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -285,9 +285,9 @@
 		87383DB1450D71BF33FD8A7135DD07F9 /* NSString+C99ExtendedIdentifier.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSString+C99ExtendedIdentifier.swift"; path = "Sources/Quick/NSString+C99ExtendedIdentifier.swift"; sourceTree = "<group>"; };
 		87E20C0358C1833E9D6731727C5F6125 /* Predicate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Predicate.swift; path = Sources/Nimble/Matchers/Predicate.swift; sourceTree = "<group>"; };
 		889D18231EDB1F90253835B2B89788A3 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
-		8B14FA41230D97CD007311C7 /* FSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCacheManager.swift; sourceTree = "<group>"; };
 		8B1C0AC8427C27A6ED25740E84BD1CC6 /* CwlCatchBadInstruction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlCatchBadInstruction.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlCatchBadInstruction.swift; sourceTree = "<group>"; };
 		8B23816D231523C7007379CA /* FSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLogger.swift; sourceTree = "<group>"; };
+		8B23816F2316D160007379CA /* FSCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSCacheManager.swift; path = ../FlagShip/Classes/Cache/FSCacheManager.swift; sourceTree = "<group>"; };
 		8CD4F9099E164CEAA1A3D77B0C9043B2 /* Pods-FlagShip_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FlagShip_Tests-umbrella.h"; sourceTree = "<group>"; };
 		8CE0F2E34DF52C521A0937613B589810 /* BeNil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeNil.swift; path = Sources/Nimble/Matchers/BeNil.swift; sourceTree = "<group>"; };
 		8F0D0490EDBE4D3001C6FCE5D12CAAE4 /* HooksPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HooksPhase.swift; path = Sources/Quick/Hooks/HooksPhase.swift; sourceTree = "<group>"; };
@@ -622,7 +622,7 @@
 		8B14FA40230D97B1007311C7 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				8B14FA41230D97CD007311C7 /* FSCacheManager.swift */,
+				8B23816F2316D160007379CA /* FSCacheManager.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -1011,8 +1011,8 @@
 			files = (
 				3E0A6FAE08A1B615C2FF5BA9088C381B /* ABFlagShip.swift in Sources */,
 				2993D8E65F278F625D68E178E896299F /* ABService+Tracking.swift in Sources */,
-				8B14FA42230D97CD007311C7 /* FSCacheManager.swift in Sources */,
 				EEECBA2D8EE90A2011690ABC739FFC75 /* FlagShip-dummy.m in Sources */,
+				8B2381702316D160007379CA /* FSCacheManager.swift in Sources */,
 				8B23816E231523C7007379CA /* FSLogger.swift in Sources */,
 				2AE2F6A1F88368294E9C9BF4FD3779CD /* FlagShipError.swift in Sources */,
 				0B117325CA7914425E62166FC9998C31 /* FSCampaigns+Modifications.swift in Sources */,
