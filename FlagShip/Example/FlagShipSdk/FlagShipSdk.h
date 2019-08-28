@@ -2,12 +2,11 @@
 //  FlagShipSdk.h
 //  FlagShipSdk
 //
-//  Created by Adel on 26/08/2019.
+//  Created by Adel on 28/08/2019.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-
 
 //! Project version number for FlagShipSdk.
 FOUNDATION_EXPORT double FlagShipSdkVersionNumber;

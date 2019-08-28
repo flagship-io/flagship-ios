@@ -1,5 +1,9 @@
 use_frameworks!
 
+
+target 'FlagShipSdk' do
+    pod 'ReachabilitySwift'
+    end
 target 'FlagShip_Example' do
   pod 'FlagShip', :path => '../'
   

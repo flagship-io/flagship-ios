@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_FlagShipSdk_FlagShip_ExampleVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_FlagShipSdk_FlagShip_ExampleVersionString[];
+FOUNDATION_EXPORT double ReachabilityVersionNumber;
+FOUNDATION_EXPORT const unsigned char ReachabilityVersionString[];
 

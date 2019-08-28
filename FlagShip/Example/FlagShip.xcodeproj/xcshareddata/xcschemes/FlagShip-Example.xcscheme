@@ -52,6 +52,16 @@
                ReferencedContainer = "container:FlagShip.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8B23817D2316D463007379CA"
+               BuildableName = "FlagShipSdkTests.xctest"
+               BlueprintName = "FlagShipSdkTests"
+               ReferencedContainer = "container:FlagShip.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

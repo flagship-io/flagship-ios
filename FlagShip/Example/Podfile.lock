@@ -9,6 +9,7 @@ DEPENDENCIES:
   - FlagShip (from `../`)
   - Nimble (~> 7.0)
   - Quick (~> 1.2.0)
+  - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -26,6 +27,6 @@ SPEC CHECKSUMS:
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
 
-PODFILE CHECKSUM: c419a11f1630e577e9812dc36baf0ae2cf84043e
+PODFILE CHECKSUM: fadd6c7c1900a1a18f3a894c68b75ad874c552c8
 
 COCOAPODS: 1.5.3
