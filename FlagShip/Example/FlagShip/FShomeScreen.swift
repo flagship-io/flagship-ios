@@ -35,7 +35,15 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         stringValueTextFiled.tag = 100
         // Nimber Label
         numberValueTextField.tag = 200
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action:#selector(onTap(_:)) ))
 
+    }
+    
+    
+    @objc func onTap(_ gest:UITapGestureRecognizer){
+        
+        view.endEditing(true)
     }
     
     @IBAction func onClickStart(){
@@ -101,6 +109,7 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
             
             }
         }
+        
         return true
     }
     
@@ -110,6 +119,18 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         
         self.performSegue(withIdentifier: "goToBannerTest", sender: nil)
     }
+    
+    
+    @IBAction func onSwitch(_ sender: Any) {
+        
+        let togSwitch:UISwitch = sender as! UISwitch
+        
+        ABFlagShip.sharedInstance.disabledSdk = !togSwitch.isOn
+        
+        
+    }
+    
+    
     
     
 }

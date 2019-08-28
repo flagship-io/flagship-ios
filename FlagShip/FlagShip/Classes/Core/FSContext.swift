@@ -55,9 +55,6 @@ public class FSContext{
     public func  addStringCtx(_ key:String, _ valueString:String){
         
         self.currentContext.updateValue(valueString, forKey: key)
-
-      //  self.currentContext.setValue(valueString, forKey: key)
-
     }
  
     ////////////////// Double ///////////////////////////////

@@ -27,11 +27,11 @@ public class ABFlagShip:NSObject{
     var service:ABService!
     
     // Enable Logs, By default is equal to True
-    var enableLogs:Bool = true
+    public var enableLogs:Bool = true
     
     
     // Panic Button
-    var disabledSdk:Bool = false
+    public var disabledSdk:Bool = false
     
     public static let sharedInstance:ABFlagShip = {
         
@@ -91,6 +91,11 @@ public class ABFlagShip:NSObject{
     
     public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+        }
+        
+        
         FSLogger.FSlog("Get Campaign .............", .Campaign)
         
         self.service.getCampaigns(context.currentContext) { (campaigns, error) in
@@ -116,31 +121,33 @@ public class ABFlagShip:NSObject{
     
     
     ////////////// Update Context /////////////////////////:
-    // to do , remove bool
     // sync
-    public func updateContext(_ contextvalues:Dictionary<String,Any>, _ sync:Bool, onSyncIsDone:@escaping(FlagshipState)->Void){
+    public func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagshipState)->Void)?){
         
         
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return
+        }
         FSLogger.FSlog("Update context", .Campaign)
         self.context.currentContext.merge(contextvalues) { (_, new) in new }
         
-        if (sync){
+        
+        if sync !=  nil {
             
             self.getCampaigns { (error) in
                 
                 if (error == nil){
                     
-                    onSyncIsDone(.Updated)
+                    sync!(.Updated)
                     
                 }else{
                     
-                    onSyncIsDone(.NotReady)
+                    sync!(.NotReady)
                 }
             }
         }
     }
-    
-    
     
     
     private func readClientIfFromPlist() throws{
@@ -159,8 +166,13 @@ public class ABFlagShip:NSObject{
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
     // Bool
-    // To do get modification
-     public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
+    public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
+        
+        // Check if disabled
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return defaultBool
+        }
         
         if activate{
             // Activate
@@ -176,6 +188,12 @@ public class ABFlagShip:NSObject{
     // String
     public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return defaultString
+        }
+
+        
         if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
@@ -185,6 +203,12 @@ public class ABFlagShip:NSObject{
     
     /// Double
     public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return defaultDouble
+        }
+
         
         if activate{
             
@@ -196,6 +220,13 @@ public class ABFlagShip:NSObject{
     // Float
     public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
         
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return defaulfloat
+        }
+
+        
         if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
@@ -204,6 +235,12 @@ public class ABFlagShip:NSObject{
     }
     // Integer
     public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
+        
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return defaultInt
+        }
         
         if activate{
             
@@ -227,6 +264,11 @@ public class ABFlagShip:NSObject{
     
     public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
         
+        if disabledSdk{
+            
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
         
         self.service.getCampaigns(context.currentContext) { (campaigns, error) in
             

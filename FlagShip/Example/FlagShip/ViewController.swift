@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.mainTitle.text = ABFlagShip.sharedInstance.getModification("titleBtn", defaultString: "Mer",activate: true)
+        self.mainTitle.text = ABFlagShip.sharedInstance.getModification("titleBtn", defaultString: "default",activate: true)
         
         let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
         
@@ -60,6 +60,19 @@ class ViewController: UIViewController {
         
         ABFlagShip.sharedInstance.sendTracking(eventPage)
         
+    }
+    
+    @IBAction func updateCampaign(){
+        
+        ABFlagShip.sharedInstance.updateContext(["isVipUser":false]) { (state) in
+            
+            DispatchQueue.main.async {
+                
+                let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
+                self.newFeature.isHidden = !isVip
+            }
+           
+        }
     }
     
     
