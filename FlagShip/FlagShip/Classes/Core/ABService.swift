@@ -10,6 +10,7 @@ import Foundation
 //  This class will represent the service , here will be able to post the data
 
 
+
 class ABService {
     
     var clientId:String!
@@ -33,13 +34,11 @@ class ABService {
      }
     
     
-    
-    
+
     
     func getCampaigns(_ currentContext:Dictionary <String,Any>,  onGetCampaign:@escaping(FSCampaigns?, FlagshipError?)->Void){
         
         do {
-            
             let params:NSMutableDictionary = ["visitor_id":visitorId, "context":currentContext, "trigger_hit":false]
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
@@ -73,9 +72,9 @@ class ABService {
                                 let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
                                 
                                 // Print Json response
-                                
                                 let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-                                print(" @@@@@@@@@@@@@@ Get Campaign is \(dico)  \n @@@@@@@@@@@@")
+                                
+                                FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
                                 
                                 /// Save also the data in the Directory
                                 self.cacheManager.saveCampaignsInCache(responseData)
@@ -106,7 +105,7 @@ class ABService {
             
         }catch{
             
-            print("error on serializing json")
+            FSLogger.FSlog("error on serializing json", .Network)
         }
     }
     
@@ -120,7 +119,7 @@ class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            print("No infos track for activate ..... Exit the activate ")
+            FSLogger.FSlog(" No Informations to send the activate  ", .Campaign)
 
             return
         }
@@ -133,6 +132,16 @@ class ABService {
             
             let data = try JSONSerialization.data(withJSONObject: infosTrack, options:[])
             
+            // here we have data ready, check the connexion before
+            
+            if (self.offLineTracking.isConnexionAvailable() == false){
+                
+                self.offLineTracking.saveActivateEvent(data)
+                
+                FSLogger.FSlog("Activate will be send in the next lauch when connexion will available", .Network)
+                return
+            }
+            
             var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
             request.httpMethod = "POST"
             request.httpBody = data
@@ -140,30 +149,38 @@ class ABService {
             let session = URLSession(configuration:URLSessionConfiguration.default)
             session.dataTask(with: request) { (responseData, response, error) in
                 
-                let httpResponse = response as? HTTPURLResponse
-                
-                switch (httpResponse?.statusCode){
+                if (error == nil){
                     
-                case 200,204:
+                    let httpResponse = response as? HTTPURLResponse
                     
-                    print("...Activate Done ........................")
-                    break
-                case 403:
+                    switch (httpResponse?.statusCode){
+                        
+                    case 200,204:
+                        
+                        FSLogger.FSlog("The activate is sent with success ", .Network)
+                        
+                        break
+                    case 403:
+                        
+                        break
+                        
+                    case 400:
+                        
+                        break
+                    default:
+                        FSLogger.FSlog("Bad Request", .Network)
+                        
+                    }
+                }else{
                     
-                    break
-                    
-                case 400:
-                    
-                    break
-                default:
-                    print("Error onrequesting")
+                    FSLogger.FSlog(error!.localizedDescription, .Network)
                 }
                 
                 }.resume()
             
         }catch{
             
-            print("error on Activate")
+            FSLogger.FSlog("Bad Request", .Network)
 
         }
     }

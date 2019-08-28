@@ -43,18 +43,15 @@ public class FSCampaigns:Decodable{
             
             guard let value = item.variation?.modifications?.value else{
                 
-                print("no modification at all")
+                FSLogger.FSlog(" No Values found at all ....", .Campaign)
                 return nil
             }
             if value.keys.contains(keyValue){
                 
                 return ["vaid": item.variation!.idVariation, "caid":item.variationGroupId ?? ""]
-                
-            }else{
-                return nil
             }
         }
-        return ["":""]
+        return nil
     }
     
     

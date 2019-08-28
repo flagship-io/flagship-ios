@@ -56,7 +56,7 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         ABFlagShip.sharedInstance.context("isVipUser", true)
 
 
-        // Start FlagShip
+        // Start FlagShip  /// vid en option 
         ABFlagShip.sharedInstance.startFlagShip("adel") { (state) in
             
             DispatchQueue.main.async {

@@ -38,7 +38,7 @@ public class FSOfflineTracking{
     /// FLush Stored Event
     func flushStoredEvents(){
         // Flush All Events
-        print("@@@@@@@@@@@@@ Flush all Events........................")
+        FSLogger.FSlog("Flush all Events", .Campaign)
         let listUrl =  self.getAllBodyTrackFromDisk()
         
         for urlItem:URL in listUrl ?? []{
@@ -60,12 +60,39 @@ public class FSOfflineTracking{
     // Save Events
     func saveEvent<T:FSTrackingProtocol>(_ event:T){
         
-        print("Save Event ............................")
+        FSLogger.FSlog("save event", .Campaign)
         
         DispatchWorkItem {
              self.saveBodyTrackToDisk(event.bodyTrack, event.fileName)
         }.perform()
-       
+    }
+    
+    func saveActivateEvent(_ dateEvent:Data){
+        
+        FSLogger.FSlog("save Activate Event", .Campaign)
+        
+        DispatchQueue(label: "save.activate.event").async {
+            
+            if (self.urlForEvent != nil){
+                
+                // Create file name
+                let formatDate = DateFormatter()
+                formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
+                let fileName =  String(format: "%@.json",formatDate.string(from: Date()))
+                
+                guard let url:URL? = self.urlForEvent?.appendingPathComponent(fileName) else {
+                    
+                    FSLogger.FSlog("Failed to save activate event", .Campaign)
+                    
+                    return
+                }
+                do {
+                    try dateEvent.write(to: url!, options: [])
+                } catch {
+                    fatalError(error.localizedDescription)
+                }
+            }
+        }
     }
     
     
@@ -76,6 +103,8 @@ public class FSOfflineTracking{
         case .cellular?, .wifi?:
             return true
         default:
+            
+            FSLogger.FSlog("Connexion unavailable", .Network)
             return false
         }
     }
@@ -90,7 +119,6 @@ public class FSOfflineTracking{
             // Path
             url.appendPathComponent("ABTasty", isDirectory: true)
             
-           // FileManager.default.fileExists(atPath: url.path) // check .here 
             
             // create directory
             do {
@@ -104,7 +132,7 @@ public class FSOfflineTracking{
             
         }else{
             
-            print("ooops ............")
+            FSLogger.FSlog("Flush all Events", .Network)
             return nil
         }
     }
@@ -116,7 +144,7 @@ public class FSOfflineTracking{
             
             guard let url:URL? = urlForEvent?.appendingPathComponent(fileName) else {
                 
-                print("Failed to save ..........")
+                FSLogger.FSlog("Failed to save event", .Campaign)
                 return
             }
             do {
@@ -167,12 +195,12 @@ public class FSOfflineTracking{
                 switch (httpResponse?.statusCode){
                     
                 case 200:
-                    print(" .................Stored Event Sent with success ..........")
+                    FSLogger.FSlog(" .................Stored Event Sent with success ..........", .Network)
                     // Delete the Event
                     onCompletion(nil)
                     break
                 default:
-                    print(" .................Error on Sending Stored Event ..........")
+                    FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
                     onCompletion(.StoredEventError)
                 }
                 }.resume()

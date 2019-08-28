@@ -26,10 +26,6 @@ let FSActivate = FlagShipEndPoint + "activate"
 
 
 
-
-
-
-
 ///////////// ARIANE ////////////////////////////////
 
 let FSDATA_ARIANE = "https://ariane.abtasty.com"

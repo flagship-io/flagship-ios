@@ -10,7 +10,7 @@ import Foundation
 public class ABFlagShip:NSObject{
     
     // This id is unique for the app
-    var visitorId:String!
+    var visitorId:String?
     
     // Client Id
     var clientId:String!
@@ -25,6 +25,13 @@ public class ABFlagShip:NSObject{
     
     // Service
     var service:ABService!
+    
+    // Enable Logs, By default is equal to True
+    var enableLogs:Bool = true
+    
+    
+    // Panic Button
+    var disabledSdk:Bool = false
     
     public static let sharedInstance:ABFlagShip = {
         
@@ -41,24 +48,22 @@ public class ABFlagShip:NSObject{
     
     
     
-    /// Init With Id /////
-    
-    public func startFlagShip(_ visitorId:String, onFlagShipReady:@escaping(FlagshipState)->Void){
+     public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
         do {
-            try self.readClientIfFromPlist()
+            try self.readClientIfFromPlist()    // Read EnvId from plist
             
         }catch{
             
             onFlagShipReady(FlagshipState.NotReady)
             
-            print("Can't find client Id in plist")
+            FSLogger.FSlog("Can't find Environment Id in plist",.Campaign)
             
             return
         }
         // set visitor Id
         self.visitorId = visitorId
         // Get All Campaign for the moment
-        self.service = ABService(self.clientId, self.visitorId)
+        self.service = ABService(self.clientId, self.visitorId ?? "")
         
         // Au départ mettre a dispo les campaigns du cache.
         self.campaigns =  self.service.cacheManager.readCampaignFromCache()
@@ -86,6 +91,8 @@ public class ABFlagShip:NSObject{
     
     public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
+        FSLogger.FSlog("Get Campaign .............", .Campaign)
+        
         self.service.getCampaigns(context.currentContext) { (campaigns, error) in
             
             if (error == nil){
@@ -93,18 +100,28 @@ public class ABFlagShip:NSObject{
                 // Set Campaigns
                 self.campaigns = campaigns
                 self.context.updateModification(campaigns)
+                
+                FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
+
                 onGetCampaign(nil)
                 
             }else{
                 
+                FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
+
                 onGetCampaign(.GetCampaignError)
             }
         }
     }
     
     
+    ////////////// Update Context /////////////////////////:
+    // to do , remove bool
+    // sync
     public func updateContext(_ contextvalues:Dictionary<String,Any>, _ sync:Bool, onSyncIsDone:@escaping(FlagshipState)->Void){
         
+        
+        FSLogger.FSlog("Update context", .Campaign)
         self.context.currentContext.merge(contextvalues) { (_, new) in new }
         
         if (sync){
@@ -128,7 +145,7 @@ public class ABFlagShip:NSObject{
     
     private func readClientIfFromPlist() throws{
         
-        guard let cId =   Bundle.main.object(forInfoDictionaryKey: "FlagShipClientId") as? String else{
+        guard let cId =   Bundle.main.object(forInfoDictionaryKey: "FlagShipEnvId") as? String else{
             
             throw FlagshipError.BadPlist
         }
@@ -142,9 +159,10 @@ public class ABFlagShip:NSObject{
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
     // Bool
-    public func shipBooleanValue(_ key:String, defaultBool:Bool, printModification:Bool) -> Bool {
+    // To do get modification
+     public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
         
-        if printModification{
+        if activate{
             // Activate
             self.service.activateCampaignRelativetoKey(key,campaigns)
         }
@@ -156,9 +174,9 @@ public class ABFlagShip:NSObject{
     }
     
     // String
-    public func shipStringeValue(_ key:String, defaultString:String, printModification:Bool) -> String{
+    public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
-        if printModification{
+        if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
         }
@@ -166,9 +184,9 @@ public class ABFlagShip:NSObject{
     }
     
     /// Double
-    public func shipDoubleValue(_ key:String, defaultDouble:Double, printModification:Bool) -> Double{
+    public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
         
-        if printModification{
+        if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
         }
@@ -176,18 +194,18 @@ public class ABFlagShip:NSObject{
     }
     
     // Float
-    public func shipFloatValue(_ key:String, defaulfloat:Float, printModification:Bool) -> Float{
+    public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
         
-        if printModification{
+        if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
         }
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
     // Integer
-    public func shipIntValue(_ key:String, defaultInt:Int, printModification:Bool) -> Int{
+    public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
         
-        if printModification{
+        if activate{
             
             self.service.activateCampaignRelativetoKey(key,campaigns)
         }
@@ -230,8 +248,10 @@ public class ABFlagShip:NSObject{
     
     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
-        // In the futur  If panic Buttton ......... here block the operation
-        
+        if disabledSdk{
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
         self.service.sendTracking(event)
     }
 }

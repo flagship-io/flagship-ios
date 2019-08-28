@@ -41,9 +41,6 @@ public enum FSCategoryEvent: Int {
 
 
 
-
-
-
 public protocol FSTrackingProtocol {
     
     var type:FSTypeTrack { get }

@@ -21,6 +21,7 @@ class FSCacheManager {
             if (FileManager.default.fileExists(atPath: url.path) == true){
                 
                 do{
+                    FSLogger.FSlog("read campaign from cache", .Campaign)
                     
                     let data = try Data(contentsOf: url)
                     
@@ -29,12 +30,12 @@ class FSCacheManager {
                     return object
                 }catch{
                     
+                    FSLogger.FSlog("Failed to read campaign from cache", .Campaign)
                     fatalError(error.localizedDescription)
                 }
                 
             }else{
                 
-                print("URL For cache already exist")
                 return nil
             }
         }
@@ -46,13 +47,13 @@ class FSCacheManager {
     // Write Campaign on Directory
     func saveCampaignsInCache(_ dataCampaign:Data?){
         
-        DispatchQueue(label: "sss", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
+        DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
             
             let urlForCache:URL? = self.createUrlForCache()
             
             guard let url:URL? = urlForCache?.appendingPathComponent("campaigns.json") else {
                 
-                print("Failed to save ..........")
+                FSLogger.FSlog("Failed to save campaign", .Network)
                 return
             }
             do {
@@ -86,7 +87,6 @@ class FSCacheManager {
                 
             }else{
                 
-                print("URL For cache already exist")
                 return url
             }
         }

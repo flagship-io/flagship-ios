@@ -1,0 +1,6 @@
+framework module Pods_FlagShipSdk_FlagShip_Example {
+  umbrella header "Pods-FlagShipSdk-FlagShip_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

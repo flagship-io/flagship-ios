@@ -24,7 +24,7 @@ extension ABService{
         
         if (self.offLineTracking.isConnexionAvailable() == false ){
             
-            print("The connexion is not available ..... The event will be saved in Data Base")
+            FSLogger.FSlog("The connexion is not available ..... The event will be saved in Data Base", .Network)
             
             self.offLineTracking.saveEvent(event)
             
@@ -33,11 +33,8 @@ extension ABService{
         
         do {
             
+            FSLogger.FSlog(String(format: "Sending : ....... %@", event.bodyTrack.debugDescription), .Network)
             let data = try JSONSerialization.data(withJSONObject:event.bodyTrack as Any, options:.prettyPrinted)
-            
-          //  let json = try? JSONSerialization.jsonObject(with: data, options:.allowFragments )
-
-         //  print(" @@@@@@@@@@@@@@@ Send Event \(json) @@@@@@@@@@@@@@@@@@@@@@@@@")
             
             var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
            
@@ -54,8 +51,7 @@ extension ABService{
                 switch (httpResponse?.statusCode){
                     
                 case 200:
-                    
-                    print("YESSSSSS.... EVENT SENT .....................")
+                    FSLogger.FSlog("Event sent with success", .Network)
                     break
                 case 403:
                     
@@ -65,14 +61,14 @@ extension ABService{
                     
                     break
                  default:
-                    print("none")
+                    FSLogger.FSlog("Error on send Event", .Network)
                 }
                 
                 }.resume()
             
         }catch{
             
-            print("error on serializing json")
+            FSLogger.FSlog("Error serialize  event ", .Network)
         }
         
     }

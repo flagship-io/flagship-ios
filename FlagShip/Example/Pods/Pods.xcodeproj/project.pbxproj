@@ -88,6 +88,7 @@
 		8AF9D7A32551E661331E8B28F5C2ED56 /* Pods-FlagShip_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A14620A402BCF2A2D1F3BF658DB44BC /* Pods-FlagShip_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B14FA42230D97CD007311C7 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B14FA41230D97CD007311C7 /* FSCacheManager.swift */; };
 		8B17426076A1679CAF224B21A31476F2 /* Pods-FlagShip_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E71AB5B2FA1365C260051DA113A4C39C /* Pods-FlagShip_Tests-dummy.m */; };
+		8B23816E231523C7007379CA /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23816D231523C7007379CA /* FSLogger.swift */; };
 		8B85D67B230D5A6E003EC017 /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FBAF7CACA419950AFA4E17FC92053 /* ABService.swift */; };
 		8F69EDCC09739459EB61749494F1E002 /* CwlCatchException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6632D002C4E529598FB46CA66E5EDD1E /* CwlCatchException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		9108613C28FC0D1A7948C6B4FE64932F /* Nimble-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53C64DB21EFB273C363DAF269CC5113E /* Nimble-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -286,6 +287,7 @@
 		889D18231EDB1F90253835B2B89788A3 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		8B14FA41230D97CD007311C7 /* FSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCacheManager.swift; sourceTree = "<group>"; };
 		8B1C0AC8427C27A6ED25740E84BD1CC6 /* CwlCatchBadInstruction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CwlCatchBadInstruction.swift; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlCatchBadInstruction.swift; sourceTree = "<group>"; };
+		8B23816D231523C7007379CA /* FSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLogger.swift; sourceTree = "<group>"; };
 		8CD4F9099E164CEAA1A3D77B0C9043B2 /* Pods-FlagShip_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-FlagShip_Tests-umbrella.h"; sourceTree = "<group>"; };
 		8CE0F2E34DF52C521A0937613B589810 /* BeNil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeNil.swift; path = Sources/Nimble/Matchers/BeNil.swift; sourceTree = "<group>"; };
 		8F0D0490EDBE4D3001C6FCE5D12CAAE4 /* HooksPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HooksPhase.swift; path = Sources/Quick/Hooks/HooksPhase.swift; sourceTree = "<group>"; };
@@ -739,8 +741,8 @@
 				8B14FA40230D97B1007311C7 /* Cache */,
 				F5C301684561850CB34C32AAA59853AE /* Core */,
 				6AC5D62DBB3D096374D661D21CA9850F /* Models */,
-				165BD9DCAC5CAB70211E99EEE59F0BED /* Pod */,
 				2F9DB0916F9387AB0E60CE5679362356 /* Tracking */,
+				165BD9DCAC5CAB70211E99EEE59F0BED /* Pod */,
 				1B88DE75E5EC64DB873200E85282370D /* Support Files */,
 			);
 			name = FlagShip;
@@ -778,6 +780,7 @@
 				36C8F90D4B6786821EC149B49C14D815 /* FSContext.swift */,
 				C97ECDBB6EC65FB1D302F7620F9AF0C5 /* FSFlagShip+Context.swift */,
 				9B41474C9EFCBDE92E2B08648990F3B8 /* Service */,
+				8B23816D231523C7007379CA /* FSLogger.swift */,
 			);
 			name = Core;
 			path = FlagShip/Classes/Core;
@@ -1010,6 +1013,7 @@
 				2993D8E65F278F625D68E178E896299F /* ABService+Tracking.swift in Sources */,
 				8B14FA42230D97CD007311C7 /* FSCacheManager.swift in Sources */,
 				EEECBA2D8EE90A2011690ABC739FFC75 /* FlagShip-dummy.m in Sources */,
+				8B23816E231523C7007379CA /* FSLogger.swift in Sources */,
 				2AE2F6A1F88368294E9C9BF4FD3779CD /* FlagShipError.swift in Sources */,
 				0B117325CA7914425E62166FC9998C31 /* FSCampaigns+Modifications.swift in Sources */,
 				7DA7BECA6280A866816EFD0DAA109E70 /* FSCampaigns.swift in Sources */,
