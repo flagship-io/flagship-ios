@@ -15,11 +15,6 @@
     "git": "git@gitlab.com:abtasty/mobile/flagship-ios.git",
     "tag": "0.1.0"
   },
-  "dependencies": {
-    "ReachabilitySwift": [
-
-    ]
-  },
   "platforms": {
     "ios": "8.0"
   },

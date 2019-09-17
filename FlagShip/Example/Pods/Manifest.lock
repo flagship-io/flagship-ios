@@ -1,32 +1,27 @@
 PODS:
-  - FlagShip (0.1.0):
-    - ReachabilitySwift
+  - FlagShip (0.1.0)
   - Nimble (7.3.4)
   - Quick (1.2.0)
-  - ReachabilitySwift (4.3.0)
 
 DEPENDENCIES:
   - FlagShip (from `../`)
   - Nimble (~> 7.0)
   - Quick (~> 1.2.0)
-  - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Nimble
     - Quick
-    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   FlagShip:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FlagShip: 7c907acd4cb9861d06af142ec14c7ece23bb2c86
+  FlagShip: 80cb2b7203a48ca090a04bd2bedd8e689948a4b7
   Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
   Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
-  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
 
-PODFILE CHECKSUM: fadd6c7c1900a1a18f3a894c68b75ad874c552c8
+PODFILE CHECKSUM: 947ebaf6a267295b99173537b513b721680bfbd6
 
 COCOAPODS: 1.5.3

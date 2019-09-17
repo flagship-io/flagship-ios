@@ -50,14 +50,13 @@ class ViewController: UIViewController {
     
     @IBAction func sendPageEvent(){
         
-        let eventPage = FSPageTrack()
+        let eventPage = FSPageTrack("loginScreen")
         
         // add event
         
         eventPage.userIp = "168.13.12.0"
         eventPage.sessionNumber = 12
         eventPage.screenResolution = "200x200"
-        
         ABFlagShip.sharedInstance.sendTracking(eventPage)
         
     }

@@ -10,7 +10,7 @@ import Foundation
 
 public enum FSTypeTrack: String {
     
-    case PAGE        = "PAGEVIEW"
+    case PAGE        = "SCREENVIEW"
     case TRANSACTION = "TRANSACTION"
     case ITEM        = "ITEM"
     case EVENT       = "EVENT"
@@ -73,6 +73,8 @@ public class FSTracking :FSTrackingProtocol{
     var dataSource:String = "APP"
     
     // Optional
+    // Interface Name
+    public var interfaceName:String?
     
     // User Ip
     public var userIp:String?
@@ -153,6 +155,12 @@ public class FSTracking :FSTrackingProtocol{
             if (self.sessionNumber != nil) {
                 communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
             }
+            
+            // Interface Name
+            if (self.interfaceName != nil) {
+                communParams.updateValue(self.interfaceName ?? 0, forKey: "dl")
+            }
+            
             return communParams
         }
     }
@@ -164,10 +172,11 @@ public class FSTracking :FSTrackingProtocol{
 public class FSPageTrack:FSTracking{
     
     
-   public override init() {
+    public init(_ interfaceName:String) {
         
         super.init()
         self.type = .PAGE
+        self.interfaceName = interfaceName
     }
     
     
@@ -176,7 +185,13 @@ public class FSPageTrack:FSTracking{
         
         get {
             
-            return communBodyTrack
+            var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
+            
+            // Set Type
+            customParams.updateValue(self.type.rawValue, forKey: "t")
+            
+            customParams.merge(self.communBodyTrack){  (_, new) in new }
+            return customParams
         }
         
     }
@@ -217,6 +232,9 @@ public class FSTransactionTrack:FSTracking{
             
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
             
+            // Set Type
+            customParams.updateValue(self.type.rawValue, forKey: "t")
+
             // Set transactionId
             if self.transactionId != nil{
                 customParams.updateValue(self.transactionId ?? "", forKey: "tid")
@@ -315,6 +333,9 @@ public class FSItemTrack:FSTracking{
         get {
             
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
+           
+            // Set Type
+            customParams.updateValue(self.type.rawValue, forKey: "t")
             
             // Set transactionId
             if self.transactionId != nil{

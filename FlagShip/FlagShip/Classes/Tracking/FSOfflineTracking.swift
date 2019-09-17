@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import Reachability
-
+//import Reachability
+import SystemConfiguration
+import Network
 
 
 public class FSOfflineTracking{
@@ -19,13 +20,13 @@ public class FSOfflineTracking{
     var urlForEvent:URL?
     
     // Reachability
-    let reachable:Reachability!
+   // let reachable:Reachability!
     
     init(_ service:ABService){
         
         self.service = service
         
-        self.reachable = Reachability(hostname:FlagShipEndPoint)
+       // self.reachable = Reachability(hostname:FlagShipEndPoint)
         
         // Create directory to save the events
         self.urlForEvent = self.createUrlEventURL()
@@ -99,20 +100,14 @@ public class FSOfflineTracking{
     // Is Connexion Available
     func isConnexionAvailable()->Bool{
         
-        switch Reachability(hostname: "https://decision-api.canarybay.io")?.connection {
-        case .cellular?, .wifi?:
-            return true
-        default:
-            
-            FSLogger.FSlog("Connexion unavailable", .Network)
-            return false
-        }
+        let reachability = SCNetworkReachabilityCreateWithName(nil, "https://decision-api.canarybay.io")
+        var flags = SCNetworkReachabilityFlags()
+        SCNetworkReachabilityGetFlags(reachability!, &flags)
+        return flags.contains(.reachable)
     }
     
     
-    
     //// Tools
-    
     func createUrlEventURL()->URL?{
         
         if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {

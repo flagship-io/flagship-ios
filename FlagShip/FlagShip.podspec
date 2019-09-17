@@ -26,7 +26,7 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Adel' => 'adel@abtasty.com' }
   s.source           = { :git => 'git@gitlab.com:abtasty/mobile/flagship-ios.git', :tag => s.version.to_s }
-  s.dependency       "ReachabilitySwift"
+  #s.dependency       "ReachabilitySwift"
 
  
   s.ios.deployment_target = '8.0'
