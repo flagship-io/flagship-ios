@@ -23,6 +23,11 @@ class ViewController: UIViewController {
         
         let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
         
+        ABFlagShip.sharedInstance.updateContext(["key":1,"key1":true, "key2":"value"]) { (state) in
+            
+            // add you code once the context is sync
+        }
+        
         self.newFeature.isHidden = !isVip
     }
     

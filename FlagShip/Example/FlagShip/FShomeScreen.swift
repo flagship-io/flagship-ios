@@ -62,8 +62,8 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         
         ABFlagShip.sharedInstance.context("basketNumber", numberValue)
         ABFlagShip.sharedInstance.context("isVipUser", true)
-
-
+        ABFlagShip.sharedInstance.updateContext(<#T##contextvalues: Dictionary<String, Any>##Dictionary<String, Any>#>, sync: <#T##((FlagshipState) -> Void)?##((FlagshipState) -> Void)?##(FlagshipState) -> Void#>)
+        
         // Start FlagShip  /// vid en option 
         ABFlagShip.sharedInstance.startFlagShip("adel") { (state) in
             

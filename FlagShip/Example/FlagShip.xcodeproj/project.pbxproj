@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 8B09B542232FE081005B47D8 /* Build configuration list for PBXAggregateTarget "universal" */;
 			buildPhases = (
-				8B09B543232FE0B5005B47D8 /* ShellScript */,
+				8B09B543232FE0B5005B47D8 /* Run Script */,
 			);
 			dependencies = (
 			);
@@ -28,7 +28,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		757F3B8A173FDE4B44816B94 /* Pods_FlagShipSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 225577F397BD0DE69B034C88 /* Pods_FlagShipSdk.framework */; };
+		8B108F842330DB5D00F731A9 /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B108F832330DB5D00F731A9 /* testTests.swift */; };
 		8B237F7C23102768007379CA /* FSBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B237F7B23102768007379CA /* FSBannerViewController.swift */; };
 		8B23817F2316D463007379CA /* FlagShipSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2381762316D463007379CA /* FlagShipSdk.framework */; };
 		8B2381862316D463007379CA /* FlagShipSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381852316D463007379CA /* FlagShipSdkTests.swift */; };
@@ -59,6 +59,13 @@
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
 			remoteInfo = FlagShip;
 		};
+		8B108F802330DB5D00F731A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = FlagShip_Example;
+		};
 		8B2381802316D463007379CA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
@@ -74,6 +81,19 @@
 			remoteInfo = FlagShip_Example;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8B108F8E2330DB5D00F731A9 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		067E34AB3A96ED379DB4CE8F /* Pods-FlagShipSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlagShipSdk.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlagShipSdk/Pods-FlagShipSdk.release.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +114,11 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7999FF82A85B106EF06B608B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		8B108F762330DB5C00F731A9 /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		8B108F772330DB5C00F731A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B108F7C2330DB5D00F731A9 /* testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B108F832330DB5D00F731A9 /* testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTests.swift; sourceTree = "<group>"; };
+		8B108F852330DB5D00F731A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B237F7B23102768007379CA /* FSBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBannerViewController.swift; sourceTree = "<group>"; };
 		8B2381762316D463007379CA /* FlagShipSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlagShipSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2381782316D463007379CA /* FlagShipSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlagShipSdk.h; sourceTree = "<group>"; };
@@ -116,12 +141,6 @@
 		8B2381A52316D4B8007379CA /* ReplaceMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
 		8B2381A72316D4B8007379CA /* FSTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTracking.swift; sourceTree = "<group>"; };
 		8B2381A82316D4B8007379CA /* FSOfflineTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOfflineTracking.swift; sourceTree = "<group>"; };
-		8B2381BD2316D52C007379CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B2381BF2316D92D007379CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B2381C12316D934007379CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B2381C32316D9B8007379CA /* FlagShip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlagShip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B2381CD2316DF03007379CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B2381CF2316DF0D007379CA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4D406B22FC6045008ADF14 /* FShomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FShomeScreen.swift; sourceTree = "<group>"; };
 		8E940596A44B13BF016B4CE1 /* Pods-FlagShip_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlagShip_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlagShip_Tests/Pods-FlagShip_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7B8F82D1A92A65469B6D6B /* FlagShip.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FlagShip.podspec; path = ../FlagShip.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -146,11 +165,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B108F792330DB5D00F731A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B2381732316D463007379CA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				757F3B8A173FDE4B44816B94 /* Pods_FlagShipSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,13 +193,14 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				8B2381C32316D9B8007379CA /* FlagShip.framework */,
 				8B2381942316D4B8007379CA /* Classes */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for FlagShip */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				8B2381772316D463007379CA /* FlagShipSdk */,
 				8B2381842316D463007379CA /* FlagShipSdkTests */,
+				8B108F752330DB5C00F731A9 /* test */,
+				8B108F822330DB5D00F731A9 /* testTests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				D28F08527BFB6B3C8AEE2E61 /* Pods */,
 				E156A088BBE4877B121D7423 /* Frameworks */,
@@ -188,6 +214,7 @@
 				607FACE51AFB9204008FA782 /* FlagShip_Tests.xctest */,
 				8B2381762316D463007379CA /* FlagShipSdk.framework */,
 				8B23817E2316D463007379CA /* FlagShipSdkTests.xctest */,
+				8B108F7C2330DB5D00F731A9 /* testTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,6 +268,24 @@
 				7999FF82A85B106EF06B608B /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		8B108F752330DB5C00F731A9 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				8B108F762330DB5C00F731A9 /* test.h */,
+				8B108F772330DB5C00F731A9 /* Info.plist */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		8B108F822330DB5D00F731A9 /* testTests */ = {
+			isa = PBXGroup;
+			children = (
+				8B108F832330DB5D00F731A9 /* testTests.swift */,
+				8B108F852330DB5D00F731A9 /* Info.plist */,
+			);
+			path = testTests;
 			sourceTree = "<group>";
 		};
 		8B2381772316D463007379CA /* FlagShipSdk */ = {
@@ -340,11 +385,6 @@
 		E156A088BBE4877B121D7423 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B2381CF2316DF0D007379CA /* Reachability.framework */,
-				8B2381CD2316DF03007379CA /* Reachability.framework */,
-				8B2381C12316D934007379CA /* Reachability.framework */,
-				8B2381BF2316D92D007379CA /* Reachability.framework */,
-				8B2381BD2316D52C007379CA /* Reachability.framework */,
 				21641478B86E05A53435133D /* Pods_FlagShip_Example.framework */,
 				2288F046D5F6D276E97C99BF /* Pods_FlagShip_Tests.framework */,
 				225577F397BD0DE69B034C88 /* Pods_FlagShipSdk.framework */,
@@ -375,6 +415,7 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				8F868429A69066564AB18F8F /* [CP] Embed Pods Frameworks */,
+				8B108F8E2330DB5D00F731A9 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -403,6 +444,24 @@
 			name = FlagShip_Tests;
 			productName = Tests;
 			productReference = 607FACE51AFB9204008FA782 /* FlagShip_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8B108F7B2330DB5D00F731A9 /* testTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B108F8F2330DB5D00F731A9 /* Build configuration list for PBXNativeTarget "testTests" */;
+			buildPhases = (
+				8B108F782330DB5D00F731A9 /* Sources */,
+				8B108F792330DB5D00F731A9 /* Frameworks */,
+				8B108F7A2330DB5D00F731A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B108F812330DB5D00F731A9 /* PBXTargetDependency */,
+			);
+			name = testTests;
+			productName = testTests;
+			productReference = 8B108F7C2330DB5D00F731A9 /* testTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		8B2381752316D463007379CA /* FlagShipSdk */ = {
@@ -449,7 +508,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -469,9 +528,14 @@
 						DevelopmentTeam = 5RY8QCBAEP;
 						ProvisioningStyle = Automatic;
 					};
+					8B108F7B2330DB5D00F731A9 = {
+						CreatedOnToolsVersion = 10.3;
+						DevelopmentTeam = 5RY8QCBAEP;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					8B2381752316D463007379CA = {
 						CreatedOnToolsVersion = 10.2.1;
-						DevelopmentTeam = 5RY8QCBAEP;
 						ProvisioningStyle = Automatic;
 					};
 					8B23817D2316D463007379CA = {
@@ -501,6 +565,7 @@
 				8B2381752316D463007379CA /* FlagShipSdk */,
 				8B23817D2316D463007379CA /* FlagShipSdkTests */,
 				8B09B53F232FE081005B47D8 /* universal */,
+				8B108F7B2330DB5D00F731A9 /* testTests */,
 			);
 		};
 /* End PBXProject section */
@@ -517,6 +582,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		607FACE31AFB9204008FA782 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B108F7A2330DB5D00F731A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -558,7 +630,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8B09B543232FE0B5005B47D8 /* ShellScript */ = {
+		8B09B543232FE0B5005B47D8 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -567,13 +639,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\n#xcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n#xcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n";
+			shellScript = "//\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\n#xcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n#xcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShipSdk.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/FlagShipSdk.framework/FlagShipSdk\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShipSdk.framework/FlagShipSdk\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShipSdk.framework/FlagShipSdk\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShipSdk.framework/Modules/FlagShipSdk.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/FlagShipSdk.framework/Modules/FlagShipSdk.swiftmodule\"\n";
 		};
 		8F868429A69066564AB18F8F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -671,6 +744,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8B108F782330DB5D00F731A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B108F842330DB5D00F731A9 /* testTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B2381722316D463007379CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -707,6 +788,11 @@
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* FlagShip_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
+		};
+		8B108F812330DB5D00F731A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* FlagShip_Example */;
+			targetProxy = 8B108F802330DB5D00F731A9 /* PBXContainerItemProxy */;
 		};
 		8B2381812316D463007379CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -850,7 +936,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.topChef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -868,7 +954,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.topChef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -922,6 +1008,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -935,10 +1022,70 @@
 			};
 			name = Release;
 		};
+		8B108F902330DB5D00F731A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = testTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.testTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlagShip_Example.app/FlagShip_Example";
+			};
+			name = Debug;
+		};
+		8B108F912330DB5D00F731A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = testTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.testTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FlagShip_Example.app/FlagShip_Example";
+			};
+			name = Release;
+		};
 		8B23818D2316D463007379CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A6303349AF6A94C8916E71F /* Pods-FlagShipSdk.debug.xcconfig */;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -952,17 +1099,18 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FlagShipSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShipSdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -978,6 +1126,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 067E34AB3A96ED379DB4CE8F /* Pods-FlagShipSdk.release.xcconfig */;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -990,14 +1139,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = FlagShipSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShipSdk;
@@ -1104,6 +1253,15 @@
 			buildConfigurations = (
 				8B09B540232FE081005B47D8 /* Debug */,
 				8B09B541232FE081005B47D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B108F8F2330DB5D00F731A9 /* Build configuration list for PBXNativeTarget "testTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B108F902330DB5D00F731A9 /* Debug */,
+				8B108F912330DB5D00F731A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

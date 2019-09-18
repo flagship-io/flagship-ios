@@ -176,7 +176,7 @@ public class ABFlagShip:NSObject{
         
         if activate{
             // Activate
-            self.service.activateCampaignRelativetoKey(key,campaigns)
+            self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
         
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
@@ -194,9 +194,9 @@ public class ABFlagShip:NSObject{
         }
 
         
-        if activate{
+        if activate && self.campaigns != nil {
             
-            self.service.activateCampaignRelativetoKey(key,campaigns)
+            self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readStringFromContext(key, defaultString: defaultString)
     }
@@ -210,9 +210,9 @@ public class ABFlagShip:NSObject{
         }
 
         
-        if activate{
+        if activate && self.campaigns != nil{
             
-            self.service.activateCampaignRelativetoKey(key,campaigns)
+            self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readDoubleFromContext(key, defaultDouble: defaultDouble)
     }
@@ -227,9 +227,9 @@ public class ABFlagShip:NSObject{
         }
 
         
-        if activate{
+        if activate && self.campaigns != nil{
             
-            self.service.activateCampaignRelativetoKey(key,campaigns)
+            self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
@@ -242,9 +242,9 @@ public class ABFlagShip:NSObject{
             return defaultInt
         }
         
-        if activate{
+        if activate && self.campaigns != nil {
             
-            self.service.activateCampaignRelativetoKey(key,campaigns)
+            self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
         
         return context.readIntFromContext(key, defaultInt: defaultInt)
