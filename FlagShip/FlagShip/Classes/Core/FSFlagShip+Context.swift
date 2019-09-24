@@ -9,7 +9,6 @@ import Foundation
 
 extension ABFlagShip{
     
-    ////////////////////// UPDATES ////////////////////////
     
     // Update boolean context
     public func context(_ key:String,  _ boolean:Bool){
