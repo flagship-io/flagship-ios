@@ -11,7 +11,7 @@ import Foundation
 
 /////////////// Camapigns //////////////////
 
-public class FSCampaigns:Decodable{
+internal class FSCampaigns:Decodable{
     
     public var visitorId:String!
     
@@ -62,7 +62,7 @@ public class FSCampaigns:Decodable{
 
 
 //////////////// Campaign ////////////////
-public class FSCampaign:Decodable{
+internal class FSCampaign:Decodable{
     
     
     public  var idCampaign:String = ""
@@ -100,7 +100,7 @@ public class FSCampaign:Decodable{
 
 
 ////////////////// Variation /////////////
-public class FSVariation:Decodable{
+internal class FSVariation:Decodable{
     
     public var idVariation:String = ""
     public var modifications:FSModifications?
@@ -128,7 +128,7 @@ public class FSVariation:Decodable{
 
 ////////////// Modification ///////////////
 
-public class FSModifications:Decodable{
+internal class FSModifications:Decodable{
     
     public var type:String?
     

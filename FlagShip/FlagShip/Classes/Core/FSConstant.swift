@@ -12,16 +12,16 @@ import Foundation
 //let FlagShipEndPoint = "https://decision-api.canarybay.io/v1/"
 
 
-let FlagShipEndPoint = "https://decision-api.flagship.io/v1/"
+internal let FlagShipEndPoint = "https://decision-api.flagship.io/v1/"
 
 
 ///// GET CAMPAIGNS /////////////////////////////////
-let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns"
+internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns"
 
 
 ///// ACTIVATE ///////////////
 
-let FSActivate = FlagShipEndPoint + "activate"
+internal let FSActivate = FlagShipEndPoint + "activate"
 
 
 
@@ -29,7 +29,7 @@ let FSActivate = FlagShipEndPoint + "activate"
 
 ///////////// ARIANE ////////////////////////////////
 
-let FSDATA_ARIANE = "https://ariane.abtasty.com"
+internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
 
 
 

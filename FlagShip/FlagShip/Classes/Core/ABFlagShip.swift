@@ -21,14 +21,14 @@ public class ABFlagShip:NSObject{
     var visitorId:String?
     
     // Client Id
-    var clientId:String!
+    internal var clientId:String!
     
     // Current Context
-    var context:FSContext!
+    internal var context:FSContext!
     
     
     // All Campaigns
-    var campaigns:FSCampaigns!
+    private var campaigns:FSCampaigns!
     
     
     // Service
@@ -51,11 +51,10 @@ public class ABFlagShip:NSObject{
     }()
     
     
-    override init() {
+    private override init() {
         // init context
         self.context = FSContext()
     }
-    
     
     
     /**
@@ -109,7 +108,7 @@ public class ABFlagShip:NSObject{
     /**
      getCampaigns
      
-     @param pBlock The block to be invoked when sdk is receive campaign
+     @param pBlock The block to be invoked when sdk receive campaign
      */
     public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
@@ -142,15 +141,7 @@ public class ABFlagShip:NSObject{
     }
     
     
-    ////////////// Update Context /////////////////////////
-    
-    
-    /// Update context
-    ///
-    /// - Parameters:
-    ///   - contextvalues: dictionary that represent keys values
-    ///   - sync: state of flagShip given by sdk
-    
+
     /**
      Update Context
      
@@ -202,14 +193,18 @@ public class ABFlagShip:NSObject{
     
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
-    
-    /// Get Modification from the decision api
-    ///
-    /// - Parameters:
-    ///   - key: key for the modification
-    ///   - defaultBool: if the keys don't match , the sdl will use the default value
-    ///   - activate: send activate event automaticaly when activate is true
-    /// - Return Boolean value
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated to value to read
+     
+     @param defaultBool this value will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Boolean value
+
+     */
     public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
         
         // Check if disabled
@@ -224,12 +219,22 @@ public class ABFlagShip:NSObject{
         }
         
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
-        
-        
-        
     }
     
-    // String
+    
+    
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated to value
+     
+     @param defaultString will be used when the key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return String value
+
+     */
     public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
         if disabledSdk{
@@ -245,7 +250,17 @@ public class ABFlagShip:NSObject{
         return context.readStringFromContext(key, defaultString: defaultString)
     }
     
-    /// Double
+    /**
+     Get Modification from the decision api
+
+     @param key for associated to value
+     
+     @param defaultDouble will be used when the key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Double value
+     */
     public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
         
         if disabledSdk{
@@ -261,7 +276,17 @@ public class ABFlagShip:NSObject{
         return context.readDoubleFromContext(key, defaultDouble: defaultDouble)
     }
     
-    // Float
+    /**
+     Get Modification from the decision api
+
+     @param key for associated to value
+     
+     @param defaulfloat will be used when the key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Float value
+     */
     public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
         
         
@@ -277,7 +302,21 @@ public class ABFlagShip:NSObject{
         }
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
-    // Integer
+    
+    
+    
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated to value to read
+     
+     @param defaultInt this value will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Int value
+     
+     */
     public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
         
         
@@ -295,8 +334,13 @@ public class ABFlagShip:NSObject{
     }
     
     
-    //////////////////////////// UPDATE CONTEXT ////////////////////////
     
+    /**
+     Update context users
+     
+     @newValue dictionary the represent key/value context
+     
+     */
     public func updateContext(_ newValue:[String:(String,Int,Float,Bool,Double)]){
         
         self.context.currentContext.merge(newValue) { (_, new) in new }
@@ -304,8 +348,12 @@ public class ABFlagShip:NSObject{
     
     
     
-    ///////////////////////////// Get update Modifications //////////////////////
-    
+    /**
+     Update Modifications values
+     
+     @onFlagUpdateDone this block will be invoked when the update done
+     
+     */
     public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
         
         if disabledSdk{
@@ -330,8 +378,12 @@ public class ABFlagShip:NSObject{
     
     
     
-    /////////////////////////// Send EVENT TRACKING /////////////////////////////////
-    
+    /**
+     Send Events for tracking data
+     
+     @param event Event Object (Page, Transaction, Item, Event)
+     
+     */
     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{

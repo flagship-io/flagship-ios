@@ -11,7 +11,7 @@ import Foundation
 
 
 
-class ABService {
+internal class ABService {
     
     var clientId:String!
     

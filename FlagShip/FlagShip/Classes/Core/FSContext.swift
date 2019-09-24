@@ -9,7 +9,7 @@ import Foundation
 
 
 
-public class FSContext{
+internal class FSContext{
     
     
     // Dictionary that represent all keys value according to context users

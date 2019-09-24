@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FSCacheManager {
+internal class FSCacheManager {
     
     // Get All Event
     func readCampaignFromCache()->FSCampaigns?{

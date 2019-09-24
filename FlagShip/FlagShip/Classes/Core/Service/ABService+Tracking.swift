@@ -7,10 +7,10 @@
 
 import Foundation
 
-extension ABService{
+internal extension ABService{
     
     
-    public func sendTracking< T: FSTrackingProtocol>(_ event:T){
+     func sendTracking< T: FSTrackingProtocol>(_ event:T){
         
         self.sendEvent(event)
     }
@@ -18,7 +18,7 @@ extension ABService{
     
     ////////////////////: Send Event ...///////////////////////////////////////////////:
     
-    internal func sendEvent< T: FSTrackingProtocol>(_ event:T){
+     func sendEvent< T: FSTrackingProtocol>(_ event:T){
         
         /// Check if the connexion is available
         

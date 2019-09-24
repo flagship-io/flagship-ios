@@ -11,7 +11,7 @@ import SystemConfiguration
 import Network
 
 
-public class FSOfflineTracking{
+internal class FSOfflineTracking{
     
     // Service
     let service:ABService
