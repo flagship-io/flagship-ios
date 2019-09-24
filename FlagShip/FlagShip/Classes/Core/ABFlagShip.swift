@@ -7,6 +7,14 @@
 
 import Foundation
 
+
+
+/**
+ 
+ `ABFlagShip` class helps you run FlagShip on your native iOS app.
+ 
+ */
+
 public class ABFlagShip:NSObject{
     
     // This id is unique for the app
@@ -26,13 +34,15 @@ public class ABFlagShip:NSObject{
     // Service
     var service:ABService!
     
-    // Enable Logs, By default is equal to True
+    /// Enable Logs, By default is equal to True
     public var enableLogs:Bool = true
     
     
-    // Panic Button
+    /// Panic Button let you disable the SDK if needed
     public var disabledSdk:Bool = false
     
+    
+    /// Shared instance
     public static let sharedInstance:ABFlagShip = {
         
         let instance = ABFlagShip()
@@ -48,6 +58,13 @@ public class ABFlagShip:NSObject{
     
     
     
+    /**
+     Start FlagShip
+     
+     @param visitorId String visitor id
+     
+     @param pBlock The block to be invoked when sdk is ready
+     */
      public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
         do {
             try self.readClientIfFromPlist()    // Read EnvId from plist
@@ -89,6 +106,11 @@ public class ABFlagShip:NSObject{
     }
     
     
+    /**
+     getCampaigns
+     
+     @param pBlock The block to be invoked when sdk is receive campaign
+     */
     public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
         if disabledSdk{
@@ -120,8 +142,23 @@ public class ABFlagShip:NSObject{
     }
     
     
-    ////////////// Update Context /////////////////////////:
-    // sync
+    ////////////// Update Context /////////////////////////
+    
+    
+    /// Update context
+    ///
+    /// - Parameters:
+    ///   - contextvalues: dictionary that represent keys values
+    ///   - sync: state of flagShip given by sdk
+    
+    /**
+     Update Context
+     
+     @param contextvalues Dictionary that represent keys value relative to users
+     
+     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
+
+     */
     public func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagshipState)->Void)?){
         
         
@@ -165,7 +202,14 @@ public class ABFlagShip:NSObject{
     
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
-    // Bool
+    
+    /// Get Modification from the decision api
+    ///
+    /// - Parameters:
+    ///   - key: key for the modification
+    ///   - defaultBool: if the keys don't match , the sdl will use the default value
+    ///   - activate: send activate event automaticaly when activate is true
+    /// - Return Boolean value
     public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
         
         // Check if disabled

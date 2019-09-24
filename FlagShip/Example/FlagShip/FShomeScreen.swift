@@ -62,12 +62,20 @@ class FShomeScreen: UIViewController, UITextFieldDelegate {
         
         ABFlagShip.sharedInstance.context("basketNumber", numberValue)
         ABFlagShip.sharedInstance.context("isVipUser", true)
-        ABFlagShip.sharedInstance.updateContext(<#T##contextvalues: Dictionary<String, Any>##Dictionary<String, Any>#>, sync: <#T##((FlagshipState) -> Void)?##((FlagshipState) -> Void)?##(FlagshipState) -> Void#>)
         
-        // Start FlagShip  /// vid en option 
-        ABFlagShip.sharedInstance.startFlagShip("adel") { (state) in
+        // Start FlagShip  /// vid en option
+        ABFlagShip.sharedInstance.enableLogs = true
+        ABFlagShip.sharedInstance.startFlagShip("endPoint") { (state) in
+            
+            // The state indicate the status of FlagShip : Ready or Not Ready
             
             DispatchQueue.main.async {
+                
+                // Get the title for VIP user
+                let titleForVip = ABFlagShip.sharedInstance.getModification("vipWording", defaultString:"defaultTitle", activate: true)
+                
+                // Get the percent sale for VIP user
+                let percentSales = ABFlagShip.sharedInstance.getModification("percent", defaulfloat:10, activate: true)
                 
                 self.startButton.setTitle("Ready To Use", for: .normal)
                 

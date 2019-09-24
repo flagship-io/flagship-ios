@@ -19,7 +19,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.mainTitle.text = ABFlagShip.sharedInstance.getModification("titleBtn", defaultString: "default",activate: true)
+       // self.mainTitle.text = ABFlagShip.sharedInstance.getModification("titleBtn", defaultString: "default",activate: true)
+        
+        self.mainTitle.text = ABFlagShip.sharedInstance.getModification("endPoint", defaultString: "Ouups",activate: true)
+
         
         let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
         
@@ -59,10 +62,29 @@ class ViewController: UIViewController {
         
         // add event
         
-        eventPage.userIp = "168.13.12.0"
+        eventPage.userIp = "168.192.1.0"
         eventPage.sessionNumber = 12
-        eventPage.screenResolution = "200x200"
+        eventPage.screenResolution = "750 x 1334"
+        eventPage.screenColorDepth = "#fd0027"
+        eventPage.sessionNumber = 1
+        eventPage.userLanguage = "fr"
+        eventPage.sessionEventNumber = 2
+        eventPage.interfaceName = "loginScreen"
+        
         ABFlagShip.sharedInstance.sendTracking(eventPage)
+        
+        
+        
+        let transacEvent:FSTransactionTrack = FSTransactionTrack("transacId","mobile_purchases")
+        ABFlagShip.sharedInstance.sendTracking(transacEvent)
+        
+        let itemEvent:FSItemTrack = FSItemTrack("transacId", "productName")
+        ABFlagShip.sharedInstance.sendTracking(itemEvent)
+        
+        let event:FSEventTrack =  FSEventTrack(.Action_Tracking, "click")
+        ABFlagShip.sharedInstance.sendTracking(event)
+
+
         
     }
     
