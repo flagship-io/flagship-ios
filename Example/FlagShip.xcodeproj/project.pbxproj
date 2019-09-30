@@ -27,28 +27,14 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		8B108F842330DB5D00F731A9 /* testTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B108F832330DB5D00F731A9 /* testTests.swift */; };
 		8B237F7C23102768007379CA /* FSBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B237F7B23102768007379CA /* FSBannerViewController.swift */; };
 		8B23817F2316D463007379CA /* FlagShipSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B2381762316D463007379CA /* FlagShipSdk.framework */; };
 		8B2381862316D463007379CA /* FlagShipSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381852316D463007379CA /* FlagShipSdkTests.swift */; };
 		8B2381882316D463007379CA /* FlagShipSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B2381782316D463007379CA /* FlagShipSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B2381A92316D4D8007379CA /* FlagShipError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381962316D4B8007379CA /* FlagShipError.swift */; };
-		8B2381AA2316D4D8007379CA /* ABFlagShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381972316D4B8007379CA /* ABFlagShip.swift */; };
-		8B2381AB2316D4D8007379CA /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381982316D4B8007379CA /* FSConstant.swift */; };
-		8B2381AC2316D4D8007379CA /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381992316D4B8007379CA /* FSContext.swift */; };
-		8B2381AD2316D4D8007379CA /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23819A2316D4B8007379CA /* FSLogger.swift */; };
-		8B2381AE2316D4D8007379CA /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23819B2316D4B8007379CA /* ABService.swift */; };
-		8B2381AF2316D4D8007379CA /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23819D2316D4B8007379CA /* ABService+Tracking.swift */; };
-		8B2381B02316D4D8007379CA /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23819E2316D4B8007379CA /* FSFlagShip+Context.swift */; };
-		8B2381B12316D4D8007379CA /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A02316D4B8007379CA /* FSCacheManager.swift */; };
-		8B2381B32316D4D8007379CA /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A32316D4B8007379CA /* FSCampaigns.swift */; };
-		8B2381B42316D4D8007379CA /* FSCampaigns+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A42316D4B8007379CA /* FSCampaigns+Modifications.swift */; };
-		8B2381B52316D4D8007379CA /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A52316D4B8007379CA /* ReplaceMe.swift */; };
-		8B2381B62316D4D8007379CA /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A72316D4B8007379CA /* FSTracking.swift */; };
-		8B2381B72316D4D8007379CA /* FSOfflineTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2381A82316D4B8007379CA /* FSOfflineTracking.swift */; };
-		8B4D406C22FC6045008ADF14 /* FShomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4D406B22FC6045008ADF14 /* FShomeScreen.swift */; };
 		8BBF2441B76B05D20F282DAA /* Pods_FlagShip_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2288F046D5F6D276E97C99BF /* Pods_FlagShip_Tests.framework */; };
+		8BC4EA01234253BB0086BF2A /* FSCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4E9FE234253BA0086BF2A /* FSCartViewController.swift */; };
+		8BC4EA02234253BB0086BF2A /* FSProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4E9FF234253BA0086BF2A /* FSProductCell.swift */; };
+		8BC4EA03234253BB0086BF2A /* FSHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4EA00234253BB0086BF2A /* FSHomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,14 +97,8 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* FlagShip_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagShip_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		7999FF82A85B106EF06B608B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		8B108F762330DB5C00F731A9 /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
-		8B108F772330DB5C00F731A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B108F7C2330DB5D00F731A9 /* testTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B108F832330DB5D00F731A9 /* testTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testTests.swift; sourceTree = "<group>"; };
-		8B108F852330DB5D00F731A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B237F7B23102768007379CA /* FSBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBannerViewController.swift; sourceTree = "<group>"; };
 		8B2381762316D463007379CA /* FlagShipSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlagShipSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2381782316D463007379CA /* FlagShipSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlagShipSdk.h; sourceTree = "<group>"; };
@@ -126,22 +106,10 @@
 		8B23817E2316D463007379CA /* FlagShipSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagShipSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2381852316D463007379CA /* FlagShipSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagShipSdkTests.swift; sourceTree = "<group>"; };
 		8B2381872316D463007379CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B2381962316D4B8007379CA /* FlagShipError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
-		8B2381972316D4B8007379CA /* ABFlagShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABFlagShip.swift; sourceTree = "<group>"; };
-		8B2381982316D4B8007379CA /* FSConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConstant.swift; sourceTree = "<group>"; };
-		8B2381992316D4B8007379CA /* FSContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContext.swift; sourceTree = "<group>"; };
-		8B23819A2316D4B8007379CA /* FSLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLogger.swift; sourceTree = "<group>"; };
-		8B23819B2316D4B8007379CA /* ABService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABService.swift; sourceTree = "<group>"; };
-		8B23819D2316D4B8007379CA /* ABService+Tracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ABService+Tracking.swift"; sourceTree = "<group>"; };
-		8B23819E2316D4B8007379CA /* FSFlagShip+Context.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSFlagShip+Context.swift"; sourceTree = "<group>"; };
-		8B2381A02316D4B8007379CA /* FSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCacheManager.swift; sourceTree = "<group>"; };
-		8B2381A12316D4B8007379CA /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
-		8B2381A32316D4B8007379CA /* FSCampaigns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCampaigns.swift; sourceTree = "<group>"; };
-		8B2381A42316D4B8007379CA /* FSCampaigns+Modifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSCampaigns+Modifications.swift"; sourceTree = "<group>"; };
-		8B2381A52316D4B8007379CA /* ReplaceMe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplaceMe.swift; sourceTree = "<group>"; };
-		8B2381A72316D4B8007379CA /* FSTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTracking.swift; sourceTree = "<group>"; };
-		8B2381A82316D4B8007379CA /* FSOfflineTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOfflineTracking.swift; sourceTree = "<group>"; };
 		8B4D406B22FC6045008ADF14 /* FShomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FShomeScreen.swift; sourceTree = "<group>"; };
+		8BC4E9FE234253BA0086BF2A /* FSCartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCartViewController.swift; sourceTree = "<group>"; };
+		8BC4E9FF234253BA0086BF2A /* FSProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSProductCell.swift; sourceTree = "<group>"; };
+		8BC4EA00234253BB0086BF2A /* FSHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSHomeViewController.swift; sourceTree = "<group>"; };
 		8E940596A44B13BF016B4CE1 /* Pods-FlagShip_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlagShip_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlagShip_Tests/Pods-FlagShip_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC7B8F82D1A92A65469B6D6B /* FlagShip.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = FlagShip.podspec; path = ../FlagShip.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D92872F3EAA3740F289E99B8 /* Pods-FlagShip_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlagShip_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlagShip_Example/Pods-FlagShip_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,14 +161,10 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				8B2381942316D4B8007379CA /* Classes */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for FlagShip */,
-				607FACE81AFB9204008FA782 /* Tests */,
 				8B2381772316D463007379CA /* FlagShipSdk */,
 				8B2381842316D463007379CA /* FlagShipSdkTests */,
-				8B108F752330DB5C00F731A9 /* test */,
-				8B108F822330DB5D00F731A9 /* testTests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				D28F08527BFB6B3C8AEE2E61 /* Pods */,
 				E156A088BBE4877B121D7423 /* Frameworks */,
@@ -222,6 +186,9 @@
 		607FACD21AFB9204008FA782 /* Example for FlagShip */ = {
 			isa = PBXGroup;
 			children = (
+				8BC4E9FE234253BA0086BF2A /* FSCartViewController.swift */,
+				8BC4EA00234253BB0086BF2A /* FSHomeViewController.swift */,
+				8BC4E9FF234253BA0086BF2A /* FSProductCell.swift */,
 				8B4D406B22FC6045008ADF14 /* FShomeScreen.swift */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
@@ -243,23 +210,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		607FACE81AFB9204008FA782 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
-				607FACE91AFB9204008FA782 /* Supporting Files */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		607FACE91AFB9204008FA782 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				607FACEA1AFB9204008FA782 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,24 +218,6 @@
 				7999FF82A85B106EF06B608B /* LICENSE */,
 			);
 			name = "Podspec Metadata";
-			sourceTree = "<group>";
-		};
-		8B108F752330DB5C00F731A9 /* test */ = {
-			isa = PBXGroup;
-			children = (
-				8B108F762330DB5C00F731A9 /* test.h */,
-				8B108F772330DB5C00F731A9 /* Info.plist */,
-			);
-			path = test;
-			sourceTree = "<group>";
-		};
-		8B108F822330DB5D00F731A9 /* testTests */ = {
-			isa = PBXGroup;
-			children = (
-				8B108F832330DB5D00F731A9 /* testTests.swift */,
-				8B108F852330DB5D00F731A9 /* Info.plist */,
-			);
-			path = testTests;
 			sourceTree = "<group>";
 		};
 		8B2381772316D463007379CA /* FlagShipSdk */ = {
@@ -304,69 +236,6 @@
 				8B2381872316D463007379CA /* Info.plist */,
 			);
 			path = FlagShipSdkTests;
-			sourceTree = "<group>";
-		};
-		8B2381942316D4B8007379CA /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				8B2381952316D4B8007379CA /* Core */,
-				8B23819F2316D4B8007379CA /* Cache */,
-				8B2381A12316D4B8007379CA /* .gitkeep */,
-				8B2381A22316D4B8007379CA /* Models */,
-				8B2381A52316D4B8007379CA /* ReplaceMe.swift */,
-				8B2381A62316D4B8007379CA /* Tracking */,
-			);
-			name = Classes;
-			path = ../FlagShip/Classes;
-			sourceTree = "<group>";
-		};
-		8B2381952316D4B8007379CA /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				8B2381962316D4B8007379CA /* FlagShipError.swift */,
-				8B2381972316D4B8007379CA /* ABFlagShip.swift */,
-				8B2381982316D4B8007379CA /* FSConstant.swift */,
-				8B2381992316D4B8007379CA /* FSContext.swift */,
-				8B23819A2316D4B8007379CA /* FSLogger.swift */,
-				8B23819B2316D4B8007379CA /* ABService.swift */,
-				8B23819C2316D4B8007379CA /* Service */,
-				8B23819E2316D4B8007379CA /* FSFlagShip+Context.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		8B23819C2316D4B8007379CA /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				8B23819D2316D4B8007379CA /* ABService+Tracking.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		8B23819F2316D4B8007379CA /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-				8B2381A02316D4B8007379CA /* FSCacheManager.swift */,
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
-		8B2381A22316D4B8007379CA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8B2381A32316D4B8007379CA /* FSCampaigns.swift */,
-				8B2381A42316D4B8007379CA /* FSCampaigns+Modifications.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		8B2381A62316D4B8007379CA /* Tracking */ = {
-			isa = PBXGroup;
-			children = (
-				8B2381A72316D4B8007379CA /* FSTracking.swift */,
-				8B2381A82316D4B8007379CA /* FSOfflineTracking.swift */,
-			);
-			path = Tracking;
 			sourceTree = "<group>";
 		};
 		D28F08527BFB6B3C8AEE2E61 /* Pods */ = {
@@ -731,8 +600,10 @@
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				8B237F7C23102768007379CA /* FSBannerViewController.swift in Sources */,
-				8B4D406C22FC6045008ADF14 /* FShomeScreen.swift in Sources */,
+				8BC4EA02234253BB0086BF2A /* FSProductCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				8BC4EA03234253BB0086BF2A /* FSHomeViewController.swift in Sources */,
+				8BC4EA01234253BB0086BF2A /* FSCartViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,7 +611,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,7 +618,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B108F842330DB5D00F731A9 /* testTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,20 +625,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B2381A92316D4D8007379CA /* FlagShipError.swift in Sources */,
-				8B2381AA2316D4D8007379CA /* ABFlagShip.swift in Sources */,
-				8B2381AB2316D4D8007379CA /* FSConstant.swift in Sources */,
-				8B2381AC2316D4D8007379CA /* FSContext.swift in Sources */,
-				8B2381AD2316D4D8007379CA /* FSLogger.swift in Sources */,
-				8B2381AE2316D4D8007379CA /* ABService.swift in Sources */,
-				8B2381B62316D4D8007379CA /* FSTracking.swift in Sources */,
-				8B2381AF2316D4D8007379CA /* ABService+Tracking.swift in Sources */,
-				8B2381B02316D4D8007379CA /* FSFlagShip+Context.swift in Sources */,
-				8B2381B12316D4D8007379CA /* FSCacheManager.swift in Sources */,
-				8B2381B32316D4D8007379CA /* FSCampaigns.swift in Sources */,
-				8B2381B42316D4D8007379CA /* FSCampaigns+Modifications.swift in Sources */,
-				8B2381B52316D4D8007379CA /* ReplaceMe.swift in Sources */,
-				8B2381B72316D4D8007379CA /* FSOfflineTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,7 +1017,6 @@
 		8B23818F2316D463007379CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1193,7 +1047,6 @@
 		8B2381902316D463007379CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

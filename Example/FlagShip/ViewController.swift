@@ -1,109 +1,143 @@
 //
 //  ViewController.swift
-//  FlagShip
+//  FlagShipDemo
 //
-//  Created by Adel on 08/08/2019.
-//  Copyright (c) 2019 Adel. All rights reserved.
+//  Created by Adel on 24/09/2019.
+//  Copyright © 2019 FlagShip. All rights reserved.
 //
 
 import UIKit
 import FlagShip
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet var mainTitle:UILabel!
+    @IBOutlet var loginTextField:UITextField!
     
-    @IBOutlet var newFeature:UILabel!
+    @IBOutlet var loginBtn:UIButton!
+    
+    // AB Test Button
+    @IBOutlet var abTestBtn:UIButton!
+
+    // Perso Test
+    @IBOutlet var persoBtn:UIButton!
+
+    // Toggle Test
+    @IBOutlet var toggleBtn:UIButton!
+
+    @IBOutlet var vipToggle:UISwitch!
+    
+    
+    @IBOutlet var newUserToggle:UISwitch!
+
+    
+    @IBOutlet var sessionNumberFiled:UITextField!
+
+    
+    // Is Vip user
+    var isVipUser:Bool = false
+    
+    
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        
+        return .lightContent
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor(red: 35/255, green: 35/255, blue: 35/255, alpha: 1)
         
-       // self.mainTitle.text = ABFlagShip.sharedInstance.getModification("titleBtn", defaultString: "default",activate: true)
+        //Round button login
+        loginBtn.layer.cornerRadius = loginBtn.frame.height/2
+        loginBtn.layer.masksToBounds = true
         
-        self.mainTitle.text = ABFlagShip.sharedInstance.getModification("endPoint", defaultString: "Ouups",activate: true)
-
+        // Add gesture
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         
-        let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
+        // Set the vip user
+        isVipUser = vipToggle.isOn
+    }
+    
+    @objc func hideKeyBoard(){
         
-        ABFlagShip.sharedInstance.updateContext(["key":1,"key1":true, "key2":"value"]) { (state) in
+        loginTextField.resignFirstResponder()
+    }
+    
+    
+    
+    
+    
+    // Log with FlagShip
+    @IBAction func logInwithFlagShip(){
+        
+        // Update Context
+        ABFlagShip.sharedInstance.context("isVipUser",vipToggle.isOn)
+        ABFlagShip.sharedInstance.context("newUser",newUserToggle.isOn)
+        
+        // Start FlagShip Sdk
+        ABFlagShip.sharedInstance.startFlagShip(self.loginTextField.text) { (state) in
+            // Launch the app with user context
             
-            // add you code once the context is sync
-        }
-        
-        self.newFeature.isHidden = !isVip
-    }
-    
-    
-    
-    
-    
-    @IBAction func back(){
-        
-        self.dismiss(animated: true) {
-        }
-    }
-
-
-    @IBAction func sendAction(){
-        
-        let eventAction = FSEventTrack(.Action_Tracking, "iosAction", "iosLabel", 3)
-        
-       // let eventAction = FSEventTrack(.Action_Tracking, "iosEventWithoutValue")
-
-        ABFlagShip.sharedInstance.sendTracking(eventAction)
-        
-    }
-    
-    
-    @IBAction func sendPageEvent(){
-        
-        let eventPage = FSPageTrack("loginScreen")
-        
-        // add event
-        
-        eventPage.userIp = "168.192.1.0"
-        eventPage.sessionNumber = 12
-        eventPage.screenResolution = "750 x 1334"
-        eventPage.screenColorDepth = "#fd0027"
-        eventPage.sessionNumber = 1
-        eventPage.userLanguage = "fr"
-        eventPage.sessionEventNumber = 2
-        eventPage.interfaceName = "loginScreen"
-        
-        ABFlagShip.sharedInstance.sendTracking(eventPage)
-        
-        
-        
-        let transacEvent:FSTransactionTrack = FSTransactionTrack("transacId","mobile_purchases")
-        ABFlagShip.sharedInstance.sendTracking(transacEvent)
-        
-        let itemEvent:FSItemTrack = FSItemTrack("transacId", "productName")
-        ABFlagShip.sharedInstance.sendTracking(itemEvent)
-        
-        let event:FSEventTrack =  FSEventTrack(.Action_Tracking, "click")
-        ABFlagShip.sharedInstance.sendTracking(event)
-
-
-        
-    }
-    
-    @IBAction func updateCampaign(){
-        
-        ABFlagShip.sharedInstance.updateContext(["isVipUser":false]) { (state) in
-            
-            DispatchQueue.main.async {
-                
-                let isVip = ABFlagShip.sharedInstance.getModification("Feature1", defaultBool: false,activate: true)
-                self.newFeature.isHidden = !isVip
+            if state == .Ready {
+                DispatchQueue.main.async {
+                    self.abTestBtn.isEnabled =  true
+                    self.toggleBtn.isEnabled = true
+                }
             }
-           
+        }
+        
+        
+    }
+    
+    
+    // show AB test
+    @IBAction func showABTest(){
+        
+        DispatchQueue.main.async {
+            
+            self.performSegue(withIdentifier: "showABtest", sender:nil)
         }
     }
     
     
-
-
-
+    // Show Vip Test
+    @IBAction func showVipTest(){
+        
+        DispatchQueue.main.async {
+            
+            self.performSegue(withIdentifier: "onShowVip", sender:nil)
+        }
+    }
+    
+    // Delegate textField
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if let text = textField.text,
+            let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            
+            if updatedText.count > 3{
+                
+                loginBtn.isEnabled = true
+            }else{
+                
+                loginBtn.isEnabled = false
+            }
+        }
+        
+        return true
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "onShowVip"{
+            
+            let basketCtrl = segue.destination as! FSCartViewController
+            basketCtrl.isNewUser = newUserToggle.isOn
+        }
+    }
 }
 

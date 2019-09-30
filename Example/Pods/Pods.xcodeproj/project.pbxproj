@@ -311,7 +311,6 @@
 		C188582722241D97FFE97A152F265575 /* MatcherProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherProtocols.swift; path = Sources/Nimble/Matchers/MatcherProtocols.swift; sourceTree = "<group>"; };
 		C1F7BDED316CCD837CDC70646BBBE6CB /* Pods-FlagShip_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FlagShip_Tests-resources.sh"; sourceTree = "<group>"; };
 		C3EEACE31DF8A5CB3AD8C720F1D6C663 /* Pods-FlagShipSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FlagShipSdk.debug.xcconfig"; sourceTree = "<group>"; };
-		C6009B849FC909A16E68FCB95BDD86B9 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = FlagShip/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		C672D3843D1A0EEDD851CB3D9D6945EB /* ThrowError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThrowError.swift; path = Sources/Nimble/Matchers/ThrowError.swift; sourceTree = "<group>"; };
 		C8FB75EAC93E4D5E64EF293EAE2D97AA /* Pods-FlagShipSdk-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FlagShipSdk-resources.sh"; sourceTree = "<group>"; };
 		C97D37E732883F3AB7708A9D53E08031 /* FlagShip-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FlagShip-dummy.m"; sourceTree = "<group>"; };
@@ -657,7 +656,6 @@
 		B944AA91E36366BC9D13637F28F2360A /* FlagShip */ = {
 			isa = PBXGroup;
 			children = (
-				C6009B849FC909A16E68FCB95BDD86B9 /* ReplaceMe.swift */,
 				FCE71CB29914EB3EB67FE3C36F85BCA5 /* Cache */,
 				C843CFB983F3C4DC64FE453986A3FA14 /* Core */,
 				A1D501F3DB7758FF5F8E16602EA26024 /* Models */,
