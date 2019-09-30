@@ -30,7 +30,7 @@
                                 </constraints>
                                 <state key="normal" title="Store"/>
                                 <connections>
-                                    <action selector="showABTest" destination="rAQ-Dl-yKn" eventType="touchUpInside" id="odu-SQ-lDt"/>
+                                    <action selector="showStoreScreen" destination="rAQ-Dl-yKn" eventType="touchUpInside" id="3Xp-Zd-WFw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgN-qb-cjg">
@@ -42,7 +42,7 @@
                                 </constraints>
                                 <state key="normal" title="Basket"/>
                                 <connections>
-                                    <action selector="showVipTest" destination="rAQ-Dl-yKn" eventType="touchUpInside" id="q0n-K2-usf"/>
+                                    <action selector="showBasketScreen" destination="rAQ-Dl-yKn" eventType="touchUpInside" id="rtN-Xb-peh"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8j-3g-UOc">
@@ -130,8 +130,8 @@
                         <outlet property="newUserToggle" destination="DKB-8N-F5q" id="RIX-cn-V1e"/>
                         <outlet property="toggleBtn" destination="AgN-qb-cjg" id="Qmh-YT-pTx"/>
                         <outlet property="vipToggle" destination="8px-zW-3ND" id="rbI-nY-qbD"/>
-                        <segue destination="p2C-s2-kDT" kind="show" identifier="showABtest" id="oum-S9-jax"/>
-                        <segue destination="K0D-85-9pb" kind="show" identifier="onShowVip" id="uPl-aZ-FEn"/>
+                        <segue destination="p2C-s2-kDT" kind="show" identifier="showStore" id="oum-S9-jax"/>
+                        <segue destination="K0D-85-9pb" kind="show" identifier="showBasket" id="uPl-aZ-FEn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ksO-40-jgj" sceneMemberID="firstResponder"/>

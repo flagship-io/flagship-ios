@@ -11,10 +11,7 @@ import FlagShip
 
 
 
-
-
 class FSHomeViewController: UIViewController {
-
     
     
     @IBOutlet var ctaButton:UIButton!
@@ -22,13 +19,14 @@ class FSHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get title for cta
+        // Use the flagShip to get the title of cta_text
         let title =  ABFlagShip.sharedInstance.getModification("cta_text", defaultString: "SHOP", activate: true)
         self.ctaButton.setTitle(title, for: .normal)
- 
     }
     
     
+    
+    // Cancel Screen
     @IBAction func onCancelHome(){
         
         self.dismiss(animated: true, completion: nil)
@@ -39,7 +37,7 @@ class FSHomeViewController: UIViewController {
     // Click Shoping
     @IBAction func onClikcShoping(){
         
-        
+        // Use the flagShip to send Action Tracking
         // Create event for CTA Action
         let actionEvent:FSEventTrack = FSEventTrack(.Action_Tracking, "cta_Shop")
         actionEvent.label = "cta_Shop"

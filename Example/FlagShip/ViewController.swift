@@ -19,22 +19,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var abTestBtn:UIButton!
 
     // Perso Test
-    @IBOutlet var persoBtn:UIButton!
+   // @IBOutlet var persoBtn:UIButton!
 
     // Toggle Test
     @IBOutlet var toggleBtn:UIButton!
 
+    // Vip Switch
     @IBOutlet var vipToggle:UISwitch!
     
-    
+    // Is new user switch
     @IBOutlet var newUserToggle:UISwitch!
-
     
-    @IBOutlet var sessionNumberFiled:UITextField!
-
-    
-    // Is Vip user
-    var isVipUser:Bool = false
     
     
     
@@ -43,7 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return .lightContent
     }
 
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -55,18 +50,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Add gesture
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
-        
-        // Set the vip user
-        isVipUser = vipToggle.isOn
-    }
+     }
     
+    
+    
+    // Hide KeyBoard
     @objc func hideKeyBoard(){
         
         loginTextField.resignFirstResponder()
     }
-    
-    
-    
     
     
     // Log with FlagShip
@@ -78,8 +70,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // Start FlagShip Sdk
         ABFlagShip.sharedInstance.startFlagShip(self.loginTextField.text) { (state) in
-            // Launch the app with user context
             
+            // The state is ready , you can now use the FlagShip
             if state == .Ready {
                 DispatchQueue.main.async {
                     self.abTestBtn.isEnabled =  true
@@ -87,29 +79,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
-        
-        
     }
     
     
-    // show AB test
-    @IBAction func showABTest(){
+    // Show AB test  (Store Screen)
+    @IBAction func showStoreScreen(){
         
         DispatchQueue.main.async {
             
-            self.performSegue(withIdentifier: "showABtest", sender:nil)
+            self.performSegue(withIdentifier: "showStore", sender:nil)
         }
     }
     
     
-    // Show Vip Test
-    @IBAction func showVipTest(){
+    // Show Vip Test  (Basket Screen)
+    @IBAction func showBasketScreen(){
         
         DispatchQueue.main.async {
             
-            self.performSegue(withIdentifier: "onShowVip", sender:nil)
+            self.performSegue(withIdentifier: "showBasket", sender:nil)
         }
     }
+    
+    
     
     // Delegate textField
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -133,7 +125,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "onShowVip"{
+        if segue.identifier == "showBasket"{
             
             let basketCtrl = segue.destination as! FSCartViewController
             basketCtrl.isNewUser = newUserToggle.isOn
