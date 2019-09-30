@@ -1,7 +1,7 @@
 ## How To Get Started
 
 - [Download FlagShip](https://gitlab.com/abtasty/mobile/flagship-ios/-/archive/master/flagship-ios-master.zip) and try out the iPhone example apps
-- Read the ["Getting started" guide]
+- Read the ["Getting started" guide](https://gitlab.com/abtasty/mobile/flagship-ios/blob/master/README.md#getting-started)
 
 # Introduction
 
