@@ -1,10 +1,3 @@
----
-title: Flagship SDK documentation
-
-language_tabs:
-- swift
----
-
 # Introduction
 
 Welcome to the FlagShip iOS documentation!
