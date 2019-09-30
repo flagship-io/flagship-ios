@@ -16,7 +16,7 @@ extension ABFlagShip{
         self.context.addBoolenCtx(key, boolean)
     }
     
-    // Update Number Context
+    // Update Double Context
     public func context(_ key:String,  _ double:Double){
         
         self.context.addDoubleCtx(key, double)
@@ -36,6 +36,11 @@ extension ABFlagShip{
         self.context.addFloatCtx(key, float)
     }
     
+    // Update Int context
+    public func context(_ key:String,  _ integer:Int){
+        
+        self.context.addIntCtx(key, integer)
+    }
     
     
 }

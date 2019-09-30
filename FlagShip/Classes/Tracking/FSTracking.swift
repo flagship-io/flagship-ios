@@ -201,18 +201,18 @@ public class FSPageTrack:FSTracking{
 public class FSTransactionTrack:FSTracking{
     
     // Required
-    var transactionId:String!
-    var affiliation:String!
+    public var transactionId:String!
+    public var affiliation:String!
     
     // Optional
-    var revenue:Double?
-    var shipping:Double?
-    var tax:Double?
-    var currency:String?
-    var couponCode:String?
-    var paymentMethod:String?
-    var ShippingMethod:String?
-    var itemCount:Int?
+    public var revenue:Double?
+    public var shipping:Double?
+    public var tax:Double?
+    public var currency:String?
+    public var couponCode:String?
+    public var paymentMethod:String?
+    public var ShippingMethod:String?
+    public var itemCount:Int?
     
     
     public init(_ transactionId:String!, _ affiliation:String!) {
@@ -291,12 +291,12 @@ public class FSTransactionTrack:FSTracking{
 public class FSItemTrack:FSTracking{
     
     
-    var transactionId:String!
-    var name:String!
-    var price:Double?
-    var quantity:Int?
-    var code:String?
-    var category:String?
+    public var transactionId:String!
+    public var name:String!
+    public var price:Double?
+    public var quantity:Int?
+    public var code:String?
+    public var category:String?
     
     
     public init(_ transactionId:String!, _ name:String!) {
@@ -375,10 +375,10 @@ public class FSItemTrack:FSTracking{
 // //////////////////////////  Event ////////////////////////////////:
 public class FSEventTrack:FSTracking{
     
-    var category:FSCategoryEvent!
-    var ation:String!
-    var label:String?
-    var value:Double?
+    public var category:FSCategoryEvent!
+    public var ation:String!
+    public var label:String?
+    public var value:Double?
     
     
     public init(_ eventCategory:FSCategoryEvent, _ eventAction:String, _ eventLabel:String?, _ eventValue:Double) {
