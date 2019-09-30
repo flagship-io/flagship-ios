@@ -1,3 +1,8 @@
+## How To Get Started
+
+- [Download FlagShip] and try out the iPhone example apps
+- Read the ["Getting started" guide]
+
 # Introduction
 
 Welcome to the FlagShip iOS documentation!
