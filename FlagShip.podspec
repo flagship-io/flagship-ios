@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FlagShip'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of FlagShip.'
+  s.version          = '1.0'
+  s.summary          = 'Flagship SDK '
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,14 +18,15 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+The Flagship SDK is an iOS framework whose purpose is to help you run Flagship campaigns on your native ios app
                        DESC
 
-  s.homepage         = 'https://github.com/Adel/FlagShip'
+  s.homepage         = 'https://app.flagship.io/login'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Adel' => 'adel@abtasty.com' }
-  s.source           = { :git => 'git@gitlab.com:abtasty/mobile/flagship-ios.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://gitlab.com/abtasty/mobile/flagship-ios.git', :tag => s.version.to_s }
+  s.swift_version    = '4.2'
   #s.dependency       "ReachabilitySwift"
 
  
