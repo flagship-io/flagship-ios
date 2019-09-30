@@ -1,6 +1,7 @@
 ## How To Get Started
 
-- [Download FlagShip](https://gitlab.com/abtasty/mobile/flagship-ios/-/archive/master/flagship-ios-master.zip) and try out the iPhone example apps
+- [Download FlagShip](https://gitlab.com/abtasty/mobile/flagship-ios/-/archive/master/flagship-ios-master.zip) and try out the iPhone example apps.
+- See the (https://gitlab.com/abtasty/mobile/flagship-ios#configure-flagship) and make sure to remplace <b>FlagShipEnvId</b> with your Environment id provided by Flagship
 - Read the ["Getting started" guide](https://gitlab.com/abtasty/mobile/flagship-ios/blob/master/README.md#getting-started)
 
 # Introduction
