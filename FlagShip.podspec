@@ -27,6 +27,8 @@ The Flagship SDK is an iOS framework whose purpose is to help you run Flagship c
   s.author           = { 'Adel' => 'adel@abtasty.com' }
   s.source           = { :git => 'https://gitlab.com/abtasty/mobile/flagship-ios.git', :tag => s.version.to_s }
   s.swift_version    = '4.2'
+  s.frameworks = 'SystemConfiguration'
+
   #s.dependency       "ReachabilitySwift"
 
  
