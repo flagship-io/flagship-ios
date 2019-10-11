@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FlagShip'
-  s.version          = '0.1'
+  s.version          = '1.0'
   s.summary          = 'Flagship SDK '
 
 # This description is used to generate tags and improve search results.
@@ -18,19 +18,15 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-The Flagship SDK is an iOS framework whose purpose is to help you run Flagship campaigns on your native ios app
+The Flagship SDK is an iOS framework whose goal is to help you run Flagship campaigns on your ios native app.
                        DESC
 
   s.homepage         = 'https://app.flagship.io/login'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Adel' => 'adel@abtasty.com' }
+  s.author           = { 'FlagShip' => 'adel@abtasty.com' }
   s.source           = { :git => 'https://gitlab.com/abtasty-public/mobile/flagship-ios.git', :tag => s.version.to_s }
-  s.swift_version    = '4.2'
-  s.frameworks = 'SystemConfiguration'
-
-  #s.dependency       "ReachabilitySwift"
-
+  s.frameworks       = 'SystemConfiguration'
  
   s.ios.deployment_target = '8.0'
 
@@ -39,8 +35,4 @@ The Flagship SDK is an iOS framework whose purpose is to help you run Flagship c
   # s.resource_bundles = {
   #   'FlagShip' => ['FlagShip/Assets/*.png']
   # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
-end
+  end

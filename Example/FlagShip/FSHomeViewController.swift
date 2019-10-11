@@ -20,7 +20,7 @@ class FSHomeViewController: UIViewController {
         super.viewDidLoad()
         
         // Use the flagShip to get the title of cta_text
-        let title =  ABFlagShip.sharedInstance.getModification("cta_text", defaultString: "SHOP", activate: true)
+        let title =  ABFlagShip.sharedInstance.getModification("cta_text", defaultString: "default", activate: true)
         self.ctaButton.setTitle(title, for: .normal)
     }
     
