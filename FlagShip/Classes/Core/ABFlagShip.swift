@@ -114,29 +114,36 @@ public class ABFlagShip:NSObject{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return
         }
         
         
         FSLogger.FSlog("Get Campaign .............", .Campaign)
         
-        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+        if self.service != nil {
             
-            if (error == nil){
+            self.service.getCampaigns(context.currentContext) { (campaigns, error) in
                 
-                // Set Campaigns
-                self.campaigns = campaigns
-                self.context.updateModification(campaigns)
-                
-                FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
+                if (error == nil){
+                    
+                    // Set Campaigns
+                    self.campaigns = campaigns
+                    self.context.updateModification(campaigns)
+                    
+                    FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
 
-                onGetCampaign(nil)
-                
-            }else{
-                
-                FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
+                    onGetCampaign(nil)
+                    
+                }else{
+                    
+                    FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
 
-                onGetCampaign(.GetCampaignError)
+                    onGetCampaign(.GetCampaignError)
+                }
             }
+        }else{
+            
+            onGetCampaign(.GetCampaignError)
         }
     }
     
@@ -332,21 +339,6 @@ public class ABFlagShip:NSObject{
         
         return context.readIntFromContext(key, defaultInt: defaultInt)
     }
-    
-    
-    
-    /**
-     Update context users
-     
-     @newValue dictionary the represent key/value context
-     
-     */
-    public func updateContext(_ newValue:[String:(String,Int,Float,Bool,Double)]){
-        
-        self.context.currentContext.merge(newValue) { (_, new) in new }
-    }
-    
-    
     
     /**
      Update Modifications values
