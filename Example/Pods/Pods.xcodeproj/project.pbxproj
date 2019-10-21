@@ -80,6 +80,8 @@
 		737782A791919220A010C6EDBFE38E70 /* Pods-FlagShip_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FlagShip_Tests-Info.plist"; sourceTree = "<group>"; };
 		73789D42B0CD39973B736E73B22F133B /* ABFlagShip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ABFlagShip.swift; sourceTree = "<group>"; };
 		7C888F6761F52360F52BA95F3533DC16 /* Pods-FlagShip_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FlagShip_Example-Info.plist"; sourceTree = "<group>"; };
+		8B1236B4235A11CF00053E0B /* FlagShipInternalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagShipInternalTests.swift; sourceTree = "<group>"; };
+		8B1236B6235A11CF00053E0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95B026CFA84D5FA3A56712F69BA8A02C /* Pods-FlagShip_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FlagShip_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		965AB887B23874DFFCCFC8868E8A98E4 /* FlagShip-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FlagShip-umbrella.h"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -215,6 +217,15 @@
 			path = "Example/Pods/Target Support Files/FlagShip";
 			sourceTree = "<group>";
 		};
+		8B1236B3235A11CF00053E0B /* FlagShipInternalTests */ = {
+			isa = PBXGroup;
+			children = (
+				8B1236B4235A11CF00053E0B /* FlagShipInternalTests.swift */,
+				8B1236B6235A11CF00053E0B /* Info.plist */,
+			);
+			path = FlagShipInternalTests;
+			sourceTree = "<group>";
+		};
 		8FECE2270CB881E4BD62B386C87A4B4A /* Pod */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +292,7 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				4E604879EF92302A1696B99470F14C65 /* Development Pods */,
+				8B1236B3235A11CF00053E0B /* FlagShipInternalTests */,
 				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
 				77B84E487F16755763B161423AEECFBC /* Products */,
 				FC0A6E7B9AFAE1E17AE610D650401DC7 /* Targets Support Files */,

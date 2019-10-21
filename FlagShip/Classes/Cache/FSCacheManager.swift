@@ -31,7 +31,7 @@ internal class FSCacheManager {
                 }catch{
                     
                     FSLogger.FSlog("Failed to read campaign from cache", .Campaign)
-                    fatalError(error.localizedDescription)
+                    return nil
                 }
                 
             }else{
@@ -59,7 +59,8 @@ internal class FSCacheManager {
             do {
                 try dataCampaign!.write(to: url!, options: [])
             } catch {
-                fatalError(error.localizedDescription)
+                
+                FSLogger.FSlog("Failed to write campaign in cache", .Network)
             }
         }
         
@@ -82,7 +83,8 @@ internal class FSCacheManager {
                     
                 }catch{
                     
-                    fatalError(error.localizedDescription)
+                    FSLogger.FSlog("Failed to create directory", .Network)
+                    return nil
                 }
                 
             }else{

@@ -1,17 +1,22 @@
 //
-//  startFlagTest.swift
+//  ABServiceTest.swift
 //  FlagShip_Tests
 //
-//  Created by Adel on 16/10/2019.
+//  Created by Adel on 18/10/2019.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
 import XCTest
 @testable import FlagShip
-class startFlagTest: XCTestCase {
 
+class ABServiceTest: XCTestCase {
+
+    // Service
+    var serviceTest:ABService!
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        serviceTest = ABService("id", "visitorId")
     }
 
     override func tearDown() {
@@ -30,50 +35,24 @@ class startFlagTest: XCTestCase {
         }
     }
     
-    // Start
     
     
-    func testStartFlagShipWithNil(){
+    func testGetCampaignWithBadClientId(){
         
-        ABFlagShip.sharedInstance.startFlagShip(nil) { (state) in
+        
+        let expectation = self.expectation(description: "getCampaign")
+
+        serviceTest.getCampaigns([:]) { (response, error) in
             
-            print(state)
             
+            XCTAssert(error == FlagshipError.GetCampaignError)
+            
+            expectation.fulfill()
+
         }
         
-        
-        func testContext(){
-              
-              ABFlagShip.sharedInstance.context("toto", true)
-          }
+        waitForExpectations(timeout:10, handler: nil)
 
     }
-    
-    
-    
-    
-    func testStartFlagShipWithIdEMpty(){
-        
-        ABFlagShip.sharedInstance.startFlagShip("") { (state) in
-            
-        }
-    }
-    
-    
-    func testStartFlagShipWithId(){
-         
-         ABFlagShip.sharedInstance.startFlagShip("alice") { (state) in
-             
-         }
-     }
-    
-    
-    func testupdateContext(){
-        
-        ABFlagShip.sharedInstance.updateContext(["key":true]) { (state) in
-            
-        }
-    }
-    
 
 }

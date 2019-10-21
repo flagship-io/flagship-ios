@@ -1,23 +1,16 @@
 //
-//  contextTest.swift
-//  FlagShip_Tests
+//  FlagShipInternalTests.swift
+//  FlagShipInternalTests
 //
-//  Created by Adel on 16/10/2019.
-//  Copyright © 2019 CocoaPods. All rights reserved.
+//  Created by Adel on 18/10/2019.
 //
 
 import XCTest
-import FlagShip
 
-class contextTest: XCTestCase {
+class FlagShipInternalTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        ABFlagShip.sharedInstance.startFlagShip("alice") { (state) in
-            
-            print("Ready to use#####################")
-        }
     }
 
     override func tearDown() {
@@ -31,17 +24,18 @@ class contextTest: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
     
     
-    
-    func testContext(){
+    func testService(){
         
-        ABFlagShip.sharedInstance.context("toto", true)
-        
+         
     }
+
+        
+        
 
 }

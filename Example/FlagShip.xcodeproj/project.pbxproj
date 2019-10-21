@@ -14,6 +14,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		8B1236C0235A197800053E0B /* ABServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1236BF235A197800053E0B /* ABServiceTest.swift */; };
 		8B237F7C23102768007379CA /* FSBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B237F7B23102768007379CA /* FSBannerViewController.swift */; };
 		8B6FC1982356C1E6002F191A /* FlagShip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6FC1972356C1E6002F191A /* FlagShip_Tests.swift */; };
 		8B6FC1A12356C661002F191A /* startFlagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6FC1A02356C661002F191A /* startFlagTest.swift */; };
@@ -60,6 +61,7 @@
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		7999FF82A85B106EF06B608B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		8B1236BF235A197800053E0B /* ABServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABServiceTest.swift; sourceTree = "<group>"; };
 		8B237F7B23102768007379CA /* FSBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBannerViewController.swift; sourceTree = "<group>"; };
 		8B4D406B22FC6045008ADF14 /* FShomeScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FShomeScreen.swift; sourceTree = "<group>"; };
 		8B6FC1952356C1E6002F191A /* FlagShip_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagShip_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				8B6FC19F2356C5B6002F191A /* Start */,
 				8B6FC1972356C1E6002F191A /* FlagShip_Tests.swift */,
 				8B6FC1992356C1E6002F191A /* Info.plist */,
+				8B1236BF235A197800053E0B /* ABServiceTest.swift */,
 			);
 			path = FlagShip_Tests;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				8B6FC1A823571210002F191A /* getCampaignTest.swift in Sources */,
 				8B6FC1A12356C661002F191A /* startFlagTest.swift in Sources */,
 				8B6FC1982356C1E6002F191A /* FlagShip_Tests.swift in Sources */,
+				8B1236C0235A197800053E0B /* ABServiceTest.swift in Sources */,
 				8B6FC1A52356CAD8002F191A /* contextTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

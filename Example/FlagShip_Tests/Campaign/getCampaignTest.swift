@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import FlagShip
+@testable import FlagShip
 
 class getCampaignTest: XCTestCase {
 
@@ -32,6 +32,7 @@ class getCampaignTest: XCTestCase {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
+            
         }
     }
     
@@ -54,7 +55,6 @@ class getCampaignTest: XCTestCase {
     
     
     func testGetCampaignWithNoContext(){
-        
         
         // Create an expectation
         let expectation = self.expectation(description: "getCampaign")

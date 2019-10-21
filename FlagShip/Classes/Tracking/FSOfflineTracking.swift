@@ -49,7 +49,8 @@ internal class FSOfflineTracking{
                     do{
                          try FileManager.default.removeItem(at: urlItem)
                     }catch{
-                        fatalError(error.localizedDescription)
+                        
+                        FSLogger.FSlog("Failed to save event in cache", .Network)
                     }
                 }
             }
@@ -90,7 +91,9 @@ internal class FSOfflineTracking{
                 do {
                     try dateEvent.write(to: url!, options: [])
                 } catch {
-                    fatalError(error.localizedDescription)
+                    
+                    FSLogger.FSlog("Failed to write event in cache", .Network)
+
                 }
             }
         }
@@ -122,7 +125,8 @@ internal class FSOfflineTracking{
                 
             }catch{
                 
-                fatalError(error.localizedDescription)
+                FSLogger.FSlog("Failed to create directory", .Network)
+                return nil
             }
             
         }else{
@@ -147,7 +151,8 @@ internal class FSOfflineTracking{
                 
                 try data.write(to: url!, options: [])
             } catch {
-                fatalError(error.localizedDescription)
+                
+                FSLogger.FSlog("Failed to write track infos", .Parsing)
             }
 
         }
@@ -164,7 +169,8 @@ internal class FSOfflineTracking{
             
         }catch{
             
-            fatalError(error.localizedDescription)
+            FSLogger.FSlog("Failed to read info track from directory", .Network)
+            return nil
         }
     }
     
@@ -200,7 +206,9 @@ internal class FSOfflineTracking{
                 }
                 }.resume()
         }catch{
-            fatalError(error.localizedDescription)
+            
+            FSLogger.FSlog("Failed to send Event", .Network)
+
         }
     }
 }
