@@ -34,7 +34,7 @@ FlagShip is available for distribution through Pods or manual installation.
 ```ruby
 target 'Your App' do
 use_frameworks!
-pod 'FlagShipSdk'
+pod 'FlagShip'
 end
 ```
 
