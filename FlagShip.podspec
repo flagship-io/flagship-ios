@@ -31,6 +31,9 @@ The Flagship SDK is an iOS framework whose goal is to help you run Flagship camp
 
   s.source_files = 'FlagShip/Classes/**/*'
   
+  s.swift_version           = "5.0"
+
+  
   # s.resource_bundles = {
   #   'FlagShip' => ['FlagShip/Assets/*.png']
   # }

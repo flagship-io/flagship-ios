@@ -15,7 +15,7 @@ internal class ABService {
     
     var clientId:String!
     
-    var visitorId:String!
+    var visitorId:String?
     
     var offLineTracking:FSOfflineTracking!
     
@@ -39,7 +39,7 @@ internal class ABService {
     func getCampaigns(_ currentContext:Dictionary <String,Any>,  onGetCampaign:@escaping(FSCampaigns?, FlagshipError?)->Void){
         
         do {
-            let params:NSMutableDictionary = ["visitor_id":visitorId, "context":currentContext, "trigger_hit":false]
+            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "", "context":currentContext, "trigger_hit":false]
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
             var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetCampaigns, clientId))!)
@@ -126,7 +126,7 @@ internal class ABService {
         
         do {
             // Set Visitor Id
-            infosTrack.updateValue(visitorId, forKey: "vid")
+            infosTrack.updateValue(visitorId ?? "", forKey: "vid")
             // Set Client Id
             infosTrack.updateValue(clientId, forKey: "cid")
             

@@ -68,8 +68,8 @@ public class FSTracking :FSTrackingProtocol{
     public var type: FSTypeTrack = .None
     
     // Required
-    var clientId :String!
-    var visitorId:String!
+    var clientId :String?
+    var visitorId:String?
     var dataSource:String = "APP"
     
     // Optional
@@ -124,9 +124,9 @@ public class FSTracking :FSTrackingProtocol{
             
              var communParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set Client Id
-            communParams.updateValue(self.clientId, forKey: "cid")
+            communParams.updateValue(self.clientId ?? "", forKey: "cid")
             // Set Visitor Id
-            communParams.updateValue(self.visitorId, forKey: "vid")
+            communParams.updateValue(self.visitorId ?? "", forKey: "vid")
             // Set Data source
             communParams.updateValue(self.dataSource, forKey: "ds")
             // Set User ip
@@ -376,7 +376,7 @@ public class FSItemTrack:FSTracking{
 public class FSEventTrack:FSTracking{
     
     public var category:FSCategoryEvent!
-    public var ation:String!
+    public var ation:String?
     public var label:String?
     public var value:Double?
     
@@ -424,7 +424,7 @@ public class FSEventTrack:FSTracking{
             // Set Type
             customParams.updateValue(self.type.rawValue, forKey: "t")
             // Set Action
-            customParams.updateValue(self.ation, forKey: "ea")
+            customParams.updateValue(self.ation ?? "", forKey: "ea")
             // Set Label
             if self.label != nil{
                 customParams.updateValue(self.label ?? "", forKey: "el")
