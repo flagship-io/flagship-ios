@@ -50,9 +50,9 @@ end
 
 ## Manual Installation
 
-1. Download the frameWork  <a href='http://sdk.abtasty.com/ios/FlagShipSdk.framework.zip'>FlagShipSdk.</a>
+1. Download the frameWork  <a href='http://sdk.abtasty.com/ios/FlagShip.framework.zip'>FlagShip.</a>
 
-2. In Finder, browse to the FlagShipSdk.framework file and move it under your "Embedded Binaries" section in Xcode
+2. In Finder, browse to the FlagShip.framework file and move it under your "Embedded Binaries" section in Xcode
 
 3. Upon moving it, a popup is displayed: check "Copy items if needed".
 
@@ -91,7 +91,7 @@ done
 ```
 
 <aside class="notice">
-<b>FlagShipSdk FrameWork is universal and BitCode supported</b> <br>
+<b>FlagShip FrameWork is universal and BitCode supported</b> <br>
 The universal framework for iOS contains architectures for simulators and devices. You will therefore be able to run your application on all devices and all iOS simulators.
 </aside>
 
