@@ -2,11 +2,11 @@
 //  FlagShip.h
 //  FlagShip
 //
-//  Created by Adel on 26/08/2019.
+//  Created by Adel on 22/10/2019.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for FlagShip.
 FOUNDATION_EXPORT double FlagShipVersionNumber;

@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8B3C5AF8235F4C8D007535BE /* Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8B3C5AF9235F4C8D007535BE /* Build configuration list for PBXAggregateTarget "Universal" */;
+			buildPhases = (
+				8B3C5AFC235F4C9E007535BE /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Universal;
+			productName = Universal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		23D39C84AC6BE0408A1B880715FD30C1 /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B737490D449730BA14758819EE6A118 /* FSContext.swift */; };
 		2A2FB622054EA95684BF19A56A237377 /* Pods-FlagShip_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DA5398E9576827C0064F088FC21E1D7 /* Pods-FlagShip_Example-dummy.m */; };
@@ -23,7 +37,7 @@
 		8766E40A0A81D1DCB592E24EADDD9254 /* Pods-FlagShip_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 72024C9D1617B660E62B0B9256F64FE2 /* Pods-FlagShip_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8AF4F5218D635F274A28BD4E19946644 /* FSCampaigns+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2619C35EA4EBEB58B0775825E7464B /* FSCampaigns+Modifications.swift */; };
 		8B3C5AB2235F18B5007535BE /* FSCacheManager.swift in Headers */ = {isa = PBXBuildFile; fileRef = C4AED731BEC69EA487C0F3339BC1B59F /* FSCacheManager.swift */; };
-		8B3C5AB3235F18B5007535BE /* ABFlagShip.swift in Headers */ = {isa = PBXBuildFile; fileRef = 73789D42B0CD39973B736E73B22F133B /* ABFlagShip.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B3C5AB3235F18B5007535BE /* ABFlagShip.swift in Headers */ = {isa = PBXBuildFile; fileRef = 73789D42B0CD39973B736E73B22F133B /* ABFlagShip.swift */; };
 		8B3C5AB4235F18B5007535BE /* ABService.swift in Headers */ = {isa = PBXBuildFile; fileRef = 3E06D8E019A51F98CA8187A29222056E /* ABService.swift */; };
 		8B3C5AB5235F18B5007535BE /* FlagShipError.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1924C0538A6FC4CAAB568E8462448DC4 /* FlagShipError.swift */; };
 		8B3C5AB6235F18B5007535BE /* FSConstant.swift in Headers */ = {isa = PBXBuildFile; fileRef = 36AD16077CBC21A21CF9D1031B25A4CC /* FSConstant.swift */; };
@@ -35,7 +49,6 @@
 		8B3C5ABC235F18B5007535BE /* FSCampaigns+Modifications.swift in Headers */ = {isa = PBXBuildFile; fileRef = 4D2619C35EA4EBEB58B0775825E7464B /* FSCampaigns+Modifications.swift */; };
 		8B3C5ABD235F18B5007535BE /* FSOfflineTracking.swift in Headers */ = {isa = PBXBuildFile; fileRef = 57A925D54D80CA50B08672B8881CED7B /* FSOfflineTracking.swift */; };
 		8B3C5ABE235F18B5007535BE /* FSTracking.swift in Headers */ = {isa = PBXBuildFile; fileRef = 1B2D973FF9C637C62B9FC7626F749CBD /* FSTracking.swift */; };
-		8B3C5ABF235F3329007535BE /* FlagShip-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4578E5F049C6F539E5FF55404E93D38D /* FlagShip-Info.plist */; };
 		8EF936FF4A2F088499841B36D871A57E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE354DA182454A49972F1EA0BAB0B3E /* Foundation.framework */; };
 		B02774E9FC855592559B44F4DAC573E3 /* FlagShip-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B027859273A456D56D9683C055E21F4B /* FlagShip-dummy.m */; };
 		D44695173C507E07ED00AD5D6C40C19F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE354DA182454A49972F1EA0BAB0B3E /* Foundation.framework */; };
@@ -438,6 +451,13 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					8B3C5AF8235F4C8D007535BE = {
+						CreatedOnToolsVersion = 11.0;
+						DevelopmentTeam = 5RY8QCBAEP;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -454,6 +474,7 @@
 				D899975D25DAC4B611F10D83547B7094 /* FlagShip */,
 				0C0D4DB781C327758FF0F8957F77C57C /* Pods-FlagShip_Example */,
 				A3D77BF88CB8F6153997CCA90DC8DA7A /* Pods-FlagShip_Tests */,
+				8B3C5AF8235F4C8D007535BE /* Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -463,7 +484,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B3C5ABF235F3329007535BE /* FlagShip-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +502,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8B3C5AFC235F4C9E007535BE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"FlagShip\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"FlagShip\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip/FlagShip.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip/FlagShip.framework/FlagShip\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip/FlagShip.framework/Modules/FlagShip.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/Modules/FlagShip.swiftmodule\"\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3590F007FBE4EEDBF2E82152DBEB1BDF /* Sources */ = {
@@ -646,6 +686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -693,6 +734,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -719,13 +761,15 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.0.3;
 				MODULEMAP_FILE = "Target Support Files/FlagShip/FlagShip.modulemap";
 				PRODUCT_MODULE_NAME = FlagShip;
 				PRODUCT_NAME = FlagShip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -736,6 +780,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -787,6 +832,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -795,6 +841,24 @@
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
+		};
+		8B3C5AFA235F4C8D007535BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8B3C5AFB235F4C8D007535BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
 		};
 		99227348F34CBA88E7B963CDCEE5047E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -814,13 +878,15 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.0.3;
 				MODULEMAP_FILE = "Target Support Files/FlagShip/FlagShip.modulemap";
 				PRODUCT_MODULE_NAME = FlagShip;
 				PRODUCT_NAME = FlagShip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -898,6 +964,15 @@
 			buildConfigurations = (
 				1656F33628A4308EF0943EA757DD5CE5 /* Debug */,
 				3A788AD4E785FAB59FCAFB5B0A6CCD7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B3C5AF9235F4C8D007535BE /* Build configuration list for PBXAggregateTarget "Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B3C5AFA235F4C8D007535BE /* Debug */,
+				8B3C5AFB235F4C8D007535BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
