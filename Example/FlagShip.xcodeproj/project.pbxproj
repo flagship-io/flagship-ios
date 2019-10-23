@@ -123,6 +123,7 @@
 		607FACD21AFB9204008FA782 /* Example for FlagShip */ = {
 			isa = PBXGroup;
 			children = (
+				8B237F7B23102768007379CA /* FSBannerViewController.swift */,
 				8BC4E9FE234253BA0086BF2A /* FSCartViewController.swift */,
 				8BC4EA00234253BB0086BF2A /* FSHomeViewController.swift */,
 				8BC4E9FF234253BA0086BF2A /* FSProductCell.swift */,
@@ -133,7 +134,6 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				8B237F7B23102768007379CA /* FSBannerViewController.swift */,
 			);
 			name = "Example for FlagShip";
 			path = FlagShip;
