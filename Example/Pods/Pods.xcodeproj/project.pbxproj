@@ -614,7 +614,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"FlagShip\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"FlagShip\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip/FlagShip.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip/FlagShip.framework/FlagShip\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip/FlagShip.framework/Modules/FlagShip.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/Modules/FlagShip.swiftmodule\"\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"FlagShip\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"FlagShip\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip-framework/FlagShip.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip-framework/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip-framework/FlagShip.framework/FlagShip\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip-framework/FlagShip.framework/Modules/FlagShip.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/Modules/FlagShip.swiftmodule\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -839,6 +839,7 @@
 				PRODUCT_NAME = FlagShip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1111,6 +1112,7 @@
 				PRODUCT_NAME = FlagShip;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

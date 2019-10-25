@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D899975D25DAC4B611F10D83547B7094"
-               BuildableName = "FlagShip.framework"
-               BlueprintName = "FlagShip"
-               ReferencedContainer = "container:Pods.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "46409B64E0AE3C85B257DCD45C89E872"
                BuildableName = "FlagShip.framework"
                BlueprintName = "FlagShip"
@@ -64,7 +50,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D899975D25DAC4B611F10D83547B7094"
+            BlueprintIdentifier = "46409B64E0AE3C85B257DCD45C89E872"
             BuildableName = "FlagShip.framework"
             BlueprintName = "FlagShip"
             ReferencedContainer = "container:Pods.xcodeproj">
