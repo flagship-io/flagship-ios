@@ -8,20 +8,33 @@
 import Foundation
 
 
-public enum FSTypeTrack: String {
+@objc public enum FSTypeTrack:NSInteger {
     
-    case PAGE        = "SCREENVIEW"
-    case TRANSACTION = "TRANSACTION"
-    case ITEM        = "ITEM"
-    case EVENT       = "EVENT"
+    case PAGE        = 0
+    case TRANSACTION
+    case ITEM
+    case EVENT
+    case None
     
-    case None   = "None"
-    
-    
+    public var typeString:String{
+
+        switch self {
+        case .PAGE:
+            return "SCREENVIEW"
+        case .TRANSACTION:
+            return "TRANSACTION"
+        case .ITEM:
+            return "ITEM"
+        case .EVENT:
+            return "EVENT"
+        case .None:
+            return "None"
+        }
+    }
 }
 
 
-public enum FSCategoryEvent: Int {
+ @objc public enum FSCategoryEvent: NSInteger {
     
     case Action_Tracking     = 1
     case User_Engagement     = 2
@@ -41,7 +54,7 @@ public enum FSCategoryEvent: Int {
 
 
 
-public protocol FSTrackingProtocol {
+@objc public protocol FSTrackingProtocol {
     
     var type:FSTypeTrack { get }
     
@@ -50,7 +63,7 @@ public protocol FSTrackingProtocol {
     var fileName:String! { get }
 }
 
-public class FSTracking :FSTrackingProtocol{
+@objcMembers public class FSTracking :NSObject ,FSTrackingProtocol {
     
     
     public var fileName: String! {
@@ -85,11 +98,11 @@ public class FSTracking :FSTrackingProtocol{
     // User Language
     public var userLanguage:String?
     // Queue Time
-    public var queueTime:Int?
+    public var queueTime:NSNumber?
     // Time Stamp
     public var currentSessionTimeStamp:Int64?
     // Session Number
-    public var sessionNumber:Int?
+    public var sessionNumber:NSNumber?
     
     // Custom Dimension .... a voir
     
@@ -97,13 +110,13 @@ public class FSTracking :FSTrackingProtocol{
     //var customMetric:Int?  ..... a voir
     
     // Session Event Number
-    public var sessionEventNumber:Int?
+    public var sessionEventNumber:NSNumber?
     
     
-    init() {
+    override init() {
         
         clientId = ABFlagShip.sharedInstance.clientId
-        visitorId = ABFlagShip.sharedInstance.visitorId
+      //  visitorId = ABFlagShip.sharedInstance.customerId
         
         // Set time Stamps
         self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
@@ -169,10 +182,10 @@ public class FSTracking :FSTrackingProtocol{
 
 
 // Page
-public class FSPageTrack:FSTracking{
+@objcMembers public class FSPageTrack:FSTracking{
     
     
-    public init(_ interfaceName:String) {
+    @objc public init(_ interfaceName:String) {
         
         super.init()
         self.type = .PAGE
@@ -188,7 +201,7 @@ public class FSPageTrack:FSTracking{
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
             
             // Set Type
-            customParams.updateValue(self.type.rawValue, forKey: "t")
+            customParams.updateValue(self.type.typeString, forKey: "t")
             
             customParams.merge(self.communBodyTrack){  (_, new) in new }
             return customParams
@@ -198,24 +211,25 @@ public class FSPageTrack:FSTracking{
 }
 
 // Transaction
-public class FSTransactionTrack:FSTracking{
+@objcMembers public class FSTransactionTrack:FSTracking{
     
     // Required
-    public var transactionId:String!
-    public var affiliation:String!
+    @objc public var transactionId:String!
+    @objc public var affiliation:String!
     
     // Optional
-    public var revenue:Double?
-    public var shipping:Double?
-    public var tax:Double?
-    public var currency:String?
-    public var couponCode:String?
-    public var paymentMethod:String?
-    public var ShippingMethod:String?
-    public var itemCount:Int?
+    
+     public var revenue:NSNumber?
+     public var shipping:NSNumber?
+     public var tax:NSNumber?
+     public var currency:String?
+     public var couponCode:String?
+     public var paymentMethod:String?
+     public var ShippingMethod:String?
+     public var itemCount:NSNumber?
     
     
-    public init(_ transactionId:String!, _ affiliation:String!) {
+     public init(transactionId:String!, affiliation:String!) {
         
         super.init()
         
@@ -233,7 +247,7 @@ public class FSTransactionTrack:FSTracking{
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
             
             // Set Type
-            customParams.updateValue(self.type.rawValue, forKey: "t")
+            customParams.updateValue(self.type.typeString, forKey: "t")
 
             // Set transactionId
             if self.transactionId != nil{
@@ -288,33 +302,32 @@ public class FSTransactionTrack:FSTracking{
 
 ///////////////////////////////////// Item ///////////////////////////////////////
 
-public class FSItemTrack:FSTracking{
+@objcMembers public class FSItemTrack:FSTracking{
     
     
     public var transactionId:String!
     public var name:String!
-    public var price:Double?
-    public var quantity:Int?
+    public var price:NSNumber?
+    public var quantity:NSNumber?
     public var code:String?
     public var category:String?
     
-    
-    public init(_ transactionId:String!, _ name:String!) {
+    public init(transactionId:String!, name:String!) {
         
         super.init()
         
         self.type          = .ITEM
         self.transactionId = transactionId
         self.name          = name
-        self.price         = nil
-        self.quantity      = nil
+        self.price         = 0
+        self.quantity      = 0
         self.code          = nil
         self.category      = nil
     }
     
     
     
-    public init(_ transactionId:String!, _ name:String!, _ price:Double?, _ quantity:Int?, _ code: String?, _ category:String? ) {
+     public init(transactionId:String!,  name:String!, price:NSNumber, quantity:NSNumber, code: String?, category:String? ) {
         
         super.init()
         
@@ -335,7 +348,7 @@ public class FSItemTrack:FSTracking{
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
            
             // Set Type
-            customParams.updateValue(self.type.rawValue, forKey: "t")
+            customParams.updateValue(self.type.typeString, forKey: "t")
             
             // Set transactionId
             if self.transactionId != nil{
@@ -373,19 +386,17 @@ public class FSItemTrack:FSTracking{
 
 
 // //////////////////////////  Event ////////////////////////////////:
-public class FSEventTrack:FSTracking{
+@objcMembers public class FSEventTrack:FSTracking{
     
     public var category:FSCategoryEvent!
     public var ation:String?
     public var label:String?
-    public var value:Double?
+    public var eventValue:NSNumber?
     
     
-    public init(_ eventCategory:FSCategoryEvent, _ eventAction:String, _ eventLabel:String?, _ eventValue:Double) {
-        
+    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
     
         super.init()  /// Set dans la base les element vitales
-        
         
         self.type = .EVENT
         
@@ -395,11 +406,11 @@ public class FSEventTrack:FSTracking{
  
         self.label = eventLabel
         
-        self.value = eventValue
+        self.eventValue = eventValue
         
     }
     
-    public init(_ eventCategory:FSCategoryEvent, _ eventAction:String){
+    public init(eventCategory:FSCategoryEvent, eventAction:String){
         
         super.init()  /// Set dans la base les element vitales
         
@@ -411,18 +422,18 @@ public class FSEventTrack:FSTracking{
         
         self.label = nil
         
-        self.value = nil
+        self.eventValue = nil
     }
     
     
-    public  override var bodyTrack: Dictionary<String, Any>{
+    public override var bodyTrack: Dictionary<String, Any>{
         
         get {
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set category
             customParams.updateValue(self.category.categoryString, forKey:"sc")
             // Set Type
-            customParams.updateValue(self.type.rawValue, forKey: "t")
+            customParams.updateValue(self.type.typeString, forKey: "t")
             // Set Action
             customParams.updateValue(self.ation ?? "", forKey: "ea")
             // Set Label
@@ -430,8 +441,8 @@ public class FSEventTrack:FSTracking{
                 customParams.updateValue(self.label ?? "", forKey: "el")
             }
             // Set Value
-            if self.value != nil{
-                customParams.updateValue(self.value ?? 0  , forKey: "ev")
+            if self.eventValue != nil{
+                customParams.updateValue(self.eventValue ?? 0  , forKey: "ev")
             }
             // Merge the commun params
             customParams.merge(self.communBodyTrack){  (_, new) in new }

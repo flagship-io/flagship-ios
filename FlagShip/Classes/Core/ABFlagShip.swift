@@ -35,15 +35,15 @@ public class ABFlagShip:NSObject{
     var service:ABService!
     
     /// Enable Logs, By default is equal to True
-    public var enableLogs:Bool = true
+    @objc public var enableLogs:Bool = true
     
     
     /// Panic Button let you disable the SDK if needed
-    public var disabledSdk:Bool = false
+    @objc public var disabledSdk:Bool = false
     
     
     /// Shared instance
-    public static let sharedInstance:ABFlagShip = {
+    @objc public static let sharedInstance:ABFlagShip = {
         
         let instance = ABFlagShip()
         // setup code
@@ -64,7 +64,7 @@ public class ABFlagShip:NSObject{
      
      @param pBlock The block to be invoked when sdk is ready
      */
-     public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
+     @objc public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
         do {
             try self.readClientIfFromPlist()    // Read EnvId from plist
             
@@ -157,7 +157,7 @@ public class ABFlagShip:NSObject{
      @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
 
      */
-    public func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagshipState)->Void)?){
+    @objc public func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagshipState)->Void)?){
         
         
         if disabledSdk{
@@ -189,7 +189,8 @@ public class ABFlagShip:NSObject{
         
         guard let cId =   Bundle.main.object(forInfoDictionaryKey: "FlagShipEnvId") as? String else{
             
-            throw FlagshipError.BadPlist
+            throw FSError.BadPlist
+          
         }
         print(cId)
         
@@ -212,7 +213,7 @@ public class ABFlagShip:NSObject{
      @return Boolean value
 
      */
-    public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
+    @objc public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
         
         // Check if disabled
         if disabledSdk{
@@ -242,7 +243,7 @@ public class ABFlagShip:NSObject{
      @return String value
 
      */
-    public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
+    @objc public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -268,7 +269,7 @@ public class ABFlagShip:NSObject{
      
      @return Double value
      */
-    public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
+    @objc public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -294,7 +295,7 @@ public class ABFlagShip:NSObject{
      
      @return Float value
      */
-    public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
+    @objc public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
         
         
         if disabledSdk{
@@ -324,7 +325,7 @@ public class ABFlagShip:NSObject{
      @return Int value
      
      */
-    public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
+    @objc public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
         
         
         if disabledSdk{
@@ -346,7 +347,7 @@ public class ABFlagShip:NSObject{
      @onFlagUpdateDone this block will be invoked when the update done
      
      */
-    public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
+    @objc public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
         
         if disabledSdk{
             
@@ -376,12 +377,51 @@ public class ABFlagShip:NSObject{
      @param event Event Object (Page, Transaction, Item, Event)
      
      */
-    public func sendTracking<T: FSTrackingProtocol>(_ event:T){
+     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{
             FSLogger.FSlog("Flag Ship Disabled", .Campaign)
             return
         }
         self.service.sendTracking(event)
+    }
+    
+    @objc public func sendTransactionEvent(_ transacEvent:FSTransactionTrack){
+        
+        if disabledSdk{
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
+        self.service.sendTracking(transacEvent)
+    }
+    
+    
+    @objc public func sendPageEvent(_ pageEvent:FSPageTrack){
+        
+        if disabledSdk{
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
+        self.service.sendTracking(pageEvent)
+    }
+    
+    
+    
+    @objc public func sendItemEvent(_ itemEvent:FSItemTrack){
+        
+        if disabledSdk{
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
+        self.service.sendTracking(itemEvent)
+    }
+    //
+    @objc public func sendEventTrack(_ eventTrack:FSEventTrack){
+        
+        if disabledSdk{
+            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            return
+        }
+        self.service.sendTracking(eventTrack)
     }
 }

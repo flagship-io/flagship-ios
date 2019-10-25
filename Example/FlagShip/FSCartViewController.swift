@@ -105,7 +105,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func oncheckOut(){
         
-        let transacEvent:FSTransactionTrack = FSTransactionTrack("123455", "demotransac")
+        let transacEvent:FSTransactionTrack = FSTransactionTrack(transactionId: "123455", affiliation: "demotransac")
         transacEvent.currency = "EUR"
         transacEvent.itemCount = 2
         transacEvent.paymentMethod = "Ecard"
@@ -116,7 +116,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func onCancel(){
         
-        let cancelEvent:FSEventTrack = FSEventTrack(.User_Engagement, "cta_cancelBasket")
+        let cancelEvent:FSEventTrack = FSEventTrack(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket")
         ABFlagShip.sharedInstance.sendTracking(cancelEvent)
     }
     

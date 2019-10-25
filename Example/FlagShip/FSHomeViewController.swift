@@ -39,12 +39,19 @@ class FSHomeViewController: UIViewController {
         
         // Use the flagShip to send Action Tracking
         // Create event for CTA Action
-        let actionEvent:FSEventTrack = FSEventTrack(.Action_Tracking, "cta_Shop")
+        let actionEvent:FSEventTrack = FSEventTrack(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Shop")
         actionEvent.label = "cta_Shop"
-        actionEvent.value = 1
+        actionEvent.eventValue = 1
         actionEvent.interfaceName = "HomeScreen"
         
         // Send Event Tracking
         ABFlagShip.sharedInstance.sendTracking(actionEvent)
+        
+        
+        // Send Item track
+        
+        let itemTrack = FSItemTrack(transactionId: "itemTrack", name: "name")
+        itemTrack.price = 123
+        ABFlagShip.sharedInstance.sendTracking(itemTrack)
     }
 }

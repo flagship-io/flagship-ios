@@ -1,9 +1,6 @@
-use_frameworks!
 
-
-#target 'FlagShipSdk' do
-
-#end
+platform :ios, '8.0'
+ 
 
 target 'FlagShip_Example' do
   pod 'FlagShip', :path => '../'
@@ -13,3 +10,9 @@ target 'FlagShip_Example' do
 
   end
 end
+
+target 'objcExample' do
+  use_frameworks!
+  pod 'FlagShip', :path => '../'
+end
+

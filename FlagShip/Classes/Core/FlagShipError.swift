@@ -17,9 +17,9 @@ import Foundation
  - StoredEventError: Error on string Event
  */
 
-public enum FlagshipError:Error {
+@objc public enum FlagshipError:NSInteger {
     
-    case BadPlist
+    case None = 0
     
     case ClientId_Error
     
@@ -38,15 +38,21 @@ public enum FlagshipError:Error {
  */
 
 
-public enum FlagshipState:Error {
+@objc public enum FlagshipState:NSInteger{
     
-    
-    case Ready
+    case Ready = 0
     
     case NotReady
     
     case Pending
     
     case Updated
+}
+
+
+
+enum FSError:Error{
+    
+    case BadPlist
 }
 
