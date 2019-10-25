@@ -94,8 +94,6 @@
 		8B83BA292361ABF400E899D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B83BA2B2361ABF400E899D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B83BA2C2361ABF400E899D8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8B9C262523626F9400599085 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		8B9C262723626F9D00599085 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8B9C2636236271C700599085 /* HomeStoreViewCtrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeStoreViewCtrl.h; sourceTree = "<group>"; };
 		8B9C2637236271C700599085 /* HomeStoreViewCtrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeStoreViewCtrl.m; sourceTree = "<group>"; };
 		8BC4E9FE234253BA0086BF2A /* FSCartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCartViewController.swift; sourceTree = "<group>"; };
@@ -268,8 +266,6 @@
 		E156A088BBE4877B121D7423 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8B9C262723626F9D00599085 /* Foundation.framework */,
-				8B9C262523626F9400599085 /* UIKit.framework */,
 				D4B574224704FF8F1579B021 /* Pods_objcExample.framework */,
 				50998693F37D14E4C61FB83F /* libPods-FlagShip_Example.a */,
 				7FF333DE6329DDEDA0263ADA /* libPods-FlagShip_Tests.a */,

@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "46409B64E0AE3C85B257DCD45C89E872"
                BuildableName = "FlagShip.framework"
-               BlueprintName = "FlagShip-framework"
+               BlueprintName = "FlagShip"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

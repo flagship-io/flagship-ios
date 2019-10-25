@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8B331F3B236337E7003D0E20 /* Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8B331F3C236337E7003D0E20 /* Build configuration list for PBXAggregateTarget "Universal" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = Universal;
+			productName = Universal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		025E497E7C83AC4E448C4E40E6ED9B9E /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C951CC024F337A7258CAE963730940E5 /* ABService+Tracking.swift */; };
 		02FA9FAAEE9CC8C3EE6AC9B88D6CDF62 /* ABFlagShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CE717E616B060C571598EFCAEA9E8 /* ABFlagShip.swift */; };
@@ -16,7 +29,6 @@
 		1A4595F6C2C7A8B72AD559FAF7009E19 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7388BF15B00D0830AA6457A76C02A0C7 /* FSLogger.swift */; };
 		1D1431F549948A9977B45EFF14E559A0 /* FSCampaigns+Modifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6273E7DEB848144A6B046486CF283FA8 /* FSCampaigns+Modifications.swift */; };
 		2CB689842DDBB73A8C488660FB01DFDC /* Pods-FlagShip_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 69C5871D862D80F6E2C17BE2CA46FDE6 /* Pods-FlagShip_Tests-dummy.m */; };
-		30B9EDEB39E8EE4E7EABA5B29F3FA323 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE354DA182454A49972F1EA0BAB0B3E /* Foundation.framework */; };
 		34C0CA32C538D2482209C2516208F7FF /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35CEC7D9A435939F642C655ECD863CA /* FSFlagShip+Context.swift */; };
 		3E2F5C28450E8FC06C08D983FD34F7A0 /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = E35CEC7D9A435939F642C655ECD863CA /* FSFlagShip+Context.swift */; };
 		48DE8927D174C3FD99FC7D9EC77C035C /* Pods-objcExample-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EC3A27FB2F911F3F44FA9A82DB797E9 /* Pods-objcExample-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,7 +161,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30B9EDEB39E8EE4E7EABA5B29F3FA323 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,9 +482,9 @@
 			productReference = 84CDEA3BB5EDE64BF9DCCB4A88E79670 /* libFlagShip-library.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		46409B64E0AE3C85B257DCD45C89E872 /* FlagShip-framework */ = {
+		46409B64E0AE3C85B257DCD45C89E872 /* FlagShip */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9C076C6BCF1FEE424E6E25FB7536A1A5 /* Build configuration list for PBXNativeTarget "FlagShip-framework" */;
+			buildConfigurationList = 9C076C6BCF1FEE424E6E25FB7536A1A5 /* Build configuration list for PBXNativeTarget "FlagShip" */;
 			buildPhases = (
 				78B092F9B0B73CF14C358A6DBAE6293D /* Headers */,
 				10827160497D7442DAF1467B76402021 /* Sources */,
@@ -484,7 +495,7 @@
 			);
 			dependencies = (
 			);
-			name = "FlagShip-framework";
+			name = FlagShip;
 			productName = "FlagShip-framework";
 			productReference = B36D77F45CE2951F01563C915FFCADFD /* FlagShip.framework */;
 			productType = "com.apple.product-type.framework";
@@ -515,6 +526,13 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1100;
+				TargetAttributes = {
+					8B331F3B236337E7003D0E20 = {
+						CreatedOnToolsVersion = 11.0;
+						DevelopmentTeam = 5RY8QCBAEP;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -528,11 +546,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				46409B64E0AE3C85B257DCD45C89E872 /* FlagShip-framework */,
+				46409B64E0AE3C85B257DCD45C89E872 /* FlagShip */,
 				330B50EC38660A137CD77C8814C994A7 /* FlagShip-library */,
 				0C0D4DB781C327758FF0F8957F77C57C /* Pods-FlagShip_Example */,
 				A3D77BF88CB8F6153997CCA90DC8DA7A /* Pods-FlagShip_Tests */,
 				0D595375C204A02C1E8C6476BF89C74E /* Pods-objcExample */,
+				8B331F3B236337E7003D0E20 /* Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -660,7 +679,7 @@
 		81C5B7F6AFE38B167A425191FFA8080E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "FlagShip-framework";
-			target = 46409B64E0AE3C85B257DCD45C89E872 /* FlagShip-framework */;
+			target = 46409B64E0AE3C85B257DCD45C89E872 /* FlagShip */;
 			targetProxy = 2ECD2B98C6D973956876B653755C806A /* PBXContainerItemProxy */;
 		};
 		B0B68BD5BA1587755AA4EA3403A64CFF /* PBXTargetDependency */ = {
@@ -701,7 +720,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 503EACB0A260D42EDEA8EC1BC919D058 /* Pods-objcExample.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1001,11 +1019,28 @@
 			};
 			name = Debug;
 		};
+		8B331F3D236337E7003D0E20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8B331F3E236337E7003D0E20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		BA52F1526A36E06BE14EAAF68C42BDAE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1EC1B8728E5394678B0E21BF044F8623 /* Pods-objcExample.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1096,7 +1131,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9C076C6BCF1FEE424E6E25FB7536A1A5 /* Build configuration list for PBXNativeTarget "FlagShip-framework" */ = {
+		8B331F3C236337E7003D0E20 /* Build configuration list for PBXAggregateTarget "Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B331F3D236337E7003D0E20 /* Debug */,
+				8B331F3E236337E7003D0E20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9C076C6BCF1FEE424E6E25FB7536A1A5 /* Build configuration list for PBXNativeTarget "FlagShip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11FF09CC6CD5E0C6EBD510166AE90CA /* Debug */,
