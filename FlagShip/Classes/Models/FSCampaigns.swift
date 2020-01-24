@@ -14,6 +14,7 @@ import Foundation
 internal class FSCampaigns:Decodable{
     
     public var visitorId:String!
+    public var panic:Bool
     
     public var campaigns:[FSCampaign] = []
     
@@ -23,9 +24,9 @@ internal class FSCampaigns:Decodable{
         let values     = try decoder.container(keyedBy: CodingKeys.self)
         
         //should create by default ... See later
-        do{ self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch{ self.visitorId = "customId"}
-        do{ self.campaigns             = try values.decode([FSCampaign].self, forKey: .campaigns)} catch{ self.campaigns = []}
-        
+        do{ self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch{ self.visitorId = ""}
+        do{ self.campaigns              = try values.decode([FSCampaign].self, forKey: .campaigns)} catch{ self.campaigns = []}
+        do{ self.panic                  = try values.decode(Bool.self, forKey: .panic)} catch{ self.panic = false}
     }
     
     
@@ -33,6 +34,7 @@ internal class FSCampaigns:Decodable{
         
         case visitorId
         case campaigns
+        case panic
     }
     
     
@@ -65,7 +67,7 @@ internal class FSCampaigns:Decodable{
 internal class FSCampaign:Decodable{
     
     
-    public  var idCampaign:String = ""
+    public var idCampaign:String = ""
     public var variationGroupId:String?
     public var variation:FSVariation?
     
@@ -78,7 +80,6 @@ internal class FSCampaign:Decodable{
         do{ self.idCampaign              = try values.decode(String.self, forKey: .idCampaign)} catch{ self.idCampaign = ""}
         do{ self.variationGroupId              = try values.decode(String.self, forKey: .variationGroupId)} catch{ self.variationGroupId = ""}
         do{ self.variation        = try values.decode(FSVariation.self, forKey: .variation)} catch{ self.variation = nil}
-        
     }
     
     
@@ -90,7 +91,7 @@ internal class FSCampaign:Decodable{
         case idCampaign = "id"
         case variationGroupId
         case variation
-    }
+     }
     
     
     // Get The the Infos tracking for key

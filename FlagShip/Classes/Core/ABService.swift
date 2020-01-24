@@ -71,10 +71,10 @@ internal class ABService {
                                 let decoder = JSONDecoder()
                                 let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
                                 
-                                // Print Json response
-                                let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                                 
-                                FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
+                                // Print Json response
+                               let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                               FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
                                 
                                 /// Save also the data in the Directory
                                 self.cacheManager.saveCampaignsInCache(responseData)
@@ -94,7 +94,7 @@ internal class ABService {
                     case 400:
                         onGetCampaign(nil, FlagshipError.GetCampaignError)
                     default:
-                        print("none")
+                        FSLogger.FSlog("Rrror on get campaign", .Network)
                     }
                 }else{
                     
@@ -119,7 +119,7 @@ internal class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            FSLogger.FSlog(" No Informations to send the activate  ", .Campaign)
+            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist !!!", .Campaign)
 
             return
         }
@@ -159,16 +159,8 @@ internal class ABService {
                         
                         FSLogger.FSlog("The activate is sent with success ", .Network)
                         
-                        break
-                    case 403:
-                        
-                        break
-                        
-                    case 400:
-                        
-                        break
                     default:
-                        FSLogger.FSlog("Bad Request", .Network)
+                        FSLogger.FSlog("Error, Activate Request", .Network)
                         
                     }
                 }else{

@@ -47,6 +47,9 @@ import Foundation
     case Pending
     
     case Updated
+    
+    case Disabled
+
 }
 
 

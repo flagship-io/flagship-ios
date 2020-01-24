@@ -116,7 +116,7 @@ import Foundation
     override init() {
         
         clientId = ABFlagShip.sharedInstance.clientId
-      //  visitorId = ABFlagShip.sharedInstance.customerId
+        visitorId = ABFlagShip.sharedInstance.visitorId
         
         // Set time Stamps
         self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
@@ -214,8 +214,8 @@ import Foundation
 @objcMembers public class FSTransactionTrack:FSTracking{
     
     // Required
-    @objc public var transactionId:String!
-    @objc public var affiliation:String!
+     private var transactionId:String!
+     private var affiliation:String!
     
     // Optional
     
@@ -225,7 +225,7 @@ import Foundation
      public var currency:String?
      public var couponCode:String?
      public var paymentMethod:String?
-     public var ShippingMethod:String?
+     public var shippingMethod:String?
      public var itemCount:NSNumber?
     
     
@@ -236,6 +236,8 @@ import Foundation
         self.type          = .TRANSACTION
         
         self.affiliation   = affiliation
+        
+        self.transactionId = transactionId
   
     }
     
@@ -255,39 +257,39 @@ import Foundation
             }
             // Set affiliation
             if self.affiliation != nil{
-                customParams.updateValue(self.affiliation ?? ""  , forKey: "in")
+                customParams.updateValue(self.affiliation ?? ""  , forKey: "ta")
             }
             // Set price
             if self.revenue != nil{
-                customParams.updateValue(self.revenue ?? 0, forKey: "ip")
+                customParams.updateValue(self.revenue ?? 0, forKey: "tr")
             }
             // Set shipping
             if self.shipping != nil{
-                customParams.updateValue(self.shipping ?? 0  , forKey: "iq")
+                customParams.updateValue(self.shipping ?? 0  , forKey: "ts")
             }
             // Set Tax
             if self.tax != nil{
-                customParams.updateValue(self.tax ?? 0, forKey: "ic")
+                customParams.updateValue(self.tax ?? 0, forKey: "tt")
             }
             // Set currency
             if self.currency != nil{
-                customParams.updateValue(self.currency ?? "" , forKey: "iv")
+                customParams.updateValue(self.currency ?? "" , forKey: "tc")
             }
             // Set couponCode
             if self.couponCode != nil{
-                customParams.updateValue(self.couponCode ?? "" , forKey: "iv")
+                customParams.updateValue(self.couponCode ?? "" , forKey: "tcc")
             }
             // Set paymentMethod
             if self.paymentMethod != nil{
-                customParams.updateValue(self.paymentMethod ?? "" , forKey: "iv")
+                customParams.updateValue(self.paymentMethod ?? "" , forKey: "pm")
             }
             // Set ShippingMethod
-            if self.ShippingMethod != nil{
-                customParams.updateValue(self.ShippingMethod ?? "" , forKey: "iv")
+            if self.shippingMethod != nil{
+                customParams.updateValue(self.shippingMethod ?? "" , forKey: "sm")
             }
             //Set itemCount
             if self.itemCount != nil{
-                customParams.updateValue(self.itemCount ?? 0 , forKey: "iv")
+                customParams.updateValue(self.itemCount ?? 0 , forKey: "icn")
             }
             
             customParams.merge(self.communBodyTrack){  (_, new) in new }
@@ -305,8 +307,8 @@ import Foundation
 @objcMembers public class FSItemTrack:FSTracking{
     
     
-    public var transactionId:String!
-    public var name:String!
+    private var transactionId:String!
+    private var name:String!
     public var price:NSNumber?
     public var quantity:NSNumber?
     public var code:String?
@@ -388,10 +390,10 @@ import Foundation
 // //////////////////////////  Event ////////////////////////////////:
 @objcMembers public class FSEventTrack:FSTracking{
     
-    public var category:FSCategoryEvent!
-    public var ation:String?
-    public var label:String?
-    public var eventValue:NSNumber?
+    private var category:FSCategoryEvent!
+    private var action:String?
+    public  var label:String?
+    public  var eventValue:NSNumber?
     
     
     public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
@@ -402,7 +404,7 @@ import Foundation
         
         self.category = eventCategory
         
-        self.ation = eventAction
+        self.action = eventAction
  
         self.label = eventLabel
         
@@ -418,7 +420,7 @@ import Foundation
         
         self.category = eventCategory
         
-        self.ation = eventAction
+        self.action = eventAction
         
         self.label = nil
         
@@ -431,11 +433,11 @@ import Foundation
         get {
             var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set category
-            customParams.updateValue(self.category.categoryString, forKey:"sc")
+            customParams.updateValue(self.category.categoryString, forKey:"ec")
             // Set Type
             customParams.updateValue(self.type.typeString, forKey: "t")
             // Set Action
-            customParams.updateValue(self.ation ?? "", forKey: "ea")
+            customParams.updateValue(self.action ?? "", forKey: "ea")
             // Set Label
             if self.label != nil{
                 customParams.updateValue(self.label ?? "", forKey: "el")

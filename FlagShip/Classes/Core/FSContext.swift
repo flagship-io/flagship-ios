@@ -87,15 +87,25 @@ internal class FSContext{
     
     // Read Boolean
     public func readBooleanFromContext(_ key:String, defaultBool:Bool)->Bool{
- 
-        return currentModification[key, default: defaultBool] as! Bool
+        
+        if currentModification[key, default: defaultBool] is Bool{
+            
+             return currentModification[key, default: defaultBool] as! Bool
+        }
+        
+        return defaultBool
     }
     
     
     //  Read String
     public func readStringFromContext(_ key:String, defaultString:String)->String{
         
-        return currentModification[key, default: defaultString] as! String
+        if  currentModification[key, default: defaultString] is String{
+            
+            return currentModification[key, default: defaultString] as! String
+        }
+        
+        return defaultString
 
     }
     
@@ -103,24 +113,40 @@ internal class FSContext{
     /// Read Double
     public func readDoubleFromContext(_ key:String, defaultDouble:Double)->Double{
         
-        return currentModification[key, default: defaultDouble] as! Double
-
+        if currentModification[key, default: defaultDouble] is Double {
+            
+            return currentModification[key, default: defaultDouble] as! Double
+        }
+        
+        return defaultDouble
     }
     
     
     /// Float
     public func readFloatFromContext(_ key:String, defaultFloat:Float)->Float{
         
-        return currentModification[key, default: defaultFloat] as! Float
+        if currentModification[key, default: defaultFloat] is Float{
+            
+             return currentModification[key, default: defaultFloat] as! Float
+        }
         
+        return defaultFloat
     }
+    
+    
     
     // Int
     public func readIntFromContext(_ key:String, defaultInt:Int)->Int{
         
-        return currentModification[key, default: defaultInt] as! Int
+        if currentModification[key, default: defaultInt]  is Int {
+            
+            return currentModification[key, default: defaultInt] as! Int
+        }
         
+        return defaultInt
     }
+    
+    
     
     //////////////// Remove   &   Clean   ///////////////////////
    

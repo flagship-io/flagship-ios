@@ -90,9 +90,25 @@ public class ABFlagShip:NSObject{
             
             if (error == nil){
                 // Set Campaigns
-                self.campaigns = campaigns
-                self.context.updateModification(campaigns)
-                onFlagShipReady(FlagshipState.Ready)
+                
+                // Check if the panic button is activated
+                if (campaigns?.panic ?? false){
+                    
+                    // Update the state
+                    self.disabledSdk = true
+                    FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
+                    
+                    FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
+
+                    onFlagShipReady(FlagshipState.Disabled)
+                    
+                }else{
+                    
+                    self.disabledSdk = false
+                    self.campaigns = campaigns
+                    self.context.updateModification(campaigns)
+                    onFlagShipReady(FlagshipState.Ready)
+                }
             }else{
                 onFlagShipReady(FlagshipState.NotReady)
             }
@@ -126,14 +142,27 @@ public class ABFlagShip:NSObject{
                 
                 if (error == nil){
                     
-                    // Set Campaigns
-                    self.campaigns = campaigns
-                    self.context.updateModification(campaigns)
-                    
-                    FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
+                    // Check if the sdk is disabled
+                    if( campaigns!.panic){
+                        
+                        self.disabledSdk = true
+                        
+                        FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
+                        
+                        FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
 
-                    onGetCampaign(nil)
+
+                    }else{
+                        
+                        self.disabledSdk = false
+                        // Set Campaigns
+                        self.campaigns = campaigns
+                        self.context.updateModification(campaigns)
+                        FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
+                        
+                    }
                     
+                    onGetCampaign(nil)
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
@@ -217,7 +246,7 @@ public class ABFlagShip:NSObject{
         
         // Check if disabled
         if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultBool
         }
         
@@ -246,7 +275,7 @@ public class ABFlagShip:NSObject{
     @objc public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
         if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultString
         }
 
@@ -272,7 +301,7 @@ public class ABFlagShip:NSObject{
     @objc public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
         
         if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultDouble
         }
 
@@ -299,7 +328,7 @@ public class ABFlagShip:NSObject{
         
         
         if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaulfloat
         }
 
@@ -329,7 +358,7 @@ public class ABFlagShip:NSObject{
         
         
         if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
             return defaultInt
         }
         
@@ -341,6 +370,30 @@ public class ABFlagShip:NSObject{
         return context.readIntFromContext(key, defaultInt: defaultInt)
     }
     
+    
+    /**
+     Activate Modifications values
+     
+     @key key which identifies the modification
+     
+     */
+    
+    @objc public func activateModification(key:String){
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... activate will not be sent", .Campaign)
+            return
+
+        }
+        
+        if self.campaigns != nil {
+             
+             self.service.activateCampaignRelativetoKey(key,self.campaigns)
+         }
+    }
+    
+    
+    
     /**
      Update Modifications values
      
@@ -351,7 +404,7 @@ public class ABFlagShip:NSObject{
         
         if disabledSdk{
             
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled", .Campaign)
             return
         }
         
@@ -380,26 +433,42 @@ public class ABFlagShip:NSObject{
      public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
             return
         }
         self.service.sendTracking(event)
     }
     
+    /// For Objective C Project, use the functions below to send Events
+    /// See https://developers.flagship.io/ios/#hit-tracking
+
+    /**
+     Send Transaction event
+     
+     @param transacEvent : Transaction event
+     
+     */
+    
     @objc public func sendTransactionEvent(_ transacEvent:FSTransactionTrack){
         
         if disabledSdk{
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled.....The event Transaction will not be sent", .Campaign)
             return
         }
         self.service.sendTracking(transacEvent)
     }
     
     
+    /**
+     Send Page event
+     
+     @param pageEvent : Page event
+     
+     */
     @objc public func sendPageEvent(_ pageEvent:FSPageTrack){
         
         if disabledSdk{
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
             return
         }
         self.service.sendTracking(pageEvent)
@@ -407,19 +476,33 @@ public class ABFlagShip:NSObject{
     
     
     
+    /**
+     Send Item event
+     
+     @param itemEvent : Item event
+     
+     */
+    
     @objc public func sendItemEvent(_ itemEvent:FSItemTrack){
         
         if disabledSdk{
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled.....The event Item will not be sent", .Campaign)
             return
         }
         self.service.sendTracking(itemEvent)
     }
-    //
+    
+    
+    /**
+     Send event track
+     
+     @param eventTrack : track event
+     
+     */
     @objc public func sendEventTrack(_ eventTrack:FSEventTrack){
         
         if disabledSdk{
-            FSLogger.FSlog("Flag Ship Disabled", .Campaign)
+            FSLogger.FSlog("FlagShip Disabled.....The event Track will not be sent", .Campaign)
             return
         }
         self.service.sendTracking(eventTrack)

@@ -31,17 +31,17 @@ class FSLogger{
             switch type{
                 
             case .Campaign:
-                printed = "FlagShip :" + text
+                printed = "FlagShip  :" + text
                 
                 break
                 
             case .Network:
-                printed = "Network :." + text
+                printed = "FlagShip - Network :" + text
                 
                 break
                 
             case .Parsing:
-                printed = "Parsing :" + text
+                printed = "FlagShip - Parsing :" + text
                 
                 break
             }
