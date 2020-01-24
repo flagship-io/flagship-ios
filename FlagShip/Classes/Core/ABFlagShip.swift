@@ -64,18 +64,21 @@ public class ABFlagShip:NSObject{
      
      @param pBlock The block to be invoked when sdk is ready
      */
-     @objc public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
-        do {
-            try self.readClientIfFromPlist()    // Read EnvId from plist
-            
-        }catch{
-            
-            onFlagShipReady(FlagshipState.NotReady)
-            
-            FSLogger.FSlog("Can't find Environment Id in plist",.Campaign)
-            
-            return
-        }
+    @objc public func startFlagShip(_environmentId:String, _ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
+        
+        
+        self.clientId = _environmentId
+//        do {
+//            try self.readClientIfFromPlist()    // Read EnvId from plist
+//
+//        }catch{
+//
+//            onFlagShipReady(FlagshipState.NotReady)
+//
+//            FSLogger.FSlog("Can't find Environment Id in plist",.Campaign)
+//
+//            return
+//        }
         // set visitor Id
         self.visitorId = visitorId
         // Get All Campaign for the moment

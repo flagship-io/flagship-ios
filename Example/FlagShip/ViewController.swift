@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ABFlagShip.sharedInstance.context("newUser",newUserToggle.isOn)
         
         // Start FlagShip Sdk
-        ABFlagShip.sharedInstance.startFlagShip(self.loginTextField.text) { (state) in
+        ABFlagShip.sharedInstance.startFlagShip( self.loginTextField.text) { (state) in
             
             // The state is ready , you can now use the FlagShip
             if state == .Ready {
