@@ -1,5 +1,5 @@
 PODS:
-  - FlagShip (1.0.3)
+  - FlagShip (1.0.4)
 
 DEPENDENCIES:
   - FlagShip (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  FlagShip: 608e18b165ad129bb63a12d990f85b2b0874a6d1
+  FlagShip: 8a0d026c1449318c4bb7c57fca6ad47989397934
 
 PODFILE CHECKSUM: 688246d5cc9c6cb1557a2fc912ad697528265253
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.8.4

@@ -17,11 +17,12 @@ import Foundation
 
 public class ABFlagShip:NSObject{
     
-    // This id is unique for the app
+    // This id is unique for the App
     var visitorId:String?
     
+    
     // Client Id
-    internal var clientId:String!
+    internal var environmentId:String!
     
     // Current Context
     internal var context:FSContext!
@@ -64,25 +65,33 @@ public class ABFlagShip:NSObject{
      
      @param pBlock The block to be invoked when sdk is ready
      */
-    @objc public func startFlagShip(_environmentId:String, _ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
+    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
+        
+        // Checkc the environmentId
+        if (FSTools.chekcXidEnvironment(environmentId)){
+            
+            self.environmentId = environmentId
+            
+        }else{
+            
+            onFlagShipReady(.NotReady)
+            return
+        }
         
         
-        self.clientId = _environmentId
-//        do {
-//            try self.readClientIfFromPlist()    // Read EnvId from plist
-//
-//        }catch{
-//
-//            onFlagShipReady(FlagshipState.NotReady)
-//
-//            FSLogger.FSlog("Can't find Environment Id in plist",.Campaign)
-//
-//            return
-//        }
-        // set visitor Id
-        self.visitorId = visitorId
+        /// Manage visitor id
+        do {
+            self.visitorId =  try FSTools.manageVisitorId(visitorId)
+            
+        }catch{
+            
+            onFlagShipReady(.NotReady)
+            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK FlagShip is not ready "), .Campaign)
+            return
+        }
+        
         // Get All Campaign for the moment
-        self.service = ABService(self.clientId, self.visitorId ?? "")
+        self.service = ABService(self.environmentId, self.visitorId ?? "")
         
         // Au départ mettre a dispo les campaigns du cache.
         self.campaigns =  self.service.cacheManager.readCampaignFromCache()
@@ -226,7 +235,7 @@ public class ABFlagShip:NSObject{
         }
         print(cId)
         
-        self.clientId = cId
+        self.environmentId = cId
     }
     
     

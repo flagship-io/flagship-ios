@@ -26,6 +26,7 @@ import Foundation
     case GetCampaignError
     
     case StoredEventError
+    
 }
 
 

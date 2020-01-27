@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FlagShip'
-  s.version          = '1.0.4'
+  s.version          = '1.1'
   s.summary          = 'Flagship SDK'
 
 # This description is used to generate tags and improve search results.
@@ -31,11 +31,7 @@ The Flagship SDK is an iOS framework whose goal is to help you run Flagship camp
 
   s.source_files = 'FlagShip/Classes/**/*'
   
-  s.swift_version           = "5.0"
-
-
+  s.swift_version           = ["5.0", "5.1"]
   
-  # s.resource_bundles = {
-  #   'FlagShip' => ['FlagShip/Assets/*.png']
-  # }
+  
   end

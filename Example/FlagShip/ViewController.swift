@@ -68,8 +68,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         ABFlagShip.sharedInstance.context("isVipUser",vipToggle.isOn)
         ABFlagShip.sharedInstance.context("newUser",newUserToggle.isOn)
         
+        // bkk9glocmjcg0vtmdlng
+        
+   
+        
         // Start FlagShip Sdk
-        ABFlagShip.sharedInstance.startFlagShip( self.loginTextField.text) { (state) in
+        ABFlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng", "    ") { (state) in
             
             // The state is ready , you can now use the FlagShip
             if state == .Ready {
@@ -80,6 +84,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    
     
     
     // Show AB test  (Store Screen)

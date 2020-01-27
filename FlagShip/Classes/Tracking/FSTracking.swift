@@ -115,7 +115,7 @@ import Foundation
     
     override init() {
         
-        clientId = ABFlagShip.sharedInstance.clientId
+        clientId = ABFlagShip.sharedInstance.environmentId
         visitorId = ABFlagShip.sharedInstance.visitorId
         
         // Set time Stamps
