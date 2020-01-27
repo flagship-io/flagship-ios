@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
    
         
         // Start FlagShip Sdk
-        ABFlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng", "    ") { (state) in
+        ABFlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng", nil) { (state) in
             
             // The state is ready , you can now use the FlagShip
             if state == .Ready {
