@@ -1,0 +1,11 @@
+framework module FlagShip {
+  umbrella header "FlagShip.h"
+
+  export *
+  module * { export * }
+}
+
+module FlagShip.Swift {
+    header "FlagShip-Swift.h"
+    requires objc
+}

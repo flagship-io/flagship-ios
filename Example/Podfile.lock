@@ -1,0 +1,16 @@
+PODS:
+  - FlagShip (1.0.3)
+
+DEPENDENCIES:
+  - FlagShip (from `../`)
+
+EXTERNAL SOURCES:
+  FlagShip:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  FlagShip: 608e18b165ad129bb63a12d990f85b2b0874a6d1
+
+PODFILE CHECKSUM: 688246d5cc9c6cb1557a2fc912ad697528265253
+
+COCOAPODS: 1.8.1
