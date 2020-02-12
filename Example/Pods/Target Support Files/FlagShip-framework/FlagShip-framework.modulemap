@@ -1,6 +1,0 @@
-framework module FlagShip {
-  umbrella header "FlagShip-framework-umbrella.h"
-
-  export *
-  module * { export * }
-}
