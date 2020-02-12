@@ -1,6 +1,0 @@
-module Pods_FlagShip_Example {
-  umbrella header "Pods-FlagShip_Example-umbrella.h"
-
-  export *
-  module * { export * }
-}

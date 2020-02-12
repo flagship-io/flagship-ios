@@ -100,7 +100,7 @@ You need to add a new build phase, then select `Run Script` to add a new build s
 In the `Shell` field, enter the following script:
 
 
-## Configure and Start FalgShip
+## Configure and Start FlagShip
 
 ### Configure FlagShip
 
