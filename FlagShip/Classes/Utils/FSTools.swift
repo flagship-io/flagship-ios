@@ -59,5 +59,4 @@ internal class FSTools: NSObject {
             return newVisitor
         }
     }
-    
 }
