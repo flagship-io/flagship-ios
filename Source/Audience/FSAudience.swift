@@ -227,13 +227,17 @@ public class FSAudience: NSObject {
                     
                      resultAudience.updateValue(val as Any, forKey: itemAudience.rawValue)
                     
-                      print(" @@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----" )
+                    FSLogger.FSlog("@@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----", .Campaign)
+                    
+                      //print(" @@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----" )
                 }
                
                 
             }catch{
                 
-                 print(" @@@@@@@@@@@@ Error on scane audience ---- \(itemAudience.rawValue) Not defined ----" )
+                
+                FSLogger.FSlog("@@@@@@@@@@@@ Error on scane audience ---- \(itemAudience.rawValue) Not defined ----", .Campaign)
+
             }
         }
         return resultAudience

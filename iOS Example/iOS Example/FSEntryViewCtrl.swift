@@ -29,6 +29,8 @@ class FSEntryViewCtrl: UIViewController {
         FlagShip.sharedInstance.resetUserIdFlagShip()
         
         
+        FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.FIRST_TIME_INIT, value: "rr", sync: nil)
+        
         /// Set context isVip to true
         FlagShip.sharedInstance.context("isVip", true)
         /// Start The sdk

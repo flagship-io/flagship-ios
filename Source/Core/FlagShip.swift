@@ -269,7 +269,7 @@ public class FlagShip:NSObject{
         
         if (!configuredKey.chekcValidity(value)){
             
-            FSLogger.FSlog(" Skip updating the context with pre configured key ..... the value is not valid", .Campaign)
+            FSLogger.FSlog(" Skip updating the context with pre configured key \(configuredKey) ..... the value is not valid", .Campaign)
             
         }
         
