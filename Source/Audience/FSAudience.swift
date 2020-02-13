@@ -227,13 +227,13 @@ public class FSAudience: NSObject {
                     
                      resultAudience.updateValue(val as Any, forKey: itemAudience.rawValue)
                     
-                      print(" @@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----" )
-                }
+                    FSLogger.FSlog(" Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----", .Campaign)
+                    
+                 }
                
                 
             }catch{
-                
-                 print(" @@@@@@@@@@@@ Error on scane audience ---- \(itemAudience.rawValue) Not defined ----" )
+                FSLogger.FSlog("@@@@@@@@@@@@ Error on scane audience ---- \(itemAudience.rawValue) Not defined ----", .Campaign)
             }
         }
         return resultAudience
@@ -245,7 +245,7 @@ public class FSAudience: NSObject {
     /// Read Value from context
     class func readValueFromCurrentContext(_ keyPreConfigured:FSAudiences)->Any?{
         
-        guard let value = FlagShip.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
+        guard let value = Flagship.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
             
             return nil
         }

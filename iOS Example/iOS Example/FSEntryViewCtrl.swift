@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 class FSEntryViewCtrl: UIViewController {
     
@@ -26,13 +26,15 @@ class FSEntryViewCtrl: UIViewController {
         loadView.startAnimating()
         self.view.addSubview(loadView)
         // Reset vid
-        FlagShip.sharedInstance.resetUserIdFlagShip()
+        Flagship.sharedInstance.resetUserIdFlagShip()
         
+        
+        Flagship.sharedInstance.updateContextWithPreConfiguredKeys(.FIRST_TIME_INIT, value: "test", sync: nil)
         
         /// Set context isVip to true
-        FlagShip.sharedInstance.context("isVip", true)
+        Flagship.sharedInstance.context("isVip", true)
         /// Start The sdk
-        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",UIDevice.current.identifierForVendor?.uuidString) { (result) in
+        Flagship.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",UIDevice.current.identifierForVendor?.uuidString) { (result) in
             
             // The state is ready , you can now use the FlagShip
             if result == .Ready {
@@ -56,7 +58,7 @@ class FSEntryViewCtrl: UIViewController {
     @IBAction func onShowLoginScreen(){
         
         //Update isVipUser with false value in the user context
-        FlagShip.sharedInstance.updateContext(["isVip":false]) { (result) in
+        Flagship.sharedInstance.updateContext(["isVip":false]) { (result) in
             
             if result == .Updated{
                 
@@ -64,7 +66,7 @@ class FSEntryViewCtrl: UIViewController {
                 DispatchQueue.main.async {
                     
                     // Get title for banner
-                    let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
+                    let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
                     // Set the title
                     
                     

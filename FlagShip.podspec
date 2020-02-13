@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = "FlagShip"
+  s.name             = "Flagship"
   s.version          = "1.1.0"
   s.summary          = "Flagship SDK"
 

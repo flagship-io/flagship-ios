@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import FlagShip
-
+//import FlagShip
+import Flagship
 class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var loginTextField:UITextField!
