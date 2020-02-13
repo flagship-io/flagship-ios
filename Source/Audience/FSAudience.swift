@@ -229,7 +229,6 @@ public class FSAudience: NSObject {
                     
                     FSLogger.FSlog("@@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----", .Campaign)
                     
-                      //print(" @@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----" )
                 }
                
                 

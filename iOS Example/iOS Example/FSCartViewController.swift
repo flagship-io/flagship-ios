@@ -126,11 +126,6 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         FlagShip.sharedInstance.sendTracking(transacEvent)
         
         
-        // Send Item Transaction
-        
-        let itemEvent:FSItemTrack = FSItemTrack(transactionId: transacId, name: "MicroTransac", price: 1, quantity: 1, code: "CodeItem", category: "category")
-        FlagShip.sharedInstance.sendTracking(itemEvent)
-        
     }
     
     

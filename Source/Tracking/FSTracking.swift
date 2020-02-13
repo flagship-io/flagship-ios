@@ -233,7 +233,7 @@ import Foundation
      public var itemCount:NSNumber?
     
     
-     public init(transactionId:String!, affiliation:String!) {
+     public init(transactionId:String, affiliation:String) {
         
         super.init()
         
@@ -318,7 +318,7 @@ import Foundation
     public var code:String?
     public var category:String?
     
-    public init(transactionId:String!, name:String!) {
+    public init(transactionId:String, name:String) {
         
         super.init()
         
@@ -332,20 +332,20 @@ import Foundation
     }
     
     
-    
-     public init(transactionId:String!,  name:String!, price:NSNumber, quantity:NSNumber, code: String?, category:String? ) {
-        
-        super.init()
-        
-        self.type          = .ITEM
-        self.transactionId = transactionId
-        self.name          = name
-        self.price         = price
-        self.quantity      = quantity
-        self.code          = code
-        self.category      = category
-    }
-    
+//
+//     public init(transactionId:String!,  name:String!, price:NSNumber, quantity:NSNumber, code: String?, category:String? ) {
+//
+//        super.init()
+//
+//        self.type          = .ITEM
+//        self.transactionId = transactionId
+//        self.name          = name
+//        self.price         = price
+//        self.quantity      = quantity
+//        self.code          = code
+//        self.category      = category
+//    }
+//
     
     public  override var bodyTrack: Dictionary<String, Any>{
         
