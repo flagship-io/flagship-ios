@@ -25,7 +25,7 @@ class FSLogger{
     // Display Logs
     static func FSlog(_ text:String, _ type:FSLogEnum) {
         
-        if  Flagship.sharedInstance.enableLogs {
+        if  FlagShip.sharedInstance.enableLogs {
             
             var printed:String
             switch type{

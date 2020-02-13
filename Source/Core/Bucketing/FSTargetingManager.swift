@@ -326,13 +326,13 @@ class FSTargetingManager: NSObject {
     
     internal func getCurrentValueFromCtx(_ targetKey:String)->Any?{
         
-        let currentContext:Dictionary <String, Any> = Flagship.sharedInstance.context!.currentContext
+        let currentContext:Dictionary <String, Any> = FlagShip.sharedInstance.context!.currentContext
         
         if targetKey == FS_USERS {
     
-            if (Flagship.sharedInstance.visitorId != nil) {
+            if (FlagShip.sharedInstance.visitorId != nil) {
                 
-                return Flagship.sharedInstance.visitorId
+                return FlagShip.sharedInstance.visitorId
             }
         }else{
             

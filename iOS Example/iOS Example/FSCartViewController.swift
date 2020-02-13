@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Flagship
+import FlagShip
 
 class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -35,7 +35,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         
-        if (Flagship.sharedInstance.getModification("isVip", defaultBool:false, activate: true)){
+        if (FlagShip.sharedInstance.getModification("isVip", defaultBool:false, activate: true)){
             
             priceDelivery.text = "Free for vip"
             
@@ -48,7 +48,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Send event page
         let eventPage:FSPageTrack = FSPageTrack("basketScreen")
-        Flagship.sharedInstance.sendTracking(eventPage)
+        FlagShip.sharedInstance.sendTracking(eventPage)
     }
     
     
@@ -56,7 +56,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if (isNewUser){
             
-            let msg = Flagship.sharedInstance.getModification("persoMessage", defaultString: "Ouuups", activate: true)
+            let msg = FlagShip.sharedInstance.getModification("persoMessage", defaultString: "Ouuups", activate: true)
             displayPopPromo(msg)
         }
     }
@@ -123,13 +123,13 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         transacEvent.tax = 2.6
         transacEvent.revenue = 15
         transacEvent.shipping = 3.5
-        Flagship.sharedInstance.sendTracking(transacEvent)
+        FlagShip.sharedInstance.sendTracking(transacEvent)
         
         
         // Send Item Transaction
         
-       // let itemEvent:FSItemTrack = FSItemTrack(transactionId: transacId, name: "MicroTransac", price: 1, quantity: 1, code: "CodeItem", category: "category")
-       // Flagship.sharedInstance.sendTracking(itemEvent)
+        let itemEvent:FSItemTrack = FSItemTrack(transactionId: transacId, name: "MicroTransac", price: 1, quantity: 1, code: "CodeItem", category: "category")
+        FlagShip.sharedInstance.sendTracking(itemEvent)
         
     }
     
@@ -138,7 +138,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func onCancel(){
         
         let cancelEvent:FSEventTrack = FSEventTrack(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket")
-        Flagship.sharedInstance.sendTracking(cancelEvent)
+        FlagShip.sharedInstance.sendTracking(cancelEvent)
     }
     
 }

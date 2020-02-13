@@ -15,7 +15,7 @@ import Foundation
  
  */
 
-public class Flagship:NSObject{
+public class FlagShip:NSObject{
     
     /// This id is unique for the app
     private(set) public var visitorId:String?
@@ -46,9 +46,9 @@ public class Flagship:NSObject{
     
     
     /// Shared instance
-    @objc public static let sharedInstance:Flagship = {
+    @objc public static let sharedInstance:FlagShip = {
         
-        let instance = Flagship()
+        let instance = FlagShip()
         // setup code
         return instance
     }()
@@ -269,7 +269,7 @@ public class Flagship:NSObject{
         
         if (!configuredKey.chekcValidity(value)){
             
-            FSLogger.FSlog(" Skip updating the context with pre configured key: \(configuredKey)..... the value is not valid", .Campaign)
+            FSLogger.FSlog(" Skip updating the context with pre configured key ..... the value is not valid", .Campaign)
             
         }
         

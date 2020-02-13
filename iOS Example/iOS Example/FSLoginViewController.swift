@@ -8,7 +8,7 @@
 //
 
 import UIKit
-import Flagship
+import FlagShip
 
 class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -43,27 +43,27 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         
         /// test
         
-        Flagship.sharedInstance.getModification("arrayValues", defaulfloat: 2, activate: false)
+        FlagShip.sharedInstance.getModification("arrayValues", defaulfloat: 2, activate: false)
         
         
         
         
         /// Activate manually the modification
         
-        Flagship.sharedInstance.getModification("cta_value", defaultInt: 0)
+        FlagShip.sharedInstance.getModification("cta_value", defaultInt: 0)
         
         /// Actiavte
         
-        Flagship.sharedInstance.activateModification(key: "cta_value")
+        FlagShip.sharedInstance.activateModification(key: "cta_value")
         
         
         /// Update the context when basket value change
-        Flagship.sharedInstance.updateContext(["basketValue":120]) { (result) in
+        FlagShip.sharedInstance.updateContext(["basketValue":120]) { (result) in
             
             if result == .Updated{
                 
                 // Update the ui for users that have basket over or equal 100
-                if (Flagship.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
+                if (FlagShip.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
                     
                     DispatchQueue.main.async {
                         

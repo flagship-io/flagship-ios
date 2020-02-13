@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Flagship{
+extension FlagShip{
     
     
     // Update boolean context

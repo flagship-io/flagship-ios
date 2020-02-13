@@ -7,37 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8B39D8E923F555B200BEF288 /* FlagShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEF08BB23C3888F00396B78 /* FlagShip.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8B39D8EB23F555B200BEF288 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
-		8B39D8EC23F555B200BEF288 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
-		8B39D8ED23F555B200BEF288 /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7B23C4CA24006D154E /* FSFlagShip+Context.swift */; };
-		8B39D8EE23F555B200BEF288 /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8623C4CA24006D154E /* FSCampaigns.swift */; };
-		8B39D8EF23F555B200BEF288 /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7523C4CA24006D154E /* ABService+Tracking.swift */; };
-		8B39D8F023F555B200BEF288 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */; };
-		8B39D8F123F555B200BEF288 /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7123C4CA24006D154E /* FSContext.swift */; };
-		8B39D8F223F555B200BEF288 /* FSOfflineTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8C23C4CA24006D154E /* FSOfflineTracking.swift */; };
-		8B39D8F323F555B200BEF288 /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8F23C4CA24006D154E /* FSDevice.swift */; };
-		8B39D8F423F555B200BEF288 /* FlagShipError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D6F23C4CA24006D154E /* FlagShipError.swift */; };
-		8B39D8F523F555B200BEF288 /* FlagShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D6E23C4CA24006D154E /* FlagShip.swift */; };
-		8B39D8F623F555B200BEF288 /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8223C4CA24006D154E /* FSGenerator.swift */; };
-		8B39D8F723F555B200BEF288 /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8B23C4CA24006D154E /* FSTracking.swift */; };
-		8B39D8F823F555B200BEF288 /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7323C4CA24006D154E /* ABService.swift */; };
-		8B39D8F923F555B200BEF288 /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8323C4CA24006D154E /* FlagShipVersion.swift */; };
-		8B39D8FA23F555B200BEF288 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7F23C4CA24006D154E /* FSCacheManager.swift */; };
-		8B39D8FB23F555B200BEF288 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7023C4CA24006D154E /* FSConstant.swift */; };
-		8B39D8FC23F555B200BEF288 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
-		8B39D8FD23F555B200BEF288 /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
-		8B39D8FE23F555B200BEF288 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
-		8B39D90123F555B200BEF288 /* FlagShip.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */; };
+		8B55835823E04243005D0AB5 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
+		8BC4745A23D9B69100CCE1DE /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
+		8BEF08C223C3889000396B78 /* FlagShip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BEF08B823C3888F00396B78 /* FlagShip.framework */; };
 		8BEF08C723C3889000396B78 /* FlagShipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF08C623C3889000396B78 /* FlagShipTests.swift */; };
+		8BEF08C923C3889000396B78 /* FlagShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEF08BB23C3888F00396B78 /* FlagShip.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8BF02D9023C4CA24006D154E /* FlagShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D6E23C4CA24006D154E /* FlagShip.swift */; };
+		8BF02D9123C4CA24006D154E /* FlagShipError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D6F23C4CA24006D154E /* FlagShipError.swift */; };
+		8BF02D9223C4CA24006D154E /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7023C4CA24006D154E /* FSConstant.swift */; };
+		8BF02D9323C4CA24006D154E /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7123C4CA24006D154E /* FSContext.swift */; };
+		8BF02D9423C4CA24006D154E /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
+		8BF02D9523C4CA24006D154E /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7323C4CA24006D154E /* ABService.swift */; };
+		8BF02D9623C4CA24006D154E /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7523C4CA24006D154E /* ABService+Tracking.swift */; };
+		8BF02D9823C4CA24006D154E /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */; };
+		8BF02D9B23C4CA24006D154E /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7B23C4CA24006D154E /* FSFlagShip+Context.swift */; };
+		8BF02D9D23C4CA24006D154E /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
+		8BF02D9E23C4CA24006D154E /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7F23C4CA24006D154E /* FSCacheManager.swift */; };
+		8BF02DA023C4CA24006D154E /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8223C4CA24006D154E /* FSGenerator.swift */; };
+		8BF02DA123C4CA24006D154E /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8323C4CA24006D154E /* FlagShipVersion.swift */; };
+		8BF02DA323C4CA24006D154E /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8623C4CA24006D154E /* FSCampaigns.swift */; };
+		8BF02DA623C4CA24006D154E /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8B23C4CA24006D154E /* FSTracking.swift */; };
+		8BF02DA723C4CA24006D154E /* FSOfflineTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8C23C4CA24006D154E /* FSOfflineTracking.swift */; };
+		8BF02DA823C4CA24006D154E /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
+		8BF02DA923C4CA24006D154E /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8F23C4CA24006D154E /* FSDevice.swift */; };
+		8BF02DAF23C5E9EF006D154E /* FlagShip.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8BEF08C323C3889000396B78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BEF08AF23C3888F00396B78 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BEF08B723C3888F00396B78;
+			remoteInfo = FlagShip;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		8B39D8E623F5511800BEF288 /* FlagShip copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip copy-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip copy-Info.plist"; sourceTree = "<absolute>"; };
-		8B39D90623F555B200BEF288 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B39D90723F555B200BEF288 /* FlagShip copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip copy2-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip copy2-Info.plist"; sourceTree = "<absolute>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8BC4745923D9B69100CCE1DE /* FSTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
+		8BEF08B823C3888F00396B78 /* FlagShip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlagShip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEF08BB23C3888F00396B78 /* FlagShip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlagShip.h; sourceTree = "<group>"; };
 		8BEF08BC23C3888F00396B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BEF08C123C3889000396B78 /* FlagShipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagShipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +75,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8B39D8FF23F555B200BEF288 /* Frameworks */ = {
+		8BEF08B523C3888F00396B78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -77,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BEF08C223C3889000396B78 /* FlagShip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,16 +102,14 @@
 				8BEF08C523C3889000396B78 /* FlagShipTests */,
 				8BEF08B923C3888F00396B78 /* Products */,
 				8BF02D6223C394F5006D154E /* Frameworks */,
-				8B39D8E623F5511800BEF288 /* FlagShip copy-Info.plist */,
-				8B39D90723F555B200BEF288 /* FlagShip copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		8BEF08B923C3888F00396B78 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				8BEF08B823C3888F00396B78 /* FlagShip.framework */,
 				8BEF08C123C3889000396B78 /* FlagShipTests.xctest */,
-				8B39D90623F555B200BEF288 /* Flagship.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -235,34 +243,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		8B39D8E823F555B200BEF288 /* Headers */ = {
+		8BEF08B323C3888F00396B78 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B39D8E923F555B200BEF288 /* FlagShip.h in Headers */,
+				8BEF08C923C3889000396B78 /* FlagShip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8B39D8E723F555B200BEF288 /* Flagship */ = {
+		8BEF08B723C3888F00396B78 /* FlagShip */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B39D90323F555B200BEF288 /* Build configuration list for PBXNativeTarget "Flagship" */;
+			buildConfigurationList = 8BEF08CC23C3889000396B78 /* Build configuration list for PBXNativeTarget "FlagShip" */;
 			buildPhases = (
-				8B39D8E823F555B200BEF288 /* Headers */,
-				8B39D8EA23F555B200BEF288 /* Sources */,
-				8B39D8FF23F555B200BEF288 /* Frameworks */,
-				8B39D90023F555B200BEF288 /* Resources */,
-				8B39D90223F555B200BEF288 /* ShellScript */,
+				8BEF08B323C3888F00396B78 /* Headers */,
+				8BEF08B423C3888F00396B78 /* Sources */,
+				8BEF08B523C3888F00396B78 /* Frameworks */,
+				8BEF08B623C3888F00396B78 /* Resources */,
+				8BF02D6923C39E29006D154E /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Flagship;
+			name = FlagShip;
 			productName = FlagShip;
-			productReference = 8B39D90623F555B200BEF288 /* Flagship.framework */;
+			productReference = 8BEF08B823C3888F00396B78 /* FlagShip.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		8BEF08C023C3889000396B78 /* FlagShipTests */ = {
@@ -276,6 +284,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				8BEF08C423C3889000396B78 /* PBXTargetDependency */,
 			);
 			name = FlagShipTests;
 			productName = FlagShipTests;
@@ -292,6 +301,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = FlagShip;
 				TargetAttributes = {
+					8BEF08B723C3888F00396B78 = {
+						CreatedOnToolsVersion = 11.3;
+					};
 					8BEF08C023C3889000396B78 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -310,18 +322,18 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				8BEF08B723C3888F00396B78 /* FlagShip */,
 				8BEF08C023C3889000396B78 /* FlagShipTests */,
-				8B39D8E723F555B200BEF288 /* Flagship */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8B39D90023F555B200BEF288 /* Resources */ = {
+		8BEF08B623C3888F00396B78 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B39D90123F555B200BEF288 /* FlagShip.podspec in Resources */,
+				8BF02DAF23C5E9EF006D154E /* FlagShip.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +347,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8B39D90223F555B200BEF288 /* ShellScript */ = {
+		8BF02D6923C39E29006D154E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -355,30 +367,30 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8B39D8EA23F555B200BEF288 /* Sources */ = {
+		8BEF08B423C3888F00396B78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B39D8EB23F555B200BEF288 /* FSLogger.swift in Sources */,
-				8B39D8EC23F555B200BEF288 /* FSStorage.swift in Sources */,
-				8B39D8ED23F555B200BEF288 /* FSFlagShip+Context.swift in Sources */,
-				8B39D8EE23F555B200BEF288 /* FSCampaigns.swift in Sources */,
-				8B39D8EF23F555B200BEF288 /* ABService+Tracking.swift in Sources */,
-				8B39D8F023F555B200BEF288 /* FSTargetingManager.swift in Sources */,
-				8B39D8F123F555B200BEF288 /* FSContext.swift in Sources */,
-				8B39D8F223F555B200BEF288 /* FSOfflineTracking.swift in Sources */,
-				8B39D8F323F555B200BEF288 /* FSDevice.swift in Sources */,
-				8B39D8F423F555B200BEF288 /* FlagShipError.swift in Sources */,
-				8B39D8F523F555B200BEF288 /* FlagShip.swift in Sources */,
-				8B39D8F623F555B200BEF288 /* FSGenerator.swift in Sources */,
-				8B39D8F723F555B200BEF288 /* FSTracking.swift in Sources */,
-				8B39D8F823F555B200BEF288 /* ABService.swift in Sources */,
-				8B39D8F923F555B200BEF288 /* FlagShipVersion.swift in Sources */,
-				8B39D8FA23F555B200BEF288 /* FSCacheManager.swift in Sources */,
-				8B39D8FB23F555B200BEF288 /* FSConstant.swift in Sources */,
-				8B39D8FC23F555B200BEF288 /* FSTargets.swift in Sources */,
-				8B39D8FD23F555B200BEF288 /* FSAudience.swift in Sources */,
-				8B39D8FE23F555B200BEF288 /* FSTools.swift in Sources */,
+				8BF02D9423C4CA24006D154E /* FSLogger.swift in Sources */,
+				8BF02D9D23C4CA24006D154E /* FSStorage.swift in Sources */,
+				8BF02D9B23C4CA24006D154E /* FSFlagShip+Context.swift in Sources */,
+				8BF02DA323C4CA24006D154E /* FSCampaigns.swift in Sources */,
+				8BF02D9623C4CA24006D154E /* ABService+Tracking.swift in Sources */,
+				8BF02D9823C4CA24006D154E /* FSTargetingManager.swift in Sources */,
+				8BF02D9323C4CA24006D154E /* FSContext.swift in Sources */,
+				8BF02DA723C4CA24006D154E /* FSOfflineTracking.swift in Sources */,
+				8BF02DA923C4CA24006D154E /* FSDevice.swift in Sources */,
+				8BF02D9123C4CA24006D154E /* FlagShipError.swift in Sources */,
+				8BF02D9023C4CA24006D154E /* FlagShip.swift in Sources */,
+				8BF02DA023C4CA24006D154E /* FSGenerator.swift in Sources */,
+				8BF02DA623C4CA24006D154E /* FSTracking.swift in Sources */,
+				8BF02D9523C4CA24006D154E /* ABService.swift in Sources */,
+				8BF02DA123C4CA24006D154E /* FlagShipVersion.swift in Sources */,
+				8BF02D9E23C4CA24006D154E /* FSCacheManager.swift in Sources */,
+				8BF02D9223C4CA24006D154E /* FSConstant.swift in Sources */,
+				8BC4745A23D9B69100CCE1DE /* FSTargets.swift in Sources */,
+				8BF02DA823C4CA24006D154E /* FSAudience.swift in Sources */,
+				8B55835823E04243005D0AB5 /* FSTools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,61 +404,15 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8BEF08C423C3889000396B78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BEF08B723C3888F00396B78 /* FlagShip */;
+			targetProxy = 8BEF08C323C3889000396B78 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		8B39D90423F555B200BEF288 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "FlagShip copy2-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8B39D90523F555B200BEF288 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "FlagShip copy2-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		8BEF08CA23C3889000396B78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -567,6 +533,60 @@
 			};
 			name = Release;
 		};
+		8BEF08CD23C3889000396B78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FlagShip/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8BEF08CE23C3889000396B78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FlagShip/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8BEF08D023C3889000396B78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -608,20 +628,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8B39D90323F555B200BEF288 /* Build configuration list for PBXNativeTarget "Flagship" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8B39D90423F555B200BEF288 /* Debug */,
-				8B39D90523F555B200BEF288 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8BEF08B223C3888F00396B78 /* Build configuration list for PBXProject "FlagShip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8BEF08CA23C3889000396B78 /* Debug */,
 				8BEF08CB23C3889000396B78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8BEF08CC23C3889000396B78 /* Build configuration list for PBXNativeTarget "FlagShip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8BEF08CD23C3889000396B78 /* Debug */,
+				8BEF08CE23C3889000396B78 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

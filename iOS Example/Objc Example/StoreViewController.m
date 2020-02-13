@@ -7,7 +7,7 @@
 //
 
 #import "StoreViewController.h"
-@import Flagship;
+@import FlagShip;
 
 @interface StoreViewController ()
 
@@ -19,7 +19,7 @@
     [super viewDidLoad];
     
     // Set Message Label
-    msgLabel.text =  [[Flagship sharedInstance] getModification:@"cta_text" defaultString:@"Default" activate:YES];
+    msgLabel.text =  [[FlagShip sharedInstance] getModification:@"cta_text" defaultString:@"Default" activate:YES];
     
 }
 
@@ -35,27 +35,28 @@
     
     
     // Send Page
-    [[Flagship sharedInstance] sendPageEvent: [[FSPageTrack alloc] init:@"StorePage"]];
+    [[FlagShip sharedInstance] sendPageEvent: [[FSPageTrack alloc] init:@"StorePage"]];
     
 
     // Send Item
     FSItemTrack * itemTrack = [[FSItemTrack alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac"];
+    itemTrack.name = @"nameTrack";
     itemTrack.price = @0;
     itemTrack.quantity = @12;
     itemTrack.code = @"codeTrack";
-    [[Flagship sharedInstance] sendItemEvent:itemTrack];
+    [[FlagShip sharedInstance] sendItemEvent:itemTrack];
     
     
     // Send Transaction
     FSTransactionTrack * transac = [[FSTransactionTrack alloc] initWithTransactionId:@"transacObjc" affiliation:@"affilObjc"];
     transac.userIp  = @"1.1.1.1";
-    [[Flagship sharedInstance] sendTransactionEvent:transac];
+    [[FlagShip sharedInstance] sendTransactionEvent:transac];
     
     
     
     
     // Send Event Track
-    [[Flagship sharedInstance] sendEventTrack:[[FSEventTrack alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"aaa"]];
+    [[FlagShip sharedInstance] sendEventTrack:[[FSEventTrack alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"aaa"]];
 
  }
 

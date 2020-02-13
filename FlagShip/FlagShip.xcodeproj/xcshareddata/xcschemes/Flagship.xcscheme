@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8B39D8E723F555B200BEF288"
-               BuildableName = "Flagship.framework"
-               BlueprintName = "Flagship"
+               BlueprintIdentifier = "8BEF08B723C3888F00396B78"
+               BuildableName = "FlagShip.framework"
+               BlueprintName = "FlagShip"
                ReferencedContainer = "container:FlagShip.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8BEF08C023C3889000396B78"
+               BuildableName = "FlagShipTests.xctest"
+               BlueprintName = "FlagShipTests"
+               ReferencedContainer = "container:FlagShip.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -50,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8B39D8E723F555B200BEF288"
-            BuildableName = "Flagship.framework"
-            BlueprintName = "Flagship"
+            BlueprintIdentifier = "8BEF08B723C3888F00396B78"
+            BuildableName = "FlagShip.framework"
+            BlueprintName = "FlagShip"
             ReferencedContainer = "container:FlagShip.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
