@@ -43,7 +43,7 @@ fi
 
 printf "\n\nReplacing versions in *.podspec files\n"
 
-curPodSpec="Flagship.podspec"
+curPodSpec="FlagShip.podspec"
 
 printf "\t[${curPodSpec}] Updating podspec to ${releaseSDKVersion}.\n"
 sed -i '' -e "s/\(s\.version[ ]*\)=[ ]*\".*\"/\1= \"${releaseSDKVersion}\"/g" ${curPodSpec}
@@ -51,7 +51,7 @@ sed -i '' -e "s/\(s\.version[ ]*\)=[ ]*\".*\"/\1= \"${releaseSDKVersion}\"/g" ${
 # pod-spec-lint cannot be run here due to dependency issues
 # all podspecs will be validated anyway when uploading to CocoaPods repo
 
-printf "Verifying Flagship.podspec files\n"
+printf "Verifying FlagShip.podspec files\n"
 
 vm=$(sed -n "s/s\.version.*=.*\"\(.*\)\"/\1/p" ${curPodSpec} | sed "s/ //g" )
 echo $vm
