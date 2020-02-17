@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "FlagShip"
   s.version          = "1.1.0"
-  s.summary          = "Flagship SDK"
+  s.summary          = "FlagShip SDK"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-The Flagship SDK is an iOS framework whose goal is to help you run Flagship campaigns on your ios native app.
+The FlagShip SDK is an iOS framework whose goal is to help you run FlagShip campaigns on your ios native app.
                        DESC
 
   s.homepage         = "https://app.flagship.io/login"
