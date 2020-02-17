@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FlagShip Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/FlagShip" class="dashAnchor"></a>
+
+    <a title="FlagShip Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          FlagShip Docs
+        </a>
+         (88% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/Alamofire/Alamofire">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fgithub%2Ecom%2Fabtasty%2Fdocsets%2FFlagShip%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">FlagShip Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      FlagShip Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FSEventTrack.html">FSEventTrack</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FSItemTrack.html">FSItemTrack</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FSPageTrack.html">FSPageTrack</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FSTransactionTrack.html">FSTransactionTrack</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/FlagShip.html">FlagShip</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:8FlagShip0aB7VersionSSvp">FlagShipVersion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FSAudiences.html">FSAudiences</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FSCategoryEvent.html">FSCategoryEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FlagShipResult.html">FlagShipResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/FlagshipError.html">FlagshipError</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>FlagShip</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">FlagShip</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>FlagShip</code> class helps you run FlagShip on your native iOS app.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC9visitorIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/visitorId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC9visitorIdSSSgvp">visitorId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This id is unique for the app</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private(set)</span> <span class="kd">public</span> <span class="k">var</span> <span class="nv">visitorId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(py)enableLogs"></a>
+                    <a name="//apple_ref/swift/Property/enableLogs" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(py)enableLogs">enableLogs</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Enable Logs, By default is equal to True</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">enableLogs</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(py)disabledSdk"></a>
+                    <a name="//apple_ref/swift/Property/disabledSdk" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(py)disabledSdk">disabledSdk</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Panic Button let you disable the SDK if needed</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">disabledSdk</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(cpy)sharedInstance"></a>
+                    <a name="//apple_ref/swift/Variable/sharedInstance" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(cpy)sharedInstance">sharedInstance</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Shared instance</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">sharedInstance</span><span class="p">:</span> <span class="kt">FlagShip</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)startFlagShipWithEnvironmentId::completionHandler:"></a>
+                    <a name="//apple_ref/swift/Method/startFlagShip(environmentId:_:completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)startFlagShipWithEnvironmentId::completionHandler:">startFlagShip(environmentId:_:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start FlagShip</p>
+
+<p>@param environmentId String environmentId id for client</p>
+
+<p>@param visitorId String visitor id</p>
+
+<p>@param pBlock The block to be invoked when sdk is ready</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">startFlagShip</span><span class="p">(</span><span class="nv">environmentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">visitorId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/FlagShipResult.html">FlagShipResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC12getCampaigns13onGetCampaignyyAA13FlagshipErrorOSgc_tF"></a>
+                    <a name="//apple_ref/swift/Method/getCampaigns(onGetCampaign:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC12getCampaigns13onGetCampaignyyAA13FlagshipErrorOSgc_tF">getCampaigns(onGetCampaign:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>getCampaigns</p>
+
+<p>@param pBlock The block to be invoked when sdk receive campaign</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getCampaigns</span><span class="p">(</span><span class="nv">onGetCampaign</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/FlagshipError.html">FlagshipError</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)updateContext:sync:"></a>
+                    <a name="//apple_ref/swift/Method/updateContext(_:sync:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)updateContext:sync:">updateContext(_:sync:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update Context</p>
+
+<p>@param contextvalues Dictionary that represent keys value relative to users</p>
+
+<p>@param sync This block is invoked when updating context done and ready to use a new modification  &hellip; this block can be nil</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContext</span><span class="p">(</span><span class="n">_</span> <span class="nv">contextValues</span><span class="p">:</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Any</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">sync</span><span class="p">:</span> <span class="p">((</span><span class="kt"><a href="../Enums/FlagShipResult.html">FlagShipResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC34updateContextWithPreConfiguredKeys_5value4syncyAA11FSAudiencesO_ypyAA0aB6ResultOcSgtF"></a>
+                    <a name="//apple_ref/swift/Method/updateContextWithPreConfiguredKeys(_:value:sync:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC34updateContextWithPreConfiguredKeys_5value4syncyAA11FSAudiencesO_ypyAA0aB6ResultOcSgtF">updateContextWithPreConfiguredKeys(_:value:sync:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update Context with Pre defined keys</p>
+
+<p>@param configuredKey FSAudiences Enum for pre defined keys</p>
+
+<p>@param sync This block is invoked when updating context done and ready to use a new modification  &hellip; this block can be nil</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateContextWithPreConfiguredKeys</span><span class="p">(</span><span class="n">_</span> <span class="nv">configuredKey</span><span class="p">:</span> <span class="kt"><a href="../Enums/FSAudiences.html">FSAudiences</a></span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">,</span> <span class="nv">sync</span><span class="p">:</span> <span class="p">((</span><span class="kt"><a href="../Enums/FlagShipResult.html">FlagShipResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultBool:activate:"></a>
+                    <a name="//apple_ref/swift/Method/getModification(_:defaultBool:activate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultBool:activate:">getModification(_:defaultBool:activate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Modification from the decision api</p>
+
+<p>@param key for associated to value to read</p>
+
+<p>@param defaultBool this value will be used when this key don&rsquo;t exist</p>
+
+<p>@param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy</p>
+
+<p>@return Boolean value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getModification</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultBool</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">activate</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultString:activate:"></a>
+                    <a name="//apple_ref/swift/Method/getModification(_:defaultString:activate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultString:activate:">getModification(_:defaultString:activate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Modification from the decision api</p>
+
+<p>@param key for associated to value</p>
+
+<p>@param defaultString will be used when the key don&rsquo;t exist</p>
+
+<p>@param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy</p>
+
+<p>@return String value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getModification</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultString</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">activate</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultDouble:activate:"></a>
+                    <a name="//apple_ref/swift/Method/getModification(_:defaultDouble:activate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultDouble:activate:">getModification(_:defaultDouble:activate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Modification from the decision api</p>
+
+<p>@param key for associated to value</p>
+
+<p>@param defaultDouble will be used when the key don&rsquo;t exist</p>
+
+<p>@param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy</p>
+
+<p>@return Double value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getModification</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultDouble</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">activate</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaulfloat:activate:"></a>
+                    <a name="//apple_ref/swift/Method/getModification(_:defaulfloat:activate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaulfloat:activate:">getModification(_:defaulfloat:activate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Modification from the decision api</p>
+
+<p>@param key for associated to value</p>
+
+<p>@param defaulfloat will be used when the key don&rsquo;t exist</p>
+
+<p>@param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy</p>
+
+<p>@return Float value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getModification</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">defaulfloat</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">activate</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Float</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultInt:activate:"></a>
+                    <a name="//apple_ref/swift/Method/getModification(_:defaultInt:activate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)getModification:defaultInt:activate:">getModification(_:defaultInt:activate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get Modification from the decision api</p>
+
+<p>@param key for associated to value to read</p>
+
+<p>@param defaultInt this value will be used when this key don&rsquo;t exist</p>
+
+<p>@param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy</p>
+
+<p>@return Int value</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">getModification</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">defaultInt</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">activate</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)activateModificationWithKey:"></a>
+                    <a name="//apple_ref/swift/Method/activateModification(key:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)activateModificationWithKey:">activateModification(key:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Activate Modifications values</p>
+
+<p>@key key which identifies the modification</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">activateModification</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)updateFlagsModificationsOnFlagUpdateDone:"></a>
+                    <a name="//apple_ref/swift/Method/updateFlagsModifications(onFlagUpdateDone:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)updateFlagsModificationsOnFlagUpdateDone:">updateFlagsModifications(onFlagUpdateDone:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update Modifications values</p>
+
+<p>@onFlagUpdateDone this block will be invoked when the update done</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateFlagsModifications</span><span class="p">(</span><span class="nv">onFlagUpdateDone</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/FlagShipResult.html">FlagShipResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC12sendTrackingyyxAA18FSTrackingProtocolRzlF"></a>
+                    <a name="//apple_ref/swift/Method/sendTracking(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC12sendTrackingyyxAA18FSTrackingProtocolRzlF">sendTracking(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send Events for tracking data</p>
+
+<p>@param event Event Object (Page, Transaction, Item, Event)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">sendTracking</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">event</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">FSTrackingProtocol</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)sendTransactionEvent:"></a>
+                    <a name="//apple_ref/swift/Method/sendTransactionEvent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)sendTransactionEvent:">sendTransactionEvent(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send Transaction event</p>
+
+<p>@param transacEvent : Transaction event</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendTransactionEvent</span><span class="p">(</span><span class="n">_</span> <span class="nv">transacEvent</span><span class="p">:</span> <span class="kt"><a href="../Classes/FSTransactionTrack.html">FSTransactionTrack</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)sendPageEvent:"></a>
+                    <a name="//apple_ref/swift/Method/sendPageEvent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)sendPageEvent:">sendPageEvent(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send Page event</p>
+
+<p>@param pageEvent : Page event</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendPageEvent</span><span class="p">(</span><span class="n">_</span> <span class="nv">pageEvent</span><span class="p">:</span> <span class="kt"><a href="../Classes/FSPageTrack.html">FSPageTrack</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)sendItemEvent:"></a>
+                    <a name="//apple_ref/swift/Method/sendItemEvent(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)sendItemEvent:">sendItemEvent(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send Item event</p>
+
+<p>@param itemEvent : Item event</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendItemEvent</span><span class="p">(</span><span class="n">_</span> <span class="nv">itemEvent</span><span class="p">:</span> <span class="kt"><a href="../Classes/FSItemTrack.html">FSItemTrack</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@FlagShip@objc(cs)FlagShip(im)sendEventTrack:"></a>
+                    <a name="//apple_ref/swift/Method/sendEventTrack(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip(im)sendEventTrack:">sendEventTrack(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Send event track</p>
+
+<p>@param eventTrack : track event</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">sendEventTrack</span><span class="p">(</span><span class="n">_</span> <span class="nv">eventTrack</span><span class="p">:</span> <span class="kt"><a href="../Classes/FSEventTrack.html">FSEventTrack</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC011resetUserIdaB0yyF"></a>
+                    <a name="//apple_ref/swift/Method/resetUserIdFlagShip()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC011resetUserIdaB0yyF">resetUserIdFlagShip()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This function use to reset the id flagShip
+Should called before start&hellip;. to take effect
+See with team to define how to set this function</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">resetUserIdFlagShip</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC7contextyySS_SbtF"></a>
+                    <a name="//apple_ref/swift/Method/context(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC7contextyySS_SbtF">context(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">context</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">boolean</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC7contextyySS_SdtF"></a>
+                    <a name="//apple_ref/swift/Method/context(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC7contextyySS_SdtF">context(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">context</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">double</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC7contextyySS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/context(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC7contextyySS_SStF">context(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">context</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC7contextyySS_SftF"></a>
+                    <a name="//apple_ref/swift/Method/context(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC7contextyySS_SftF">context(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">context</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">float</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:8FlagShipAAC7contextyySS_SitF"></a>
+                    <a name="//apple_ref/swift/Method/context(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8FlagShipAAC7contextyySS_SitF">context(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">context</span><span class="p">(</span><span class="n">_</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">integer</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="http://ABTasty.com/" target="_blank" rel="external">FlagShip</a>. All rights reserved. (Last updated: 2020-02-14)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

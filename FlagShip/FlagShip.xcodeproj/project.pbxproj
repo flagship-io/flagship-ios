@@ -6,6 +6,20 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		8B6D325C23F5B2AF00916EF1 /* Universal */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8B6D325F23F5B2AF00916EF1 /* Build configuration list for PBXAggregateTarget "Universal" */;
+			buildPhases = (
+				8BF1B33423F5B3DD0076CAEB /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Universal;
+			productName = Universal;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		8B55835823E04243005D0AB5 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BC4745A23D9B69100CCE1DE /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
@@ -301,6 +315,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = FlagShip;
 				TargetAttributes = {
+					8B6D325C23F5B2AF00916EF1 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					8BEF08B723C3888F00396B78 = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -324,6 +341,7 @@
 			targets = (
 				8BEF08B723C3888F00396B78 /* FlagShip */,
 				8BEF08C023C3889000396B78 /* FlagShipTests */,
+				8B6D325C23F5B2AF00916EF1 /* Universal */,
 			);
 		};
 /* End PBXProject section */
@@ -363,6 +381,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n../Script/update_FlagShip.sh ${MARKETING_VERSION}\n";
+		};
+		8BF1B33423F5B3DD0076CAEB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"FlagShip\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"FlagShip\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip.framework/FlagShip\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/FlagShip.framework/FlagShip\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/FlagShip.framework/Modules/FlagShip.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/FlagShip.framework/Modules/FlagShip.swiftmodule\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -413,6 +448,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8B6D325D23F5B2AF00916EF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8B6D325E23F5B2AF00916EF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		8BEF08CA23C3889000396B78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -628,6 +681,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8B6D325F23F5B2AF00916EF1 /* Build configuration list for PBXAggregateTarget "Universal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B6D325D23F5B2AF00916EF1 /* Debug */,
+				8B6D325E23F5B2AF00916EF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BEF08B223C3888F00396B78 /* Build configuration list for PBXProject "FlagShip" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

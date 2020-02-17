@@ -9,7 +9,7 @@
 import UIKit
 
 import Foundation
-
+/// :nodoc:
 public class FSStorage {
     
     fileprivate init() { }

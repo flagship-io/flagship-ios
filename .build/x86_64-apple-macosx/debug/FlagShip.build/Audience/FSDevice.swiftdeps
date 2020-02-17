@@ -1,0 +1,410 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "FSDevice"
+provides-nominal:
+- "8FlagShip8FSDeviceC"
+provides-member:
+- ["8FlagShip8FSDeviceC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!"
+- "!="
+- "+"
+- !private "=="
+- !private "AF_INET"
+- !private "AF_INET6"
+- "Bool"
+- !private "BooleanLiteralType"
+- !private "CTTelephonyNetworkInfo"
+- "CastingPrecedence"
+- "FSDevice"
+- "FloatLiteralType"
+- "Int8"
+- "IntegerLiteralType"
+- "Mirror"
+- !private "NSLocale"
+- "NSObject"
+- "String"
+- "StringLiteralType"
+- "UIDevice"
+- "UInt8"
+- "UnicodeScalar"
+- !private "UserDefaults"
+- !private "inet_pton"
+- !private "print"
+- !private "sockaddr_in"
+- !private "sockaddr_in6"
+- "uname"
+- "utsname"
+depends-member:
+- ["s18AdditiveArithmeticP", "init"]
+- ["s13AnyCollectionV", "reduce"]
+- ["SK", "init"]
+- !private ["SK", "withCString"]
+- ["Sz", "init"]
+- !private ["s7CVarArgP", "AF_INET"]
+- !private ["s7CVarArgP", "AF_INET6"]
+- !private ["s7CVarArgP", "CTTelephonyNetworkInfo"]
+- !private ["s7CVarArgP", "NSLocale"]
+- !private ["s7CVarArgP", "UIDevice"]
+- !private ["s7CVarArgP", "UserDefaults"]
+- ["s7CVarArgP", ""]
+- !private ["s7CVarArgP", "bool"]
+- !private ["s7CVarArgP", "current"]
+- !private ["s7CVarArgP", "inet_pton"]
+- ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "print"]
+- !private ["s7CVarArgP", "set"]
+- !private ["s7CVarArgP", "sockaddr_in"]
+- !private ["s7CVarArgP", "sockaddr_in6"]
+- !private ["s7CVarArgP", "standard"]
+- !private ["s7CVarArgP", "withCString"]
+- ["Sl", "init"]
+- ["Sl", "reduce"]
+- !private ["Sl", "withCString"]
+- ["SL", "init"]
+- !private ["SL", "withCString"]
+- !private ["s28CustomDebugStringConvertibleP", "AF_INET"]
+- !private ["s28CustomDebugStringConvertibleP", "AF_INET6"]
+- !private ["s28CustomDebugStringConvertibleP", "CTTelephonyNetworkInfo"]
+- !private ["s28CustomDebugStringConvertibleP", "NSLocale"]
+- !private ["s28CustomDebugStringConvertibleP", "UIDevice"]
+- !private ["s28CustomDebugStringConvertibleP", "UserDefaults"]
+- ["s28CustomDebugStringConvertibleP", ""]
+- !private ["s28CustomDebugStringConvertibleP", "bool"]
+- !private ["s28CustomDebugStringConvertibleP", "current"]
+- !private ["s28CustomDebugStringConvertibleP", "inet_pton"]
+- ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "languageCode"]
+- !private ["s28CustomDebugStringConvertibleP", "print"]
+- !private ["s28CustomDebugStringConvertibleP", "set"]
+- !private ["s28CustomDebugStringConvertibleP", "sockaddr_in"]
+- !private ["s28CustomDebugStringConvertibleP", "sockaddr_in6"]
+- !private ["s28CustomDebugStringConvertibleP", "standard"]
+- !private ["s28CustomDebugStringConvertibleP", "withCString"]
+- ["s17CustomReflectableP", "children"]
+- ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "languageCode"]
+- !private ["s17CustomReflectableP", "withCString"]
+- !private ["s23CustomStringConvertibleP", "AF_INET"]
+- !private ["s23CustomStringConvertibleP", "AF_INET6"]
+- !private ["s23CustomStringConvertibleP", "CTTelephonyNetworkInfo"]
+- !private ["s23CustomStringConvertibleP", "NSLocale"]
+- !private ["s23CustomStringConvertibleP", "UIDevice"]
+- !private ["s23CustomStringConvertibleP", "UserDefaults"]
+- ["s23CustomStringConvertibleP", ""]
+- !private ["s23CustomStringConvertibleP", "bool"]
+- ["s23CustomStringConvertibleP", "children"]
+- !private ["s23CustomStringConvertibleP", "current"]
+- !private ["s23CustomStringConvertibleP", "inet_pton"]
+- ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "languageCode"]
+- !private ["s23CustomStringConvertibleP", "print"]
+- !private ["s23CustomStringConvertibleP", "set"]
+- !private ["s23CustomStringConvertibleP", "sockaddr_in"]
+- !private ["s23CustomStringConvertibleP", "sockaddr_in6"]
+- !private ["s23CustomStringConvertibleP", "standard"]
+- !private ["s23CustomStringConvertibleP", "withCString"]
+- ["Se", "init"]
+- !private ["Se", "languageCode"]
+- !private ["Se", "withCString"]
+- ["SE", "init"]
+- !private ["SE", "languageCode"]
+- !private ["SE", "withCString"]
+- !private ["SQ", "AF_INET"]
+- !private ["SQ", "AF_INET6"]
+- !private ["SQ", "CTTelephonyNetworkInfo"]
+- !private ["SQ", "NSLocale"]
+- !private ["SQ", "UIDevice"]
+- !private ["SQ", "UserDefaults"]
+- ["SQ", ""]
+- !private ["SQ", "bool"]
+- !private ["SQ", "current"]
+- !private ["SQ", "inet_pton"]
+- ["SQ", "init"]
+- !private ["SQ", "languageCode"]
+- !private ["SQ", "print"]
+- !private ["SQ", "set"]
+- !private ["SQ", "sockaddr_in"]
+- !private ["SQ", "sockaddr_in6"]
+- !private ["SQ", "standard"]
+- !private ["SQ", "withCString"]
+- ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s43ExpressibleByExtendedGraphemeClusterLiteralP", "withCString"]
+- ["s27ExpressibleByIntegerLiteralP", "init"]
+- ["s32ExpressibleByStringInterpolationP", "init"]
+- !private ["s32ExpressibleByStringInterpolationP", "withCString"]
+- ["s26ExpressibleByStringLiteralP", "init"]
+- !private ["s26ExpressibleByStringLiteralP", "withCString"]
+- ["s33ExpressibleByUnicodeScalarLiteralP", "init"]
+- !private ["s33ExpressibleByUnicodeScalarLiteralP", "withCString"]
+- !private ["8FlagShip8FSDeviceC", "AF_INET"]
+- !private ["8FlagShip8FSDeviceC", "AF_INET6"]
+- ["8FlagShip8FSDeviceC", "Bool"]
+- !private ["8FlagShip8FSDeviceC", "CTTelephonyNetworkInfo"]
+- !private ["8FlagShip8FSDeviceC", "NSLocale"]
+- ["8FlagShip8FSDeviceC", "String"]
+- !private ["8FlagShip8FSDeviceC", "UIDevice"]
+- !private ["8FlagShip8FSDeviceC", "UserDefaults"]
+- ["8FlagShip8FSDeviceC", "getCarrierName"]
+- ["8FlagShip8FSDeviceC", "getDeviceLanguage"]
+- ["8FlagShip8FSDeviceC", "getDeviceModel"]
+- ["8FlagShip8FSDeviceC", "getDeviceType"]
+- !private ["8FlagShip8FSDeviceC", "inet_pton"]
+- ["8FlagShip8FSDeviceC", "init"]
+- ["8FlagShip8FSDeviceC", "isFirstTimeUser"]
+- !private ["8FlagShip8FSDeviceC", "print"]
+- !private ["8FlagShip8FSDeviceC", "sockaddr_in"]
+- !private ["8FlagShip8FSDeviceC", "sockaddr_in6"]
+- ["8FlagShip8FSDeviceC", "validateIpAddress"]
+- ["s17FixedWidthIntegerP", "init"]
+- !private ["SH", "AF_INET"]
+- !private ["SH", "AF_INET6"]
+- !private ["SH", "CTTelephonyNetworkInfo"]
+- !private ["SH", "NSLocale"]
+- !private ["SH", "UIDevice"]
+- !private ["SH", "UserDefaults"]
+- ["SH", ""]
+- !private ["SH", "bool"]
+- !private ["SH", "current"]
+- !private ["SH", "inet_pton"]
+- ["SH", "init"]
+- !private ["SH", "languageCode"]
+- !private ["SH", "print"]
+- !private ["SH", "set"]
+- !private ["SH", "sockaddr_in"]
+- !private ["SH", "sockaddr_in6"]
+- !private ["SH", "standard"]
+- !private ["SH", "withCString"]
+- !private ["10Foundation6LocaleV", "languageCode"]
+- ["s25LosslessStringConvertibleP", "init"]
+- !private ["s25LosslessStringConvertibleP", "withCString"]
+- ["s6MirrorV", "children"]
+- ["s6MirrorV", "init"]
+- ["s10MirrorPathP", "init"]
+- !private ["s10MirrorPathP", "withCString"]
+- !private ["So8NSCodingP", "current"]
+- !private ["So8NSCodingP", "withCString"]
+- !private ["So9NSCopyingP", "current"]
+- !private ["So9NSCopyingP", "withCString"]
+- !private ["So21NSItemProviderReadingP", "withCString"]
+- !private ["So21NSItemProviderWritingP", "withCString"]
+- !private ["So8NSLocaleC", "current"]
+- !private ["So16NSMutableCopyingP", "withCString"]
+- !private ["So8NSObjectC", "AF_INET"]
+- !private ["So8NSObjectC", "AF_INET6"]
+- ["So8NSObjectC", "Bool"]
+- !private ["So8NSObjectC", "CTTelephonyNetworkInfo"]
+- !private ["So8NSObjectC", "NSLocale"]
+- ["So8NSObjectC", "String"]
+- !private ["So8NSObjectC", "UIDevice"]
+- !private ["So8NSObjectC", "UserDefaults"]
+- ["So8NSObjectC", ""]
+- !private ["So8NSObjectC", "bool"]
+- !private ["So8NSObjectC", "current"]
+- ["So8NSObjectC", "getCarrierName"]
+- ["So8NSObjectC", "getDeviceLanguage"]
+- ["So8NSObjectC", "getDeviceModel"]
+- ["So8NSObjectC", "getDeviceType"]
+- !private ["So8NSObjectC", "inet_pton"]
+- ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "isFirstTimeUser"]
+- !private ["So8NSObjectC", "print"]
+- !private ["So8NSObjectC", "set"]
+- !private ["So8NSObjectC", "sockaddr_in"]
+- !private ["So8NSObjectC", "sockaddr_in6"]
+- !private ["So8NSObjectC", "standard"]
+- ["So8NSObjectC", "validateIpAddress"]
+- !private ["So8NSObjectC", "withCString"]
+- !private ["So8NSObjectP", "AF_INET"]
+- !private ["So8NSObjectP", "AF_INET6"]
+- !private ["So8NSObjectP", "CTTelephonyNetworkInfo"]
+- !private ["So8NSObjectP", "NSLocale"]
+- !private ["So8NSObjectP", "UIDevice"]
+- !private ["So8NSObjectP", "UserDefaults"]
+- ["So8NSObjectP", ""]
+- !private ["So8NSObjectP", "bool"]
+- !private ["So8NSObjectP", "current"]
+- !private ["So8NSObjectP", "inet_pton"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "print"]
+- !private ["So8NSObjectP", "set"]
+- !private ["So8NSObjectP", "sockaddr_in"]
+- !private ["So8NSObjectP", "sockaddr_in6"]
+- !private ["So8NSObjectP", "standard"]
+- !private ["So8NSObjectP", "withCString"]
+- !private ["So14NSSecureCodingP", "current"]
+- !private ["So14NSSecureCodingP", "withCString"]
+- !private ["So8NSStringC", "withCString"]
+- ["Sj", "init"]
+- ["Sm", "init"]
+- !private ["Sm", "withCString"]
+- !private ["10Foundation20ReferenceConvertibleP", "languageCode"]
+- ["s10SIMDScalarP", "init"]
+- ["s7UnicodeO6ScalarV", "init"]
+- ["ST", "init"]
+- ["ST", "reduce"]
+- !private ["ST", "withCString"]
+- ["Sx", "init"]
+- ["SS", "init"]
+- !private ["SS", "withCString"]
+- ["Sy", "init"]
+- !private ["Sy", "withCString"]
+- ["s16TextOutputStreamP", "init"]
+- !private ["s16TextOutputStreamP", "withCString"]
+- ["s20TextOutputStreamableP", "init"]
+- !private ["s20TextOutputStreamableP", "withCString"]
+- ["s5UInt8V", "init"]
+- ["SU", "init"]
+- !private ["So14NSUserDefaultsC", "bool"]
+- !private ["So14NSUserDefaultsC", "set"]
+- !private ["So14NSUserDefaultsC", "standard"]
+- ["s22_AnyCollectionProtocolP", "reduce"]
+- ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "withCString"]
+- ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "init"]
+- !private ["s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP", "withCString"]
+- ["s35_ExpressibleByBuiltinIntegerLiteralP", "init"]
+- ["s34_ExpressibleByBuiltinStringLiteralP", "init"]
+- !private ["s34_ExpressibleByBuiltinStringLiteralP", "withCString"]
+- ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "init"]
+- !private ["s41_ExpressibleByBuiltinUnicodeScalarLiteralP", "withCString"]
+- ["s19_HasContiguousBytesP", "init"]
+- !private ["s19_HasContiguousBytesP", "withCString"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "current"]
+- ["s35_HasCustomAnyHashableRepresentationP", "init"]
+- !private ["s35_HasCustomAnyHashableRepresentationP", "withCString"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AF_INET"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "AF_INET6"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "CTTelephonyNetworkInfo"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "NSLocale"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UIDevice"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "UserDefaults"]
+- ["10Foundation27_KeyValueCodingAndObservingP", ""]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "bool"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "current"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "inet_pton"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "print"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "set"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sockaddr_in"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "sockaddr_in6"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "standard"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "withCString"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "AF_INET"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "AF_INET6"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "CTTelephonyNetworkInfo"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "NSLocale"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "UIDevice"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "UserDefaults"]
+- ["10Foundation37_KeyValueCodingAndObservingPublishingP", ""]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "bool"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "current"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "inet_pton"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "init"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "print"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "set"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "sockaddr_in"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "sockaddr_in6"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "standard"]
+- !private ["10Foundation37_KeyValueCodingAndObservingPublishingP", "withCString"]
+- ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "languageCode"]
+- !private ["s21_ObjectiveCBridgeableP", "withCString"]
+- ["s14_StringElementP", "init"]
+- !private ["So11sockaddr_inV", "init"]
+- !private ["So11sockaddr_inV", "sin_addr"]
+- !private ["So12sockaddr_in6V", "init"]
+- !private ["So12sockaddr_in6V", "sin6_addr"]
+- ["So7utsnameV", "init"]
+- ["So7utsnameV", "machine"]
+depends-nominal:
+- "s18AdditiveArithmeticP"
+- "s13AnyCollectionV"
+- "SK"
+- "Sz"
+- "s7CVarArgP"
+- "Sl"
+- "SL"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "Se"
+- "SE"
+- "SQ"
+- "s43ExpressibleByExtendedGraphemeClusterLiteralP"
+- "s27ExpressibleByIntegerLiteralP"
+- "s32ExpressibleByStringInterpolationP"
+- "s26ExpressibleByStringLiteralP"
+- "s33ExpressibleByUnicodeScalarLiteralP"
+- "8FlagShip8FSDeviceC"
+- "s17FixedWidthIntegerP"
+- "SH"
+- !private "10Foundation6LocaleV"
+- "s25LosslessStringConvertibleP"
+- "s6MirrorV"
+- "s10MirrorPathP"
+- !private "So8NSCodingP"
+- !private "So9NSCopyingP"
+- !private "So21NSItemProviderReadingP"
+- !private "So21NSItemProviderWritingP"
+- !private "So8NSLocaleC"
+- !private "So16NSMutableCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- !private "So14NSSecureCodingP"
+- !private "So8NSStringC"
+- "Sj"
+- "Sm"
+- !private "10Foundation20ReferenceConvertibleP"
+- "s10SIMDScalarP"
+- "s7UnicodeO6ScalarV"
+- "ST"
+- "Sx"
+- "SS"
+- "Sy"
+- "s16TextOutputStreamP"
+- "s20TextOutputStreamableP"
+- "s5UInt8V"
+- "SU"
+- !private "So14NSUserDefaultsC"
+- "s22_AnyCollectionProtocolP"
+- "s30_CustomPlaygroundQuickLookableP"
+- "s51_ExpressibleByBuiltinExtendedGraphemeClusterLiteralP"
+- "s35_ExpressibleByBuiltinIntegerLiteralP"
+- "s34_ExpressibleByBuiltinStringLiteralP"
+- "s41_ExpressibleByBuiltinUnicodeScalarLiteralP"
+- "s19_HasContiguousBytesP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "10Foundation37_KeyValueCodingAndObservingPublishingP"
+- "s21_ObjectiveCBridgeableP"
+- "s14_StringElementP"
+- !private "So11sockaddr_inV"
+- !private "So12sockaddr_in6V"
+- "So7utsnameV"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/XPC.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/ObjectiveC.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/Dispatch.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/Network.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/Darwin.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/Foundation.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/CoreFoundation.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/CoreGraphics.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/Swift.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/IOKit.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/swift/SwiftOnoneSupport.swiftmodule/x86_64.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Combine.framework/Modules/Combine.swiftmodule/x86_64-apple-macos.swiftinterface"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include/xpc/XPC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/apinotes/Dispatch.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Network.framework/Headers/Network.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/ApplicationServices.framework/Headers/ApplicationServices.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "4fa6777a40d61cbc147a828e266d3ebe"

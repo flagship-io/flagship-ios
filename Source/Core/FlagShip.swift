@@ -11,7 +11,7 @@ import Foundation
 
 /**
  
- `ABFlagShip` class helps you run FlagShip on your native iOS app.
+ `FlagShip` class helps you run FlagShip on your native iOS app.
  
  */
 

@@ -11,34 +11,61 @@ import ClassKit
 import Network
 
 
+/**
+
+`FSAudience` class that represent the Audience 
+
+*/
 
 let IOS_VERSION = "iOS"
 let ALL_USERS   = "fs_all_users"
 
+
+/// Enumeration cases that represent **Predefined** targetings
 public enum FSAudiences:String,CaseIterable {
     
+    /// First init of the app
     case FIRST_TIME_INIT    = "sdk_firstTimeInit"
     
-    /// Device
+    /// Language of the device
     case DEVICE_LOCALE      = "sdk_deviceLanguage"
+    
+    /// Model of the device
     case DEVICE_TYPE        = "sdk_deviceType"
+    
+    /// Tablette / Mobile
     case DEVICE_MODEL       = "sdk_deviceModel"
     
     
-    /// Location
-    ///
+    /// City geolocation
     case LOCATION_CITY      = "sdk_city"
+    
+    /// Region geolocation
     case LOCATION_REGION    = "sdk_region"
+    
+    /// Country geolocation
     case LOCATION_COUNTRY   = "sdk_country"
+    
+    /// Current Latitude
     case LOCATION_LAT       = "sdk_lat"
+    
+    /// Current Longitude
     case LOCATION_LONG      = "sdk_long"
+    
+    /// Ip of the device
     case IP                 = "sdk_ip"
     
     
-    ///OS_NAME
+    /// Ios
     case OS_NAME            = "sdk_osName"
-    case OS_VERSION        = "sdk_iOSVersion"
+    
+    /// iOS Version
+    case OS_VERSION         = "sdk_iOSVersion"
+    
+    /// Name of the operator
     case CARRIER_NAME       = "sdk_carrierName"
+    
+    /// Is the app in debug mode?
     case DEV_MODE           = "sdk_devMode"
     
    
@@ -52,17 +79,23 @@ public enum FSAudiences:String,CaseIterable {
 //    case TIME_SPENT
 //    case TIME_INACTIVITY
     
-    /// WIRED
+    /// What is the internet connection
     case INTERNET_CONNECTION = "sdk_internetConnection"
     
-    /// APPLICATIF
+    /// Version name of the app
     case APP_VERSION_NAME   = "sdk_versionName"
+    
+    /// Version code of the app
     case APP_VERSION_CODE   = "sdk_versionCode"
+    
+    /// Version FlagShip
     case FLAGSHIP_VERSION   = "sdk_fsVersion"
+    
+    /// Name of the interface
     case INTERFACE_NAME     = "sdk_interfaceName"
     
     
-    
+    /// Get the targeting value
     public func getValue()throws ->Any?{
         
         switch self {
@@ -118,7 +151,14 @@ public enum FSAudiences:String,CaseIterable {
         }
     }
     
-    /// Check Value given by the client
+    
+    /**
+     Check Value given by the client
+     
+     @param valueToSet Any
+     
+     @return Yes is the value is valide, No otherwise
+     */
     
     func chekcValidity(_ valueToSet:Any)->Bool{
         
@@ -201,7 +241,7 @@ public enum FSAudiences:String,CaseIterable {
 
 
 
-
+/// :nodoc:
 public class FSAudience: NSObject {
     
     
@@ -211,6 +251,11 @@ public class FSAudience: NSObject {
     }
     
     
+    /**
+     Gets all audiences values set in App
+     
+     @return key(Pre defined target)/Value
+     */
     public class func getAudienceForApp()->[String:Any]{
         
         var resultAudience:[String:Any] = [:]
@@ -244,8 +289,7 @@ public class FSAudience: NSObject {
     
     
     
-    
-    /// Read Value from context
+    /// Get value from context
     class func readValueFromCurrentContext(_ keyPreConfigured:FSAudiences)->Any?{
         
         guard let value = FlagShip.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{

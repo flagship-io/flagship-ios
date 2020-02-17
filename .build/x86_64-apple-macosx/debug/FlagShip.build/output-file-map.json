@@ -1,0 +1,131 @@
+{
+  "": {
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/master.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Audience/FSAudience.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSAudience.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSAudience.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSAudience~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSAudience.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Audience/FSDevice.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSDevice.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSDevice.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSDevice~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Audience/FSDevice.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Cache/FSCacheManager.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSCacheManager.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSCacheManager.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSCacheManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSCacheManager.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Cache/FSStorage.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSStorage.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSStorage.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSStorage~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Cache/FSStorage.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/ABService.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/ABService.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/ABService.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/ABService~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/ABService.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/Bucketing/FSTargetingManager.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Bucketing/FSTargetingManager.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Bucketing/FSTargetingManager.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Bucketing/FSTargetingManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Bucketing/FSTargetingManager.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSConstant.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSConstant.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSConstant.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSConstant~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSConstant.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSContext.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSContext.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSContext.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSContext~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSContext.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSFlagShip+Context.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSFlagShip+Context.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSFlagShip+Context~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSFlagShip+Context.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSLogger.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSLogger.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSLogger.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSLogger~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FSLogger.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShip.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShip.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShip.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShip~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShip.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShipError.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShipError.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShipError~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/FlagShipError.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/Service/ABService+Tracking.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Service/ABService+Tracking.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Service/ABService+Tracking.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Service/ABService+Tracking~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Core/Service/ABService+Tracking.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/FSProfile/FSProfile.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/FSProfile/FSProfile.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/FSProfile/FSProfile.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/FSProfile/FSProfile~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/FSProfile/FSProfile.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Models/FSCampaigns.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSCampaigns.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSCampaigns.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSCampaigns~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSCampaigns.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Models/FSTargets.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSTargets.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSTargets.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSTargets~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Models/FSTargets.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Tracking/FSOfflineTracking.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSOfflineTracking.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSOfflineTracking.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSOfflineTracking~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSOfflineTracking.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Tracking/FSTracking.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSTracking.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSTracking.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSTracking~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Tracking/FSTracking.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Utils/FSGenerator.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSGenerator.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSGenerator.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSGenerator~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSGenerator.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Utils/FSTools.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSTools.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSTools.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSTools~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FSTools.swiftdeps"
+  },
+  "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Utils/FlagShipVersion.swift": {
+    "dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FlagShipVersion.d",
+    "object": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FlagShipVersion.swift.o",
+    "swiftmodule": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FlagShipVersion~partial.swiftmodule",
+    "swift-dependencies": "/Users/aliasadel/Documents/githubProject/flagship-ios/.build/x86_64-apple-macosx/debug/FlagShip.build/Utils/FlagShipVersion.swiftdeps"
+  }
+}

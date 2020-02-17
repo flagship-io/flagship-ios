@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+ /// :nodoc:
 @objc public enum FSTypeTrack:NSInteger {
     
     case PAGE        = 0
@@ -34,13 +34,17 @@ import Foundation
 }
 
 
+/// Enumeration that represent Events type
  @objc public enum FSCategoryEvent: NSInteger {
     
+    /// Action tracking
     case Action_Tracking     = 1
+    
+    /// User engagement
     case User_Engagement     = 2
     
     
-    
+    /// :nodoc:
     public var categoryString:String{
         
         switch self {
@@ -53,7 +57,7 @@ import Foundation
 }
 
 
-
+/// :nodoc:
 @objc public protocol FSTrackingProtocol {
     
     var type:FSTypeTrack { get }
@@ -63,6 +67,7 @@ import Foundation
     var fileName:String! { get }
 }
 
+/// :nodoc:
 @objcMembers public class FSTracking :NSObject ,FSTrackingProtocol {
     
     
@@ -87,22 +92,22 @@ import Foundation
     var dataSource:String = "APP"
     
     // Optional
-    // Interface Name
+    /// Interface Name
     public var interfaceName:String?
     
-    // User Ip
+    /// User Ip
     public var userIp:String?
-    // Screen Resolution
+    /// Screen Resolution
     public var screenResolution:String?
-    // Screen Color Depth
+    ///Screen Color Depth
     public var screenColorDepth:String?
-    // User Language
+    /// User Language
     public var userLanguage:String?
-    // Queue Time
+    /// Queue Time
     public var queueTime:NSNumber?
-    // Time Stamp
+    /// Time Stamp
     public var currentSessionTimeStamp:Int64?
-    // Session Number
+    /// Session Number
     public var sessionNumber:NSNumber?
     
     // Custom Dimension .... a voir
@@ -185,9 +190,19 @@ import Foundation
 
 
 
-// Page
+/**
+ This hit should be sent each time a visitor arrives on a new interface.
+ */
 @objcMembers public class FSPageTrack:FSTracking{
     
+    
+    /**
+     Init PageTrack object
+     
+     @param interfaceName String
+          
+     @return instance object
+     */
     
     @objc public init(_ interfaceName:String) {
         
@@ -197,7 +212,7 @@ import Foundation
     }
     
     
-    
+    /// :nodoc:
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -214,25 +229,52 @@ import Foundation
     }
 }
 
-// Transaction
+/**
+
+ Represent a hit Transaction
+ */
 @objcMembers public class FSTransactionTrack:FSTracking{
     
-    // Required
+    /// Transaction unique identifier.
      private var transactionId:String!
+    /// Transaction name. Name of the goal in the reporting.
      private var affiliation:String!
     
-    // Optional
     
-     public var revenue:NSNumber?
-     public var shipping:NSNumber?
-     public var tax:NSNumber?
-     public var currency:String?
-     public var couponCode:String?
-     public var paymentMethod:String?
-     public var ShippingMethod:String?
-     public var itemCount:NSNumber?
+    /// Total revenue associated with the transaction. This value should include any shipping or tax costs
+    public var revenue:NSNumber?
+    /// Specifies the total shipping cost of the transaction.
+    public var shipping:NSNumber?
+    
+    /// Specifies the total taxes of the transaction.
+    public var tax:NSNumber?
+    
+    /// Specifies the currency used for all transaction currency values. Value should be a valid ISO 4217 currency code.
+    public var currency:String?
+    
+    /// Specifies the coupon code used by the customer for the transaction.
+    public var couponCode:String?
+    
+    /// Specifies the payment method for the transaction.
+    public var paymentMethod:String?
+    
+    /// Specifies the shipping method of the transaction.
+    public var ShippingMethod:String?
+    
+    /// Specifies the number of items for the transaction.
+    public var itemCount:NSNumber?
     
     
+    
+    /**
+     Init transaction object
+     
+     @param transactionId String
+     
+     @param affiliation String
+     
+     @return instance object
+     */
      public init(transactionId:String, affiliation:String) {
         
         super.init()
@@ -245,7 +287,7 @@ import Foundation
   
     }
     
-    
+     /// :nodoc:
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -305,19 +347,40 @@ import Foundation
     
 }
 
-
-///////////////////////////////////// Item ///////////////////////////////////////
+/**
+ Represent item with a transaction. It must be sent after the corresponding transaction.
+ */
 
 @objcMembers public class FSItemTrack:FSTracking{
     
-    
+    /// Transaction unique identifier
     private var transactionId:String!
+    
+    /// Product name
     private var name:String!
+    
+    /// Specifies the item price
     public var price:NSNumber?
+    
+    /// Specifies the item quantity
     public var quantity:NSNumber?
+    
+    /// Specifies the item code or SKU
     public var code:String?
+    
+    /// Specifies the item category
     public var category:String?
     
+    
+    /**
+     Init Item object
+     
+     @param transactionId :String
+     
+     @param name :String
+     
+     @return instance object
+     */
     public init(transactionId:String, name:String) {
         
         super.init()
@@ -346,7 +409,7 @@ import Foundation
 //        self.category      = category
 //    }
 //
-    
+     /// :nodoc:
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -391,15 +454,25 @@ import Foundation
 }
 
 
-// //////////////////////////  Event ////////////////////////////////:
+/**
+ 
+ Represents an event
+ */
 @objcMembers public class FSEventTrack:FSTracking{
     
+    /// category of the event (Action_Tracking or User_Engagement).
     private var category:FSCategoryEvent!
+    
+    /// name of the event.
     private var action:String?
+    
+    /// description of the event.
     public  var label:String?
+    
+    /// value of the event, must be non-negative.
     public  var eventValue:NSNumber?
     
-    
+     /// :nodoc:
     public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
     
         super.init()  /// Set dans la base les element vitales
@@ -416,6 +489,15 @@ import Foundation
         
     }
     
+    /**
+     Init Event object
+     
+     @param eventCategory :FSCategoryEvent
+     
+     @param eventAction :String
+     
+     @return instance object
+     */
     public init(eventCategory:FSCategoryEvent, eventAction:String){
         
         super.init()  /// Set dans la base les element vitales
@@ -431,7 +513,7 @@ import Foundation
         self.eventValue = nil
     }
     
-    
+     /// :nodoc:
     public override var bodyTrack: Dictionary<String, Any>{
         
         get {

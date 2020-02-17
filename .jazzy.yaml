@@ -1,0 +1,8 @@
+author: FlagShip
+author_url: http://ABTasty.com/
+github_url: https://github.com/Alamofire/Alamofire
+root_url: https://github.com/abtasty/flagship-ios
+module: FlagShip
+output: docs
+theme: fullwidth
+xcodebuild_arguments: [-workspace,'FlagShip.xcworkspace', -scheme, 'FlagShip']

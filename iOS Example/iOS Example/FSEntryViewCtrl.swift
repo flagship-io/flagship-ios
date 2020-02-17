@@ -50,6 +50,24 @@ class FSEntryViewCtrl: UIViewController {
                 loadView.stopAnimating()
             }
         }
+        FlagShip.sharedInstance.startFlagShip(environmentId:"your envId",UIDevice.current.identifierForVendor?.uuidString) { (result) in
+            
+            // The state is ready , you can now use the FlagShip
+            if result == .Ready {
+                DispatchQueue.main.async {
+                    
+                    // Get title for banner
+                    let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
+                    // Set the title
+                    self.bannerBtn.setTitle(title, for: .normal)
+                   }
+
+            }else{
+                
+                print(result)
+                loadView.stopAnimating()
+            }
+        }
     }
     
     
