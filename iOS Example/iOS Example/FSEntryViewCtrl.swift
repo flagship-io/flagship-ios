@@ -52,7 +52,9 @@ class FSEntryViewCtrl: UIViewController {
         
         
         
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
+        Flagship.sharedInstance.updateContext(["sdk_city":"panama", "isVip":false, "basketNumber":100], sync: nil)
+        
+        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
             
             if result == .Ready{
                 
@@ -61,6 +63,9 @@ class FSEntryViewCtrl: UIViewController {
                     loadView.stopAnimating()
                     self.logInBtn.isHidden  = false
                     self.signInBtn.isHidden = false
+                    
+                    
+                    print(Flagship.sharedInstance.getModification("keyBucket", defaultString: "ouups"))
                     
                 }
                 
