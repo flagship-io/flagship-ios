@@ -27,10 +27,10 @@
     
     
     // Define context
-    [[FlagShip sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES} sync:nil];
+    [[Flagship sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES} sync:nil];
     
     
-    [[FlagShip sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :@"alias"completionHandler:^(enum FlagShipResult result) {
+    [[Flagship sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :@"alias"completionHandler:^(enum FlagShipResult result) {
         
         if (result == FlagShipResultReady){
             
@@ -39,10 +39,10 @@
                      self.storeBtn.hidden = NO;
                     
                     // Get the title for VIP user
-                    NSString * title = [[FlagShip sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
+                    NSString * title = [[Flagship sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
                     
                     // Get the percent sale for VIP user
-                    float percentSales = [[FlagShip sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
+                    float percentSales = [[Flagship sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
             });
         }
 

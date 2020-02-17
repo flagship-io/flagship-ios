@@ -121,9 +121,9 @@ import Foundation
     
     override init() {
         
-        clientId        = FlagShip.sharedInstance.environmentId
+        clientId        = Flagship.sharedInstance.environmentId
         //fsUserId        = FlagShip.sharedInstance.fsProfile.tupleId.fsUserId
-        customVisitorId = FlagShip.sharedInstance.visitorId
+        customVisitorId = Flagship.sharedInstance.visitorId
  
         
         // Set time Stamps

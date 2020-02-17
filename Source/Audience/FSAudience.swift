@@ -292,7 +292,7 @@ public class FSAudience: NSObject {
     /// Get value from context
     class func readValueFromCurrentContext(_ keyPreConfigured:FSAudiences)->Any?{
         
-        guard let value = FlagShip.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
+        guard let value = Flagship.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
             
             return nil
         }

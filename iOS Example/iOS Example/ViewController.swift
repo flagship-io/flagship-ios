@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 class ViewController: UIViewController, UITextFieldDelegate {
     

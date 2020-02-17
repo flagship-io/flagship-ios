@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8BBCAD4123FAD12C00126600 /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; };
+		8BBCAD4223FAD12C00126600 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BEF092E23C3902700396B78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF092D23C3902700396B78 /* AppDelegate.swift */; };
 		8BEF093223C3902700396B78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF093123C3902700396B78 /* ViewController.swift */; };
 		8BEF093523C3902700396B78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF093323C3902700396B78 /* Main.storyboard */; };
 		8BEF093723C3902900396B78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BEF093623C3902900396B78 /* Assets.xcassets */; };
-		8BF02D6623C39520006D154E /* FlagShip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF02D6523C39520006D154E /* FlagShip.framework */; };
-		8BF02D6723C39520006D154E /* FlagShip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF02D6523C39520006D154E /* FlagShip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BF02DBC23C62AE6006D154E /* FSBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DB823C62AE6006D154E /* FSBannerViewController.swift */; };
 		8BF02DBD23C62AE6006D154E /* FSProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DB923C62AE6006D154E /* FSProductCell.swift */; };
 		8BF02DBE23C62AE6006D154E /* FSCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DBA23C62AE6006D154E /* FSCartViewController.swift */; };
@@ -35,13 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8BF02D6823C39520006D154E /* Embed Frameworks */ = {
+		8BBCAD4323FAD12C00126600 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8BF02D6723C39520006D154E /* FlagShip.framework in Embed Frameworks */,
+				8BBCAD4223FAD12C00126600 /* Flagship.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8BBCAD4023FAD12C00126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEF092A23C3902700396B78 /* iOS Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BEF092D23C3902700396B78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BEF092F23C3902700396B78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,7 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF02D6623C39520006D154E /* FlagShip.framework in Frameworks */,
+				8BBCAD4123FAD12C00126600 /* Flagship.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +157,7 @@
 		8BF02D6423C39520006D154E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BBCAD4023FAD12C00126600 /* Flagship.framework */,
 				8BF02E1F23C78171006D154E /* FlagShip.framework */,
 				8BF02D6523C39520006D154E /* FlagShip.framework */,
 			);
@@ -194,7 +196,7 @@
 				8BEF092623C3902700396B78 /* Sources */,
 				8BEF092723C3902700396B78 /* Frameworks */,
 				8BEF092823C3902700396B78 /* Resources */,
-				8BF02D6823C39520006D154E /* Embed Frameworks */,
+				8BBCAD4323FAD12C00126600 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

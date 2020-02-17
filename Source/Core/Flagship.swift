@@ -15,13 +15,13 @@ import Foundation
  
  */
 
-public class FlagShip:NSObject{
+public class Flagship:NSObject{
     
     /// This id is unique for the app
-    private(set) public var visitorId:String?
+    internal(set) public var visitorId:String!
     
     /// Customer id
-    // internal var fsProfile:FSProfile!
+     internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!
@@ -46,9 +46,9 @@ public class FlagShip:NSObject{
     
     
     /// Shared instance
-    @objc public static let sharedInstance:FlagShip = {
+    @objc public static let sharedInstance:Flagship = {
         
-        let instance = FlagShip()
+        let instance = Flagship()
         // setup code
         return instance
     }()
@@ -77,6 +77,7 @@ public class FlagShip:NSObject{
      @param pBlock The block to be invoked when sdk is ready
      */
     
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "Use startFlagShipWithMode(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
     @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
@@ -103,7 +104,7 @@ public class FlagShip:NSObject{
         }
         
         // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId ?? "")
+        self.service = ABService(self.environmentId, self.visitorId)
         
         // Set the préconfigured audience
         self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
