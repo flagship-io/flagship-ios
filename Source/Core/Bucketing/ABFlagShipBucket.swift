@@ -62,9 +62,12 @@ import UIKit
         
         // The current context is
         FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
-
         
-        switch mode {
+        // set mode running
+        self.sdkModeRunning = mode
+        
+        
+        switch self.sdkModeRunning {
         case .BUCKETING:
             
             self.service.getFSScript { (scriptBucket, error) in
@@ -140,11 +143,23 @@ import UIKit
     
     
     
-    public func setCustomId(_ customId:String){
-        
-        
-        
-    }
-
+    /// Set User id at runtime
+    /// - Parameters:
+    ///   - visitorId: new visitor id to set
+    ///   - clearModifications: optional, by default true to clear all modifications values
+    ///   - clearContextValues: optional, by default true to clear all context values
+    /// - Warning: Once all modifications are removed, the SDK will return a default value, you may need to update the FLagship with new context relative to the visitor id to in order to get a new modification
     
+    
+    public func setVisitorId(_ visitorId:String){
+        
+        /// Clear Context
+        self.context.cleanContext()
+        
+        /// Clear Modifications
+        self.context.cleanModification()
+        
+        /// Releoad the prédefined target
+        self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
+    }
 }

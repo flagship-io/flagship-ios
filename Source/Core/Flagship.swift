@@ -45,6 +45,10 @@ public class Flagship:NSObject{
     @objc public var disabledSdk:Bool = false
     
     
+    
+    internal var sdkModeRunning:FlagShipMode = .DECISION_API  // By default 
+    
+    
     /// Shared instance
     @objc public static let sharedInstance:Flagship = {
         
