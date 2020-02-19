@@ -34,27 +34,12 @@ class FSEntryViewCtrl: UIViewController {
         /// Set context isVip to true
         Flagship.sharedInstance.context("isVip", true)
         /// Start The sdk
-        //        Flagship.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",UIDevice.current.identifierForVendor?.uuidString) { (result) in
-        //            // The state is ready , you can now use the FlagShip
-        //            if result == .Ready {
-        //                DispatchQueue.main.async {
-        //
-        //                    loadView.stopAnimating()
-        //                    self.logInBtn.isHidden  = false
-        //                    self.signInBtn.isHidden = false
-        //                }
-        //            }else{
-        //
-        //                print(result)
-        //                loadView.stopAnimating()
-        //            }
-        //        }
-        
-        
         
         Flagship.sharedInstance.updateContext(["sdk_city":"panama", "isVip":false, "basketNumber":100], sync: nil)
         
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
+      
+        
+        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", "Alias", .BUCKETING) { (result) in
             
             if result == .Ready{
                 
