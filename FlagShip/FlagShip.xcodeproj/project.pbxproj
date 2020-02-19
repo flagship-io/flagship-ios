@@ -23,7 +23,6 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
-		8BBCAD1A23FAD0E200126600 /* FlagShip.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEF08BB23C3888F00396B78 /* FlagShip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -68,6 +67,8 @@
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
+		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
@@ -79,8 +80,6 @@
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
 		8BC4745923D9B69100CCE1DE /* FSTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
-		8BEF08BB23C3888F00396B78 /* FlagShip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlagShip.h; sourceTree = "<group>"; };
-		8BEF08BC23C3888F00396B78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BF02D6E23C4CA24006D154E /* Flagship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagship.swift; sourceTree = "<group>"; };
 		8BF02D6F23C4CA24006D154E /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
 		8BF02D7023C4CA24006D154E /* FSConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstant.swift; sourceTree = "<group>"; };
@@ -131,6 +130,16 @@
 			path = FlagshipTests;
 			sourceTree = "<group>";
 		};
+		8B535FA823FD48CB005A13CE /* Flagship */ = {
+			isa = PBXGroup;
+			children = (
+				8B535FA923FD48CB005A13CE /* Flagship.h */,
+				8B535FAA23FD48CB005A13CE /* Info.plist */,
+			);
+			name = Flagship;
+			path = ../Flagship/Flagship;
+			sourceTree = "<group>";
+		};
 		8BBCAD1523FAA75600126600 /* FSProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,9 +151,9 @@
 		8BEF08AE23C3888F00396B78 = {
 			isa = PBXGroup;
 			children = (
+				8B535FA823FD48CB005A13CE /* Flagship */,
 				8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */,
 				8BF02D6C23C4CA24006D154E /* Source */,
-				8BEF08BA23C3888F00396B78 /* FlagShip */,
 				8B39E04723FD45F400E02DCD /* FlagshipTests */,
 				8BEF08B923C3888F00396B78 /* Products */,
 				8BF02D6223C394F5006D154E /* Frameworks */,
@@ -159,15 +168,6 @@
 				8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		8BEF08BA23C3888F00396B78 /* FlagShip */ = {
-			isa = PBXGroup;
-			children = (
-				8BEF08BB23C3888F00396B78 /* FlagShip.h */,
-				8BEF08BC23C3888F00396B78 /* Info.plist */,
-			);
-			path = FlagShip;
 			sourceTree = "<group>";
 		};
 		8BF02D6223C394F5006D154E /* Frameworks */ = {
@@ -292,7 +292,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BBCAD1A23FAD0E200126600 /* FlagShip.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +546,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "FlagShip-Info.plist";
+				INFOPLIST_FILE = Flagship/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -574,7 +573,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "FlagShip-Info.plist";
+				INFOPLIST_FILE = Flagship/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
