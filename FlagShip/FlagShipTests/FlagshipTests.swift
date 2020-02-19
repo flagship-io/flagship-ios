@@ -32,14 +32,46 @@ class FlagshipTests: XCTestCase {
     }
     
     
-    func testStartFlagship(){
-        
-        
+    
+    /// Test start Flagship
+    func testStartFlagshipWithBadEnvId(){
+
+        let expectation = self.expectation(description: #function)
         Flagship.sharedInstance.startFlagShipWithMode(environmentId: "", "", .BUCKETING) { (result) in
             
-            
+            XCTAssert(result == .NotReady)
+            expectation.fulfill()
         }
-        
+        waitForExpectations(timeout: 10)
+       
     }
+    
+    
+    func testStartFlagshipwithEmptyUserID(){
 
+        let expectation = self.expectation(description: #function)
+        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
+            
+            XCTAssert(result == .NotReady)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+       
+    }
+    
+    
+
+    func testStartFlagship(){
+
+        let expectation = self.expectation(description: #function)
+        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
+
+            XCTAssert(result == .Ready)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+
+    }
+    
+    
 }

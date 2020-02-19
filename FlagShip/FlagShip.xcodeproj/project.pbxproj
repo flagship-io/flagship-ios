@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
+		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -50,7 +51,6 @@
 		8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
-		8BBCAD3923FAD0E200126600 /* FlagShip.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +69,7 @@
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		8BF02D8C23C4CA24006D154E /* FSOfflineTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSOfflineTracking.swift; sourceTree = "<group>"; };
 		8BF02D8E23C4CA24006D154E /* FSAudience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAudience.swift; sourceTree = "<group>"; };
 		8BF02D8F23C4CA24006D154E /* FSDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDevice.swift; sourceTree = "<group>"; };
-		8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FlagShip.podspec; path = ../FlagShip.podspec; sourceTree = "<group>"; };
 		8BF02DC323C64E62006D154E /* FSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +126,7 @@
 			children = (
 				8B39E04823FD45F400E02DCD /* FlagshipTests.swift */,
 				8B39E04A23FD45F400E02DCD /* Info.plist */,
+				8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -152,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				8B535FA823FD48CB005A13CE /* Flagship */,
-				8BF02DAE23C5E9EF006D154E /* FlagShip.podspec */,
 				8BF02D6C23C4CA24006D154E /* Source */,
 				8B39E04723FD45F400E02DCD /* FlagshipTests */,
 				8BEF08B923C3888F00396B78 /* Products */,
@@ -385,7 +385,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BBCAD3923FAD0E200126600 /* FlagShip.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

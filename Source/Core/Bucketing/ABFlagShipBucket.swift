@@ -21,7 +21,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-     @objc public  func startFlagShipWithMode(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void){
+     @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -33,7 +33,6 @@ import UIKit
             completionHandler(.NotReady)
             return
         }
-        
         
         /// Manage visitor id
         do {
