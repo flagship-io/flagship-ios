@@ -34,7 +34,7 @@ class FSEntryViewCtrl: UIViewController {
         /// Set context isVip to true
         FlagShip.sharedInstance.context("isVip", true)
         /// Start The sdk
-        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",UIDevice.current.identifierForVendor?.uuidString) { (result) in
+        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",nil) { (result) in
             
             // The state is ready , you can now use the FlagShip
             if result == .Ready {
@@ -50,25 +50,11 @@ class FSEntryViewCtrl: UIViewController {
                 loadView.stopAnimating()
             }
         }
-        FlagShip.sharedInstance.startFlagShip(environmentId:"your envId",UIDevice.current.identifierForVendor?.uuidString) { (result) in
-            
-            // The state is ready , you can now use the FlagShip
-            if result == .Ready {
-                DispatchQueue.main.async {
-                    
-                    // Get title for banner
-                    let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
-                    // Set the title
-                    self.bannerBtn.setTitle(title, for: .normal)
-                   }
-
-            }else{
-                
-                print(result)
-                loadView.stopAnimating()
-            }
-        }
-    }
+        
+        // To get your generated visitorId, use :
+        FlagShip.sharedInstance.visitorId
+        
+     }
     
     
     

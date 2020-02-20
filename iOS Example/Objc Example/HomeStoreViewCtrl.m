@@ -30,7 +30,7 @@
     [[FlagShip sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES} sync:nil];
     
     
-    [[FlagShip sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :@"alias"completionHandler:^(enum FlagShipResult result) {
+    [[FlagShip sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :NULL completionHandler:^(enum FlagShipResult result) {
         
         if (result == FlagShipResultReady){
             
@@ -47,7 +47,6 @@
         }
 
     }];
-    
     
 }
 
