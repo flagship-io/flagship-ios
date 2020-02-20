@@ -39,7 +39,7 @@ class FSEntryViewCtrl: UIViewController {
         
       
         
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", "Alias", .BUCKETING) { (result) in
+        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil , .BUCKETING) { (result) in
             
             if result == .Ready{
                 
@@ -48,16 +48,9 @@ class FSEntryViewCtrl: UIViewController {
                     loadView.stopAnimating()
                     self.logInBtn.isHidden  = false
                     self.signInBtn.isHidden = false
-                    
-                    
-                    print(Flagship.sharedInstance.getModification("keyBucket", defaultString: "ouups"))
-                    
                 }
                 
             }else{
-                
-                
-                
                 
             }
         }
@@ -68,24 +61,6 @@ class FSEntryViewCtrl: UIViewController {
     
     
     @IBAction func onShowLoginScreen(){
-        
-        //Update isVipUser with false value in the user context
-        Flagship.sharedInstance.updateContext(["isVip":false]) { (result) in
-            
-            if result == .Updated{
-                
-                // In this block you will have new values updated for non VIP users
-                DispatchQueue.main.async {
-                    
-                    // Get title for banner
-                    let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
-                    // Set the title
-                    
-                    
-                }
-            }
-        }
-        
         self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
     }
     

@@ -22,7 +22,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var faceBookBtn:UIButton!
     
-    
+    @IBOutlet var parrainageBtn:UIButton!
+
     
     
     
@@ -39,56 +40,16 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         // Add gesture
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         
+        /// Display Feature 1
         
-        
-        /// test
-        
-        Flagship.sharedInstance.getModification("arrayValues", defaulfloat: 2, activate: false)
-        
-        
-        
-        
-        /// Activate manually the modification
-        
-        Flagship.sharedInstance.getModification("cta_value", defaultInt: 0)
-        
-        /// Actiavte
-        
-        Flagship.sharedInstance.activateModification(key: "cta_value")
-        
-        
-        /// Update the context when basket value change
-        Flagship.sharedInstance.updateContext(["basketValue":120]) { (result) in
+        if (Flagship.sharedInstance.getModification("Feature1", defaultBool: false)){
             
-            if result == .Updated{
-                
-                // Update the ui for users that have basket over or equal 100
-                if (Flagship.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
-                    
-                    DispatchQueue.main.async {
-                        
-                        /// Show your message for free delivery
-                        
-                    }
-                }
-            }
+            parrainageBtn.layer.cornerRadius = loginBtn.frame.height/2
+            parrainageBtn.layer.masksToBounds = true
+            parrainageBtn.isHidden = false
+            
+            Flagship.sharedInstance.activateModification(key: "Feature1")
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
     
     
@@ -134,5 +95,9 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
+    /// Send action on click parainage
+    @IBAction func onClikcParrainage(){
+        
+        Flagship.sharedInstance.sendTracking(FSEventTrack(eventCategory: .Action_Tracking, eventAction: "parrainage_kpi"))
+    }
 }

@@ -136,14 +136,28 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FH-dp-tjl">
+                                <rect key="frame" x="20" y="522" width="335" height="45"/>
+                                <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="SlY-zy-pkd"/>
+                                </constraints>
+                                <state key="normal" title="Parrainage"/>
+                                <connections>
+                                    <action selector="onClikcParrainage" destination="btC-6k-h3f" eventType="touchUpInside" id="hzc-ZG-ivI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.28235294119999998" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="H0f-Oh-7xe" firstAttribute="top" secondItem="NPQ-Xg-RbF" secondAttribute="bottom" constant="20" id="05E-SY-ZAi"/>
+                            <constraint firstAttribute="trailing" secondItem="7FH-dp-tjl" secondAttribute="trailing" constant="20" id="8bv-Ry-VJA"/>
                             <constraint firstItem="H0f-Oh-7xe" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="Bl1-Ix-qrt"/>
+                            <constraint firstItem="7FH-dp-tjl" firstAttribute="leading" secondItem="ai5-dk-Tf1" secondAttribute="leading" constant="20" id="CMZ-j8-Tkw"/>
                             <constraint firstItem="saK-Mw-bbJ" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="Enw-2B-tSA"/>
                             <constraint firstItem="fHl-sY-Sx5" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="FHF-fo-Snn"/>
                             <constraint firstItem="W3H-UW-oTg" firstAttribute="leading" secondItem="ai5-dk-Tf1" secondAttribute="leading" constant="10" id="Kvr-uJ-Mn6"/>
+                            <constraint firstItem="bsy-YX-hcg" firstAttribute="top" secondItem="7FH-dp-tjl" secondAttribute="bottom" constant="100" id="N9q-3U-n33"/>
                             <constraint firstItem="W3H-UW-oTg" firstAttribute="top" secondItem="JBr-ZB-cWE" secondAttribute="bottom" constant="10" id="RGx-KJ-uiW"/>
                             <constraint firstItem="fHl-sY-Sx5" firstAttribute="top" secondItem="H0f-Oh-7xe" secondAttribute="bottom" constant="100" id="mc3-Ny-pMs"/>
                             <constraint firstItem="saK-Mw-bbJ" firstAttribute="top" secondItem="JBr-ZB-cWE" secondAttribute="bottom" constant="100" id="pNB-4t-z4r"/>
@@ -156,6 +170,7 @@
                         <outlet property="faceBookBtn" destination="saK-Mw-bbJ" id="Zhc-vU-csP"/>
                         <outlet property="loginBtn" destination="fHl-sY-Sx5" id="09x-iE-Z6l"/>
                         <outlet property="loginTextField" destination="NPQ-Xg-RbF" id="3yu-YM-uIS"/>
+                        <outlet property="parrainageBtn" destination="7FH-dp-tjl" id="eN1-9t-XP3"/>
                         <outlet property="passwordTestField" destination="H0f-Oh-7xe" id="bg7-6e-fYa"/>
                         <segue destination="rAQ-Dl-yKn" kind="show" identifier="onClickLogin" id="sdg-BX-eE1"/>
                     </connections>
