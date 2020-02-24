@@ -117,7 +117,7 @@ internal class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist", .Campaign)
+            FSLogger.FSlog("Failed to send activate .... The key : \(key) doesn't exist", .Campaign)
 
             return
         }

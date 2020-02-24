@@ -25,37 +25,25 @@ class FSEntryViewCtrl: UIViewController {
         loadView.color = .red
         loadView.startAnimating()
         self.view.addSubview(loadView)
-        // Reset vid
-        Flagship.sharedInstance.resetUserIdFlagShip()
         
-        
-        Flagship.sharedInstance.updateContextWithPreConfiguredKeys(.FIRST_TIME_INIT, value: "rr", sync: nil)
         
         /// Set context isVip to true
         Flagship.sharedInstance.context("isVip", true)
-        /// Start The sdk
-        
+        /// Set The sdk context
         Flagship.sharedInstance.updateContext(["sdk_city":"panama", "isVip":false, "basketNumber":100], sync: nil)
         
-      
-        
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil , .BUCKETING) { (result) in
-            
-            if result == .Ready{
-                
-                DispatchQueue.main.async {
-                    
-                    loadView.stopAnimating()
-                    self.logInBtn.isHidden  = false
-                    self.signInBtn.isHidden = false
-                }
-                
-            }else{
-                
-            }
-        }
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onFinish), userInfo: nil, repeats: false)
         
     }
+    
+    
+    @objc func onFinish(){
+        
+        self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
+        
+    }
+    
+    
     
     
     

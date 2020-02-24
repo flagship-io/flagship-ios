@@ -86,10 +86,10 @@ import UIKit
                     }
                     
                     /// Bucket the variations with the cached script
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.tupleId, cachedBucket)
+                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, cachedBucket)
                 }else{
                     /// Bucket the variation with a new script from server
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.tupleId, scriptBucket ?? FSBucket())
+                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
                 }
                 /// Update the modifications
                 self.context.updateModification(self.campaigns)

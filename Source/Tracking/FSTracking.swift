@@ -145,9 +145,9 @@ import Foundation
             
              var communParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set Client Id
-            communParams.updateValue(self.clientId ?? "", forKey: "cid")
+            communParams.updateValue(self.clientId ?? "", forKey: "cid") //// Rename it
             // Set FlagShip user id Id
-            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")
+            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")  //// rename it
 
             // Set Data source
             communParams.updateValue(self.dataSource, forKey: "ds")
@@ -473,21 +473,21 @@ import Foundation
     public  var eventValue:NSNumber?
     
      /// :nodoc:
-    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
-    
-        super.init()  /// Set dans la base les element vitales
-        
-        self.type = .EVENT
-        
-        self.category = eventCategory
-        
-        self.action = eventAction
- 
-        self.label = eventLabel
-        
-        self.eventValue = eventValue
-        
-    }
+//    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
+//    
+//        super.init()  /// Set dans la base les element vitales
+//        
+//        self.type = .EVENT
+//        
+//        self.category = eventCategory
+//        
+//        self.action = eventAction
+// 
+//        self.label = eventLabel
+//        
+//        self.eventValue = eventValue
+//        
+//    }
     
     /**
      Init Event object

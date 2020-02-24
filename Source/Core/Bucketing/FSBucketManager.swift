@@ -27,7 +27,7 @@ class FSBucketManager: NSObject {
     
     
     /// this is the entry for bucketing , that give the campaign infos as we do in api decesion
-    internal func bucketVariations(_ tupleId:TupleId, _ scriptBucket:FSBucket)->FSCampaigns?{
+    internal func bucketVariations(_ visitorId:String, _ scriptBucket:FSBucket)->FSCampaigns?{
         
         /// Check the panic mode
         
@@ -43,7 +43,7 @@ class FSBucketManager: NSObject {
         //check the targetings and filter the variation he can run
        
         // Match before
-        let resultBucketCache = matchTargetingForCustomID(scriptBucket, tupleId, scriptBucket.visitorConsolidation)
+        let resultBucketCache = matchTargetingForCustomID(scriptBucket, visitorId, scriptBucket.visitorConsolidation)
         
         // Save My bucketing
         resultBucketCache.saveMe()
@@ -55,9 +55,9 @@ class FSBucketManager: NSObject {
     
     /// Extract the variations where the user is allowed to seee
     
-    internal func matchTargetingForCustomID(_ scriptBucket:FSBucket?, _ tupleId:TupleId,  _ visitorConsolidation:Bool)->FSBucketCache{
+    internal func matchTargetingForCustomID(_ scriptBucket:FSBucket?, _ visitorId:String,  _ visitorConsolidation:Bool)->FSBucketCache{
         
-       let fsCampaignBucketCache = FSBucketCache(tupleId)
+       let fsCampaignBucketCache = FSBucketCache(visitorId)
         
         matchedVariationGroup.removeAll()
         
@@ -76,7 +76,7 @@ class FSBucketManager: NSObject {
                     
                     
                     // select variation here
-                    guard let variationIdSelected = selectVariationWithHashMurMur(tupleId, variationGroupItem, visitorConsolidation) else{
+                    guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem, visitorConsolidation) else{
                         
                         print("probleme here don 't found the id variation selected")
                         continue
@@ -112,15 +112,15 @@ class FSBucketManager: NSObject {
     }
     
     
-    internal func selectVariationWithHashMurMur(_ tupleId:TupleId?,_ variationGroup:FSVariationGroup, _ visitorConsolidation:Bool) -> String?{
+    internal func selectVariationWithHashMurMur(_ visitorId:String,_ variationGroup:FSVariationGroup, _ visitorConsolidation:Bool) -> String?{
         
         // Before selected varaition have to chck user id exist
         
-        if (FSStorage.fileExists(String(format: "%@_%@.json", tupleId?.customId ?? "", tupleId?.fsUserId ?? "nil"), in: .documents)){
+        if (FSStorage.fileExists(String(format: "%@.json", visitorId), in: .documents)){
             
             FSLogger.FSlog(" The Buketing already exist Will Re check targeting for the selected variation ", .Campaign)
 
-            let cachedObject = FSStorage.retrieve(String(format: "%@_%@.json",  tupleId?.customId ?? "",tupleId?.fsUserId ?? "nil"), from: .documents, as: FSBucketCache.self)
+            let cachedObject = FSStorage.retrieve(String(format: "%@.json",visitorId), from: .documents, as: FSBucketCache.self)
             
             for itemCached in cachedObject.campaigns{
                 
@@ -135,36 +135,23 @@ class FSBucketManager: NSObject {
         }
         
         let hashAlloc:Int
-        if (visitorConsolidation && tupleId?.customId != nil){
-            
-            FSLogger.FSlog(" visitor consolidation is TRUE ", .Campaign)
-
-            FSLogger.FSlog("Apply MurMurHash Algo on customId", .Campaign)
-
-            hashAlloc = (Int(MurmurHash3.hash32(key: tupleId!.customId!) % 100))
-            
-        }else if (tupleId?.customId != nil){
-            
-              hashAlloc = (Int(MurmurHash3.hash32(key: tupleId!.customId!) % 100))
-        }else{
-            
-            FSLogger.FSlog("Apply MurMurHash Algo on FS user id ", .Campaign)
-
-            hashAlloc = (Int(MurmurHash3.hash32(key: tupleId!.fsUserId) % 100))
-        }
         
-            // Murmur the custom id
+        FSLogger.FSlog("Apply MurMurHash Algo on customId", .Campaign)
+        
+        hashAlloc = (Int(MurmurHash3.hash32(key: visitorId) % 100))
+        
+        // Murmur the custom id
        
-            print("hashAlloc ..........\(hashAlloc)")
-            var offsetAlloc = 0
-            for item:FSVariation in  variationGroup.variations{
+        print("hashAlloc ..........\(hashAlloc)")
+        var offsetAlloc = 0
+        for item:FSVariation in  variationGroup.variations{
                 
-                if(hashAlloc <= item.allocation + offsetAlloc){
+            if(hashAlloc <= item.allocation + offsetAlloc){
                     
-                    return item.idVariation
-                }
-                offsetAlloc += item.allocation
+                return item.idVariation
             }
-            return nil
+            offsetAlloc += item.allocation
+        }
+        return nil
     }
 }

@@ -12,11 +12,9 @@ import UIKit
 
 internal class FSBucketCache: Codable {
     
-    var customId:String?
+    var visitorId:String
     
     var campaigns:[FSCampaignCache]!
-    
-    var fsUserId:String!
     
     
     
@@ -24,25 +22,23 @@ internal class FSBucketCache: Codable {
         
         let values     = try decoder.container(keyedBy: CodingKeys.self)
         
-        do{ self.customId              = try values.decode(String.self, forKey: .customId)} catch{ self.customId = nil}
-        do{ self.campaigns             = try values.decode([FSCampaignCache].self, forKey: .campaigns)} catch{ self.campaigns = []}
-        do{ self.fsUserId              = try values.decode(String.self, forKey: .fsUserId)} catch{ self.fsUserId = ""}
+        do{ self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch{ self.visitorId = "error"}
+        do{ self.campaigns              = try values.decode([FSCampaignCache].self, forKey: .campaigns)} catch{ self.campaigns = []}
 
     }
     
     
     private enum CodingKeys: String, CodingKey {
         
-        case customId
+        case visitorId
         case campaigns
-        case fsUserId
+     //   case fsUserId
      }
     
     
-    internal init(_ tupleId:TupleId){
+    internal init(_ visitorId:String){
         
-        self.customId = tupleId.customId
-        self.fsUserId = tupleId.fsUserId
+        self.visitorId = visitorId
     }
     
     
@@ -63,7 +59,7 @@ internal class FSBucketCache: Codable {
     
     internal func saveMe(){
         
-        FSStorage.store(self, to: .documents, as: String(format: "%@_%@.json", self.customId ?? "", self.fsUserId))
+        FSStorage.store(self, to: .documents, as: String(format: "%@.json", self.visitorId))
     }
 
 }

@@ -11,116 +11,48 @@ import Flagship
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet var loginTextField:UITextField!
     
-    @IBOutlet var loginBtn:UIButton!
+    /// First Button Button
+    @IBOutlet var firstButton:UIButton!
     
-    // AB Test Button
-    @IBOutlet var abTestBtn:UIButton!
+    /// Second Button Button
+    @IBOutlet var secondButton:UIButton!
+    
+    /// Third Button Button
+    @IBOutlet var thirdButton:UIButton!
 
-    // Perso Test
-   // @IBOutlet var persoBtn:UIButton!
-
-    // Toggle Test
-    @IBOutlet var toggleBtn:UIButton!
-
-    // Vip Switch
-    @IBOutlet var vipToggle:UISwitch!
     
-    // Is new user switch
-    @IBOutlet var newUserToggle:UISwitch!
+    /// Parrainage
+    @IBOutlet var parrainageBtn:UIButton!
     
+    /// Style bar
     override var preferredStatusBarStyle: UIStatusBarStyle{
         
-        return .lightContent
+        return .darkContent
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        /// Display Feature 1
+        displayFeature1()
         
+        /// Get Color for background defined in dashboard flagship
+        let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#ffffff", activate: false)
+        /// Activate modification to tell Flagship that the user has seen this specific variation
+        Flagship.sharedInstance.activateModification(key: "backgroundColor")
+        self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
         
-  
+        /// Get color for button
+        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
+        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
+        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
-
-       }
+        }
     
-    
-    
-    // Hide KeyBoard
-    @objc func hideKeyBoard(){
-        
-        loginTextField.resignFirstResponder()
-    }
-    
-    
-    // Log with FlagShip
-//    @IBAction func logInwithFlagShip(){
-//
-//
-//
-//
-//
-//
-//        // Update Context
-//        FlagShip.sharedInstance.context("isVipUser",vipToggle.isOn)
-//        FlagShip.sharedInstance.context("newUser",newUserToggle.isOn)
-//
-//        /// Groupe 1
-//        FlagShip.sharedInstance.context("cond_1", "val_2")
-//        FlagShip.sharedInstance.context("cond_2", 1)
-//        FlagShip.sharedInstance.context("cond_3", true)
-//        FlagShip.sharedInstance.context("floatKay", 3.14)
-//
-//        /// groupe 2
-//
-//       // ABFlagShip.sharedInstance.context("basketNumber", 200)
-//        FlagShip.sharedInstance.context("basketNumber", 123)
-//
-//        /// Groupe 3
-//        FlagShip.sharedInstance.context("cond_10", 111)   // => 4
-//        FlagShip.sharedInstance.context("cond_11", 7)  // =<5
-//
-//        /// groupe 4
-//        FlagShip.sharedInstance.context("cond_4","val_41")   // not val_4
-//        FlagShip.sharedInstance.context("cond_5", "jeans...")   // contain jeans
-//        FlagShip.sharedInstance.context("cond_6", 13)   // > 12
-//        FlagShip.sharedInstance.context("cond_7", false)   // not true
-//        FlagShip.sharedInstance.context("cond_8", "sh&oes")   // => does  not contain shoes
-//
-//
-//
-//        /// Set Ip Adress
-//
-//        FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.IP, value: "2001:0db8:0000:0000:0000:ff00:0042:7879", sync: nil)
-//
-//        // ABFlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.IP, value: "254.233.221.3", sync: nil)
-//
-//        /// reset the flagship id
-//        FlagShip.sharedInstance.resetUserIdFlagShip()
-//
-//
-//        // Start FlagShip
-//        FlagShip.sharedInstance.startFlagShipWithMode(loginTextField.text, .BUCKETING ) { (state) in
-//
-//                        // The state is ready , you can now use the FlagShip
-//                        if state == .Ready ||  state == .Disabled {
-//                            DispatchQueue.main.async {
-//                                self.abTestBtn.isEnabled =  true
-//                                self.toggleBtn.isEnabled =  true
-//                            }
-//                        }
-//        }
-//
-//    }
-    
-
-
-
     // Show AB test  (Store Screen)
     @IBAction func showShoesScreen(){
         
@@ -140,16 +72,48 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @IBAction func onCancel(){
+        self.dismiss(animated: true , completion: nil)
+    }
+    
+    /// Display Feature 1
+    
+    func displayFeature1(){
         
-        if segue.identifier == "showBasket"{
-            let basketCtrl = segue.destination as! FSCartViewController
-         }
+        /// Display Feature 1 if available /// Feature 1 is defined from dashBoard
+        if (Flagship.sharedInstance.getModification("Feature1", defaultBool: false)){
+            
+            parrainageBtn.layer.cornerRadius = parrainageBtn.frame.height/2
+            parrainageBtn.layer.masksToBounds = true
+            parrainageBtn.isHidden = false
+            
+            Flagship.sharedInstance.activateModification(key: "Feature1")
+        }
     }
     
     
-    @IBAction func onCancel(){
-        self.dismiss(animated: true , completion: nil)
+    
+    /// Send KPI  "parrainage_kpi" when click on parrainage button
+    @IBAction func onClikcParrainage(){
+        
+        Flagship.sharedInstance.sendTracking(FSEventTrack(eventCategory: .Action_Tracking, eventAction: "parrainage_kpi"))
+    }
+    
+    
+    
+    /// Send Action
+    
+    @IBAction func onClikcButton(){
+        
+        let event = FSEventTrack(eventCategory: .User_Engagement, eventAction: "product_kpi")
+        event.label = "mainProduct"
+        event.eventValue = 1
+        event.sessionNumber = 1
+        event.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalSinceReferenceDate)
+        event.userLanguage = "fr"
+        event.screenResolution = "100*100"
+        Flagship.sharedInstance.sendTracking(event)
+
     }
 }
 

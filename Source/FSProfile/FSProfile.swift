@@ -8,25 +8,17 @@
 import UIKit
 
 
-  typealias TupleId = (fsUserId:String , customId:String?)
+//typealias TupleId = (fsUserId:String , visitorId:String?)
 
   class FSProfile: NSObject {
     
-    var tupleId:TupleId
+    var visitorId:String
     
-    init(_ customerVisitorId:String!) {
+    init(_ visitorId:String!) {
         
-        if let fsId = FSGenerator.getFlagShipIdInCache() {
-            
-            tupleId.fsUserId = fsId
-        }else{
-            
-            // Create FlagShip Id
-            tupleId.fsUserId = FSGenerator.generateFlagShipId()
-            // Save
-            FSGenerator.saveFlagShipIdInCache(userId: tupleId.fsUserId)
-        }
-        
-        tupleId.customId = customerVisitorId
+        self.visitorId = visitorId
     }
 }
+
+
+
