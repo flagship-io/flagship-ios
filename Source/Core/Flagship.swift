@@ -46,6 +46,13 @@ public class Flagship:NSObject{
     
     
     
+    internal var region:FlagShipRegion = .REST_OF_THE_WORLD
+    
+    
+    
+    
+    
+    
     internal var sdkModeRunning:FlagShipMode = .DECISION_API  // By default 
     
     

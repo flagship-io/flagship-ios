@@ -16,12 +16,23 @@ import UIKit
     case BUCKETING    = 2
 }
 
+
+
  extension Flagship {
     
     
     /// Use service for bucket Flagship
     
-     @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void){
+     @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode, apacOption:FSApac? = nil, completionHandler:@escaping(FlagShipResult)->Void){
+        
+        
+        /// Manage the endPoint
+        
+        if (apacOption != nil){
+            
+            region = .APAC
+        }
+        
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -47,7 +58,7 @@ import UIKit
         
          
          // Create tuple
-         fsProfile = FSProfile(visitorId)
+         fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
         self.service = ABService(self.environmentId, self.visitorId ?? "")
@@ -161,4 +172,27 @@ import UIKit
         /// Releoad the prédefined target
         self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
     }
+    
+    
+ 
 }
+
+
+
+@objc public class FSApac : NSObject {
+    
+    public var xApiKey:String
+    
+    public init(_ xApi:String){
+        
+        self.xApiKey = xApi
+    }
+}
+
+
+@objc public enum FlagShipRegion:NSInteger{
+    
+    case APAC                = 1
+    case REST_OF_THE_WORLD   = 2
+}
+

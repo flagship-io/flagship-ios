@@ -14,7 +14,7 @@ import UIKit
     
     var visitorId:String
     
-    init(_ visitorId:String!) {
+    init(_ visitorId:String) {
         
         self.visitorId = visitorId
     }
