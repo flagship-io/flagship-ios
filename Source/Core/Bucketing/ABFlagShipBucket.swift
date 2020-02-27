@@ -23,16 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-     @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode, apacOption:FSApac? = nil, completionHandler:@escaping(FlagShipResult)->Void){
-        
-        
-        /// Manage the endPoint
-        
-        if (apacOption != nil){
-            
-            region = .APAC
-        }
-        
+     @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -52,7 +43,7 @@ import UIKit
         }catch{
             
             completionHandler(.NotReady)
-            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK FlagShip is not ready "), .Campaign)
+            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
         }
         
@@ -126,7 +117,7 @@ import UIKit
                          
                          // Update the state
                          self.disabledSdk = true
-                         FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
+                         FSLogger.FSlog(String(format: "The Flagship is disabled from the front"), .Campaign)
                          
                          FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
 
@@ -172,27 +163,5 @@ import UIKit
         /// Releoad the prédefined target
         self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
     }
-    
-    
- 
-}
-
-
-
-@objc public class FSApac : NSObject {
-    
-    public var xApiKey:String
-    
-    public init(_ xApi:String){
-        
-        self.xApiKey = xApi
-    }
-}
-
-
-@objc public enum FlagShipRegion:NSInteger{
-    
-    case APAC                = 1
-    case REST_OF_THE_WORLD   = 2
 }
 
