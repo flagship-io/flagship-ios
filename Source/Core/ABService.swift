@@ -15,16 +15,16 @@ internal class ABService {
     
     var clientId:String!
     
-    
-    
     var visitorId:String?
     
     var offLineTracking:FSOfflineTracking!
     
     var cacheManager:FSCacheManager!
     
+    var apacOption:FSApac?
     
-    init(_ clientId:String, _ visitorId:String) {
+    
+    init(_ clientId:String, _ visitorId:String, apac:FSApac? = nil) {
         
         self.clientId = clientId
         
@@ -33,6 +33,8 @@ internal class ABService {
         offLineTracking = FSOfflineTracking(self)
         
         cacheManager = FSCacheManager()
+        
+        apacOption = apac
      }
     
     
@@ -49,6 +51,13 @@ internal class ABService {
 
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            /// Add x-api-key for apacOption
+            
+            if (apacOption != nil){
+                
+                request.addValue(apacOption?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+            }
 
             
             let session = URLSession(configuration:URLSessionConfiguration.default)
@@ -145,6 +154,13 @@ internal class ABService {
             var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
             request.httpMethod = "POST"
             request.httpBody = data
+            
+            /// Add x-api-key for apacOption
+            
+            if (apacOption != nil){
+                
+                request.addValue(apacOption?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+            }
            
             let session = URLSession(configuration:URLSessionConfiguration.default)
             session.dataTask(with: request) { (responseData, response, error) in

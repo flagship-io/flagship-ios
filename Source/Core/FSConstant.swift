@@ -7,12 +7,32 @@
 
 import Foundation
 
-// https://decision-api.canarybay.com/<ENVIRONMENT_ID>/campaigns
+/// https://decision-api.canarybay.com/<ENVIRONMENT_ID>/campaigns
+
+ internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
 
 
+ /// New endpoint for apac
+internal let FlagShipEndApac = "https://decision-api.flagship.io/v1/"
 
-internal let FlagShipEndPoint = "https://decision-api.flagship.io/v1/"
 
+/// XApi key
+internal let FSX_Api_Key   =  "x-api-key"
+
+
+ 
+internal var FlagShipEndPoint :String {
+    
+    if ((Flagship.sharedInstance.service.apacOption) != nil){
+        
+          return FlagShipEndApac
+
+    }else{
+        
+          return FlagShipEndEurope
+    }
+    
+}
 
 ///// GET CAMPAIGNS /////////////////////////////////
 internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns"
