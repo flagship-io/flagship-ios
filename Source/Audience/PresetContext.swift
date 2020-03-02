@@ -1,30 +1,19 @@
 //
-//  FSAudience.swift
-//  FlagShip-framework
+//  PresetContext.swift
+//  Flagship
 //
-//  Created by Adel on 10/12/2019.
+//  Created by Adel on 02/03/2020.
+//  Copyright © 2020 FlagShip. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import CoreTelephony
 import ClassKit
 import Network
 
-
-/**
-
-`FSAudience` class that represent the Audience 
-
-*/
-
-let IOS_VERSION = "iOS"
-let ALL_USERS   = "fs_all_users"
-
-
 /// Enumeration cases that represent **Predefined** targetings
-@available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message: "use enum : PresetContext")
-
-public enum FSAudiences:String,CaseIterable {
+public enum PresetContext:String,CaseIterable {
     
     /// First init of the app
     case FIRST_TIME_INIT    = "sdk_firstTimeInit"
@@ -116,7 +105,7 @@ public enum FSAudiences:String,CaseIterable {
             
             /// Set by the client Geolocation
         case .LOCATION_CITY, .LOCATION_REGION, .LOCATION_COUNTRY, .LOCATION_LAT, .LOCATION_LONG, .IP:
-            return FSAudience.readValueFromCurrentContext(self)
+            return FSPresetContext.readValueFromCurrentContext(self)
             
             // Automatically set by the sdk
         case .OS_NAME:
@@ -132,7 +121,7 @@ public enum FSAudiences:String,CaseIterable {
             
             /// Set by the client
         case .DEV_MODE:
-              return FSAudience.readValueFromCurrentContext(self)
+              return FSPresetContext.readValueFromCurrentContext(self)
             
             // Automatically set by the sdk
         case .FIRST_TIME_INIT:
@@ -140,7 +129,7 @@ public enum FSAudiences:String,CaseIterable {
             
             /// Set by the client
         case .INTERNET_CONNECTION,.APP_VERSION_NAME,.APP_VERSION_CODE :
-             return FSAudience.readValueFromCurrentContext(self)
+             return FSPresetContext.readValueFromCurrentContext(self)
             
             /// Automatically set by the sdk
         case .FLAGSHIP_VERSION:
@@ -149,7 +138,7 @@ public enum FSAudiences:String,CaseIterable {
             
              /// Set by the client
         case .INTERFACE_NAME:
-              return FSAudience.readValueFromCurrentContext(self)
+              return FSPresetContext.readValueFromCurrentContext(self)
         }
     }
     
@@ -239,60 +228,46 @@ public enum FSAudiences:String,CaseIterable {
     
 }
 
-
-
-
-
-// :nodoc:
-public class FSAudience: NSObject {
-    
-    
-    override init() {
-        
-        /// Scane all targetings
-    }
-    
+public class FSPresetContext: NSObject {
     
     /**
      Gets all audiences values set in App
      
      @return key(Pre defined target)/Value
      */
-    public class func getAudienceForApp()->[String:Any]{
+    public class func getPresetContextForApp()->[String:Any]{
         
-        var resultAudience:[String:Any] = [:]
-        
+        var result:[String:Any] = [:]
         
         //// Parse all keys
         
-        for itemAudience in FSAudiences.allCases{
+        for itemContext in PresetContext.allCases{
             
             do {
                 
-                let val = try itemAudience.getValue()
+                let val = try itemContext.getValue()
                 if (val != nil){
                     
-                     resultAudience.updateValue(val as Any, forKey: itemAudience.rawValue)
+                    result.updateValue(val as Any, forKey: itemContext.rawValue)
                     
-                    FSLogger.FSlog("@@@@@@@@@@@@ Audience ---- \(itemAudience.rawValue) =  \(val ?? "Not defined") ----", .Campaign)
-                    
+                    FSLogger.FSlog("@@@@@@@@@@@@ Audience ---- \(itemContext.rawValue) =  \(val ?? "Not defined") ----", .Campaign)
                 }
                
                 
             }catch{
                 
                 
-                FSLogger.FSlog("@@@@@@@@@@@@ Error on scane audience ---- \(itemAudience.rawValue) Not defined ----", .Campaign)
+                FSLogger.FSlog("@@@@@@@@@@@@ Error on scane audience ---- \(itemContext.rawValue) Not defined ----", .Campaign)
 
             }
         }
-        return resultAudience
+        return result
     }
     
     
     
     /// Get value from context
-    class func readValueFromCurrentContext(_ keyPreConfigured:FSAudiences)->Any?{
+    internal class func readValueFromCurrentContext(_ keyPreConfigured:PresetContext)->Any?{
         
         guard let value = Flagship.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
             
@@ -302,3 +277,6 @@ public class FSAudience: NSObject {
         return value
     }
 }
+
+
+

@@ -541,3 +541,91 @@ import Foundation
 
     }
 }
+
+
+
+@objcMembers public class Event:FSTracking{
+    
+    /// category of the event (Action_Tracking or User_Engagement).
+    private var category:FSCategoryEvent!
+    
+    /// name of the event.
+    private var action:String?
+    
+    /// description of the event.
+    public  var label:String?
+    
+    /// value of the event, must be non-negative.
+    public  var eventValue:NSNumber?
+    
+     /// :nodoc:
+//    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
+//
+//        super.init()  /// Set dans la base les element vitales
+//
+//        self.type = .EVENT
+//
+//        self.category = eventCategory
+//
+//        self.action = eventAction
+//
+//        self.label = eventLabel
+//
+//        self.eventValue = eventValue
+//
+//    }
+    
+    /**
+     Init Event object
+     
+     @param eventCategory :FSCategoryEvent
+     
+     @param eventAction :String
+     
+     @return instance object
+     */
+    public init(eventCategory:FSCategoryEvent, eventAction:String){
+        
+        super.init()  /// Set dans la base les element vitales
+        
+        self.type = .EVENT
+        
+        self.category = eventCategory
+        
+        self.action = eventAction
+        
+        self.label = nil
+        
+        self.eventValue = nil
+    }
+    
+     /// :nodoc:
+    public override var bodyTrack: Dictionary<String, Any>{
+        
+        get {
+            var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
+            // Set category
+            customParams.updateValue(self.category.categoryString, forKey:"ec")
+            // Set Type
+            customParams.updateValue(self.type.typeString, forKey: "t")
+            // Set Action
+            customParams.updateValue(self.action ?? "", forKey: "ea")
+            // Set Label
+            if self.label != nil{
+                customParams.updateValue(self.label ?? "", forKey: "el")
+            }
+            // Set Value
+            if self.eventValue != nil{
+                customParams.updateValue(self.eventValue ?? 0  , forKey: "ev")
+            }
+            // Merge the commun params
+            customParams.merge(self.communBodyTrack){  (_, new) in new }
+            
+            return customParams
+            
+        }
+
+    }
+}
+
+

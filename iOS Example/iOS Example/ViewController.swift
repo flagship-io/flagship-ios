@@ -8,6 +8,7 @@
 
 import UIKit
 import Flagship
+import Optimizely
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -113,7 +114,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
         event.userLanguage = "fr"
         event.screenResolution = "100*100"
         Flagship.sharedInstance.sendTracking(event)
-
+        
+        
+        
+        
+ 
+        
     }
+    
+    
+    
+    
 }
 
+
+class Event:NSObject{
+    
+    let a:String = "aa"
+}
+
+
+ 

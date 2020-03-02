@@ -23,7 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-    @objc public  func startFlagShipWithMode(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode,apacOption:FSApac? = nil, completionHandler:@escaping(FlagShipResult)->Void){
+    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode,apacOption:FSApac? = nil, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -54,8 +54,10 @@ import UIKit
          // Get All Campaign for the moment
         self.service = ABService(self.environmentId, self.visitorId ?? "", apac:apacOption)
         
-        // Set the préconfigured audience
-        self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
+               
+         // Set the préconfigured Context
+        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
+
         
         // Add the keys all_users temporary
         self.context.currentContext.updateValue("", forKey:ALL_USERS)
@@ -161,7 +163,8 @@ import UIKit
         self.context.cleanModification()
         
         /// Releoad the prédefined target
-        self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
+        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
+
     }
 }
 

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B535FF7240D6937005A13CE /* Optimizely in Frameworks */ = {isa = PBXBuildFile; productRef = 8B535FF6240D6937005A13CE /* Optimizely */; };
 		8BBCAD4123FAD12C00126600 /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; };
 		8BBCAD4223FAD12C00126600 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BEF092E23C3902700396B78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF092D23C3902700396B78 /* AppDelegate.swift */; };
@@ -100,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B535FF7240D6937005A13CE /* Optimizely in Frameworks */,
 				8BBCAD4123FAD12C00126600 /* Flagship.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +205,9 @@
 			dependencies = (
 			);
 			name = "iOS Example";
+			packageProductDependencies = (
+				8B535FF6240D6937005A13CE /* Optimizely */,
+			);
 			productName = "iOS Example";
 			productReference = 8BEF092A23C3902700396B78 /* iOS Example.app */;
 			productType = "com.apple.product-type.application";
@@ -252,6 +257,9 @@
 				Base,
 			);
 			mainGroup = 8BEF092123C3902700396B78;
+			packageReferences = (
+				8B535FF5240D6937005A13CE /* XCRemoteSwiftPackageReference "swift-sdk" */,
+			);
 			productRefGroup = 8BEF092B23C3902700396B78 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -560,6 +568,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B535FF5240D6937005A13CE /* XCRemoteSwiftPackageReference "swift-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/optimizely/swift-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B535FF6240D6937005A13CE /* Optimizely */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B535FF5240D6937005A13CE /* XCRemoteSwiftPackageReference "swift-sdk" */;
+			productName = Optimizely;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BEF092223C3902700396B78 /* Project object */;
 }

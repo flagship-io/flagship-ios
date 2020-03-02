@@ -6,14 +6,14 @@
 //
 
 import Foundation
-
+ 
 /// https://decision-api.canarybay.com/<ENVIRONMENT_ID>/campaigns
 
- internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
+internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
 
 
  /// New endpoint for apac
-internal let FlagShipEndApac = "https://decision-api.flagship.io/v1/"
+internal let FlagShipEndApac = "https://decision.flagship.io/"
 
 
 /// XApi key

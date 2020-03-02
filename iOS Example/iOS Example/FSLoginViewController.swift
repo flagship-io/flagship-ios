@@ -55,7 +55,13 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     /// On Click Login
     @IBAction func onClickLogin(){
         
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text , .BUCKETING) { (result) in
+        
+        Flagship.sharedInstance.updateContext(["aaa":"aaa", "aaaaa":22, "aaaa":true])
+        
+        
+        
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API, apacOption: FSApac("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")) { (result) in
+            
             
             if result == .Ready{
                 
@@ -68,8 +74,23 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
             }else{
                 
             }
-            
         }
+//
+//        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text , .DECISION_API) { (result) in
+//
+//            if result == .Ready{
+//
+//                DispatchQueue.main.async {
+//
+//                    self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+//
+//                }
+//
+//            }else{
+//
+//            }
+//
+//        }
         
     }
     
