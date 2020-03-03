@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FlagShip"
-  s.version          = "1.1.0"
+  s.version          = "1.1.1"
   s.summary          = "FlagShip SDK"
 
 # This description is used to generate tags and improve search results.

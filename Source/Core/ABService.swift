@@ -59,7 +59,6 @@ internal class ABService {
                     
                     let httpResponse = response as? HTTPURLResponse
                     switch (httpResponse?.statusCode){
-                        
                     case 200:
                         
                         if(responseData != nil){
@@ -84,15 +83,10 @@ internal class ABService {
                                 print(error.localizedDescription)
                             }
                         }
-                        
                         break
-                    case 403:
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
-                        
-                    case 400:
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
                     default:
                         FSLogger.FSlog("Error on get Campaign", .Network)
+                        onGetCampaign(nil, FlagshipError.GetCampaignError)
                     }
                 }else{
                     

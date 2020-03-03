@@ -29,12 +29,15 @@ class FSEntryViewCtrl: UIViewController {
         FlagShip.sharedInstance.resetUserIdFlagShip()
         
         
+        /// Test get boolean before get ready
+        FlagShip.sharedInstance.getModification("btn-disabled", defaultBool: true, activate: true)
+        /// check the get before ready
         FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.FIRST_TIME_INIT, value: "rr", sync: nil)
         
         /// Set context isVip to true
         FlagShip.sharedInstance.context("isVip", true)
         /// Start The sdk
-        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng",nil) { (result) in
+        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng","Adel") { (result) in
             
             // The state is ready , you can now use the FlagShip
             if result == .Ready {
@@ -50,12 +53,7 @@ class FSEntryViewCtrl: UIViewController {
                 loadView.stopAnimating()
             }
         }
-        
-        // To get your generated visitorId, use :
-        FlagShip.sharedInstance.visitorId
-        
      }
-    
     
     
 

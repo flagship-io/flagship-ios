@@ -258,6 +258,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="doA-FG-ah2"/>
                     <connections>
+                        <outlet property="jeanBtn" destination="RvD-Mm-Plj" id="bct-gi-gO2"/>
+                        <outlet property="shirtBtn" destination="hgN-zW-vAQ" id="aLR-jj-j0B"/>
+                        <outlet property="shoesBtn" destination="kCq-Lj-8VC" id="tnk-gN-okn"/>
                         <segue destination="p2C-s2-kDT" kind="show" identifier="showShoesStore" id="oum-S9-jax"/>
                         <segue destination="K0D-85-9pb" kind="show" identifier="showBasket" id="uPl-aZ-FEn"/>
                     </connections>

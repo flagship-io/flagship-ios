@@ -34,6 +34,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         return .lightContent
     }
+    @IBOutlet var jeanBtn:UIButton!
+    @IBOutlet var shoesBtn:UIButton!
+    @IBOutlet var shirtBtn:UIButton!
+
 
     
     override func viewDidLoad() {
@@ -43,9 +47,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
   
+        // Get backgroud color
+        self.view.backgroundColor = UIColor(hexString:FlagShip.sharedInstance.getModification("backgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        
+        self.jeanBtn.backgroundColor = UIColor(hexString:FlagShip.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
         
+        self.shoesBtn.backgroundColor = UIColor(hexString:FlagShip.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
+        
+        self.shirtBtn.backgroundColor = UIColor(hexString:FlagShip.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
 
        }
     
@@ -56,70 +67,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         loginTextField.resignFirstResponder()
     }
-    
-    
-    // Log with FlagShip
-//    @IBAction func logInwithFlagShip(){
-//
-//
-//
-//
-//
-//
-//        // Update Context
-//        FlagShip.sharedInstance.context("isVipUser",vipToggle.isOn)
-//        FlagShip.sharedInstance.context("newUser",newUserToggle.isOn)
-//
-//        /// Groupe 1
-//        FlagShip.sharedInstance.context("cond_1", "val_2")
-//        FlagShip.sharedInstance.context("cond_2", 1)
-//        FlagShip.sharedInstance.context("cond_3", true)
-//        FlagShip.sharedInstance.context("floatKay", 3.14)
-//
-//        /// groupe 2
-//
-//       // ABFlagShip.sharedInstance.context("basketNumber", 200)
-//        FlagShip.sharedInstance.context("basketNumber", 123)
-//
-//        /// Groupe 3
-//        FlagShip.sharedInstance.context("cond_10", 111)   // => 4
-//        FlagShip.sharedInstance.context("cond_11", 7)  // =<5
-//
-//        /// groupe 4
-//        FlagShip.sharedInstance.context("cond_4","val_41")   // not val_4
-//        FlagShip.sharedInstance.context("cond_5", "jeans...")   // contain jeans
-//        FlagShip.sharedInstance.context("cond_6", 13)   // > 12
-//        FlagShip.sharedInstance.context("cond_7", false)   // not true
-//        FlagShip.sharedInstance.context("cond_8", "sh&oes")   // => does  not contain shoes
-//
-//
-//
-//        /// Set Ip Adress
-//
-//        FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.IP, value: "2001:0db8:0000:0000:0000:ff00:0042:7879", sync: nil)
-//
-//        // ABFlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.IP, value: "254.233.221.3", sync: nil)
-//
-//        /// reset the flagship id
-//        FlagShip.sharedInstance.resetUserIdFlagShip()
-//
-//
-//        // Start FlagShip
-//        FlagShip.sharedInstance.startFlagShipWithMode(loginTextField.text, .BUCKETING ) { (state) in
-//
-//                        // The state is ready , you can now use the FlagShip
-//                        if state == .Ready ||  state == .Disabled {
-//                            DispatchQueue.main.async {
-//                                self.abTestBtn.isEnabled =  true
-//                                self.toggleBtn.isEnabled =  true
-//                            }
-//                        }
-//        }
-//
-//    }
-    
-
-
 
     // Show AB test  (Store Screen)
     @IBAction func showShoesScreen(){
