@@ -250,7 +250,7 @@ public class ABFlagShip:NSObject{
             return defaultBool
         }
         
-        if activate{
+        if activate && self.campaigns != nil{
             // Activate
             self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }

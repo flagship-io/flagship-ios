@@ -64,6 +64,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // Log with FlagShip
     @IBAction func logInwithFlagShip(){
         
+        
+        
+        /// Test before ready the sdk
+        
+        ABFlagShip.sharedInstance.getModification("btn-disabled", defaultBool: true, activate: true)
+        
         // Update Context
         ABFlagShip.sharedInstance.context("isVipUser",vipToggle.isOn)
         ABFlagShip.sharedInstance.context("newUser",newUserToggle.isOn)

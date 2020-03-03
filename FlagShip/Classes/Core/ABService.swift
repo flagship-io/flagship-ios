@@ -88,13 +88,10 @@ internal class ABService {
                         }
                         
                         break
-                    case 403:
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
-                        
-                    case 400:
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
                     default:
-                        FSLogger.FSlog("Rrror on get campaign", .Network)
+                        FSLogger.FSlog("Error on get campaign", .Network)
+                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+
                     }
                 }else{
                     
@@ -119,7 +116,7 @@ internal class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist !!!", .Campaign)
+            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist", .Campaign)
 
             return
         }
