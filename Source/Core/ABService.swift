@@ -21,10 +21,10 @@ internal class ABService {
     
     var cacheManager:FSCacheManager!
     
-    var apacOption:FSApac?
+    var apacOption:FSApacRegion?
     
     
-    init(_ clientId:String, _ visitorId:String, apac:FSApac? = nil) {
+    init(_ clientId:String, _ visitorId:String, apac:FSApacRegion? = nil) {
         
         self.clientId = clientId
         

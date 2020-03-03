@@ -17,7 +17,7 @@ import UIKit
     case REST_OF_THE_WORD
 }
 
-@objc public class FSApac: NSObject {
+@objc public class FSApacRegion: NSObject {
     
     /// XApi Key
     internal(set) public var apiKey:String

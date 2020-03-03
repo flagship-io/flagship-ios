@@ -46,11 +46,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
         
         /// Get color for button
-        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
-        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
-        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("buttonBackgroundColor", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
         
         }
     

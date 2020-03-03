@@ -56,11 +56,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func onClickLogin(){
         
         
-        Flagship.sharedInstance.updateContext(["aaa":"aaa", "aaaaa":22, "aaaa":true])
-        
-        
-        
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API, apacOption: FSApac("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")) { (result) in
+ 
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
             
             
             if result == .Ready{

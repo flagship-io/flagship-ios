@@ -16,7 +16,7 @@ extension Flagship{
     }
     
     
- 
+    
     
     /// Set key/value boolean to context
     /// - Parameters:
@@ -28,7 +28,7 @@ extension Flagship{
         
         self.context.addBoolenCtx(key, boolean)
     }
- 
+    
     
     
     
@@ -52,7 +52,7 @@ extension Flagship{
     }
     
     
- 
+    
     
     
     /////////////////////////// Text //////////////////////////////
@@ -73,11 +73,11 @@ extension Flagship{
         self.context.addStringCtx(key, text)
     }
     
- 
+    
     
     
     /////////////////////////// Float /////////////////////////////
-
+    
     @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ float:Float)")
     public func context(_ key:String,  _ float:Float){
         
@@ -94,12 +94,12 @@ extension Flagship{
     }
     
     
- 
+    
     
     
     
     /////////////////////////// Integer /////////////////////////////
-
+    
     @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ integer:Int)")
     public func context(_ key:String,  _ integer:Int){
         
@@ -167,24 +167,57 @@ extension Flagship{
     
     
     ///// Update context without dictionary //////////////////////
-    @objc public func synchronizeModifications(/*_ contextValues:Dictionary<String,Any>,*/  completion:@escaping((FlagShipResult)->Void)){
-                
+    @objc public func synchronizeModifications(completion:@escaping((FlagShipResult)->Void)){
+        
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
             return
         }
-        FSLogger.FSlog("Update context", .Campaign)
-
-        self.getCampaigns { (error) in
-
-            if (error == nil){
-
-                completion(.Updated)
-
-            }else{
-
-                completion(.NotReady)
+        if sdkModeRunning == .DECISION_API{
+            
+            self.getCampaigns { (error) in
+                
+                if (error == nil){
+                    
+                    completion(.Updated)
+                    
+                }else{
+                    
+                    completion(.NotReady)
+                }
             }
+        }else{
+            
+            
+            /// Mode Bucketing
+            self.service.getFSScript { (scriptBucket, error) in
+                
+                let bucketMgr:FSBucketManager = FSBucketManager()
+                
+                /// Error occured when trying to get script
+                if(error != nil){
+                    
+                    /// Read from cache the bucket script
+                    guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
+                        
+                        // Exit the start with not ready state
+                        FSLogger.FSlog("No cached script available",.Campaign)
+                        completion(.NotReady)
+                        return
+                    }
+                    
+                    /// Bucket the variations with the cached script
+                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, cachedBucket)
+                }else{
+                    /// Bucket the variation with a new script from server
+                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
+                }
+                /// Update the modifications
+                self.context.updateModification(self.campaigns)
+                /// Call back with Ready state
+                completion(.Ready)
+            }
+            
         }
         
     }
