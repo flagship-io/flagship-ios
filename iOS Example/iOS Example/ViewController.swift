@@ -8,7 +8,6 @@
 
 import UIKit
 import Flagship
-import Optimizely
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
@@ -25,6 +24,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     /// Parrainage
     @IBOutlet var parrainageBtn:UIButton!
+    
+    
+    /// Switch
+    
+    @IBOutlet var vipSwitch:UISwitch!
     
     /// Style bar
     override var preferredStatusBarStyle: UIStatusBarStyle{
@@ -118,20 +122,48 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
         
- 
+        //// Classic
+        let hit = FSTransaction(transactionId: "transacId", affiliation: "name")
+        
+        Flagship.sharedInstance.sendHit(hit)
+        
+        
+        
+    }
+    
+    
+    @IBAction func onSwitch(){
+        
+        Flagship.sharedInstance.context("isVip", vipSwitch.isOn)
+        
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+            
+            DispatchQueue.main.async {
+                
+                
+                /// Get Color for background defined in dashboard flagship
+                let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#ffffff", activate: false)
+                /// Activate modification to tell Flagship that the user has seen this specific variation
+                Flagship.sharedInstance.activateModification(key: "backgroundColor")
+                self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
+                
+                /// Get color for button
+                self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+                
+                self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+                
+                self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+
+                
+            }
+        }
         
     }
     
     
     
-    
 }
 
-
-class Event:NSObject{
-    
-    let a:String = "aa"
-}
 
 
  

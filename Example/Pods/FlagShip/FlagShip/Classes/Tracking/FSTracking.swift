@@ -7,7 +7,7 @@
 
 import Foundation
 
- /// :nodoc:
+
 @objc public enum FSTypeTrack:NSInteger {
     
     case PAGE        = 0
@@ -34,17 +34,13 @@ import Foundation
 }
 
 
-/// Enumeration that represent Events type
  @objc public enum FSCategoryEvent: NSInteger {
     
-    /// Action tracking
     case Action_Tracking     = 1
-    
-    /// User engagement
     case User_Engagement     = 2
     
     
-    /// :nodoc:
+    
     public var categoryString:String{
         
         switch self {
@@ -57,7 +53,7 @@ import Foundation
 }
 
 
-/// :nodoc:
+
 @objc public protocol FSTrackingProtocol {
     
     var type:FSTypeTrack { get }
@@ -67,7 +63,6 @@ import Foundation
     var fileName:String! { get }
 }
 
-/// :nodoc:
 @objcMembers public class FSTracking :NSObject ,FSTrackingProtocol {
     
     
@@ -87,27 +82,26 @@ import Foundation
     
     // Required
     var clientId :String?
-    var fsUserId:String?
-    var customVisitorId:String?
+    var visitorId:String?
     var dataSource:String = "APP"
     
     // Optional
-    /// Interface Name
+    // Interface Name
     public var interfaceName:String?
     
-    /// User Ip
+    // User Ip
     public var userIp:String?
-    /// Screen Resolution
+    // Screen Resolution
     public var screenResolution:String?
-    ///Screen Color Depth
+    // Screen Color Depth
     public var screenColorDepth:String?
-    /// User Language
+    // User Language
     public var userLanguage:String?
-    /// Queue Time
+    // Queue Time
     public var queueTime:NSNumber?
-    /// Time Stamp
+    // Time Stamp
     public var currentSessionTimeStamp:Int64?
-    /// Session Number
+    // Session Number
     public var sessionNumber:NSNumber?
     
     // Custom Dimension .... a voir
@@ -121,10 +115,8 @@ import Foundation
     
     override init() {
         
-        clientId        = Flagship.sharedInstance.environmentId
-        //fsUserId        = FlagShip.sharedInstance.fsProfile.tupleId.fsUserId
-        customVisitorId = Flagship.sharedInstance.visitorId
- 
+        clientId = ABFlagShip.sharedInstance.clientId
+        visitorId = ABFlagShip.sharedInstance.visitorId
         
         // Set time Stamps
         self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
@@ -145,10 +137,9 @@ import Foundation
             
              var communParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set Client Id
-            communParams.updateValue(self.clientId ?? "", forKey: "cid") //// Rename it
-            // Set FlagShip user id Id
-            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")  //// rename it
-
+            communParams.updateValue(self.clientId ?? "", forKey: "cid")
+            // Set Visitor Id
+            communParams.updateValue(self.visitorId ?? "", forKey: "vid")
             // Set Data source
             communParams.updateValue(self.dataSource, forKey: "ds")
             // Set User ip
@@ -190,20 +181,9 @@ import Foundation
 
 
 
-/**
- This hit should be sent each time a visitor arrives on a new interface.
- */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSPage")
+// Page
 @objcMembers public class FSPageTrack:FSTracking{
     
-    
-    /**
-     Init PageTrack object
-     
-     @param interfaceName String
-          
-     @return instance object
-     */
     
     @objc public init(_ interfaceName:String) {
         
@@ -213,7 +193,7 @@ import Foundation
     }
     
     
-    /// :nodoc:
+    
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -230,54 +210,26 @@ import Foundation
     }
 }
 
-/**
-
- Represent a hit Transaction
- */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSTransaction")
+// Transaction
 @objcMembers public class FSTransactionTrack:FSTracking{
     
-    /// Transaction unique identifier.
+    // Required
      private var transactionId:String!
-    /// Transaction name. Name of the goal in the reporting.
      private var affiliation:String!
     
+    // Optional
     
-    /// Total revenue associated with the transaction. This value should include any shipping or tax costs
-    public var revenue:NSNumber?
-    /// Specifies the total shipping cost of the transaction.
-    public var shipping:NSNumber?
-    
-    /// Specifies the total taxes of the transaction.
-    public var tax:NSNumber?
-    
-    /// Specifies the currency used for all transaction currency values. Value should be a valid ISO 4217 currency code.
-    public var currency:String?
-    
-    /// Specifies the coupon code used by the customer for the transaction.
-    public var couponCode:String?
-    
-    /// Specifies the payment method for the transaction.
-    public var paymentMethod:String?
-    
-    /// Specifies the shipping method of the transaction.
-    public var ShippingMethod:String?
-    
-    /// Specifies the number of items for the transaction.
-    public var itemCount:NSNumber?
+     public var revenue:NSNumber?
+     public var shipping:NSNumber?
+     public var tax:NSNumber?
+     public var currency:String?
+     public var couponCode:String?
+     public var paymentMethod:String?
+     public var shippingMethod:String?
+     public var itemCount:NSNumber?
     
     
-    
-    /**
-     Init transaction object
-     
-     @param transactionId String
-     
-     @param affiliation String
-     
-     @return instance object
-     */
-     public init(transactionId:String, affiliation:String) {
+     public init(transactionId:String!, affiliation:String!) {
         
         super.init()
         
@@ -289,7 +241,7 @@ import Foundation
   
     }
     
-     /// :nodoc:
+    
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -332,8 +284,8 @@ import Foundation
                 customParams.updateValue(self.paymentMethod ?? "" , forKey: "pm")
             }
             // Set ShippingMethod
-            if self.ShippingMethod != nil{
-                customParams.updateValue(self.ShippingMethod ?? "" , forKey: "sm")
+            if self.shippingMethod != nil{
+                customParams.updateValue(self.shippingMethod ?? "" , forKey: "sm")
             }
             //Set itemCount
             if self.itemCount != nil{
@@ -349,41 +301,20 @@ import Foundation
     
 }
 
-/**
- Represent item with a transaction. It must be sent after the corresponding transaction.
- */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSItem")
+
+///////////////////////////////////// Item ///////////////////////////////////////
+
 @objcMembers public class FSItemTrack:FSTracking{
     
-    /// Transaction unique identifier
+    
     private var transactionId:String!
-    
-    /// Product name
     private var name:String!
-    
-    /// Specifies the item price
     public var price:NSNumber?
-    
-    /// Specifies the item quantity
     public var quantity:NSNumber?
-    
-    /// Specifies the item code or SKU
     public var code:String?
-    
-    /// Specifies the item category
     public var category:String?
     
-    
-    /**
-     Init Item object
-     
-     @param transactionId :String
-     
-     @param name :String
-     
-     @return instance object
-     */
-    public init(transactionId:String, name:String) {
+    public init(transactionId:String!, name:String!) {
         
         super.init()
         
@@ -397,7 +328,21 @@ import Foundation
     }
     
     
-     /// :nodoc:
+    
+     public init(transactionId:String!,  name:String!, price:NSNumber, quantity:NSNumber, code: String?, category:String? ) {
+        
+        super.init()
+        
+        self.type          = .ITEM
+        self.transactionId = transactionId
+        self.name          = name
+        self.price         = price
+        self.quantity      = quantity
+        self.code          = code
+        self.category      = category
+    }
+    
+    
     public  override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -442,36 +387,31 @@ import Foundation
 }
 
 
-/**
- 
- Represents an event
- */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "FSEvent")
-
+// //////////////////////////  Event ////////////////////////////////:
 @objcMembers public class FSEventTrack:FSTracking{
     
-    /// category of the event (Action_Tracking or User_Engagement).
     private var category:FSCategoryEvent!
-    
-    /// name of the event.
     private var action:String?
-    
-    /// description of the event.
     public  var label:String?
-    
-    /// value of the event, must be non-negative.
     public  var eventValue:NSNumber?
     
     
-    /**
-     Init Event object
-     
-     @param eventCategory :FSCategoryEvent
-     
-     @param eventAction :String
-     
-     @return instance object
-     */
+    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
+    
+        super.init()  /// Set dans la base les element vitales
+        
+        self.type = .EVENT
+        
+        self.category = eventCategory
+        
+        self.action = eventAction
+ 
+        self.label = eventLabel
+        
+        self.eventValue = eventValue
+        
+    }
+    
     public init(eventCategory:FSCategoryEvent, eventAction:String){
         
         super.init()  /// Set dans la base les element vitales
@@ -487,7 +427,7 @@ import Foundation
         self.eventValue = nil
     }
     
-     /// :nodoc:
+    
     public override var bodyTrack: Dictionary<String, Any>{
         
         get {
@@ -515,5 +455,3 @@ import Foundation
 
     }
 }
-
-

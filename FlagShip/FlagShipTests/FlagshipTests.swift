@@ -37,7 +37,7 @@ class FlagshipTests: XCTestCase {
     func testStartFlagshipWithBadEnvId(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "", "", .BUCKETING) { (result) in
+        Flagship.sharedInstance.start(environmentId: "", "", .BUCKETING) { (result) in
             
             XCTAssert(result == .NotReady)
             expectation.fulfill()
@@ -50,7 +50,7 @@ class FlagshipTests: XCTestCase {
     func testStartFlagshipwithEmptyUserID(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
             
             XCTAssert(result == .NotReady)
             expectation.fulfill()
@@ -64,7 +64,7 @@ class FlagshipTests: XCTestCase {
     func testStartFlagship(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
 
             XCTAssert(result == .Ready)
             expectation.fulfill()
@@ -73,5 +73,18 @@ class FlagshipTests: XCTestCase {
 
     }
     
+    
+    
+    func testStartFlagshiWithApac(){
+
+        let expectation = self.expectation(description: #function)
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING, apacRegion:FSRegion("1212121212121##1#1#1#1;")) { (result) in
+
+            XCTAssert(result == .Ready)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+
+    }
     
 }

@@ -55,9 +55,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     /// On Click Login
     @IBAction func onClickLogin(){
         
-        
- 
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
+       // Flagship.sharedInstance.context("isVip", true)
+        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API, apacRegion: FSRegion("j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36")) { (result) in
             
             
             if result == .Ready{
@@ -72,22 +71,6 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
                 
             }
         }
-//
-//        Flagship.sharedInstance.startFlagShipWithMode(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text , .DECISION_API) { (result) in
-//
-//            if result == .Ready{
-//
-//                DispatchQueue.main.async {
-//
-//                    self.performSegue(withIdentifier: "onClickLogin", sender: nil)
-//
-//                }
-//
-//            }else{
-//
-//            }
-//
-//        }
         
     }
     
@@ -95,6 +78,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func onCancel(){
         
         self.dismiss(animated: true, completion:nil)
+        
+        
     }
     
     
@@ -116,8 +101,4 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
-    
-    
-    /// Send action on click parainage
-
 }

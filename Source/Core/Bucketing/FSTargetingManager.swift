@@ -67,8 +67,9 @@ class FSTargetingManager: NSObject {
         
         for itemTarget in itemTargetGroup.targetings{
             
+            
             // Cuurent context value
-          //  let currentContextValue = currentContext[itemTarget.tragetKey]
+            // let currentContextValue = currentContext[itemTarget.tragetKey]
             
             let currentContextValue = self.getCurrentValueFromCtx(itemTarget.tragetKey)
 
@@ -78,7 +79,7 @@ class FSTargetingManager: NSObject {
             let opType:FSoperator = FSoperator(rawValue: itemTarget.targetOperator) ?? .Unknown
             
             
-            /// Specail tretment for array
+            /// Special treatment for array
             var isOkay:Bool = false
             if (audienceValue is [String] || audienceValue is [Int] || audienceValue is [Double] ){
                 

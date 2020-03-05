@@ -144,7 +144,7 @@ extension Flagship{
      
      */
     
-    public func updateContext(configuredKey:FSAudiences, value:Any){
+    public func updateContext(configuredKey:PresetContext, value:Any){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -188,36 +188,24 @@ extension Flagship{
             }
         }else{
             
-            
-            /// Mode Bucketing
-            self.service.getFSScript { (scriptBucket, error) in
+            /// Read from cache the bucket script
+            guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
                 
-                let bucketMgr:FSBucketManager = FSBucketManager()
-                
-                /// Error occured when trying to get script
-                if(error != nil){
-                    
-                    /// Read from cache the bucket script
-                    guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
-                        
-                        // Exit the start with not ready state
-                        FSLogger.FSlog("No cached script available",.Campaign)
-                        completion(.NotReady)
-                        return
-                    }
-                    
-                    /// Bucket the variations with the cached script
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, cachedBucket)
-                }else{
-                    /// Bucket the variation with a new script from server
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
-                }
-                /// Update the modifications
-                self.context.updateModification(self.campaigns)
-                /// Call back with Ready state
-                completion(.Ready)
+                // Exit the start with not ready state
+                FSLogger.FSlog("No cached script available",.Campaign)
+                completion(.NotReady)
+                return
             }
+            let bucketMgr:FSBucketManager = FSBucketManager()
             
+            let resultBucketCache = bucketMgr.matchTargetingForCustomID(cachedBucket, visitorId, false)
+            
+            self.campaigns = FSCampaigns(resultBucketCache)
+            
+            self.context.updateModification( self.campaigns)
+            
+            completion(.Ready)
+
         }
         
     }

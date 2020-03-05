@@ -451,22 +451,42 @@
                                     <action selector="onClikcParrainage" destination="rAQ-Dl-yKn" eventType="touchUpInside" id="Vbv-2o-jig"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rq7-Mg-cHd">
+                                <rect key="frame" x="290" y="521" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onSwitch" destination="rAQ-Dl-yKn" eventType="valueChanged" id="H5x-sh-5vP"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vip user" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMx-Zw-xuf">
+                                <rect key="frame" x="235" y="526" width="50" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZPN-c6-vHk"/>
+                                    <constraint firstAttribute="width" constant="50" id="kB2-hX-MgK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.28235294119999998" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="kCq-Lj-8VC" firstAttribute="top" secondItem="RvD-Mm-Plj" secondAttribute="bottom" constant="10" id="0F5-op-Pux"/>
                             <constraint firstAttribute="trailing" secondItem="RvD-Mm-Plj" secondAttribute="trailing" constant="10" id="87a-0r-t6r"/>
+                            <constraint firstItem="Rq7-Mg-cHd" firstAttribute="leading" secondItem="mMx-Zw-xuf" secondAttribute="trailing" constant="5" id="BX6-6I-SpX"/>
                             <constraint firstItem="hgN-zW-vAQ" firstAttribute="top" secondItem="kCq-Lj-8VC" secondAttribute="bottom" constant="10" id="EeY-Q5-6Ym"/>
                             <constraint firstAttribute="trailing" secondItem="hgN-zW-vAQ" secondAttribute="trailing" constant="10" id="FSR-T0-U5e"/>
                             <constraint firstItem="vvN-e5-JIV" firstAttribute="top" secondItem="rc0-UN-Ohu" secondAttribute="bottom" constant="50" id="IgS-ND-E5l"/>
+                            <constraint firstItem="Rq7-Mg-cHd" firstAttribute="centerY" secondItem="mMx-Zw-xuf" secondAttribute="centerY" id="Kzf-QS-T4h"/>
                             <constraint firstItem="rc0-UN-Ohu" firstAttribute="leading" secondItem="hMF-zP-Xl0" secondAttribute="leading" constant="20" id="LKI-Iw-dq3"/>
                             <constraint firstItem="mZ3-BZ-0Gh" firstAttribute="leading" secondItem="hMF-zP-Xl0" secondAttribute="leadingMargin" id="OWU-Hz-WNq"/>
+                            <constraint firstItem="rc0-UN-Ohu" firstAttribute="top" secondItem="Rq7-Mg-cHd" secondAttribute="bottom" constant="20" id="a9i-l8-hAS"/>
                             <constraint firstItem="kCq-Lj-8VC" firstAttribute="centerX" secondItem="hMF-zP-Xl0" secondAttribute="centerX" id="bOy-cv-cSb"/>
                             <constraint firstItem="RvD-Mm-Plj" firstAttribute="leading" secondItem="hMF-zP-Xl0" secondAttribute="leading" constant="10" id="gb1-ZI-tMW"/>
                             <constraint firstAttribute="trailing" secondItem="kCq-Lj-8VC" secondAttribute="trailing" constant="10" id="h78-Ob-Ded"/>
                             <constraint firstItem="mZ3-BZ-0Gh" firstAttribute="top" secondItem="0kz-AL-0U1" secondAttribute="bottom" constant="20" id="iFT-Te-Gbg"/>
                             <constraint firstItem="aC6-Fx-nyu" firstAttribute="centerY" secondItem="mZ3-BZ-0Gh" secondAttribute="centerY" id="pu7-xG-Csm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Rq7-Mg-cHd" secondAttribute="trailing" constant="20" id="pzm-Ip-q1S"/>
                             <constraint firstAttribute="trailing" secondItem="rc0-UN-Ohu" secondAttribute="trailing" constant="20" id="s7B-Mv-74k"/>
                             <constraint firstItem="aC6-Fx-nyu" firstAttribute="trailing" secondItem="hMF-zP-Xl0" secondAttribute="trailingMargin" id="sC3-11-Idq"/>
                             <constraint firstItem="kCq-Lj-8VC" firstAttribute="leading" secondItem="hMF-zP-Xl0" secondAttribute="leading" constant="10" id="sH6-GA-jWH"/>
@@ -480,6 +500,7 @@
                         <outlet property="parrainageBtn" destination="rc0-UN-Ohu" id="y2i-6e-XpL"/>
                         <outlet property="secondButton" destination="kCq-Lj-8VC" id="PTD-l0-RPx"/>
                         <outlet property="thirdButton" destination="hgN-zW-vAQ" id="M2b-l1-bY7"/>
+                        <outlet property="vipSwitch" destination="Rq7-Mg-cHd" id="ajL-HV-FsP"/>
                         <segue destination="p2C-s2-kDT" kind="show" identifier="showShoesStore" id="oum-S9-jax"/>
                         <segue destination="K0D-85-9pb" kind="show" identifier="showBasket" id="uPl-aZ-FEn"/>
                     </connections>

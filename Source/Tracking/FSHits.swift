@@ -1,204 +1,22 @@
 //
-//  FSTracking.swift
-//  FlagShip
+//  FSHits.swift
+//  Flagship
 //
-//  Created by Adel on 13/08/2019.
+//  Created by Adel on 04/03/2020.
+//  Copyright © 2020 FlagShip. All rights reserved.
 //
 
 import Foundation
-
- /// :nodoc:
-@objc public enum FSTypeTrack:NSInteger {
-    
-    case PAGE        = 0
-    case TRANSACTION
-    case ITEM
-    case EVENT
-    case None
-    
-    public var typeString:String{
-
-        switch self {
-        case .PAGE:
-            return "SCREENVIEW"
-        case .TRANSACTION:
-            return "TRANSACTION"
-        case .ITEM:
-            return "ITEM"
-        case .EVENT:
-            return "EVENT"
-        case .None:
-            return "None"
-        }
-    }
-}
-
-
-/// Enumeration that represent Events type
- @objc public enum FSCategoryEvent: NSInteger {
-    
-    /// Action tracking
-    case Action_Tracking     = 1
-    
-    /// User engagement
-    case User_Engagement     = 2
-    
-    
-    /// :nodoc:
-    public var categoryString:String{
-        
-        switch self {
-        case .Action_Tracking:
-            return "Action Tracking"
-        case .User_Engagement:
-            return "User Engagement"
-        }
-    }
-}
-
-
-/// :nodoc:
-@objc public protocol FSTrackingProtocol {
-    
-    var type:FSTypeTrack { get }
-    
-    var bodyTrack:Dictionary<String,Any> { get }
-    
-    var fileName:String! { get }
-}
-
-/// :nodoc:
-@objcMembers public class FSTracking :NSObject ,FSTrackingProtocol {
-    
-    
-    public var fileName: String! {
-        
-        get {
-            
-            let formatDate = DateFormatter()
-            formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
-            return String(format: "%@.json",formatDate.string(from: Date()))
-        }
-    }
-    
-    
-    // Here will add all commun args
-    public var type: FSTypeTrack = .None
-    
-    // Required
-    var clientId :String?
-    var fsUserId:String?
-    var customVisitorId:String?
-    var dataSource:String = "APP"
-    
-    // Optional
-    /// Interface Name
-    public var interfaceName:String?
-    
-    /// User Ip
-    public var userIp:String?
-    /// Screen Resolution
-    public var screenResolution:String?
-    ///Screen Color Depth
-    public var screenColorDepth:String?
-    /// User Language
-    public var userLanguage:String?
-    /// Queue Time
-    public var queueTime:NSNumber?
-    /// Time Stamp
-    public var currentSessionTimeStamp:Int64?
-    /// Session Number
-    public var sessionNumber:NSNumber?
-    
-    // Custom Dimension .... a voir
-    
-    // Custom Metric
-    //var customMetric:Int?  ..... a voir
-    
-    // Session Event Number
-    public var sessionEventNumber:NSNumber?
-    
-    
-    override init() {
-        
-        clientId        = Flagship.sharedInstance.environmentId
-        //fsUserId        = FlagShip.sharedInstance.fsProfile.tupleId.fsUserId
-        customVisitorId = Flagship.sharedInstance.visitorId
- 
-        
-        // Set time Stamps
-        self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
-    }
-    
-    public var bodyTrack: Dictionary<String, Any>{
-        
-        get {
-            
-            return [:]
-        }
-    }
-    
-    
-    public var communBodyTrack:Dictionary<String,Any> {
-        
-        get {
-            
-             var communParams:Dictionary<String,Any> = Dictionary<String,Any>()
-            // Set Client Id
-            communParams.updateValue(self.clientId ?? "", forKey: "cid") //// Rename it
-            // Set FlagShip user id Id
-            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")  //// rename it
-
-            // Set Data source
-            communParams.updateValue(self.dataSource, forKey: "ds")
-            // Set User ip
-            if (self.userIp != nil) {
-                communParams.updateValue(self.userIp ?? "", forKey: "uip")
-            }
-            // Set Resolution Screen
-            if (self.screenResolution != nil) {
-                communParams.updateValue(self.screenResolution ?? "", forKey: "sr")
-            }
-            //Set  Screen Color Depth
-            if (self.screenColorDepth != nil) {
-                communParams.updateValue(self.screenColorDepth ?? "", forKey: "sd")
-            }
-            // User Language
-            if (self.userLanguage != nil) {
-                communParams.updateValue(self.userLanguage ?? "", forKey: "ul")
-            }
-            // Queue Time
-            if (self.queueTime != nil) {
-                communParams.updateValue(self.queueTime ?? 0, forKey: "qt")
-            }
-            // Time Stamp
-            communParams.updateValue(self.currentSessionTimeStamp ?? 0, forKey: "cst")
-            // Session Number
-            if (self.sessionNumber != nil) {
-                communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
-            }
-            
-            // Interface Name
-            if (self.interfaceName != nil) {
-                communParams.updateValue(self.interfaceName ?? 0, forKey: "dl")
-            }
-            
-            return communParams
-        }
-    }
-}
-
 
 
 /**
  This hit should be sent each time a visitor arrives on a new interface.
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSPage")
-@objcMembers public class FSPageTrack:FSTracking{
+@objcMembers public class FSPage:FSTracking{
     
     
     /**
-     Init PageTrack object
+     Init Page hit
      
      @param interfaceName String
           
@@ -234,8 +52,15 @@ import Foundation
 
  Represent a hit Transaction
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSTransaction")
-@objcMembers public class FSTransactionTrack:FSTracking{
+
+
+public struct MyEvent{
+    
+    public init(){}
+}
+
+
+@objcMembers public class FSTransaction:FSTracking{
     
     /// Transaction unique identifier.
      private var transactionId:String!
@@ -352,8 +177,8 @@ import Foundation
 /**
  Represent item with a transaction. It must be sent after the corresponding transaction.
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSItem")
-@objcMembers public class FSItemTrack:FSTracking{
+
+@objcMembers public class FSItem:FSTracking{
     
     /// Transaction unique identifier
     private var transactionId:String!
@@ -395,8 +220,6 @@ import Foundation
         self.code          = nil
         self.category      = nil
     }
-    
-    
      /// :nodoc:
     public  override var bodyTrack: Dictionary<String, Any>{
         
@@ -446,9 +269,7 @@ import Foundation
  
  Represents an event
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "FSEvent")
-
-@objcMembers public class FSEventTrack:FSTracking{
+@objcMembers public class FSEvent:FSTracking{
     
     /// category of the event (Action_Tracking or User_Engagement).
     private var category:FSCategoryEvent!
@@ -515,5 +336,3 @@ import Foundation
 
     }
 }
-
-

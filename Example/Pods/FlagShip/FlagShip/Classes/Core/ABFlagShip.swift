@@ -11,31 +11,28 @@ import Foundation
 
 /**
  
- `FlagShip` class helps you run FlagShip on your native iOS app.
+ `ABFlagShip` class helps you run FlagShip on your native iOS app.
  
  */
 
-public class Flagship:NSObject{
+public class ABFlagShip:NSObject{
     
-    /// This id is unique for the app
-    internal(set) public var visitorId:String!
+    // This id is unique for the app
+    var visitorId:String?
     
-    /// Customer id
-     internal var fsProfile:FSProfile!
+    // Client Id
+    internal var clientId:String!
     
-    /// Client Id
-    internal var environmentId:String!
-    
-    /// Current Context
+    // Current Context
     internal var context:FSContext!
     
     
-    /// All Campaigns
-    internal var campaigns:FSCampaigns!
+    // All Campaigns
+    private var campaigns:FSCampaigns!
     
     
-    /// Service
-    internal var service:ABService!
+    // Service
+    var service:ABService!
     
     /// Enable Logs, By default is equal to True
     @objc public var enableLogs:Bool = true
@@ -45,81 +42,44 @@ public class Flagship:NSObject{
     @objc public var disabledSdk:Bool = false
     
     
-    
-    internal var sdkModeRunning:FlagShipMode = .DECISION_API  // By default 
-    
-    
     /// Shared instance
-    @objc public static let sharedInstance:Flagship = {
+    @objc public static let sharedInstance:ABFlagShip = {
         
-        let instance = Flagship()
+        let instance = ABFlagShip()
         // setup code
         return instance
     }()
     
     
-    /// Audience
-    let audience:FSAudience!
-    
-    
     private override init() {
         // init context
         self.context = FSContext()
-        
-        self.audience = FSAudience()
-        
     }
     
     
     /**
      Start FlagShip
      
-     @param environmentId String environmentId id for client
-     
      @param visitorId String visitor id
      
      @param pBlock The block to be invoked when sdk is ready
      */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
-    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagShipResult)->Void){
-        
-        // Checkc the environmentId
-        if (FSTools.chekcXidEnvironment(environmentId)){
-            
-            self.environmentId = environmentId
-            
-        }else{
-            
-            completionHandler(.NotReady)
-            return
-        }
-        
-        
-        /// Manage visitor id
+     @objc public func startFlagShip(_ visitorId:String?, onFlagShipReady:@escaping(FlagshipState)->Void){
         do {
-            self.visitorId =  try FSTools.manageVisitorId(visitorId)
+            try self.readClientIfFromPlist()    // Read EnvId from plist
             
         }catch{
             
-            completionHandler(.NotReady)
-            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK FlagShip is not ready "), .Campaign)
+            onFlagShipReady(FlagshipState.NotReady)
+            
+            FSLogger.FSlog("Can't find Environment Id in plist",.Campaign)
+            
             return
         }
-        
+        // set visitor Id
+        self.visitorId = visitorId
         // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId)
-        
-        // Set the préconfigured context
-        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
-
-        
-        // Add the keys all_users temporary
-        self.context.currentContext.updateValue("", forKey:ALL_USERS)
-        
-        // The current context is
-        FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
-        
+        self.service = ABService(self.clientId, self.visitorId ?? "")
         
         // Au départ mettre a dispo les campaigns du cache.
         self.campaigns =  self.service.cacheManager.readCampaignFromCache()
@@ -139,21 +99,18 @@ public class Flagship:NSObject{
                     FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
                     
                     FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
-                    
-                    completionHandler(FlagShipResult.Disabled)
+
+                    onFlagShipReady(FlagshipState.Disabled)
                     
                 }else{
                     
                     self.disabledSdk = false
                     self.campaigns = campaigns
                     self.context.updateModification(campaigns)
-                    completionHandler(FlagShipResult.Ready)
+                    onFlagShipReady(FlagshipState.Ready)
                 }
             }else{
-                
-                FSLogger.FSlog(String(format: "Error on get campaign, the SDK is not ready for use"), .Campaign)
-                
-                completionHandler(FlagShipResult.NotReady)
+                onFlagShipReady(FlagshipState.NotReady)
             }
         }
         
@@ -169,7 +126,7 @@ public class Flagship:NSObject{
      
      @param pBlock The block to be invoked when sdk receive campaign
      */
-    internal func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
+    public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -193,8 +150,8 @@ public class Flagship:NSObject{
                         FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
                         
                         FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
-                        
-                        
+
+
                     }else{
                         
                         self.disabledSdk = false
@@ -209,7 +166,7 @@ public class Flagship:NSObject{
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
-                    
+
                     onGetCampaign(.GetCampaignError)
                 }
             }
@@ -220,26 +177,26 @@ public class Flagship:NSObject{
     }
     
     
-    
+
     /**
      Update Context
      
      @param contextvalues Dictionary that represent keys value relative to users
      
      @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
+
      */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
-    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagShipResult)->Void)?){
+    @objc public func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagshipState)->Void)?){
+        
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
             return
         }
         FSLogger.FSlog("Update context", .Campaign)
+        self.context.currentContext.merge(contextvalues) { (_, new) in new }
         
-        self.context.currentContext.merge(contextValues) { (_, new) in new }
+        
         if sync !=  nil {
             
             self.getCampaigns { (error) in
@@ -257,52 +214,16 @@ public class Flagship:NSObject{
     }
     
     
-    /**
-     Update Context with Pre defined keys
-     
-     @param configuredKey FSAudiences Enum for pre defined keys
-     
-     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
-     */
-    @available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
-    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagShipResult)->Void)?){
+    private func readClientIfFromPlist() throws{
         
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
+        guard let cId =   Bundle.main.object(forInfoDictionaryKey: "FlagShipEnvId") as? String else{
+            
+            throw FSError.BadPlist
+          
         }
+        print(cId)
         
-        //Check the validity value
-        
-        if (!configuredKey.chekcValidity(value)){
-            
-            FSLogger.FSlog(" Skip updating the context with pre configured key \(configuredKey) ..... the value is not valid", .Campaign)
-            
-        }
-        
-        FSLogger.FSlog(" Update context with pre configured key", .Campaign)
-        
-        
-        self.context.currentContext.updateValue(value, forKey:configuredKey.rawValue)
-        
-        
-        if sync !=  nil {
-            
-            self.getCampaigns { (error) in
-                
-                if (error == nil){
-                    
-                    sync!(.Updated)
-                    
-                }else{
-                    
-                    sync!(.NotReady)
-                    
-                }
-            }
-            
-        }
+        self.clientId = cId
     }
     
     
@@ -319,9 +240,9 @@ public class Flagship:NSObject{
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
      @return Boolean value
-     
+
      */
-    @objc public func getModification(_ key:String, defaultBool:Bool, activate:Bool = false) -> Bool {
+    @objc public func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool {
         
         // Check if disabled
         if disabledSdk{
@@ -329,7 +250,7 @@ public class Flagship:NSObject{
             return defaultBool
         }
         
-        if activate && self.campaigns != nil{
+        if activate{
             // Activate
             self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
@@ -349,15 +270,15 @@ public class Flagship:NSObject{
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
      @return String value
-     
+
      */
-    @objc public func getModification(_ key:String, defaultString:String, activate:Bool = false) -> String{
+    @objc public func getModification(_ key:String, defaultString:String, activate:Bool) -> String{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultString
         }
-        
+
         
         if activate && self.campaigns != nil {
             
@@ -368,7 +289,7 @@ public class Flagship:NSObject{
     
     /**
      Get Modification from the decision api
-     
+
      @param key for associated to value
      
      @param defaultDouble will be used when the key don't exist
@@ -377,13 +298,13 @@ public class Flagship:NSObject{
      
      @return Double value
      */
-    @objc public func getModification(_ key:String, defaultDouble:Double, activate:Bool = false) -> Double{
+    @objc public func getModification(_ key:String, defaultDouble:Double, activate:Bool) -> Double{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultDouble
         }
-        
+
         
         if activate && self.campaigns != nil{
             
@@ -394,7 +315,7 @@ public class Flagship:NSObject{
     
     /**
      Get Modification from the decision api
-     
+
      @param key for associated to value
      
      @param defaulfloat will be used when the key don't exist
@@ -403,14 +324,14 @@ public class Flagship:NSObject{
      
      @return Float value
      */
-    @objc public func getModification(_ key:String, defaulfloat:Float, activate:Bool = false) -> Float{
+    @objc public func getModification(_ key:String, defaulfloat:Float, activate:Bool) -> Float{
         
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaulfloat
         }
-        
+
         
         if activate && self.campaigns != nil{
             
@@ -433,7 +354,7 @@ public class Flagship:NSObject{
      @return Int value
      
      */
-    @objc public func getModification(_ key:String, defaultInt:Int, activate:Bool = false) -> Int{
+    @objc public func getModification(_ key:String, defaultInt:Int, activate:Bool) -> Int{
         
         
         if disabledSdk{
@@ -450,7 +371,6 @@ public class Flagship:NSObject{
     }
     
     
-    
     /**
      Activate Modifications values
      
@@ -463,14 +383,45 @@ public class Flagship:NSObject{
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled ... activate will not be sent", .Campaign)
             return
-            
+
         }
         
         if self.campaigns != nil {
+             
+             self.service.activateCampaignRelativetoKey(key,self.campaigns)
+         }
+    }
+    
+    
+    
+    /**
+     Update Modifications values
+     
+     @onFlagUpdateDone this block will be invoked when the update done
+     
+     */
+    @objc public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagshipState)->Void){
+        
+        if disabledSdk{
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            FSLogger.FSlog("FlagShip Disabled", .Campaign)
+            return
+        }
+        
+        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+            
+            if (error == nil){
+                // Set Campaigns
+                self.campaigns = campaigns
+                self.context.updateModification(campaigns)
+                onFlagUpdateDone(FlagshipState.Ready)
+                
+            }else{
+                onFlagUpdateDone(FlagshipState.NotReady)
+            }
         }
     }
+    
     
     
     /**
@@ -479,8 +430,7 @@ public class Flagship:NSObject{
      @param event Event Object (Page, Transaction, Item, Event)
      
      */
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use sendHit")
-    public func sendTracking<T: FSTrackingProtocol>(_ event:T){
+     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
@@ -488,32 +438,10 @@ public class Flagship:NSObject{
         }
         self.service.sendTracking(event)
     }
-    
-    
-    /**
-     Send Hit for tracking data
-     
-     @param event Event Object (Page, Transaction, Item, Event)
-     
-     */
-    public func sendHit<T: FSTrackingProtocol>(_ event:T){
-        
-        if disabledSdk{
-            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
-            return
-        }
-        self.service.sendTracking(event)
-    }
-    
-    
-    
-    
-    
-    
     
     /// For Objective C Project, use the functions below to send Events
     /// See https://developers.flagship.io/ios/#hit-tracking
-    
+
     /**
      Send Transaction event
      
@@ -579,19 +507,4 @@ public class Flagship:NSObject{
         }
         self.service.sendTracking(eventTrack)
     }
-    
-    
-    /**
-     This function use to reset the id flagShip
-     Should called before start.... to take effect
-     See with team to define how to set this function
-     */
-    
-    public func resetUserIdFlagShip(){
-        
-        FSGenerator.resetFlagShipIdInCache()
-    }
-    
-    
-    
 }

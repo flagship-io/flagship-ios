@@ -21,10 +21,8 @@ internal class ABService {
     
     var cacheManager:FSCacheManager!
     
-    var apacRegion:FSRegion?
     
-    
-    init(_ clientId:String, _ visitorId:String, region:FSRegion? = nil) {
+    init(_ clientId:String, _ visitorId:String) {
         
         self.clientId = clientId
         
@@ -33,31 +31,26 @@ internal class ABService {
         offLineTracking = FSOfflineTracking(self)
         
         cacheManager = FSCacheManager()
-        
-        apacRegion = region
      }
     
+    
+
     
     func getCampaigns(_ currentContext:Dictionary <String,Any>,  onGetCampaign:@escaping(FSCampaigns?, FlagshipError?)->Void){
         
         do {
-            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "context":currentContext, "trigger_hit":false]
-            
+            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "", "context":currentContext, "trigger_hit":false]
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
             var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetCampaigns, clientId))!)
             request.httpMethod = "POST"
             request.httpBody = data
-
+            
+            request.timeoutInterval = 10
+            
+ 
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            /// Add x-api-key for apacOption
-            
-            if (apacRegion != nil){
-                
-                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-            }
 
             
             let session = URLSession(configuration:URLSessionConfiguration.default)
@@ -95,9 +88,13 @@ internal class ABService {
                         }
                         
                         break
-                    default:
-                        FSLogger.FSlog("Error on get Campaign", .Network)
+                    case 403:
                         onGetCampaign(nil, FlagshipError.GetCampaignError)
+                        
+                    case 400:
+                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+                    default:
+                        FSLogger.FSlog("Rrror on get campaign", .Network)
                     }
                 }else{
                     
@@ -122,18 +119,16 @@ internal class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            FSLogger.FSlog("Failed to send activate .... The key : \(key) doesn't exist", .Campaign)
+            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist !!!", .Campaign)
 
             return
         }
         
         do {
             // Set Visitor Id
-            infosTrack.updateValue(visitorId ?? "" , forKey: "vid")
-            
+            infosTrack.updateValue(visitorId ?? "", forKey: "vid")
             // Set Client Id
             infosTrack.updateValue(clientId, forKey: "cid")
-            
             
             let data = try JSONSerialization.data(withJSONObject: infosTrack, options:[])
             
@@ -150,13 +145,6 @@ internal class ABService {
             var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
             request.httpMethod = "POST"
             request.httpBody = data
-            
-            /// Add x-api-key for apacOption
-            
-            if (apacRegion != nil){
-                
-                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-            }
            
             let session = URLSession(configuration:URLSessionConfiguration.default)
             session.dataTask(with: request) { (responseData, response, error) in
@@ -171,13 +159,8 @@ internal class ABService {
                         
                         FSLogger.FSlog("The activate is sent with success ", .Network)
                         
-                        break
-                    case 403,400:
-                        FSLogger.FSlog("Error On sending activate ", .Network)
-
-                        break
                     default:
-                        FSLogger.FSlog("Bad Request", .Network)
+                        FSLogger.FSlog("Error, Activate Request", .Network)
                         
                     }
                 }else{
@@ -195,6 +178,8 @@ internal class ABService {
     }
     
 }
+
+
 
 
 

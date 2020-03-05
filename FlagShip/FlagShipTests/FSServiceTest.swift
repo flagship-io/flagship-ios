@@ -11,7 +11,7 @@ import XCTest
 
 class FSServiceTest: XCTestCase {
     
-    
+
     var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId")
 
     override func setUp() {
@@ -36,6 +36,7 @@ class FSServiceTest: XCTestCase {
     
     func testGetCampaign(){
            
+        Flagship.sharedInstance.service = serviceTest
         let expectation = self.expectation(description: #function)
 
         serviceTest.getCampaigns(Dictionary()) { (comp, error) in

@@ -26,7 +26,7 @@ class FSBucketManager: NSObject {
     
     
     
-    /// this is the entry for bucketing , that give the campaign infos as we do in api decesion
+    /// This is the entry for bucketing , that give the campaign infos as we do in api decesion
     internal func bucketVariations(_ visitorId:String, _ scriptBucket:FSBucket)->FSCampaigns?{
         
         /// Check the panic mode

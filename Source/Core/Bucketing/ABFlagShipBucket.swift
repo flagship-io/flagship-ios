@@ -23,7 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode,apacRegion:FSApacRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void){
+    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode,apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -52,7 +52,7 @@ import UIKit
          fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId ?? "", apac:apacRegion)
+        self.service = ABService(self.environmentId, self.visitorId ?? "", region: apacRegion)
         
                
          // Set the préconfigured Context

@@ -68,9 +68,9 @@ internal class FSContext{
     
     /////////////////// FLoat //////////////////////////////////
     
-    public func  addFloatCtx(_ key:String, _ valueFloat:Float){
+    public func  addFloatCtx(_ key:String, _ valueFlaot:Float){
         
-        self.currentContext.updateValue(valueFloat, forKey: key)
+        self.currentContext.updateValue(valueFlaot, forKey: key)
     }
     
     
@@ -87,10 +87,10 @@ internal class FSContext{
     
     // Read Boolean
     public func readBooleanFromContext(_ key:String, defaultBool:Bool)->Bool{
-
-        if currentModification[key, default: defaultBool] is Bool {
+        
+        if currentModification[key, default: defaultBool] is Bool{
             
-            return currentModification[key, default: defaultBool] as! Bool
+             return currentModification[key, default: defaultBool] as! Bool
         }
         
         return defaultBool
@@ -100,21 +100,22 @@ internal class FSContext{
     //  Read String
     public func readStringFromContext(_ key:String, defaultString:String)->String{
         
-        if currentModification[key, default: defaultString] is String{
+        if  currentModification[key, default: defaultString] is String{
             
             return currentModification[key, default: defaultString] as! String
         }
         
         return defaultString
+
     }
     
     
     /// Read Double
     public func readDoubleFromContext(_ key:String, defaultDouble:Double)->Double{
         
-        if currentModification[key, default: defaultDouble] is Double{
+        if currentModification[key, default: defaultDouble] is Double {
             
-             return currentModification[key, default: defaultDouble] as! Double
+            return currentModification[key, default: defaultDouble] as! Double
         }
         
         return defaultDouble
@@ -126,21 +127,26 @@ internal class FSContext{
         
         if currentModification[key, default: defaultFloat] is Float{
             
-            return currentModification[key, default: defaultFloat] as! Float
+             return currentModification[key, default: defaultFloat] as! Float
         }
         
         return defaultFloat
     }
     
+    
+    
     // Int
     public func readIntFromContext(_ key:String, defaultInt:Int)->Int{
         
-        if currentModification[key, default: defaultInt] is Int{
+        if currentModification[key, default: defaultInt]  is Int {
             
             return currentModification[key, default: defaultInt] as! Int
         }
+        
         return defaultInt
     }
+    
+    
     
     //////////////// Remove   &   Clean   ///////////////////////
    
@@ -152,16 +158,9 @@ internal class FSContext{
     
     // Remove All values from context
     
-    public func cleanContext(){
+    public func CleanContext(){
         
         self.currentContext.removeAll()
     }
     
-    
-    // Remove Modification
-    
-    public func cleanModification(){
-        
-        self.currentModification.removeAll()
-    }
 }

@@ -62,10 +62,17 @@ class FSHomeViewController: UIViewController {
         Flagship.sharedInstance.sendTracking(actionEvent)
         
         
-//        // Send Item track
-//
-//        let itemTrack = FSItemTrack(transactionId: "itemTrack", name: "name")
-//        itemTrack.price = 123
-//        FlagShip.sharedInstance.sendTracking(itemTrack)
+        
+        /// Send the new event
+        let action:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Bucketing")
+        actionEvent.label = "cta_Bucketing_label"
+        actionEvent.eventValue = 1
+        actionEvent.interfaceName = "HomeScreen"
+        // Send Event Tracking
+        Flagship.sharedInstance.sendHit(action)
     }
+    
+    
+    
+    
 }

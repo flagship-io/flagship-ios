@@ -22,7 +22,7 @@ internal let FSX_Api_Key   =  "x-api-key"
  
 internal var FlagShipEndPoint :String {
     
-    if ((Flagship.sharedInstance.service.apacOption) != nil){
+    if ((Flagship.sharedInstance.service.apacRegion) != nil){
         
           return FlagShipEndApac
 

@@ -27,6 +27,9 @@
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FCE2407D225005A13CE /* FSApac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FCD2407D225005A13CE /* FSApac.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
+		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
+		8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFD240FBFB3005A13CE /* FSRegion.swift */; };
+		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -76,7 +79,10 @@
 		8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketManagerTest.swift; path = ../../Flagship/FlagshipTests/FSBucketManagerTest.swift; sourceTree = "<group>"; };
 		8B535FCD2407D225005A13CE /* FSApac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSApac.swift; sourceTree = "<group>"; };
 		8B535FF3240D5599005A13CE /* PresetContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContext.swift; sourceTree = "<group>"; };
+		8B535FFB240FAA14005A13CE /* FSHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
+		8B535FFD240FBFB3005A13CE /* FSRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSRegion.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
+		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
 		8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
@@ -134,6 +140,7 @@
 				8B39E04A23FD45F400E02DCD /* Info.plist */,
 				8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */,
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
+				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -232,6 +239,7 @@
 				8BBCAD0723FAA14400126600 /* FSBucketManager.swift */,
 				8BBCAD0823FAA14400126600 /* FSBucketService.swift */,
 				8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */,
+				8B535FFD240FBFB3005A13CE /* FSRegion.swift */,
 			);
 			path = Bucketing;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 			children = (
 				8BF02D8B23C4CA24006D154E /* FSTracking.swift */,
 				8BF02D8C23C4CA24006D154E /* FSOfflineTracking.swift */,
+				8B535FFB240FAA14005A13CE /* FSHits.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -441,6 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
@@ -453,6 +463,8 @@
 			files = (
 				8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */,
 				8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */,
+				8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */,
+				8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */,
 				8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */,
 				8BBCAD1F23FAD0E200126600 /* FSFlagShip+Context.swift in Sources */,
 				8BBCAD2023FAD0E200126600 /* FSCampaigns.swift in Sources */,

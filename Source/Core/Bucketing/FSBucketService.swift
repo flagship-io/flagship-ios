@@ -32,6 +32,10 @@ internal extension ABService {
                     do {
                         let scriptObject = try decoder.decode(FSBucket.self, from: data!)
                         
+                         // Print Json response
+                        let dico = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                        FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
+                        
                         onGetScript(scriptObject, nil)
                         
                         /// Save bucket script

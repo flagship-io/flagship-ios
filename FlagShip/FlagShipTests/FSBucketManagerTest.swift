@@ -36,7 +36,7 @@ class FSBucketManagerTest: XCTestCase {
     
     func testBucketVariations(){
         
-         bucketManager.bucketVariations(nil, nil)
+       //  bucketManager.bucketVariations(nil, nil)
     }
 
 }
