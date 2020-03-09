@@ -95,8 +95,11 @@ import UIKit
                     /// Bucket the variation with a new script from server
                     self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
                 }
+                
                 /// Update the modifications
                 self.context.updateModification(self.campaigns)
+                
+                
                 /// Call back with Ready state
                 completionHandler(.Ready)
             }

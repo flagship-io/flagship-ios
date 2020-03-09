@@ -7,51 +7,94 @@
 
 import UIKit
 
+
+
+let FSLastModified        = "Last-Modified"
+let FSLastModified_Key    = "FSLastModifiedScript"
+let FS_If_ModifiedSince   = "If-Modified-Since"
+
+
+
+
 internal extension ABService {
     
-     func getFSScript(onGetScript:@escaping(FSBucket?, FlagshipError?)->Void){
+    func getFSScript(onGetScript:@escaping(FSBucket?, FlagshipError?)->Void){
         
-        let request:URLRequest = URLRequest(url: URL(string:String(format: FSGetScript, self.clientId))!)
+        var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetScript, self.clientId))!)
+        
+        // Manage id last modified
+        
+        let dateModified: String? = UserDefaults.standard.value(forKey:FSLastModified_Key) as? String
+        
+        if (dateModified != nil){
+            
+            request.setValue(dateModified , forHTTPHeaderField:FS_If_ModifiedSince)
+        }
         
         let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
         
         session.dataTask(with: request) { (data, response, error) in
             
+            let httpResponse = response as? HTTPURLResponse
             
-            if (error == nil){
+            switch httpResponse?.statusCode {
                 
-                let httpResponse = response as? HTTPURLResponse
+            case 200:
+                /// Manage last modified
+                self.manageLastModified(httpResponse)
                 
-                if (httpResponse?.statusCode == 200){
-                    
-                    
- 
- 
-                    let decoder = JSONDecoder()
-                    
-                    do {
-                        let scriptObject = try decoder.decode(FSBucket.self, from: data!)
-                        
-                         // Print Json response
-                        let dico = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                        FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
-                        
-                        onGetScript(scriptObject, nil)
-                        
-                        /// Save bucket script
-                        self.cacheManager.saveBucketScriptInCache(data)
-                        
-                    }catch{
-                        
-                        onGetScript(nil, .CetScriptError)
-                    }
-                 }
-            }else{
+                let decoder = JSONDecoder()
                 
+                do {
+                    
+                    //// Speacial for QA
+                     let notifDownload = Notification(name: Notification.Name(rawValue: "Download_Script"))
+                        NotificationCenter.default.post(notifDownload)
+                     //// remove afetr QA
+                    
+                    let scriptObject = try decoder.decode(FSBucket.self, from: data!)
+                    
+                    // Print Json response
+                    let dico = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
+                    onGetScript(scriptObject, nil)
+                    
+                    /// Save bucket script
+                    self.cacheManager.saveBucketScriptInCache(data)
+                    
+                }catch{
+                    
+                    onGetScript(nil, .CetScriptError)
+                }
+                
+                break
+                
+            case 304:
+                /// Read the script from the cache
+                FSLogger.FSlog("Status 304, No need to download the bucketing script", .Campaign)
                 onGetScript(nil, .CetScriptError)
+
+                break
+                
+            default:
+                break
             }
-            
         }.resume()
     }
-
+    
+    
+    
+    private func manageLastModified(_ response: HTTPURLResponse?){
+        
+        guard let lastModified = response?.allHeaderFields[FSLastModified] else{
+            
+            FSLogger.FSlog("Last Modified missing from headers", .Campaign)
+            return
+        }
+        
+        // Save this date into userDefault
+        UserDefaults.standard.set(lastModified, forKey:FSLastModified_Key)
+    }
 }
+
+

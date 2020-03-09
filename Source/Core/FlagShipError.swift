@@ -28,7 +28,6 @@ import Foundation
     case StoredEventError
     
     case CetScriptError
-
 }
 
 
@@ -54,6 +53,11 @@ import Foundation
     
     /// The sdk is disabled
     case Disabled
+    
+    /// 304 the file not modified
+    
+    case ScriptNotModified
+    
 }
 
 
