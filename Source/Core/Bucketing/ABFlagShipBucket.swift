@@ -10,7 +10,7 @@ import UIKit
 
 
 
-@objc public enum FlagShipMode:NSInteger{
+@objc public enum FlagshipMode:NSInteger{
     
     case DECISION_API = 1
     case BUCKETING    = 2
@@ -23,7 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagShipMode,apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void){
+    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagshipMode,apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){

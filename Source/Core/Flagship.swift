@@ -46,7 +46,7 @@ public class Flagship:NSObject{
     
     
     
-    internal var sdkModeRunning:FlagShipMode = .DECISION_API  // By default 
+    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default 
     
     
     /// Shared instance
