@@ -1,9 +1,3 @@
-
----
-weight: 1
-title: Flagship SDK documentation
----
-
 # Introduction to iOS SDK
 
 Welcome to the Flagship iOS SDK documentation!
