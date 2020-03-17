@@ -25,7 +25,15 @@ internal class FSCampaigns:Decodable{
         self.visitorId = customId
         self.panic = false
     }
-
+    
+    //// this init from bucket cache model
+    internal init(_ cacheCampaign:FSBucketCache){
+        
+        self.visitorId = cacheCampaign.visitorId
+        self.panic     = false
+        self.campaigns = cacheCampaign.getCampaignArray()
+    }
+    
 
     
     

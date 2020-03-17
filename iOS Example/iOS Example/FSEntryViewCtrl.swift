@@ -7,17 +7,17 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 class FSEntryViewCtrl: UIViewController {
     
     
     @IBOutlet var signInBtn:UIButton!
     @IBOutlet var logInBtn:UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         let loadView = UIActivityIndicatorView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 100, height: 100))
@@ -25,58 +25,114 @@ class FSEntryViewCtrl: UIViewController {
         loadView.color = .red
         loadView.startAnimating()
         self.view.addSubview(loadView)
-        // Reset vid
-        FlagShip.sharedInstance.resetUserIdFlagShip()
         
-        
-        /// Test get boolean before get ready
-        FlagShip.sharedInstance.getModification("btn-disabled", defaultBool: true, activate: true)
-        /// check the get before ready
-        FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.FIRST_TIME_INIT, value: "rr", sync: nil)
+ 
         
         /// Set context isVip to true
-        FlagShip.sharedInstance.context("isVip", true)
-        /// Start The sdk
-        FlagShip.sharedInstance.startFlagShip(environmentId:"bkk9glocmjcg0vtmdlng","Adel") { (result) in
-            
-            // The state is ready , you can now use the FlagShip
-            if result == .Ready {
-                DispatchQueue.main.async {
-                   
-                    loadView.stopAnimating()
-                    self.logInBtn.isHidden  = false
-                    self.signInBtn.isHidden = false
-                }
-            }else{
-                
-                print(result)
-                loadView.stopAnimating()
-            }
-        }
-     }
-    
-    
-
-    @IBAction func onShowLoginScreen(){
+        Flagship.sharedInstance.context("isVip", true)
+        /// Set The sdk context
+        Flagship.sharedInstance.updateContext(["sdk_city":"panama", "isVip":false, "basketNumber":100], sync: nil)
         
-        //Update isVipUser with false value in the user context
-        FlagShip.sharedInstance.updateContext(["isVip":false]) { (result) in
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onFinish), userInfo: nil, repeats: false)
+        
+    }
+    
+ 
+    @objc func onFinish(){
+        
+        self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
+        
+    }
+    
+    
+    
+    
+    
+    
+    @IBAction func onShowLoginScreen(){
+        self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
+    }
+    
+    
+    
+    func docMySelf(){
+        
+        /// Set the context isVip to true
+        Flagship.sharedInstance.updateContext("isVip", true)
+        
+        
+        
+        ///update context with pre configured key
+        
+        /// Set Region
+        Flagship.sharedInstance.updateContext(configuredKey: PresetContext.LOCATION_REGION, value: "ile de france")
+        
+        /// Set Country
+        Flagship.sharedInstance.updateContext(configuredKey: PresetContext.LOCATION_COUNTRY, value: "FRANCE")
+
+        
+        
+        /// Add several pre configured key using the dictionary
+        Flagship.sharedInstance.updateContext([PresetContext.LOCATION_CITY.rawValue:"paris",
+                                              PresetContext.LOCATION_COUNTRY.rawValue:"France",
+                                              PresetContext.LOCATION_REGION.rawValue:"ile de france"])
+        
+  
+        
+        /// Update context with "basketValue" = 120
+        Flagship.sharedInstance.updateContext("basketValue", 120)
+        
+        /// Synchronize campaigns
+        Flagship.sharedInstance.synchronizeModifications { (result) in
             
             if result == .Updated{
                 
-                // In this block you will have new values updated for non VIP users
-                DispatchQueue.main.async {
+                // Update the UI for users that have basket over or equal 100
+                if (Flagship.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
                     
-                    // Get title for banner
-                    let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
-                    // Set the title
-                    
-                    
+                    DispatchQueue.main.async {
+                        
+                        /// Show your message for free delivery
+                        
+                    }
                 }
             }
         }
         
-        self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
-    }
+        
+        
+        /// Get "cta_text"
+        let title = Flagship.sharedInstance.getModification("cta_text", defaultString:"default", activate: true)
+        
+        
+        
+        
+        /// get "cta_vallue"
+        let value = Flagship.sharedInstance.getModification("cta_value", defaultInt: 0)
+        
+        /// Activate Manually
+        Flagship.sharedInstance.activateModification(key: "cta_value")
+        
+        
+        
+        
+        
+        /// get "isHidden"
+        let isTrue = Flagship.sharedInstance.getModification("isHidden", defaultBool: false, activate: true)
+        
+        
+        
+        
+        
+        print(title)
 
+        print(value)
+        print(isTrue)
+
+        
+        
+        
+        
+    }
+    
 }

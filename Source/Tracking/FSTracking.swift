@@ -121,9 +121,9 @@ import Foundation
     
     override init() {
         
-        clientId        = FlagShip.sharedInstance.environmentId
+        clientId        = Flagship.sharedInstance.environmentId
         //fsUserId        = FlagShip.sharedInstance.fsProfile.tupleId.fsUserId
-        customVisitorId = FlagShip.sharedInstance.visitorId
+        customVisitorId = Flagship.sharedInstance.visitorId
  
         
         // Set time Stamps
@@ -145,9 +145,9 @@ import Foundation
             
              var communParams:Dictionary<String,Any> = Dictionary<String,Any>()
             // Set Client Id
-            communParams.updateValue(self.clientId ?? "", forKey: "cid")
+            communParams.updateValue(self.clientId ?? "", forKey: "cid") //// Rename it
             // Set FlagShip user id Id
-            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")
+            communParams.updateValue(self.customVisitorId ?? "", forKey: "vid")  //// rename it
 
             // Set Data source
             communParams.updateValue(self.dataSource, forKey: "ds")
@@ -193,6 +193,7 @@ import Foundation
 /**
  This hit should be sent each time a visitor arrives on a new interface.
  */
+@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSPage")
 @objcMembers public class FSPageTrack:FSTracking{
     
     
@@ -233,6 +234,7 @@ import Foundation
 
  Represent a hit Transaction
  */
+@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSTransaction")
 @objcMembers public class FSTransactionTrack:FSTracking{
     
     /// Transaction unique identifier.
@@ -350,7 +352,7 @@ import Foundation
 /**
  Represent item with a transaction. It must be sent after the corresponding transaction.
  */
-
+@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSItem")
 @objcMembers public class FSItemTrack:FSTracking{
     
     /// Transaction unique identifier
@@ -395,20 +397,6 @@ import Foundation
     }
     
     
-//
-//     public init(transactionId:String!,  name:String!, price:NSNumber, quantity:NSNumber, code: String?, category:String? ) {
-//
-//        super.init()
-//
-//        self.type          = .ITEM
-//        self.transactionId = transactionId
-//        self.name          = name
-//        self.price         = price
-//        self.quantity      = quantity
-//        self.code          = code
-//        self.category      = category
-//    }
-//
      /// :nodoc:
     public  override var bodyTrack: Dictionary<String, Any>{
         
@@ -458,6 +446,8 @@ import Foundation
  
  Represents an event
  */
+@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "FSEvent")
+
 @objcMembers public class FSEventTrack:FSTracking{
     
     /// category of the event (Action_Tracking or User_Engagement).
@@ -472,22 +462,6 @@ import Foundation
     /// value of the event, must be non-negative.
     public  var eventValue:NSNumber?
     
-     /// :nodoc:
-    public init(eventCategory:FSCategoryEvent, eventAction:String, eventLabel:String?, eventValue:NSNumber) {
-    
-        super.init()  /// Set dans la base les element vitales
-        
-        self.type = .EVENT
-        
-        self.category = eventCategory
-        
-        self.action = eventAction
- 
-        self.label = eventLabel
-        
-        self.eventValue = eventValue
-        
-    }
     
     /**
      Init Event object
@@ -541,3 +515,5 @@ import Foundation
 
     }
 }
+
+

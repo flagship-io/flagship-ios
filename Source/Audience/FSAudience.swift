@@ -22,6 +22,8 @@ let ALL_USERS   = "fs_all_users"
 
 
 /// Enumeration cases that represent **Predefined** targetings
+@available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message: "use enum : PresetContext")
+
 public enum FSAudiences:String,CaseIterable {
     
     /// First init of the app
@@ -241,7 +243,7 @@ public enum FSAudiences:String,CaseIterable {
 
 
 
-/// :nodoc:
+// :nodoc:
 public class FSAudience: NSObject {
     
     
@@ -292,7 +294,7 @@ public class FSAudience: NSObject {
     /// Get value from context
     class func readValueFromCurrentContext(_ keyPreConfigured:FSAudiences)->Any?{
         
-        guard let value = FlagShip.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
+        guard let value = Flagship.sharedInstance.context.currentContext[keyPreConfigured.rawValue]else{
             
             return nil
         }

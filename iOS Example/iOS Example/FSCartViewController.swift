@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -35,7 +35,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         
-        if (FlagShip.sharedInstance.getModification("isVip", defaultBool:false, activate: true)){
+        if (Flagship.sharedInstance.getModification("isVip", defaultBool:false, activate: true)){
             
             priceDelivery.text = "Free for vip"
             
@@ -48,7 +48,12 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Send event page
         let eventPage:FSPageTrack = FSPageTrack("basketScreen")
-        FlagShip.sharedInstance.sendTracking(eventPage)
+        Flagship.sharedInstance.sendTracking(eventPage)
+        
+        
+        //// send new object
+        let pageHit = FSPage("basketScreen")
+        Flagship.sharedInstance.sendHit(pageHit)
     }
     
     
@@ -56,7 +61,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if (isNewUser){
             
-            let msg = FlagShip.sharedInstance.getModification("persoMessage", defaultString: "Ouuups", activate: true)
+            let msg = Flagship.sharedInstance.getModification("persoMessage", defaultString: "Ouuups", activate: true)
             displayPopPromo(msg)
         }
     }
@@ -106,13 +111,8 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func oncheckOut(){
         
        
-        
-        
-        
-        // generate transacId
-        
-        let transacId = String(format: "Transac_%d", Int.random(in: 0 ..< 100))
-        
+
+                
         // The affiliation is the name of transaction that should be appear in the report
         
         let transacEvent:FSTransactionTrack = FSTransactionTrack(transactionId:"transacId", affiliation: "BasketTransac")
@@ -123,9 +123,31 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         transacEvent.tax = 2.6
         transacEvent.revenue = 15
         transacEvent.shipping = 3.5
-        FlagShip.sharedInstance.sendTracking(transacEvent)
+        Flagship.sharedInstance.sendTracking(transacEvent)
         
         
+        //// new transac hit
+        let transac:FSTransaction = FSTransaction(transactionId:"transacId", affiliation: "BasketTransac_hit")
+        transacEvent.currency = "EUR"
+        transacEvent.itemCount = 0
+        transacEvent.paymentMethod = "PayPal"
+        transacEvent.ShippingMethod = "Fedex"
+        transacEvent.tax = 2.6
+        transacEvent.revenue = 15
+        transacEvent.shipping = 3.5
+        Flagship.sharedInstance.sendHit(transac)
+        
+        
+        
+        
+        //// create item
+        let item = FSItem(transactionId: "transacId", name: "itemName")
+        Flagship.sharedInstance.sendHit(item)
+        
+        
+        /// create old item
+        let oldItem = FSItemTrack(transactionId: "transacId", name: "itemName")
+        Flagship.sharedInstance.sendTracking(oldItem)
     }
     
     
@@ -133,7 +155,13 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func onCancel(){
         
         let cancelEvent:FSEventTrack = FSEventTrack(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket")
-        FlagShip.sharedInstance.sendTracking(cancelEvent)
+        Flagship.sharedInstance.sendTracking(cancelEvent)
+        
+        
+        /// send new event
+        let cancelHit = FSEvent(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket_hit")
+        Flagship.sharedInstance.sendHit(cancelHit)
+        
     }
     
 }

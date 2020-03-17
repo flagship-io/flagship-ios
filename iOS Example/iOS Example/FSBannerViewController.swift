@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 
 
@@ -25,7 +25,7 @@ class FSBannerViewController: UIViewController {
         self.bannerBtn.layer.cornerRadius = 10
         self.bannerBtn.layer.masksToBounds = true
         
-        let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
+        let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
         
          self.bannerBtn.setTitle(title, for: .normal)
     }

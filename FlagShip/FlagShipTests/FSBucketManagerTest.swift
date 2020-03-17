@@ -1,15 +1,17 @@
 //
-//  FlagShipTests.swift
-//  FlagShipTests
+//  FSBucketManagerTest.swift
+//  FlagshipTests
 //
-//  Created by Adel on 06/01/2020.
+//  Created by Adel on 20/02/2020.
 //  Copyright © 2020 FlagShip. All rights reserved.
 //
 
 import XCTest
-@testable import FlagShip
+@testable import Flagship
 
-class FlagShipTests: XCTestCase {
+class FSBucketManagerTest: XCTestCase {
+    
+    var bucketManager:FSBucketManager = FSBucketManager()
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -29,6 +31,12 @@ class FlagShipTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    
+    func testBucketVariations(){
+        
+       //  bucketManager.bucketVariations(nil, nil)
     }
 
 }

@@ -8,7 +8,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -23,6 +23,9 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var faceBookBtn:UIButton!
     
     
+    var showView:Bool = true
+    
+
     
     
     
@@ -40,55 +43,30 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         
         
+        // notification download _FSBucketing
+        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveNotification), name: NSNotification.Name("Download_Script"), object: nil)
+    }
+    
+    
+    @objc func onReceiveNotification(){
         
-        /// test
-        
-        FlagShip.sharedInstance.getModification("arrayValues", defaulfloat: 2, activate: false)
-        
-        
-        
-        
-        /// Activate manually the modification
-        
-        FlagShip.sharedInstance.getModification("cta_value", defaultInt: 0)
-        
-        /// Actiavte
-        
-        FlagShip.sharedInstance.activateModification(key: "cta_value")
-        
-        
-        /// Update the context when basket value change
-        FlagShip.sharedInstance.updateContext(["basketValue":120]) { (result) in
+        self.showView = false
+        DispatchQueue.main.async {
             
-            if result == .Updated{
+            let alert304 = UIAlertController(title: "Bucketing", message: "Download the bucketing file", preferredStyle: .alert)
+            
+            alert304.addAction(UIAlertAction(title: "OK", style: .cancel) { (action) in
                 
-                // Update the ui for users that have basket over or equal 100
-                if (FlagShip.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
-                    
+                
                     DispatchQueue.main.async {
-                        
-                        /// Show your message for free delivery
-                        
-                    }
-                }
-            }
+                         
+                         self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+                         
+                     }
+            })
+            self.present(alert304, animated: true, completion:nil)
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
     
     
@@ -100,17 +78,40 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         passwordTestField.resignFirstResponder()
     }
     
-    @IBAction func onClickLogin(){
-        
-        self.performSegue(withIdentifier: "onClickLogin", sender: nil)
-        
-        
-    }
+    
+ /// On Click Login
+  @IBAction func onClickLogin(){
+      
+     // Flagship.sharedInstance.context("isVip", true)
+      Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
+          
+          
+          if result == .Ready{
+              
+              if self.showView{
+                  
+                  DispatchQueue.main.async {
+                       
+                       self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+                       
+                   }
+                  
+              }
+              
+          }else{
+              
+          }
+      }
+      
+  }
+    
     
     
     @IBAction func onCancel(){
         
         self.dismiss(animated: true, completion:nil)
+        
+        
     }
     
     
@@ -135,4 +136,33 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
     
     
+    func readBucketFromCache(){
+        
+        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            // Path
+            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
+            // add file name
+            url.appendPathComponent("bucket.json")
+            
+            if (FileManager.default.fileExists(atPath: url.path) == true){
+                
+                do{
+                    
+                    let attributes  = try FileManager.default.attributesOfItem(atPath: url.path)
+                    
+                    print(attributes[FileAttributeKey.modificationDate])
+ 
+                 }catch{
+                    
+                    
+                }
+                
+            }else{
+                
+                 
+            }
+        }
+        
+    }
+
 }

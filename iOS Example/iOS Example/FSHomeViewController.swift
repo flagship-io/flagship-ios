@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FlagShip
+import Flagship
 
 
 
@@ -20,16 +20,16 @@ class FSHomeViewController: UIViewController {
         super.viewDidLoad()
         
         // Use the flagShip to get the title of cta_text
-        let title =  FlagShip.sharedInstance.getModification("cta_text", defaultString: "default", activate: false)
+        let title =  Flagship.sharedInstance.getModification("cta_text", defaultString: "default", activate: false)
         
         // Use FlagShip to get color
-        let colorHexTitle =  FlagShip.sharedInstance.getModification("cta_color", defaultString: "#163d42", activate: false)
+        let colorHexTitle =  Flagship.sharedInstance.getModification("cta_color", defaultString: "#163d42", activate: false)
         
        
         
         
         // Activate modification to tell Flagship that the user has seen this specific variation
-        FlagShip.sharedInstance.activateModification(key: "cta_text")
+        Flagship.sharedInstance.activateModification(key: "cta_text")
         
        
         
@@ -59,13 +59,20 @@ class FSHomeViewController: UIViewController {
         actionEvent.eventValue = 1
         actionEvent.interfaceName = "HomeScreen"
         // Send Event Tracking
-        FlagShip.sharedInstance.sendTracking(actionEvent)
+        Flagship.sharedInstance.sendTracking(actionEvent)
         
         
-//        // Send Item track
-//
-//        let itemTrack = FSItemTrack(transactionId: "itemTrack", name: "name")
-//        itemTrack.price = 123
-//        FlagShip.sharedInstance.sendTracking(itemTrack)
+        
+        /// Send the new event
+        let action:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Bucketing")
+        actionEvent.label = "cta_Bucketing_label"
+        actionEvent.eventValue = 1
+        actionEvent.interfaceName = "HomeScreen"
+        // Send Event Tracking
+        Flagship.sharedInstance.sendHit(action)
     }
+    
+    
+    
+    
 }

@@ -28,7 +28,6 @@ import Foundation
     case StoredEventError
     
     case CetScriptError
-
 }
 
 
@@ -41,7 +40,7 @@ import Foundation
  */
 
 
-@objc public enum FlagShipResult:NSInteger{
+@objc public enum FlagshipResult:NSInteger{
    
     ///  Ready The sdk is ready to use
     case Ready = 0
@@ -54,6 +53,11 @@ import Foundation
     
     /// The sdk is disabled
     case Disabled
+    
+    /// 304 the file not modified
+    
+    case ScriptNotModified
+    
 }
 
 

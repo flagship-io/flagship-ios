@@ -15,13 +15,13 @@ import Foundation
  
  */
 
-public class FlagShip:NSObject{
+public class Flagship:NSObject{
     
     /// This id is unique for the app
-    private(set) public var visitorId:String?
+    internal(set) public var visitorId:String!
     
     /// Customer id
-    // internal var fsProfile:FSProfile!
+     internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!
@@ -35,7 +35,7 @@ public class FlagShip:NSObject{
     
     
     /// Service
-    var service:ABService!
+    internal var service:ABService!
     
     /// Enable Logs, By default is equal to True
     @objc public var enableLogs:Bool = true
@@ -45,10 +45,14 @@ public class FlagShip:NSObject{
     @objc public var disabledSdk:Bool = false
     
     
+    
+    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default 
+    
+    
     /// Shared instance
-    @objc public static let sharedInstance:FlagShip = {
+    @objc public static let sharedInstance:Flagship = {
         
-        let instance = FlagShip()
+        let instance = Flagship()
         // setup code
         return instance
     }()
@@ -77,7 +81,8 @@ public class FlagShip:NSObject{
      @param pBlock The block to be invoked when sdk is ready
      */
     
-    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagShipResult)->Void){
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
+    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -103,10 +108,11 @@ public class FlagShip:NSObject{
         }
         
         // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId ?? "")
+        self.service = ABService(self.environmentId, self.visitorId)
         
-        // Set the préconfigured audience
-        self.context.currentContext.merge(FSAudience.getAudienceForApp()) { (_, new) in new }
+        // Set the préconfigured context
+        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
+
         
         // Add the keys all_users temporary
         self.context.currentContext.updateValue("", forKey:ALL_USERS)
@@ -134,20 +140,20 @@ public class FlagShip:NSObject{
                     
                     FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
                     
-                    completionHandler(FlagShipResult.Disabled)
+                    completionHandler(FlagshipResult.Disabled)
                     
                 }else{
                     
                     self.disabledSdk = false
                     self.campaigns = campaigns
                     self.context.updateModification(campaigns)
-                    completionHandler(FlagShipResult.Ready)
+                    completionHandler(FlagshipResult.Ready)
                 }
             }else{
                 
                 FSLogger.FSlog(String(format: "Error on get campaign, the SDK is not ready for use"), .Campaign)
                 
-                completionHandler(FlagShipResult.NotReady)
+                completionHandler(FlagshipResult.NotReady)
             }
         }
         
@@ -163,7 +169,7 @@ public class FlagShip:NSObject{
      
      @param pBlock The block to be invoked when sdk receive campaign
      */
-    public func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
+    internal func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -223,7 +229,9 @@ public class FlagShip:NSObject{
      @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
      
      */
-    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagShipResult)->Void)?){
+    
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
+    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -257,8 +265,8 @@ public class FlagShip:NSObject{
      @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
      
      */
-    
-    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagShipResult)->Void)?){
+    @available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
+    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -320,8 +328,8 @@ public class FlagShip:NSObject{
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultBool
         }
-        
-        if activate  && self.campaigns != nil{
+ 
+        if activate && self.campaigns != nil{
             // Activate
             self.service.activateCampaignRelativetoKey(key,self.campaigns)
         }
@@ -465,43 +473,13 @@ public class FlagShip:NSObject{
     }
     
     
-    
-    /**
-     Update Modifications values
-     
-     @onFlagUpdateDone this block will be invoked when the update done
-     
-     */
-    @objc public func updateFlagsModifications( onFlagUpdateDone:@escaping(FlagShipResult)->Void){
-        
-        if disabledSdk{
-            
-            FSLogger.FSlog("FlagShip Disabled", .Campaign)
-            return
-        }
-        
-        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
-            
-            if (error == nil){
-                // Set Campaigns
-                self.campaigns = campaigns
-                self.context.updateModification(campaigns)
-                onFlagUpdateDone(FlagShipResult.Ready)
-                
-            }else{
-                onFlagUpdateDone(FlagShipResult.NotReady)
-            }
-        }
-    }
-    
-    
-    
     /**
      Send Events for tracking data
      
      @param event Event Object (Page, Transaction, Item, Event)
      
      */
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use sendHit")
     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{
@@ -510,6 +488,28 @@ public class FlagShip:NSObject{
         }
         self.service.sendTracking(event)
     }
+    
+    
+    /**
+     Send Hit for tracking data
+     
+     @param event Event Object (Page, Transaction, Item, Event)
+     
+     */
+    public func sendHit<T: FSTrackingProtocol>(_ event:T){
+        
+        if disabledSdk{
+            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
+            return
+        }
+        self.service.sendTracking(event)
+    }
+    
+    
+    
+    
+    
+    
     
     /// For Objective C Project, use the functions below to send Events
     /// See https://developers.flagship.io/ios/#hit-tracking
@@ -521,7 +521,7 @@ public class FlagShip:NSObject{
      
      */
     
-    @objc public func sendTransactionEvent(_ transacEvent:FSTransactionTrack){
+    @objc public func sendTransactionEvent(_ transacEvent:FSTransaction){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Transaction will not be sent", .Campaign)
@@ -537,7 +537,7 @@ public class FlagShip:NSObject{
      @param pageEvent : Page event
      
      */
-    @objc public func sendPageEvent(_ pageEvent:FSPageTrack){
+    @objc public func sendPageEvent(_ pageEvent:FSPage){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
@@ -555,7 +555,7 @@ public class FlagShip:NSObject{
      
      */
     
-    @objc public func sendItemEvent(_ itemEvent:FSItemTrack){
+    @objc public func sendItemEvent(_ itemEvent:FSItem){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Item will not be sent", .Campaign)
@@ -571,7 +571,7 @@ public class FlagShip:NSObject{
      @param eventTrack : track event
      
      */
-    @objc public func sendEventTrack(_ eventTrack:FSEventTrack){
+    @objc public func sendEventTrack(_ eventTrack:FSEvent){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Track will not be sent", .Campaign)

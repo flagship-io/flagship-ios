@@ -67,8 +67,9 @@ class FSTargetingManager: NSObject {
         
         for itemTarget in itemTargetGroup.targetings{
             
+            
             // Cuurent context value
-          //  let currentContextValue = currentContext[itemTarget.tragetKey]
+            // let currentContextValue = currentContext[itemTarget.tragetKey]
             
             let currentContextValue = self.getCurrentValueFromCtx(itemTarget.tragetKey)
 
@@ -78,7 +79,7 @@ class FSTargetingManager: NSObject {
             let opType:FSoperator = FSoperator(rawValue: itemTarget.targetOperator) ?? .Unknown
             
             
-            /// Specail tretment for array
+            /// Special treatment for array
             var isOkay:Bool = false
             if (audienceValue is [String] || audienceValue is [Int] || audienceValue is [Double] ){
                 
@@ -218,10 +219,7 @@ class FSTargetingManager: NSObject {
             
         }else if (currentValue is String){
             
-            /// Manage equal string with insensitive case
-            return ((currentValue as! String).caseInsensitiveCompare(audienceValue as! String) == ComparisonResult.orderedSame)
-            
-          //  ret = isEqual(type: String.self, a: currentValue, b: audienceValue)
+            ret = isEqual(type: String.self, a: currentValue, b: audienceValue)
 
         }else if (currentValue is Bool){
             
@@ -326,13 +324,13 @@ class FSTargetingManager: NSObject {
     
     internal func getCurrentValueFromCtx(_ targetKey:String)->Any?{
         
-        let currentContext:Dictionary <String, Any> = FlagShip.sharedInstance.context!.currentContext
+        let currentContext:Dictionary <String, Any> = Flagship.sharedInstance.context!.currentContext
         
         if targetKey == FS_USERS {
     
-            if (FlagShip.sharedInstance.visitorId != nil) {
+            if (Flagship.sharedInstance.visitorId != nil) {
                 
-                return FlagShip.sharedInstance.visitorId
+                return Flagship.sharedInstance.visitorId
             }
         }else{
             

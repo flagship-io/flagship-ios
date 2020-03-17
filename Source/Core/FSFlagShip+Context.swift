@@ -7,65 +7,206 @@
 
 import Foundation
 
-extension FlagShip{
+extension Flagship{
     
-    
-    // Update boolean context
+    ///////////////////////////// Boolean /////////////////////////
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: " use updateContext(_ key:String,  _ boolean:Bool)")
     public func context(_ key:String,  _ boolean:Bool){
         
         self.context.addBoolenCtx(key, boolean)
     }
     
-    // Update Double Context
+    
+    
+    
+    /// Set key/value boolean to context
+    /// - Parameters:
+    ///   - key: name for key
+    ///   - boolean: type of value
+    public func updateContext(_ key:String,  _ boolean:Bool){
+        
+        self.context.addBoolenCtx(key, boolean)
+    }
+    
+    
+    
+    
+    
+    /////////////////// Double //////////////////////////////////
+    
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ double:Double)")
     public func context(_ key:String,  _ double:Double){
         
         self.context.addDoubleCtx(key, double)
     }
     
-    // Update Context Text
+    
+    /// Set Double to context
+    /// - Parameters:
+    ///   - key: name for key
+    ///   - double: value
+    public func updateContext(_ key:String,  _ double:Double){
+        
+        self.context.addDoubleCtx(key, double)
+    }
+    
+    
+    
+    
+    
+    /////////////////////////// Text //////////////////////////////
+    
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ text:String)")
     public func context(_ key:String,  _ text:String){
         
         self.context.addStringCtx(key, text)
     }
     
     
-    // Update Float
-    // Update Context Text
+    /// Set String
+    /// - Parameters:
+    ///   - key: name for key
+    ///   - text: value
+    public func updateContext(_ key:String,  _ text:String){
+        
+        self.context.addStringCtx(key, text)
+    }
+    
+    
+    
+    
+    /////////////////////////// Float /////////////////////////////
+    
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ float:Float)")
     public func context(_ key:String,  _ float:Float){
         
         self.context.addFloatCtx(key, float)
     }
     
-    // Update Int context
+    /// set Float to context
+    /// - Parameters:
+    ///   - key: name for key
+    ///   - float: value
+    public func updateContext(_ key:String,  _ float:Float){
+        
+        self.context.addFloatCtx(key, float)
+    }
+    
+    
+    
+    
+    
+    
+    /////////////////////////// Integer /////////////////////////////
+    
+    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ integer:Int)")
     public func context(_ key:String,  _ integer:Int){
         
         self.context.addIntCtx(key, integer)
     }
     
     
+    /// Set Integer to context
+    /// - Parameters:
+    ///   - key: name for key
+    ///   - integer: value
+    public func updateContext(_ key:String,  _ integer:Int){
+        
+        self.context.addIntCtx(key, integer)
+    }
     
-//    /// Set Custom visitor id
-//    
-//    public func setCustomVisitorId(customVisitorId: String, clearModifications: Bool = true, clearContextValues : Bool = true) {
-//        
-//        FSLogger.FSlog("Set the custom visitor id", .Campaign)
-//        
-//        // set the new custom visitor id
-//        self.customVisitorId = customVisitorId
-//        
-//        /// Clear modification
-//        if(clearModifications){
-//            
-//            FSLogger.FSlog("Clear All Modifications",.Campaign)
-//            self.context.cleanModification()
-//            
-//            /// Warning check if we should set to nil the campaigns object
-//        }
-//        /// Clear Context
-//        if (clearContextValues){
-//            
-//            FSLogger.FSlog("Clear All Contex",.Campaign)
-//            self.context.cleanContext()
-//        }
-//    }
+    
+    
+    /////////////////////// Dictionary ///////////////////////////
+    @objc public func updateContext(_ contextValues:Dictionary<String,Any>){
+        
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return
+        }
+        FSLogger.FSlog("Update context", .Campaign)
+        
+        self.context.currentContext.merge(contextValues) { (_, new) in new }
+    }
+    
+    
+    
+    ////// Update the pre definded keys ////////////////////////////////
+    
+    
+    
+    /**
+     Update Context with Pre defined keys
+     
+     @param configuredKey FSAudiences Enum for pre defined keys
+     
+     */
+    
+    public func updateContext(configuredKey:PresetContext, value:Any){
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return
+        }
+        
+        /// Check the validity value
+        if (!configuredKey.chekcValidity(value)){
+            
+            FSLogger.FSlog(" Skip updating the context with pre configured key \(configuredKey) ..... the value is not valid", .Campaign)
+        }
+        
+        FSLogger.FSlog(" Update context with pre configured key", .Campaign)
+        
+        
+        self.context.currentContext.updateValue(value, forKey:configuredKey.rawValue)
+        
+    }
+    
+    
+    
+    ///// Update context without dictionary //////////////////////
+    @objc public func synchronizeModifications(completion:@escaping((FlagshipResult)->Void)){
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            return
+        }
+        if sdkModeRunning == .DECISION_API{
+            
+            self.getCampaigns { (error) in
+                
+                if (error == nil){
+                    
+                    completion(.Updated)
+                    
+                }else{
+                    
+                    completion(.NotReady)
+                }
+            }
+        }else{
+            
+            /// Read from cache the bucket script
+            guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
+                
+                // Exit the start with not ready state
+                FSLogger.FSlog("No cached script available",.Campaign)
+                completion(.NotReady)
+                return
+            }
+            let bucketMgr:FSBucketManager = FSBucketManager()
+            
+            let resultBucketCache = bucketMgr.matchTargetingForCustomID(cachedBucket, visitorId, false)
+            
+            self.campaigns = FSCampaigns(resultBucketCache)
+            
+            self.context.updateModification( self.campaigns)
+            
+            completion(.Ready)
+
+        }
+        
+    }
+    
 }

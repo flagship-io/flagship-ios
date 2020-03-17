@@ -15,16 +15,16 @@ internal class ABService {
     
     var clientId:String!
     
-    
-    
     var visitorId:String?
     
     var offLineTracking:FSOfflineTracking!
     
     var cacheManager:FSCacheManager!
     
+    var apacRegion:FSRegion?
     
-    init(_ clientId:String, _ visitorId:String) {
+    
+    init(_ clientId:String, _ visitorId:String, region:FSRegion? = nil) {
         
         self.clientId = clientId
         
@@ -33,6 +33,8 @@ internal class ABService {
         offLineTracking = FSOfflineTracking(self)
         
         cacheManager = FSCacheManager()
+        
+        apacRegion = region
      }
     
     
@@ -49,6 +51,13 @@ internal class ABService {
 
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            /// Add x-api-key for apacOption
+            
+            if (apacRegion != nil){
+                
+                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+            }
 
             
             let session = URLSession(configuration:URLSessionConfiguration.default)
@@ -111,7 +120,7 @@ internal class ABService {
         
         guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
             
-            FSLogger.FSlog(" Failed to send activate .... The key doesn't exist", .Campaign)
+            FSLogger.FSlog("Failed to send activate .... The key : \(key) doesn't exist", .Campaign)
 
             return
         }
@@ -139,6 +148,13 @@ internal class ABService {
             var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
             request.httpMethod = "POST"
             request.httpBody = data
+            
+            /// Add x-api-key for apacOption
+            
+            if (apacRegion != nil){
+                
+                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+            }
            
             let session = URLSession(configuration:URLSessionConfiguration.default)
             session.dataTask(with: request) { (responseData, response, error) in
