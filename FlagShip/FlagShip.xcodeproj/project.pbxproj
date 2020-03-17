@@ -734,7 +734,6 @@
 			};
 			name = Release;
 		};
-
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
