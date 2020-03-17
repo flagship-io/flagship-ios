@@ -12,7 +12,10 @@ import UIKit
 
 @objc public enum FlagshipMode:NSInteger{
     
+    /// SDK is running in DECISION_API MODE
     case DECISION_API = 1
+   
+    /// SDK is running in BUCKETING MODE
     case BUCKETING    = 2
 }
 
@@ -21,7 +24,20 @@ import UIKit
  extension Flagship {
     
     
-    /// Use service for bucket Flagship
+    
+    /**
+    Start FlagShip
+       
+    @param environmentId String environmentId id for client
+       
+    @param visitorId String visitor id
+     
+    @param mode FlagshipMode, Start Flagship SDK in BUCKETING mode (client-side) or in DECISION_API mode (server-side)
+     
+    @param apacRegion FSRegion , By default this value is nil. This option is used for Apac region FSRegion(“Your_API_key”)
+       
+    @param completionHandler The block to be invoked when sdk is ready
+    */
     
     @objc public  func start(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode, apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
         
@@ -149,12 +165,10 @@ import UIKit
     
     
     
-    /// Set User id at runtime
+    /// Set visitor id at runtime
     /// - Parameters:
     ///   - visitorId: new visitor id to set
-    ///   - clearModifications: optional, by default true to clear all modifications values
-    ///   - clearContextValues: optional, by default true to clear all context values
-    /// - Warning: Once all modifications are removed, the SDK will return a default value, you may need to update the FLagship with new context relative to the visitor id to in order to get a new modification
+    /// - Warning: The Sdk will clear all context and modifications 
     
     
     public func setVisitorId(_ visitorId:String){

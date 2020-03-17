@@ -7,16 +7,16 @@
 
 import UIKit
 
-
+/// :nodoc:
 let FS_USERS = "fs_users"
 
-
+/// :nodoc:
 enum FStargetError: Error {
     
     case unknownType
 }
 
-
+/// :nodoc:
 class FSTargetingManager: NSObject {
     
     

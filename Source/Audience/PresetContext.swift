@@ -12,6 +12,9 @@ import CoreTelephony
 import ClassKit
 import Network
 
+
+
+
 /// Enumeration cases that represent **Predefined** targetings
 public enum PresetContext:String,CaseIterable {
     
@@ -227,6 +230,13 @@ public enum PresetContext:String,CaseIterable {
     
     
 }
+
+
+/**
+
+`PresetContext` class that represent a predefined keys of context
+
+*/
 
 public class FSPresetContext: NSObject {
     

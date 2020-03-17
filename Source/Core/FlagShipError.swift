@@ -8,15 +8,8 @@
 import Foundation
 
 
-/**
- FlagShip Error
- 
- - BadPlist: wrong plist
- - ClientId_Error:   Error on client id
- - GetCampaignError: Error on get campaign
- - StoredEventError: Error on string Event
- */
-/// :nodoc:
+
+///:nodoc:
 @objc public enum FlagshipError:NSInteger {
     
     case None = 0
@@ -53,11 +46,7 @@ import Foundation
     
     /// The sdk is disabled
     case Disabled
-    
-    /// 304 the file not modified
-    
-    case ScriptNotModified
-    
+
 }
 
 

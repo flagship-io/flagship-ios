@@ -1,73 +1,10 @@
 {
   "warnings": [
     {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift",
-      "line": 14,
-      "symbol": "FlagShip.context(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift",
-      "line": 20,
-      "symbol": "FlagShip.context(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift",
-      "line": 26,
-      "symbol": "FlagShip.context(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift",
-      "line": 34,
-      "symbol": "FlagShip.context(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FSFlagShip+Context.swift",
-      "line": 40,
-      "symbol": "FlagShip.context(_:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift",
-      "line": 22,
-      "symbol": "FlagshipError.None",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift",
-      "line": 24,
-      "symbol": "FlagshipError.ClientId_Error",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift",
-      "line": 26,
-      "symbol": "FlagshipError.GetCampaignError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift",
-      "line": 28,
-      "symbol": "FlagshipError.StoredEventError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/FlagShipError.swift",
-      "line": 30,
-      "symbol": "FlagshipError.CetScriptError",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "file": "/Users/aliasadel/Documents/githubProject/flagship-ios/Source/Core/Bucketing/ABFlagShipBucket.swift",
+      "line": 13,
+      "symbol": "FlagshipMode",
+      "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     }
   ],

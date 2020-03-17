@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+/// :nodoc:
 class FSBucketManager: NSObject {
     
     

@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          FlagShip Docs
+          Flagship Docs
         </a>
-         (88% documented)
+         (99% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -33,14 +33,14 @@
       </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="https://github.com/Alamofire/Alamofire">
+          <a class="header-link" href="https://github.com/abtasty/flagship-ios">
             <img class="header-icon" src="img/gh.png"/>
             View on GitHub
           </a>
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fgithub%2Ecom%2Fabtasty%2Fdocsets%2FFlagShip%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fgithub%2Ecom%2Fabtasty%2Fdocsets%2FFlagship%2Exml">
             <img class="header-icon" src="img/dash.png"/>
             Install in Dash
           </a>
@@ -48,7 +48,7 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="index.html">FlagShip Reference</a>
+      <a class="breadcrumb" href="index.html">Flagship Reference</a>
       <img class="carat" src="img/carat.png" />
       Classes  Reference
     </p>
@@ -60,19 +60,25 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSEventTrack.html">FSEventTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSEvent.html">FSEvent</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSItemTrack.html">FSItemTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSItem.html">FSItem</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSPageTrack.html">FSPageTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSPage.html">FSPage</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSTransactionTrack.html">FSTransactionTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSPresetContext.html">FSPresetContext</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FlagShip.html">FlagShip</a>
+                <a class="nav-group-task-link" href="Classes/FSRegion.html">FSRegion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/FSTransaction.html">FSTransaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Flagship.html">Flagship</a>
               </li>
             </ul>
           </li>
@@ -80,7 +86,7 @@
             <a class="nav-group-name-link" href="Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Global%20Variables.html#/s:8FlagShip0aB7VersionSSvp">FlagShipVersion</a>
+                <a class="nav-group-task-link" href="Global%20Variables.html#/s:8Flagship15FlagShipVersionSSvp">FlagShipVersion</a>
               </li>
             </ul>
           </li>
@@ -94,10 +100,13 @@
                 <a class="nav-group-task-link" href="Enums/FSCategoryEvent.html">FSCategoryEvent</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FlagShipResult.html">FlagShipResult</a>
+                <a class="nav-group-task-link" href="Enums/FlagshipMode.html">FlagshipMode</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FlagshipError.html">FlagshipError</a>
+                <a class="nav-group-task-link" href="Enums/FlagshipResult.html">FlagshipResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/PresetContext.html">PresetContext</a>
               </li>
             </ul>
           </li>
@@ -120,9 +129,37 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@objc(cs)FlagShip"></a>
-                    <a name="//apple_ref/swift/Class/FlagShip" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FlagShip">FlagShip</a>
+                    <a name="/c:@M@Flagship@objc(cs)FSPresetContext"></a>
+                    <a name="//apple_ref/swift/Class/FSPresetContext" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSPresetContext">FSPresetContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code><a href="Enums/PresetContext.html">PresetContext</a></code> class that represent a predefined keys of context</p>
+
+                        <a href="Classes/FSPresetContext.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSPresetContext</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Flagship@objc(cs)Flagship"></a>
+                    <a name="//apple_ref/swift/Class/Flagship" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)Flagship">Flagship</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -132,13 +169,13 @@
                       <div class="abstract">
                         <p><code>FlagShip</code> class helps you run FlagShip on your native iOS app.</p>
 
-                        <a href="Classes/FlagShip.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/Flagship.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">FlagShip</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Flagship</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
 
                         </div>
                       </div>
@@ -148,9 +185,38 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@objc(cs)FSPageTrack"></a>
-                    <a name="//apple_ref/swift/Class/FSPageTrack" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FSPageTrack">FSPageTrack</a>
+                    <a name="/c:@M@Flagship@objc(cs)FSRegion"></a>
+                    <a name="//apple_ref/swift/Class/FSRegion" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSRegion">FSRegion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The class that represent Region</p>
+
+                        <a href="Classes/FSRegion.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSRegion</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Flagship@objc(cs)FSPage"></a>
+                    <a name="//apple_ref/swift/Class/FSPage" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSPage">FSPage</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -160,14 +226,14 @@
                       <div class="abstract">
                         <p>This hit should be sent each time a visitor arrives on a new interface.</p>
 
-                        <a href="Classes/FSPageTrack.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/FSPage.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSPageTrack</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSPage</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
 
                         </div>
                       </div>
@@ -177,9 +243,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@objc(cs)FSTransactionTrack"></a>
-                    <a name="//apple_ref/swift/Class/FSTransactionTrack" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FSTransactionTrack">FSTransactionTrack</a>
+                    <a name="/c:@M@Flagship@objc(cs)FSTransaction"></a>
+                    <a name="//apple_ref/swift/Class/FSTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSTransaction">FSTransaction</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -189,14 +255,14 @@
                       <div class="abstract">
                         <p>Represent a hit Transaction</p>
 
-                        <a href="Classes/FSTransactionTrack.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/FSTransaction.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSTransactionTrack</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSTransaction</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
 
                         </div>
                       </div>
@@ -206,9 +272,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@objc(cs)FSItemTrack"></a>
-                    <a name="//apple_ref/swift/Class/FSItemTrack" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FSItemTrack">FSItemTrack</a>
+                    <a name="/c:@M@Flagship@objc(cs)FSItem"></a>
+                    <a name="//apple_ref/swift/Class/FSItem" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSItem">FSItem</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -218,14 +284,14 @@
                       <div class="abstract">
                         <p>Represent item with a transaction. It must be sent after the corresponding transaction.</p>
 
-                        <a href="Classes/FSItemTrack.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/FSItem.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSItemTrack</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSItem</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
 
                         </div>
                       </div>
@@ -235,9 +301,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@objc(cs)FSEventTrack"></a>
-                    <a name="//apple_ref/swift/Class/FSEventTrack" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@objc(cs)FSEventTrack">FSEventTrack</a>
+                    <a name="/c:@M@Flagship@objc(cs)FSEvent"></a>
+                    <a name="//apple_ref/swift/Class/FSEvent" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@objc(cs)FSEvent">FSEvent</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -247,14 +313,14 @@
                       <div class="abstract">
                         <p>Represents an event</p>
 
-                        <a href="Classes/FSEventTrack.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/FSEvent.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objcMembers</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSEventTrack</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">FSEvent</span> <span class="p">:</span> <span class="kt">FSTracking</span></code></pre>
 
                         </div>
                       </div>
@@ -269,7 +335,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="http://ABTasty.com/" target="_blank" rel="external">ABTasty</a>. All rights reserved. (Last updated: 2020-02-17)</p>
+      <p>&copy; 2020 <a class="link" href="http://ABTasty.com/" target="_blank" rel="external">ABTasty</a>. All rights reserved. (Last updated: 2020-03-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

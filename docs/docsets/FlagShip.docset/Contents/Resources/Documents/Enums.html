@@ -21,9 +21,9 @@
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="index.html">
-          FlagShip Docs
+          Flagship Docs
         </a>
-         (88% documented)
+         (99% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -33,14 +33,14 @@
       </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="https://github.com/Alamofire/Alamofire">
+          <a class="header-link" href="https://github.com/abtasty/flagship-ios">
             <img class="header-icon" src="img/gh.png"/>
             View on GitHub
           </a>
         </p>
     
         <p class="header-col header-col--secondary">
-          <a class="header-link" href="dash-feed://https%3A%2F%2Fgithub%2Ecom%2Fabtasty%2Fdocsets%2FFlagShip%2Exml">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fgithub%2Ecom%2Fabtasty%2Fdocsets%2FFlagship%2Exml">
             <img class="header-icon" src="img/dash.png"/>
             Install in Dash
           </a>
@@ -48,7 +48,7 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="index.html">FlagShip Reference</a>
+      <a class="breadcrumb" href="index.html">Flagship Reference</a>
       <img class="carat" src="img/carat.png" />
       Enumerations  Reference
     </p>
@@ -60,19 +60,25 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSEventTrack.html">FSEventTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSEvent.html">FSEvent</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSItemTrack.html">FSItemTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSItem.html">FSItem</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSPageTrack.html">FSPageTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSPage.html">FSPage</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FSTransactionTrack.html">FSTransactionTrack</a>
+                <a class="nav-group-task-link" href="Classes/FSPresetContext.html">FSPresetContext</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Classes/FlagShip.html">FlagShip</a>
+                <a class="nav-group-task-link" href="Classes/FSRegion.html">FSRegion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/FSTransaction.html">FSTransaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Flagship.html">Flagship</a>
               </li>
             </ul>
           </li>
@@ -80,7 +86,7 @@
             <a class="nav-group-name-link" href="Global%20Variables.html">Global Variables</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Global%20Variables.html#/s:8FlagShip0aB7VersionSSvp">FlagShipVersion</a>
+                <a class="nav-group-task-link" href="Global%20Variables.html#/s:8Flagship15FlagShipVersionSSvp">FlagShipVersion</a>
               </li>
             </ul>
           </li>
@@ -94,10 +100,13 @@
                 <a class="nav-group-task-link" href="Enums/FSCategoryEvent.html">FSCategoryEvent</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FlagShipResult.html">FlagShipResult</a>
+                <a class="nav-group-task-link" href="Enums/FlagshipMode.html">FlagshipMode</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/FlagshipError.html">FlagshipError</a>
+                <a class="nav-group-task-link" href="Enums/FlagshipResult.html">FlagshipResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/PresetContext.html">PresetContext</a>
               </li>
             </ul>
           </li>
@@ -120,9 +129,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:8FlagShip11FSAudiencesO"></a>
+                    <a name="/s:8Flagship11FSAudiencesO"></a>
                     <a name="//apple_ref/swift/Enum/FSAudiences" class="dashAnchor"></a>
-                    <a class="token" href="#/s:8FlagShip11FSAudiencesO">FSAudiences</a>
+                    <a class="token" href="#/s:8Flagship11FSAudiencesO">FSAudiences</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -138,7 +147,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FSAudiences</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span><span class="p">,</span> <span class="nv">introduced</span><span class="p">:</span> <span class="mf">1.1</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="nv">deprecated</span><span class="p">:</span> <span class="mf">1.2</span><span class="o">.</span><span class="mi">0</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"use enum : PresetContext"</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FSAudiences</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>
@@ -148,9 +158,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@E@FlagshipError"></a>
-                    <a name="//apple_ref/swift/Enum/FlagshipError" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@E@FlagshipError">FlagshipError</a>
+                    <a name="/s:8Flagship13PresetContextO"></a>
+                    <a name="//apple_ref/swift/Enum/PresetContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:8Flagship13PresetContextO">PresetContext</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -158,23 +168,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>FlagShip Error</p>
+                        <p>Enumeration cases that represent <strong>Predefined</strong> targetings</p>
 
-<ul>
-<li>BadPlist: wrong plist</li>
-<li>ClientId_Error:   Error on client id</li>
-<li>GetCampaignError: Error on get campaign</li>
-<li>StoredEventError: Error on string Event</li>
-</ul>
-
-                        <a href="Enums/FlagshipError.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/PresetContext.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FlagshipError</span> <span class="p">:</span> <span class="kt">NSInteger</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">PresetContext</span> <span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">CaseIterable</span></code></pre>
 
                         </div>
                       </div>
@@ -184,9 +186,38 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@E@FlagShipResult"></a>
-                    <a name="//apple_ref/swift/Enum/FlagShipResult" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@E@FlagShipResult">FlagShipResult</a>
+                    <a name="/c:@M@Flagship@E@FlagshipMode"></a>
+                    <a name="//apple_ref/swift/Enum/FlagshipMode" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@E@FlagshipMode">FlagshipMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Enums/FlagshipMode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FlagshipMode</span> <span class="p">:</span> <span class="kt">NSInteger</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@Flagship@E@FlagshipResult"></a>
+                    <a name="//apple_ref/swift/Enum/FlagshipResult" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@Flagship@E@FlagshipResult">FlagshipResult</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -202,14 +233,14 @@
 <li>Updated: The value for flagShip sdk are updated</li>
 </ul>
 
-                        <a href="Enums/FlagShipResult.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/FlagshipResult.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@objc</span>
-<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FlagShipResult</span> <span class="p">:</span> <span class="kt">NSInteger</span></code></pre>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FlagshipResult</span> <span class="p">:</span> <span class="kt">NSInteger</span></code></pre>
 
                         </div>
                       </div>
@@ -219,9 +250,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/c:@M@FlagShip@E@FSCategoryEvent"></a>
+                    <a name="/c:@M@Flagship@E@FSCategoryEvent"></a>
                     <a name="//apple_ref/swift/Enum/FSCategoryEvent" class="dashAnchor"></a>
-                    <a class="token" href="#/c:@M@FlagShip@E@FSCategoryEvent">FSCategoryEvent</a>
+                    <a class="token" href="#/c:@M@Flagship@E@FSCategoryEvent">FSCategoryEvent</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -253,7 +284,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="http://ABTasty.com/" target="_blank" rel="external">ABTasty</a>. All rights reserved. (Last updated: 2020-02-17)</p>
+      <p>&copy; 2020 <a class="link" href="http://ABTasty.com/" target="_blank" rel="external">ABTasty</a>. All rights reserved. (Last updated: 2020-03-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

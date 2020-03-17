@@ -1,4 +1,5 @@
 
+/// :nodoc:
 public class MurmurHash3 {
 
   // MurmurHash3 32 bits.

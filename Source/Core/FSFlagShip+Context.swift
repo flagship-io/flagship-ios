@@ -132,17 +132,13 @@ extension Flagship{
     
     
     
-    ////// Update the pre definded keys ////////////////////////////////
-    
-    
     
     /**
      Update Context with Pre defined keys
      
-     @param configuredKey FSAudiences Enum for pre defined keys
+     @param configuredKey PresetContext Enum for pre defined keys
      
      */
-    
     public func updateContext(configuredKey:PresetContext, value:Any){
         
         if disabledSdk{

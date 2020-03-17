@@ -11,11 +11,6 @@ import ClassKit
 import Network
 
 
-/**
-
-`FSAudience` class that represent the Audience 
-
-*/
 
 let IOS_VERSION = "iOS"
 let ALL_USERS   = "fs_all_users"
@@ -243,7 +238,7 @@ public enum FSAudiences:String,CaseIterable {
 
 
 
-// :nodoc:
+/// :nodoc:
 public class FSAudience: NSObject {
     
     

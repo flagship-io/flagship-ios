@@ -1,17 +1,23 @@
+
+---
+weight: 1
+title: Flagship SDK documentation
+---
+
 # Introduction to iOS SDK
 
 Welcome to the Flagship iOS SDK documentation!
 
-The following documentataion helps you to run Flagship on your native ios app.
+The following documentation helps you to run Flagship on your native ios app.
 
 The SDK helps you :
 
  - Set a visitor id
  - Update visitor context
- - Allocate campaigns from the decision api
+ - Allocate campaigns from the decision api or Bucketing
  - Get modifications
  - Launch campaigns
- - Send events
+ - Send Hits
 
 Feel free to [contact us](mailto:product@abtastycom) if you have any questions regarding this documentation.
 
@@ -19,12 +25,12 @@ Feel free to [contact us](mailto:product@abtastycom) if you have any questions r
 
 * Your app must be a native app written in Swift or Objective C.
 
-* FlagShip SDK supports at least ios 8.0+
+* Flagship SDK supports at least ios 8.0+
 
 * Swift Client application must use Swift 5 or higher
 
 # Getting started
-Our FlagShip is available for distribution through CocoaPods, Swift Package Manager or manual installation.
+Our Flagship iOS SDK is available for distribution through CocoaPods, Swift Package Manager or manual installation.
 
 
 ## Cocoapods
@@ -33,7 +39,7 @@ Our FlagShip is available for distribution through CocoaPods, Swift Package Mana
 target 'Your App' do
   use_frameworks!
 
-  pod 'FlagShip'
+  pod 'Flagship'
 
   end
 ```
@@ -50,9 +56,9 @@ target 'Your App' do
 
 ## Manual Installation
 
-1. Download the frameWork  <a href='http://sdk.abtasty.com/ios/FlagShip.framework.zip'>FlagShip.</a>
+1. Download the frameWork  <a href='http://sdk.abtasty.com/ios/Flagship.framework.zip'>Flagship.</a>
 
-2. In Finder, browse to the FlagShip.framework file and move it under your "Embedded Binaries" section in Xcode
+2. In Finder, browse to the Flagship.framework file and move it under your "Embedded Binaries" section in Xcode
 
 3. Upon moving it, a popup is displayed: check "Copy items if needed".
 
@@ -92,17 +98,17 @@ done
 
 
 <aside class="notice">
-<b>FlagShip FrameWork is universal and BitCode supported</b> <br>
+<b>Flagship FrameWork is universal and BitCode supported</b> <br>
 The universal framework for iOS contains architectures for simulators and devices. You will therefore be able to run your application on all devices and all iOS simulators.
 </aside>
 
 if  your app contains a universal framework, the App store will reject your app because of an unwanted architecture.
 You need to add a new build phase, then select `Run Script` to add a new build step after `Embed frameworks`.
-In the `Shell` field, enter the following script:
+In the `Shell` field, enter the script described in the next column.
 
 ## Swift Package Manager (SPM)
 
-You can search for **FlagShip** package on GitHub. Add your GitHub or GitHub Enterprise account in Xcode’s preferences, and a package repositorie appear as you type.
+You can search for **Flagship** package on GitHub. Add your GitHub or GitHub Enterprise account in Xcode’s preferences, and a package repository appear as you type.
 
 <div class="video-tuto"><img style="max-width:95%;" src="images/swiftPackage.gif"/></div>
 
@@ -111,101 +117,191 @@ You can search for **FlagShip** package on GitHub. Add your GitHub or GitHub Ent
 For more information about Swift Package Manager click <a href="https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app">here</a> to see the apple Documentation
 
 
-## Configure and Start FlagShip
+## Configure and Start Flagship
 
-### Start FlagShip in your App
+### Start Flagship in your App
 
 ```Swift
-/// Import FlagShip
-import FlagShip
+import Flagship
 
-        /// Set the context of VIP user 
-        FlagShip.sharedInstance.context("isVip", true)
 
-        FlagShip.sharedInstance.startFlagShip(environmentId:"your EnvId","userId") { (result) in
-            
-            // The state is ready , you can now use the FlagShip
-            if result == .Ready {
-                DispatchQueue.main.async {
-                  // Update the UI
-                }
-            }else{
 
-              /// An error occurs or the SDK is disabled
-            }
-        }
+////////////////////////////////////////////////////////////////////
+/////////// Start SDK Flagship /////////////////////////////////////
+////////////////////////////////////////////////////////////////////
+
+//// Manage mode for Flagship
+let mode:FlagshipMode = modeSwitch.isOn ? FlagshipMode.BUCKETING : FlagshipMode.DECISION_API
+
+/// Set Mode for sdk
+let modeSdk:FlagshipMode = .BUCKETING  /// or: DECISION_API
+
+/// Start the SDK
+Flagship.sharedInstance.start(environmentId:"your envId" , "visitorId", modeSdk) { (result) in
+
+
+  if result == .Ready {
+    DispatchQueue.main.async {
+
+      /// Update UI
     }
+
+    }else{
+
+      /// An error occurs or the SDK is disabled
+    }
+
+
+  }
+
+
+
+
+////////////////////////////////////////////////////////////////////
+/////////// Start SDK Flagship for Apac Region////////// ///////////
+////////////////////////////////////////////////////////////////////
+
+/// Set the context of VIP user 
+Flagship.sharedInstance.updateContext("isVip", true)
+
+/// Set Mode for sdk 
+let modeSdk:FlagshipMode = .BUCKETING  /// or:  DECISION_API
+
+/// Create the APAC region object and make sure to remplace "Your_API_key" by your own API key
+let apacRegion:FSRegion = FSRegion("Your_API_key")
+
+/// Start the SDK
+Flagship.sharedInstance.start(environmentId:"your EnvId" , "visitorId", modeSdk, apacRegion: apacRegion) { (result) in
+
+
+  if result == .Ready {
+
+    DispatchQueue.main.async {
+
+      /// Update UI
+    }
+
+    }else{
+
+      /// An error occurs or the SDK is disabled
+    }
+
+
+  }
+            
+
+////////////////////////////////////////////////////////////////////
+/////////// To let Flagship generate a visitorId for you ///////////
+////////////////////////////////////////////////////////////////////
+
+/// Start Flagship with generated visitorId 
+Flagship.sharedInstance.start(environmentId:"your EnvId",nil,.BUCKETING) { (result) in
+  
+  // The state is ready, you can now use the SDK
+  if result == .Ready {
+    DispatchQueue.main.async {
+      // Update the UI
+    }
+    }else{
+
+      /// An error occurs or the SDK is disabled
+    }
+  }
+}
+// To get your generated visitorId, use:  
+Flagship.sharedInstance.visitorId
     
 ```
 
 ```Objective-C
-    // Define context
-    [[FlagShip sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES} sync:nil];
-    
-    
-    [[FlagShip sharedInstance] startFlagShipWithEnvironmentId:@"your envId" :@""completionHandler:^(enum FlagShipResult result) {
-        
-        if (result == FlagShipResultReady){
-            
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                     self.storeBtn.hidden = NO;
-                    
-                    // Get the title for VIP user
-                    NSString * title = [[FlagShip sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
-                    
-                    // Get the percent sale for VIP user
-                    float percentSales = [[FlagShip sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
-            });
-        }
+// Define context
+[[Flagship sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES}];
 
-    }];
+  /// start the SDK 
+[[Flagship sharedInstance] startWithEnvironmentId:@"your envId" :@"visitorId" :FlagshipModeBUCKETING :nil completionHandler:^(enum FlagshipResult result) {
+
+  if (result == FlagshipResultReady){
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+     self.storeBtn.hidden = NO;
+
+                    // Get the title for VIP user
+     NSString * title = [[Flagship sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
+
+                    // Get the percent sale for VIP user
+     float percentSales = [[Flagship sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
+   });
+  }
+}];
+    
 ```
 
-To run experiments with FlagShip, you will need to start the SDK. FlagShip uses a sharedInstance that can **activate** experiments and **track** events.
+To run experiments with Flagship, you will need to start the SDK. Flagship uses a sharedInstance that can **activate** experiments and **track** events.
 
-### `startFlagShip(environmentId:String, _ visitorId:String?, onFlagShipReady:@escaping(FlagShipResult)->Void)`
 
+### `start(environmentId:String, _ visitorId:String?,_ mode:FlagshipMode,apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void)`
+
+</br>
 
 Parameter | Type | Required |Description
 --------- | ------- |-------- |-----------
 environmentId | String | Yes |Your environment id
-visitorId | String |Yes | visitorId of the current visitor.
-onFlagShipReady | block |Yes| The block to be invoked when the sdk is ready
+visitorId  | String |Yes | visitorId of the current visitor.
+mode       | FlagshipMode |Yes |  Start Flagship SDK in **BUCKETING** mode (client-side) or in **DECISION_API** mode (server-side) [FlagshipMode](#flagship-mode)
+apacRegion | FSRegion |NO | By default this value is **nil**. This option is used for Apac region  **FSRegion("Your_API_key")**
+completionHandler | block |Yes| The block to be invoked when the sdk is ready
 
+</br>
 
-<aside class="notice">
-  If <code>visitorId</code> is <b>nil</b>, the sdk will automatically generate one.
+<aside class="success">
+  Listening to our customer, we decided to manage the call of the environmentId directly from the start method and not from a .plist file anymore. </br>
+  Your feedback are really precious, don't hesitate <a href="mailto:product@abtasty.com">to give us some</a>!
 </aside>
 
+</br>
 
+<aside class="notice">
+<b>Notice Information:</b></br>
+  - If <code>visitorId</code> is <b>nil</b>, the sdk will automatically generate one.</br>
+  - The old start SDK option is still working but is deprecated, this option will be removed in the next release.</br>
+  - The <code>apacRegion</code> option is only available for Early Adopter users. If you want to be part of it, <a href="mailto:product@abtasty.com">contact us</a>!
+</aside>
 
-FlagShipResult indicate the state of the SDK   <b>Ready</b> | <b>NotReady</b>
+</br>
+
+<aside class="warning">
+We let you the possibility <b>to change the envId</b> (i.e for QA purposes).
+Thus, when changing environment, <b>don't forget to delete the cache of your app.</b>
+</aside>
+
+</br>
+
+`FlagshipResult` indicates the state of the SDK   <b>Ready</b> | <b>NotReady</b>
 
 <ul>
-<li><b>Ready</b>    : <em>That mean the sdk is <b>ready</b> to use and you can get all modifications and send events</em></li>
-<li><b>NotReady</b> : <em>That mean an error occure at the initialization for some reason (See the logs), only a default value are returned when you call getModification</em></li>
+<li><b>Ready</b>    : <em>That mean the SDK is <b>ready</b> to use and you can get all modifications and send events</em></li>
+<li><b>NotReady</b> : <em>That mean an error occured at the initialization for some reason (See the logs), only a default value is returned when you call getModification</em></li>
 </ul>
 
 
 As the SDK is asynchronous and runs in parallel, this method enables you to set a block which will be executed when the SDK is ready.
 
-<aside class="notice">
-<b> Remember to replace "your EnvId" with your own.</b>
+</br>
+
+<aside class="success">
+<b> Remember to replace "your EnvId" with your own.</b></br>
+1. Navigate to <b>Parameters</b>-><b>Environment & Security</b></br>
+2. Copy the environment ID
 </aside>
 
-1. Navigate to **Parameters**->**Environment & Security**
-2. Copy the environment ID
-
- <div class="video-tuto"><img style="max-width:95%;" src="images/envId.gif"></div><br>
 
 ### Example of Start
-
-
 
 How to get the Welcome message for vip users:
 
 This message will be delivered for the users that present a **vip** context only.
+
 <div class="video-tuto"><img style="max-width:95%;" src="images/isVipTrue.png"></div> 
 
 To get this message, you should set a context via the sdk:
@@ -220,17 +316,29 @@ Then you call the start function:
 Once the state is <b>Ready</b>, you have access to your modifications value <b>anywhere</b> in your project
 </aside>
 
+### Flagship Mode
+
+
+**DECISION API Mode**
+
+When the SDK is running in **DECISION_API MODE**, the allocation and its targeting validation will take place on server side. Therefore each call to the method `synchronizeModifications` to refresh the modifications will lead to an http request.
+
+**BUCKETING Mode**
+
+When the SDK is running in **BUCKETING MODE**, the SDK will download all the campaigns configurations at once in a single bucket file and will make the allocation and its targeting validation on client-side. This bucket file will be stored in cache and will only be downloaded again **if there are some modifications made on the Flagship interface**.
+
+
 
 # Campaign integration
 
 ## Updating the user Context
 
-The context is a Dictionary which define the current user of your app. This Dictionary is sent and **used by the Flagship decision API as targeting for campaign allocation**. For example, you could pass a VIP status in the context and then the decision API would enable or disable a specific feature flag.
+The context is a Dictionary which defines the current user of your app. This Dictionary is sent and **used by the Flagship decision API as targeting for campaign allocation**. For example, you could pass a VIP status in the context and then the decision API would enable or disable a specific feature flag.
 
 <div class="video-tuto"><img style="max-width:95%;" src="images/isVip.png"></div>
 
 
-### `FlagShip.sharedInstance.context("isVip", true)`
+### `Flagship.sharedInstance.updateContext("isVip", true)`
 
 
 <aside class="notice">
@@ -248,36 +356,36 @@ A new context value associated with this key will be created if there is no prev
 
 // Here we set the context before starting the SDK
 // Add basketNumber with value 10 in the user context
-FlagShip.sharedInstance.context("basketNumber", 10)
+Flagship.sharedInstance.updateContext("basketNumber", 10)
 
 // Add isVipUser with true value in the user context
-FlagShip.sharedInstance.context("isVip", true) 
+Flagship.sharedInstance.updateContext("isVip", true) 
 
 // Add name with value "alice" in the user context       
-FlagShip.sharedInstance.context("name", "alice")
+Flagship.sharedInstance.updateContext("name", "alice")
 
 // Add valueKey with value 1.2 in the user context
-FlagShip.sharedInstance.context("valueKey", 1.2)
+Flagship.sharedInstance.updateContext("valueKey", 1.2)
         
 // Start the SDK 
-        FlagShip.sharedInstance.startFlagShip(environmentId:"your envId","userId") { (result) in
-            
-            // The state is ready , you can now use the FlagShip
-            if result == .Ready {
-                DispatchQueue.main.async {
-                    
-                    // Get title for banner
-                    let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
-                    // Set the title
-                    self.bannerBtn.setTitle(title, for: .normal)
-                   }
+Flagship.sharedInstance.start(environmentId:"your envId","userId", .BUCKETING) { (result) in
+  
+  // The state is ready , you can now use the Flagship
+  if result == .Ready {
+    DispatchQueue.main.async {
+      
+      // Get title for banner
+      let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
+      // Set the title
+      self.bannerBtn.setTitle(title, for: .normal)
+    }
 
-            }else{
-                
-                /// An error occurs or the SDK is disabled
-            }
-        }
-```
+    }else{
+      
+      /// An error occurs or the SDK is disabled
+    }
+  }
+  ```
 
 ```Objective-C
 
@@ -286,11 +394,11 @@ FlagShip.sharedInstance.context("valueKey", 1.2)
  // Add name  with value "alice" in the user context
  // Add valueKey with value 1.2 in the user context
     
-  [[FlagShip sharedInstance] updateContext:@{@"basketNumber":@10, @"name":@"alice",@"valueKey": @1.2  } sync:^(enum FlagShipResult result) {
+  [[Flagship sharedInstance] updateContext:@{@"basketNumber":@10, @"name":@"alice",@"valueKey": @1.2  } sync:^(enum FlagShipResult result) {
         
       if (result == FlagShipResultUpdated) {
             
-                        NSString * title = [[FlagShip sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
+                        NSString * title = [[Flagship sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
 
       }
   }];
@@ -300,264 +408,150 @@ FlagShip.sharedInstance.context("valueKey", 1.2)
 ```
 ### The sdk provides some methods for pushing new context values:
 
-* Add a Boolean Value to the Context user:</br>
-**`func context(_ key:String,  _ boolean:Bool)`**
+* Add a Boolean Value to the user context:</br>
+**`func updateContext(_ key:String,  _ boolean:Bool)`**
 
-* Add a  Double Value to the context user:</br>
-**`func context(_ key:String,  _ double:Double)`**
+* Add a  Double Value to the user context:</br>
+**`func updateContext(_ key:String,  _ double:Double)`**
 
-* Add a  String Value to the context user:</br>
-**`func context(_ key:String,  _ text:String)`**
+* Add a  String Value to the user context:</br>
+**`func updateContext(_ key:String,  _ text:String)`**
 
-* Add a Float Value to the context user:</br>
-**`func context(_ key:String,  _ float:Float)`**
+* Add a Float Value to the user context:</br>
+**`func updateContext(_ key:String,  _ float:Float)`**
 
+* Add a Integer Value to the user context:</br>
+**`public func updateContext(_ key:String,  _ integer:Int)`**
+
+</br>
+
+
+Parameter | Type | Required | Description
+--------- | ------- |------- | -----------
+key | String | Yes | key to associate with the following value
+value | String, Double, Boolean, FLoat | Yes | the value to add in the context
+
+</br>
+
+* Add Dictionary to the user context:</br>
+**`func updateContext(_ contextValues:Dictionary<String,Any>)`**
 </br>
 
 Parameter | Type |Required|Description
 --------- | ------- |-------|-----------
-key | String | Yes |key to associate with the following value
-value | String, Double, Boolean, FLoat|Yes| the value to add in the context
-
-
+contextValues | dictionary | Yes | key/value (string, int, double, float, boolean)
 
 ## Update context with predefined keys of context
 
-**`func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagShipResult)->Void)?)`**
+The Flagship SDK contains predefined visitor context keys. The keys marked as `Yes` in the `Auto-set by SDK` column, will automatically be set, and the ones marked as `No` have to be set by the client. They are nevertheless overridable at anytime. Then these predefined context keys/values will be sent to the server and be editable in the "Persona" section of the Flagship platform.
+
+```Swift 
+
+///update context with pre configured key
+
+/// Set Region
+Flagship.sharedInstance.updateContext(configuredKey: PresetContext.LOCATION_REGION, value: "ile de france")
+
+/// Set Country
+Flagship.sharedInstance.updateContext(configuredKey: PresetContext.LOCATION_COUNTRY, value: "FRANCE")
+
+
+
+/// Add several pre configured key using the dictionary
+Flagship.sharedInstance.updateContext([PresetContext.LOCATION_CITY.rawValue:"paris",
+PresetContext.LOCATION_COUNTRY.rawValue:"France",
+PresetContext.LOCATION_REGION.rawValue:"ile de france"])
+```
+```Objective-C
+
+    /// Update context
+[[Flagship sharedInstance] updateContext:@{@"basketNumber":@10, @"name":@"alice",@"valueKey": @1.2  }];
+
+    /// Synchronize modfication
+[[Flagship sharedInstance] synchronizeModificationsWithCompletion:^(enum FlagshipResult result) {
+  if (result == FlagshipResultUpdated){
+    
+            /// Update UI ....
+    NSString * title = [[Flagship sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
+  }
+  
+}];
+
+```
+
+**`func updateContext(configuredKey:PresetContext, value:Any)`**
 
 
 Parameter | Type |Required|Description
 --------- | ------- |-------|-----------
-configuredKey | FSAudiences | Yes |The values defined in an enumeration  <b>FSAudiences</b>
+configuredKey | PresetContext | Yes |The values defined in an enumeration  <b>PresetContext</b>
 value | String, Double, Boolean, FLoat|Yes| the value to add in the context
-sync | block |Yes| The block to be invoked when the sdk is ready
 
-```Swift 
-
-// Update the context with several keys
-FlagShip.sharedInstance.updateContext([FSAudiences.LOCATION_CITY.rawValue:"paris",
-                                      FSAudiences.LOCATION_COUNTRY.rawValue:"France",
-                                      FSAudiences.LOCATION_REGION.rawValue:"ile de france"]) { (result) in
-
-                                     }
-        
-// update context with pre configured key
-FlagShip.sharedInstance.updateContextWithPreConfiguredKeys(.LOCATION_REGION, value: "ile de france") { (result) in
-
-  // Adapt your modification after updating the context
-
-}
-
-```
-```Objective-C
-
-    /// See the FSAudiences enum , to get raw value for keys of context you want to update
-
-    [[FlagShip sharedInstance] updateContext:@{@"sdk_city":@"paris",@"sdk_region":@"ile de france",@"sdk_country":@"france"} sync:^(enum FlagShipResult result) {
-        
-         // Adapt your modification after updating the context
-    }];
-    
-
-```
-
-When starting the SDK, it loads **automatically** a set of predefined keys (Device type, ios version, etc). That keys will help you to filter and analyze your report.
-
-The list of predefined keys:
-
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th style="width: 100px;">Pre defined Key</th>
-        <th style="width: 50px;">Type</th>
-        <th style="width: 250px;">Auto set by the Sdk</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><b>FIRST_TIME_INIT</b></td>
-          <td>boolean</td>
-          <td>Yes</td>
-          <td>First init of the app</td>
-        </tr>
-        <tr>
-          <td><b>DEVICE_LOCALE</b></td>
-          <td>String</td>
-          <td>Yes</td>
-          <td>Language of the device</td>
-        </tr>
-        <tr>
-          <td><b>DEVICE_MODEL</b></td>
-          <td>String</td>
-          <td>Yes</td>
-          <td>Tablette / Mobile</td>
-        </tr>
-        <tr>
-          <td><b>DEVICE_TYPE</b></td>
-          <td>String</td>
-          <td>Yes</td>
-          <td>Model of the device</td>
-        </tr>
-        <tr>
-          <td><b>LOCATION_CITY</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>City geolocation</td>
-        </tr>
-        <tr>
-          <td><b>LOCATION_REGION</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Region geolocation</td>
-        </tr>
-        <tr>
-          <td><b>LOCATION_COUNTRY</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Country geolocation</td>
-        </tr>
-        <tr>
-          <td><b>LOCATION_LAT</b></td>
-           <td>Double</td>
-          <td>No</td>
-          <td>Current Latitude</td>
-        </tr>
-        <tr>
-          <td><b>LOCATION_LONG</b></td>
-           <td>Double</td>
-          <td>No</td>
-          <td>Current Longitude</td>
-        </tr>
-        <tr>
-          <td><b>IP</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>IP of the device</td>
-        </tr>
-        <tr>
-          <td><b>OS_NAME</b></td>
-           <td>String</td>
-          <td>Yes</td>
-          <td>iOS</td>
-        </tr>
-        <tr>
-          <td><b>OS_VERSION</b></td>
-           <td>String</td>
-          <td>Yes</td>
-          <td>ios version</td>
-        </tr>
-        <tr>
-          <td><b>CARRIER_NAME</b></td>
-           <td>String</td>
-          <td>Yes</td>
-          <td>Name of the operator</td>
-        </tr>
-        <tr>
-          <td><b>DEV_MODE</b></td>
-           <td>Boolean</td>
-          <td>No</td>
-          <td>Is the app in debug mode?</td>
-        </tr>
-          <tr>
-          <td><b>INTERNET_CONNECTION</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>What is the internet connection</td>
-        </tr>        <tr>
-          <td><b>APP_VERSION_NAME</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Version name of the app</td>
-        </tr>        <tr>
-          <td><b>APP_VERSION_CODE</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Version code of the app</td>
-        </tr>
-                </tr>        <tr>
-          <td><b>INTERFACE_NAME</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Name of the interface</td>
-        </tr>        </tr>        <tr>
-          <td><b>FLAGSHIP_VERSION</b></td>
-           <td>String</td>
-          <td>No</td>
-          <td>Version of the Flagship SDK</td>
-        </tr>
-    </tbody>
-</table>
-
-
-<aside class="notice">
-To overwrite the pre loaded keys, use the same function updateContextWithPreConfiguredKeys
-</aside>
-
-
-  <div class="video-tuto"><img style="max-width:95%;" src="images/preDefineKey.png"></div><br>
-
-  In this example you can see the pre defined key **DEVICE_TYPE** to filter your report
-
-
+The list of the predefined keys is available in the [appendices](#appendices).
 
 ## Synchronizing campaigns
 
-Synchronizing campaign modifications allows you to **automatically** call the Flagship decision API, which makes the allocation according to the user context and gets all their modifications. All the modifications returned by the API are stored in the SDK and are updated asynchronously when syncCampaignModifications() is called.
+Synchronizing campaign modifications allows you to **automatically** call the Flagship decision API (or bucketing file), which makes the allocation according to the user context and gets all their modifications. 
 
-**`func updateContext(_ contextvalues:Dictionary<String,Any>, sync:((FlagShipResult)->Void)?)`**
+All the modifications returned by the API (or by the bucketing file) are stored in the SDK and are updated asynchronously when synchronizeModifications() is called.
+
+**`func synchronizeModifications(completion:@escaping((FlagshipResult)->Void))`**
 
 ```Swift
+/// Update the context when basket value change
+Flagship.sharedInstance.synchronizeModifications { (result) in
+  
+  if result == .Updated{
+    
+    // Update the UI for users that have basket over or equal 100
+    if (Flagship.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
+      
+      DispatchQueue.main.async {
+        
+        /// Show your message for free delivery
+        
+      }
+    }
+  }
+}
 
-        /// Update the context when basket value change
-        FlagShip.sharedInstance.updateContext(["basketValue":120]) { (result) in
-            
-            if result == .Updated{
-                
-                // Update the UI for users that have basket over or equal 100
-                if (FlagShip.sharedInstance.getModification("freeDelivery", defaultBool: false, activate: true)){
-                    
-                    DispatchQueue.main.async {
-                        
-                        /// Show your message for free delivery
-                        
-                    }
-                }
-            }
-        }
 ```
 
 ```Objective-C
 
-// Here, for example, update VIP user info and adapt the UI...
+    // Here, for example, update VIP user info and adapt the UI...
 
-// update isVipUser with false value in the user context
-    [[FlagShip sharedInstance] updateContext:@{@"isVipUser":@NO} sync:^(enum FlagShipResult state) {
-         
-      // In this block you will have new values updated for non VIP users
+    // update isVipUser with false value in the user context
+[[Flagship sharedInstance] updateContext:@{@"isVipUser":@NO}];
 
-      dispatch_async(dispatch_get_main_queue(), ^{
-            
-         // do work here to Usually to update the User Interface
-         // Get title for banner
-         NSString * title = [[FlagShip sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
-         // Set the tile
-         
-        });
-     }];
+    /// Synchronize modfication
+[[Flagship sharedInstance] synchronizeModificationsWithCompletion:^(enum FlagshipResult result) {
+  
+  if (result == FlagshipResultUpdated){
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      
+               // do work here to Usually to update the User Interface
+               // Get title for banner
+     NSString * title = [[Flagship sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
+               // Set the tile
+     
+   });
+  }
+  
+}];
 ```
 
 
   Parameter | Type | Description
   --------- | -------|-----------
-  contextValues | Dictionary | represent keys/Value for the context 
-  sync | Block to execute once the sync is completed
+   completion | Block to execute once the sync is completed
 
-  FlagShipResult indicate the state of the SDK   <b>Updated</b> | <b>NotReady</b>
+  FlagshipResult indicates the state of the SDK   <b>Updated</b> | <b>NotReady</b>
 
 <ul>
-<li><b>Updated</b>    : <em>That mean the sdk is <b>Updated</b> you can get all new modifications according to contextValues</em></li>
-<li><b>NotReady</b>   : <em>That mean an error occure at the update for some reason (See the logs), only previous modifications before the update still available </em></li>
+<li><b>Updated</b>    : <em>That mean the SDK is <b>Updated</b>. You can get all new modifications according to contextValues.</em></li>
+<li><b>NotReady</b>   : <em>That mean an error occure at the update for some reason (See the logs). Only previous modifications before the update are still available.</em></li>
 </ul>
 
 
@@ -565,7 +559,7 @@ Synchronizing campaign modifications allows you to **automatically** call the Fl
 Once the new values given by the decision API are <b>updated</b>, this block is executed.
 </aside>
 
-### Example for updating context
+### Example for synchronizing context
 
 How to manage **Free Shipping threshold**. In our case the threshold is **100$**
 <div class="video-tuto"><img style="max-width:95%;" src="images/basketValue.png"></div><br>
@@ -576,16 +570,16 @@ In your code, just call this function:
 
 </br>
 
-This function will ask the decision API and get the new modifications **according** to context passed as parameters 
+This function will ask the decision API and get the new modifications **according** to context passed as parameters.
 
-Once update is done, you can display the message for the free delivery, as described in the example above.
+Once the update is done, you can display the message for the free delivery, as described in the example above.
 
 
 ## Retrieving modifications and Activation
 
 Now the campaign has been **allocated and synchronized** , all the modifications are stored on the SDK. You can use the following functions to retrieve them:
 
-* Get Modification for boolean key:</br>
+* Get Modification for Boolean key:</br>
 **`func getModification(_ key:String, defaultBool:Bool, activate:Bool) -> Bool`**
 
 * Get Modification for String key:</br>
@@ -609,7 +603,7 @@ Parameter | Type |Required|Description
 --------- | ------- |------- |-----------
 key | String, Boolean, Int, Float, Double |Yes| key associated with the modification.
 default | String, Boolean, Int, Float, Double |Yes| default value returned when the key **doesn't match any modification value**.
-activate | Boolean |No| **false by default**  Set this parameter to **true** to automatically report on our server that the current visitor has seen this modification. If false, call the [activateModification()](http://localhost:8080/ios/v1.x/?Swift#activating-modifications) later.
+activate | Boolean |No| **false by default**  Set this parameter to **true** to automatically report on our server that the current visitor has seen this modification. If false, call the [activateModification()](#activating-modifications) later.
 
 
 An example of keys values defined in the **variation 1**
@@ -619,27 +613,27 @@ An example of keys values defined in the **variation 1**
 <br>
 
 How to gets values:
-<div class="video-tuto"><img style="max-width:95%;" src="images/getValues.gif"></a></div>
+<div class="video-tuto"><img style="max-width:95%;" src="images/getValues.png"></a></div>
 
 
 
 
 ```Swift
-// Retreive modification and activate
+// Retrieve modification and activate
 let title = FlagShip.sharedInstance.getModification("bannerTitle", defaultString: "More Infos", activate: true)
 
 ```
 
 ```Objective-C
 
-// Retreive modification and activate
- NSString * title = [[FlagShip sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
+// Retrieve modification and activate
+ NSString * title = [[Flagship sharedInstance] getModification:@"bannerTitle" defaultString:@"More Infos" activate:YES];
 
 ```
 
 ## Activating modifications
 
-Once a modification has been **printed** on the screen for a user (and if your `activate` parameter was `false` in the [`getModification` method](http://localhost:8080/ios/v1.x/?Swift#retrieving-modifications-and-activation)), **you must send an activation** event to tell Flagship that the user has seen this specific variation.
+Once a modification has been **printed** on the screen for a user (and if your `activate` parameter was `false` in the [`getModification` method](#retrieving-modifications-and-activation)), **you must send an activation** event to tell Flagship that the user has seen this specific variation.
 
 ```Swift
     
@@ -652,7 +646,7 @@ FlagShip.sharedInstance.activateModification(key: "cta_text")
         
 // Activate modification to tell Flagship that the user has seen this specific variation
     
-[[FlagShip sharedInstance] activateModificationWithKey:@"cta_text"];
+[[Flagship sharedInstance] activateModificationWithKey:@"cta_text"];
 
 ```
 
@@ -667,13 +661,13 @@ If the key doesn't exist, the <b>activate is not sent</b>.
 </aside>
 
 Get Modification and activate it manually
-<div class="video-tuto"><img style="max-width:95%;" src="images/getWithoutActivate.gif"></a></div>
+<div class="video-tuto"><img style="max-width:95%;" src="images/getWithoutActivate.png"></a></div>
 
 # Hit Tracking
 
 This section helps you track your users and learn how to build hits in order to feed campaign goals
 
-The types of Hits are as follows: 
+The different types of Hits are: 
 
 * Page
 * Transaction
@@ -682,15 +676,15 @@ The types of Hits are as follows:
 
 **They must all be sent with the following function:**
 
-`func sendTracking<T: FSTrackingProtocol>(_ event:T)`
+`func sendHit<T: FSTrackingProtocol>(_ event:T)`
 
 ## Page
 
 ```Swift
 
 // Usage: usually we send this hit when changing screen in the app
-let eventPage = FSPageTrack("loginScreen")
-FlagShip.sharedInstance.sendTracking(eventPage)
+let eventPage = FSPage("loginScreen")
+Flagship.sharedInstance.sendHit(eventPage)
 
 ```
 
@@ -698,16 +692,16 @@ FlagShip.sharedInstance.sendTracking(eventPage)
 
 // Usage: usually we send this hit when changing screen in the app
 // Create page event
-FSPageTrack * eventPage =  [[FSPageTrack alloc] init:@"loginScreen"];
+ FSPage * eventPage =  [[FSPage alloc] init:@"loginScreen"];
 
 // Send Event
-[[FlagShip sharedInstance] sendPageEvent:eventPage];
+[[Flagship sharedInstance] sendPageEvent:eventPage];
 
 ```
 
 This hit should be sent each time a visitor arrives on a new interface.
 
-**FSPageTrack** class represents this hit and requires interfaceName as a string parameter
+**FSPage** class represents this hit and requires interfaceName as a string parameter
 
 **`init(_ interfaceName:String)`**
 
@@ -715,26 +709,29 @@ Parameter | Type | Required | Description
 --------- | ------- | ----------- | ----------
 interfaceName | String| Yes | Interface name
 
+<aside class="notice">The <code>FSPage</code> hit isn't available yet in the Flagship reporting view.</aside>
+
 
 ## Transaction
 
-Hit to send when a user completes a Transaction
-**FSTransactionTrack** represents it and requires a unique `transactionId` and `affiliation` name. `affiliation` is the name of the transaction goal.
+Hit to send when a user completes a Transaction.
+
+**FSTransaction** represents it and requires a unique `transactionId` and `affiliation` name. `affiliation` is the name of the transaction goal.
 
 
 ```Swift
 
 // The affiliation is the name of transaction that should appear in the report
 
-let transacEvent:FSTransactionTrack = FSTransactionTrack(transactionId:"transacId", affiliation: "BasketTransac")
+let transacEvent:FSTransaction = FSTransaction(transactionId:"transacId", affiliation:"BasketTransac")
 transacEvent.currency = "EUR"
 transacEvent.itemCount = 0
 transacEvent.paymentMethod = "PayPal"
-transacEvent.ShippingMethod = "Fedex"
+transacEvent.shippingMethod = "Fedex"
 transacEvent.tax = 2.6
 transacEvent.revenue = 15
 transacEvent.shipping = 3.5
-FlagShip.sharedInstance.sendTracking(transacEvent)
+FlagShip.sharedInstance.sendHit(transacEvent)
 
 ```
 
@@ -742,16 +739,16 @@ FlagShip.sharedInstance.sendTracking(transacEvent)
 
 // The affiliation is the name of transaction that should appear in the report
 // Create the transaction event
-FSTransactionTrack * transacEvent =  [[FSTransactionTrack alloc] initWithTransactionId:@"transacId" affiliation:@"BasketTransac"];
+FSTransaction * transacEvent =  [[FSTransaction alloc] initWithTransactionId:@"transacId" affiliation:@"BasketTransac"];
 transacEvent.currency = @"EUR";
 transacEvent.itemCount = 0;
 transacEvent.paymentMethod = @"PayPal";
-transacEvent.ShippingMethod = @"Fedex";
+transacEvent.shippingMethod = @"Fedex";
 transacEvent.tax = @2.6;
 transacEvent.revenue = @15;
 transacEvent.shipping = @3.5;
 // Send the transaction event
-[[FlagShip sharedInstance] sendTransactionEvent:transacEvent];
+[[Flagship sharedInstance] sendTransactionEvent:transacEvent];
 
 ```
 
@@ -767,9 +764,10 @@ shipping | Float | optional | Specifies the total shipping cost of the transacti
 tax | Float | optional | Specifies the total taxes of the transaction.
 currency | String | optional | Specifies the currency used for all transaction currency values. Value should be a valid ISO 4217 currency code.
 paymentMethod | String | optional | Specifies the payment method for the transaction.
-ShippingMethod | String | optional | Specifies the shipping method of the transaction.
+shippingMethod | String | optional | Specifies the shipping method of the transaction.
 itemCount | Int | optional | Specifies the number of items for the transaction.
 couponCode | String | optional | Specifies the coupon code used by the customer for the transaction.
+
 
 ## Item
 
@@ -777,8 +775,8 @@ couponCode | String | optional | Specifies the coupon code used by the customer 
 
 // Item usually represents a product. An item must be associated with a transaction event.
     
-let itemEvent:FSItemTrack = FSItemTrack(transactionId: transacId, name: "MicroTransac", price: 1, quantity: 1, code: "CodeItem", category: "category")
-ABFlagShip.sharedInstance.sendTracking(itemEvent)
+let itemEvent:FSItem = FSItem(transactionId: transacId, name:"MicroTransac", price: 1, quantity: 1, code:"CodeItem", category:"category")
+ABFlagship.sharedInstance.sendHit(itemEvent)
 
 ```
 
@@ -787,30 +785,34 @@ ABFlagShip.sharedInstance.sendTracking(itemEvent)
 
 // Item usually represents a product. An item must be associated with a transaction event.
 
+
 // Create item event
-FSItemTrack * itemEvent = [[FSItemTrack alloc] initWithTransactionId:@"transacId" name:@"MicroTransac" price:@1 quantity:@1 code:@"code" category:@"category"];
+FSItem * itemEvent = [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac"];
 
 // Send item event
-[[FlagShip sharedInstance] sendItemEvent:itemEvent];
-    
+[[Flagship sharedInstance] sendItemEvent:itemEvent];
+        
 ```
 
 
 Hit to send an item with a transaction. It must be sent after the corresponding transaction.
 
-<b>FSItemTrack</b> represents this hit and requires transactionId and product name
+<b>FSItem</b> represents this hit and requires transactionId and product name.
 
 
 **`init(transactionId:String, name:String)`**
 
 Parameter | Type | Required | Description
 --------- | ------- | ----------- | -------
-transactionId | String | required | Transaction unique identifier.
-name | String | required | Product name.
-price | Float | optional | Specifies the item price.
-code | String | optional | Specifies the item code or SKU.
-category | String | optional | Specifies the item category.
+transactionId | String | required | Transaction unique identifier
+name |String | required | Product name
+price | Float | optional | Specifies the item price
+code | String | optional | Specifies the item code or SKU
+category | String | optional | Specifies the item category
 quantity | Int | optional | Specifies the item quantity
+
+<aside class="notice">The <code>FSItem</code> hit isn't available yet in the Flagship reporting view.</aside>
+
 
 ## Event
 
@@ -819,13 +821,13 @@ quantity | Int | optional | Specifies the item quantity
 // Create event for any user action
 // The event action is the name to display in the report
 
-let actionEvent:FSEventTrack = FSEventTrack(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Shop")
+let actionEvent:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Shop")
 actionEvent.label = "cta_Shop_label"
 actionEvent.eventValue = 1
 actionEvent.interfaceName = "HomeScreen"
 
 // Send Event Tracking
-FlagShip.sharedInstance.sendTracking(actionEvent)
+FlagShip.sharedInstance.sendHit(actionEvent)
 
 ```
 
@@ -834,35 +836,35 @@ FlagShip.sharedInstance.sendTracking(actionEvent)
 
 // Create event for any user action
 // The event action is the name to display in the report
-FSEventTrack * actionEvent = [[FSEventTrack alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"cta_Shop"];
+FSEvent * actionEvent = [[FSEvent alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"cta_Shop"];
 actionEvent.label = @"cta_Shop_label";
 actionEvent.eventValue = @1;
 actionEvent.interfaceName = @"HomeScreen";
-[[FlagShip sharedInstance] sendEventTrack:actionEvent];
+[[Flagship sharedInstance] sendEventTrack:actionEvent];
     
 ```
 
  
 Hit which represents an event. It can be anything you want: for example a click on an Add to Cart button or a newsletter subscription.
 
-<**FSEventTrack**  represents this hit and requires a category event and action name string
+**FSEvent**  represents this hit and requires a category event and action name string
 
 **FSCategoryEvent** can be `Action_Tracking`  or  `User_Engagement`
 
 `init(eventCategory:FSCategoryEvent, eventAction:String)`
 
-Parameter | Type | Required | Description
+Parameter | Type | Required |Description
 --------- | ------- | ----------- | ----- 
 category | FSCategoryEvent | required | category of the event (Action_Tracking or User_Engagement).
 action | String | required |  name of the event.
 label | String | optional | description of the event.
-eventValue | Number | optional | value of the event, must be non-negative.
+eventValue | Number |optional | value of the event, must be non-negative.
 
 ## Common parameter for Hits
 
 ```Swift
 // Create event
-let eventPage = FSPageTrack("loginScreen")
+let eventPage = FSPage("loginScreen")
 // Fill data for event page   
 eventPage.userIp = "168.192.1.0"
 eventPage.sessionNumber = 12
@@ -872,13 +874,13 @@ eventPage.sessionNumber = 1
 eventPage.userLanguage = "fr"
 eventPage.sessionEventNumber = 2
 // Send Event
-FlagShip.sharedInstance.sendTracking(eventPage)
+FlagShip.sharedInstance.sendHit(eventPage)
 
 ```
 
 ```Objective-C
 // Create event
-FSPageTrack * eventPage =  [[FSPageTrack alloc] init:@"loginScreen"];
+FSPage* eventPage =  [[FSPage alloc] init:@"loginScreen"];
 // Fill data for event page
 eventPage.userIp = @"168.192.1.0";
 eventPage.sessionNumber = @12;
@@ -887,7 +889,7 @@ eventPage.screenColorDepth = @"#fd0027";
 eventPage.sessionNumber = @1;
 eventPage.userLanguage = @"fr";
 eventPage.sessionEventNumber = @2;
-[[FlagShip sharedInstance] sendPageEvent:eventPage];
+[[Flagship sharedInstance] sendPageEvent:eventPage];
 
 ```
 These parameters can be sent with any type of hit.
@@ -896,41 +898,78 @@ These parameters can be sent with any type of hit.
 --------- | ------- | -----------
 userIp | String | **optional** optional User IP
 screenResolution | String | **optional** Screen Resolution.
-userLanguage | String | **optional**  User Language 
-currentSessionTimeStamp | Int64 | **optional** Current Session Timestamp
-sessionNumber | Int | **optional** Session Number
+userLanguage | String |**optional**  User Language 
+currentSessionTimeStamp | Int64 |**optional** Current Session Timestamp
+sessionNumber | Int |**optional** Session Number
 
 
 # Logs
+
+```Swift
+// Stop Logs displaying
+Flagship.sharedInstance.enableLogs = false
+```
+
+```Objective-C
+// Stop Logs displaying
+[[Flagship sharedInstance] setEnableLogs:NO];
+
+```
+
 Logs are **enabled** by default. If you want to stop logs, set the “enableLogs” to false
 
 
 # Release
 
-Current version 1.1.0
+Current version 1.2.0
 
-- Add Pre defined context keys
-- Add Swift Package Manager
-- Include the Environment id in the start function
-- Change the name of ABFlagShip to **FlagShip**
+- New [start](#configure-and-start-flagship) function 
+- Add Bucketing mode 
+- Add APAC Region mode
+- Rename functions, the oldest functions are still valid, but deprecated
+- Change FlagShip object to **Flagship**
 - Fix bugs
 
 
-```Swift
-// Stop Logs displaying
-FlagShip.sharedInstance.enableLogs = false
-```
+# Appendices
 
-```Objective-C
-// Stop Logs displaying
-[[ABFlagShip sharedInstance] setEnableLogs:NO];
+| SDK Variable name | Description | Context Variable name | Type | Auto-set by SDK | Example |
+| ----------------- | ----------- | --------------------- | ---- | --------------- | ------- |
+| FIRST_TIME_INIT | First init of the app | sdk_firstTimeInit | Boolean | Yes | true (false if the init isn’t the first one) |
+| LOCALE | Language of the device | sdk_deviceLanguage | String | Yes | fr_FR | 
+| DEVICE_TYPE | Type fo the device (Tablet/Mobile) | sdk_deviceType | String | Yes | mobile |
+| LOCATION_CITY | City geolocation |  sdk_city |  String | No | toulouse | 
+| LOCATION_REGION | Region geolocation |  sdk_region |  String |  No |  occitanie |
+| LOCATION_COUNTRY |  Country geolocation | sdk_country | String  No |  France |
+| LOCATION_LAT |  Current Latitude |  sdk_lat | Double |  No |  43.623647 |
+| LOCATION_LONG | Current Longitude | sdk_long |  Double |  No |  1.445397 |
+| IP | IP of the device | sdk_ip |  String |  No |  127.0.0.1 |
+| OS_NAME | Name of the OS |  sdk_osName |  String |  Yes | iOS |
+| IOS_VERSION | Version of iOS |  sdk_iOSVersion |  String |  Yes | 9 |
+| "MVNO / carrierName | (Mobile virtual network operator)" | Name of the operator | sdk_carrierName | String | Yes | orange |
+| DEV_MODE | Is the app in debug mode? |  sdk_devMode | Boolean | No | true |
+| INTERNET_CONNECTION | What is the internet connection | sdk_internetConnection |  String |  No | 3g |
+| APP_VERSION_NAME  | Version name of the app | sdk_versionName | String |  No  | 1.1.2-beta |
+| APP_VERSION_CODE |  Version code of the app | sdk_versionCode | Number (int) |  No  | 40 |
+| FLAGSHIP_VERSION |  Version of the Flagship SDK | sdk_fsVersion | String |  Yes | 1.1.2 |
+| INTERFACE_NAME |  Name of the interface | sdk_interfaceName | String |  No  | ProductPage |
 
-```
+
+
+
+<aside class="notice">
+To overwrite the keys, use the (updateContext)[#update-context-with-predefined-keys-of-context] method
+</aside>
+
+Below, you can see an example of predefined key used to filter a report.
+
+<div class="video-tuto"><img style="max-width:95%;" src="images/preDefineKey.png"></div><br>
+
 # Reference
 
-[ios reference](ios-reference)
+[ios reference](/ios/v1.2.0/ios-reference/)
 
 # Sources
 
-Sources of the FlagShip and samples are available at :
+Sources of Flagship SDK and samples are available at:
 https://github.com/abtasty/flagship-ios

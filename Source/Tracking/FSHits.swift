@@ -53,13 +53,6 @@ import Foundation
  Represent a hit Transaction
  */
 
-
-public struct MyEvent{
-    
-    public init(){}
-}
-
-
 @objcMembers public class FSTransaction:FSTracking{
     
     /// Transaction unique identifier.
