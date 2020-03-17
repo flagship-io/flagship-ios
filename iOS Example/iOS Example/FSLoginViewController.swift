@@ -79,31 +79,32 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    /// On Click Login
-    @IBAction func onClickLogin(){
-        
-       // Flagship.sharedInstance.context("isVip", true)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
-            
-            
-            if result == .Ready{
-                
-                if self.showView{
-                    
-                    DispatchQueue.main.async {
-                         
-                         self.performSegue(withIdentifier: "onClickLogin", sender: nil)
-                         
-                     }
-                    
-                }
-                
-            }else{
-                
-            }
-        }
-        
-    }
+ /// On Click Login
+  @IBAction func onClickLogin(){
+      
+     // Flagship.sharedInstance.context("isVip", true)
+      Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
+          
+          
+          if result == .Ready{
+              
+              if self.showView{
+                  
+                  DispatchQueue.main.async {
+                       
+                       self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+                       
+                   }
+                  
+              }
+              
+          }else{
+              
+          }
+      }
+      
+  }
+    
     
     
     @IBAction func onCancel(){

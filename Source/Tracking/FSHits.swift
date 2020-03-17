@@ -86,7 +86,7 @@ public struct MyEvent{
     public var paymentMethod:String?
     
     /// Specifies the shipping method of the transaction.
-    public var ShippingMethod:String?
+    public var shippingMethod:String?
     
     /// Specifies the number of items for the transaction.
     public var itemCount:NSNumber?
@@ -157,8 +157,8 @@ public struct MyEvent{
                 customParams.updateValue(self.paymentMethod ?? "" , forKey: "pm")
             }
             // Set ShippingMethod
-            if self.ShippingMethod != nil{
-                customParams.updateValue(self.ShippingMethod ?? "" , forKey: "sm")
+            if self.shippingMethod != nil{
+                customParams.updateValue(self.shippingMethod ?? "" , forKey: "sm")
             }
             //Set itemCount
             if self.itemCount != nil{

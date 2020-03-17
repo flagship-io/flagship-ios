@@ -166,7 +166,7 @@ extension Flagship{
     
     
     ///// Update context without dictionary //////////////////////
-    @objc public func synchronizeModifications(completion:@escaping((FlagShipResult)->Void)){
+    @objc public func synchronizeModifications(completion:@escaping((FlagshipResult)->Void)){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)

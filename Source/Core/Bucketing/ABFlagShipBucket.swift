@@ -23,7 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-    @objc public  func start(environmentId:String, _ visitorId:String?,_ mode:FlagshipMode,apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagShipResult)->Void){
+    @objc public  func start(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode,_ apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -126,17 +126,17 @@ import UIKit
                          
                          FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
 
-                         completionHandler(FlagShipResult.Disabled)
+                         completionHandler(FlagshipResult.Disabled)
                          
                      }else{
                          
                          self.disabledSdk = false
                          self.campaigns = campaigns
                          self.context.updateModification(campaigns)
-                         completionHandler(FlagShipResult.Ready)
+                         completionHandler(FlagshipResult.Ready)
                      }
                  }else{
-                     completionHandler(FlagShipResult.NotReady)
+                     completionHandler(FlagshipResult.NotReady)
                  }
              }
             break

@@ -82,7 +82,7 @@ public class Flagship:NSObject{
      */
     
     @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
-    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagShipResult)->Void){
+    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
@@ -140,20 +140,20 @@ public class Flagship:NSObject{
                     
                     FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
                     
-                    completionHandler(FlagShipResult.Disabled)
+                    completionHandler(FlagshipResult.Disabled)
                     
                 }else{
                     
                     self.disabledSdk = false
                     self.campaigns = campaigns
                     self.context.updateModification(campaigns)
-                    completionHandler(FlagShipResult.Ready)
+                    completionHandler(FlagshipResult.Ready)
                 }
             }else{
                 
                 FSLogger.FSlog(String(format: "Error on get campaign, the SDK is not ready for use"), .Campaign)
                 
-                completionHandler(FlagShipResult.NotReady)
+                completionHandler(FlagshipResult.NotReady)
             }
         }
         
@@ -231,7 +231,7 @@ public class Flagship:NSObject{
      */
     
     @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
-    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagShipResult)->Void)?){
+    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -266,7 +266,7 @@ public class Flagship:NSObject{
      
      */
     @available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
-    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagShipResult)->Void)?){
+    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
@@ -521,7 +521,7 @@ public class Flagship:NSObject{
      
      */
     
-    @objc public func sendTransactionEvent(_ transacEvent:FSTransactionTrack){
+    @objc public func sendTransactionEvent(_ transacEvent:FSTransaction){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Transaction will not be sent", .Campaign)
@@ -537,7 +537,7 @@ public class Flagship:NSObject{
      @param pageEvent : Page event
      
      */
-    @objc public func sendPageEvent(_ pageEvent:FSPageTrack){
+    @objc public func sendPageEvent(_ pageEvent:FSPage){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
@@ -555,7 +555,7 @@ public class Flagship:NSObject{
      
      */
     
-    @objc public func sendItemEvent(_ itemEvent:FSItemTrack){
+    @objc public func sendItemEvent(_ itemEvent:FSItem){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Item will not be sent", .Campaign)
@@ -571,7 +571,7 @@ public class Flagship:NSObject{
      @param eventTrack : track event
      
      */
-    @objc public func sendEventTrack(_ eventTrack:FSEventTrack){
+    @objc public func sendEventTrack(_ eventTrack:FSEvent){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Track will not be sent", .Campaign)

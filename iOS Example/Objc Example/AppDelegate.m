@@ -12,7 +12,7 @@
 //#import <FlagShip-Swift.h>
  
 
-@import FlagShip;
+@import Flagship;
  
 
  

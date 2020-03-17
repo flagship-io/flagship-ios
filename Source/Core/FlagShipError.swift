@@ -40,7 +40,7 @@ import Foundation
  */
 
 
-@objc public enum FlagShipResult:NSInteger{
+@objc public enum FlagshipResult:NSInteger{
    
     ///  Ready The sdk is ready to use
     case Ready = 0

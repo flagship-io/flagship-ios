@@ -7,7 +7,8 @@
 //
 
 #import "StoreViewController.h"
-@import FlagShip;
+
+@import Flagship;
 
 @interface StoreViewController ()
 
@@ -39,7 +40,7 @@
     
 
     // Send Item
-    FSItemTrack * itemTrack = [[FSItemTrack alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac"];
+    FSItem * itemTrack = [[FSItem alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac"];
     itemTrack.price = @0;
     itemTrack.quantity = @12;
     itemTrack.code = @"codeTrack";
@@ -47,7 +48,7 @@
     
     
     // Send Transaction
-    FSTransactionTrack * transac = [[FSTransactionTrack alloc] initWithTransactionId:@"transacObjc" affiliation:@"affilObjc"];
+    FSTransaction * transac = [[FSTransaction alloc] initWithTransactionId:@"transacObjc" affiliation:@"affilObjc"];
     transac.userIp  = @"1.1.1.1";
     [[Flagship sharedInstance] sendTransactionEvent:transac];
     
