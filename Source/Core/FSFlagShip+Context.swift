@@ -10,7 +10,7 @@ import Foundation
 extension Flagship{
     
     ///////////////////////////// Boolean /////////////////////////
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: " use updateContext(_ key:String,  _ boolean:Bool)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: " use updateContext(_ key:String,  _ boolean:Bool)")
     public func context(_ key:String,  _ boolean:Bool){
         
         self.context.addBoolenCtx(key, boolean)
@@ -34,7 +34,7 @@ extension Flagship{
     
     /////////////////// Double //////////////////////////////////
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ double:Double)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ double:Double)")
     public func context(_ key:String,  _ double:Double){
         
         self.context.addDoubleCtx(key, double)
@@ -56,7 +56,7 @@ extension Flagship{
     
     /////////////////////////// Text //////////////////////////////
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ text:String)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ text:String)")
     public func context(_ key:String,  _ text:String){
         
         self.context.addStringCtx(key, text)
@@ -77,7 +77,7 @@ extension Flagship{
     
     /////////////////////////// Float /////////////////////////////
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ float:Float)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ float:Float)")
     public func context(_ key:String,  _ float:Float){
         
         self.context.addFloatCtx(key, float)
@@ -99,7 +99,7 @@ extension Flagship{
     
     /////////////////////////// Integer /////////////////////////////
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use updateContext(_ key:String,  _ integer:Int)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ integer:Int)")
     public func context(_ key:String,  _ integer:Int){
         
         self.context.addIntCtx(key, integer)

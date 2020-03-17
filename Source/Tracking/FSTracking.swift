@@ -193,7 +193,7 @@ import Foundation
 /**
  This hit should be sent each time a visitor arrives on a new interface.
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSPage")
+@available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use FSPage")
 @objcMembers public class FSPageTrack:FSTracking{
     
     
@@ -234,7 +234,7 @@ import Foundation
 
  Represent a hit Transaction
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSTransaction")
+@available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use FSTransaction")
 @objcMembers public class FSTransactionTrack:FSTracking{
     
     /// Transaction unique identifier.
@@ -352,7 +352,7 @@ import Foundation
 /**
  Represent item with a transaction. It must be sent after the corresponding transaction.
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use FSItem")
+@available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use FSItem")
 @objcMembers public class FSItemTrack:FSTracking{
     
     /// Transaction unique identifier
@@ -446,7 +446,7 @@ import Foundation
  
  Represents an event
  */
-@available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "FSEvent")
+@available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "FSEvent")
 
 @objcMembers public class FSEventTrack:FSTracking{
     

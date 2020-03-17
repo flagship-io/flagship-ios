@@ -22,7 +22,7 @@ let ALL_USERS   = "fs_all_users"
 
 
 /// Enumeration cases that represent **Predefined** targetings
-@available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message: "use enum : PresetContext")
+@available(iOS, introduced: 1.1.0, deprecated: 1.2.0, message: "use enum : PresetContext")
 
 public enum FSAudiences:String,CaseIterable {
     

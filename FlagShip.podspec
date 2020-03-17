@@ -10,8 +10,7 @@ Pod::Spec.new do |s|
   s.name             = "Flagship"
   s.version          = "1.2.0"
   s.summary          = "Flagship SDK"
->>>>>>> bucketing
-
+  
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.

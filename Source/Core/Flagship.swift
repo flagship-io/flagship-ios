@@ -81,7 +81,7 @@ public class Flagship:NSObject{
      @param pBlock The block to be invoked when sdk is ready
      */
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
     @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
@@ -230,7 +230,7 @@ public class Flagship:NSObject{
      
      */
     
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
     @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
@@ -265,7 +265,7 @@ public class Flagship:NSObject{
      @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
      
      */
-    @available(iOS, introduced: 1.1.0, deprecated: 2.0.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
+    @available(iOS, introduced: 1.1.0, deprecated: 1.2.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
     public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagshipResult)->Void)?){
         
         if disabledSdk{
@@ -479,7 +479,7 @@ public class Flagship:NSObject{
      @param event Event Object (Page, Transaction, Item, Event)
      
      */
-    @available(iOS, introduced: 1.0.0, deprecated: 2.0.0, message: "use sendHit")
+    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use sendHit")
     public func sendTracking<T: FSTrackingProtocol>(_ event:T){
         
         if disabledSdk{
