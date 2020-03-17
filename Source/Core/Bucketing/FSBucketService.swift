@@ -47,13 +47,8 @@ internal extension ABService {
                 
                 do {
                     
-                    //// Speacial for QA
-                     let notifDownload = Notification(name: Notification.Name(rawValue: "Download_Script"))
-                        NotificationCenter.default.post(notifDownload)
-                     //// remove afetr QA
                     
                     let scriptObject = try decoder.decode(FSBucket.self, from: data!)
-                    
                     // Print Json response
                     let dico = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
                     FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)

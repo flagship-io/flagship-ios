@@ -23,7 +23,7 @@ import UIKit
     
     /// Use service for bucket Flagship
     
-    @objc public  func start(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode,_ apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
+    @objc public  func start(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode, apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(environmentId)){
