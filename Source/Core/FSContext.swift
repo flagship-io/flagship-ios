@@ -36,7 +36,7 @@ internal class FSContext{
         
         for item:FSCampaign in campaignsObject?.campaigns ?? []{
             
-            if (item.variation?.modifications) != nil){
+            if (item.variation?.modifications != nil){
                 
                   self.currentModification.merge((item.variation?.modifications!.value)!) {  (_, new) in new }
             }
