@@ -45,22 +45,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         /// Display Feature 1
-        displayFeature1()
+      //  displayFeature1()
         
- 
+         parrainageBtn.isHidden = false
+        
         /// Get Color for background defined in dashboard flagship
-        let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#ffffff", activate: false)
+        let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#b6fcd5", activate: true)
         /// Activate modification to tell Flagship that the user has seen this specific variation
         Flagship.sharedInstance.activateModification(key: "backgroundColor")
         self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
  
         /// Get color for button
-        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
  
-        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
-        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
         }
     
@@ -107,7 +108,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// Send KPI  "parrainage_kpi" when click on parrainage button
     @IBAction func onClikcParrainage(){
         
-        Flagship.sharedInstance.sendTracking(FSEventTrack(eventCategory: .Action_Tracking, eventAction: "parrainage_kpi"))
+        Flagship.sharedInstance.sendTracking(FSEventTrack(eventCategory: .Action_Tracking, eventAction: "hit_originale_kpi"))
     }
     
     

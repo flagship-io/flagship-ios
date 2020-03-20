@@ -180,6 +180,8 @@ internal class FSModifications:Codable{
             type = try values.decode(String.self, forKey: .type)
 
             value = try values.decode([String:Any].self, forKey: .value)
+                
+            
             
         }else
         {
@@ -255,7 +257,10 @@ extension KeyedDecodingContainer {
                             dictionary[key.stringValue] = nestedDictionary
                         } else if let nestedArray = try? decode(Array<Any>.self, forKey: key) {
                             dictionary[key.stringValue] = nestedArray
-                        }
+                        }else {
+                            
+                             dictionary[key.stringValue] = NSNull()
+            }
         }
         return dictionary
     }
