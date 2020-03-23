@@ -68,7 +68,7 @@ internal class FSCampaigns:Decodable{
             }
             if value.keys.contains(keyValue){
                 
-                return ["vaid": item.variation!.idVariation, "caid":item.variationGroupId ?? ""]
+                return ["vaid": item.variation?.idVariation ?? "", "caid":item.variationGroupId ?? ""]
             }
         }
         return nil

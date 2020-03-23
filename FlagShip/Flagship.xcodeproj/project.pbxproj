@@ -109,7 +109,6 @@
 		8BF02D8C23C4CA24006D154E /* FSOfflineTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSOfflineTracking.swift; sourceTree = "<group>"; };
 		8BF02D8E23C4CA24006D154E /* FSAudience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAudience.swift; sourceTree = "<group>"; };
 		8BF02D8F23C4CA24006D154E /* FSDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDevice.swift; sourceTree = "<group>"; };
-		8BF02DC323C64E62006D154E /* FSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,7 +191,6 @@
 		8BF02D6C23C4CA24006D154E /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				8BF02DC223C64E62006D154E /* FSProfile */,
 				8BBCAD1523FAA75600126600 /* FSProfile */,
 				8BF02D6D23C4CA24006D154E /* Core */,
 				8BF02D7C23C4CA24006D154E /* Cache */,
@@ -290,14 +288,6 @@
 				8B535FF3240D5599005A13CE /* PresetContext.swift */,
 			);
 			path = Audience;
-			sourceTree = "<group>";
-		};
-		8BF02DC223C64E62006D154E /* FSProfile */ = {
-			isa = PBXGroup;
-			children = (
-				8BF02DC323C64E62006D154E /* FSProfile.swift */,
-			);
-			path = FSProfile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

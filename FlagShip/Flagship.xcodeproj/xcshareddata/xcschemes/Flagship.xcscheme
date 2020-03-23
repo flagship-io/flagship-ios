@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8BBCAD1823FAD0E200126600"
                BuildableName = "Flagship.framework"
                BlueprintName = "Flagship"
-               ReferencedContainer = "container:FlagShip.xcodeproj">
+               ReferencedContainer = "container:Flagship.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "8BBCAD1823FAD0E200126600"
             BuildableName = "Flagship.framework"
             BlueprintName = "Flagship"
-            ReferencedContainer = "container:FlagShip.xcodeproj">
+            ReferencedContainer = "container:Flagship.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -46,7 +46,7 @@
                BlueprintIdentifier = "8B39E04523FD45F400E02DCD"
                BuildableName = "FlagshipTests.xctest"
                BlueprintName = "FlagshipTests"
-               ReferencedContainer = "container:FlagShip.xcodeproj">
+               ReferencedContainer = "container:Flagship.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,15 +68,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8BBCAD1823FAD0E200126600"
-            BuildableName = "Flagship.framework"
-            BlueprintName = "Flagship"
-            ReferencedContainer = "container:FlagShip.xcodeproj">
+            BlueprintIdentifier = "8BEF092923C3902700396B78"
+            BuildableName = "iOS Example.app"
+            BlueprintName = "iOS Example"
+            ReferencedContainer = "container:../iOS Example/iOS Example.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

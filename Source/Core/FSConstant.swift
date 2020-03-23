@@ -8,10 +8,7 @@
 import Foundation
  
 
-//internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
-
-/// Pre Prod
-internal let FlagShipEndEurope  = "https://decisionapi.preprod.internal.flagship.io/v1/"
+internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
 
 
  /// New endpoint for apac
