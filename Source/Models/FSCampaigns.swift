@@ -131,7 +131,7 @@ internal class FSVariation:Decodable{
     public var allocation:Int
     
     
-    internal init(idVariation:String, _ modifications:FSModifications ) {
+    internal init(idVariation:String, _ modifications:FSModifications?) {
         
         self.idVariation  = idVariation
         self.modifications = modifications

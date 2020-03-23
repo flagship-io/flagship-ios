@@ -83,7 +83,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
   @IBAction func onClickLogin(){
       
      // Flagship.sharedInstance.context("isVip", true)
-      Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API) { (result) in
+      Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
           
           
           if result == .Ready{

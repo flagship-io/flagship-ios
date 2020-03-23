@@ -83,7 +83,9 @@ internal class FSCampaignCache:Codable{
     internal func convertFSCampaignCachetoFSCampaign()->FSCampaign{
         
         let campaign:FSCampaign = FSCampaign(campaignId, self.variationGroups.first?.variationGroupId ?? "")
+        
         campaign.variation =  variationGroups.first?.getFSVariation()
+        
         return campaign
     }
     
@@ -150,9 +152,9 @@ internal class FSVariationGroupCache:Codable {
 /// Variation
 internal class FSVariationCache:Codable{
     
-    var variationId:String!
+    var variationId:String = ""
     
-    var modification:FSModifications!
+    var modification:FSModifications?
     
     init (_ variationId:String){
         
