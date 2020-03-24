@@ -108,7 +108,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// Send KPI  "parrainage_kpi" when click on parrainage button
     @IBAction func onClikcParrainage(){
         
-        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "hit_originale_kpi"))
+        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "hit_parraingae_kpi"))
     }
     
     
@@ -117,14 +117,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onClikcButton(){
         
-        let event = FSEventTrack(eventCategory: .User_Engagement, eventAction: "product_kpi")
+        let event = FSEvent(eventCategory: .User_Engagement, eventAction: "product_kpi")
         event.label = "mainProduct"
         event.eventValue = 1
         event.sessionNumber = 1
         event.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalSinceReferenceDate)
         event.userLanguage = "fr"
         event.screenResolution = "100*100"
-        Flagship.sharedInstance.sendTracking(event)
+        Flagship.sharedInstance.sendHit(event)
         
         
         

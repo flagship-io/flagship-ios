@@ -47,8 +47,8 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         // Send event page
-        let eventPage:FSPageTrack = FSPageTrack("basketScreen")
-        Flagship.sharedInstance.sendTracking(eventPage)
+        let eventPage:FSPage = FSPage("basketScreen")
+        Flagship.sharedInstance.sendHit(eventPage)
         
         
         //// send new object
@@ -115,15 +115,15 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
         // The affiliation is the name of transaction that should be appear in the report
         
-        let transacEvent:FSTransactionTrack = FSTransactionTrack(transactionId:"transacId", affiliation: "BasketTransac")
+        let transacEvent:FSTransaction = FSTransaction(transactionId:"transacId", affiliation: "BasketTransac")
         transacEvent.currency = "EUR"
         transacEvent.itemCount = 0
         transacEvent.paymentMethod = "PayPal"
-        transacEvent.ShippingMethod = "Fedex"
+        transacEvent.shippingMethod = "Fedex"
         transacEvent.tax = 2.6
         transacEvent.revenue = 15
         transacEvent.shipping = 3.5
-        Flagship.sharedInstance.sendTracking(transacEvent)
+        Flagship.sharedInstance.sendHit(transacEvent)
         
         
         //// new transac hit
@@ -131,7 +131,7 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         transacEvent.currency = "EUR"
         transacEvent.itemCount = 0
         transacEvent.paymentMethod = "PayPal"
-        transacEvent.ShippingMethod = "Fedex"
+        transacEvent.shippingMethod = "Fedex"
         transacEvent.tax = 2.6
         transacEvent.revenue = 15
         transacEvent.shipping = 3.5
@@ -146,16 +146,16 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         /// create old item
-        let oldItem = FSItemTrack(transactionId: "transacId", name: "itemName")
-        Flagship.sharedInstance.sendTracking(oldItem)
+        let oldItem = FSItem(transactionId: "transacId", name: "itemName")
+        Flagship.sharedInstance.sendHit(oldItem)
     }
     
     
     
     @IBAction func onCancel(){
         
-        let cancelEvent:FSEventTrack = FSEventTrack(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket")
-        Flagship.sharedInstance.sendTracking(cancelEvent)
+        let cancelEvent:FSEvent = FSEvent(eventCategory: .User_Engagement, eventAction: "cta_cancelBasket")
+        Flagship.sharedInstance.sendHit(cancelEvent)
         
         
         /// send new event

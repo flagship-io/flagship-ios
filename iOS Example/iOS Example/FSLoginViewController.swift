@@ -8,22 +8,21 @@
 //
 
 import UIKit
+
+/// Import Lib
 import Flagship
 
 class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
-    
+    /// Login
     @IBOutlet var loginTextField:UITextField!
-    
+    /// Password
     @IBOutlet var passwordTestField:UITextField!
-
-    
+    /// Login btn
     @IBOutlet var loginBtn:UIButton!
-    
+    /// fb button
     @IBOutlet var faceBookBtn:UIButton!
     
-    
-    var showView:Bool = true
     
 
     
@@ -42,32 +41,10 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         // Add gesture
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         
-        
-        // notification download _FSBucketing
-        NotificationCenter.default.addObserver(self, selector: #selector(onReceiveNotification), name: NSNotification.Name("Download_Script"), object: nil)
     }
     
     
-    @objc func onReceiveNotification(){
-        
-        self.showView = false
-        DispatchQueue.main.async {
-            
-            let alert304 = UIAlertController(title: "Bucketing", message: "Download the bucketing file", preferredStyle: .alert)
-            
-            alert304.addAction(UIAlertAction(title: "OK", style: .cancel) { (action) in
-                
-                
-                    DispatchQueue.main.async {
-                         
-                         self.performSegue(withIdentifier: "onClickLogin", sender: nil)
-                         
-                     }
-            })
-            self.present(alert304, animated: true, completion:nil)
-        }
 
-    }
     
     
     
@@ -82,27 +59,26 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
  /// On Click Login
   @IBAction func onClickLogin(){
       
-     // Flagship.sharedInstance.context("isVip", true)
-      Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
+    /// Set Context
+    Flagship.sharedInstance.updateContext("isVip", true)
+    
+    /// Start Flagship
+    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
           
           
-          if result == .Ready{
-              
-              if self.showView{
-                  
-                  DispatchQueue.main.async {
-                       
-                       self.performSegue(withIdentifier: "onClickLogin", sender: nil)
-                       
-                   }
-                  
-              }
+        /// When the sdk is ready ...
+        if result == .Ready{
+            
+            DispatchQueue.main.async {
+                 
+                 self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+                 
+             }
               
           }else{
-              
+              /// Manage Error
           }
       }
-      
   }
     
     
@@ -134,35 +110,4 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    
-    
-    func readBucketFromCache(){
-        
-        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            // Path
-            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
-            // add file name
-            url.appendPathComponent("bucket.json")
-            
-            if (FileManager.default.fileExists(atPath: url.path) == true){
-                
-                do{
-                    
-                    let attributes  = try FileManager.default.attributesOfItem(atPath: url.path)
-                    
-                    print(attributes[FileAttributeKey.modificationDate])
- 
-                 }catch{
-                    
-                    
-                }
-                
-            }else{
-                
-                 
-            }
-        }
-        
-    }
-
 }

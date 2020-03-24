@@ -54,12 +54,12 @@ class FSHomeViewController: UIViewController {
        
         // Create event for CTA Action
         // The event action you give here is the name who should be displayed on the report
-        let actionEvent:FSEventTrack = FSEventTrack(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Bucketing")
+        let actionEvent:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Bucketing")
         actionEvent.label = "cta_Bucketing_label"
         actionEvent.eventValue = 1
         actionEvent.interfaceName = "HomeScreen"
         // Send Event Tracking
-        Flagship.sharedInstance.sendTracking(actionEvent)
+        Flagship.sharedInstance.sendHit(actionEvent)
         
         
         
