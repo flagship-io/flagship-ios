@@ -35,7 +35,7 @@ public class Flagship:NSObject{
     
     
     /// Service
-    internal var service:ABService!
+    internal var service:ABService?
     
     /// Enable Logs, By default is equal to True
     @objc public var enableLogs:Bool = true
@@ -122,11 +122,11 @@ public class Flagship:NSObject{
         
         
         // Au départ mettre a dispo les campaigns du cache.
-        self.campaigns =  self.service.cacheManager.readCampaignFromCache()
+        self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
         self.context.updateModification(self.campaigns)
         
         // Mettre à jour les campaigns
-        self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+        self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
             
             if (error == nil){
                 // Set Campaigns
@@ -159,7 +159,7 @@ public class Flagship:NSObject{
         
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-            self.service.offLineTracking.flushStoredEvents()
+            self.service?.offLineTracking.flushStoredEvents()
         })
     }
     
@@ -181,7 +181,7 @@ public class Flagship:NSObject{
         
         if self.service != nil {
             
-            self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+            self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
                 
                 if (error == nil){
                     
@@ -331,7 +331,7 @@ public class Flagship:NSObject{
  
         if activate && self.campaigns != nil{
             // Activate
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
         
         return context.readBooleanFromContext(key, defaultBool: defaultBool)
@@ -361,7 +361,7 @@ public class Flagship:NSObject{
         
         if activate && self.campaigns != nil {
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readStringFromContext(key, defaultString: defaultString)
     }
@@ -387,7 +387,7 @@ public class Flagship:NSObject{
         
         if activate && self.campaigns != nil{
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readDoubleFromContext(key, defaultDouble: defaultDouble)
     }
@@ -414,7 +414,7 @@ public class Flagship:NSObject{
         
         if activate && self.campaigns != nil{
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
         return context.readFloatFromContext(key, defaultFloat: defaulfloat)
     }
@@ -443,7 +443,7 @@ public class Flagship:NSObject{
         
         if activate && self.campaigns != nil {
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
         
         return context.readIntFromContext(key, defaultInt: defaultInt)
@@ -468,7 +468,7 @@ public class Flagship:NSObject{
         
         if self.campaigns != nil {
             
-            self.service.activateCampaignRelativetoKey(key,self.campaigns)
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
     }
     
@@ -486,7 +486,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(event)
+        self.service?.sendTracking(event)
     }
     
     
@@ -502,7 +502,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(event)
+        self.service?.sendTracking(event)
     }
     
     
@@ -527,7 +527,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event Transaction will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(transacEvent)
+        self.service?.sendTracking(transacEvent)
     }
     
     
@@ -543,7 +543,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(pageEvent)
+        self.service?.sendTracking(pageEvent)
     }
     
     
@@ -561,7 +561,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event Item will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(itemEvent)
+        self.service?.sendTracking(itemEvent)
     }
     
     
@@ -577,7 +577,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("FlagShip Disabled.....The event Track will not be sent", .Campaign)
             return
         }
-        self.service.sendTracking(eventTrack)
+        self.service?.sendTracking(eventTrack)
     }
     
     

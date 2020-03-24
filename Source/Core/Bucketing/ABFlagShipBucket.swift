@@ -89,7 +89,7 @@ import UIKit
         switch self.sdkModeRunning {
         case .BUCKETING:
             
-            self.service.getFSScript { (scriptBucket, error) in
+            self.service?.getFSScript { (scriptBucket, error) in
                 
                 let bucketMgr:FSBucketManager = FSBucketManager()
                 
@@ -97,7 +97,7 @@ import UIKit
                 if(error != nil){
                 
                     /// Read from cache the bucket script
-                    guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
+                    guard let cachedBucket:FSBucket =  self.service?.cacheManager.readBucketFromCache() else{
                         
                         // Exit the start with not ready state
                         FSLogger.FSlog("No cached script available",.Campaign)
@@ -124,11 +124,11 @@ import UIKit
         case .DECISION_API:
             
             // Au départ mettre a dispo les campaigns du cache.
-             self.campaigns =  self.service.cacheManager.readCampaignFromCache()
+            self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
              self.context.updateModification(self.campaigns)
              
              // Mettre à jour les campaigns
-             self.service.getCampaigns(context.currentContext) { (campaigns, error) in
+            self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
                  
                  if (error == nil){
                      // Set Campaigns
@@ -159,7 +159,7 @@ import UIKit
         }
          // Purge data event
          DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-             self.service.offLineTracking.flushStoredEvents()
+            self.service?.offLineTracking.flushStoredEvents()
          })
      }
     

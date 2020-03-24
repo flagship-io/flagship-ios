@@ -184,7 +184,7 @@ extension Flagship{
         }else{
             
             /// Read from cache the bucket script
-            guard let cachedBucket:FSBucket =  self.service.cacheManager.readBucketFromCache() else{
+            guard let cachedBucket:FSBucket =  self.service?.cacheManager.readBucketFromCache() else{
                 
                 // Exit the start with not ready state
                 FSLogger.FSlog("No cached script available",.Campaign)

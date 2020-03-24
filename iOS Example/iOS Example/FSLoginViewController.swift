@@ -63,7 +63,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     Flagship.sharedInstance.updateContext("isVip", true)
     
     /// Start Flagship
-    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
+    //
+    Flagship.sharedInstance.start(environmentId: "", loginTextField.text, .DECISION_API) { (result) in
           
           
         /// When the sdk is ready ...
@@ -77,6 +78,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
               
           }else{
               /// Manage Error
+            
+             self.performSegue(withIdentifier: "onClickLogin", sender: nil)
           }
       }
   }

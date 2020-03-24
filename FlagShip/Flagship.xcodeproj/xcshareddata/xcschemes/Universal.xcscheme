@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8B6D325C23F5B2AF00916EF1"
                BuildableName = "Universal"
                BlueprintName = "Universal"
-               ReferencedContainer = "container:FlagShip.xcodeproj">
+               ReferencedContainer = "container:Flagship.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -53,7 +53,7 @@
             BlueprintIdentifier = "8B6D325C23F5B2AF00916EF1"
             BuildableName = "Universal"
             BlueprintName = "Universal"
-            ReferencedContainer = "container:FlagShip.xcodeproj">
+            ReferencedContainer = "container:Flagship.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

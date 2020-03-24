@@ -141,7 +141,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onSwitch(){
         
-        Flagship.sharedInstance.context("isVip", vipSwitch.isOn)
+        Flagship.sharedInstance.updateContext("isVip", vipSwitch.isOn)
+        
+        
+        Flagship.sharedInstance.activateModification(key: "btn-color")
         
         Flagship.sharedInstance.synchronizeModifications { (result) in
             
