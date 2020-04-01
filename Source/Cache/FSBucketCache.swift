@@ -45,13 +45,17 @@ internal class FSBucketCache: Codable {
     internal func getCampaignArray()->[FSCampaign]{
         
         var result:[FSCampaign] = []
-        for item:FSCampaignCache in self.campaigns{
+        
+        if(self.campaigns != nil){
             
-            let campaignResult = item.convertFSCampaignCachetoFSCampaign()
-            
-            if (campaignResult.variation != nil){
+            for item:FSCampaignCache in self.campaigns{
                 
-                result.append(campaignResult)
+                let campaignResult = item.convertFSCampaignCachetoFSCampaign()
+                
+                if (campaignResult.variation != nil){
+                    
+                    result.append(campaignResult)
+                }
             }
         }
         return result

@@ -23,6 +23,11 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
+		8B45F3112434CC9000326B13 /* FSCampaignsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */; };
+		8B45F3132434CF1D00326B13 /* FSHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3122434CF1D00326B13 /* FSHitTest.swift */; };
+		8B45F3152434DC2E00326B13 /* FSGeneratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */; };
+		8B45F3172434E2FE00326B13 /* FSOfflineTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */; };
+		8B45F3192434F42200326B13 /* FSBucketCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
@@ -72,6 +77,11 @@
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCampaignsTest.swift; path = ../../Flagship/FlagShipTests/FSCampaignsTest.swift; sourceTree = "<group>"; };
+		8B45F3122434CF1D00326B13 /* FSHitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSHitTest.swift; path = ../../Flagship/FlagShipTests/FSHitTest.swift; sourceTree = "<group>"; };
+		8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSGeneratorTest.swift; path = ../../Flagship/FlagShipTests/FSGeneratorTest.swift; sourceTree = "<group>"; };
+		8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSOfflineTrackingTest.swift; path = ../../Flagship/FlagShipTests/FSOfflineTrackingTest.swift; sourceTree = "<group>"; };
+		8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketCacheTest.swift; path = ../../Flagship/FlagShipTests/FSBucketCacheTest.swift; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -138,6 +148,11 @@
 				8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */,
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
+				8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */,
+				8B45F3122434CF1D00326B13 /* FSHitTest.swift */,
+				8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */,
+				8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */,
+				8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -440,6 +455,11 @@
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
+				8B45F3152434DC2E00326B13 /* FSGeneratorTest.swift in Sources */,
+				8B45F3112434CC9000326B13 /* FSCampaignsTest.swift in Sources */,
+				8B45F3172434E2FE00326B13 /* FSOfflineTrackingTest.swift in Sources */,
+				8B45F3132434CF1D00326B13 /* FSHitTest.swift in Sources */,
+				8B45F3192434F42200326B13 /* FSBucketCacheTest.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
