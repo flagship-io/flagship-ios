@@ -9,5 +9,5 @@ import Foundation
 
 /// This file is automatically updated  1.2.0
  
-public let FlagShipVersion = "1.2.1"
+public let FlagShipVersion = "1.2.2"
  

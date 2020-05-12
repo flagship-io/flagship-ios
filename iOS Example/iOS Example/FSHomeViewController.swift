@@ -22,6 +22,8 @@ class FSHomeViewController: UIViewController {
         // Use the flagShip to get the title of cta_text
         let title =  Flagship.sharedInstance.getModification("cta_text", defaultString: "default", activate: false)
         
+        
+        
         // Use FlagShip to get color
         let colorHexTitle =  Flagship.sharedInstance.getModification("cta_color", defaultString: "#163d42", activate: false)
         
@@ -62,15 +64,12 @@ class FSHomeViewController: UIViewController {
         Flagship.sharedInstance.sendHit(actionEvent)
         
         
-        
-        /// Send the new event
-        let action:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Bucketing")
-        actionEvent.label = "cta_Bucketing_label"
-        actionEvent.eventValue = 1
-        actionEvent.interfaceName = "HomeScreen"
-        // Send Event Tracking
-        Flagship.sharedInstance.sendHit(action)
+         
     }
+    
+    
+    
+    
     
     
     

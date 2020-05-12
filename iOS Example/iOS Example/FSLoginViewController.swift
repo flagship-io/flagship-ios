@@ -60,11 +60,11 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
   @IBAction func onClickLogin(){
       
     /// Set Context
-    Flagship.sharedInstance.updateContext("isVip", true)
+    Flagship.sharedInstance.updateContext("ctxString", "ctx")
+    
     
     /// Start Flagship
-    //
-    Flagship.sharedInstance.start(environmentId: "", loginTextField.text, .DECISION_API) { (result) in
+    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
           
           
         /// When the sdk is ready ...

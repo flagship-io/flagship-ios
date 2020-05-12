@@ -19,7 +19,6 @@
 		8BF02DBD23C62AE6006D154E /* FSProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DB923C62AE6006D154E /* FSProductCell.swift */; };
 		8BF02DBE23C62AE6006D154E /* FSCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DBA23C62AE6006D154E /* FSCartViewController.swift */; };
 		8BF02DBF23C62AE6006D154E /* FSHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02DBB23C62AE6006D154E /* FSHomeViewController.swift */; };
-		8BF02DC123C639F9006D154E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF092F23C3902700396B78 /* SceneDelegate.swift */; };
 		8BF02E0A23C77FFE006D154E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02E0923C77FFE006D154E /* AppDelegate.m */; };
 		8BF02E0D23C77FFE006D154E /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02E0C23C77FFE006D154E /* SceneDelegate.m */; };
 		8BF02E1023C77FFE006D154E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02E0F23C77FFE006D154E /* ViewController.m */; };
@@ -296,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BEF093223C3902700396B78 /* ViewController.swift in Sources */,
-				8BF02DC123C639F9006D154E /* SceneDelegate.swift in Sources */,
 				8BF02DBE23C62AE6006D154E /* FSCartViewController.swift in Sources */,
 				8BF02DBF23C62AE6006D154E /* FSHomeViewController.swift in Sources */,
 				8BF02DBC23C62AE6006D154E /* FSBannerViewController.swift in Sources */,
@@ -475,6 +473,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,6 +493,7 @@
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = "iOS Example/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

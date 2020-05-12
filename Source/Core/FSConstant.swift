@@ -35,7 +35,7 @@ internal var FlagShipEndPoint :String {
 
 ///// GET CAMPAIGNS /////////////////////////////////
 /// Since version 1.2.1, we added a new parameter in campaign exposeAllKeys, in order to expose all keys in the original
-internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
+internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&sendContextEvent=false"
 
 
 ///// ACTIVATE ///////////////
@@ -50,6 +50,13 @@ internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
 /////////////// GET SCRIPT ////////////////////////
 
 internal let FSGetScript = "https://cdn.flagship.io/%@/bucketing.json"
+
+
+/////// Upload all keys/values //////////////////
+
+internal let FSSendKeyValueContext = FlagShipEndPoint + "%@/events"
+
+
 
 
 

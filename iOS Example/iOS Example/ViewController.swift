@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// Style bar
     override var preferredStatusBarStyle: UIStatusBarStyle{
         
-        return .darkContent
+        return .default
     }
     @IBOutlet var jeanBtn:UIButton!
     @IBOutlet var shoesBtn:UIButton!
@@ -62,6 +62,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
         self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
+        
+        self.thirdButton.setTitle(Flagship.sharedInstance.getModification("ctxKeyString", defaultString:"None", activate: true), for: .normal)
         
         }
     
@@ -137,6 +139,25 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
     }
+    
+    
+    
+       // Click Shoping
+       @IBAction func onClikcThirdButton(){
+    
+          
+           // Create event for CTA Action
+           // The event action you give here is the name who should be displayed on the report
+           let actionEvent:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "ctx_event1105")
+           actionEvent.label = "ctx_event1105_label"
+           actionEvent.eventValue = 1
+           actionEvent.interfaceName = "HomeScreen"
+           // Send Event Tracking
+           Flagship.sharedInstance.sendHit(actionEvent)
+           
+       }
+
+    
     
     
     @IBAction func onSwitch(){

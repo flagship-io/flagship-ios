@@ -79,6 +79,61 @@ internal extension ABService {
     
     
     
+    /// Send All keys/values for the context
+    /// - Parameter currentContext: dictionary that contain this infos
+    
+    func sendkeyValueContext(_ currentContext:Dictionary <String,Any>){
+        
+        do{
+            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "data":currentContext, "type": "CONTEXT"]
+            
+            let data = try JSONSerialization.data(withJSONObject: params, options:[])
+            
+            var uploadKeyValueCtxRqst:URLRequest = URLRequest(url: URL(string:String(format: FSSendKeyValueContext, clientId))!)
+            uploadKeyValueCtxRqst.httpMethod = "POST"
+            uploadKeyValueCtxRqst.httpBody = data
+
+            uploadKeyValueCtxRqst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            /// Add x-api-key for apacOption
+            
+            if (apacRegion != nil){
+                
+                uploadKeyValueCtxRqst.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+            }
+
+            
+            let session = URLSession(configuration:URLSessionConfiguration.default)
+            
+            session.dataTask(with: uploadKeyValueCtxRqst) { (responseData, response, error) in
+                
+                if (error == nil){
+                    
+                    let httpResponse = response as? HTTPURLResponse
+                    
+                    switch (httpResponse?.statusCode){
+                    case 200, 204:
+                        
+                        FSLogger.FSlog("Success on sending keys / values context", .Network)
+
+                        break
+                    default:
+                        FSLogger.FSlog("Error on sending keys / values context", .Network)
+                     }
+                }else{
+                    
+                    
+                }
+                
+                }.resume()
+            
+        }catch{
+            
+            FSLogger.FSlog("error on serializing json", .Network)
+        }
+    }
+    
     private func manageLastModified(_ response: HTTPURLResponse?){
         
         guard let lastModified = response?.allHeaderFields[FSLastModified] else{
