@@ -116,7 +116,6 @@ internal extension ABService {
                     case 200, 204:
                         
                         FSLogger.FSlog("Success on sending keys / values context", .Network)
-
                         break
                     default:
                         FSLogger.FSlog("Error on sending keys / values context", .Network)

@@ -63,6 +63,14 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     Flagship.sharedInstance.updateContext("ctxString", "ctx")
     
     
+    Flagship.sharedInstance.updateContext("ctxStringFromApp", "helloCtx")
+    
+    Flagship.sharedInstance.updateContext("ctxBoolFromApp", true)
+
+    Flagship.sharedInstance.updateContext("ctxNumberFromApp", 123)
+
+    
+    
     /// Start Flagship
     Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
           

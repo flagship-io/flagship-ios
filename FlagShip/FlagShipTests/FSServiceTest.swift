@@ -13,6 +13,7 @@ class FSServiceTest: XCTestCase {
     
 
     var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId")
+    
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -98,6 +99,13 @@ class FSServiceTest: XCTestCase {
     func testPageTrack(){
         let item:FSPageTrack =  FSPageTrack("interfaceName")
         serviceTest.sendEvent(item)
+    }
+    
+    
+    
+    func testsendkeyValueContext(){
+     
+        serviceTest.sendkeyValueContext(["key1":"", "":true, "key2":12, "key3":["key1":"", "":true, "key2":12]])
     }
     
 }
