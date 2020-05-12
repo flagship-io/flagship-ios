@@ -35,6 +35,7 @@ internal var FlagShipEndPoint :String {
 
 ///// GET CAMPAIGNS /////////////////////////////////
 /// Since version 1.2.1, we added a new parameter in campaign exposeAllKeys, in order to expose all keys in the original
+/// Since version 1.2.2 we added sendContextEvent=false as parma in the route , those keys will be sent by the synchronize function 
 internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&sendContextEvent=false"
 
 
