@@ -450,6 +450,23 @@ public class Flagship:NSObject{
     }
     
     
+    /*
+     Get modification infos.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
+     */
+    @objc public func getModificationInfos(_ key:String) -> [String:String]? {
+        
+        
+        if self.campaigns != nil {
+            
+            return self.campaigns.getRelativekeyModificationInfos(key)
+        }
+        
+        FSLogger.FSlog(" Any campaign founded, to get the information's modification key", .Campaign) /// See later for the logs
+        return nil
+    }
+    
+    
+    
     
     /**
      Activate Modifications values

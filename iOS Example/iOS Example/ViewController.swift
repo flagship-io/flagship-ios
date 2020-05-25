@@ -44,9 +44,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /// Display Feature 1
-      //  displayFeature1()
-        
          parrainageBtn.isHidden = false
         
         /// Get Color for background defined in dashboard flagship
@@ -64,6 +61,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
         self.thirdButton.setTitle(Flagship.sharedInstance.getModification("ctxKeyString", defaultString:"None", activate: true), for: .normal)
+        
+        
+        
+        /// test get infos
+        
+       print( Flagship.sharedInstance.getModificationInfos("ctxKeyString"))
+        
+        Flagship.sharedInstance.getModificationInfos("btn-color")
+
         
         }
     
