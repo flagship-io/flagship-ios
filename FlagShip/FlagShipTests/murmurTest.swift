@@ -1,31 +1,22 @@
 //
-//  FSCampaignsTest.swift
+//  murmurTest.swift
 //  FlagshipTests
 //
-//  Created by Adel on 01/04/2020.
+//  Created by Adel on 27/05/2020.
 //  Copyright © 2020 FlagShip. All rights reserved.
 //
 
 import XCTest
 @testable import Flagship
 
-
-
-class FSCampaignsTest: XCTestCase {
-    
-    var campaignTest:FSCampaigns!
+class murmurTest: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        
-
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        
-        campaignTest = nil
     }
 
     func testExample() throws {
@@ -39,13 +30,14 @@ class FSCampaignsTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
- 
-    
 
     
-    
-   
+    func testHash(){
+        
+       
+        let hashAlloc:Int  = (Int(MurmurHash3.hash32(key: "visitorId") % 100))
+        
+         XCTAssert(hashAlloc  < 99)
 
+    }
 }

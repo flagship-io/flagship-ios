@@ -13,6 +13,10 @@ class FlagshipTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let flagMock:FlagshipMock = FlagshipMock()
+
+        
     }
 
     override func tearDown() {
@@ -70,9 +74,20 @@ class FlagshipTests: XCTestCase {
         Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
 
             XCTAssert(result == .Ready)
-            expectation.fulfill()
+            
+            
+            Flagship.sharedInstance.getCampaigns { (state) in
+                
+                expectation.fulfill()
+                
+            }
+            
         }
         waitForExpectations(timeout: 10)
+        
+        
+ 
+        
 
     }
     
@@ -86,6 +101,38 @@ class FlagshipTests: XCTestCase {
             XCTAssert(result == .Ready)
             expectation.fulfill()
         }
+        waitForExpectations(timeout: 10)
+
+    }
+    
+    
+    
+    func testStartMock(){
+        
+        let flagMock:FlagshipMock = FlagshipMock()
+        
+        let expectation = self.expectation(description: #function)
+        flagMock.startMock(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API) { (result) in
+
+            XCTAssert(result == .Ready)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+        
+     }
+    
+    
+    /// Deprecated start
+    
+    func testDeprecatedStart(){
+        
+        let expectation = self.expectation(description: #function)
+        Flagship.sharedInstance.startFlagShip(environmentId: "bkk9glocmjcg0vtmdlng", "alias") { (result) in
+            
+            XCTAssert(result == .Ready)
+            expectation.fulfill()
+        }
+        
         waitForExpectations(timeout: 10)
 
     }

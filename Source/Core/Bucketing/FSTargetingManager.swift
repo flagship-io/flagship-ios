@@ -46,6 +46,11 @@ class FSTargetingManager: NSObject {
     
     internal func isTargetingGroupIsOkay(_ targeting:FSTargeting?)->Bool{
         
+        if(targeting == nil){
+            
+            return false
+        }
+        
         // The actual context app
         // will check if the key/value in target are the same with the context, to match audience
         //let currentContext:Dictionary <String, Any> = ABFlagShip.sharedInstance.context!.currentContext

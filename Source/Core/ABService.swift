@@ -80,6 +80,8 @@ internal class ABService {
                                 
                                 // Print Json response
                                let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                                
+                                
                                FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
                                 
                                 /// Save also the data in the Directory

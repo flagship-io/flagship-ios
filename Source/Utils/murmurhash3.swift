@@ -70,11 +70,4 @@ public class MurmurHash3 {
     var a = [UInt8](key.utf8)
     return doHash32(key: &a, maxBytes: a.count, seed: seed)
   }
-
- 
-  public static func hash32Bytes(key: [UInt8], maxBytes: Int,
-      seed: UInt32 = 0) -> UInt32 {
-    var a = key
-    return doHash32(key: &a, maxBytes: maxBytes, seed: seed)
-  }
 }

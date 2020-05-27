@@ -62,7 +62,7 @@ public class Flagship:NSObject{
     let audience:FSAudience!
     
     
-    private override init() {
+    internal override init() {
         // init context
         self.context = FSContext()
         
@@ -595,18 +595,6 @@ public class Flagship:NSObject{
             return
         }
         self.service?.sendTracking(eventTrack)
-    }
-    
-    
-    /**
-     This function use to reset the id flagShip
-     Should called before start.... to take effect
-     See with team to define how to set this function
-     */
-    
-    public func resetUserIdFlagShip(){
-        
-        FSGenerator.resetFlagShipIdInCache()
     }
     
     
