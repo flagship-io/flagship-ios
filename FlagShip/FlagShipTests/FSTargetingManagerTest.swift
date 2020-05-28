@@ -55,8 +55,41 @@ class FSTargetingManagerTest: XCTestCase {
         
         XCTAssertTrue(targetingManager.checkCondition("aaaa", .EQUAL, "aaaa"))
         XCTAssertFalse(targetingManager.checkCondition("aaaa", .EQUAL, "aaaav"))
+        
+        
+        XCTAssertTrue(targetingManager.isGreatherThan(type: Int.self, a: 13, b: 12))
+        XCTAssertFalse(targetingManager.isGreatherThan(type: Int.self, a: 10, b: 12))
 
+        
+        XCTAssertTrue(targetingManager.isGreatherThanorEqual(type: Int.self, a: 12, b: 12))
+        XCTAssertFalse(targetingManager.isGreatherThanorEqual(type: Int.self, a: 10, b: 12))
+        
+        XCTAssertTrue(targetingManager.isEqual(type: Int.self, a: 12, b: 12))
+        XCTAssertFalse(targetingManager.isEqual(type: Int.self, a: 14, b: 12))
+        
+        XCTAssertTrue(targetingManager.isEqual(type: String.self, a: "abc", b: "abc"))
+        
+        do {
+            
+            try XCTAssertTrue(targetingManager.isCurrentValueContainAudience("121111111", "12111"))
+            
+            try XCTAssertFalse(targetingManager.isCurrentValueContainAudience("AZAZAZA", "12111"))
 
+        }
+        
     }
+    
+    
+    func testcheckCondition(){
+        
+        //  func checkCondition(_ cuurentValue:Any, _ operation:FSoperator, _ audienceValue:Any)->Bool{
+        
+        for itemOperator in FSoperator.allCases {
+            
+            targetingManager.checkCondition(12, itemOperator, 12)
+        }
+        
+    }
+
 
 }

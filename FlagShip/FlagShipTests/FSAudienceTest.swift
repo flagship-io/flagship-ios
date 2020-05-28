@@ -41,5 +41,20 @@ class FSAudienceTest: XCTestCase {
         XCTAssert(result["sdk_osName"] as! String ==   "iOS")
         XCTAssert(!result.isEmpty)
     }
+    
+    
+    func testchekValidity(){
+        
+        for itemAudience in FSAudiences.allCases{
+            
+            XCTAssert(itemAudience.chekcValidity("valueToSet") is Bool)
+        }
+        
+        
+        for itemPresetContext in PresetContext.allCases{
+            
+            XCTAssert(itemPresetContext.chekcValidity("valueToSet") is Bool)
+        }
+    }
 
 }

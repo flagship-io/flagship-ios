@@ -56,5 +56,27 @@ class FSGeneratorTest: XCTestCase {
         
          FSGenerator.resetFlagShipIdInCache()
     }
+    
+    
+    func testManageVisitor(){
+        
+        
+        do {
+            
+            let idVisitor = try FSTools.manageVisitorId(nil)
+            
+            XCTAssert(idVisitor.count != 0)
+            
+            let idVisitorBis = try FSTools.manageVisitorId("abcdef")
+            
+              XCTAssert(idVisitorBis.count != 0)
+
+            
+        }catch{
+            
+            
+        }
+        
+    }
 
 }

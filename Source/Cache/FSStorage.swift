@@ -94,29 +94,29 @@ public class FSStorage {
     }
     
     /// Remove all files at specified directory
-    static func clear(_ directory: Directory) {
-        let url = getURL(for: directory)
-        do {
-            let contents = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
-            for fileUrl in contents {
-                try FileManager.default.removeItem(at: fileUrl)
-            }
-        } catch {
-            fatalError(error.localizedDescription)
-        }
-    }
+//    static func clear(_ directory: Directory) {
+//        let url = getURL(for: directory)
+//        do {
+//            let contents = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [])
+//            for fileUrl in contents {
+//                try FileManager.default.removeItem(at: fileUrl)
+//            }
+//        } catch {
+//            fatalError(error.localizedDescription)
+//        }
+//    }
     
     /// Remove specified file from specified directory
-    static func remove(_ fileName: String, from directory: Directory) {
-        let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
-        if FileManager.default.fileExists(atPath: url.path) {
-            do {
-                try FileManager.default.removeItem(at: url)
-            } catch {
-                fatalError(error.localizedDescription)
-            }
-        }
-    }
+//    static func remove(_ fileName: String, from directory: Directory) {
+//        let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
+//        if FileManager.default.fileExists(atPath: url.path) {
+//            do {
+//                try FileManager.default.removeItem(at: url)
+//            } catch {
+//                fatalError(error.localizedDescription)
+//            }
+//        }
+//    }
     
     /// Returns BOOL indicating whether file exists at specified directory with specified file name
     static func fileExists(_ fileName: String, in directory: Directory) -> Bool {

@@ -47,6 +47,13 @@ internal class FSCacheManager {
     // Write Campaign on Directory
     func saveCampaignsInCache(_ dataCampaign:Data?){
         
+        if (dataCampaign == nil){
+            
+            FSLogger.FSlog("Failed to save campaign", .Network)
+
+            return
+        }
+        
         DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
             
             let urlForCache:URL? = self.createUrlForCache()
@@ -70,6 +77,12 @@ internal class FSCacheManager {
     /// Write Bucket script on directory
     
     func saveBucketScriptInCache(_ bucketData:Data?){
+        
+        if(bucketData == nil){
+            
+            FSLogger.FSlog("Failed to save Bucket script", .Network)
+            return
+        }
         
         DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
             

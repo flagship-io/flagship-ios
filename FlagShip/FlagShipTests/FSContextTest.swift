@@ -72,13 +72,21 @@ class FSContextTest: XCTestCase {
             
             if (item.value.self is Int){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! Int)
+                Flagship.sharedInstance.context(item.key, item.value as! Int)
+
             }else if ( item.value.self is Float){
                  Flagship.sharedInstance.updateContext(item.key, item.value as! Float)
+                Flagship.sharedInstance.context(item.key, item.value as! Float)
+
             }else if (item.value.self is Double){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! Double)
+                Flagship.sharedInstance.context(item.key, item.value as! Double)
+
 
             }else if (item.value.self is String){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! String)
+                Flagship.sharedInstance.context(item.key, item.value as! String)
+
             }else {
                 
                 //////
@@ -121,8 +129,11 @@ class FSContextTest: XCTestCase {
         
         
         
+        Flagship.sharedInstance.context.removeKeyFromContext("")
+        Flagship.sharedInstance.context.removeKeyFromContext("K1")
+        Flagship.sharedInstance.context.cleanContext()
+        Flagship.sharedInstance.context.cleanModification()
 
-        
         
         
     }

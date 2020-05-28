@@ -16,11 +16,9 @@ enum FStargetError: Error {
     case unknownType
 }
 
+
 /// :nodoc:
-class FSTargetingManager: NSObject {
-    
-    
-    internal enum FSoperator:String{
+internal enum FSoperator:String,CaseIterable{
         
         case EQUAL                  = "EQUALS"
         
@@ -40,6 +38,11 @@ class FSTargetingManager: NSObject {
         
         case Unknown
     }
+
+
+/// :nodoc:
+class FSTargetingManager: NSObject {
+    
 
     // Entre chanque groupe on fait OR
     // Entre chaque item on fait AND

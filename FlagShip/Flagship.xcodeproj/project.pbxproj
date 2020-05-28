@@ -37,6 +37,7 @@
 		8B85DEA1247ECD6100D652C1 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA0247ECD6100D652C1 /* murmurTest.swift */; };
 		8B85DEA3247ECF4A00D652C1 /* FSAudienceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */; };
 		8B85DEA5247F249700D652C1 /* FSTargetingManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */; };
+		8B85DEA7247FF83000D652C1 /* FSCacheManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -99,6 +100,7 @@
 		8B85DEA0247ECD6100D652C1 /* murmurTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = murmurTest.swift; path = ../../Flagship/FlagShipTests/murmurTest.swift; sourceTree = "<group>"; };
 		8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSAudienceTest.swift; path = ../../Flagship/FlagShipTests/FSAudienceTest.swift; sourceTree = "<group>"; };
 		8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSTargetingManagerTest.swift; path = ../../Flagship/FlagShipTests/FSTargetingManagerTest.swift; sourceTree = "<group>"; };
+		8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheManagerTest.swift; path = ../../Flagship/FlagShipTests/FSCacheManagerTest.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
 		8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				8B85DEA0247ECD6100D652C1 /* murmurTest.swift */,
 				8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */,
 				8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */,
+				8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				8B45F3132434CF1D00326B13 /* FSHitTest.swift in Sources */,
 				8B45F3192434F42200326B13 /* FSBucketCacheTest.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
+				8B85DEA7247FF83000D652C1 /* FSCacheManagerTest.swift in Sources */,
 				8B85DEA1247ECD6100D652C1 /* murmurTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

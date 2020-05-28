@@ -57,12 +57,25 @@ class FSHitTest: XCTestCase {
         let eventHitBis = FSEvent(eventCategory: .User_Engagement, eventAction: "value")
         Flagship.sharedInstance.sendHit(eventHitBis)
         
+        
+        /// send with other func
+        Flagship.sharedInstance.sendEventTrack(eventHit)
+        
+        /// Send with deprecated
+        Flagship.sharedInstance.sendTracking(eventHit)
+        
     }
     
     
     func testSendPageHit(){
         
         Flagship.sharedInstance.sendHit( FSPage("interfaceName"))
+        
+        /// Send with other func
+        Flagship.sharedInstance.sendPageEvent(FSPage("interfaceName"))
+        
+        /// Send with deprecated
+        Flagship.sharedInstance.sendTracking(FSPage("interfaceName"))
        
     }
     
@@ -78,6 +91,13 @@ class FSHitTest: XCTestCase {
         transac.shippingMethod = nil
         transac.shipping = nil
         Flagship.sharedInstance.sendHit(transac)
+        
+        /// Send with other func
+        Flagship.sharedInstance.sendTransactionEvent(transac)
+        
+        
+        /// Send with deprecated
+        Flagship.sharedInstance.sendTracking(transac)
     }
     
     
@@ -91,6 +111,13 @@ class FSHitTest: XCTestCase {
         item.quantity =  nil
         item.category = nil
         Flagship.sharedInstance.sendHit(item)
+        
+        /// Send with other func
+        Flagship.sharedInstance.sendItemEvent(item)
+        
+        
+        /// Send with deprecated
+        Flagship.sharedInstance.sendTracking(item)
     }
     
     

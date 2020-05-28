@@ -10,23 +10,35 @@ import XCTest
 @testable import Flagship
 
 class FlagshipTests: XCTestCase {
+    
+      var fsCacheMgr:FSCacheManager!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        let flagMock:FlagshipMock = FlagshipMock()
+        // let flagMock:FlagshipMock = FlagshipMock()
+        
+
+        UserDefaults.standard.removeObject(forKey: FSLastModified_Key)
+        fsCacheMgr = FSCacheManager()
+
 
         
     }
 
     override func tearDown() {
+        
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        guard let resultUrl = fsCacheMgr.createUrlForCache() else { return  }
+        do {
+            try FileManager.default.removeItem(at: resultUrl)
+        }catch{
+            
+        }
+         let resultUrlBis = fsCacheMgr.createUrlForCache()
+        XCTAssertTrue(resultUrlBis?.absoluteString.count != 0)
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+ 
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -115,6 +127,15 @@ class FlagshipTests: XCTestCase {
         flagMock.startMock(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API) { (result) in
 
             XCTAssert(result == .Ready)
+            
+            Flagship.sharedInstance.activateModification(key: "ctxKeyString")
+            
+            let result = Flagship.sharedInstance.getModificationInfos("ctxKeyString")
+            
+            XCTAssert(result is [String:String]? || result == nil)
+
+
+            
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
