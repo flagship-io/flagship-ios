@@ -5,11 +5,9 @@
 </p>
 
 <h3 align="center">Bring your features to life</h3>
-
-<a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Swift%20Coverage-80%25-brightgreen.svg?longCache=true&style=flat)</a> 
-![Swiftreport](https://goreportcard.com/badge/github.com/abtasty/flagship-ios)
-[![SwiftDoc](https://godoc.org/github.com/abtasty/flagship-ios?status.svg)](https://godoc.org/github.com/abtasty/flagship-ios)
-[![license](https://badgen.now.sh/badge/license/Apache)](./LICENSE)
+<a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>
+ ![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Swift%20Coverage-80%25-brightgreen.svg?longCache=true&style=flat)</a> 
+[![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
 
