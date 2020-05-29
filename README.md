@@ -1,3 +1,16 @@
+<p align="center">
+
+<img  src="https://mk0abtastybwtpirqi5t.kinstacdn.com/wp-content/uploads/picture-solutions-persona-product-flagship.jpg"  width="211"  height="182"  alt="Flagship"  />
+
+</p>
+
+<h3 align="center">Bring your features to life</h3>
+
+<a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Swift%20Coverage-80%25-brightgreen.svg?longCache=true&style=flat)</a> 
+[![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
+
+**Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
+
 # Introduction to iOS SDK
 
 Welcome to the Flagship iOS SDK documentation!
