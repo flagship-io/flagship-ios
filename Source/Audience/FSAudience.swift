@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import CoreTelephony
+//import CoreTelephony
 import ClassKit
 import Network
 

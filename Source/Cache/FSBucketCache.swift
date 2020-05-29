@@ -5,7 +5,7 @@
 //  Created by Adel on 29/11/2019.
 //
 
-import UIKit
+import Foundation
 
 
 /// Represent the object saved for each user

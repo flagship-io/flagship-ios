@@ -5,8 +5,7 @@
 //  Created by Adel on 21/11/2019.
 //
 
-import UIKit
-
+import Foundation
 
 /// :nodoc:
 class FSBucketManager: NSObject {

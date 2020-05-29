@@ -5,7 +5,7 @@
 //  Created by Adel on 27/01/2020.
 //
 
-import UIKit
+import Foundation
 
 let FSLengthId = 20
 

@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreTelephony
-import SystemConfiguration
+//import SystemConfiguration
 
 internal class FSDevice: NSObject {
     

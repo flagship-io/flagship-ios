@@ -5,7 +5,7 @@
 //  Created by Adel on 21/11/2019.
 //
 
-import UIKit
+import Foundation
 
 /// :nodoc:
 let FS_USERS = "fs_users"

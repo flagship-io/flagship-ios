@@ -5,9 +5,7 @@
 //  Created by Adel on 23/10/2019.
 //
 
-import UIKit
-
-
+import  Foundation
 //typealias TupleId = (fsUserId:String , visitorId:String?)
 
   class FSProfile: NSObject {
