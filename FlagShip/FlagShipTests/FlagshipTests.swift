@@ -15,9 +15,6 @@ class FlagshipTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // let flagMock:FlagshipMock = FlagshipMock()
-        
 
         UserDefaults.standard.removeObject(forKey: FSLastModified_Key)
         fsCacheMgr = FSCacheManager()
@@ -97,12 +94,8 @@ class FlagshipTests: XCTestCase {
         }
         waitForExpectations(timeout: 10)
         
-        
- 
-        
 
     }
-    
     
     
     func testStartFlagshiWithApac(){
@@ -118,29 +111,7 @@ class FlagshipTests: XCTestCase {
     }
     
     
-    
-    func testStartMock(){
-        
-        let flagMock:FlagshipMock = FlagshipMock()
-        
-        let expectation = self.expectation(description: #function)
-        flagMock.startMock(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API) { (result) in
 
-            XCTAssert(result == .Ready)
-            
-            Flagship.sharedInstance.activateModification(key: "ctxKeyString")
-            
-            let result = Flagship.sharedInstance.getModificationInfos("ctxKeyString")
-            
-            XCTAssert(result is [String:String]? || result == nil)
-
-
-            
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 10)
-        
-     }
     
     
     /// Deprecated start
@@ -157,5 +128,4 @@ class FlagshipTests: XCTestCase {
         waitForExpectations(timeout: 10)
 
     }
-    
 }

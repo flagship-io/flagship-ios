@@ -158,6 +158,151 @@
           ]
         }
       ]
+    },
+    {
+      "id": "br8dca47pe0g1648p34g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "br8dca47pe0g1648p35g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "EQUALS",
+                    "key": "fs_users",
+                    "value": [
+                      "alias",
+                      "beta",
+                      "gama",
+                      "alpha"
+                    ]
+                  },
+                  {
+                    "operator": "EQUALS",
+                    "key": "basketNumber",
+                    "value": 100
+                  },
+                  {
+                    "operator": "EQUALS",
+                    "key": "Boolean_Key",
+                    "value": true
+                  },
+                  {
+                    "operator": "NOT_EQUALS",
+                    "key": "ctxKeyNumber",
+                    "value": 222
+                  },
+                  {
+                    "operator": "EQUALS",
+                    "key": "testKey",
+                    "value": ""
+                  },
+                  {
+                    "operator": "CONTAINS",
+                    "key": "testKey1",
+                    "value": "a"
+                  },
+                  {
+                    "operator": "NOT_CONTAINS",
+                    "key": "testKey2",
+                    "value": "b"
+                  },
+                  {
+                    "operator": "GREATER_THAN_OR_EQUALS",
+                    "key": "testKey3",
+                    "value": "aaa"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "br8dca47pe0g1648p360",
+              "modifications": {
+                "type": "JSON",
+                "value": {
+                  "key1": null,
+                  "key2": null,
+                  "key3": null,
+                  "key4": null,
+                  "key5": null,
+                  "key6": null,
+                  "key7": null
+                }
+              },
+              "allocation": 20,
+              "reference": true
+            },
+            {
+              "id": "br8dca47pe0g1648p36g",
+              "modifications": {
+                "type": "JSON",
+                "value": {
+                  "key1": "value",
+                  "key2": "value",
+                  "key3": "value",
+                  "key4": "value",
+                  "key5": "value",
+                  "key6": 12,
+                  "key7": true
+                }
+              },
+              "allocation": 20
+            },
+            {
+              "id": "br8dihf811lg254ebo2g",
+              "modifications": {
+                "type": "JSON",
+                "value": {
+                  "key1": "value",
+                  "key2": "value",
+                  "key3": "value",
+                  "key4": "value",
+                  "key5": "value",
+                  "key6": 12,
+                  "key7": true
+                }
+              },
+              "allocation": 20
+            },
+            {
+              "id": "br8dihk7pe0g16ag5img",
+              "modifications": {
+                "type": "JSON",
+                "value": {
+                  "key1": "value",
+                  "key2": "value",
+                  "key3": "value",
+                  "key4": "value",
+                  "key5": "value",
+                  "key6": 12,
+                  "key7": true
+                }
+              },
+              "allocation": 20
+            },
+            {
+              "id": "br8dihk7pe0g1atbce10",
+              "modifications": {
+                "type": "JSON",
+                "value": {
+                  "key1": "value",
+                  "key2": "value",
+                  "key3": "value",
+                  "key4": "value",
+                  "key5": "value",
+                  "key6": 12,
+                  "key7": true
+                }
+              },
+              "allocation": 20
+            }
+          ]
+        }
+      ]
     }
   ]
 }

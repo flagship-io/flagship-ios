@@ -23,8 +23,6 @@ class FlagshipMock:Flagship {
     
     
     
-    
-
      internal func startMock(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode, apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
@@ -77,7 +75,10 @@ class FlagshipMock:Flagship {
         switch self.sdkModeRunning {
         case .BUCKETING:
             
-            self.service?.getFSScript { (scriptBucket, error) in
+            
+            let serviceMockBis = ServiceMock(self.environmentId, self.visitorId ?? "", region: apacRegion)
+            
+            serviceMockBis.getFSScriptMock { (scriptBucket, error) in
                 
                 let bucketMgr:FSBucketManager = FSBucketManager()
                 

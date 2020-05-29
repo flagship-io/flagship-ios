@@ -124,13 +124,16 @@ class FSBucketManager: NSObject {
 
             let cachedObject = FSStorage.retrieve(String(format: "%@.json",visitorId), from: .documents, as: FSBucketCache.self)
             
-            for itemCached in cachedObject.campaigns{
+            if (cachedObject != nil){
                 
-                for subItemCached in itemCached.variationGroups{  /// Variation Group already exist, then return the saved one
+                for itemCached in cachedObject!.campaigns{
                     
-                    if (subItemCached.variationGroupId == variationGroup.idVariationGroup){
+                    for subItemCached in itemCached.variationGroups{  /// Variation Group already exist, then return the saved one
                         
-                        return subItemCached.variation.variationId
+                        if (subItemCached.variationGroupId == variationGroup.idVariationGroup){
+                            
+                            return subItemCached.variation.variationId
+                        }
                     }
                 }
             }
