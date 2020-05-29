@@ -3,7 +3,9 @@
 <img  src="https://mk0abtastybwtpirqi5t.kinstacdn.com/wp-content/uploads/picture-solutions-persona-product-flagship.jpg"  width="211"  height="182"  alt="Flagship"  />
 
 </p>
+
 <h3 align="center">Bring your features to life</h3>
+
 <a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Go%20Coverage-90%25-brightgreen.svg?longCache=true&style=flat)</a> 
 ![goreport](https://goreportcard.com/badge/github.com/abtasty/flagship-go-sdk)
 [![GoDoc](https://godoc.org/github.com/abtasty/flagship-go-sdk?status.svg)](https://godoc.org/github.com/abtasty/flagship-go-sdk)
