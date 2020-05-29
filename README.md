@@ -4,7 +4,6 @@
 
 </p>
 <h3 align="center">Bring your features to life</h3>
-<a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
