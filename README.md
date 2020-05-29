@@ -4,7 +4,7 @@
 
 </p>
 <h3 align="center">Bring your features to life</h3>
-[![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
+[![license](https://badgen.now.sh/badge/license/Apache)](./LICENSE)
 
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
 
