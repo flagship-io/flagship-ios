@@ -1,0 +1,6 @@
+module FlagShip {
+  umbrella header "FlagShip-umbrella.h"
+
+  export *
+  module * { export * }
+}
