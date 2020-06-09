@@ -961,7 +961,7 @@ Below, you can see an example of predefined key used to filter a report.
 
 # Reference
 
-[ios reference](/ios/v1.2.0/ios-reference/)
+[ios reference](http://developers.flagship.io/ios/v1.2.0/ios-reference/)
 
 # Sources
 
