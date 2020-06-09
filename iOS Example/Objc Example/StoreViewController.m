@@ -40,7 +40,7 @@
     
 
     // Send Item
-    FSItem * itemTrack = [[FSItem alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac"];
+    FSItem * itemTrack = [[FSItem alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac" code:@""];
     itemTrack.price = @0;
     itemTrack.quantity = @12;
     itemTrack.code = @"codeTrack";

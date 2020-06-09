@@ -141,12 +141,12 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         
         //// create item
-        let item = FSItem(transactionId: "transacId", name: "itemName")
+        let item = FSItem(transactionId: "transacId", name: "itemName", code:"sku47")
         Flagship.sharedInstance.sendHit(item)
         
         
         /// create old item
-        let oldItem = FSItem(transactionId: "transacId", name: "itemName")
+        let oldItem = FSItem(transactionId: "transacId", name: "itemName", code: "sku47")
         Flagship.sharedInstance.sendHit(oldItem)
     }
     

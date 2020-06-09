@@ -186,7 +186,7 @@ import Foundation
     public var quantity:NSNumber?
     
     /// Specifies the item code or SKU
-    public var code:String?
+    public var code:String!
     
     /// Specifies the item category
     public var category:String?
@@ -201,7 +201,7 @@ import Foundation
      
      @return instance object
      */
-    public init(transactionId:String, name:String) {
+    public init(transactionId:String, name:String, code:String) {
         
         super.init()
         
@@ -210,7 +210,7 @@ import Foundation
         self.name          = name
         self.price         = 0
         self.quantity      = 0
-        self.code          = nil
+        self.code          = code
         self.category      = nil
     }
      /// :nodoc:

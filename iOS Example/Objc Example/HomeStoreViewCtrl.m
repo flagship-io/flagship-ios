@@ -129,7 +129,7 @@
     
     
     // Create item event
-    FSItem * itemEvent = [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac"];
+    FSItem * itemEvent = [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac" code:@""];
 
     // Send item event
     [[Flagship sharedInstance] sendItemEvent:itemEvent];
