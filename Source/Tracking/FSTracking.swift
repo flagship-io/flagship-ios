@@ -105,8 +105,8 @@ import Foundation
     public var userLanguage:String?
     /// Queue Time
     public var queueTime:NSNumber?
-    /// Time Stamp
-    public var currentSessionTimeStamp:Int64?
+    /// Current Session Time Stamp
+    //public var currentSessionTimeStamp:Int64?
     /// Session Number
     public var sessionNumber:NSNumber?
     
@@ -122,12 +122,11 @@ import Foundation
     override init() {
         
         clientId        = Flagship.sharedInstance.environmentId
-        //fsUserId        = FlagShip.sharedInstance.fsProfile.tupleId.fsUserId
         customVisitorId = Flagship.sharedInstance.visitorId
  
         
         // Set time Stamps
-        self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
+        // self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
     }
     
     public var bodyTrack: Dictionary<String, Any>{
@@ -171,12 +170,12 @@ import Foundation
             if (self.queueTime != nil) {
                 communParams.updateValue(self.queueTime ?? 0, forKey: "qt")
             }
-            // Time Stamp
-            communParams.updateValue(self.currentSessionTimeStamp ?? 0, forKey: "cst")
-            // Session Number
-            if (self.sessionNumber != nil) {
-                communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
-            }
+//            // Time Stamp
+//            communParams.updateValue(self.currentSessionTimeStamp ?? 0, forKey: "cst")
+//            // Session Number
+//            if (self.sessionNumber != nil) {
+//                communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
+//            }
             
             // Interface Name
             if (self.interfaceName != nil) {

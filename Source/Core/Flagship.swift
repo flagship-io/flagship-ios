@@ -461,7 +461,7 @@ public class Flagship:NSObject{
             return self.campaigns.getRelativekeyModificationInfos(key)
         }
         
-        FSLogger.FSlog(" Any campaign founded, to get the information's modification key", .Campaign) /// See later for the logs
+        FSLogger.FSlog(" Any campaign found, to get the information's modification key", .Campaign) /// See later for the logs
         return nil
     }
     

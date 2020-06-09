@@ -129,8 +129,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         event.label = "mainProduct"
         event.eventValue = 1
         event.sessionNumber = 1
-        event.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalSinceReferenceDate)
-        event.userLanguage = "fr"
+         event.userLanguage = "fr"
         event.screenResolution = "100*100"
         Flagship.sharedInstance.sendHit(event)
         

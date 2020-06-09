@@ -36,11 +36,7 @@
     }];
     
     
-<<<<<<< HEAD
-    [[FlagShip sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :NULL completionHandler:^(enum FlagShipResult result) {
-=======
-    [[Flagship sharedInstance] startWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :@"visitorId" :FlagshipModeBUCKETING :nil completionHandler:^(enum FlagshipResult result) {
->>>>>>> bucketing
+    [[Flagship sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :NULL completionHandler:^( FlagshipResult result) {
         
         if (result == FlagshipResultReady){
             
@@ -57,13 +53,7 @@
             });
         }
     }];
-    
-<<<<<<< HEAD
-=======
-    
- 
-    
->>>>>>> bucketing
+
 }
 
 
