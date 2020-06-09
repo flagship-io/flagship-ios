@@ -7,7 +7,7 @@
 /// :nodoc:
 import Foundation
 
-/// This file is automatically updated  1.2.0
+/// This file is automatically updated  1.2.2
  
 public let FlagShipVersion = "1.2.2"
  
