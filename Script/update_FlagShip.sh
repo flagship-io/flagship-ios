@@ -13,7 +13,7 @@ fi
 varComps=( ${releaseSDKVersion//./ } )
 
 if (( ${#varComps[@]} != 3 )); then
-    printf "\n[ERROR] Ouups .... Invalid target version : ${releaseSDKVersion} \n"
+    printf "\n Ouups .... Invalid target version : ${releaseSDKVersion} \n"
     exit 1
 fi
 
@@ -34,7 +34,7 @@ if [ "${verifySdkVersion}" == "${releaseSDKVersion}" ]
 then
     printf "\tSDKVersion.swift file verified: ${releaseSDKVersion} === ${verifySdkVersion}\n"
 else
-    printf "\n[ERROR] SDKVersion.swift file has an error: [${verifySdkVersion}]";
+    printf "\n SDKVersion.swift file has an error: [${verifySdkVersion}]";
     exit 1
 fi
 
@@ -48,9 +48,7 @@ curPodSpec="FlagShip.podspec"
 printf "\t[${curPodSpec}] Updating podspec to ${releaseSDKVersion}.\n"
 sed -i '' -e "s/\(s\.version[ ]*\)=[ ]*\".*\"/\1= \"${releaseSDKVersion}\"/g" ${curPodSpec}
 
-# pod-spec-lint cannot be run here due to dependency issues
-# all podspecs will be validated anyway when uploading to CocoaPods repo
-
+ 
 printf "Verifying FlagShip.podspec files\n"
 
 vm=$(sed -n "s/s\.version.*=.*\"\(.*\)\"/\1/p" ${curPodSpec} | sed "s/ //g" )
@@ -59,4 +57,4 @@ if [ "${vm}" == "${releaseSDKVersion}" ]; then
     printf "\t[${curPodSpec}] Verified podspec: ${vm} === ${releaseSDKVersion}\n"
 fi
 
-printf "\n\n[SUCCESS] All release-sdk-version settings have been updated successfully!\n\n\n"
+printf "\n version updated with sucess \n\n"
