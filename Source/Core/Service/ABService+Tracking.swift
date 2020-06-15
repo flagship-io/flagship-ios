@@ -22,11 +22,11 @@ internal extension ABService{
         
         /// Check if the connexion is available
         
-        if (self.offLineTracking.isConnexionAvailable() == false ){
+        if (self.threadSafeOffline.isConnexionAvailable() == false ){
             
             FSLogger.FSlog("The connexion is not available ..... The event will be saved in Data Base", .Network)
             
-            self.offLineTracking.saveEvent(event)
+            self.threadSafeOffline.saveEvent(event)
             
             return
         }

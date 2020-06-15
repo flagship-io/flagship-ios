@@ -12,27 +12,50 @@ import Foundation
 internal class FSContext{
     
     
+
+    
+    // QueueModification
+    let contextQueue = DispatchQueue(label: "com.flagship.queue.context", attributes: .concurrent)
+    
     // Dictionary that represent all keys value according to context users
-    internal var currentContext:Dictionary <String, Any>! // by Default the context is empty
+    private var _currentContext:Dictionary <String, Any>! // by Default the context is empty
     
-    // All modification from server 
-    private var currentModification:Dictionary <String, Any>
-    
-    // 
-    let isolation = DispatchQueue(label: "com.flagship.isolation", attributes: .concurrent)
-    
-    var threadSafecurrentModification:Dictionary <String, Any>{
+    internal var currentContext:Dictionary <String, Any>!{
         
           get {
-              return isolation.sync {
+              return modificationQueue.sync {
                 
-                  currentModification
+                  _currentContext
               }
           }
           set {
-              isolation.async(flags: .barrier) {
+              modificationQueue.async(flags: .barrier) {
                 
-                  self.currentModification = newValue
+                  self._currentContext = newValue
+              }
+          }
+      }
+    
+    
+    // All modification from server
+    
+    // QueueModification
+    let modificationQueue = DispatchQueue(label: "com.flagship.queue.modifications", attributes: .concurrent)
+    
+    private var _currentModification:Dictionary <String, Any>
+        
+    internal var currentModification:Dictionary <String, Any>{
+        
+          get {
+              return modificationQueue.sync {
+                
+                  _currentModification
+              }
+          }
+          set {
+              modificationQueue.async(flags: .barrier) {
+                
+                  self._currentModification = newValue
               }
           }
       }
@@ -42,9 +65,9 @@ internal class FSContext{
     
     public init(){
         
-        self.currentContext = Dictionary()
+        self._currentContext = Dictionary()
         
-        self.currentModification = Dictionary()
+        self._currentModification = Dictionary()
     }
     
     
@@ -57,9 +80,9 @@ internal class FSContext{
         
         for item:FSCampaign in campaignsObject?.campaigns ?? []{
             
-            if (item.variation?.modifications != nil){
+            if (item.variation?.modifications != nil  && item.variation?.modifications?.value != nil){
                 
-                  self.currentModification.merge((item.variation?.modifications!.value)!) {  (_, new) in new }
+                self.currentModification.merge((item.variation?.modifications?.value)!) {  (_, new) in new }
             }
         }
     }

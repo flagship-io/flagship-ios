@@ -17,7 +17,29 @@ internal class ABService {
     
     var visitorId:String?
     
-    var offLineTracking:FSOfflineTracking!
+    private var offLineTracking:FSOfflineTracking!
+    
+    // QueueModification
+    let serviceQueue = DispatchQueue(label: "com.flagship.queue.service", attributes: .concurrent)
+    
+    internal var threadSafeOffline:FSOfflineTracking!{
+        
+          get {
+              return serviceQueue.sync {
+                
+                  offLineTracking
+              }
+          }
+          set {
+              serviceQueue.async(flags: .barrier) {
+                
+                  self.offLineTracking = newValue
+              }
+          }
+      }
+
+    
+    
     
     var cacheManager:FSCacheManager!
     

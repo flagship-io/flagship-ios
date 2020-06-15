@@ -58,13 +58,15 @@ internal class FSCacheManager {
             
             let urlForCache:URL? = self.createUrlForCache()
             
-            guard let url:URL? = urlForCache?.appendingPathComponent("campaigns.json") else {
+            guard let url = urlForCache?.appendingPathComponent("campaigns.json") else {
                 
                 FSLogger.FSlog("Failed to save campaign", .Network)
                 return
             }
             do {
-                try dataCampaign!.write(to: url!, options: [])
+                
+                try dataCampaign!.write(to: url, options: [])
+                
             } catch {
                 
                 FSLogger.FSlog("Failed to write campaign in cache", .Network)
@@ -88,13 +90,13 @@ internal class FSCacheManager {
             
             let urlForCache:URL? = self.createUrlForCache()
             
-            guard let url:URL? = urlForCache?.appendingPathComponent("bucket.json") else {
+            guard let url = urlForCache?.appendingPathComponent("bucket.json") else {
                 
                 FSLogger.FSlog("Failed to save Bucket script", .Network)
                 return
             }
             do {
-                try bucketData!.write(to: url!, options: [])
+                try bucketData!.write(to: url, options: [])
             } catch {
                 
                 FSLogger.FSlog("Failed to write bucket script in cache", .Network)

@@ -21,28 +21,85 @@ public class Flagship:NSObject{
     internal(set) public var visitorId:String!
     
     /// Customer id
-     internal var fsProfile:FSProfile!
+    internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!
+    
+    
+    // fsQueue
+    let fsQueue = DispatchQueue(label: "com.flagship.queue", attributes: .concurrent)
+
     
     /// Current Context
     internal var context:FSContext!
     
     
     /// All Campaigns
-    internal var campaigns:FSCampaigns!
+    private var _campaigns:FSCampaigns!
+    
+    internal var campaigns:FSCampaigns!{
+        
+        get {
+            return fsQueue.sync {
+                
+                _campaigns
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                
+                self._campaigns = newValue
+            }
+        }
+    }
+    
     
     
     /// Service
-    internal var service:ABService?
+    private var _service:ABService?
+    
+    internal var service:ABService?{
+        
+        get {
+            return fsQueue.sync {
+                
+                _service
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                
+                self._service = newValue
+            }
+        }
+    }
+    
     
     /// Enable Logs, By default is equal to True
     @objc public var enableLogs:Bool = true
     
     
     /// Panic Button let you disable the SDK if needed
-    @objc public var disabledSdk:Bool = false
+    private var _disabledSdk:Bool = false
+    
+    
+    @objc public var disabledSdk:Bool{
+        
+        get {
+            return fsQueue.sync {
+                
+                _disabledSdk
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                
+                self._disabledSdk = newValue
+            }
+        }
+    }
+    
     
     
     
@@ -112,7 +169,7 @@ public class Flagship:NSObject{
         
         // Set the préconfigured context
         self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
-
+        
         
         // Add the keys all_users temporary
         self.context.currentContext.updateValue("", forKey:ALL_USERS)
@@ -159,7 +216,7 @@ public class Flagship:NSObject{
         
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-            self.service?.offLineTracking.flushStoredEvents()
+            self.service?.threadSafeOffline.flushStoredEvents()
         })
     }
     
@@ -328,7 +385,7 @@ public class Flagship:NSObject{
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultBool
         }
- 
+        
         if activate && self.campaigns != nil{
             // Activate
             self.service?.activateCampaignRelativetoKey(key,self.campaigns)

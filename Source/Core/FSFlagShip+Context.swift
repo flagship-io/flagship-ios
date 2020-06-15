@@ -9,6 +9,8 @@ import Foundation
 
 extension Flagship{
     
+
+    
     ///////////////////////////// Boolean /////////////////////////
     @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: " use updateContext(_ key:String,  _ boolean:Bool)")
     public func context(_ key:String,  _ boolean:Bool){
