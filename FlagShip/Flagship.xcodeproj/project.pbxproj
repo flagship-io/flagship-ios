@@ -23,24 +23,12 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
-		8B45F3112434CC9000326B13 /* FSCampaignsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */; };
-		8B45F3132434CF1D00326B13 /* FSHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3122434CF1D00326B13 /* FSHitTest.swift */; };
-		8B45F3152434DC2E00326B13 /* FSGeneratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */; };
-		8B45F3172434E2FE00326B13 /* FSOfflineTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */; };
-		8B45F3192434F42200326B13 /* FSBucketCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
 		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
 		8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFD240FBFB3005A13CE /* FSRegion.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
-		8B85DEA1247ECD6100D652C1 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA0247ECD6100D652C1 /* murmurTest.swift */; };
-		8B85DEA3247ECF4A00D652C1 /* FSAudienceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */; };
-		8B85DEA5247F249700D652C1 /* FSTargetingManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */; };
-		8B85DEA7247FF83000D652C1 /* FSCacheManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */; };
-		8B85DEA924807B9B00D652C1 /* bucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B85DEA824807B9B00D652C1 /* bucketMock.json */; };
-		8B85DEAB2481123100D652C1 /* FlagshipTestWithMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEAA2481123100D652C1 /* FlagshipTestWithMockedData.swift */; };
-		8B85DEAD248150BF00D652C1 /* FSStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B85DEAC248150BE00D652C1 /* FSStorageTest.swift */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -68,8 +56,6 @@
 		8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
-		8BC165B9247D76B500AF1F39 /* ServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC165B8247D76B500AF1F39 /* ServiceMock.swift */; };
-		8BC165BC247EA11200AF1F39 /* FlagshipMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC165BB247EA11200AF1F39 /* FlagshipMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,11 +72,6 @@
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCampaignsTest.swift; path = ../../Flagship/FlagShipTests/FSCampaignsTest.swift; sourceTree = "<group>"; };
-		8B45F3122434CF1D00326B13 /* FSHitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSHitTest.swift; path = ../../Flagship/FlagShipTests/FSHitTest.swift; sourceTree = "<group>"; };
-		8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSGeneratorTest.swift; path = ../../Flagship/FlagShipTests/FSGeneratorTest.swift; sourceTree = "<group>"; };
-		8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSOfflineTrackingTest.swift; path = ../../Flagship/FlagShipTests/FSOfflineTrackingTest.swift; sourceTree = "<group>"; };
-		8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketCacheTest.swift; path = ../../Flagship/FlagShipTests/FSBucketCacheTest.swift; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -100,13 +81,6 @@
 		8B535FFD240FBFB3005A13CE /* FSRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSRegion.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
-		8B85DEA0247ECD6100D652C1 /* murmurTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = murmurTest.swift; path = ../../Flagship/FlagShipTests/murmurTest.swift; sourceTree = "<group>"; };
-		8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSAudienceTest.swift; path = ../../Flagship/FlagShipTests/FSAudienceTest.swift; sourceTree = "<group>"; };
-		8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSTargetingManagerTest.swift; path = ../../Flagship/FlagShipTests/FSTargetingManagerTest.swift; sourceTree = "<group>"; };
-		8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheManagerTest.swift; path = ../../Flagship/FlagShipTests/FSCacheManagerTest.swift; sourceTree = "<group>"; };
-		8B85DEA824807B9B00D652C1 /* bucketMock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = bucketMock.json; path = ../../../Flagship/FlagShipTests/Mock/bucketMock.json; sourceTree = "<group>"; };
-		8B85DEAA2481123100D652C1 /* FlagshipTestWithMockedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTestWithMockedData.swift; sourceTree = "<group>"; };
-		8B85DEAC248150BE00D652C1 /* FSStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSStorageTest.swift; path = ../../Flagship/FlagShipTests/FSStorageTest.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
 		8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
@@ -116,8 +90,6 @@
 		8BBCAD1623FAA75600126600 /* FSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSProfile.swift; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
-		8BC165B8247D76B500AF1F39 /* ServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceMock.swift; sourceTree = "<group>"; };
-		8BC165BB247EA11200AF1F39 /* FlagshipMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlagshipMock.swift; path = ../../../Flagship/FlagShipTests/Mock/FlagshipMock.swift; sourceTree = "<group>"; };
 		8BC4745923D9B69100CCE1DE /* FSTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
 		8BF02D6E23C4CA24006D154E /* Flagship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagship.swift; sourceTree = "<group>"; };
 		8BF02D6F23C4CA24006D154E /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
@@ -161,23 +133,11 @@
 		8B39E04723FD45F400E02DCD /* FlagshipTests */ = {
 			isa = PBXGroup;
 			children = (
-				8BC165BA247EA0EE00AF1F39 /* Mock */,
-				8B85DEAA2481123100D652C1 /* FlagshipTestWithMockedData.swift */,
 				8B39E04823FD45F400E02DCD /* FlagshipTests.swift */,
 				8B39E04A23FD45F400E02DCD /* Info.plist */,
 				8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */,
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
-				8B45F3102434CC9000326B13 /* FSCampaignsTest.swift */,
-				8B45F3122434CF1D00326B13 /* FSHitTest.swift */,
-				8B45F3142434DC2E00326B13 /* FSGeneratorTest.swift */,
-				8B45F3162434E2FE00326B13 /* FSOfflineTrackingTest.swift */,
-				8B45F3182434F42200326B13 /* FSBucketCacheTest.swift */,
-				8B85DEA0247ECD6100D652C1 /* murmurTest.swift */,
-				8B85DEA2247ECF4A00D652C1 /* FSAudienceTest.swift */,
-				8B85DEA4247F249700D652C1 /* FSTargetingManagerTest.swift */,
-				8B85DEA6247FF83000D652C1 /* FSCacheManagerTest.swift */,
-				8B85DEAC248150BE00D652C1 /* FSStorageTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -198,16 +158,6 @@
 				8BBCAD1623FAA75600126600 /* FSProfile.swift */,
 			);
 			path = FSProfile;
-			sourceTree = "<group>";
-		};
-		8BC165BA247EA0EE00AF1F39 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				8BC165B8247D76B500AF1F39 /* ServiceMock.swift */,
-				8BC165BB247EA11200AF1F39 /* FlagshipMock.swift */,
-				8B85DEA824807B9B00D652C1 /* bucketMock.json */,
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		8BEF08AE23C3888F00396B78 = {
@@ -433,7 +383,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B85DEA924807B9B00D652C1 /* bucketMock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,23 +437,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B85DEA3247ECF4A00D652C1 /* FSAudienceTest.swift in Sources */,
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
-				8BC165B9247D76B500AF1F39 /* ServiceMock.swift in Sources */,
-				8B85DEAD248150BF00D652C1 /* FSStorageTest.swift in Sources */,
-				8BC165BC247EA11200AF1F39 /* FlagshipMock.swift in Sources */,
-				8B85DEAB2481123100D652C1 /* FlagshipTestWithMockedData.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
-				8B85DEA5247F249700D652C1 /* FSTargetingManagerTest.swift in Sources */,
-				8B45F3152434DC2E00326B13 /* FSGeneratorTest.swift in Sources */,
-				8B45F3112434CC9000326B13 /* FSCampaignsTest.swift in Sources */,
-				8B45F3172434E2FE00326B13 /* FSOfflineTrackingTest.swift in Sources */,
-				8B45F3132434CF1D00326B13 /* FSHitTest.swift in Sources */,
-				8B45F3192434F42200326B13 /* FSBucketCacheTest.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
-				8B85DEA7247FF83000D652C1 /* FSCacheManagerTest.swift in Sources */,
-				8B85DEA1247ECD6100D652C1 /* murmurTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

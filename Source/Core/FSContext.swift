@@ -18,6 +18,27 @@ internal class FSContext{
     // All modification from server 
     private var currentModification:Dictionary <String, Any>
     
+    // 
+    let isolation = DispatchQueue(label: "com.flagship.isolation", attributes: .concurrent)
+    
+    var threadSafecurrentModification:Dictionary <String, Any>{
+        
+          get {
+              return isolation.sync {
+                
+                  currentModification
+              }
+          }
+          set {
+              isolation.async(flags: .barrier) {
+                
+                  self.currentModification = newValue
+              }
+          }
+      }
+    
+    
+    
     
     public init(){
         

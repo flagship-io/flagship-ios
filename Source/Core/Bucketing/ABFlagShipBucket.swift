@@ -122,7 +122,7 @@ import Foundation
             
             // Au départ mettre a dispo les campaigns du cache.
             self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
-             self.context.updateModification(self.campaigns)
+            self.context.updateModification(self.campaigns)
              
              // Mettre à jour les campaigns
             self.service?.getCampaigns(context.currentContext) { (campaigns, error) in

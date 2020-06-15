@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Flagship
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+          /// Start Flagship
+        
+        for index in 1...300 {
+            Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API, apacRegion: nil) { (result) in
+                  
+                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                
+                Flagship.sharedInstance.synchronizeModifications { (result) in
+                      
+                      print("BBBBBBBBBBBBBBBBBBBBBBBBB")
+                  }
+                    
+             
+                }
+            
+        }
         
          
         return true
@@ -37,6 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+              
+              print("BBBBBBBBBBBBBBBBBBBBBBBBB")
+          }
+            
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
