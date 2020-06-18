@@ -243,26 +243,28 @@ public class Flagship:NSObject{
                 if (error == nil){
                     
                     // Check if the sdk is disabled
-                    if( campaigns!.panic){
+                    if let panic = campaigns?.panic {
                         
-                        self.disabledSdk = true
-                        
-                        FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
-                        
-                        FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
-                        
-                        
-                    }else{
-                        
-                        self.disabledSdk = false
-                        // Set Campaigns
-                        self.campaigns = campaigns
-                        self.context.updateModification(campaigns)
-                        FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
-                        
+                        if(panic){
+                            
+                            self.disabledSdk = true
+                            
+                            FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
+                            
+                            FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
+                            
+                        }else{
+                            
+                            self.disabledSdk = false
+                            // Set Campaigns
+                            self.campaigns = campaigns
+                            self.context.updateModification(campaigns)
+                            FSLogger.FSlog(String(format: "The get Campaign are %@", campaigns.debugDescription), .Campaign)
+                            
+                        }
                     }
-                    
-                    onGetCampaign(nil)
+                    /// Return wihtout error
+                     onGetCampaign(.None)
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
@@ -297,17 +299,17 @@ public class Flagship:NSObject{
         FSLogger.FSlog("Update context", .Campaign)
         
         self.context.currentContext.merge(contextValues) { (_, new) in new }
-        if sync !=  nil {
+        if let aSync = sync  {
             
             self.getCampaigns { (error) in
                 
                 if (error == nil){
                     
-                    sync!(.Updated)
+                    aSync(.Updated)
                     
                 }else{
                     
-                    sync!(.NotReady)
+                    aSync(.NotReady)
                 }
             }
         }
@@ -344,17 +346,17 @@ public class Flagship:NSObject{
         self.context.currentContext.updateValue(value, forKey:configuredKey.rawValue)
         
         
-        if sync !=  nil {
+        if let aSync = sync{
             
             self.getCampaigns { (error) in
                 
                 if (error == nil){
                     
-                    sync!(.Updated)
+                    aSync(.Updated)
                     
                 }else{
                     
-                    sync!(.NotReady)
+                    aSync(.NotReady)
                     
                 }
             }

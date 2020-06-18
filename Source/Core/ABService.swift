@@ -94,12 +94,12 @@ internal class ABService {
                         switch (httpResponse?.statusCode){
                         case 200:
                             
-                            if(responseData != nil){
+                            if let aResponseData = responseData {
                                 
                                 do {
                                     
                                     let decoder = JSONDecoder()
-                                    let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
+                                    let objectDecoded = try decoder.decode(FSCampaigns.self, from: aResponseData)
                                     
                                     // Print Json response
                                     let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
@@ -115,6 +115,10 @@ internal class ABService {
                                     onGetCampaign(nil, FlagshipError.GetCampaignError)
                                     print(error.localizedDescription)
                                 }
+                            }else{
+                                
+                                FSLogger.FSlog("responseData is nil when getCampaigns ", .Network)
+                                onGetCampaign(nil, FlagshipError.GetCampaignError)
                             }
                             break
                         default:
@@ -168,45 +172,48 @@ internal class ABService {
                 return
             }
             
-            var request:URLRequest = URLRequest(url: URL(string:FSActivate)!)
-            request.httpMethod = "POST"
-            request.httpBody = data
-            
-            /// Add x-api-key for apacOption
-            
-            if (apacRegion != nil){
+            if let activateUrl = URL(string:FSActivate) {
                 
-                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-            }
-           
-            let session = URLSession(configuration:URLSessionConfiguration.default)
-            session.dataTask(with: request) { (responseData, response, error) in
+                var request:URLRequest = URLRequest(url:activateUrl)
+                request.httpMethod = "POST"
+                request.httpBody = data
                 
-                if (error == nil){
+                /// Add x-api-key for apacOption
+                
+                if (apacRegion != nil){
                     
-                    let httpResponse = response as? HTTPURLResponse
-                    
-                    switch (httpResponse?.statusCode){
-                        
-                    case 200,204:
-                        
-                        FSLogger.FSlog("The activate is sent with success ", .Network)
-                        
-                        break
-                    case 403,400:
-                        FSLogger.FSlog("Error On sending activate ", .Network)
-
-                        break
-                    default:
-                        FSLogger.FSlog("Bad Request", .Network)
-                        
-                    }
-                }else{
-                    
-                    FSLogger.FSlog(error!.localizedDescription, .Network)
+                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
                 }
                 
-                }.resume()
+                let session = URLSession(configuration:URLSessionConfiguration.default)
+                session.dataTask(with: request) { (responseData, response, error) in
+                      
+                      if (error == nil){
+                          
+                          let httpResponse = response as? HTTPURLResponse
+                          
+                          switch (httpResponse?.statusCode){
+                              
+                          case 200,204:
+                              
+                              FSLogger.FSlog("The activate is sent with success ", .Network)
+                              
+                              break
+                          case 403,400:
+                              FSLogger.FSlog("Error On sending activate ", .Network)
+
+                              break
+                          default:
+                              FSLogger.FSlog("Bad Request", .Network)
+                              
+                          }
+                      }else{
+                          
+                          FSLogger.FSlog(error!.localizedDescription, .Network)
+                      }
+                      
+                      }.resume()
+            }
             
         }catch{
             

@@ -80,9 +80,12 @@ internal class FSContext{
         
         for item:FSCampaign in campaignsObject?.campaigns ?? []{
             
-            if (item.variation?.modifications != nil  && item.variation?.modifications?.value != nil){
+            if let aModifications = item.variation?.modifications {
                 
-                self.currentModification.merge((item.variation?.modifications?.value)!) {  (_, new) in new }
+                if let arrayValue = aModifications.value {
+                    
+                     self.currentModification.merge(arrayValue) {  (_, new) in new }
+                }
             }
         }
     }
@@ -137,7 +140,7 @@ internal class FSContext{
 
         if currentModification[key, default: defaultBool] is Bool {
             
-            return currentModification[key, default: defaultBool] as! Bool
+            return currentModification[key, default: defaultBool] as? Bool ?? defaultBool
         }
         
         return defaultBool
@@ -149,7 +152,7 @@ internal class FSContext{
         
         if currentModification[key, default: defaultString] is String{
             
-            return currentModification[key, default: defaultString] as! String
+            return currentModification[key, default: defaultString] as? String ?? defaultString
         }
         
         return defaultString
@@ -161,7 +164,7 @@ internal class FSContext{
         
         if currentModification[key, default: defaultDouble] is Double{
             
-             return currentModification[key, default: defaultDouble] as! Double
+             return currentModification[key, default: defaultDouble] as? Double ?? defaultDouble
         }
         
         return defaultDouble
@@ -173,7 +176,7 @@ internal class FSContext{
         
         if currentModification[key, default: defaultFloat] is Float{
             
-            return currentModification[key, default: defaultFloat] as! Float
+            return currentModification[key, default: defaultFloat] as? Float ?? defaultFloat
         }
         
         return defaultFloat
@@ -184,7 +187,7 @@ internal class FSContext{
         
         if currentModification[key, default: defaultInt] is Int{
             
-            return currentModification[key, default: defaultInt] as! Int
+            return currentModification[key, default: defaultInt] as? Int ?? defaultInt
         }
         return defaultInt
     }
