@@ -10,7 +10,15 @@ import UIKit
 import Flagship
 
 @UIApplicationMain
+
+
+
+
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    
+ 
 
     var window: UIWindow?
 
@@ -20,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
           /// Start Flagship
         
+        
+ 
         Flagship.sharedInstance.updateContext("k1", "v1")
         Flagship.sharedInstance.updateContext("k2", "v2")
         Flagship.sharedInstance.updateContext("k3", "v3")
@@ -27,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flagship.sharedInstance.updateContext("k5", "v5")
 
         
-        for index in 1...100 {
+        for index in 1...1 {
             Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API, apacRegion: nil) { (result) in
                   
                  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")

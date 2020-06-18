@@ -34,6 +34,7 @@ internal extension ABService{
         do {
             
             FSLogger.FSlog(String(format: "\n\n\n Sending Event : ....... %@ \n\n\n", event.bodyTrack.debugDescription), .Network)
+            
             let data = try JSONSerialization.data(withJSONObject:event.bodyTrack as Any, options:.prettyPrinted)
             
             var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)

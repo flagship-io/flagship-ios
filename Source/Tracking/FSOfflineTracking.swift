@@ -22,7 +22,7 @@ internal class FSOfflineTracking{
     init(_ service:ABService){
         
         self.service = service
-                
+        
         // Create directory to save the events
         self.urlForEvent = self.createUrlEventURL()
     }
@@ -42,7 +42,7 @@ internal class FSOfflineTracking{
                 
                 if (error == nil){
                     do{
-                         try FileManager.default.removeItem(at: urlItem)
+                        try FileManager.default.removeItem(at: urlItem)
                     }catch{
                         
                         FSLogger.FSlog("Failed to save event in cache", .Network)
@@ -60,7 +60,15 @@ internal class FSOfflineTracking{
         FSLogger.FSlog("save event", .Campaign)
         
         DispatchWorkItem {
-             self.saveBodyTrackToDisk(event.bodyTrack, event.fileName)
+            
+            // before save the body, save also the cst, will use it later on send
+            
+            var eventBodyToSave = event.bodyTrack
+            
+            eventBodyToSave.updateValue(event.getCst() ?? 0, forKey: "cst")
+            
+            self.saveBodyTrackToDisk(eventBodyToSave, event.fileName)
+            
         }.perform()
     }
     
@@ -77,18 +85,18 @@ internal class FSOfflineTracking{
                 formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
                 let fileName =  String(format: "%@.json",formatDate.string(from: Date()))
                 
-                guard let url:URL? = self.urlForEvent?.appendingPathComponent(fileName) else {
+                guard let url:URL = self.urlForEvent?.appendingPathComponent(fileName) else {
                     
                     FSLogger.FSlog("Failed to save activate event", .Campaign)
                     
                     return
                 }
                 do {
-                    try dateEvent.write(to: url!, options: [])
+                    try dateEvent.write(to: url, options: [])
                 } catch {
                     
                     FSLogger.FSlog("Failed to write event in cache", .Network)
-
+                    
                 }
             }
         }
@@ -136,20 +144,21 @@ internal class FSOfflineTracking{
         
         if (urlForEvent != nil){
             
-            guard let url:URL? = urlForEvent?.appendingPathComponent(fileName) else {
+            guard let url:URL = urlForEvent?.appendingPathComponent(fileName) else {
                 
                 FSLogger.FSlog("Failed to save event", .Campaign)
                 return
             }
             do {
+                
                 let data = try JSONSerialization.data(withJSONObject:body as Any, options:.prettyPrinted)
                 
-                try data.write(to: url!, options: [])
+                try data.write(to: url, options: [])
             } catch {
                 
                 FSLogger.FSlog("Failed to write track infos", .Parsing)
             }
-
+            
         }
     }
     
@@ -173,37 +182,56 @@ internal class FSOfflineTracking{
     /// Send Event  From URL
     func sendSavedEventFromUrl(_ url:URL, onCompletion:@escaping(FlagshipError?)->Void){
         
-        // Get data from URL
         do{
             let data = try Data(contentsOf: url)
-            var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
             
-            request.httpMethod = "POST"
-            request.httpBody = data
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let session = URLSession(configuration:URLSessionConfiguration.default)
-            
-            session.dataTask(with: request) { (responseData, response, error) in
+            // make sure this JSON is in the format we expect
+            if var savedInfoEventJson = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 
-                let httpResponse = response as? HTTPURLResponse
-                
-                switch (httpResponse?.statusCode){
+                /// Get cst time stored
+                if let savedCst = savedInfoEventJson["cst"] as? NSNumber {
                     
-                case 200:
-                    FSLogger.FSlog(" .................Stored Event Sent with success ..........", .Network)
-                    // Delete the Event
-                    onCompletion(nil)
-                    break
-                default:
-                    FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
-                    onCompletion(.StoredEventError)
+                    /// Calculate QueueTime
+                    let qt:Double = Date.timeIntervalSinceReferenceDate - savedCst.doubleValue
+                    /// Set QueueTime
+                    savedInfoEventJson.updateValue(qt , forKey:  "qt")
+                    /// Remove cst Time
+                    savedInfoEventJson.removeValue(forKey: "cst")
+                    
                 }
+                
+                /// Convert to data
+                let newData = try JSONSerialization.data(withJSONObject:savedInfoEventJson as Any, options:.prettyPrinted)
+                
+                var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
+                
+                request.httpMethod = "POST"
+                request.httpBody = newData
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                let session = URLSession(configuration:URLSessionConfiguration.default)
+                
+                session.dataTask(with: request) { (responseData, response, error) in
+                    
+                    let httpResponse = response as? HTTPURLResponse
+                    
+                    switch (httpResponse?.statusCode){
+                        
+                    case 200:
+                        FSLogger.FSlog(" .................Stored Event Sent with success ..........\n\n \(savedInfoEventJson) \n\n ", .Network)
+                        // Delete the Event
+                        onCompletion(nil)
+                        break
+                    default:
+                        FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
+                        onCompletion(.StoredEventError)
+                    }
                 }.resume()
+            }
         }catch{
             
             FSLogger.FSlog("Failed to send Event", .Network)
-
+            
         }
     }
 }

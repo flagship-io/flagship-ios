@@ -65,10 +65,21 @@ import Foundation
     var bodyTrack:Dictionary<String,Any> { get }
     
     var fileName:String! { get }
+    
+    /// Get cst
+    func getCst()-> NSNumber?
+
 }
 
 /// :nodoc:
 @objcMembers public class FSTracking :NSObject ,FSTrackingProtocol {
+    
+    
+    
+    public func getCst() -> NSNumber? {
+        
+        return NSNumber(floatLiteral: self.currentSessionTimeStamp ?? 0)
+    }
     
     
     public var fileName: String! {
@@ -104,9 +115,9 @@ import Foundation
     /// User Language
     public var userLanguage:String?
     /// Queue Time
-    public var queueTime:NSNumber?
+    public var queueTime:Int64?
     /// Current Session Time Stamp
-    //public var currentSessionTimeStamp:Int64?
+    public var currentSessionTimeStamp:TimeInterval?
     /// Session Number
     public var sessionNumber:NSNumber?
     
@@ -126,7 +137,7 @@ import Foundation
  
         
         // Set time Stamps
-        // self.currentSessionTimeStamp = Int64(exactly: Date.timeIntervalBetween1970AndReferenceDate)
+        self.currentSessionTimeStamp = Date.timeIntervalSinceReferenceDate
     }
     
     public var bodyTrack: Dictionary<String, Any>{
@@ -166,16 +177,11 @@ import Foundation
             if (self.userLanguage != nil) {
                 communParams.updateValue(self.userLanguage ?? "", forKey: "ul")
             }
-            // Queue Time
-            if (self.queueTime != nil) {
-                communParams.updateValue(self.queueTime ?? 0, forKey: "qt")
+            
+            // Session Number
+            if (self.sessionNumber != nil) {
+                communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
             }
-//            // Time Stamp
-//            communParams.updateValue(self.currentSessionTimeStamp ?? 0, forKey: "cst")
-//            // Session Number
-//            if (self.sessionNumber != nil) {
-//                communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
-//            }
             
             // Interface Name
             if (self.interfaceName != nil) {

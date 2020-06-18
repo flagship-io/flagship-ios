@@ -93,7 +93,8 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
           }else{
               /// Manage Error
             
-             self.performSegue(withIdentifier: "onClickLogin", sender: nil)
+            print("error on start")
+            
           }
       }
   }

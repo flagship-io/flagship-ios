@@ -67,73 +67,72 @@ internal class ABService {
             
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
-            var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetCampaigns, clientId))!)
-            request.httpMethod = "POST"
-            request.httpBody = data
-
-            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            /// Add x-api-key for apacOption
-            
-            if (apacRegion != nil){
+            if let getUrl = URL(string:String(format: FSGetCampaigns, clientId)){
                 
-                request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-            }
+                var request:URLRequest = URLRequest(url:getUrl)
+                request.httpMethod = "POST"
+                request.httpBody = data
 
-            
-            let session = URLSession(configuration:URLSessionConfiguration.default)
-            
-            session.dataTask(with: request) { (responseData, response, error) in
+                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                if (error == nil){
+                /// Add x-api-key for apacOption
+                
+                if (apacRegion != nil){
                     
-                    let httpResponse = response as? HTTPURLResponse
-                    switch (httpResponse?.statusCode){
-                    case 200:
+                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
+                }
+
+                
+                let session = URLSession(configuration:URLSessionConfiguration.default)
+                
+                session.dataTask(with: request) { (responseData, response, error) in
+                    
+                    if (error == nil){
                         
-                        if(responseData != nil){
+                        let httpResponse = response as? HTTPURLResponse
+                        switch (httpResponse?.statusCode){
+                        case 200:
                             
-                            do {
+                            if(responseData != nil){
                                 
-                                let decoder = JSONDecoder()
-                                let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
-                                
-                                
-                                // Print Json response
-                               let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-                                
-                                
-                               FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
-                                
-                                /// Save also the data in the Directory
-                                self.cacheManager.saveCampaignsInCache(responseData)
-                                onGetCampaign(objectDecoded, nil)
-                                
-                            } catch {
-                                
-                                onGetCampaign(nil, FlagshipError.GetCampaignError)
-                                print(error.localizedDescription)
+                                do {
+                                    
+                                    let decoder = JSONDecoder()
+                                    let objectDecoded = try decoder.decode(FSCampaigns.self, from: responseData!)
+                                    
+                                    // Print Json response
+                                    let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                                    
+                                    FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
+                                    
+                                    /// Save also the data in the Directory
+                                    self.cacheManager.saveCampaignsInCache(responseData)
+                                    onGetCampaign(objectDecoded, nil)
+                                    
+                                } catch {
+                                    
+                                    onGetCampaign(nil, FlagshipError.GetCampaignError)
+                                    print(error.localizedDescription)
+                                }
                             }
+                            break
+                        default:
+                            FSLogger.FSlog("Error on get Campaign", .Network)
+                            onGetCampaign(nil, FlagshipError.GetCampaignError)
                         }
-                        break
-                    default:
-                        FSLogger.FSlog("Error on get Campaign", .Network)
+                    }else{
+                        
                         onGetCampaign(nil, FlagshipError.GetCampaignError)
                     }
-                }else{
                     
-                    onGetCampaign(nil, FlagshipError.GetCampaignError)
-                }
-                
-                }.resume()
-            
+                    }.resume()
+            }
         }catch{
             
             FSLogger.FSlog("error on serializing json", .Network)
         }
     }
-    
     
     
     // Activate variation
