@@ -17,12 +17,11 @@ class FSBucketManager: NSObject {
     
     var matchedCampaigns:[FSCampaignCache] = []
     
-  //  var fsCampaignBucketCache:FSBucketCache!
     
     override init() {
         
         targetManager = FSTargetingManager()
-       
+        
     }
     
     
@@ -42,9 +41,12 @@ class FSBucketManager: NSObject {
         // If not extract the variations
         
         //check the targetings and filter the variation he can run
-       
+        
         // Match before
         let resultBucketCache = matchTargetingForCustomID(scriptBucket, visitorId, scriptBucket.visitorConsolidation)
+        
+        
+        
         
         // Save My bucketing
         resultBucketCache.saveMe()
@@ -58,54 +60,59 @@ class FSBucketManager: NSObject {
     
     internal func matchTargetingForCustomID(_ scriptBucket:FSBucket?, _ visitorId:String,  _ visitorConsolidation:Bool)->FSBucketCache{
         
-       let fsCampaignBucketCache = FSBucketCache(visitorId)
+        let fsCampaignBucketCache = FSBucketCache(visitorId)
         
         matchedVariationGroup.removeAll()
         
         var groupCampaigns:[FSCampaignCache] = []
         var groupVar:[FSVariationGroupCache] = []
-       
+        
         groupCampaigns.removeAll()
-        for bucketCampaignItem:FSBucketCampaign in scriptBucket!.campaigns{
-            groupVar.removeAll()
-
-            for variationGroupItem:FSVariationGroup in bucketCampaignItem.variationGroups{
+        
+        if let campaignsArray = scriptBucket?.campaigns {
+            
+            for bucketCampaignItem:FSBucketCampaign in campaignsArray{
+                groupVar.removeAll()
                 
-                if (targetManager.isTargetingGroupIsOkay(variationGroupItem.targeting)){
+                for variationGroupItem:FSVariationGroup in bucketCampaignItem.variationGroups{
                     
-                    print("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY")
-                    
-                    
-                    // select variation here
-                    guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem, visitorConsolidation) else{
+                    if (targetManager.isTargetingGroupIsOkay(variationGroupItem.targeting)){
                         
-                        print("probleme here don 't found the id variation selected")
-                        continue
+                        print("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY")
                         
-                    }
-                    
-                    /// Get all modification according to id variation
-                    
-                    let variationCache:FSVariationCache = FSVariationCache(variationIdSelected)
-                    
-                    for itemVariation in variationGroupItem.variations{
                         
-                        if (itemVariation.idVariation == variationIdSelected){
+                        // select variation here
+                        guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem, visitorConsolidation) else{
                             
-                            variationCache.modification = itemVariation.modifications
+                            print("probleme here don 't found the id variation selected")
+                            continue
+                            
                         }
+                        
+                        /// Get all modification according to id variation
+                        
+                        let variationCache:FSVariationCache = FSVariationCache(variationIdSelected)
+                        
+                        for itemVariation in variationGroupItem.variations{
+                            
+                            if (itemVariation.idVariation == variationIdSelected){
+                                
+                                variationCache.modification = itemVariation.modifications
+                            }
+                        }
+                        
+                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationCache))
+                        
+                        
+                    }else{
+                        
+                        print("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK")
+                        
                     }
-                    
-                    groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationCache))
-
-                    
-                }else{
-                    
-                    print("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK")
-
                 }
+                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, groupVar))
             }
-            groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, groupVar))
+            
         }
         fsCampaignBucketCache.campaigns = groupCampaigns
         
@@ -119,20 +126,23 @@ class FSBucketManager: NSObject {
         
         if (FSStorage.fileExists(String(format: "%@.json", visitorId), in: .documents)){
             
-            FSLogger.FSlog(" The Buketing already exist Will Re check targeting for the selected variation ", .Campaign)
-
-            let cachedObject = FSStorage.retrieve(String(format: "%@.json",visitorId), from: .documents, as: FSBucketCache.self)
+            FSLogger.FSlog("The Buketing already exist Will Re check targeting for the selected variation ", .Campaign)
             
-            if (cachedObject != nil){
+            guard let cachedObject = FSStorage.retrieve(String(format: "%@.json",visitorId), from: .documents, as: FSBucketCache.self) else {
                 
-                for itemCached in cachedObject!.campaigns{
+                FSLogger.FSlog(" Error on retreive cached object", .Campaign)
+
+                return nil
+            }
+            
+            
+            for itemCached in cachedObject.campaigns{
+                
+                for subItemCached in itemCached.variationGroups{  /// Variation Group already exist, then return the saved one
                     
-                    for subItemCached in itemCached.variationGroups{  /// Variation Group already exist, then return the saved one
+                    if (subItemCached.variationGroupId == variationGroup.idVariationGroup){
                         
-                        if (subItemCached.variationGroupId == variationGroup.idVariationGroup){
-                            
-                            return subItemCached.variation.variationId
-                        }
+                        return subItemCached.variation.variationId
                     }
                 }
             }
@@ -145,13 +155,13 @@ class FSBucketManager: NSObject {
         hashAlloc = (Int(MurmurHash3.hash32(key: visitorId) % 100))
         
         // Murmur the custom id
-       
+        
         print("hashAlloc ..........\(hashAlloc)")
         var offsetAlloc = 0
         for item:FSVariation in  variationGroup.variations{
-                
+            
             if(hashAlloc <= item.allocation + offsetAlloc){
-                    
+                
                 return item.idVariation
             }
             offsetAlloc += item.allocation

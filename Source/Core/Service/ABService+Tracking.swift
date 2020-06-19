@@ -10,7 +10,7 @@ import Foundation
 internal extension ABService{
     
     
-     func sendTracking< T: FSTrackingProtocol>(_ event:T){
+    func sendTracking< T: FSTrackingProtocol>(_ event:T){
         
         self.sendEvent(event)
     }
@@ -18,7 +18,7 @@ internal extension ABService{
     
     ////////////////////: Send Event ...///////////////////////////////////////////////:
     
-     func sendEvent< T: FSTrackingProtocol>(_ event:T){
+    func sendEvent< T: FSTrackingProtocol>(_ event:T){
         
         /// Check if the connexion is available
         
@@ -37,35 +37,31 @@ internal extension ABService{
             
             let data = try JSONSerialization.data(withJSONObject:event.bodyTrack as Any, options:.prettyPrinted)
             
-            var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
-           
-            request.httpMethod = "POST"
-            request.httpBody = data
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let session = URLSession(configuration:URLSessionConfiguration.default)
-            
-            session.dataTask(with: request) { (responseData, response, error) in
+            if let urlEvent = URL(string:FSDATA_ARIANE) {
                 
-                let httpResponse = response as? HTTPURLResponse
+                var request:URLRequest = URLRequest(url: urlEvent)
+                request.httpMethod = "POST"
+                request.httpBody = data
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 
-                switch (httpResponse?.statusCode){
-                    
-                case 200:
-                    FSLogger.FSlog("Event sent with success \n\n", .Network)
-                    break
-                case 403:
-                    
-                    break
- 
-                case 400:
-                    
-                    break
-                 default:
-                    FSLogger.FSlog("Error on send Event", .Network)
-                }
+                let session = URLSession(configuration:URLSessionConfiguration.default)
                 
+                session.dataTask(with: request) { (responseData, response, error) in
+                    
+                    let httpResponse = response as? HTTPURLResponse
+                    
+                    switch (httpResponse?.statusCode){
+                        
+                    case 200,201:
+                        FSLogger.FSlog("Event sent with success \n\n \(event.bodyTrack) \n\n", .Network)
+                        break
+                        
+                    default:
+                        FSLogger.FSlog("Error on send Event", .Network)
+                    }
+                    
                 }.resume()
+            }
             
         }catch{
             

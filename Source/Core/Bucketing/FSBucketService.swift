@@ -20,61 +20,68 @@ internal extension ABService {
     
     func getFSScript(onGetScript:@escaping(FSBucket?, FlagshipError?)->Void){
         
-        var request:URLRequest = URLRequest(url: URL(string:String(format: FSGetScript, self.clientId))!)
-        
-        // Manage id last modified
-        
-        let dateModified: String? = UserDefaults.standard.value(forKey:FSLastModified_Key) as? String
-        
-        if (dateModified != nil){
+        if let urlScript = URL(string:String(format: FSGetScript, self.clientId)) {
             
-            request.setValue(dateModified , forHTTPHeaderField:FS_If_ModifiedSince)
-        }
-        
-        let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
-        
-        session.dataTask(with: request) { (data, response, error) in
+            var request:URLRequest = URLRequest(url: urlScript)
             
-            let httpResponse = response as? HTTPURLResponse
+            // Manage id last modified
             
-            switch httpResponse?.statusCode {
+            let dateModified: String? = UserDefaults.standard.value(forKey:FSLastModified_Key) as? String
+            
+            if (dateModified != nil){
                 
-            case 200:
-                /// Manage last modified
-                self.manageLastModified(httpResponse)
-                
-                let decoder = JSONDecoder()
-                
-                do {
-                    
-                    
-                    let scriptObject = try decoder.decode(FSBucket.self, from: data!)
-                    // Print Json response
-                    let dico = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-                    FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
-                    onGetScript(scriptObject, nil)
-                    
-                    /// Save bucket script
-                    self.cacheManager.saveBucketScriptInCache(data)
-                    
-                }catch{
-                    
-                    onGetScript(nil, .CetScriptError)
-                }
-                
-                break
-                
-            case 304:
-                /// Read the script from the cache
-                FSLogger.FSlog("Status 304, No need to download the bucketing script", .Campaign)
-                onGetScript(nil, .CetScriptError)
-
-                break
-                
-            default:
-                break
+                request.setValue(dateModified , forHTTPHeaderField:FS_If_ModifiedSince)
             }
-        }.resume()
+            
+            let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
+            
+            session.dataTask(with: request) { (data, response, error) in
+                
+                let httpResponse = response as? HTTPURLResponse
+                
+                switch httpResponse?.statusCode {
+                    
+                case 200:
+                    /// Manage last modified
+                    self.manageLastModified(httpResponse)
+                    
+                    if let responseData = data {
+                        
+                        do {
+                            
+                            let scriptObject = try JSONDecoder().decode(FSBucket.self, from: responseData)
+                            
+                            // Print Json response
+                            let dico = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
+                            
+                            FSLogger.FSlog("The script bucketing is : \(dico)", .Campaign)
+                            onGetScript(scriptObject, nil)
+                            
+                            /// Save bucket script
+                            self.cacheManager.saveBucketScriptInCache(data)
+                            
+                        }catch{
+                            
+                            onGetScript(nil, .CetScriptError)
+                        }
+                        
+                        
+                    }
+                    break
+                    
+                case 304:
+                    /// Read the script from the cache
+                    FSLogger.FSlog("Status 304, No need to download the bucketing script", .Campaign)
+                    onGetScript(nil, .CetScriptError)
+                    
+                    break
+                    
+                default:
+                    break
+                }
+            }.resume()
+            
+        }
     }
     
     
@@ -89,43 +96,50 @@ internal extension ABService {
             
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
-            var uploadKeyValueCtxRqst:URLRequest = URLRequest(url: URL(string:String(format: FSSendKeyValueContext, clientId))!)
-            uploadKeyValueCtxRqst.httpMethod = "POST"
-            uploadKeyValueCtxRqst.httpBody = data
-
-            uploadKeyValueCtxRqst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-            /// Add x-api-key for apacOption
-            
-            if (apacRegion != nil){
+            if let urlKeyCtx =  URL(string:String(format: FSSendKeyValueContext, clientId)) {
                 
-                uploadKeyValueCtxRqst.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-            }
-
-            
-            let session = URLSession(configuration:URLSessionConfiguration.default)
-            
-            session.dataTask(with: uploadKeyValueCtxRqst) { (responseData, response, error) in
+                var uploadKeyValueCtxRqst:URLRequest = URLRequest(url: urlKeyCtx)
                 
-                if (error == nil){
+                uploadKeyValueCtxRqst.httpMethod = "POST"
+                uploadKeyValueCtxRqst.httpBody = data
+                uploadKeyValueCtxRqst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+                uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
+                
+                /// Add x-api-key for apacOption
+                
+                if (apacRegion != nil){
                     
-                    let httpResponse = response as? HTTPURLResponse
-                    
-                    switch (httpResponse?.statusCode){
-                    case 200, 204:
-                        
-                        FSLogger.FSlog("Success on sending keys / values context", .Network)
-                        break
-                    default:
-                        FSLogger.FSlog("Error on sending keys / values context", .Network)
-                     }
-                }else{
-                    
-                    
+                    uploadKeyValueCtxRqst.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
                 }
                 
+                
+                let session = URLSession(configuration:URLSessionConfiguration.default)
+                
+                session.dataTask(with: uploadKeyValueCtxRqst) { (responseData, response, error) in
+                    
+                    if (error == nil){
+                        
+                        let httpResponse = response as? HTTPURLResponse
+                        
+                        switch (httpResponse?.statusCode){
+                        case 200, 204:
+                            
+                            FSLogger.FSlog("Success on sending keys / values context", .Network)
+                            break
+                        default:
+                            FSLogger.FSlog("Error on sending keys / values context", .Network)
+                        }
+                    }else{
+                        
+                        FSLogger.FSlog("Error on sending keys / values context", .Network)
+
+                    }
+                    
                 }.resume()
+                
+                
+                
+            }
             
         }catch{
             

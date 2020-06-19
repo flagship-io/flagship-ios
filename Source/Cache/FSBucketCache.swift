@@ -32,13 +32,13 @@ internal class FSBucketCache: Codable {
         
         case visitorId
         case campaigns
-     //   case fsUserId
      }
     
     
     internal init(_ visitorId:String){
         
         self.visitorId = visitorId
+        self.campaigns = []
     }
     
     

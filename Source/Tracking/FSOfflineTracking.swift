@@ -108,7 +108,7 @@ internal class FSOfflineTracking{
         
         let reachability = SCNetworkReachabilityCreateWithName(nil, "https://decision-api.canarybay.io")
         var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(reachability!, &flags)
+        SCNetworkReachabilityGetFlags(reachability!, &flags) /// TO IFX
         return flags.contains(.reachable)
     }
     
@@ -166,16 +166,20 @@ internal class FSOfflineTracking{
     // Get All Body Track from Documents
     func getAllBodyTrackFromDisk() -> [URL]?{
         
-        do {
-            let listElementUrl = try FileManager.default.contentsOfDirectory(at: self.urlForEvent!, includingPropertiesForKeys: [.creationDateKey], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+        if let urlEvent = self.urlForEvent {
             
-            return listElementUrl
-            
-        }catch{
-            
-            FSLogger.FSlog("Failed to read info track from directory", .Network)
-            return nil
+            do {
+                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlEvent, includingPropertiesForKeys: [.creationDateKey], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+                
+                return listElementUrl
+                
+            }catch{
+                
+                FSLogger.FSlog("Failed to read info track from directory", .Network)
+                return nil
+            }
         }
+        return nil
     }
     
     
@@ -203,30 +207,32 @@ internal class FSOfflineTracking{
                 /// Convert to data
                 let newData = try JSONSerialization.data(withJSONObject:savedInfoEventJson as Any, options:.prettyPrinted)
                 
-                var request:URLRequest = URLRequest(url: URL(string:FSDATA_ARIANE)!)
-                
-                request.httpMethod = "POST"
-                request.httpBody = newData
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                
-                let session = URLSession(configuration:URLSessionConfiguration.default)
-                
-                session.dataTask(with: request) { (responseData, response, error) in
+                if let urlSendEvent =  URL(string:FSDATA_ARIANE) {
                     
-                    let httpResponse = response as? HTTPURLResponse
+                    var request:URLRequest = URLRequest(url:urlSendEvent)
+                    request.httpMethod = "POST"
+                    request.httpBody = newData
+                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                     
-                    switch (httpResponse?.statusCode){
+                    let session = URLSession(configuration:URLSessionConfiguration.default)
+                    
+                    session.dataTask(with: request) { (responseData, response, error) in
                         
-                    case 200:
-                        FSLogger.FSlog(" .................Stored Event Sent with success ..........\n\n \(savedInfoEventJson) \n\n ", .Network)
-                        // Delete the Event
-                        onCompletion(nil)
-                        break
-                    default:
-                        FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
-                        onCompletion(.StoredEventError)
-                    }
-                }.resume()
+                        let httpResponse = response as? HTTPURLResponse
+                        
+                        switch (httpResponse?.statusCode){
+                            
+                        case 200:
+                            FSLogger.FSlog(" .................Stored Event Sent with success ..........\n\n \(savedInfoEventJson) \n\n ", .Network)
+                            // Delete the Event
+                            onCompletion(nil)
+                            break
+                        default:
+                            FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
+                            onCompletion(.StoredEventError)
+                        }
+                    }.resume()
+                }
             }
         }catch{
             

@@ -45,64 +45,68 @@ internal class FSCacheManager {
     
     
     // Write Campaign on Directory
-    func saveCampaignsInCache(_ dataCampaign:Data?){
+    func saveCampaignsInCache(_ data:Data?){
         
-        if (dataCampaign == nil){
+        
+        if let dataCampaign = data {
+            
+            DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
+                
+                let urlForCache:URL? = self.createUrlForCache()
+                
+                guard let url = urlForCache?.appendingPathComponent("campaigns.json") else {
+                    
+                    FSLogger.FSlog("Failed to save campaign", .Network)
+                    return
+                }
+                do {
+                    
+                    try dataCampaign.write(to: url, options: [])
+                    
+                } catch {
+                    
+                    FSLogger.FSlog("Failed to write campaign in cache", .Network)
+                }
+            }
+            
+        }else{
             
             FSLogger.FSlog("Failed to save campaign", .Network)
 
             return
         }
-        
-        DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
-            
-            let urlForCache:URL? = self.createUrlForCache()
-            
-            guard let url = urlForCache?.appendingPathComponent("campaigns.json") else {
-                
-                FSLogger.FSlog("Failed to save campaign", .Network)
-                return
-            }
-            do {
-                
-                try dataCampaign!.write(to: url, options: [])
-                
-            } catch {
-                
-                FSLogger.FSlog("Failed to write campaign in cache", .Network)
-            }
-        }
-        
     }
     
     
     /// Write Bucket script on directory
     
-    func saveBucketScriptInCache(_ bucketData:Data?){
+    func saveBucketScriptInCache(_ data:Data?){
         
-        if(bucketData == nil){
+        if let bucketData = data{
+            
+            DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
+                
+                let urlForCache:URL? = self.createUrlForCache()
+                
+                guard let url = urlForCache?.appendingPathComponent("bucket.json") else {
+                    
+                    FSLogger.FSlog("Failed to save Bucket script", .Network)
+                    return
+                }
+                do {
+                    try bucketData.write(to: url, options: [])
+                    
+                } catch {
+                    
+                    FSLogger.FSlog("Failed to write bucket script in cache", .Network)
+                }
+            }
+            
+        }else {
             
             FSLogger.FSlog("Failed to save Bucket script", .Network)
             return
         }
-        
-        DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
-            
-            let urlForCache:URL? = self.createUrlForCache()
-            
-            guard let url = urlForCache?.appendingPathComponent("bucket.json") else {
-                
-                FSLogger.FSlog("Failed to save Bucket script", .Network)
-                return
-            }
-            do {
-                try bucketData!.write(to: url, options: [])
-            } catch {
-                
-                FSLogger.FSlog("Failed to write bucket script in cache", .Network)
-            }
-        }
-        
     }
     
     func readBucketFromCache()->FSBucket?{

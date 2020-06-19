@@ -60,10 +60,16 @@ class FSTargetingManager: NSObject {
         
         // Groupe de variations
         var booleanResultGroup:[Bool] = []
-        for targetingGroup:FSTargetingGroup in targeting!.targetingGroups{
+        
+        if let arrayTargetingGroup = targeting?.targetingGroups {
             
-            booleanResultGroup.append(checkTargetGroupIsOkay(targetingGroup))
+            for targetingGroup:FSTargetingGroup in arrayTargetingGroup{
+                
+                booleanResultGroup.append(checkTargetGroupIsOkay(targetingGroup))
+            }
         }
+        
+
         // Here we supposed to have all result , we should have at least one true value to return YES, because we have -OR- between Groups
         return booleanResultGroup.contains(true)
     }
@@ -91,15 +97,20 @@ class FSTargetingManager: NSObject {
             var isOkay:Bool = false
             if (audienceValue is [String] || audienceValue is [Int] || audienceValue is [Double] ){
                 
-                for subAudienceValue in audienceValue as! [Any] {
+                if let values = audienceValue as? [Any] {
                     
-                    isOkay  = checkCondition(currentContextValue as Any, opType, subAudienceValue as Any)
-                    
-                    if(isOkay){
+                    for subAudienceValue in values  {
                         
-                        break
+                        isOkay  = checkCondition(currentContextValue as Any, opType, subAudienceValue as Any)
+                        
+                        if(isOkay){
+                            
+                            break
+                        }
                     }
                 }
+                
+
                 
             }else{
                 
@@ -332,7 +343,7 @@ class FSTargetingManager: NSObject {
     
     internal func getCurrentValueFromCtx(_ targetKey:String)->Any?{
         
-        let currentContext:Dictionary <String, Any> = Flagship.sharedInstance.context!.currentContext
+        let currentContext:Dictionary <String, Any> = Flagship.sharedInstance.context.currentContext
         
         if targetKey == FS_USERS {
     
@@ -347,8 +358,6 @@ class FSTargetingManager: NSObject {
         
         return nil
     }
-//    
-
 }
 
 

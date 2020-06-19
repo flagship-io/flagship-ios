@@ -102,18 +102,17 @@ internal class ABService {
                                     let objectDecoded = try decoder.decode(FSCampaigns.self, from: aResponseData)
                                     
                                     // Print Json response
-                                    let dico = try JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                                    let dico = try JSONSerialization.jsonObject(with: aResponseData, options: .allowFragments)
                                     
                                     FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
                                     
                                     /// Save also the data in the Directory
-                                    self.cacheManager.saveCampaignsInCache(responseData)
+                                    self.cacheManager.saveCampaignsInCache(aResponseData)
                                     onGetCampaign(objectDecoded, nil)
                                     
                                 } catch {
                                     
                                     onGetCampaign(nil, FlagshipError.GetCampaignError)
-                                    print(error.localizedDescription)
                                 }
                             }else{
                                 
@@ -208,8 +207,8 @@ internal class ABService {
                               
                           }
                       }else{
-                          
-                          FSLogger.FSlog(error!.localizedDescription, .Network)
+                        
+                        FSLogger.FSlog("Fetch failed: \(error?.localizedDescription ?? "Unknown error")" , .Network)
                       }
                       
                       }.resume()
