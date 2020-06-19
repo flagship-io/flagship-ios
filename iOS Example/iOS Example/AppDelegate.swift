@@ -37,22 +37,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flagship.sharedInstance.updateContext("k5", "v5")
 
         
-        for index in 1...1 {
-            Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API, apacRegion: nil) { (result) in
-                  
-                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                
-                Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
-                
-                Flagship.sharedInstance.synchronizeModifications { (result) in
-                      
-                      print("BBBBBBBBBBBBBBBBBBBBBBBBB")
-                    Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
-
-                  }
-                }
-        }
-        
+//        for index in 1...100 {
+//            Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API, apacRegion: nil) { (result) in
+//
+//                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+//
+//                Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
+//
+//                Flagship.sharedInstance.synchronizeModifications { (result) in
+//
+//                      print("BBBBBBBBBBBBBBBBBBBBBBBBB")
+//                    Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
+//
+//                  }
+//                }
+//        }
+//
          
         return true
     }

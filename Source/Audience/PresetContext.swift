@@ -187,7 +187,7 @@ public enum PresetContext:String,CaseIterable {
             
             if (valueToSet is String){
                 
-                return FSDevice.validateIpAddress(ipToValidate:valueToSet as! String ) /// TO FIX
+                return FSDevice.validateIpAddress(ipToValidate:valueToSet as? String ?? "" ) 
             }else{
                 
                 return false
