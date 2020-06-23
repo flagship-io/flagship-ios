@@ -69,7 +69,7 @@ class FSServiceTest: XCTestCase {
     //// Send Item
     func testSendItemEvent(){
         
-        let item:FSItemTrack = FSItemTrack(transactionId: "id", name: "testItem")
+        let item:FSItemTrack = FSItemTrack(transactionId: "id", name: "testItem", code: "code")
         
         item.price = nil
         item.code = nil
