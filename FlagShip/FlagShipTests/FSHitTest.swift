@@ -104,7 +104,7 @@ class FSHitTest: XCTestCase {
     func testSendItem(){
         
         
-        let item:FSItem = FSItem(transactionId: "id", name: "testItem")
+        let item:FSItem = FSItem(transactionId: "id", name: "testItem", code: "code")
         
         item.price = nil
         item.code = nil

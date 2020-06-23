@@ -148,7 +148,7 @@ class FlagshipMock:Flagship {
         }
          // Purge data event
          DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-            self.service?.offLineTracking.flushStoredEvents()
+            self.service?.threadSafeOffline.flushStoredEvents()
          })
      }
     

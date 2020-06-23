@@ -70,7 +70,7 @@ class FSOfflineTrackingTest: XCTestCase {
         self.offlineTrack.saveEvent(FSTransaction(transactionId: "id", affiliation: "savedAffiliation"))
         
         /// Save item
-        self.offlineTrack.saveEvent(FSItem(transactionId: "id", name: "savedItem"))
+        self.offlineTrack.saveEvent(FSItem(transactionId: "id", name: "savedItem", code: "code"))
         
         ///  save page
         self.offlineTrack.saveEvent(FSPage("Savedpage"))
