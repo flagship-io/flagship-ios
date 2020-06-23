@@ -40,7 +40,7 @@ public class FSStorage {
             
         } else {
             
-            fatalError("Could not create URL for specified directory!")
+           // fatalError("Could not create URL for specified directory!")
         }
     }
     
@@ -58,11 +58,13 @@ public class FSStorage {
         do {
             let data = try encoder.encode(object)
             if FileManager.default.fileExists(atPath: url.path) {
+                
                 try FileManager.default.removeItem(at: url)
             }
             FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         } catch {
-            fatalError(error.localizedDescription)
+            
+            FSLogger.FSlog(error.localizedDescription, .Campaign)
         }
     }
     

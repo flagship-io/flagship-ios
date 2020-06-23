@@ -55,10 +55,10 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
  /// On Click Login
   @IBAction func onClickLogin(){
     
-    Flagship.sharedInstance.updateContext("isVip", true)
-    Flagship.sharedInstance.updateContext("basketNumber", 200)
-    Flagship.sharedInstance.updateContext("Boolean_Key", true)
-    Flagship.sharedInstance.updateContext("ctxKeyString", "june")
+//    Flagship.sharedInstance.updateContext("isVip", true)
+//    Flagship.sharedInstance.updateContext("basketNumber", 200)
+//    Flagship.sharedInstance.updateContext("Boolean_Key", true)
+//    Flagship.sharedInstance.updateContext("ctxKeyString", "june")
 
 
 
