@@ -40,7 +40,7 @@ public class FSStorage {
             
         } else {
             
-           // fatalError("Could not create URL for specified directory!")
+            fatalError("Could not create URL for specified directory!")
         }
     }
     
