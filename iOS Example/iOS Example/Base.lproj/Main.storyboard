@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BCC-VQ-JQX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BCC-VQ-JQX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,20 +42,38 @@
                                     <action selector="onShowLoginScreen" destination="BCC-VQ-JQX" eventType="touchUpInside" id="jmZ-3h-XUz"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hdN-ma-heQ">
+                                <rect key="frame" x="50" y="372" width="275" height="45"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="zBO-tf-43g"/>
+                                </constraints>
+                                <state key="normal" title="Connect with Facebook">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onShowLoginScreen" destination="BCC-VQ-JQX" eventType="touchUpInside" id="nhT-2G-O4H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.28235294117647058" green="0.83137254901960778" blue="0.83137254901960778" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gjy-8U-hqo" firstAttribute="top" secondItem="LRl-gf-z6I" secondAttribute="bottom" constant="100" id="2vh-3g-cw5"/>
                             <constraint firstAttribute="trailing" secondItem="LRl-gf-z6I" secondAttribute="trailing" constant="50" id="3g3-dw-hS0"/>
                             <constraint firstItem="LRl-gf-z6I" firstAttribute="top" secondItem="5qr-Wf-75o" secondAttribute="bottom" constant="20" id="6yP-89-zDK"/>
+                            <constraint firstItem="5qr-Wf-75o" firstAttribute="top" secondItem="hdN-ma-heQ" secondAttribute="bottom" constant="40" id="CRK-rq-BVw"/>
                             <constraint firstAttribute="trailing" secondItem="5qr-Wf-75o" secondAttribute="trailing" constant="50" id="GRy-lL-NoN"/>
                             <constraint firstItem="LRl-gf-z6I" firstAttribute="leading" secondItem="ulA-aj-q2q" secondAttribute="leading" constant="50" id="MsY-K5-Dgl"/>
+                            <constraint firstItem="hdN-ma-heQ" firstAttribute="leading" secondItem="ulA-aj-q2q" secondAttribute="leading" constant="50" id="N5d-kR-crn"/>
+                            <constraint firstItem="hdN-ma-heQ" firstAttribute="centerX" secondItem="ulA-aj-q2q" secondAttribute="centerX" id="Sth-R9-B8k"/>
+                            <constraint firstAttribute="trailing" secondItem="hdN-ma-heQ" secondAttribute="trailing" constant="50" id="VYf-eh-fHk"/>
                             <constraint firstItem="5qr-Wf-75o" firstAttribute="leading" secondItem="ulA-aj-q2q" secondAttribute="leading" constant="50" id="f7J-ow-Wsn"/>
                             <constraint firstItem="5qr-Wf-75o" firstAttribute="centerX" secondItem="ulA-aj-q2q" secondAttribute="centerX" id="mkF-QQ-D4p"/>
                             <constraint firstItem="LRl-gf-z6I" firstAttribute="centerX" secondItem="ulA-aj-q2q" secondAttribute="centerX" id="xZ0-U8-lAC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="faceBookBtn" destination="hdN-ma-heQ" id="esa-Hb-2Jf"/>
                         <outlet property="logInBtn" destination="LRl-gf-z6I" id="pcd-x2-SVC"/>
                         <outlet property="signInBtn" destination="5qr-Wf-75o" id="IZu-sC-c5A"/>
                         <segue destination="btC-6k-h3f" kind="show" identifier="showLoginScreen" id="zq6-eM-iMv"/>
@@ -325,35 +344,21 @@
                                     <action selector="onCancel" destination="btC-6k-h3f" eventType="touchUpInside" id="EGg-31-QQk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saK-Mw-bbJ">
-                                <rect key="frame" x="37.5" y="100" width="300" height="40"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="1tX-6N-KgY"/>
-                                    <constraint firstAttribute="height" constant="40" id="KTg-kt-b2J"/>
-                                </constraints>
-                                <state key="normal" title="Connect with Facebook">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.28235294119999998" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="H0f-Oh-7xe" firstAttribute="top" secondItem="NPQ-Xg-RbF" secondAttribute="bottom" constant="20" id="05E-SY-ZAi"/>
                             <constraint firstItem="H0f-Oh-7xe" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="Bl1-Ix-qrt"/>
-                            <constraint firstItem="saK-Mw-bbJ" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="Enw-2B-tSA"/>
                             <constraint firstItem="fHl-sY-Sx5" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="FHF-fo-Snn"/>
                             <constraint firstItem="W3H-UW-oTg" firstAttribute="leading" secondItem="ai5-dk-Tf1" secondAttribute="leading" constant="10" id="Kvr-uJ-Mn6"/>
                             <constraint firstItem="W3H-UW-oTg" firstAttribute="top" secondItem="JBr-ZB-cWE" secondAttribute="bottom" constant="10" id="RGx-KJ-uiW"/>
                             <constraint firstItem="fHl-sY-Sx5" firstAttribute="top" secondItem="H0f-Oh-7xe" secondAttribute="bottom" constant="100" id="mc3-Ny-pMs"/>
-                            <constraint firstItem="saK-Mw-bbJ" firstAttribute="top" secondItem="JBr-ZB-cWE" secondAttribute="bottom" constant="100" id="pNB-4t-z4r"/>
                             <constraint firstItem="NPQ-Xg-RbF" firstAttribute="top" secondItem="JBr-ZB-cWE" secondAttribute="bottom" constant="200" id="uL7-RW-nt9"/>
                             <constraint firstItem="NPQ-Xg-RbF" firstAttribute="centerX" secondItem="ai5-dk-Tf1" secondAttribute="centerX" id="xVt-O5-4ku"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BJm-H8-Ary"/>
                     <connections>
-                        <outlet property="faceBookBtn" destination="saK-Mw-bbJ" id="Zhc-vU-csP"/>
                         <outlet property="loginBtn" destination="fHl-sY-Sx5" id="09x-iE-Z6l"/>
                         <outlet property="loginTextField" destination="NPQ-Xg-RbF" id="3yu-YM-uIS"/>
                         <outlet property="passwordTestField" destination="H0f-Oh-7xe" id="bg7-6e-fYa"/>

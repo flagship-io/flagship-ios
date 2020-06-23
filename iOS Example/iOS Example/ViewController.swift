@@ -48,6 +48,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         /// Get Color for background defined in dashboard flagship
         let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#b6fcd5", activate: true)
+       
         /// Activate modification to tell Flagship that the user has seen this specific variation
         Flagship.sharedInstance.activateModification(key: "backgroundColor")
         self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
@@ -69,7 +70,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
        print( Flagship.sharedInstance.getModificationInfos("ctxKeyString"))
         
         Flagship.sharedInstance.getModificationInfos("btn-color")
-
         
         }
     
@@ -116,7 +116,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// Send KPI  "parrainage_kpi" when click on parrainage button
     @IBAction func onClikcParrainage(){
         
-        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "hit_parraingae_kpi"))
+        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "june_parainage_23"))
     }
     
     
@@ -125,23 +125,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onClikcButton(){
         
-        let event = FSEvent(eventCategory: .User_Engagement, eventAction: "product_kpi")
+        let event = FSEvent(eventCategory: .User_Engagement, eventAction: "june_jeans_23")
         event.label = "mainProduct"
         event.eventValue = 1
         event.sessionNumber = 1
-         event.userLanguage = "fr"
+        event.userLanguage = "fr"
         event.screenResolution = "100*100"
         Flagship.sharedInstance.sendHit(event)
-        
-        
-        
-        
-        //// Classic
-        let hit = FSTransaction(transactionId: "transacId", affiliation: "name")
-        
-        Flagship.sharedInstance.sendHit(hit)
-        
-        
         
     }
     
@@ -149,7 +139,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
        // Click Shoping
        @IBAction func onClikcThirdButton(){
-    
           
            // Create event for CTA Action
            // The event action you give here is the name who should be displayed on the report
@@ -169,26 +158,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         Flagship.sharedInstance.updateContext("isVip", vipSwitch.isOn)
         
-        
-        Flagship.sharedInstance.activateModification(key: "btn-color")
-        
         Flagship.sharedInstance.synchronizeModifications { (result) in
             
             DispatchQueue.main.async {
                 
-                
                 /// Get Color for background defined in dashboard flagship
-                let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#ffffff", activate: false)
+                let colorHexTitle =  Flagship.sharedInstance.getModification("backgroundColor", defaultString: "#b6fcd5", activate: false)
+                
                 /// Activate modification to tell Flagship that the user has seen this specific variation
                 Flagship.sharedInstance.activateModification(key: "backgroundColor")
                 self.view.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
                 
                 /// Get color for button
-                self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+                self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
                 
-                self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+                self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
                 
-                self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ffffff", activate: false), alpha: 1.0)
+                self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
 
                 
             }

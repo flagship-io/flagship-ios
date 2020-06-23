@@ -26,34 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-          /// Start Flagship
-        
-        
- 
-        Flagship.sharedInstance.updateContext("k1", "v1")
-        Flagship.sharedInstance.updateContext("k2", "v2")
-        Flagship.sharedInstance.updateContext("k3", "v3")
-        Flagship.sharedInstance.updateContext("k4", "v4")
-        Flagship.sharedInstance.updateContext("k5", "v5")
-
-        
-//        for index in 1...100 {
-//            Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .DECISION_API, apacRegion: nil) { (result) in
-//
-//                 print("AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-//
-//                Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
-//
-//                Flagship.sharedInstance.synchronizeModifications { (result) in
-//
-//                      print("BBBBBBBBBBBBBBBBBBBBBBBBB")
-//                    Flagship.sharedInstance.getModification("postNl_test", defaultBool: true,activate: true)
-//
-//                  }
-//                }
-//        }
-//
-         
         return true
     }
 
@@ -73,12 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        
-
-        Flagship.sharedInstance.synchronizeModifications { (result) in
-              
-              print("BBBBBBBBBBBBBBBBBBBBBBBBB")
-          }
             
     }
 

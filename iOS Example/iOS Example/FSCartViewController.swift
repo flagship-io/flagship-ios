@@ -110,44 +110,20 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func oncheckOut(){
         
-       
-
-                
-        // The affiliation is the name of transaction that should be appear in the report
-        
-        let transacEvent:FSTransaction = FSTransaction(transactionId:"transacId", affiliation: "BasketTransac")
-        transacEvent.currency = "EUR"
-        transacEvent.itemCount = 0
-        transacEvent.paymentMethod = "PayPal"
-        transacEvent.shippingMethod = "Fedex"
-        transacEvent.tax = 2.6
-        transacEvent.revenue = 15
-        transacEvent.shipping = 3.5
-        Flagship.sharedInstance.sendHit(transacEvent)
-        
-        
         //// new transac hit
-        let transac:FSTransaction = FSTransaction(transactionId:"transacId", affiliation: "BasketTransac_hit")
-        transacEvent.currency = "EUR"
-        transacEvent.itemCount = 0
-        transacEvent.paymentMethod = "PayPal"
-        transacEvent.shippingMethod = "Fedex"
-        transacEvent.tax = 2.6
-        transacEvent.revenue = 15
-        transacEvent.shipping = 3.5
+        let transac:FSTransaction = FSTransaction(transactionId:"transacId_2306", affiliation: "june_transaction_23")
+        transac.currency = "EUR"
+        transac.itemCount = 0
+        transac.paymentMethod = "PayPal"
+        transac.shippingMethod = "Fedex"
+        transac.tax = 2.6
+        transac.revenue = 15
+        transac.shipping = 3.5
         Flagship.sharedInstance.sendHit(transac)
         
         
-        
-        
-        //// create item
-        let item = FSItem(transactionId: "transacId", name: "itemName", code:"sku47")
-        Flagship.sharedInstance.sendHit(item)
-        
-        
-        /// create old item
-        let oldItem = FSItem(transactionId: "transacId", name: "itemName", code: "sku47")
-        Flagship.sharedInstance.sendHit(oldItem)
+        /// Send Item
+        Flagship.sharedInstance.sendHit(FSItem(transactionId: "transacId_2306", name: "juneItem", code: "codeItem"))
     }
     
     

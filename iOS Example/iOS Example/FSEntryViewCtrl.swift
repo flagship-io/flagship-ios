@@ -14,23 +14,28 @@ class FSEntryViewCtrl: UIViewController {
     
     @IBOutlet var signInBtn:UIButton!
     @IBOutlet var logInBtn:UIButton!
+              var loadView:UIActivityIndicatorView!
+    /// fb button
+    @IBOutlet var faceBookBtn:UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
+
+        faceBookBtn.layer.cornerRadius = faceBookBtn.frame.height/2
+        faceBookBtn.layer.masksToBounds = true
         
-        let loadView = UIActivityIndicatorView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 100, height: 100))
+        
+        
+        loadView = UIActivityIndicatorView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 100, height: 100))
         loadView.center = self.view.center
         loadView.color = .red
         loadView.startAnimating()
         self.view.addSubview(loadView)
         
- 
-            
-        /// Set The sdk context
-        Flagship.sharedInstance.updateContext(["sdk_city":"panama", "isVip":false, "basketNumber":100])
+        
         
         /// Loading view
         _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onFinish), userInfo: nil, repeats: false)
@@ -40,8 +45,17 @@ class FSEntryViewCtrl: UIViewController {
  
     @objc func onFinish(){
         
-        self.performSegue(withIdentifier: "showLoginScreen", sender:nil)
-        
+        DispatchQueue.main.async {
+            
+            self.logInBtn.isHidden = false
+            
+            self.signInBtn.isHidden = false
+            
+            self.loadView.removeFromSuperview()
+            
+            self.faceBookBtn.isHidden = false
+
+        }
     }
     
     

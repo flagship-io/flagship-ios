@@ -20,10 +20,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var passwordTestField:UITextField!
     /// Login btn
     @IBOutlet var loginBtn:UIButton!
-    /// fb button
-    @IBOutlet var faceBookBtn:UIButton!
-    
-    
+
 
     
     
@@ -35,8 +32,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
         loginBtn.layer.cornerRadius = loginBtn.frame.height/2
         loginBtn.layer.masksToBounds = true
         
-        faceBookBtn.layer.cornerRadius = loginBtn.frame.height/2
-        faceBookBtn.layer.masksToBounds = true
+
         
         // Add gesture
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
@@ -58,16 +54,13 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
  /// On Click Login
   @IBAction func onClickLogin(){
-      
-    /// Set Context
-    Flagship.sharedInstance.updateContext("ctxString", "ctx")
     
-    
-    Flagship.sharedInstance.updateContext("ctxStringFromApp", "helloCtx")
-    
-    Flagship.sharedInstance.updateContext("ctxBoolFromApp", true)
+    Flagship.sharedInstance.updateContext("isVip", true)
+    Flagship.sharedInstance.updateContext("basketNumber", 200)
+    Flagship.sharedInstance.updateContext("Boolean_Key", true)
+    Flagship.sharedInstance.updateContext("ctxKeyString", "june")
 
-    Flagship.sharedInstance.updateContext("ctxNumberFromApp", 123)
+
 
 
     
