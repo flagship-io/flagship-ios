@@ -122,8 +122,18 @@ class FSCartViewController: UIViewController, UITableViewDelegate, UITableViewDa
         Flagship.sharedInstance.sendHit(transac)
         
         
+        
+        /// Create item hit
+        let itemHit = FSItem(transactionId: "idTransaction", name: "itemName", code: "codeSku")
+        /// Set price
+        itemHit.price = 20
+        /// set category
+        itemHit.category = "shoes"
+        /// set quantity
+        itemHit.quantity = 2
+        
         /// Send Item
-        Flagship.sharedInstance.sendHit(FSItem(transactionId: "transacId_2306", name: "juneItem", code: "codeItem"))
+        Flagship.sharedInstance.sendHit(itemHit)
     }
     
     

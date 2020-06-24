@@ -36,6 +36,8 @@
     }];
     
     
+    [[Flagship sharedInstance] updateContext:@{@"Boolean_Key":@YES,@"String_Key":@"june",@"Number_Key":@200}];
+    
     [[Flagship sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :NULL completionHandler:^( FlagshipResult result) {
         
         if (result == FlagshipResultReady){
@@ -129,10 +131,16 @@
     
     
     // Create item event
-    FSItem * itemEvent = [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac" code:@""];
+    FSItem * itemhit = [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac" code:@"codeSku"];
+    /// Set Price
+    itemhit.price = @20;
+    /// Set category
+    itemhit.category = @"category";
+    /// Set quantity
+    itemhit.quantity = @1;
 
     // Send item event
-    [[Flagship sharedInstance] sendItemEvent:itemEvent];
+    [[Flagship sharedInstance] sendItemEvent:itemhit];
     
     
     

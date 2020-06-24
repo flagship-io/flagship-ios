@@ -65,13 +65,30 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         
         
-        /// test get infos
         
-       print( Flagship.sharedInstance.getModificationInfos("ctxKeyString"))
+        // The get modificationInfo return [String:String]? // { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
         
-        Flagship.sharedInstance.getModificationInfos("btn-color")
+        let inofs = Flagship.sharedInstance.getModificationInfo("btn-color")
         
+        if let infoCampaign = inofs {
+            
+            /// Retreive the campaignId
+            let campaignId = infoCampaign["campaignId"] ?? "None"
+            
+            /// Retreive the variationGroupId
+            let variationGroupId = infoCampaign["variationGroupId"] ?? "None"
+            
+            /// Retreive the variationId
+            let variationId = infoCampaign["variationId"] ?? "None"
+            
+            
+            print(campaignId   + variationId   + variationGroupId  )
+            
+        }else {
+            
+            print("The key modification don't exist")
         }
+    }
     
      // Show AB test  (Store Screen)
     @IBAction func showShoesScreen(){

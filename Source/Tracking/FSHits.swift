@@ -186,7 +186,7 @@ import Foundation
     public var quantity:NSNumber?
     
     /// Specifies the item code or SKU
-    public var code:String!
+    private var code:String!
     
     /// Specifies the item category
     public var category:String?

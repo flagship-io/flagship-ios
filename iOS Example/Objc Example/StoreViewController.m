@@ -22,7 +22,27 @@
     // Set Message Label
     msgLabel.text =  [[Flagship sharedInstance] getModification:@"cta_text" defaultString:@"Default" activate:YES];
     
+    
+    /// Get modification info
+    NSDictionary * dico =  [[Flagship sharedInstance] getModificationInfo:@"btn-color"];
+    
+    if (dico){
+        /// Get campaignid
+        NSString * campaignId = [dico valueForKey:@"campaignId"];
+        /// Get variation group id
+        NSString * variationGroupId = [dico valueForKey:@"variationGroupId"];
+        /// Get variation id
+        NSString * variationId = [dico valueForKey:@"variationId"];
+        
+        NSLog(@" %@ , %@, %@", campaignId, variationGroupId, variationId);
+
+    }else{
+        
+        NSLog(@"The key modification doesn't exist.");
+    }
 }
+
+
 
 
 - (IBAction)cancel{
@@ -34,6 +54,7 @@
 // Send All Event Possible
 - (IBAction)sendEvent{
     
+   
     
     // Send Page
     [[Flagship sharedInstance] sendPageEvent: [[FSPageTrack alloc] init:@"StorePage"]];
@@ -43,7 +64,6 @@
     FSItem * itemTrack = [[FSItem alloc] initWithTransactionId:@"Ttransac" name:@"nameTransac" code:@""];
     itemTrack.price = @0;
     itemTrack.quantity = @12;
-    itemTrack.code = @"codeTrack";
     [[Flagship sharedInstance] sendItemEvent:itemTrack];
     
     

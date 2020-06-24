@@ -512,7 +512,7 @@ public class Flagship:NSObject{
     /*
      Get modification infos.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
      */
-    @objc public func getModificationInfos(_ key:String) -> [String:String]? {
+    @objc public func getModificationInfo(_ key:String) -> [String:String]? {
         
         
         if self.campaigns != nil {
