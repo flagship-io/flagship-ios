@@ -49,6 +49,9 @@ class FlagshipTestWithMockedData: XCTestCase {
             
             Flagship.sharedInstance.activateModification(key: "ctxKeyString")
             
+            Flagship.sharedInstance.activateModification(key: "key1")
+
+            
             let result = Flagship.sharedInstance.getModificationInfos("ctxKeyString")
             
             XCTAssert(result is [String:String]? || result == nil)

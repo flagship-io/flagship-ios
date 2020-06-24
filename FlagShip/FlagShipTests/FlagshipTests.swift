@@ -76,7 +76,11 @@ class FlagshipTests: XCTestCase {
 
     func testStartFlagship(){
         
-        
+        Flagship.sharedInstance.updateContext("Boolean_Key", true)
+        Flagship.sharedInstance.updateContext("String_Key", "june")
+        Flagship.sharedInstance.updateContext("Number_Key", 200)
+
+
         Flagship.sharedInstance.activateModification(key: "")
 
         let expectation = self.expectation(description: #function)
@@ -84,6 +88,8 @@ class FlagshipTests: XCTestCase {
 
             XCTAssert(result == .Ready)
             
+            Flagship.sharedInstance.activateModification(key: "btn-color")
+
             
             Flagship.sharedInstance.getCampaigns { (state) in
                 
