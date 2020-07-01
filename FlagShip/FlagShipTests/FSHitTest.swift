@@ -107,7 +107,6 @@ class FSHitTest: XCTestCase {
         let item:FSItem = FSItem(transactionId: "id", name: "testItem", code: "code")
         
         item.price = nil
-        item.code = nil
         item.quantity =  nil
         item.category = nil
         Flagship.sharedInstance.sendHit(item)

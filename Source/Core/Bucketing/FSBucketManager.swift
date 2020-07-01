@@ -78,13 +78,15 @@ class FSBucketManager: NSObject {
                     
                     if (targetManager.isTargetingGroupIsOkay(variationGroupItem.targeting)){
                         
-                        print("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY")
+                        FSLogger.FSlog("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY", .Campaign)
+
                         
                         
                         // select variation here
                         guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem, visitorConsolidation) else{
                             
-                            print("probleme here don 't found the id variation selected")
+                            FSLogger.FSlog("probleme here don 't found the id variation selected", .Campaign)
+                            
                             continue
                             
                         }
@@ -106,7 +108,7 @@ class FSBucketManager: NSObject {
                         
                     }else{
                         
-                        print("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK")
+                        FSLogger.FSlog("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK", .Campaign)
                         
                     }
                 }
@@ -156,7 +158,6 @@ class FSBucketManager: NSObject {
         
         // Murmur the custom id
         
-        print("hashAlloc ..........\(hashAlloc)")
         var offsetAlloc = 0
         for item:FSVariation in  variationGroup.variations{
             

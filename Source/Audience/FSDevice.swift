@@ -59,42 +59,18 @@ internal class FSDevice: NSObject {
         let startedBefore = UserDefaults.standard.bool(forKey: "sdk_firstTimeUser")
         if startedBefore
         {
-            print("Already started before ......")
+            FSLogger.FSlog("Already started before ......", .Campaign)
         }
         else
         {
-            print("This is a first start")
+
+            FSLogger.FSlog("This is a first start.....", .Campaign)
+            
             UserDefaults.standard.set(true, forKey: "sdk_firstTimeUser")
         }
         // FIRST_TIME_USER : TRUE (FALSE if the user is a returning one)
         return !startedBefore
     }
-    
-//    class func getInternetConnexion()->String?{
-//
-//        let con = SCNetworkReachabilityCreateWithName(nil, "www.google.fr")
-//
-//        var flags = SCNetworkReachabilityFlags()
-//        SCNetworkReachabilityGetFlags(con!, &flags)
-//
-//        if (flags.contains(.reachable)){
-//
-//            if (flags.contains(.isWWAN)){
-//
-//                print(" Connect via Mobile ")
-//                return "cellular"
-//            }else{
-//
-//                print(" Connect via wifi ")
-//                return "Wifi"
-//            }
-//
-//        }else{
-//
-//            return nil
-//        }
-//    }
-    
     
     class func validateIpAddress(ipToValidate: String) -> Bool {
 
