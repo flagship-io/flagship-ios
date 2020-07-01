@@ -511,6 +511,10 @@ public class Flagship:NSObject{
     
     /*
      Get modification infos.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
+     
+     @param key for associated  modification
+     
+     @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”} or nil
      */
     @objc public func getModificationInfo(_ key:String) -> [String:String]? {
         

@@ -27,18 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
-        for index in 1...100{
-            
-            
-            UserDefaults.standard.removeObject(forKey: "FSLastModifiedScript")
-            
-            
-            Flagship.sharedInstance.start(environmentId:"bkk9glocmjcg0vtmdlng"  , nil , .BUCKETING, apacRegion:nil) { (result) in
-                
-                print("start done for N: \(index)")
-                
-            }
-        }
+//        for index in 1...100{
+//
+//
+//            UserDefaults.standard.removeObject(forKey: "FSLastModifiedScript")
+//            
+//
+//            Flagship.sharedInstance.start(environmentId:"bkk9glocmjcg0vtmdlng"  , nil , .BUCKETING, apacRegion:nil) { (result) in
+//
+//                print("start done for N: \(index)")
+//
+//            }
+//        }
         
         
         return true
