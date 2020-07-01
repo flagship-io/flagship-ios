@@ -61,9 +61,6 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     Flagship.sharedInstance.updateContext("String_Key", "june")
 
 
-
-
-    
     
     /// Start Flagship
     Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API) { (result) in
