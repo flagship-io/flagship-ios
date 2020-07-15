@@ -161,7 +161,7 @@ class FSBucketManager: NSObject {
         var offsetAlloc = 0
         for item:FSVariation in  variationGroup.variations{
             
-            if(hashAlloc <= item.allocation + offsetAlloc){
+            if(hashAlloc < item.allocation + offsetAlloc){ 
                 
                 return item.idVariation
             }
