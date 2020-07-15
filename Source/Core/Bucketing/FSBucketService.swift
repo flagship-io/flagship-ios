@@ -92,7 +92,13 @@ internal extension ABService {
     func sendkeyValueContext(_ currentContext:Dictionary <String,Any>){
         
         do{
-            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "data":currentContext, "type": "CONTEXT"]
+            
+            /// Filter the dictionary before uploading ...
+            var aCuurrentContext:[String:Any] = currentContext
+            /// Remove the ALL_USERS
+            aCuurrentContext.removeValue(forKey: ALL_USERS)
+            
+            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "data":aCuurrentContext, "type": "CONTEXT"]
             
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
