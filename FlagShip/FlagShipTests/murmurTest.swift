@@ -12,77 +12,76 @@ import XCTest
 class murmurTest: XCTestCase {
     
     
+    /// See the file  https://docs.google.com/spreadsheets/d/1WOWyr7KBo9fN4SVKVqTvmwhmQhSZDMnkHQSlSoH_Acs/edit#gid=491574280
     let sampleIds:[sample] = [
-               // 202072017183814142    1    4    ok
-               sample("202072017183814142", pAlloc50: 1, pAlloc25: 4),
-               
-               //202072017183860649    1    1    ok
-               sample("202072017183860649", pAlloc50: 1, pAlloc25: 1),
-               
-               // 202072017183828850    1    2    ok
-               sample("202072017183828850", pAlloc50: 1, pAlloc25: 2),
-               
-               // 202072017183818733    1    4    ok
-               sample("202072017183818733", pAlloc50: 1, pAlloc25: 4),
-               // 202072017183823773    2    2    ok
-               sample("202072017183823773", pAlloc50: 2, pAlloc25: 2),
-         
-               // 202072017183894922    1    4    ok
-               sample("202072017183894922", pAlloc50: 1, pAlloc25: 4),
-               
-               // 202072017183829817    1    1    ok
-               sample("202072017183829817", pAlloc50: 1, pAlloc25: 1),
-               
-               //202072017183842202    1    3    ok
-               sample("202072017183842202", pAlloc50: 1, pAlloc25: 3),
-               
-               //202072017233645009    2    2    ok
-               sample("202072017233645009", pAlloc50: 2, pAlloc25: 2),
-               
-               
-               //202072017233690230    2    1    ok
-               sample("202072017233690230", pAlloc50: 2, pAlloc25: 1),
-               
-               //202072017183886606    1    4    ok
-               sample("202072017183886606", pAlloc50: 1, pAlloc25: 4),
-               
-               
-               //202072017183877657    1    4    ok
-               sample("202072017183877657", pAlloc50: 1, pAlloc25: 4),
-               
-               //202072017183860380    1    1    ok
-               sample("202072017183860380", pAlloc50: 1, pAlloc25: 1),
-               
-               //202072017183972690    2    1    ok
-               sample("202072017183972690", pAlloc50: 2, pAlloc25: 1),
-               
-               
-               //202072017183912618    1    2    ok
-               sample("202072017183912618", pAlloc50: 1, pAlloc25: 2),
-               
-               
-               //202072017183951364    1    3    ok
-               sample("202072017183951364", pAlloc50: 1, pAlloc25: 3),
-               
-               
-               //202072017183920657    2    4    ok
-               sample("202072017183920657", pAlloc50: 2, pAlloc25: 4),
-               
-               
-               //202072017183922748    2    1    ok
-               sample("202072017183922748", pAlloc50: 2, pAlloc25: 1),
-               
-               //202072017183943575    1    3    ok
-               sample("202072017183943575", pAlloc50: 1, pAlloc25: 3),
-               
-               // 202072017183987677    1    4    ok
-               sample("202072017183987677", pAlloc50: 1, pAlloc25: 4)
-           ]
+        // 202072017183814142    1    4    ok
+        sample("202072017183814142", pAlloc50: 1, pAlloc25: 4),
+        
+        //202072017183860649    1    1    ok
+        sample("202072017183860649", pAlloc50: 1, pAlloc25: 1),
+        
+        // 202072017183828850    1    2    ok
+        sample("202072017183828850", pAlloc50: 1, pAlloc25: 2),
+        
+        // 202072017183818733    1    4    ok
+        sample("202072017183818733", pAlloc50: 1, pAlloc25: 4),
+        // 202072017183823773    2    2    ok
+        sample("202072017183823773", pAlloc50: 2, pAlloc25: 2),
+        
+        // 202072017183894922    1    4    ok
+        sample("202072017183894922", pAlloc50: 1, pAlloc25: 4),
+        
+        // 202072017183829817    1    1    ok
+        sample("202072017183829817", pAlloc50: 1, pAlloc25: 1),
+        
+        //202072017183842202    1    3    ok
+        sample("202072017183842202", pAlloc50: 1, pAlloc25: 3),
+        
+        //202072017233645009    2    2    ok
+        sample("202072017233645009", pAlloc50: 2, pAlloc25: 2),
+        
+        
+        //202072017233690230    2    1    ok
+        sample("202072017233690230", pAlloc50: 2, pAlloc25: 1),
+        
+        //202072017183886606    1    4    ok
+        sample("202072017183886606", pAlloc50: 1, pAlloc25: 4),
+        
+        
+        //202072017183877657    1    4    ok
+        sample("202072017183877657", pAlloc50: 1, pAlloc25: 4),
+        
+        //202072017183860380    1    1    ok
+        sample("202072017183860380", pAlloc50: 1, pAlloc25: 1),
+        
+        //202072017183972690    2    1    ok
+        sample("202072017183972690", pAlloc50: 2, pAlloc25: 1),
+        
+        
+        //202072017183912618    1    2    ok
+        sample("202072017183912618", pAlloc50: 1, pAlloc25: 2),
+        
+        
+        //202072017183951364    1    3    ok
+        sample("202072017183951364", pAlloc50: 1, pAlloc25: 3),
+        
+        
+        //202072017183920657    2    4    ok
+        sample("202072017183920657", pAlloc50: 2, pAlloc25: 4),
+        
+        
+        //202072017183922748    2    1    ok
+        sample("202072017183922748", pAlloc50: 2, pAlloc25: 1),
+        
+        //202072017183943575    1    3    ok
+        sample("202072017183943575", pAlloc50: 1, pAlloc25: 3),
+        
+        // 202072017183987677    1    4    ok
+        sample("202072017183987677", pAlloc50: 1, pAlloc25: 4)
+    ]
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        
     }
 
     override func tearDownWithError() throws {
@@ -148,10 +147,7 @@ class murmurTest: XCTestCase {
         return nil
     }
     
-     // "id": "bqso7p5tl9jg05d8033g",
-    // "id": "bqso7p5tl9jg05d80340",
-   
-
+    
     func testDistributionMurMurHash(){
         
         if let lightBucketObject = getLightMock("lightBucketMock"){
@@ -172,11 +168,11 @@ class murmurTest: XCTestCase {
                 print("Test distribution for id : \(idToTesst)")
                 let bucketCache =  FSBucketManager().matchTargetingForCustomID(lightBucketObject, idToTesst, true)
                 
-                // check wich variation we got :
+                // Check wich variation we got :
                 
                 if let testCamp = bucketCache.getCampaignArray().first {
                     
-                   // check the Id
+                   // Check the Id
                     
                     if  (testCamp.variation?.idVariation == "bqso7p5tl9jg05d8033g"){
                         A += 1
@@ -200,15 +196,15 @@ class murmurTest: XCTestCase {
             
             let delta = abs(A-B)
             
-            print("Delta entre les deux variations est \(delta)")
+            print("Delta between variations is  \(delta)")
             
             let  percentA:Double = (A / Double(Max))*100
             let  percentB:Double = (B / Double(Max))*100
 
-            print("pourcentage de variation A est \(percentA)")
+            print("pourcent of variation A is \(percentA)")
             
             
-            print("pourcentage de variation A est \(percentB)")
+            print("pourcent of variation B is \(percentB)")
             
             
             XCTAssert((A + B) == Double(Max))
@@ -274,7 +270,7 @@ class murmurTest: XCTestCase {
     }
     
     
-//// get light mock
+//// Get light mock
 
     func getLightMock(_ fileName:String)->FSBucket? {
     
