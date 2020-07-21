@@ -63,7 +63,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
 
     
     /// Start Flagship
-    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .DECISION_API) { (result) in
+    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", loginTextField.text, .BUCKETING) { (result) in
         
          Flagship.sharedInstance.synchronizeModifications { (result) in
             

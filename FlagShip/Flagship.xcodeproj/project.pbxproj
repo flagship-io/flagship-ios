@@ -30,6 +30,8 @@
 		8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFD240FBFB3005A13CE /* FSRegion.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
 		8B6DC66924BF5BA300A0EB34 /* usersId.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66824BF5BA300A0EB34 /* usersId.json */; };
+		8B6DC67024C5E7E500A0EB34 /* lightBucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */; };
+		8B6DC67224C6E96E00A0EB34 /* sampleIdBucket.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */; };
 		8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */; };
 		8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */; };
 		8B871F5224A24EC5001DE9F8 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 8B871F4224A24EC5001DE9F8 /* Data */; };
@@ -98,6 +100,8 @@
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
 		8B6DC66824BF5BA300A0EB34 /* usersId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = usersId.json; path = ../../Flagship/FlagShipTests/usersId.json; sourceTree = "<group>"; };
+		8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lightBucketMock.json; sourceTree = "<group>"; };
+		8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleIdBucket.json; sourceTree = "<group>"; };
 		8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSStorageTest.swift; path = ../../Flagship/FlagShipTests/FSStorageTest.swift; sourceTree = "<group>"; };
 		8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlagshipTestWithMockedData.swift; path = ../../Flagship/FlagShipTests/FlagshipTestWithMockedData.swift; sourceTree = "<group>"; };
 		8B871F4224A24EC5001DE9F8 /* Data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Data; path = ../../Flagship/FlagShipTests/Data; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 		8B871F4424A24EC5001DE9F8 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */,
+				8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */,
 				8B871F4524A24EC5001DE9F8 /* ServiceMock.swift */,
 				8B871F4624A24EC5001DE9F8 /* bucketMock.json */,
 				8B871F4724A24EC5001DE9F8 /* FlagshipMock.swift */,
@@ -440,6 +446,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6DC67024C5E7E500A0EB34 /* lightBucketMock.json in Resources */,
+				8B6DC67224C6E96E00A0EB34 /* sampleIdBucket.json in Resources */,
 				8B871F5224A24EC5001DE9F8 /* Data in Resources */,
 				8B6DC66924BF5BA300A0EB34 /* usersId.json in Resources */,
 				8B871F5524A24EC5001DE9F8 /* bucketMock.json in Resources */,

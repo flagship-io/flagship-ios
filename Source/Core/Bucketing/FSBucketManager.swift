@@ -154,9 +154,14 @@ class FSBucketManager: NSObject {
         
         FSLogger.FSlog("Apply MurMurHash Algo on customId", .Campaign)
         
-        hashAlloc = (Int(MurmurHash3.hash32(key: visitorId) % 100))
+        /// We calculate the Hash allocation by the combonation of : visitorId + idVariationGroup
         
-        // Murmur the custom id
+        let combinedId = variationGroup.idVariationGroup + visitorId
+        
+        FSLogger.FSlog(" The combined id for MurMurHash is :  \(combinedId)", .Campaign)
+        
+        hashAlloc = (Int(MurmurHash3.hash32(key: combinedId) % 100))
+        
         
         var offsetAlloc = 0
         for item:FSVariation in  variationGroup.variations{
