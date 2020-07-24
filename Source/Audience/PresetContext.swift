@@ -10,6 +10,10 @@ import UIKit
 
 
 
+let IOS_VERSION = "iOS"
+let ALL_USERS   = "fs_all_users"
+
+
 
 
 /// Enumeration cases that represent **Predefined** targetings

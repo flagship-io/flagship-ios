@@ -111,12 +111,8 @@ internal extension ABService {
                 uploadKeyValueCtxRqst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                /// Add x-api-key for apacOption
-                
-                if (apacRegion != nil){
-                    
-                    uploadKeyValueCtxRqst.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
+                /// Add x-api-key
+                uploadKeyValueCtxRqst.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
                 
                 let session = URLSession(configuration:URLSessionConfiguration.default)

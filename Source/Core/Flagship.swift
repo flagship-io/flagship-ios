@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 /**
  
  `FlagShip` class helps you run FlagShip on your native iOS app.
@@ -129,95 +128,21 @@ public class Flagship:NSObject{
     
     
     /**
-     Start FlagShip
+    Start FlagShip
+       
+    @param environmentId String environmentId id for client
      
-     @param environmentId String environmentId id for client
+    @param apiKey String provided by abtasty apiKey
+
+    @param visitorId String visitor id @optional
      
-     @param visitorId String visitor id
-     
-     @param pBlock The block to be invoked when sdk is ready
-     */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
-    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagshipResult)->Void){
+    @param FSConfig Object config @optional
+ 
+    @param onStartDone The block to be invoked when sdk is ready
+    */
+    @objc public  func start( environmentId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
         
-        // Checkc the environmentId
-        if (FSTools.chekcXidEnvironment(environmentId)){
-            
-            self.environmentId = environmentId
-            
-        }else{
-            
-            completionHandler(.NotReady)
-            return
-        }
-        
-        
-        /// Manage visitor id
-        do {
-            self.visitorId =  try FSTools.manageVisitorId(visitorId)
-            
-        }catch{
-            
-            completionHandler(.NotReady)
-            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK FlagShip is not ready "), .Campaign)
-            return
-        }
-        
-        // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId)
-        
-        // Set the préconfigured context
-        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
-        
-        
-        // Add the keys all_users temporary
-        self.context.currentContext.updateValue("", forKey:ALL_USERS)
-        
-        // The current context is
-        FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
-        
-        
-        // Au départ mettre a dispo les campaigns du cache.
-        self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
-        self.context.updateModification(self.campaigns)
-        
-        // Mettre à jour les campaigns
-        self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
-            
-            if (error == nil){
-                // Set Campaigns
-                
-                // Check if the panic button is activated
-                if (campaigns?.panic ?? false){
-                    
-                    // Update the state
-                    self.disabledSdk = true
-                    FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
-                    
-                    FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
-                    
-                    completionHandler(FlagshipResult.Disabled)
-                    
-                }else{
-                    
-                    self.disabledSdk = false
-                    self.campaigns = campaigns
-                    self.context.updateModification(campaigns)
-                    completionHandler(FlagshipResult.Ready)
-                }
-            }else{
-                
-                FSLogger.FSlog(String(format: "Error on get campaign, the SDK is not ready for use"), .Campaign)
-                
-                completionHandler(FlagshipResult.NotReady)
-            }
-        }
-        
-        // Purge data event
-        DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-            self.service?.threadSafeOffline.flushStoredEvents()
-        })
+        start(environmentId: environmentId, apiKey: apiKey, visitorId: visitorId, mode: config.mode, onStartDone:onStartDone)
     }
     
     
@@ -232,7 +157,6 @@ public class Flagship:NSObject{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
             return
         }
-        
         
         FSLogger.FSlog("Get Campaign .............", .Campaign)
         
@@ -278,92 +202,7 @@ public class Flagship:NSObject{
         }
     }
     
-    
-    
-    /**
-     Update Context
-     
-     @param contextvalues Dictionary that represent keys value relative to users
-     
-     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
-     */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
-    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagshipResult)->Void)?){
-        
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
-        }
-        FSLogger.FSlog("Update context", .Campaign)
-        
-        self.context.currentContext.merge(contextValues) { (_, new) in new }
-        if let aSync = sync  {
-            
-            self.getCampaigns { (error) in
-                
-                if (error == nil){
-                    
-                    aSync(.Updated)
-                    
-                }else{
-                    
-                    aSync(.NotReady)
-                }
-            }
-        }
-    }
-    
-    
-    /**
-     Update Context with Pre defined keys
-     
-     @param configuredKey FSAudiences Enum for pre defined keys
-     
-     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
-     */
-    @available(iOS, introduced: 1.1.0, deprecated: 1.2.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
-    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagshipResult)->Void)?){
-        
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
-        }
-        
-        //Check the validity value
-        
-        if (!configuredKey.chekcValidity(value)){
-            
-            FSLogger.FSlog(" Skip updating the context with pre configured key \(configuredKey) ..... the value is not valid", .Campaign)
-            
-        }
-        
-        FSLogger.FSlog(" Update context with pre configured key", .Campaign)
-        
-        
-        self.context.currentContext.updateValue(value, forKey:configuredKey.rawValue)
-        
-        
-        if let aSync = sync{
-            
-            self.getCampaigns { (error) in
-                
-                if (error == nil){
-                    
-                    aSync(.Updated)
-                    
-                }else{
-                    
-                    aSync(.NotReady)
-                    
-                }
-            }
-            
-        }
-    }
-    
+
     
     
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
@@ -550,23 +389,6 @@ public class Flagship:NSObject{
             
             self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
-    }
-    
-    
-    /**
-     Send Events for tracking data
-     
-     @param event Event Object (Page, Transaction, Item, Event)
-     
-     */
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use sendHit")
-    public func sendTracking<T: FSTrackingProtocol>(_ event:T){
-        
-        if disabledSdk{
-            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
-            return
-        }
-        self.service?.sendTracking(event)
     }
     
     

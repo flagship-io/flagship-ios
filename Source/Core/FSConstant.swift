@@ -6,13 +6,11 @@
 //
 
 import Foundation
- 
-
-internal let FlagShipEndEurope    = "https://decision-api.flagship.io/v1/"
 
 
- /// New endpoint for apac
-internal let FlagShipEndApac = "https://decision.flagship.io/v2/"
+/// Universaal End Point
+internal let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
+
 
 
 /// XApi key
@@ -22,15 +20,7 @@ internal let FSX_Api_Key   =  "x-api-key"
  
 internal var FlagShipEndPoint :String {
     
-    if ((Flagship.sharedInstance.service?.apacRegion) != nil){
-        
-          return FlagShipEndApac
-
-    }else{
-        
-          return FlagShipEndEurope
-    }
-    
+     return FlagshipUniversalEndPoint
 }
 
 ///// GET CAMPAIGNS /////////////////////////////////

@@ -120,18 +120,5 @@ class FlagshipTests: XCTestCase {
 
     
     
-    /// Deprecated start
-    
-    func testDeprecatedStart(){
-        
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.startFlagShip(environmentId: "bkk9glocmjcg0vtmdlng", "alias") { (result) in
-            
-            XCTAssert(result == .Ready)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 10)
-
-    }
+ 
 }

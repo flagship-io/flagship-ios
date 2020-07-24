@@ -32,6 +32,8 @@
 		8B6DC66924BF5BA300A0EB34 /* usersId.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66824BF5BA300A0EB34 /* usersId.json */; };
 		8B6DC67024C5E7E500A0EB34 /* lightBucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */; };
 		8B6DC67224C6E96E00A0EB34 /* sampleIdBucket.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */; };
+		8B6DC67724C9EB2100A0EB34 /* FSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DC67524C9E38D00A0EB34 /* FSConfig.swift */; };
+		8B6DC67824C9EB2D00A0EB34 /* Flagship+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DC67324C9E28100A0EB34 /* Flagship+Config.swift */; };
 		8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */; };
 		8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */; };
 		8B871F5224A24EC5001DE9F8 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 8B871F4224A24EC5001DE9F8 /* Data */; };
@@ -102,6 +104,8 @@
 		8B6DC66824BF5BA300A0EB34 /* usersId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = usersId.json; path = ../../Flagship/FlagShipTests/usersId.json; sourceTree = "<group>"; };
 		8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lightBucketMock.json; sourceTree = "<group>"; };
 		8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleIdBucket.json; sourceTree = "<group>"; };
+		8B6DC67324C9E28100A0EB34 /* Flagship+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flagship+Config.swift"; sourceTree = "<group>"; };
+		8B6DC67524C9E38D00A0EB34 /* FSConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConfig.swift; sourceTree = "<group>"; };
 		8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSStorageTest.swift; path = ../../Flagship/FlagShipTests/FSStorageTest.swift; sourceTree = "<group>"; };
 		8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlagshipTestWithMockedData.swift; path = ../../Flagship/FlagShipTests/FlagshipTestWithMockedData.swift; sourceTree = "<group>"; };
 		8B871F4224A24EC5001DE9F8 /* Data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Data; path = ../../Flagship/FlagShipTests/Data; sourceTree = "<group>"; };
@@ -270,6 +274,9 @@
 			isa = PBXGroup;
 			children = (
 				8BF02D6E23C4CA24006D154E /* Flagship.swift */,
+				8B6DC67524C9E38D00A0EB34 /* FSConfig.swift */,
+				8BF02D7B23C4CA24006D154E /* FSFlagShip+Context.swift */,
+				8B6DC67324C9E28100A0EB34 /* Flagship+Config.swift */,
 				8BF02D6F23C4CA24006D154E /* FlagShipError.swift */,
 				8BF02D7023C4CA24006D154E /* FSConstant.swift */,
 				8BF02D7123C4CA24006D154E /* FSContext.swift */,
@@ -277,7 +284,6 @@
 				8BF02D7323C4CA24006D154E /* ABService.swift */,
 				8BF02D7423C4CA24006D154E /* Service */,
 				8BF02D7623C4CA24006D154E /* Bucketing */,
-				8BF02D7B23C4CA24006D154E /* FSFlagShip+Context.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -557,8 +563,10 @@
 				8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */,
 				8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */,
 				8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */,
+				8B6DC67724C9EB2100A0EB34 /* FSConfig.swift in Sources */,
 				8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */,
 				8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */,
+				8B6DC67824C9EB2D00A0EB34 /* Flagship+Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +653,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -673,7 +681,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 3.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -56,50 +56,16 @@ class FSServiceTest: XCTestCase {
     
     
     
-    /// Send EventTrack
-    func testSendEventTrack(){
-        
-        serviceTest.sendEvent( FSEventTrack(eventCategory: .User_Engagement, eventAction: "testAction"))
-        
-        serviceTest.sendEvent( FSEventTrack(eventCategory: .Action_Tracking, eventAction: "testAction"))
-
-    }
+ 
     
     
-    //// Send Item
-    func testSendItemEvent(){
-        
-        let item:FSItemTrack = FSItemTrack(transactionId: "id", name: "testItem", code: "code")
-        
-        item.price = nil
-        item.code = nil
-        item.quantity =  nil
-        item.category = nil
-        serviceTest.sendEvent(item)
-    }
+ 
     
     
-    /// Send Transaction
     
-    func testSendTransaction(){
-        
-        let item:FSTransactionTrack = FSTransactionTrack(transactionId: "idTransac", affiliation: "affiliation")
-        item.couponCode = nil
-        item.currency = nil
-        item.itemCount = nil
-        item.paymentMethod = nil
-        item.revenue = nil
-        item.tax =  nil
-        item.ShippingMethod = nil
-        item.shipping = nil
-        serviceTest.sendEvent(item)
-    }
+ 
     
-    /// Send Page Track
-    func testPageTrack(){
-        let item:FSPageTrack =  FSPageTrack("interfaceName")
-        serviceTest.sendEvent(item)
-    }
+  
     
     
     

@@ -37,16 +37,15 @@ internal class ABService {
               }
           }
       }
-
-    
-    
     
     var cacheManager:FSCacheManager!
     
-    var apacRegion:FSRegion?
     
     
-    init(_ clientId:String, _ visitorId:String, region:FSRegion? = nil) {
+    var apiKey:String!
+    
+    
+    init(_ clientId:String, _ visitorId:String, _ apiKey:String) {
         
         self.clientId = clientId
         
@@ -56,7 +55,7 @@ internal class ABService {
         
         cacheManager = FSCacheManager()
         
-        apacRegion = region
+        self.apiKey = apiKey
      }
     
     
@@ -76,13 +75,9 @@ internal class ABService {
                 request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                /// Add x-api-key for apacOption
+                /// Add x-api-key
                 
-                if (apacRegion != nil){
-                    
-                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
-
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
                 let session = URLSession(configuration:URLSessionConfiguration.default)
                 
@@ -177,12 +172,8 @@ internal class ABService {
                 request.httpMethod = "POST"
                 request.httpBody = data
                 
-                /// Add x-api-key for apacOption
-                
-                if (apacRegion != nil){
-                    
-                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
+                /// Add x-api-key
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
                 let session = URLSession(configuration:URLSessionConfiguration.default)
                 session.dataTask(with: request) { (responseData, response, error) in
