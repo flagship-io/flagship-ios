@@ -114,6 +114,14 @@ import Foundation
             break
         }
         
+        
+        
+        /// Send the keys/values context
+        DispatchQueue(label: "flagship.contextKey.queue").async {
+            
+            self.service?.sendkeyValueContext(self.context.currentContext)
+        }
+        
          // Purge data event
          DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
             self.service?.threadSafeOffline.flushStoredEvents()

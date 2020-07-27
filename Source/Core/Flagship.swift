@@ -130,7 +130,7 @@ public class Flagship:NSObject{
     /**
     Start FlagShip
        
-    @param environmentId String environmentId id for client
+    @param envId String environmentId id for client
      
     @param apiKey String provided by abtasty apiKey
 
@@ -140,11 +140,10 @@ public class Flagship:NSObject{
  
     @param onStartDone The block to be invoked when sdk is ready
     */
-    @objc public  func start( environmentId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
+    @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
         
         start(environmentId: environmentId, apiKey: apiKey, visitorId: visitorId, mode: config.mode, onStartDone:onStartDone)
     }
-    
     
     /**
      getCampaigns
