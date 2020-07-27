@@ -81,11 +81,7 @@ import Foundation
             FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
         }
-        
-         
-        // Create tuple
-        // fsProfile = FSProfile(self.visitorId)
-        
+ 
         // Get All Campaign for the moment
         self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey)
         
