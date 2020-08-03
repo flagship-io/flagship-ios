@@ -18,7 +18,7 @@ class FSOfflineTrackingTest: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
         
-        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId"))
+        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId", ""))
     }
 
     override func tearDownWithError() throws {

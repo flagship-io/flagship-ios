@@ -20,7 +20,7 @@ class ServiceMock:ABService {
             
             let testBundle = Bundle(for: type(of: self))
 
-            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
+            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
             
             let data = try Data(contentsOf: path, options:.alwaysMapped)
             

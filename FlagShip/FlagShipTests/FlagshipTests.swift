@@ -47,27 +47,31 @@ class FlagshipTests: XCTestCase {
     
     
     /// Test start Flagship
-    func testStartFlagshipWithBadEnvId(){
-
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "", "", .BUCKETING) { (result) in
-            
-            XCTAssert(result == .NotReady)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 10)
-       
-    }
+//    func testStartFlagshipWithBadEnvId(){
+//        
+//        let expectation = self.expectation(description: #function)
+//        
+//        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: "ee") { (result) in
+//            
+//            XCTAssert(result == .Ready)
+//            expectation.fulfill()
+//        }
+//  
+//        waitForExpectations(timeout: 10)
+//       
+//    }
     
     
     func testStartFlagshipwithEmptyUserID(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
-            
-            XCTAssert(result == .NotReady)
-            expectation.fulfill()
-        }
+        
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId: "ee") { (result) in
+             
+             XCTAssert(result == .NotReady)
+             expectation.fulfill()
+         }
+  
         waitForExpectations(timeout: 10)
        
     }
@@ -84,34 +88,31 @@ class FlagshipTests: XCTestCase {
         Flagship.sharedInstance.activateModification(key: "")
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
+        
+        
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId:"zzz") { (result) in
 
-            XCTAssert(result == .Ready)
+            XCTAssert(result == .NotReady)
             
             Flagship.sharedInstance.activateModification(key: "btn-color")
 
-            
-            Flagship.sharedInstance.getCampaigns { (state) in
-                
-                expectation.fulfill()
-                
-            }
+            expectation.fulfill()
             
         }
         waitForExpectations(timeout: 10)
         
-
     }
     
     
-    func testStartFlagshiWithApac(){
+    func testStartFlagshiWithWrongApiKey(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING, apacRegion:FSRegion("1212121212121##1#1#1#1;")) { (result) in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"") { (result) in
 
-            XCTAssert(result == .Ready)
+            XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
+        
         waitForExpectations(timeout: 10)
 
     }

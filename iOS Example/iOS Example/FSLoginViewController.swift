@@ -64,13 +64,27 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     /// Start Flagship
     
     
-    Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: nil, config: FSConfig(.DECISION_API)) { (result) in
+    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: nil, config: FSConfig(.DECISION_API)) { (result) in
         
         
         /// When the sdk is ready ...
         if result == .Ready{
             
-            DispatchQueue.main.async {
+            
+            Flagship.sharedInstance.activateModification(key: "complex")
+            
+            Flagship.sharedInstance.activateModification(key: "alias")
+            
+            Flagship.sharedInstance.activateModification(key: "array")
+            
+            let result = Flagship.sharedInstance.getModification("complex", defaultDico:[:])
+            
+
+            let resultArray = Flagship.sharedInstance.getModification("array", defaultArray: [])
+            
+
+
+             DispatchQueue.main.async {
                  
                  self.performSegue(withIdentifier: "onClickLogin", sender: nil)
                  

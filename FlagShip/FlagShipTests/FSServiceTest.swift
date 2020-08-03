@@ -12,7 +12,7 @@ import XCTest
 class FSServiceTest: XCTestCase {
     
 
-    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId")
+    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey")
     
 
     override func setUp() {
@@ -34,19 +34,7 @@ class FSServiceTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    func testGetCampaign(){
-           
-        Flagship.sharedInstance.service = serviceTest
-        let expectation = self.expectation(description: #function)
-
-        serviceTest.getCampaigns(Dictionary()) { (comp, error) in
-            
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 10)
-
-    }
+ 
     
     
     func testActivate(){
@@ -55,23 +43,36 @@ class FSServiceTest: XCTestCase {
     }
     
     
-    
- 
-    
-    
- 
-    
-    
-    
- 
-    
-  
-    
-    
-    
     func testsendkeyValueContext(){
      
         serviceTest.sendkeyValueContext(["key1":"", "":true, "key2":12, "key3":["key1":"", "":true, "key2":12]])
+    }
+    
+    
+    func testSendTracking(){
+        
+        let expectation = self.expectation(description: #function)
+
+        serviceTest.sendTracking(FSEvent(eventCategory: .Action_Tracking, eventAction: "act"))
+        
+        expectation.fulfill()
+              
+        waitForExpectations(timeout: 2)
+    }
+    
+    
+    //// Get Campaign
+    func testGetCampaign(){
+        
+        let expectation = self.expectation(description: #function)
+        
+        serviceTest.getCampaigns([:]) { (camp, error) in
+            
+            expectation.fulfill()
+            
+        }
+        
+         waitForExpectations(timeout: 2)
     }
     
 }

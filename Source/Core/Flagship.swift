@@ -142,7 +142,7 @@ public class Flagship:NSObject{
     */
     @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
         
-        start(environmentId: environmentId, apiKey: apiKey, visitorId: visitorId, mode: config.mode, onStartDone:onStartDone)
+        start(environmentId: envId, apiKey: apiKey, visitorId: visitorId, mode:config.mode, onStartDone:onStartDone)
     }
     
     /**
@@ -345,6 +345,49 @@ public class Flagship:NSObject{
         
         return context.readIntFromContext(key, defaultInt: defaultInt)
     }
+    
+    
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated to value to read
+     
+     @param defaultArray this value will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Int value
+     
+     */
+    
+    public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
+        
+        return self.context.readArrayFromContext(key, defaultArray: defaultArray)
+    
+    }
+    
+    
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated to value to read
+     
+     @param defaultArray this value will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Int value
+     
+     */
+    public func getModification(_ key:String, defaultDico:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
+        
+        return self.context.readJsonObjectFromContext(key, defaultDico: defaultDico)    
+    
+    }
+    
+
+    
+    //// Tempo
     
     
     /*

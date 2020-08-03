@@ -1,8 +1,8 @@
 //
-//  FlagshipTestWithMockedData.swift
+//  FSBucketServiceTest.swift
 //  FlagshipTests
 //
-//  Created by Adel on 29/05/2020.
+//  Created by Adel on 31/07/2020.
 //  Copyright © 2020 FlagShip. All rights reserved.
 //
 
@@ -10,15 +10,15 @@ import XCTest
 @testable import Flagship
 
 
-class FlagshipTestWithMockedData: XCTestCase {
+class FSBucketServiceTest: XCTestCase {
+    
+    
+    var serviceBucket:ABService!
 
-     var flagShipMock:FlagshipMock!
-    
-    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        flagShipMock = FlagshipMock()
+        serviceBucket = ABService("bkk9glocmjcg0vtmdlo0", "userId", "")
     }
 
     override func tearDownWithError() throws {
@@ -40,23 +40,20 @@ class FlagshipTestWithMockedData: XCTestCase {
     
     
     
-    func testStartMock(){
+    func testGetScript(){
+        /// remove last modified date, to avoid 304
+         UserDefaults.standard.removeObject(forKey: FSLastModified_Key)
         
         let expectation = self.expectation(description: #function)
         
-        flagShipMock.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apikey", visitorId: "userID") { (result) in
+        serviceBucket.getFSScript { (bucketObject, result) in
             
             
-            let array = Flagship.sharedInstance.getModification("array", defaultArray: ["Error"])
+               expectation.fulfill()
             
-            XCTAssert(array.count == 3)
-            
-              expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
-     }
-    
-    
-    
+        
+    }
 
 }

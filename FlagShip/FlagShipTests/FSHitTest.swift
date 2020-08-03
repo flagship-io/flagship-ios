@@ -15,16 +15,6 @@ class FSHitTest: XCTestCase {
     
     override func setUp() {
         
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", "alias", .DECISION_API) { (result) in
-            
-            XCTAssert(result == .Ready)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 10)
-        
-        
     }
     
     

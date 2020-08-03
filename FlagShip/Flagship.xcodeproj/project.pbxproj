@@ -27,7 +27,7 @@
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
 		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
-		8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFD240FBFB3005A13CE /* FSRegion.swift */; };
+		8B5D955524D46092001DEF9C /* FSBucketServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D955424D46092001DEF9C /* FSBucketServiceTest.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
 		8B6DC66924BF5BA300A0EB34 /* usersId.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66824BF5BA300A0EB34 /* usersId.json */; };
 		8B6DC67024C5E7E500A0EB34 /* lightBucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */; };
@@ -49,6 +49,7 @@
 		8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4D24A24EC5001DE9F8 /* FSAudienceTest.swift */; };
 		8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4E24A24EC5001DE9F8 /* FSHitTest.swift */; };
 		8B871F5E24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4F24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift */; };
+		8BB7B55724D30C6F00B1CC4F /* decisionApi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB7B55624D30C6F00B1CC4F /* decisionApi.json */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -97,8 +98,8 @@
 		8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketManagerTest.swift; path = ../../Flagship/FlagshipTests/FSBucketManagerTest.swift; sourceTree = "<group>"; };
 		8B535FF3240D5599005A13CE /* PresetContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContext.swift; sourceTree = "<group>"; };
 		8B535FFB240FAA14005A13CE /* FSHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
-		8B535FFD240FBFB3005A13CE /* FSRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSRegion.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
+		8B5D955424D46092001DEF9C /* FSBucketServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketServiceTest.swift; path = ../../Flagship/FlagShipTests/FSBucketServiceTest.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
 		8B6DC66824BF5BA300A0EB34 /* usersId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = usersId.json; path = ../../Flagship/FlagShipTests/usersId.json; sourceTree = "<group>"; };
 		8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lightBucketMock.json; sourceTree = "<group>"; };
@@ -120,6 +121,7 @@
 		8B871F4D24A24EC5001DE9F8 /* FSAudienceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSAudienceTest.swift; path = ../../Flagship/FlagShipTests/FSAudienceTest.swift; sourceTree = "<group>"; };
 		8B871F4E24A24EC5001DE9F8 /* FSHitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSHitTest.swift; path = ../../Flagship/FlagShipTests/FSHitTest.swift; sourceTree = "<group>"; };
 		8B871F4F24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSOfflineTrackingTest.swift; path = ../../Flagship/FlagShipTests/FSOfflineTrackingTest.swift; sourceTree = "<group>"; };
+		8BB7B55624D30C6F00B1CC4F /* decisionApi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApi.json; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
 		8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */,
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
+				8B5D955424D46092001DEF9C /* FSBucketServiceTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 		8B871F4424A24EC5001DE9F8 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				8BB7B55624D30C6F00B1CC4F /* decisionApi.json */,
 				8B6DC67124C6E96E00A0EB34 /* sampleIdBucket.json */,
 				8B6DC66F24C5E7E500A0EB34 /* lightBucketMock.json */,
 				8B871F4524A24EC5001DE9F8 /* ServiceMock.swift */,
@@ -302,7 +306,6 @@
 				8BBCAD0723FAA14400126600 /* FSBucketManager.swift */,
 				8BBCAD0823FAA14400126600 /* FSBucketService.swift */,
 				8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */,
-				8B535FFD240FBFB3005A13CE /* FSRegion.swift */,
 			);
 			path = Bucketing;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BB7B55724D30C6F00B1CC4F /* decisionApi.json in Resources */,
 				8B6DC67024C5E7E500A0EB34 /* lightBucketMock.json in Resources */,
 				8B6DC67224C6E96E00A0EB34 /* sampleIdBucket.json in Resources */,
 				8B871F5224A24EC5001DE9F8 /* Data in Resources */,
@@ -512,6 +516,7 @@
 			files = (
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B871F5924A24EC5001DE9F8 /* FSBucketCacheTest.swift in Sources */,
+				8B5D955524D46092001DEF9C /* FSBucketServiceTest.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
 				8B871F5724A24EC5001DE9F8 /* FSCacheManagerTest.swift in Sources */,
@@ -537,7 +542,6 @@
 				8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */,
 				8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */,
 				8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */,
-				8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */,
 				8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */,
 				8BBCAD1F23FAD0E200126600 /* FSFlagShip+Context.swift in Sources */,
 				8BBCAD2023FAD0E200126600 /* FSCampaigns.swift in Sources */,
