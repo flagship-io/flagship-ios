@@ -28,7 +28,7 @@ public class Flagship:NSObject{
     
     // fsQueue
     let fsQueue = DispatchQueue(label: "com.flagship.queue", attributes: .concurrent)
-
+    
     
     /// Current Context
     internal var context:FSContext!
@@ -128,21 +128,83 @@ public class Flagship:NSObject{
     
     
     /**
-    Start FlagShip
-       
-    @param envId String environmentId id for client
+     Start FlagShip
      
-    @param apiKey String provided by abtasty apiKey
-
-    @param visitorId String visitor id @optional
+     @param envId String environmentId id for client
      
-    @param FSConfig Object config @optional
- 
-    @param onStartDone The block to be invoked when sdk is ready
-    */
+     @param apiKey String provided by abtasty apiKey
+     
+     @param visitorId String visitor id @optional
+     
+     @param FSConfig Object config @optional
+     
+     @param onStartDone The block to be invoked when sdk is ready
+     */
     @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
         
-        start(environmentId: envId, apiKey: apiKey, visitorId: visitorId, mode:config.mode, onStartDone:onStartDone)
+        // Checkc the environmentId
+        if (FSTools.chekcXidEnvironment(envId)){
+            
+            self.environmentId = envId
+            
+        }else{
+            
+            onStartDone(.NotReady)
+            return
+        }
+        
+        /// Manage visitor id
+        do {
+            self.visitorId =  try FSTools.manageVisitorId(visitorId)
+            
+        }catch{
+            
+            onStartDone(.NotReady)
+            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
+            return
+        }
+        
+        // Get All Campaign for the moment
+        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey, timeoutService:config.flagshipTimeOutRequestApi)
+        
+        
+        // Set the préconfigured Context
+        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
+        
+        
+        // Add the keys all_users temporary
+        self.context.currentContext.updateValue("", forKey:ALL_USERS)
+        
+        
+        // The current context is
+        FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
+        
+        sdkModeRunning = config.mode
+        
+        switch sdkModeRunning {
+            
+        case .BUCKETING:
+            onSatrtBucketing(onStartDone)
+            break
+            
+        case .DECISION_API:
+            onStartDecisionApi(onStartDone)
+            break
+        }
+        
+        
+        
+        /// Send the keys/values context
+        DispatchQueue(label: "flagship.contextKey.queue").async {
+            
+            self.service?.sendkeyValueContext(self.context.currentContext)
+        }
+        
+        // Purge data event
+        DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
+            self.service?.threadSafeOffline.flushStoredEvents()
+        })
+        
     }
     
     /**
@@ -187,7 +249,7 @@ public class Flagship:NSObject{
                         }
                     }
                     /// Return wihtout error
-                     onGetCampaign(.None)
+                    onGetCampaign(.None)
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
@@ -201,7 +263,7 @@ public class Flagship:NSObject{
         }
     }
     
-
+    
     
     
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
@@ -363,7 +425,7 @@ public class Flagship:NSObject{
     public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
         
         return self.context.readArrayFromContext(key, defaultArray: defaultArray)
-    
+        
     }
     
     
@@ -372,20 +434,20 @@ public class Flagship:NSObject{
      
      @param key for associated to value to read
      
-     @param defaultArray this value will be used when this key don't exist
+     @param defaultJson this value will be used when this key don't exist
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
      @return Int value
      
      */
-    public func getModification(_ key:String, defaultDico:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
+    public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
         
-        return self.context.readJsonObjectFromContext(key, defaultDico: defaultDico)    
-    
+        return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
+        
     }
     
-
+    
     
     //// Tempo
     

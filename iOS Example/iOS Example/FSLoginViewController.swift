@@ -64,7 +64,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     /// Start Flagship
     
     
-    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: nil, config: FSConfig(.DECISION_API)) { (result) in
+    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: nil, config: FSConfig(.DECISION_API, fsTimeOutRequest:10)) { (result) in
         
         
         /// When the sdk is ready ...
@@ -77,7 +77,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
             
             Flagship.sharedInstance.activateModification(key: "array")
             
-            let result = Flagship.sharedInstance.getModification("complex", defaultDico:[:])
+            let result = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
             
 
             let resultArray = Flagship.sharedInstance.getModification("array", defaultArray: [])

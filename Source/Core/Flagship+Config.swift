@@ -83,7 +83,7 @@ import Foundation
         }
  
         // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey)
+        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey )
         
                
         // Set the préconfigured Context

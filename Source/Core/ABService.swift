@@ -19,6 +19,9 @@ internal class ABService {
     
     private var offLineTracking:FSOfflineTracking!
     
+    /// By default
+    internal var timeOutServiceForRequestApi = FS_TimeOutRequestApi
+    
     // QueueModification
     let serviceQueue = DispatchQueue(label: "com.flagship.queue.service", attributes: .concurrent)
     
@@ -38,24 +41,37 @@ internal class ABService {
           }
       }
     
+    /// FSCache Manager
     var cacheManager:FSCacheManager!
     
     
-    
+    /// Api Key
     var apiKey:String!
     
     
-    init(_ clientId:String, _ visitorId:String, _ apiKey:String) {
+    init(_ clientId:String, _ visitorId:String, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
         
+        
+        /// SSet the Client ID
         self.clientId = clientId
         
+        
+        /// Set visitor
         self.visitorId = visitorId
         
+        
+        /// OFFLine Tracking
         offLineTracking = FSOfflineTracking(self)
         
+        
+        /// Create cache manager
         cacheManager = FSCacheManager()
         
+        /// Set Api Key
         self.apiKey = apiKey
+        
+        /// Set the TimeOut
+        self.timeOutServiceForRequestApi = timeoutService
      }
     
     
@@ -68,17 +84,14 @@ internal class ABService {
             
             if let getUrl = URL(string:String(format: FSGetCampaigns, clientId)){
                 
-                var request:URLRequest = URLRequest(url:getUrl)
+                var request:URLRequest = URLRequest(url:getUrl, timeoutInterval: timeOutServiceForRequestApi)  //// Request with time interval
                 request.httpMethod = "POST"
                 request.httpBody = data
-
                 request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
                 /// Add x-api-key
-                
                 request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
-                
                 let session = URLSession(configuration:URLSessionConfiguration.default)
                 
                 session.dataTask(with: request) { (responseData, response, error) in
