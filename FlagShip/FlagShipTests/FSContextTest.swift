@@ -87,7 +87,7 @@ class FSContextTest: XCTestCase {
     
     func testJson(){
         
-        let result = Flagship.sharedInstance.getModification("key", defaultDico:["key":"val1"],activate: true)
+        let result = Flagship.sharedInstance.getModification("key", defaultJson:["key":"val1"],activate: true)
         
         let resultString = result["key"] as! String
         

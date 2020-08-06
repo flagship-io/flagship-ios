@@ -14,7 +14,6 @@ class FSServiceTest: XCTestCase {
 
     var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey")
     
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -72,7 +71,33 @@ class FSServiceTest: XCTestCase {
             
         }
         
-         waitForExpectations(timeout: 2)
+         waitForExpectations(timeout: 4)
+    }
+    
+    
+    func testTimeOutValue(){
+        
+        let serviceTestWithTimeOut:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:1)
+
+        let serviceTestWithTimeOutBis:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:2)
+
+        let serviceTestWithTimeOutTer:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:3)
+
+        
+        let expectation = self.expectation(description: #function)
+          
+          serviceTestWithTimeOut.getCampaigns([:]) { (camp, error) in
+              
+            
+            XCTAssert( serviceTestWithTimeOut.timeOutServiceForRequestApi  == 1)
+            XCTAssert( serviceTestWithTimeOutBis.timeOutServiceForRequestApi  == 2)
+            XCTAssert( serviceTestWithTimeOutTer.timeOutServiceForRequestApi  == 3)
+
+            expectation.fulfill()
+
+          }
+          
+        waitForExpectations(timeout: 2)
     }
     
 }

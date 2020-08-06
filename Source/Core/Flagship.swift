@@ -412,13 +412,13 @@ public class Flagship:NSObject{
     /**
      Get Modification from the decision api
      
-     @param key for associated to value to read
+     @param key for associated value to read
      
      @param defaultArray this value will be used when this key don't exist
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
-     @return Int value
+     @return Array [Any]
      
      */
     
@@ -432,13 +432,13 @@ public class Flagship:NSObject{
     /**
      Get Modification from the decision api
      
-     @param key for associated to value to read
+     @param key for associated value to read
      
      @param defaultJson this value will be used when this key don't exist
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
-     @return Int value
+     @return Dictionary<String,Any>, represent the json object
      
      */
     public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
