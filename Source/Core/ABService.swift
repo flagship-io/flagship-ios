@@ -49,6 +49,10 @@ internal class ABService {
     var apiKey:String!
     
     
+    /// Session
+    internal var sessionService:URLSession = URLSession(configuration: URLSessionConfiguration.default)
+    
+    
     init(_ clientId:String, _ visitorId:String, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
         
         
@@ -92,9 +96,9 @@ internal class ABService {
                 
                 /// Add x-api-key
                 request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
-                let session = URLSession(configuration:URLSessionConfiguration.default)
+               // let session = URLSession(configuration:URLSessionConfiguration.default)
                 
-                session.dataTask(with: request) { (responseData, response, error) in
+                sessionService.dataTask(with: request) { (responseData, response, error) in
                     
                     if (error == nil){
                         
@@ -188,8 +192,8 @@ internal class ABService {
                 /// Add x-api-key
                 request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
-                let session = URLSession(configuration:URLSessionConfiguration.default)
-                session.dataTask(with: request) { (responseData, response, error) in
+                //let session = URLSession(configuration:URLSessionConfiguration.default)
+                sessionService.dataTask(with: request) { (responseData, response, error) in
                       
                       if (error == nil){
                           

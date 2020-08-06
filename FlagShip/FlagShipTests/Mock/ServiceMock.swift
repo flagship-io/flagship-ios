@@ -15,7 +15,7 @@ class ServiceMock:ABService {
     
     override func getCampaigns(_ currentContext: Dictionary<String, Any>, onGetCampaign: @escaping (FSCampaigns?, FlagshipError?) -> Void) {
         
-        /// read the data from the file and fill the campaigns
+        /// Read the data from the file and fil the campaigns
         do {
             
             let testBundle = Bundle(for: type(of: self))

@@ -132,8 +132,54 @@ class FlagshipTests: XCTestCase {
         
         waitForExpectations(timeout: 10)
         
-        
     }
+    
+    
+ 
+    
+    
+    
+    
+    func testMockProtocol(){
+        
+         let apiURL = URL(string: "https://jsonplaceholder.typicode.com/posts/42")!
+        
+        let userID = 5
+        let id = 42
+        let title = "URLProtocol Post"
+        let body = "Post body...."
+        let jsonString = """
+                         {
+                            "userId": \(userID),
+                            "id": \(id),
+                            "title": "\(title)",
+                            "body": "\(body)"
+                         }
+                         """
+        let data = jsonString.data(using: .utf8)
+        
+        MockURLProtocol.requestHandler = { request in
+            
+            let response = HTTPURLResponse(url: apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, data)
+        }
+        
+        let MockConfig = URLSessionConfiguration.default
+        MockConfig.protocolClasses = [MockURLProtocol.self]
+        let session = URLSession(configuration:MockConfig)
+        
+        let expectation = self.expectation(description: #function)
+        
+        session.dataTask(with: apiURL) { (data, response, error) in
+            
+            print("done")
+             expectation.fulfill()
+        }.resume()
+        
+        waitForExpectations(timeout: 10)
+         
+    }
+    
     
     
 

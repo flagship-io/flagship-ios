@@ -11,68 +11,157 @@ import XCTest
 
 class FSServiceTest: XCTestCase {
     
-
+   
+    var expectation: XCTestExpectation!
     var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey")
+    let mockUrl = URL(string: "Mock")!
     
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let sessionTest = URLSession.init(configuration: configuration)
+        serviceTest = ABService("idClient", "isVisitor", "apiKey")
+        
+        /// Set our mock session into service
+        serviceTest.sessionService = sessionTest
+        expectation = expectation(description: "Service-expectation")
+        
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+ 
+ 
  
     
     
     func testActivate(){
         
         serviceTest.activateCampaignRelativetoKey("key", FSCampaigns("idCamp"))
-    }
+        
+     }
     
     
     func testsendkeyValueContext(){
-     
+        
         serviceTest.sendkeyValueContext(["key1":"", "":true, "key2":12, "key3":["key1":"", "":true, "key2":12]])
+        
+        
     }
     
     
     func testSendTracking(){
         
-        let expectation = self.expectation(description: #function)
-
+ 
         serviceTest.sendTracking(FSEvent(eventCategory: .Action_Tracking, eventAction: "act"))
         
-        expectation.fulfill()
-              
-        waitForExpectations(timeout: 2)
-    }
+ 
+     }
     
     
     //// Get Campaign
-    func testGetCampaign(){
+    func testGetCampaignWithSucess(){
+        /// Create the mock response
+        /// Load the data
+        let mockUrl = URL(string: "Mock")!
+
+        do {
+            
+            let testBundle = Bundle(for: type(of: self))
+
+            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
+            
+            let data = try Data(contentsOf: path, options:.alwaysMapped)
+            
+            
+            MockURLProtocol.requestHandler = { request in
+                
+                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+                return (response, data)
+            }
+            
+             
+            
+            serviceTest.getCampaigns([:]) { (camp, error) in
+                
+                
+                if let campaign = camp {
+                    
+                    XCTAssert(campaign.visitorId == "2020072318165329233")
+                    XCTAssert(campaign.campaigns.count == 1)
+                    XCTAssert(campaign.campaigns.first?.idCampaign == "bsffhle242b2l3igq4dg")
+                    XCTAssert(campaign.campaigns.first?.variationGroupId == "bsffhle242b2l3igq4eg")
+                }
+                
+                self.expectation.fulfill()
+                
+            }
+            
+            wait(for: [expectation], timeout: 1.0)
+            
+         }catch{
+            
+            print("error")
+        }
+
+    }
+    
+    
+    func testGetCampaignWithFailureParsing(){
+        let data =  Data()
+          
+          MockURLProtocol.requestHandler = { request in
+              
+            let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+          }
+          
+          serviceTest.getCampaigns([:]) { (camp, error) in
+            
+            XCTAssert(error == FlagshipError.GetCampaignError)
+              
+              self.expectation.fulfill()
+              
+          }
+          
+          wait(for: [expectation], timeout: 1.0)
+    }
+    
+    
+    func testWithNot200OK(){
         
-        let expectation = self.expectation(description: #function)
+        let data =  Data()
+          
+          MockURLProtocol.requestHandler = { request in
+              
+            let response = HTTPURLResponse(url:self.mockUrl , statusCode:0, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+          }
+        
         
         serviceTest.getCampaigns([:]) { (camp, error) in
+          
+          XCTAssert(error == FlagshipError.GetCampaignError)
             
-            expectation.fulfill()
+            self.expectation.fulfill()
             
         }
         
-         waitForExpectations(timeout: 4)
+        wait(for: [expectation], timeout: 1.0)
+          
+        
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func testTimeOutValue(){
@@ -84,8 +173,7 @@ class FSServiceTest: XCTestCase {
         let serviceTestWithTimeOutTer:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:3)
 
         
-        let expectation = self.expectation(description: #function)
-          
+ 
           serviceTestWithTimeOut.getCampaigns([:]) { (camp, error) in
               
             
@@ -93,11 +181,11 @@ class FSServiceTest: XCTestCase {
             XCTAssert( serviceTestWithTimeOutBis.timeOutServiceForRequestApi  == 2)
             XCTAssert( serviceTestWithTimeOutTer.timeOutServiceForRequestApi  == 3)
 
-            expectation.fulfill()
+            self.expectation.fulfill()
 
           }
           
-        waitForExpectations(timeout: 2)
+        wait(for: [expectation], timeout: 1.0)
     }
     
 }
