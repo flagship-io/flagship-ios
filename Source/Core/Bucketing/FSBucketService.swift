@@ -33,9 +33,9 @@ internal extension ABService {
                 request.setValue(dateModified , forHTTPHeaderField:FS_If_ModifiedSince)
             }
             
-            let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
+          //  let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
             
-            session.dataTask(with: request) { (data, response, error) in
+            sessionService.dataTask(with: request) { (data, response, error) in
                 
                 let httpResponse = response as? HTTPURLResponse
                 
@@ -72,11 +72,12 @@ internal extension ABService {
                 case 304:
                     /// Read the script from the cache
                     FSLogger.FSlog("Status 304, No need to download the bucketing script", .Campaign)
-                    onGetScript(nil, .CetScriptError)
-                    
+                    onGetScript(nil, .ScriptNotModified)
                     break
                     
                 default:
+                    FSLogger.FSlog("Error on get script", .Campaign)
+                    onGetScript(nil, .CetScriptError)
                     break
                 }
             }.resume()

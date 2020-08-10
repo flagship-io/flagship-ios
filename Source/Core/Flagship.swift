@@ -20,7 +20,7 @@ public class Flagship:NSObject{
     internal(set) public var visitorId:String!
     
     /// Customer id
-    internal var fsProfile:FSProfile!
+   // internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!

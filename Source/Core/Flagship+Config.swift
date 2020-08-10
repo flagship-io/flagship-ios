@@ -30,6 +30,17 @@ import Foundation
     
     public func setVisitorId(_ visitorId:String){
         
+        
+        /// Manage visitor id
+         do {
+             self.visitorId =  try FSTools.manageVisitorId(visitorId)
+             
+         }catch{
+             
+             FSLogger.FSlog(String(format: "Failed to set The visitor id because is empty"), .Campaign)
+             return
+         }
+        
         /// Clear Context
         self.context.cleanContext()
         
@@ -40,91 +51,6 @@ import Foundation
         self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
 
     }
-    
-    
-    
-    /**
-    Start FlagShip
-       
-    @param environmentId String environmentId id for client
-     
-    @param apiKey String
-       
-    @param visitorId String visitor id
-     
-    @param mode FlagshipMode, Start Flagship SDK in BUCKETING mode (client-side) or in DECISION_API mode (server-side)
-     
-    @param apacRegion apiKey string provided by ABTasty (See the documentation)
-       
-    @param completionHandler The block to be invoked when sdk is ready
-    */
-    internal func start(environmentId:String, apiKey:String, visitorId:String?, mode:FlagshipMode, onStartDone:@escaping(FlagshipResult)->Void){
-        
-        // Checkc the environmentId
-        if (FSTools.chekcXidEnvironment(environmentId)){
-            
-            self.environmentId = environmentId
-            
-        }else{
-            
-            onStartDone(.NotReady)
-            return
-        }
-        
-        /// Manage visitor id
-        do {
-            self.visitorId =  try FSTools.manageVisitorId(visitorId)
-            
-        }catch{
-            
-            onStartDone(.NotReady)
-            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
-            return
-        }
- 
-        // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey )
-        
-               
-        // Set the préconfigured Context
-        self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
-
-        
-        // Add the keys all_users temporary
-        self.context.currentContext.updateValue("", forKey:ALL_USERS)
-
-        
-        // The current context is
-        FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
-        
-        sdkModeRunning = mode
-        
-        switch sdkModeRunning {
-            
-        case .BUCKETING:
-            onSatrtBucketing(onStartDone)
-            break
-            
-        case .DECISION_API:
-            onStartDecisionApi(onStartDone)
-            break
-        }
-        
-        
-        
-        /// Send the keys/values context
-        DispatchQueue(label: "flagship.contextKey.queue").async {
-            
-            self.service?.sendkeyValueContext(self.context.currentContext)
-        }
-        
-         // Purge data event
-         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
-            self.service?.threadSafeOffline.flushStoredEvents()
-         })
-     }
-    
-    
     
      
     ////////////////////////////////////////////////

@@ -12,8 +12,8 @@ import XCTest
 class FSServiceTest: XCTestCase {
     
    
-    var expectation: XCTestExpectation!
-    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey")
+  
+    var serviceTest:ABService!
     let mockUrl = URL(string: "Mock")!
     
     override func setUp() {
@@ -25,8 +25,7 @@ class FSServiceTest: XCTestCase {
         
         /// Set our mock session into service
         serviceTest.sessionService = sessionTest
-        expectation = expectation(description: "Service-expectation")
-        
+ 
     }
 
     override func tearDown() {
@@ -65,8 +64,9 @@ class FSServiceTest: XCTestCase {
     func testGetCampaignWithSucess(){
         /// Create the mock response
         /// Load the data
-        let mockUrl = URL(string: "Mock")!
-
+        
+        let expectation = XCTestExpectation(description: "Service-expectation")
+ 
         do {
             
             let testBundle = Bundle(for: type(of: self))
@@ -93,25 +93,39 @@ class FSServiceTest: XCTestCase {
                     XCTAssert(campaign.campaigns.count == 1)
                     XCTAssert(campaign.campaigns.first?.idCampaign == "bsffhle242b2l3igq4dg")
                     XCTAssert(campaign.campaigns.first?.variationGroupId == "bsffhle242b2l3igq4eg")
+                    
+                    /// Test activate
+                    self.serviceTest.activateCampaignRelativetoKey("array", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("complex", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("object", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("object", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("noone", campaign)
+
+
+
+
                 }
                 
-                self.expectation.fulfill()
+            expectation.fulfill()
                 
             }
-            
-            wait(for: [expectation], timeout: 1.0)
             
          }catch{
             
             print("error")
         }
+        
+        wait(for: [expectation], timeout: 5.0)
 
     }
     
     
     func testGetCampaignWithFailureParsing(){
         let data =  Data()
-          
+        
+        let expectation = XCTestExpectation(description: "Service-FailureParsing")
+
           MockURLProtocol.requestHandler = { request in
               
             let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
@@ -121,17 +135,21 @@ class FSServiceTest: XCTestCase {
           serviceTest.getCampaigns([:]) { (camp, error) in
             
             XCTAssert(error == FlagshipError.GetCampaignError)
+            
+            self.serviceTest.activateCampaignRelativetoKey("array", FSCampaigns(""))
+
               
-              self.expectation.fulfill()
+              expectation.fulfill()
               
           }
           
-          wait(for: [expectation], timeout: 1.0)
+          wait(for: [expectation], timeout: 5.0)
     }
     
     
     func testWithNot200OK(){
         
+        let expectation = XCTestExpectation(description: "Service-200OK")
         let data =  Data()
           
           MockURLProtocol.requestHandler = { request in
@@ -144,27 +162,23 @@ class FSServiceTest: XCTestCase {
         serviceTest.getCampaigns([:]) { (camp, error) in
           
           XCTAssert(error == FlagshipError.GetCampaignError)
+            self.serviceTest.activateCampaignRelativetoKey("array", FSCampaigns(""))
+
             
-            self.expectation.fulfill()
+            expectation.fulfill()
             
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 5.0)
           
         
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
     func testTimeOutValue(){
+        
+        let expectation = XCTestExpectation(description: "Service-Timeout")
+
         
         let serviceTestWithTimeOut:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:1)
 
@@ -181,11 +195,14 @@ class FSServiceTest: XCTestCase {
             XCTAssert( serviceTestWithTimeOutBis.timeOutServiceForRequestApi  == 2)
             XCTAssert( serviceTestWithTimeOutTer.timeOutServiceForRequestApi  == 3)
 
-            self.expectation.fulfill()
+            expectation.fulfill()
 
           }
           
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 5.0)
     }
+    
+    
+    
     
 }

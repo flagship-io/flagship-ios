@@ -52,7 +52,7 @@ class FlagshipMock:Flagship {
         
          
          // Create tuple
-         fsProfile = FSProfile(self.visitorId)
+       //  fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
         self.service = ServiceMock(self.environmentId, self.visitorId ?? "", "")
@@ -96,10 +96,10 @@ class FlagshipMock:Flagship {
                     }
                     
                     /// Bucket the variations with the cached script
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, cachedBucket)
+                    self.campaigns = bucketMgr.bucketVariations(self.visitorId, cachedBucket)
                 }else{
                     /// Bucket the variation with a new script from server
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
+                    self.campaigns = bucketMgr.bucketVariations(self.visitorId, scriptBucket ?? FSBucket())
                 }
                 
                 /// Update the modifications

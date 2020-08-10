@@ -135,7 +135,7 @@ extension Flagship{
             
             self.getCampaigns { (error) in
                 
-                if (error == nil){
+                if (error == .None){
                     
                     completion(.Updated)
                     
