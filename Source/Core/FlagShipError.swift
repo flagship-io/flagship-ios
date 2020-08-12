@@ -23,6 +23,8 @@ import Foundation
     case CetScriptError
     
     case ScriptNotModified
+    
+    case NetworkError
 
 }
 

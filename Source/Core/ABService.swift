@@ -138,7 +138,7 @@ internal class ABService {
                         }
                     }else{
                         
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+                        onGetCampaign(nil, FlagshipError.NetworkError)
                     }
                     
                     }.resume()
