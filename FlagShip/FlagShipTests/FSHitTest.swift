@@ -15,16 +15,6 @@ class FSHitTest: XCTestCase {
     
     override func setUp() {
         
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", "alias", .DECISION_API) { (result) in
-            
-            XCTAssert(result == .Ready)
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 10)
-        
-        
     }
     
     
@@ -61,8 +51,7 @@ class FSHitTest: XCTestCase {
         /// send with other func
         Flagship.sharedInstance.sendEventTrack(eventHit)
         
-        /// Send with deprecated
-        Flagship.sharedInstance.sendTracking(eventHit)
+   
         
     }
     
@@ -73,9 +62,7 @@ class FSHitTest: XCTestCase {
         
         /// Send with other func
         Flagship.sharedInstance.sendPageEvent(FSPage("interfaceName"))
-        
-        /// Send with deprecated
-        Flagship.sharedInstance.sendTracking(FSPage("interfaceName"))
+ 
        
     }
     
@@ -94,10 +81,6 @@ class FSHitTest: XCTestCase {
         
         /// Send with other func
         Flagship.sharedInstance.sendTransactionEvent(transac)
-        
-        
-        /// Send with deprecated
-        Flagship.sharedInstance.sendTracking(transac)
     }
     
     
@@ -113,10 +96,6 @@ class FSHitTest: XCTestCase {
         
         /// Send with other func
         Flagship.sharedInstance.sendItemEvent(item)
-        
-        
-        /// Send with deprecated
-        Flagship.sharedInstance.sendTracking(item)
     }
     
     

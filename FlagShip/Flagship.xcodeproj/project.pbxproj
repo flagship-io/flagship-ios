@@ -27,8 +27,46 @@
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
 		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
-		8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFD240FBFB3005A13CE /* FSRegion.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
+		8B6DF79224F41B5D004C177D /* Flagship+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79124F41B51004C177D /* Flagship+Config.swift */; };
+		8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79324F41BA3004C177D /* FSConfig.swift */; };
+		8B6DF79924F41CFD004C177D /* sampleIdBucket.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79524F41CFD004C177D /* sampleIdBucket.json */; };
+		8B6DF79A24F41CFD004C177D /* decisionApi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79624F41CFD004C177D /* decisionApi.json */; };
+		8B6DF79B24F41CFD004C177D /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79724F41CFD004C177D /* MockURLProtocol.swift */; };
+		8B6DF79C24F41CFD004C177D /* lightBucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79824F41CFD004C177D /* lightBucketMock.json */; };
+		8B6DF79F24F41D0D004C177D /* FSBucketServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79D24F41D0D004C177D /* FSBucketServiceTest.swift */; };
+		8B6DF7A024F41D0D004C177D /* usersId.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79E24F41D0D004C177D /* usersId.json */; };
+		8B6DF7CA24F41D54004C177D /* Flagship+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A324F41D54004C177D /* Flagship+Config.swift */; };
+		8B6DF7CB24F41D54004C177D /* Flagship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A424F41D54004C177D /* Flagship.swift */; };
+		8B6DF7CC24F41D54004C177D /* FlagShipError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A524F41D54004C177D /* FlagShipError.swift */; };
+		8B6DF7CD24F41D54004C177D /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A624F41D54004C177D /* FSConstant.swift */; };
+		8B6DF7CE24F41D54004C177D /* FSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A724F41D54004C177D /* FSConfig.swift */; };
+		8B6DF7CF24F41D54004C177D /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A824F41D54004C177D /* FSContext.swift */; };
+		8B6DF7D024F41D54004C177D /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7A924F41D54004C177D /* FSLogger.swift */; };
+		8B6DF7D124F41D54004C177D /* ABService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7AA24F41D54004C177D /* ABService.swift */; };
+		8B6DF7D224F41D54004C177D /* ABService+Tracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7AC24F41D54004C177D /* ABService+Tracking.swift */; };
+		8B6DF7D324F41D54004C177D /* ABFlagShipBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7AE24F41D54004C177D /* ABFlagShipBucket.swift */; };
+		8B6DF7D424F41D54004C177D /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7AF24F41D54004C177D /* FSTargetingManager.swift */; };
+		8B6DF7D524F41D54004C177D /* FSBucketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B024F41D54004C177D /* FSBucketService.swift */; };
+		8B6DF7D624F41D54004C177D /* FSBucketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B124F41D54004C177D /* FSBucketManager.swift */; };
+		8B6DF7D724F41D54004C177D /* FSFlagShip+Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B224F41D54004C177D /* FSFlagShip+Context.swift */; };
+		8B6DF7D824F41D54004C177D /* FSBucketCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B424F41D54004C177D /* FSBucketCache.swift */; };
+		8B6DF7D924F41D54004C177D /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B524F41D54004C177D /* FSStorage.swift */; };
+		8B6DF7DA24F41D54004C177D /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B624F41D54004C177D /* FSCacheManager.swift */; };
+		8B6DF7DB24F41D54004C177D /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B824F41D54004C177D /* murmurhash3.swift */; };
+		8B6DF7DC24F41D54004C177D /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7B924F41D54004C177D /* FSTools.swift */; };
+		8B6DF7DD24F41D54004C177D /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7BA24F41D54004C177D /* FSGenerator.swift */; };
+		8B6DF7DE24F41D54004C177D /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7BB24F41D54004C177D /* FlagShipVersion.swift */; };
+		8B6DF7DF24F41D54004C177D /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7BD24F41D54004C177D /* FSBucket.swift */; };
+		8B6DF7E024F41D54004C177D /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7BE24F41D54004C177D /* FSCampaigns.swift */; };
+		8B6DF7E124F41D54004C177D /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7BF24F41D54004C177D /* FSTargets.swift */; };
+		8B6DF7E224F41D54004C177D /* FSProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C124F41D54004C177D /* FSProfile.swift */; };
+		8B6DF7E324F41D54004C177D /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C324F41D54004C177D /* FSTracking.swift */; };
+		8B6DF7E424F41D54004C177D /* FSOfflineTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C424F41D54004C177D /* FSOfflineTracking.swift */; };
+		8B6DF7E524F41D54004C177D /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C524F41D54004C177D /* FSHits.swift */; };
+		8B6DF7E624F41D54004C177D /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C724F41D54004C177D /* FSAudience.swift */; };
+		8B6DF7E724F41D54004C177D /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C824F41D54004C177D /* PresetContext.swift */; };
+		8B6DF7E824F41D54004C177D /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF7C924F41D54004C177D /* FSDevice.swift */; };
 		8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */; };
 		8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */; };
 		8B871F5224A24EC5001DE9F8 /* Data in Resources */ = {isa = PBXBuildFile; fileRef = 8B871F4224A24EC5001DE9F8 /* Data */; };
@@ -93,9 +131,47 @@
 		8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSBucketManagerTest.swift; path = ../../Flagship/FlagshipTests/FSBucketManagerTest.swift; sourceTree = "<group>"; };
 		8B535FF3240D5599005A13CE /* PresetContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetContext.swift; sourceTree = "<group>"; };
 		8B535FFB240FAA14005A13CE /* FSHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
-		8B535FFD240FBFB3005A13CE /* FSRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSRegion.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
+		8B6DF79124F41B51004C177D /* Flagship+Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flagship+Config.swift"; sourceTree = "<group>"; };
+		8B6DF79324F41BA3004C177D /* FSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConfig.swift; sourceTree = "<group>"; };
+		8B6DF79524F41CFD004C177D /* sampleIdBucket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleIdBucket.json; sourceTree = "<group>"; };
+		8B6DF79624F41CFD004C177D /* decisionApi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApi.json; sourceTree = "<group>"; };
+		8B6DF79724F41CFD004C177D /* MockURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		8B6DF79824F41CFD004C177D /* lightBucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lightBucketMock.json; sourceTree = "<group>"; };
+		8B6DF79D24F41D0D004C177D /* FSBucketServiceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSBucketServiceTest.swift; path = ../../Flagship/FlagShipTests/FSBucketServiceTest.swift; sourceTree = "<group>"; };
+		8B6DF79E24F41D0D004C177D /* usersId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = usersId.json; path = ../../Flagship/FlagShipTests/usersId.json; sourceTree = "<group>"; };
+		8B6DF7A324F41D54004C177D /* Flagship+Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flagship+Config.swift"; sourceTree = "<group>"; };
+		8B6DF7A424F41D54004C177D /* Flagship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagship.swift; sourceTree = "<group>"; };
+		8B6DF7A524F41D54004C177D /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
+		8B6DF7A624F41D54004C177D /* FSConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstant.swift; sourceTree = "<group>"; };
+		8B6DF7A724F41D54004C177D /* FSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConfig.swift; sourceTree = "<group>"; };
+		8B6DF7A824F41D54004C177D /* FSContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSContext.swift; sourceTree = "<group>"; };
+		8B6DF7A924F41D54004C177D /* FSLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSLogger.swift; sourceTree = "<group>"; };
+		8B6DF7AA24F41D54004C177D /* ABService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABService.swift; sourceTree = "<group>"; };
+		8B6DF7AC24F41D54004C177D /* ABService+Tracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ABService+Tracking.swift"; sourceTree = "<group>"; };
+		8B6DF7AE24F41D54004C177D /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
+		8B6DF7AF24F41D54004C177D /* FSTargetingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTargetingManager.swift; sourceTree = "<group>"; };
+		8B6DF7B024F41D54004C177D /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
+		8B6DF7B124F41D54004C177D /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
+		8B6DF7B224F41D54004C177D /* FSFlagShip+Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSFlagShip+Context.swift"; sourceTree = "<group>"; };
+		8B6DF7B424F41D54004C177D /* FSBucketCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketCache.swift; sourceTree = "<group>"; };
+		8B6DF7B524F41D54004C177D /* FSStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSStorage.swift; sourceTree = "<group>"; };
+		8B6DF7B624F41D54004C177D /* FSCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCacheManager.swift; sourceTree = "<group>"; };
+		8B6DF7B824F41D54004C177D /* murmurhash3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = murmurhash3.swift; sourceTree = "<group>"; };
+		8B6DF7B924F41D54004C177D /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
+		8B6DF7BA24F41D54004C177D /* FSGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSGenerator.swift; sourceTree = "<group>"; };
+		8B6DF7BB24F41D54004C177D /* FlagShipVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipVersion.swift; sourceTree = "<group>"; };
+		8B6DF7BD24F41D54004C177D /* FSBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucket.swift; sourceTree = "<group>"; };
+		8B6DF7BE24F41D54004C177D /* FSCampaigns.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSCampaigns.swift; sourceTree = "<group>"; };
+		8B6DF7BF24F41D54004C177D /* FSTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
+		8B6DF7C124F41D54004C177D /* FSProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSProfile.swift; sourceTree = "<group>"; };
+		8B6DF7C324F41D54004C177D /* FSTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTracking.swift; sourceTree = "<group>"; };
+		8B6DF7C424F41D54004C177D /* FSOfflineTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSOfflineTracking.swift; sourceTree = "<group>"; };
+		8B6DF7C524F41D54004C177D /* FSHits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
+		8B6DF7C724F41D54004C177D /* FSAudience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSAudience.swift; sourceTree = "<group>"; };
+		8B6DF7C824F41D54004C177D /* PresetContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetContext.swift; sourceTree = "<group>"; };
+		8B6DF7C924F41D54004C177D /* FSDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDevice.swift; sourceTree = "<group>"; };
 		8B871F4024A24EC5001DE9F8 /* FSStorageTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSStorageTest.swift; path = ../../Flagship/FlagShipTests/FSStorageTest.swift; sourceTree = "<group>"; };
 		8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlagshipTestWithMockedData.swift; path = ../../Flagship/FlagShipTests/FlagshipTestWithMockedData.swift; sourceTree = "<group>"; };
 		8B871F4224A24EC5001DE9F8 /* Data */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Data; path = ../../Flagship/FlagShipTests/Data; sourceTree = "<group>"; };
@@ -163,6 +239,8 @@
 		8B39E04723FD45F400E02DCD /* FlagshipTests */ = {
 			isa = PBXGroup;
 			children = (
+				8B6DF79D24F41D0D004C177D /* FSBucketServiceTest.swift */,
+				8B6DF79E24F41D0D004C177D /* usersId.json */,
 				8B871F4224A24EC5001DE9F8 /* Data */,
 				8B871F4124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift */,
 				8B871F4D24A24EC5001DE9F8 /* FSAudienceTest.swift */,
@@ -195,9 +273,123 @@
 			path = ../Flagship/Flagship;
 			sourceTree = "<group>";
 		};
+		8B6DF7A124F41D54004C177D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7A224F41D54004C177D /* Core */,
+				8B6DF7B324F41D54004C177D /* Cache */,
+				8B6DF7B724F41D54004C177D /* Utils */,
+				8B6DF7BC24F41D54004C177D /* Models */,
+				8B6DF7C024F41D54004C177D /* FSProfile */,
+				8B6DF7C224F41D54004C177D /* Tracking */,
+				8B6DF7C624F41D54004C177D /* Audience */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		8B6DF7A224F41D54004C177D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7A324F41D54004C177D /* Flagship+Config.swift */,
+				8B6DF7A424F41D54004C177D /* Flagship.swift */,
+				8B6DF7A524F41D54004C177D /* FlagShipError.swift */,
+				8B6DF7A624F41D54004C177D /* FSConstant.swift */,
+				8B6DF7A724F41D54004C177D /* FSConfig.swift */,
+				8B6DF7A824F41D54004C177D /* FSContext.swift */,
+				8B6DF7A924F41D54004C177D /* FSLogger.swift */,
+				8B6DF7AA24F41D54004C177D /* ABService.swift */,
+				8B6DF7AB24F41D54004C177D /* Service */,
+				8B6DF7AD24F41D54004C177D /* Bucketing */,
+				8B6DF7B224F41D54004C177D /* FSFlagShip+Context.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		8B6DF7AB24F41D54004C177D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7AC24F41D54004C177D /* ABService+Tracking.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		8B6DF7AD24F41D54004C177D /* Bucketing */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7AE24F41D54004C177D /* ABFlagShipBucket.swift */,
+				8B6DF7AF24F41D54004C177D /* FSTargetingManager.swift */,
+				8B6DF7B024F41D54004C177D /* FSBucketService.swift */,
+				8B6DF7B124F41D54004C177D /* FSBucketManager.swift */,
+			);
+			path = Bucketing;
+			sourceTree = "<group>";
+		};
+		8B6DF7B324F41D54004C177D /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7B424F41D54004C177D /* FSBucketCache.swift */,
+				8B6DF7B524F41D54004C177D /* FSStorage.swift */,
+				8B6DF7B624F41D54004C177D /* FSCacheManager.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		8B6DF7B724F41D54004C177D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7B824F41D54004C177D /* murmurhash3.swift */,
+				8B6DF7B924F41D54004C177D /* FSTools.swift */,
+				8B6DF7BA24F41D54004C177D /* FSGenerator.swift */,
+				8B6DF7BB24F41D54004C177D /* FlagShipVersion.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		8B6DF7BC24F41D54004C177D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7BD24F41D54004C177D /* FSBucket.swift */,
+				8B6DF7BE24F41D54004C177D /* FSCampaigns.swift */,
+				8B6DF7BF24F41D54004C177D /* FSTargets.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8B6DF7C024F41D54004C177D /* FSProfile */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7C124F41D54004C177D /* FSProfile.swift */,
+			);
+			path = FSProfile;
+			sourceTree = "<group>";
+		};
+		8B6DF7C224F41D54004C177D /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7C324F41D54004C177D /* FSTracking.swift */,
+				8B6DF7C424F41D54004C177D /* FSOfflineTracking.swift */,
+				8B6DF7C524F41D54004C177D /* FSHits.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
+		8B6DF7C624F41D54004C177D /* Audience */ = {
+			isa = PBXGroup;
+			children = (
+				8B6DF7C724F41D54004C177D /* FSAudience.swift */,
+				8B6DF7C824F41D54004C177D /* PresetContext.swift */,
+				8B6DF7C924F41D54004C177D /* FSDevice.swift */,
+			);
+			path = Audience;
+			sourceTree = "<group>";
+		};
 		8B871F4424A24EC5001DE9F8 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				8B6DF79624F41CFD004C177D /* decisionApi.json */,
+				8B6DF79824F41CFD004C177D /* lightBucketMock.json */,
+				8B6DF79724F41CFD004C177D /* MockURLProtocol.swift */,
+				8B6DF79524F41CFD004C177D /* sampleIdBucket.json */,
 				8B871F4524A24EC5001DE9F8 /* ServiceMock.swift */,
 				8B871F4624A24EC5001DE9F8 /* bucketMock.json */,
 				8B871F4724A24EC5001DE9F8 /* FlagshipMock.swift */,
@@ -245,6 +437,7 @@
 		8BF02D6C23C4CA24006D154E /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8B6DF7A124F41D54004C177D /* Source */,
 				8BBCAD1523FAA75600126600 /* FSProfile */,
 				8BF02D6D23C4CA24006D154E /* Core */,
 				8BF02D7C23C4CA24006D154E /* Cache */,
@@ -260,6 +453,8 @@
 		8BF02D6D23C4CA24006D154E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8B6DF79324F41BA3004C177D /* FSConfig.swift */,
+				8B6DF79124F41B51004C177D /* Flagship+Config.swift */,
 				8BF02D6E23C4CA24006D154E /* Flagship.swift */,
 				8BF02D6F23C4CA24006D154E /* FlagShipError.swift */,
 				8BF02D7023C4CA24006D154E /* FSConstant.swift */,
@@ -288,7 +483,6 @@
 				8BBCAD0723FAA14400126600 /* FSBucketManager.swift */,
 				8BBCAD0823FAA14400126600 /* FSBucketService.swift */,
 				8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */,
-				8B535FFD240FBFB3005A13CE /* FSRegion.swift */,
 			);
 			path = Bucketing;
 			sourceTree = "<group>";
@@ -409,6 +603,7 @@
 					};
 					8B6D325C23F5B2AF00916EF1 = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1160;
 					};
 				};
 			};
@@ -437,8 +632,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6DF79A24F41CFD004C177D /* decisionApi.json in Resources */,
+				8B6DF7A024F41D0D004C177D /* usersId.json in Resources */,
 				8B871F5224A24EC5001DE9F8 /* Data in Resources */,
 				8B871F5524A24EC5001DE9F8 /* bucketMock.json in Resources */,
+				8B6DF79924F41CFD004C177D /* sampleIdBucket.json in Resources */,
+				8B6DF79C24F41CFD004C177D /* lightBucketMock.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,23 +692,56 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B6DF7E824F41D54004C177D /* FSDevice.swift in Sources */,
+				8B6DF7CF24F41D54004C177D /* FSContext.swift in Sources */,
+				8B6DF7D224F41D54004C177D /* ABService+Tracking.swift in Sources */,
+				8B6DF7D624F41D54004C177D /* FSBucketManager.swift in Sources */,
+				8B6DF7D124F41D54004C177D /* ABService.swift in Sources */,
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B871F5924A24EC5001DE9F8 /* FSBucketCacheTest.swift in Sources */,
+				8B6DF7DF24F41D54004C177D /* FSBucket.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
+				8B6DF79B24F41CFD004C177D /* MockURLProtocol.swift in Sources */,
+				8B6DF7D724F41D54004C177D /* FSFlagShip+Context.swift in Sources */,
+				8B6DF7E024F41D54004C177D /* FSCampaigns.swift in Sources */,
+				8B6DF7E324F41D54004C177D /* FSTracking.swift in Sources */,
+				8B6DF7D324F41D54004C177D /* ABFlagShipBucket.swift in Sources */,
 				8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */,
 				8B871F5724A24EC5001DE9F8 /* FSCacheManagerTest.swift in Sources */,
+				8B6DF7E524F41D54004C177D /* FSHits.swift in Sources */,
+				8B6DF7E124F41D54004C177D /* FSTargets.swift in Sources */,
 				8B871F5E24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift in Sources */,
+				8B6DF7E624F41D54004C177D /* FSAudience.swift in Sources */,
 				8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */,
+				8B6DF7D424F41D54004C177D /* FSTargetingManager.swift in Sources */,
+				8B6DF7CE24F41D54004C177D /* FSConfig.swift in Sources */,
+				8B6DF7D924F41D54004C177D /* FSStorage.swift in Sources */,
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
+				8B6DF7D824F41D54004C177D /* FSBucketCache.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
+				8B6DF7CC24F41D54004C177D /* FlagShipError.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,
+				8B6DF7DC24F41D54004C177D /* FSTools.swift in Sources */,
 				8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */,
+				8B6DF7DB24F41D54004C177D /* murmurhash3.swift in Sources */,
+				8B6DF7DD24F41D54004C177D /* FSGenerator.swift in Sources */,
+				8B6DF7CD24F41D54004C177D /* FSConstant.swift in Sources */,
+				8B6DF7E424F41D54004C177D /* FSOfflineTracking.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
+				8B6DF7DE24F41D54004C177D /* FlagShipVersion.swift in Sources */,
+				8B6DF79F24F41D0D004C177D /* FSBucketServiceTest.swift in Sources */,
+				8B6DF7D024F41D54004C177D /* FSLogger.swift in Sources */,
+				8B6DF7E724F41D54004C177D /* PresetContext.swift in Sources */,
+				8B6DF7DA24F41D54004C177D /* FSCacheManager.swift in Sources */,
 				8B871F5324A24EC5001DE9F8 /* FSTargetingManagerTest.swift in Sources */,
 				8B871F5424A24EC5001DE9F8 /* ServiceMock.swift in Sources */,
 				8B871F5824A24EC5001DE9F8 /* FSGeneratorTest.swift in Sources */,
+				8B6DF7CB24F41D54004C177D /* Flagship.swift in Sources */,
 				8B871F5B24A24EC5001DE9F8 /* FSCampaignsTest.swift in Sources */,
+				8B6DF7E224F41D54004C177D /* FSProfile.swift in Sources */,
 				8B871F5624A24EC5001DE9F8 /* FlagshipMock.swift in Sources */,
+				8B6DF7D524F41D54004C177D /* FSBucketService.swift in Sources */,
+				8B6DF7CA24F41D54004C177D /* Flagship+Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +752,6 @@
 				8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */,
 				8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */,
 				8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */,
-				8B535FFE240FBFB3005A13CE /* FSRegion.swift in Sources */,
 				8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */,
 				8BBCAD1F23FAD0E200126600 /* FSFlagShip+Context.swift in Sources */,
 				8BBCAD2023FAD0E200126600 /* FSCampaigns.swift in Sources */,
@@ -537,6 +768,7 @@
 				8BBCAD2B23FAD0E200126600 /* FSTracking.swift in Sources */,
 				8BBCAD2C23FAD0E200126600 /* ABService.swift in Sources */,
 				8BBCAD2D23FAD0E200126600 /* FlagShipVersion.swift in Sources */,
+				8B6DF79224F41B5D004C177D /* Flagship+Config.swift in Sources */,
 				8BBCAD2E23FAD0E200126600 /* FSBucketService.swift in Sources */,
 				8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */,
 				8BBCAD2F23FAD0E200126600 /* FSCacheManager.swift in Sources */,
@@ -545,6 +777,7 @@
 				8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */,
 				8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */,
 				8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */,
+				8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */,
 				8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */,
 				8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */,
 			);
@@ -600,18 +833,33 @@
 		8B6D325D23F5B2AF00916EF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		8B6D325E23F5B2AF00916EF1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

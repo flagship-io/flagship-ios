@@ -8,7 +8,6 @@
 import Foundation
 
 
-
 /**
  
  `FlagShip` class helps you run FlagShip on your native iOS app.
@@ -20,8 +19,6 @@ public class Flagship:NSObject{
     /// This id is unique for the app
     internal(set) public var visitorId:String!
     
-    /// Customer id
-    internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!
@@ -29,7 +26,7 @@ public class Flagship:NSObject{
     
     // fsQueue
     let fsQueue = DispatchQueue(label: "com.flagship.queue", attributes: .concurrent)
-
+    
     
     /// Current Context
     internal var context:FSContext!
@@ -131,27 +128,28 @@ public class Flagship:NSObject{
     /**
      Start FlagShip
      
-     @param environmentId String environmentId id for client
+     @param envId String environmentId id for client
      
-     @param visitorId String visitor id
+     @param apiKey String provided by abtasty apiKey
      
-     @param pBlock The block to be invoked when sdk is ready
+     @param visitorId String visitor id @optional
+     
+     @param FSConfig Object config @optional
+     
+     @param onStartDone The block to be invoked when sdk is ready
      */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "Use start(environmentId:String, _ customVisitorId:String?,_ mode:FlagShipMode, completionHandler:@escaping(FlagShipResult)->Void)")
-    @objc public func startFlagShip(environmentId:String, _ visitorId:String?, completionHandler:@escaping(FlagshipResult)->Void){
+    @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
-        if (FSTools.chekcXidEnvironment(environmentId)){
+        if (FSTools.chekcXidEnvironment(envId)){
             
-            self.environmentId = environmentId
+            self.environmentId = envId
             
         }else{
             
-            completionHandler(.NotReady)
+            onStartDone(.NotReady)
             return
         }
-        
         
         /// Manage visitor id
         do {
@@ -159,67 +157,53 @@ public class Flagship:NSObject{
             
         }catch{
             
-            completionHandler(.NotReady)
-            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK FlagShip is not ready "), .Campaign)
+            onStartDone(.NotReady)
+            FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
         }
         
-        // Get All Campaign for the moment
-        self.service = ABService(self.environmentId, self.visitorId)
+        /// Sservice with apiKey and Timeout
+        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey, timeoutService:config.flagshipTimeOutRequestApi)
         
-        // Set the préconfigured context
+        
+        // Set the préconfigured Context
         self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
         
         
-        // Add the keys all_users temporary
+        // Set all_users
         self.context.currentContext.updateValue("", forKey:ALL_USERS)
+        
         
         // The current context is
         FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
         
+        sdkModeRunning = config.mode
         
-        // Au départ mettre a dispo les campaigns du cache.
-        self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
-        self.context.updateModification(self.campaigns)
-        
-        // Mettre à jour les campaigns
-        self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
+        switch sdkModeRunning {
             
-            if (error == nil){
-                // Set Campaigns
-                
-                // Check if the panic button is activated
-                if (campaigns?.panic ?? false){
-                    
-                    // Update the state
-                    self.disabledSdk = true
-                    FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
-                    
-                    FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
-                    
-                    completionHandler(FlagshipResult.Disabled)
-                    
-                }else{
-                    
-                    self.disabledSdk = false
-                    self.campaigns = campaigns
-                    self.context.updateModification(campaigns)
-                    completionHandler(FlagshipResult.Ready)
-                }
-            }else{
-                
-                FSLogger.FSlog(String(format: "Error on get campaign, the SDK is not ready for use"), .Campaign)
-                
-                completionHandler(FlagshipResult.NotReady)
-            }
+        case .BUCKETING:
+            onSatrtBucketing(onStartDone)
+            break
+            
+        case .DECISION_API:
+            onStartDecisionApi(onStartDone)
+            break
+        }
+        
+        
+        
+        /// Send the keys/values context
+        DispatchQueue(label: "flagship.contextKey.queue").async {
+            
+            self.service?.sendkeyValueContext(self.context.currentContext)
         }
         
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute:DispatchWorkItem {
             self.service?.threadSafeOffline.flushStoredEvents()
         })
+        
     }
-    
     
     /**
      getCampaigns
@@ -232,7 +216,6 @@ public class Flagship:NSObject{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
             return
         }
-        
         
         FSLogger.FSlog("Get Campaign .............", .Campaign)
         
@@ -249,9 +232,9 @@ public class Flagship:NSObject{
                             
                             self.disabledSdk = true
                             
-                            FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
-                            
-                            FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
+                            FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
+
+                            FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
                             
                         }else{
                             
@@ -264,11 +247,10 @@ public class Flagship:NSObject{
                         }
                     }
                     /// Return wihtout error
-                     onGetCampaign(.None)
+                    onGetCampaign(.None)
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
-                    
                     onGetCampaign(.GetCampaignError)
                 }
             }
@@ -278,91 +260,6 @@ public class Flagship:NSObject{
         }
     }
     
-    
-    
-    /**
-     Update Context
-     
-     @param contextvalues Dictionary that represent keys value relative to users
-     
-     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
-     */
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "synchronizeModifications(completion:@escaping((FlagShipResult)->Void))")
-    @objc public func updateContext(_ contextValues:Dictionary<String,Any>, sync:((FlagshipResult)->Void)?){
-        
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
-        }
-        FSLogger.FSlog("Update context", .Campaign)
-        
-        self.context.currentContext.merge(contextValues) { (_, new) in new }
-        if let aSync = sync  {
-            
-            self.getCampaigns { (error) in
-                
-                if (error == nil){
-                    
-                    aSync(.Updated)
-                    
-                }else{
-                    
-                    aSync(.NotReady)
-                }
-            }
-        }
-    }
-    
-    
-    /**
-     Update Context with Pre defined keys
-     
-     @param configuredKey FSAudiences Enum for pre defined keys
-     
-     @param sync This block is invoked when updating context done and ready to use a new modification  ... this block can be nil
-     
-     */
-    @available(iOS, introduced: 1.1.0, deprecated: 1.2.0, message:  "use updateContext(configuredKey:FSAudiences, value:Any)")
-    public func updateContextWithPreConfiguredKeys(_ configuredKey:FSAudiences, value:Any,sync:((FlagshipResult)->Void)?){
-        
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
-        }
-        
-        //Check the validity value
-        
-        if (!configuredKey.chekcValidity(value)){
-            
-            FSLogger.FSlog(" Skip updating the context with pre configured key \(configuredKey) ..... the value is not valid", .Campaign)
-            
-        }
-        
-        FSLogger.FSlog(" Update context with pre configured key", .Campaign)
-        
-        
-        self.context.currentContext.updateValue(value, forKey:configuredKey.rawValue)
-        
-        
-        if let aSync = sync{
-            
-            self.getCampaigns { (error) in
-                
-                if (error == nil){
-                    
-                    aSync(.Updated)
-                    
-                }else{
-                    
-                    aSync(.NotReady)
-                    
-                }
-            }
-            
-        }
-    }
     
     
     
@@ -509,6 +406,45 @@ public class Flagship:NSObject{
     }
     
     
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated value to read
+     
+     @param defaultArray this Arrayde will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Array [Any]
+     
+     */
+    
+    @objc public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
+        
+        return self.context.readArrayFromContext(key, defaultArray: defaultArray)
+        
+    }
+    
+    
+    /**
+     Get Modification from the decision api
+     
+     @param key for associated value to read
+     
+     @param defaultJson this Dictionary will be used when this key don't exist
+     
+     @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
+     
+     @return Dictionary<String,Any>, represent the json object
+     
+     */
+    @objc public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
+        
+        return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
+        
+    }
+    
+    
     /*
      Get modification info.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
      
@@ -550,23 +486,6 @@ public class Flagship:NSObject{
             
             self.service?.activateCampaignRelativetoKey(key,self.campaigns)
         }
-    }
-    
-    
-    /**
-     Send Events for tracking data
-     
-     @param event Event Object (Page, Transaction, Item, Event)
-     
-     */
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use sendHit")
-    public func sendTracking<T: FSTrackingProtocol>(_ event:T){
-        
-        if disabledSdk{
-            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
-            return
-        }
-        self.service?.sendTracking(event)
     }
     
     

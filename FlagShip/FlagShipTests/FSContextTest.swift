@@ -37,31 +37,65 @@ class FSContextTest: XCTestCase {
     
     func testBoolean(){
         
-        Flagship.sharedInstance.getModification("aaaaa", defaultBool: true, activate: true)
+         XCTAssert(Flagship.sharedInstance.getModification("aaaaa", defaultBool: true, activate: true))
     }
     
     
     func testdouble(){
         
-        Flagship.sharedInstance.getModification("doubleKey", defaultDouble: 12223232323232323232323232323232323232323, activate: true)
+        let result = Flagship.sharedInstance.getModification("doubleKey", defaultDouble: 122232323232323232, activate: true)
+        
+          XCTAssert(result == 122232323232323232)
     }
     
     
     func testFloat(){
         
-        Flagship.sharedInstance.getModification("floatKey", defaulfloat: 12.4, activate: true)
+        let result = Flagship.sharedInstance.getModification("floatKey", defaulfloat: 12.4, activate: true)
+        
+         XCTAssert(result == 12.4)
     }
     
     func testInt(){
         
-        Flagship.sharedInstance.getModification("intKey", defaultInt: 1, activate: true)
+        let result = Flagship.sharedInstance.getModification("intKey", defaultInt: 1, activate: true)
+        
+        XCTAssert(result == 1)
     }
     
     func testString(){
         
-        Flagship.sharedInstance.getModification("key", defaultString: "", activate: true)
+        let result = Flagship.sharedInstance.getModification("key", defaultString: "default", activate: true)
+        
+        XCTAssert(result == "default")
     }
     
+    func testArray(){
+        
+        
+        let result = Flagship.sharedInstance.getModification("key", defaultArray: [],activate: true)
+        
+        XCTAssert(result.count == 0)
+        
+        
+        let resultA = Flagship.sharedInstance.getModification("keyA", defaultArray: ["val1"],activate: true)
+        
+        XCTAssert(resultA.count == 1)
+
+        
+    }
+    
+    func testJson(){
+        
+        let result = Flagship.sharedInstance.getModification("key", defaultJson:["key":"val1"],activate: true)
+        
+        let resultString = result["key"] as! String
+        
+        XCTAssert(resultString == "val1")
+    }
+    
+    
+   
     
     func testUpdateContext(){
         
@@ -72,21 +106,17 @@ class FSContextTest: XCTestCase {
             
             if (item.value.self is Int){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! Int)
-                Flagship.sharedInstance.context(item.key, item.value as! Int)
 
             }else if ( item.value.self is Float){
                  Flagship.sharedInstance.updateContext(item.key, item.value as! Float)
-                Flagship.sharedInstance.context(item.key, item.value as! Float)
-
+ 
             }else if (item.value.self is Double){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! Double)
-                Flagship.sharedInstance.context(item.key, item.value as! Double)
-
+ 
 
             }else if (item.value.self is String){
                 Flagship.sharedInstance.updateContext(item.key, item.value as! String)
-                Flagship.sharedInstance.context(item.key, item.value as! String)
-
+ 
             }else {
                 
                 //////

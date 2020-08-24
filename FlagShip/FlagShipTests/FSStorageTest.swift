@@ -38,13 +38,17 @@ class FSStorageTest: XCTestCase {
     }
     
     
+   
     
-    func test(){
-        // file:///Users/aliasadel/Library/Developer/CoreSimulator/Devices/B16815B2-0887-4F31-A6DA-4988C1DF592F/data/Documents/FlagShipCampaign/iduser.json
+    
+    func testStore(){
         
-        // file:///Users/aliasadel/Library/Developer/CoreSimulator/Devices/B16815B2-0887-4F31-A6DA-4988C1DF592F/data/Documents/FlagShipCampaign/iduser
-        
-        
+        FSStorage.store(FSBucketCache("iduser"), to: .documents, as: "iduser")
+    }
+    
+    
+    func testRetreive(){
+
         FSBucketCache("iduser").saveMe()
 
         let result = FSStorage.retrieve("iduser", from: .documents, as:FSBucketCache.self)
