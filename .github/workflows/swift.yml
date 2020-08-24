@@ -14,4 +14,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 8,OS=13.5"
+      run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 8,OS=13.6"
