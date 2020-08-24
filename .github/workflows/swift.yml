@@ -2,9 +2,9 @@ name: Swift
 
 on:
   push:
-    branches: [ manageJsson ]
+    branches: [ actionsGithub ]
   pull_request:
-    branches: [ manageJsson ]
+    branches: [ actionsGithub ]
 
 jobs:
   build:
