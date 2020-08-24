@@ -422,7 +422,7 @@ public class Flagship:NSObject{
      
      */
     
-    public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
+    @objc public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
         
         return self.context.readArrayFromContext(key, defaultArray: defaultArray)
         
@@ -441,7 +441,7 @@ public class Flagship:NSObject{
      @return Dictionary<String,Any>, represent the json object
      
      */
-    public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
+    @objc public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
         
         return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
         

@@ -156,11 +156,11 @@ class murmurTest: XCTestCase {
             var B:Double = 0
             /// To fit the targeting for all userss
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
-            /// Get the bucket after selection and MurMurHassh
-            
-            let Max:Int = 100
+        
+            /// Will test for 10 000 users
+            let Max:Int = 50000
             for index in 1...Max{
-                
+                 
                 print("Test distribution MurMurHash number : \(index)")
                 
                 let idToTesst = FSGenerator.generateFlagShipId()
