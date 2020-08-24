@@ -6,6 +6,7 @@
 
 <h3 align="center">Bring your features to life</h3>
 
+![Swift](https://github.com/abtasty/flagship-ios/workflows/Swift/badge.svg)
 <a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Swift%20Coverage-80%25-brightgreen.svg?longCache=true&style=flat)</a> 
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
