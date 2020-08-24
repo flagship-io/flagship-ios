@@ -255,11 +255,6 @@ class FlagshipTestWithMockedData: XCTestCase {
         Flagship.sharedInstance.onStartDecisionApi { (result) in
             
             XCTAssert(result == .NotReady)
-            
-            /// Check the default value
-             let array = Flagship.sharedInstance.getModification("array", defaultArray: [])
-            XCTAssert(array.count == 0)
-            
             expectation.fulfill()
         }
         

@@ -100,29 +100,28 @@ import Foundation
     /////////////////////////////////////////////
    internal func onStartDecisionApi(_ onStartDone:@escaping(FlagshipResult)->Void){
         
-        // On starting make available the cache campaigns
+        // On starting make available the campaign already present in cache
         self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
         self.context.updateModification(self.campaigns)
 
-         // Update campaigns
+         // Get campaign from server
         self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
 
              if (error == nil){
-                 // Set Campaigns
-
+                
                  // Check if the panic button is activated
                  if (campaigns?.panic ?? false){
 
                      // Update the state
                      self.disabledSdk = true
-                     FSLogger.FSlog(String(format: "The Flagship is disabled from the front"), .Campaign)
+                     FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
 
-                     FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
+                     FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
 
                      onStartDone(FlagshipResult.Disabled)
 
                  }else{
-
+                    
                      self.disabledSdk = false
                      self.campaigns = campaigns
                      self.context.updateModification(campaigns)

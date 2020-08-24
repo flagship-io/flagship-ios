@@ -31,14 +31,8 @@ class FSBucketCacheTest: XCTestCase {
     }
 
  
-    
-    func testFSBucketCache(){
-        do {
-            
-            try FSBucketCache(from:FSBucketCache.self)
-        }
-       
-    }
+     
+ 
     
     
     func testGetCampaignnilArray(){

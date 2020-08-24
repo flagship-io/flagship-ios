@@ -19,8 +19,6 @@ public class Flagship:NSObject{
     /// This id is unique for the app
     internal(set) public var visitorId:String!
     
-    /// Customer id
-   // internal var fsProfile:FSProfile!
     
     /// Client Id
     internal var environmentId:String!
@@ -164,7 +162,7 @@ public class Flagship:NSObject{
             return
         }
         
-        // Get All Campaign for the moment
+        /// Sservice with apiKey and Timeout
         self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey, timeoutService:config.flagshipTimeOutRequestApi)
         
         
@@ -172,7 +170,7 @@ public class Flagship:NSObject{
         self.context.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
         
         
-        // Add the keys all_users temporary
+        // Set all_users
         self.context.currentContext.updateValue("", forKey:ALL_USERS)
         
         
@@ -234,9 +232,9 @@ public class Flagship:NSObject{
                             
                             self.disabledSdk = true
                             
-                            FSLogger.FSlog(String(format: "The FlagShip is disabled from the front"), .Campaign)
-                            
-                            FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
+                            FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
+
+                            FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
                             
                         }else{
                             
@@ -253,7 +251,6 @@ public class Flagship:NSObject{
                 }else{
                     
                     FSLogger.FSlog(String(format: "Error on get campaign", campaigns.debugDescription), .Campaign)
-                    
                     onGetCampaign(.GetCampaignError)
                 }
             }
@@ -414,7 +411,7 @@ public class Flagship:NSObject{
      
      @param key for associated value to read
      
-     @param defaultArray this value will be used when this key don't exist
+     @param defaultArray this Arrayde will be used when this key don't exist
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -434,7 +431,7 @@ public class Flagship:NSObject{
      
      @param key for associated value to read
      
-     @param defaultJson this value will be used when this key don't exist
+     @param defaultJson this Dictionary will be used when this key don't exist
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -446,10 +443,6 @@ public class Flagship:NSObject{
         return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
         
     }
-    
-    
-    
-    //// Tempo
     
     
     /*
