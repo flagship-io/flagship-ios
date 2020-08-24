@@ -2,9 +2,9 @@ name: Swift
 
 on:
   push:
-    branches: [ ciGithubActions ]
+    branches: [ manageJsson ]
   pull_request:
-    branches: [ ciGithubActions ]
+    branches: [ manageJsson ]
 
 jobs:
   build:
