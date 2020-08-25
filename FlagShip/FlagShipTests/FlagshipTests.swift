@@ -121,7 +121,7 @@ class FlagshipTests: XCTestCase {
     func testStartWithTimeout(){
         
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"idUser",config: FSConfig(.DECISION_API, apiTimeout:2)) { (result) in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"idUser",config: FSConfig(.DECISION_API, timeout:2)) { (result) in
             
             /// the time out set from config is matching
             XCTAssert(Flagship.sharedInstance.service?.timeOutServiceForRequestApi == 2)
