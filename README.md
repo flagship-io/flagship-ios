@@ -8,6 +8,7 @@
 
 ![Swift](https://github.com/abtasty/flagship-ios/workflows/Swift/badge.svg)
 <a  href='https://github.com/jpoles1/gopherbadger'  target='_blank'>![gopherbadger-tag-do-not-edit](https://img.shields.io/badge/Swift%20Coverage-80%25-brightgreen.svg?longCache=true&style=flat)</a> 
+![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
