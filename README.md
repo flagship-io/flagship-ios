@@ -26,7 +26,7 @@
 
 ## Contributors
 
-- Raphael Blanadet [@ABTastyAdel](https://github.com/ABTastyAdel)
+- FERGUEN Adel [@ABTastyAdel](https://github.com/ABTastyAdel)
 
 ## Licence
 
