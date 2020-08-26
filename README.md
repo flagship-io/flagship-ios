@@ -21,7 +21,7 @@
 - [Initialize and start](http://developers.flagship.io/ios/v1.2.0/#initialize-and-start-the-library)
 - [Campaign integration](http://developers.flagship.io/ios/v1.2.0/#campaign-integration)
 - [Hit tracking](http://developers.flagship.io/ios/v1.2.0/#hit-tracking)
-- [Release Notes](http://developers.flagship.io/ios/v1.2.0/#releases)
+- [Release Notes](http://developers.flagship.io/ios/v1.2.0/#release)
 
 
 ## Contributors
