@@ -1,13 +1,12 @@
 <p align="center">
 
-<img  src="https://mk0abtastybwtpirqi5t.kinstacdn.com/wp-content/uploads/picture-solutions-persona-product-flagship.jpg"  width="211"  height="182"  alt="Flagship"  />
+<img  src="https://mk0abtastybwtpirqi5t.kinstacdn.com/wp-content/uploads/picture-solutions-persona-product-flagship.jpg"  width="211"  height="182"  alt="Flagship"/>
 
 </p>
 
 <h3 align="center">Bring your features to life</h3>
 
 ![Swift](https://github.com/abtasty/flagship-ios/workflows/Swift/badge.svg)
-[![codecov](https://codecov.io/gh/abtasty/flagship-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/abtasty/flagship-ios) 
 [![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)](https://cocoapods.org/pods/FlagShip)
 [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen)](https://swift.org/package-manager/)
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
