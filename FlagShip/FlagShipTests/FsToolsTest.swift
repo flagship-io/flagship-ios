@@ -44,6 +44,17 @@ class FsToolsTest: XCTestCase {
             
             XCTAssertTrue(retBis.count > 0)
             
+            
+            UserDefaults.standard.removeObject(forKey: FlagShipIdKey)
+            
+            let retTer = try FSTools.manageVisitorId(nil)
+                 
+            XCTAssertTrue(retTer.count > 0)
+            
+            /// Try with empty file
+            try FSTools.manageVisitorId("")
+
+            
         }catch{
             
             

@@ -10,19 +10,27 @@ import XCTest
 @testable import Flagship
 
 class FSContextTest: XCTestCase {
+    
+    var serviceTest:ABService!
+
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let sessionTest = URLSession.init(configuration: configuration)
+        serviceTest = ABService("idClient", "isVisitor", "apiKey")
+        
+        /// Set our mock session into service
+        serviceTest.sessionService = sessionTest
+
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+ 
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -175,9 +183,10 @@ class FSContextTest: XCTestCase {
     }
     
     
-    func testSync(){
+    func testSyncForApi(){
         
         let expectation = self.expectation(description: #function)
+        
         
         Flagship.sharedInstance.synchronizeModifications { (result) in
            
@@ -185,4 +194,23 @@ class FSContextTest: XCTestCase {
         }
         waitForExpectations(timeout: 10)
     }
+    
+    
+    func testSyncForBucket(){
+        
+        let expectation = self.expectation(description: #function)
+        
+        FSCacheManager().saveBucketScriptInCache("mockToSave".data(using: .utf8))
+        
+        Flagship.sharedInstance.sdkModeRunning = .BUCKETING
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+           
+             expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+    }
+
+    
+    
+    
 }
