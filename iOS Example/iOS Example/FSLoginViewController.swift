@@ -63,7 +63,7 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
     /// Start Flagship
     
-    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
+    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "your api key", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
         
         
         /// When the sdk is ready ...

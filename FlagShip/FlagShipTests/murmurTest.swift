@@ -158,7 +158,7 @@ class murmurTest: XCTestCase {
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
         
             /// Will test for 10 000 users
-            let Max:Int = 50000
+            let Max:Int = 1000
             for index in 1...Max{
                  
                 print("Test distribution MurMurHash number : \(index)")

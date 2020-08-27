@@ -74,5 +74,34 @@ class FSBucketCacheTest: XCTestCase {
     
     
     
+    func testFSBucketCache(){
+        
+        do {
+             let testBundle = Bundle(for: type(of: self))
+
+             guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else {
+                
+                return
+            }
+             
+             let data = try Data(contentsOf: path, options:.alwaysMapped)
+             
+             let bucketCache = try JSONDecoder().decode(FSBucketCache.self, from: data)
+            
+            
+            XCTAssert(bucketCache.visitorId  == "error" )
+            XCTAssert(bucketCache.campaigns.count  == 4 )
+            
+            print(bucketCache)
+            
+          
+         }catch{
+             
+             print("error")
+             return
+         }
+        
+        
+    }
 
 }

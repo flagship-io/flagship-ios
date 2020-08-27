@@ -57,7 +57,7 @@ class FSBucketServiceTest: XCTestCase {
             
             let testBundle = Bundle(for: type(of: self))
             
-            guard let path = testBundle.url(forResource: "sampleIdBucket", withExtension: "json") else { return  }
+            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
             
             let data = try Data(contentsOf: path, options:.alwaysMapped)
             
@@ -74,12 +74,17 @@ class FSBucketServiceTest: XCTestCase {
                 if let bucket = bucketObject {
                     
                     XCTAssertFalse(bucket.panic)
-                    XCTAssert(bucket.campaigns.count == 2)
+                    XCTAssert(bucket.campaigns.count == 4)
                     XCTAssert(error == nil)
                     
                     for itemCamp in bucket.campaigns{
-                        XCTAssert((itemCamp.idCampaign == "bs8qvmo4nlr01fl9aaaa") ||  (itemCamp.idCampaign == "bs8r119sbs4016mehhhh"))
-                        XCTAssert(itemCamp.variationGroups.count == 1)
+                        
+                        XCTAssert((itemCamp.idCampaign == "bqso7p5tl9jg05d80320") ||
+                                 (itemCamp.idCampaign == "br6h35n811lg0788np8g")  ||
+                                 (itemCamp.idCampaign == "br6h4dv811lg07g61g00")  ||
+                                 (itemCamp.idCampaign == "br8dca47pe0g1648p34g")  )
+                        
+                        XCTAssertTrue(itemCamp.variationGroups.count == 1  || itemCamp.variationGroups.count == 2)
                     }
                     
                     expectation.fulfill()

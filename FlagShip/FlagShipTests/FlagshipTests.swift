@@ -44,24 +44,6 @@ class FlagshipTests: XCTestCase {
         }
     }
     
-    
-    
-    /// Test start Flagship
-//    func testStartFlagshipWithBadEnvId(){
-//        
-//        let expectation = self.expectation(description: #function)
-//        
-//        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlo0", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: "ee") { (result) in
-//            
-//            XCTAssert(result == .Ready)
-//            expectation.fulfill()
-//        }
-//  
-//        waitForExpectations(timeout: 10)
-//       
-//    }
-    
-    
     func testStartFlagshipwithEmptyUserID(){
 
         let expectation = self.expectation(description: #function)
