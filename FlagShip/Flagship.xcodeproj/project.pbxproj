@@ -28,6 +28,7 @@
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
 		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
+		8B6B942A24F7DED6007E42F9 /* FsToolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */; };
 		8B6DF79224F41B5D004C177D /* Flagship+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79124F41B51004C177D /* Flagship+Config.swift */; };
 		8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79324F41BA3004C177D /* FSConfig.swift */; };
 		8B6DF79924F41CFD004C177D /* sampleIdBucket.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79524F41CFD004C177D /* sampleIdBucket.json */; };
@@ -102,6 +103,7 @@
 		8B535FFB240FAA14005A13CE /* FSHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
+		8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FsToolsTest.swift; path = ../../Flagship/FlagShipTests/FsToolsTest.swift; sourceTree = "<group>"; };
 		8B6DF79124F41B51004C177D /* Flagship+Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flagship+Config.swift"; sourceTree = "<group>"; };
 		8B6DF79324F41BA3004C177D /* FSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConfig.swift; sourceTree = "<group>"; };
 		8B6DF79524F41CFD004C177D /* sampleIdBucket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleIdBucket.json; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
 				8B6DF7EB24F54541004C177D /* FSConfigTest.swift */,
+				8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				8B871F5724A24EC5001DE9F8 /* FSCacheManagerTest.swift in Sources */,
 				8B871F5E24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift in Sources */,
 				8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */,
+				8B6B942A24F7DED6007E42F9 /* FsToolsTest.swift in Sources */,
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,

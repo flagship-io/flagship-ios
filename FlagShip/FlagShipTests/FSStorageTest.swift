@@ -40,18 +40,31 @@ class FSStorageTest: XCTestCase {
     
    
     
-    
-    func testStore(){
-        
-        FSStorage.store(FSBucketCache("iduser"), to: .documents, as: "iduser")
-    }
-    
-    
     func testRetreive(){
 
-        FSBucketCache("iduser").saveMe()
-
+        /// Set File
+        FSStorage.store(FSBucketCache("iduser"), to: .documents, as: "iduser")
+        
+        /// Retreive existing file
         let result = FSStorage.retrieve("iduser", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertEqual(result?.visitorId , "iduser")
+        
+        
+        /// File not existing
+        
+        let resultBis = FSStorage.retrieve("iduserBis", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertTrue(resultBis == nil)
+        
+        
+        //// Bad data
+        FSStorage.store(Data(), to: .documents, as: "iduserTer")
+
+        let resultTer = FSStorage.retrieve("iduserTer", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertTrue(resultTer == nil)
+         
     }
 
 }
