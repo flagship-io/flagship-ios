@@ -48,18 +48,13 @@
         "reference": false
       }
     },
-          {
-      "id": "bsffhle242b2l3igq4dgb",
-      "variation": {
-        "modifications": {
-          "type": "JSON",
-          "value":{
+        {
+            "id": null
+            "variation": {
+            "modifications":null,
+            "reference": false
             
-            "aliasTer": "testValue"
-          }
-        },
-        "reference": false
-      }
-    }
+            }
+        }
   ]
 }

@@ -260,6 +260,59 @@ class FlagshipTestWithMockedData: XCTestCase {
         
         wait(for: [expectation], timeout: 5.0)
     }
+    
+    
+    
+    func testonStartDecisionApiWithWrongFormat(){
+        
+        /// Create the mock response
+        /// Load the data
+         
+         let expectation = XCTestExpectation(description: "Service-GetScript")
+         
+         do {
+             
+             let testBundle = Bundle(for: type(of: self))
+             
+             guard let path = testBundle.url(forResource: "decisionApiBis", withExtension: "json") else { return  }
+             
+             let data = try Data(contentsOf: path, options:.alwaysMapped)
+             
+             
+             MockURLProtocol.requestHandler = { request in
+                 
+                 let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+                 return (response, data)
+             }
+             
+             // Set visitor id
+             Flagship.sharedInstance.setVisitorId("202072017183814142")
+             // set context
+             Flagship.sharedInstance.updateContext(ALL_USERS, "")
+             
+             Flagship.sharedInstance.onStartDecisionApi { (result) in
+                 
+                XCTAssert(result == .NotReady)
+
+                 expectation.fulfill()
+             }
+             
+         }catch{
+             
+             print("error")
+         }
+         
+         wait(for: [expectation], timeout: 5.0)
+        
+        
+    }
+
+    
+    
+    
+    
+    
+    
 
 
     

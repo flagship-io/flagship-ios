@@ -64,7 +64,7 @@ internal class FSCampaigns:Decodable{
             guard let value = item.variation?.modifications?.value else{
                 
                 FSLogger.FSlog(" No Values found at all ....", .Campaign)
-                return nil
+                continue
             }
             if value.keys.contains(keyValue){
                 
@@ -82,7 +82,7 @@ internal class FSCampaigns:Decodable{
             guard let value = item.variation?.modifications?.value else{
                 
                 FSLogger.FSlog(" No Value modification founded....", .Campaign)
-                return nil
+                continue
             }
             if value.keys.contains(keyValue){
                                 
