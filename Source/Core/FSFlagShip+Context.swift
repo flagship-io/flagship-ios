@@ -158,7 +158,7 @@ extension Flagship{
             if ( visitorId == nil){
                 
                 FSLogger.FSlog("the sync bucketing can't process because the visitorId is not set", .Campaign)
-
+                completion(.NotReady)
                 return
             }
             let bucketMgr:FSBucketManager = FSBucketManager()

@@ -248,5 +248,53 @@ class FSContextTest: XCTestCase {
     
     
     
+    func testSyncWithoutVisitor(){
+        
+        /// Prepare ...
+ 
+        Flagship.sharedInstance.service = ABService("", "alias", "apikey")
+        Flagship.sharedInstance.visitorId = nil
+        
+        let bucketManager:FSBucketManager = FSBucketManager()
+        
+        let expectation = self.expectation(description: #function)
+        
+        do {
+            
+            let testBundle = Bundle(for: type(of: self))
+            
+            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
+            
+            let data = try Data(contentsOf: path, options:.alwaysMapped)
+            
+            FSCacheManager().saveBucketScriptInCache(data) /// save script in cache
+
+            let bucketObject = try JSONDecoder().decode(FSBucket.self, from: data)
+            
+            let camps = bucketManager.bucketVariations("alias", bucketObject) //// match the variation
+            
+            print(camps ?? "")
+            
+            Flagship.sharedInstance.sdkModeRunning = .BUCKETING /// set the mode
+            
+            Flagship.sharedInstance.synchronizeModifications { (result) in
+                
+                expectation.fulfill()
+                XCTAssertTrue(result == .NotReady)
+             }
+            waitForExpectations(timeout: 10)
+            
+            
+        }catch{
+            
+            print("error")
+        }
+        
+
+        
+        
+    }
+    
+    
     
 }
