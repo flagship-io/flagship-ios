@@ -78,7 +78,6 @@
 		8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7023C4CA24006D154E /* FSConstant.swift */; };
 		8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
 		8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
-		8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
 /* End PBXBuildFile section */
@@ -586,7 +585,6 @@
 				8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */,
 				8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */,
 				8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */,
-				8BBCAD3423FAD0E200126600 /* ABFlagShipBucket.swift in Sources */,
 				8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */,
 				8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */,
 				8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */,

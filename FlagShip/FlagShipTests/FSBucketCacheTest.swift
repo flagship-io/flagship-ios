@@ -75,7 +75,6 @@ class FSBucketCacheTest: XCTestCase {
     
     
     func testFSBucketCache(){
-        
         do {
              let testBundle = Bundle(for: type(of: self))
 
@@ -100,8 +99,13 @@ class FSBucketCacheTest: XCTestCase {
              print("error")
              return
          }
-        
-        
+    }
+    
+    
+    func testFSBucket(){
+        let bucket = FSBucket()
+        XCTAssertTrue(bucket.panic == true)
+        XCTAssertTrue(bucket.campaigns.count == 0)
     }
 
 }

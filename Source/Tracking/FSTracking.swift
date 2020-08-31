@@ -185,7 +185,7 @@ import Foundation
             
             // Interface Name
             if (self.interfaceName != nil) {
-                communParams.updateValue(self.interfaceName ?? 0, forKey: "dl")
+                communParams.updateValue(self.interfaceName ?? "", forKey: "dl")
             }
             
             return communParams

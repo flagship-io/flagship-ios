@@ -53,16 +53,16 @@ extension Flagship{
     
     
     
-    /////////////////////////// Float /////////////////////////////
-    /// set Float to context
-    /// - Parameters:
-    ///   - key: name for key
-    ///   - float: value
-    public func updateContext(_ key:String,  _ float:Float){
-        
-        self.context.addFloatCtx(key, float)
-    }
-    
+//    /////////////////////////// Float /////////////////////////////
+//    /// set Float to context
+//    /// - Parameters:
+//    ///   - key: name for key
+//    ///   - float: value
+//    public func updateContext(_ key:String,  _ float:Float){
+//        
+//        self.context.addFloatCtx(key, float)
+//    }
+//    
     
     
     

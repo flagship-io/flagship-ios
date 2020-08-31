@@ -54,13 +54,15 @@ internal extension ABService {
                             // Print Json response
                             let dico = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
                             
-                            FSLogger.FSlog("The script bucketing is : \(dico)", .Campaign)
+                            FSLogger.FSlog("The script bucketing is : \(dico)", .Parsing)
                             onGetScript(scriptObject, nil)
                             
                             /// Save bucket script
                             self.cacheManager.saveBucketScriptInCache(data)
                             
                         }catch{
+                            
+                            FSLogger.FSlog(" Error on decode FSBucket object ", .Parsing)
                             
                             onGetScript(nil, .CetScriptError)
                         }

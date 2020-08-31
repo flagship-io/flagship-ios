@@ -116,12 +116,12 @@ internal class FSContext{
     }
     
     
-    /////////////////// FLoat //////////////////////////////////
-    
-    public func  addFloatCtx(_ key:String, _ valueFloat:Float){
-        
-        self.currentContext.updateValue(valueFloat, forKey: key)
-    }
+//    /////////////////// FLoat //////////////////////////////////
+//
+//    public func  addFloatCtx(_ key:String, _ valueFloat:Float){
+//
+//        self.currentContext.updateValue(valueFloat, forKey: key)
+//    }
     
     
     //////////////// Int ////////////////////////////////////////
