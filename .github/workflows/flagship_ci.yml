@@ -2,9 +2,9 @@ name: Swift
 
 on:
   push:
-    branches: [ master ]
+    branches: [ release2.0.0 ]
   pull_request:
-    branches: [ master ]
+    branches: [ release2.0.0 ]
 
 jobs:
   build:
