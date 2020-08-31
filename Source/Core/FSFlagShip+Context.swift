@@ -154,8 +154,14 @@ extension Flagship{
                 completion(.NotReady)
                 return
             }
+            /// If the visitor is not set before, then the matchTargetingForCustomID can't process
+            if ( visitorId == nil){
+                
+                FSLogger.FSlog("the sync bucketing can't process because the visitorId is not set", .Campaign)
+
+                return
+            }
             let bucketMgr:FSBucketManager = FSBucketManager()
-            
             let resultBucketCache = bucketMgr.matchTargetingForCustomID(cachedBucket, visitorId, false)
             
             self.campaigns = FSCampaigns(resultBucketCache)

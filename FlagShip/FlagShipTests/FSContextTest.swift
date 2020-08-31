@@ -216,6 +216,8 @@ class FSContextTest: XCTestCase {
 
             let bucketObject = try JSONDecoder().decode(FSBucket.self, from: data)
             
+            Flagship.sharedInstance.visitorId = "alias"
+            
             let camps = bucketManager.bucketVariations("alias", bucketObject) //// match the variation
             
             print(camps ?? "")
