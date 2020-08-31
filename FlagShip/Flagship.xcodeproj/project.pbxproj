@@ -133,7 +133,6 @@
 		8B871F4F24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSOfflineTrackingTest.swift; path = ../../Flagship/FlagShipTests/FSOfflineTrackingTest.swift; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
-		8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ABFlagShipBucket.swift; sourceTree = "<group>"; };
 		8BBCAD0D23FAA15200126600 /* FSBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucket.swift; sourceTree = "<group>"; };
 		8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = murmurhash3.swift; sourceTree = "<group>"; };
 		8BBCAD1123FAA22F00126600 /* FSBucketCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketCache.swift; sourceTree = "<group>"; };
@@ -316,7 +315,6 @@
 		8BF02D7623C4CA24006D154E /* Bucketing */ = {
 			isa = PBXGroup;
 			children = (
-				8BBCAD0923FAA14400126600 /* ABFlagShipBucket.swift */,
 				8BBCAD0723FAA14400126600 /* FSBucketManager.swift */,
 				8BBCAD0823FAA14400126600 /* FSBucketService.swift */,
 				8BF02D7823C4CA24006D154E /* FSTargetingManager.swift */,
@@ -689,7 +687,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -717,7 +715,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.3;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
