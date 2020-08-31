@@ -44,6 +44,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+//        /// Create object configuration
+//        let fsConfig = FSConfig(.DECISION_API, apiTimeout: 0.2)
+//        
+//        /// Start the SDK
+//        Flagship.sharedInstance.start(envId:"your envId", apiKey: "your apiKey", visitorId:"visitorId", config:fsConfig){ (result) in
+//            
+//            if result == .Ready {
+//              DispatchQueue.main.async {
+//
+//                /// Update UI
+//              }
+//
+//              }else{
+//
+//                /// An error occurs or the SDK is disabled
+//              }
+//        }
+//        
+  
+        
+        
+        
          parrainageBtn.isHidden = false
         
         /// Get Color for background defined in dashboard flagship
@@ -62,6 +85,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
         self.thirdButton.setTitle(Flagship.sharedInstance.getModification("ctxKeyString", defaultString:"None", activate: true), for: .normal)
+        
         
         
         
@@ -89,6 +113,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
             print("The key modification don't exist")
         }
     }
+    
+    
+    
+    
+    
     
      // Show AB test  (Store Screen)
     @IBAction func showShoesScreen(){
@@ -133,7 +162,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     /// Send KPI  "parrainage_kpi" when click on parrainage button
     @IBAction func onClikcParrainage(){
         
-        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "june_parainage_23"))
+        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "kpi_v2"))
+        
+        Flagship.sharedInstance.sendHit(FSEvent(eventCategory: .User_Engagement, eventAction: "kpi_v2_Engagemen"))
+
+        Flagship.sharedInstance.sendHit(FSTransaction(transactionId: "idV2", affiliation: "kpi_v2_TRansaction"))
+        
+        Flagship.sharedInstance.sendHit(FSItem(transactionId: "idV2", name: "itemV2", code: "sku"))
+        
+        Flagship.sharedInstance.sendHit(FSPage("interfaceV2"))
+
+
     }
     
     

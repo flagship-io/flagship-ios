@@ -38,16 +38,33 @@ class FSStorageTest: XCTestCase {
     }
     
     
+   
     
-    func test(){
-        // file:///Users/aliasadel/Library/Developer/CoreSimulator/Devices/B16815B2-0887-4F31-A6DA-4988C1DF592F/data/Documents/FlagShipCampaign/iduser.json
-        
-        // file:///Users/aliasadel/Library/Developer/CoreSimulator/Devices/B16815B2-0887-4F31-A6DA-4988C1DF592F/data/Documents/FlagShipCampaign/iduser
-        
-        
-        FSBucketCache("iduser").saveMe()
+    func testRetreive(){
 
+        /// Set File
+        FSStorage.store(FSBucketCache("iduser"), to: .documents, as: "iduser")
+        
+        /// Retreive existing file
         let result = FSStorage.retrieve("iduser", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertEqual(result?.visitorId , "iduser")
+        
+        
+        /// File not existing
+        
+        let resultBis = FSStorage.retrieve("iduserBis", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertTrue(resultBis == nil)
+        
+        
+        //// Bad data
+        FSStorage.store(Data(), to: .documents, as: "iduserTer")
+
+        let resultTer = FSStorage.retrieve("iduserTer", from: .documents, as:FSBucketCache.self)
+        
+        XCTAssertTrue(resultTer == nil)
+         
     }
 
 }

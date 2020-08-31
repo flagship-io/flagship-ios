@@ -13,7 +13,6 @@
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
 
-
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
 
 
@@ -29,7 +28,6 @@
 ## Contributors
 
 - FERGUEN Adel [@ABTastyAdel](https://github.com/ABTastyAdel)
-
 
 ## Licence
 

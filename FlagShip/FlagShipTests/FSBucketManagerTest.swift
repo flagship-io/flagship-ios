@@ -21,11 +21,6 @@ class FSBucketManagerTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
@@ -33,10 +28,49 @@ class FSBucketManagerTest: XCTestCase {
         }
     }
     
-    
-    func testBucketVariations(){
+    func testSelectVariationWithHashMurMur(){
         
-       //  bucketManager.bucketVariations(nil, nil)
+        /// read the data from the file and fill the campaigns
+        do {
+            
+            let testBundle = Bundle(for: type(of: self))
+
+            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
+            
+            let data = try Data(contentsOf: path, options:.alwaysMapped)
+            
+            let bucketObject = try JSONDecoder().decode(FSBucket.self, from: data)
+            
+            
+            Flagship.sharedInstance.visitorId = "alias"   /// Visitor id
+
+            Flagship.sharedInstance.updateContext("basketNumber", 100) /// belong to first group
+            
+            Flagship.sharedInstance.updateContext("basketNumberBis", 200)  /// belong to second group
+            
+            Flagship.sharedInstance.visitorId = "alias"
+
+            let camps = bucketManager.bucketVariations("alias", bucketObject)
+            
+
+            if let varGroup = bucketObject.campaigns.first?.variationGroups{
+                
+                for item:FSVariationGroup in varGroup {
+                    
+                    let ret = bucketManager.selectVariationWithHashMurMur("alias", item, true)
+                }
+            }
+            
+        }catch{
+            
+            print("error")
+        }
+
+        
+        
+        
+        
+        
     }
 
 }

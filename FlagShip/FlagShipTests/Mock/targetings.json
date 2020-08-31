@@ -1,0 +1,83 @@
+{
+    "targetingGroups": [
+      {
+        "targetings": [
+          {
+            "operator": "EQUALS",
+            "key": "fs_users",
+            "value": [
+              "alias",
+              "beta",
+              "gama",
+              "alpha"
+            ]
+          },
+          {
+            "operator": "EQUALS",
+            "key": "basketNumber",
+            "value": 100
+          },
+          {
+            "operator": "EQUALS",
+            "key": "Boolean_Key",
+            "value": true
+          },
+          {
+            "operator": "NOT_EQUALS",
+            "key": "ctxKeyNumber",
+            "value": 222
+          },
+          {
+            "operator": "EQUALS",
+            "key": "testKey",
+            "value": ""
+          },
+          {
+            "operator": "CONTAINS",
+            "key": "testKey1",
+            "value": "a"
+          },
+          {
+            "operator": "NOT_CONTAINS",
+            "key": "testKey2",
+            "value": "b"
+          },
+          {
+            "operator": "GREATER_THAN_OR_EQUALS",
+            "key": "testKey3",
+            "value": "aaa"
+          },
+          {
+            "operator": "EQUALS",
+            "key": "testKey4",
+            "value": ["aaa", "bbb", "cccc", "zzzz"]
+          },
+          {
+            "operator": "EQUALS",
+            "key": "testKey5",
+            "value": [1, 2, 3, 4]
+          },
+          {
+            "operator": "EQUALS",
+            "key": "testKey5",
+            "value": [1.5, 0.2, 4444443, 4.44444]
+          }
+        ]
+      },
+      {
+        "targetings": [
+        {
+            "operator": "EQUALS",
+            "key": "basketNumberBis",
+            "value": 200
+          }
+        ]
+      }
+
+      
+    ]
+}
+
+
+
+

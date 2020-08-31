@@ -28,6 +28,30 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    /// init config object
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API apiTimeout:0.2];
+    
+    
+    
+    
+    /// Start the sdk
+    [[Flagship sharedInstance] startWithEnvId:@"" apiKey:@"" visitorId:@"" config:config onStartDone:^(enum FlagshipResult result) {
+        
+        if (result == FlagshipResultReady){
+
+          dispatch_async(dispatch_get_main_queue(), ^{
+              
+              /// update UI
+         });
+        }else{
+            
+            /// An error occurs or the SDK is disabled
+        }
+        
+    }];
+    
+
 
     
     return YES;

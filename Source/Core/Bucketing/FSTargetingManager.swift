@@ -19,31 +19,31 @@ enum FStargetError: Error {
 
 /// :nodoc:
 internal enum FSoperator:String,CaseIterable{
-        
-        case EQUAL                  = "EQUALS"
-        
-        case NOT_EQUAL              = "NOT_EQUALS"
-        
-        case GREATER_THAN           = "GREATER_THAN"
-        
-        case GREATER_THAN_OR_EQUALS = "GREATER_THAN_OR_EQUALS"
-        
-        case LOWER_THAN             = "LOWER_THAN"
-        
-        case LOWER_THAN_OR_EQUALS   =  "LOWER_THAN_OR_EQUALS"
-        
-        case CONTAINS               = "CONTAINS"
-        
-        case NOT_CONTAINS           = "NOT_CONTAINS"
-        
-        case Unknown
-    }
+    
+    case EQUAL                  = "EQUALS"
+    
+    case NOT_EQUAL              = "NOT_EQUALS"
+    
+    case GREATER_THAN           = "GREATER_THAN"
+    
+    case GREATER_THAN_OR_EQUALS = "GREATER_THAN_OR_EQUALS"
+    
+    case LOWER_THAN             = "LOWER_THAN"
+    
+    case LOWER_THAN_OR_EQUALS   =  "LOWER_THAN_OR_EQUALS"
+    
+    case CONTAINS               = "CONTAINS"
+    
+    case NOT_CONTAINS           = "NOT_CONTAINS"
+    
+    case Unknown
+}
 
 
 /// :nodoc:
 class FSTargetingManager: NSObject {
     
-
+    
     // Entre chanque groupe on fait OR
     // Entre chaque item on fait AND
     
@@ -69,7 +69,7 @@ class FSTargetingManager: NSObject {
             }
         }
         
-
+        
         // Here we supposed to have all result , we should have at least one true value to return YES, because we have -OR- between Groups
         return booleanResultGroup.contains(true)
     }
@@ -77,7 +77,7 @@ class FSTargetingManager: NSObject {
     
     internal func checkTargetGroupIsOkay(_ itemTargetGroup:FSTargetingGroup)->Bool{
         
-       // let currentContext:Dictionary <String, Any> = ABFlagShip.sharedInstance.context!.currentContext
+        // let currentContext:Dictionary <String, Any> = ABFlagShip.sharedInstance.context!.currentContext
         
         for itemTarget in itemTargetGroup.targetings{
             
@@ -86,7 +86,7 @@ class FSTargetingManager: NSObject {
             // let currentContextValue = currentContext[itemTarget.tragetKey]
             
             let currentContextValue = self.getCurrentValueFromCtx(itemTarget.tragetKey)
-
+            
             // Audience value
             let audienceValue = itemTarget.targetValue
             // Create the type operator
@@ -110,12 +110,12 @@ class FSTargetingManager: NSObject {
                     }
                 }
                 
-
+                
                 
             }else{
                 
-                    isOkay = checkCondition(currentContextValue as Any, opType, audienceValue as Any)
-
+                isOkay = checkCondition(currentContextValue as Any, opType, audienceValue as Any)
+                
             }
             
             if (!isOkay){
@@ -130,29 +130,29 @@ class FSTargetingManager: NSObject {
     func checkCondition(_ cuurentValue:Any, _ operation:FSoperator, _ audienceValue:Any)->Bool{
         
         switch operation {
-
+            
         case .EQUAL:
             
             do {
                 
                 return try IsCurrentValueEqualToAudienceValue(cuurentValue, audienceValue)
-
+                
             }catch{
                 
                 return false
             }
-
+            
         case .NOT_EQUAL:
             
             do {
                 
                 return try !IsCurrentValueEqualToAudienceValue(cuurentValue, audienceValue)
-
+                
             }catch{
                 
                 return false
             }
-
+            
         case .GREATER_THAN:
             
             do {
@@ -179,7 +179,7 @@ class FSTargetingManager: NSObject {
             
             do {
                 
-                 return try !isCurrentValueIsGreaterThanAudience(cuurentValue, audienceValue)
+                return try isCurrentValueIsLowerThanAudience(cuurentValue, audienceValue)
                 
             }catch{
                 
@@ -190,7 +190,7 @@ class FSTargetingManager: NSObject {
             
             do {
                 
-                   return try !isCurrentValueIsGreaterThanOrEqualAudience(cuurentValue, audienceValue)
+                return try isCurrentValueIsLowerThanOrEqualAudience(cuurentValue, audienceValue)
                 
             }catch{
                 
@@ -223,7 +223,7 @@ class FSTargetingManager: NSObject {
             return false
         }
     }
-     
+    
     
     
     /// Compare EQUALS
@@ -234,12 +234,12 @@ class FSTargetingManager: NSObject {
         
         if (currentValue is Int){
             
-             ret = isEqual(type: Int.self, a: currentValue, b: audienceValue)
+            ret = isEqual(type: Int.self, a: currentValue, b: audienceValue)
             
         }else if (currentValue is String){
             
             ret = isEqual(type: String.self, a: currentValue, b: audienceValue)
-
+            
         }else if (currentValue is Bool){
             
             ret = isEqual(type: Bool.self, a: currentValue, b: audienceValue)
@@ -248,10 +248,6 @@ class FSTargetingManager: NSObject {
             
             ret = isEqual(type: Double.self, a: currentValue, b: audienceValue)
             
-        }else if (currentValue is Float){
-            
-            ret = isEqual(type: Float.self, a: currentValue, b: audienceValue)
-
         }else {
             
             throw FStargetError.unknownType
@@ -268,20 +264,23 @@ class FSTargetingManager: NSObject {
         
         if (currentValue is Int){
             
-             ret = isGreatherThan(type: Int.self, a: currentValue, b: audienceValue)
-             return ret
+            ret = isGreatherThan(type: Int.self, a: currentValue, b: audienceValue)
+            return ret
         }else if (currentValue is String){
             
             ret = isGreatherThan(type: String.self, a: currentValue, b: audienceValue)
             return ret
+        }else if (currentValue is Double){
+            
+            ret = isGreatherThan(type: Double.self, a: currentValue, b: audienceValue)
+            return ret
         }else{
-        
+            
             throw FStargetError.unknownType
-
         }
-        
-      //  return ret
     }
+    
+    
     
     /// Compare greater than or equal
     internal func isCurrentValueIsGreaterThanOrEqualAudience(_ currentValue:Any, _ audienceValue:Any) throws ->Bool{
@@ -290,18 +289,73 @@ class FSTargetingManager: NSObject {
         
         if (currentValue is Int){
             
-             ret = isGreatherThanorEqual(type: Int.self, a: currentValue, b: audienceValue)
-             return ret
+            ret = isGreatherThanorEqual(type: Int.self, a: currentValue, b: audienceValue)
+            return ret
         }else if (currentValue is String){
             
             ret = isGreatherThanorEqual(type: String.self, a: currentValue, b: audienceValue)
             return ret
-        }else{
-        
+        }else if (currentValue is Double){
+            ret = isGreatherThanorEqual(type: Double.self, a: currentValue, b: audienceValue)
+            return ret
+        }
+        else{
             throw FStargetError.unknownType
-
         }
     }
+    
+    
+    
+    /// Compare lower than
+    
+    internal func isCurrentValueIsLowerThanAudience(_ currentValue:Any, _ audienceValue:Any) throws ->Bool{
+        
+        var ret:Bool = false
+        
+        if (currentValue is Int){
+            
+            ret = isLowerThan(type: Int.self, a: currentValue, b: audienceValue)
+            return ret
+        }else if (currentValue is String){
+            
+            ret = isLowerThan(type: String.self, a: currentValue, b: audienceValue)
+            return ret
+        }else if (currentValue is Double){
+            
+            ret = isLowerThan(type: Double.self, a: currentValue, b: audienceValue)
+            return ret
+        }else{
+            
+            throw FStargetError.unknownType
+        }
+    }
+    
+    
+    /// Compare lower than or equal
+    internal func isCurrentValueIsLowerThanOrEqualAudience(_ currentValue:Any, _ audienceValue:Any) throws ->Bool{
+        
+        var ret:Bool = false
+        
+        if (currentValue is Int){
+            
+            ret = isLowerThanorEqual(type: Int.self, a: currentValue, b: audienceValue)
+            return ret
+        }else if (currentValue is String){
+            
+            ret = isLowerThanorEqual(type: String.self, a: currentValue, b: audienceValue)
+            return ret
+        }else  if (currentValue is Double){
+            
+            ret = isLowerThanorEqual(type: Double.self, a: currentValue, b: audienceValue)
+            return ret
+        }else{
+            
+            throw FStargetError.unknownType
+        }
+    }
+    
+    
+    
     
     /// Compare contain
     internal func isCurrentValueContainAudience(_ currentValue:Any, _ audienceValue:Any) throws ->Bool{
@@ -309,7 +363,7 @@ class FSTargetingManager: NSObject {
         if (currentValue is String && audienceValue is String){
             
             guard let currentValue = currentValue as? String, let audienceValue = audienceValue as? String else { throw FStargetError.unknownType }
-
+            
             return currentValue.contains(audienceValue)
         }else{
             
@@ -330,15 +384,30 @@ class FSTargetingManager: NSObject {
     
     func isGreatherThan<T: Comparable>(type: T.Type, a: Any, b: Any) -> Bool {
         guard let a = a as? T, let b = b as? T else { return false }
-
+        
         return a > b
     }
     
     func isGreatherThanorEqual<T: Comparable>(type: T.Type, a: Any, b: Any) -> Bool {
         guard let a = a as? T, let b = b as? T else { return false }
-
+        
         return a >= b
     }
+    
+    
+    func isLowerThan<T: Comparable>(type: T.Type, a: Any, b: Any) -> Bool {
+        guard let a = a as? T, let b = b as? T else { return false }
+        
+        return a < b
+    }
+    
+    
+    func isLowerThanorEqual<T: Comparable>(type: T.Type, a: Any, b: Any) -> Bool {
+        guard let a = a as? T, let b = b as? T else { return false }
+        
+        return a <= b
+    }
+    
     
     
     internal func getCurrentValueFromCtx(_ targetKey:String)->Any?{
@@ -346,18 +415,16 @@ class FSTargetingManager: NSObject {
         let currentContext:Dictionary <String, Any> = Flagship.sharedInstance.context.currentContext
         
         if targetKey == FS_USERS {
-    
+            
             if (Flagship.sharedInstance.visitorId != nil) {
                 
                 return Flagship.sharedInstance.visitorId
             }
         }else{
             
-             return currentContext[targetKey]
+            return currentContext[targetKey]
         }
         
         return nil
     }
 }
-
-

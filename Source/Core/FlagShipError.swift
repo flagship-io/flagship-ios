@@ -21,6 +21,11 @@ import Foundation
     case StoredEventError
     
     case CetScriptError
+    
+    case ScriptNotModified
+    
+    case NetworkError
+
 }
 
 

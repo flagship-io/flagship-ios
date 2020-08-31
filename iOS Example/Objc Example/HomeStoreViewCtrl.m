@@ -29,6 +29,9 @@
     // Define context
     [[Flagship sharedInstance] updateContext:@{@"basketNumber":@200, @"isVipUser":@YES}];
     
+    [[Flagship sharedInstance] updateContext:@{@"basketNumber":@10, @"isVip":@YES, @"name":@"alice", @"valueKey":@1.2}];
+    
+    
    
     [[Flagship sharedInstance] synchronizeModificationsWithCompletion:^( FlagshipResult st) {
         

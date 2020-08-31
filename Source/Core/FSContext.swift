@@ -23,13 +23,13 @@ internal class FSContext{
     internal var currentContext:Dictionary <String, Any>!{
         
           get {
-              return modificationQueue.sync {
+              return contextQueue.sync {
                 
                   _currentContext
               }
           }
           set {
-              modificationQueue.async(flags: .barrier) {
+              contextQueue.async(flags: .barrier) {
                 
                   self._currentContext = newValue
               }
@@ -116,12 +116,12 @@ internal class FSContext{
     }
     
     
-    /////////////////// FLoat //////////////////////////////////
-    
-    public func  addFloatCtx(_ key:String, _ valueFloat:Float){
-        
-        self.currentContext.updateValue(valueFloat, forKey: key)
-    }
+//    /////////////////// FLoat //////////////////////////////////
+//
+//    public func  addFloatCtx(_ key:String, _ valueFloat:Float){
+//
+//        self.currentContext.updateValue(valueFloat, forKey: key)
+//    }
     
     
     //////////////// Int ////////////////////////////////////////
@@ -192,6 +192,37 @@ internal class FSContext{
         return defaultInt
     }
     
+    
+    
+    /// Tempo & Need tests
+
+    public func readJsonObjectFromContext(_ key:String, defaultDico:[String:Any])->[String:Any]{
+        
+        if currentModification[key] is [String:Any]{
+            
+            return currentModification[key, default:defaultDico] as! [String:Any]
+            
+        }else{
+            
+            return defaultDico
+        }
+    }
+    
+    
+    public func readArrayFromContext(_ key:String, defaultArray:[Any])->[Any]{
+        
+        if currentModification[key] is [Any]{
+            
+            return currentModification[key, default:defaultArray] as! [Any]
+        }else{
+            
+            return defaultArray
+        }
+    }
+    
+    
+    
+    ///
     //////////////// Remove   &   Clean   ///////////////////////
    
     public func  removeKeyFromContext(_ key:String){

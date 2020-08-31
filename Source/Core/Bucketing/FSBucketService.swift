@@ -33,9 +33,9 @@ internal extension ABService {
                 request.setValue(dateModified , forHTTPHeaderField:FS_If_ModifiedSince)
             }
             
-            let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
+          //  let session = URLSession(configuration:URLSessionConfiguration.ephemeral)
             
-            session.dataTask(with: request) { (data, response, error) in
+            sessionService.dataTask(with: request) { (data, response, error) in
                 
                 let httpResponse = response as? HTTPURLResponse
                 
@@ -54,13 +54,15 @@ internal extension ABService {
                             // Print Json response
                             let dico = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
                             
-                            FSLogger.FSlog("The script bucketing is : \(dico)", .Campaign)
+                            FSLogger.FSlog("The script bucketing is : \(dico)", .Parsing)
                             onGetScript(scriptObject, nil)
                             
                             /// Save bucket script
                             self.cacheManager.saveBucketScriptInCache(data)
                             
                         }catch{
+                            
+                            FSLogger.FSlog(" Error on decode FSBucket object ", .Parsing)
                             
                             onGetScript(nil, .CetScriptError)
                         }
@@ -72,11 +74,12 @@ internal extension ABService {
                 case 304:
                     /// Read the script from the cache
                     FSLogger.FSlog("Status 304, No need to download the bucketing script", .Campaign)
-                    onGetScript(nil, .CetScriptError)
-                    
+                    onGetScript(nil, .ScriptNotModified)
                     break
                     
                 default:
+                    FSLogger.FSlog("Error on get script", .Campaign)
+                    onGetScript(nil, .CetScriptError)
                     break
                 }
             }.resume()
@@ -92,7 +95,13 @@ internal extension ABService {
     func sendkeyValueContext(_ currentContext:Dictionary <String,Any>){
         
         do{
-            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "data":currentContext, "type": "CONTEXT"]
+            
+            /// Filter the dictionary before uploading ...
+            var aCuurrentContext:[String:Any] = currentContext
+            /// Remove the ALL_USERS
+            aCuurrentContext.removeValue(forKey: ALL_USERS)
+            
+            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "data":aCuurrentContext, "type": "CONTEXT"]
             
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
@@ -105,12 +114,8 @@ internal extension ABService {
                 uploadKeyValueCtxRqst.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                /// Add x-api-key for apacOption
-                
-                if (apacRegion != nil){
-                    
-                    uploadKeyValueCtxRqst.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
+                /// Add x-api-key
+                uploadKeyValueCtxRqst.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
                 
                 let session = URLSession(configuration:URLSessionConfiguration.default)
