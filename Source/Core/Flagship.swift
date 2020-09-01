@@ -261,11 +261,11 @@ public class Flagship:NSObject{
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
     /**
-     Get Modification from the decision api
+     Get Modification for boolean
      
-     @param key for associated to value to read
+     @param key associated with the modification
      
-     @param defaultBool this value will be used when this key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -291,11 +291,11 @@ public class Flagship:NSObject{
     
     
     /**
-     Get Modification from the decision api
+     Get Modification for string
      
-     @param key for associated to value
+     @param key associated with the modification
      
-     @param defaultString will be used when the key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -318,11 +318,11 @@ public class Flagship:NSObject{
     }
     
     /**
-     Get Modification from the decision api
+     Get Modification for Double
      
-     @param key for associated to value
+     @param key associated with the modification
      
-     @param defaultDouble will be used when the key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -344,11 +344,11 @@ public class Flagship:NSObject{
     }
     
     /**
-     Get Modification from the decision api
+     Get Modification for Float
      
-     @param key for associated to value
+     @param key associated with the modification
      
-     @param defaulfloat will be used when the key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -373,11 +373,11 @@ public class Flagship:NSObject{
     
     
     /**
-     Get Modification from the decision api
+     Get Modification for the integer
      
-     @param key for associated to value to read
+     @param key associated with the modification
      
-     @param defaultInt this value will be used when this key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -402,11 +402,11 @@ public class Flagship:NSObject{
     
     
     /**
-     Get Modification from the decision api
+     Get Modification for an array
      
-     @param key for associated value to read
+     @param key associated with the modification
      
-     @param defaultArray this Arrayde will be used when this key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
@@ -422,11 +422,11 @@ public class Flagship:NSObject{
     
     
     /**
-     Get Modification from the decision api
+     Get Modification for Json (Dictionary)
      
-     @param key for associated value to read
+     @param key associated with the modification
      
-     @param defaultJson this Dictionary will be used when this key don't exist
+     @param default value returned when the key doesn’t match any modification value
      
      @param activate if ture, the sdk send automaticaly an activate event. if false you have to do it manualy
      
