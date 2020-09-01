@@ -34,12 +34,10 @@ class FlagshipTestWithMockedData: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        
+        SynchronizeModifications()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+ 
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
@@ -48,42 +46,34 @@ class FlagshipTestWithMockedData: XCTestCase {
         }
     }
     
-    
-    
-    func testOnSatrtBucketingWithBadParsing(){
-        
-        /// Create the mock response
-        /// Load the data
-          
-          let expectation = XCTestExpectation(description: "Flagship-GetScript")
-        
-          let data = Data()
-          MockURLProtocol.requestHandler = { request in
-              
-              let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
-              return (response, data)
-          }
-        
-        // Set visitor id
-        Flagship.sharedInstance.setVisitorId("202072017183814142")
-        // set context
-        Flagship.sharedInstance.updateContext(ALL_USERS, "")
-        
-        Flagship.sharedInstance.onSatrtBucketing { (result) in
-            
-            XCTAssert(result == .NotReady)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 5.0)
-    }
-    
-    
-    
     func testOnSatrtBucketingWithFailed(){
         
         /// Create the mock response
         /// Load the data
+        
+        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            // Path
+            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
+            // add file name
+            url.appendPathComponent("bucket.json")
+
+            if (FileManager.default.fileExists(atPath: url.path) == true){
+
+                do{
+
+                    try FileManager.default.removeItem(at: url)
+
+                }catch{
+
+                    //
+                }
+
+            }else{
+
+                /////
+            }
+        }
+        
           
           let expectation = XCTestExpectation(description: "Flagship-GetScript")
         
@@ -145,7 +135,29 @@ class FlagshipTestWithMockedData: XCTestCase {
                 // Check the value variation
                 XCTAssert(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 4)
                 // Check the value variation50
-                XCTAssert(Flagship.sharedInstance.getModification("variation50", defaultInt: 0) == 1)
+                XCTAssert(Flagship.sharedInstance.getModification("variation50", defaultInt: 0, activate: true) == 1)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool:false,  activate: true) == true)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString:"none",  activate: true) == "value")
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble:3.14,  activate: true) == 4.333)
+                
+                Flagship.sharedInstance.disabledSdk = true
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 1)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variation50", defaultInt: 0) == 0)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool:false) == false)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString:"none") == "none")
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble:3.14) == 3.14)
+                
+                
+                if let ret = Flagship.sharedInstance.getModificationInfo("variation"){
+                    
+                    XCTAssertTrue(ret["campaignId"] == "bs8qvmo4nlr01fl9aaaa")
+                    XCTAssertTrue(ret["variationId"] == "bs8r09hsbs4011lbgggg")
+                    XCTAssertTrue(ret["variationGroupId"] == "bs8qvmo4nlr01fl9bbbb")
+                }
+
+
+
+                Flagship.sharedInstance.disabledSdk = false
 
                 expectation.fulfill()
             }
@@ -158,8 +170,11 @@ class FlagshipTestWithMockedData: XCTestCase {
         wait(for: [expectation], timeout: 5.0)
     }
     
-    
-    
+//
+//    "variation": 4,
+//       "variationBool": true,
+//       "variationString": "value",
+//       "variationDouble": 4.333
     //// test get campaign
     
     func testonStartDecisionApiWithSucess(){
@@ -307,18 +322,9 @@ class FlagshipTestWithMockedData: XCTestCase {
         
     }
 
-    
-    
-    
-    
-    
-    
-
-
-    
     //// test synchronizeModifications
     
-    func testSynchronizeModifications(){
+    func SynchronizeModifications(){
         
         /// prepare data mock
         

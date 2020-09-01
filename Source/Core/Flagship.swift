@@ -212,11 +212,6 @@ public class Flagship:NSObject{
      */
     internal func getCampaigns(onGetCampaign:@escaping(FlagshipError?)->Void){
         
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled", .Campaign)
-            return
-        }
-        
         FSLogger.FSlog("Get Campaign .............", .Campaign)
         
         if self.service != nil {

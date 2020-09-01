@@ -129,6 +129,7 @@ extension Flagship{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            completion(.Disabled)
             return
         }
         if sdkModeRunning == .DECISION_API{

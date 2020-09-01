@@ -139,21 +139,32 @@ class FSContextTest: XCTestCase {
             
             if (item.value.self is Int){
                 
-                let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as! Int
-                XCTAssertTrue(valToTest == 12)
+                if let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as? Int{
+                    
+                    XCTAssertTrue(valToTest == 12)
+
+                }
                 
             }else if ( item.value.self is Float){
-                let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as! Float
-                XCTAssertTrue(valToTest == 12.4)
+                if let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as? Float{
+                    
+                    XCTAssertTrue(valToTest == 12.4)
+
+                }
                 
             }else if (item.value.self is String){
-                let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as! String
-                XCTAssertTrue(valToTest == "Val1")
+                if let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as? String{
+                    
+                    XCTAssertTrue(valToTest == "Val1")
+                }
                 
             }else if (item.value.self is Bool) {
                 
-                let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as! Bool
-                XCTAssertTrue(valToTest)
+                if let valToTest =  Flagship.sharedInstance.context.currentContext[item.key] as? Bool{
+                    
+                    XCTAssertTrue(valToTest)
+
+                }
                 
             }else{
                 ///////////
@@ -193,58 +204,52 @@ class FSContextTest: XCTestCase {
     }
     
     
-    func testSyncForBucket(){
-        
-        /// Prepare ...
-        Flagship.sharedInstance.updateContext("basketNumber", 100) /// belong to first group
-        
-        Flagship.sharedInstance.service = ABService("", "alias", "apikey")
-        
-        let bucketManager:FSBucketManager = FSBucketManager()
-        
-        let expectation = self.expectation(description: #function)
-        
-        do {
-            
-            let testBundle = Bundle(for: type(of: self))
-            
-            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
-            
-            let data = try Data(contentsOf: path, options:.alwaysMapped)
-            
-            FSCacheManager().saveBucketScriptInCache(data) /// save script in cache
-
-            let bucketObject = try JSONDecoder().decode(FSBucket.self, from: data)
-            
-            Flagship.sharedInstance.visitorId = "alias"
-            
-            let camps = bucketManager.bucketVariations("alias", bucketObject) //// match the variation
-            
-            print(camps ?? "")
-            
-            Flagship.sharedInstance.sdkModeRunning = .BUCKETING /// set the mode
-            
-            Flagship.sharedInstance.synchronizeModifications { (result) in
-                
-                expectation.fulfill()
-                
-                XCTAssertTrue(result == .Ready)
-             }
-            waitForExpectations(timeout: 10)
-            
-            
-        }catch{
-            
-            print("error")
-        }
-        
-        
-        
-        
-        FSCacheManager().saveBucketScriptInCache("mockToSave".data(using: .utf8))
-        
-        
-    }
+//    func testSyncForBucket(){
+//        
+//        /// Prepare ...
+//        Flagship.sharedInstance.updateContext("basketNumber", 100) /// belong to first group
+//        
+//        Flagship.sharedInstance.service = ABService("", "alias", "apikey")
+//        
+//        let bucketManager:FSBucketManager = FSBucketManager()
+//        
+//        let expectation = self.expectation(description: #function)
+//        
+//        do {
+//            
+//            let testBundle = Bundle(for: type(of: self))
+//            
+//            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
+//            
+//            let data = try Data(contentsOf: path, options:.alwaysMapped)
+//            
+//            FSCacheManager().saveBucketScriptInCache(data) /// save script in cache
+//
+//            let bucketObject = try JSONDecoder().decode(FSBucket.self, from: data)
+//            
+//            Flagship.sharedInstance.visitorId = "alias"
+//            
+//            let camps = bucketManager.bucketVariations("alias", bucketObject) //// match the variation
+//            
+//            print(camps ?? "")
+//            
+//            Flagship.sharedInstance.sdkModeRunning = .BUCKETING /// set the mode
+//            
+//            Flagship.sharedInstance.synchronizeModifications { (result) in
+//                
+//                expectation.fulfill()
+//                
+//                XCTAssertTrue(result == .Ready)
+//             }
+//            waitForExpectations(timeout: 10)
+//            
+//            
+//        }catch{
+//            
+//            print("error")
+//        }
+//        
+//    }
     
     
     
@@ -289,12 +294,24 @@ class FSContextTest: XCTestCase {
             
             print("error")
         }
-        
-
-        
-        
     }
     
+    
+    func testtestSyncWithoutPanic(){
+        
+        let expectation = self.expectation(description: #function)
+
+        Flagship.sharedInstance.disabledSdk = true
+        
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+            
+            XCTAssertTrue(result == .Disabled)
+            Flagship.sharedInstance.disabledSdk = false
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+
+    }
     
     
 }

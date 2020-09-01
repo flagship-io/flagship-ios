@@ -59,6 +59,21 @@ class FlagshipTests: XCTestCase {
     }
     
     
+      func testStartFlagshipWithBadEnvId(){
+
+          let expectation = self.expectation(description: #function)
+          
+          Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmderrfefeefef", apiKey: "", visitorId: "ee") { (result) in
+               
+               XCTAssert(result == .NotReady)
+               expectation.fulfill()
+           }
+    
+          waitForExpectations(timeout: 10)
+         
+      }
+    
+    
 
     func testStartFlagship(){
         

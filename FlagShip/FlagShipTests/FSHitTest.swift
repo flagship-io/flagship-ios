@@ -123,9 +123,7 @@ class FSHitTest: XCTestCase {
         
         let dicoCommun = tr.communBodyTrack
         
-        let bodyTrack = tr.bodyTrack
         
-        XCTAssert(bodyTrack.capacity == 0)
         
         XCTAssertTrue(dicoCommun["vid"] as? String == "custom")
         XCTAssertTrue(dicoCommun["ds"] as? String == "app")
