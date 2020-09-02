@@ -31,25 +31,11 @@ class FSAudienceTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
-    func testAudience(){
-        
-        let result = FSAudience.getAudienceForApp()
-        
-        
-        XCTAssert(result["sdk_osName"] as! String ==   "iOS")
-        XCTAssert(!result.isEmpty)
-    }
-    
+ 
     
     func testchekValidity(){
         
-        for itemAudience in FSAudiences.allCases{
-            
-            XCTAssert(itemAudience.chekcValidity("valueToSet") is Bool)
-        }
-        
+      
         
         for itemPresetContext in PresetContext.allCases{
             

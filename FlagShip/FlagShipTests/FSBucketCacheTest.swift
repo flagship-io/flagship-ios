@@ -28,22 +28,11 @@ class FSBucketCacheTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         
          bucketCache = nil
-       
-        
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+ 
+     
+ 
     
     
     func testGetCampaignnilArray(){
@@ -85,5 +74,38 @@ class FSBucketCacheTest: XCTestCase {
     
     
     
+    func testFSBucketCache(){
+        do {
+             let testBundle = Bundle(for: type(of: self))
+
+             guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else {
+                
+                return
+            }
+             
+             let data = try Data(contentsOf: path, options:.alwaysMapped)
+             
+             let bucketCache = try JSONDecoder().decode(FSBucketCache.self, from: data)
+            
+            
+            XCTAssert(bucketCache.visitorId  == "error" )
+            XCTAssert(bucketCache.campaigns.count  == 4 )
+            
+            print(bucketCache)
+            
+          
+         }catch{
+             
+             print("error")
+             return
+         }
+    }
+    
+    
+    func testFSBucket(){
+        let bucket = FSBucket()
+        XCTAssertTrue(bucket.panic == true)
+        XCTAssertTrue(bucket.campaigns.count == 0)
+    }
 
 }

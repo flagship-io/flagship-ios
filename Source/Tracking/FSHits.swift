@@ -56,9 +56,9 @@ import Foundation
 @objcMembers public class FSTransaction:FSTracking{
     
     /// Transaction unique identifier.
-     private var transactionId:String!
+     private (set) var transactionId:String!
     /// Transaction name. Name of the goal in the reporting.
-     private var affiliation:String!
+     private (set) var affiliation:String!
     
     
     /// Total revenue associated with the transaction. This value should include any shipping or tax costs
@@ -174,19 +174,19 @@ import Foundation
 @objcMembers public class FSItem:FSTracking{
     
     /// Transaction unique identifier
-    private var transactionId:String!
+    private (set) var transactionId:String!
     
     /// Product name
-    private var name:String!
+    private (set) var name:String!
     
     /// Specifies the item price
-    public var price:NSNumber?
+    public  var price:NSNumber?
     
     /// Specifies the item quantity
     public var quantity:NSNumber?
     
     /// Specifies the item code or SKU
-    private var code:String!
+    private (set) var code:String!
     
     /// Specifies the item category
     public var category:String?
@@ -265,10 +265,10 @@ import Foundation
 @objcMembers public class FSEvent:FSTracking{
     
     /// category of the event (Action_Tracking or User_Engagement).
-    private var category:FSCategoryEvent!
+    private (set) var category:FSCategoryEvent!
     
     /// name of the event.
-    private var action:String?
+    private (set) var action:String?
     
     /// description of the event.
     public  var label:String?

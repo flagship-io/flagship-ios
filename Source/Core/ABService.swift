@@ -19,6 +19,9 @@ internal class ABService {
     
     private var offLineTracking:FSOfflineTracking!
     
+    /// By default
+    internal var timeOutServiceForRequestApi = FS_TimeOutRequestApi
+    
     // QueueModification
     let serviceQueue = DispatchQueue(label: "com.flagship.queue.service", attributes: .concurrent)
     
@@ -37,26 +40,42 @@ internal class ABService {
               }
           }
       }
-
     
-    
-    
+    /// FSCache Manager
     var cacheManager:FSCacheManager!
     
-    var apacRegion:FSRegion?
+    
+    /// Api Key
+    var apiKey:String!
     
     
-    init(_ clientId:String, _ visitorId:String, region:FSRegion? = nil) {
+    /// Session
+    internal var sessionService:URLSession = URLSession(configuration: URLSessionConfiguration.default)
+    
+    
+    init(_ clientId:String, _ visitorId:String, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
         
+        
+        /// SSet the Client ID
         self.clientId = clientId
         
+        
+        /// Set visitor
         self.visitorId = visitorId
         
+        
+        /// OFFLine Tracking
         offLineTracking = FSOfflineTracking(self)
         
+        
+        /// Create cache manager
         cacheManager = FSCacheManager()
         
-        apacRegion = region
+        /// Set Api Key
+        self.apiKey = apiKey
+        
+        /// Set the TimeOut
+        self.timeOutServiceForRequestApi = timeoutService
      }
     
     
@@ -69,24 +88,17 @@ internal class ABService {
             
             if let getUrl = URL(string:String(format: FSGetCampaigns, clientId)){
                 
-                var request:URLRequest = URLRequest(url:getUrl)
+                var request:URLRequest = URLRequest(url:getUrl, timeoutInterval: timeOutServiceForRequestApi)  //// Request with time interval
                 request.httpMethod = "POST"
                 request.httpBody = data
-
                 request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
-                /// Add x-api-key for apacOption
+                /// Add x-api-key
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
+               // let session = URLSession(configuration:URLSessionConfiguration.default)
                 
-                if (apacRegion != nil){
-                    
-                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
-
-                
-                let session = URLSession(configuration:URLSessionConfiguration.default)
-                
-                session.dataTask(with: request) { (responseData, response, error) in
+                sessionService.dataTask(with: request) { (responseData, response, error) in
                     
                     if (error == nil){
                         
@@ -126,7 +138,7 @@ internal class ABService {
                         }
                     }else{
                         
-                        onGetCampaign(nil, FlagshipError.GetCampaignError)
+                        onGetCampaign(nil, FlagshipError.NetworkError)
                     }
                     
                     }.resume()
@@ -177,15 +189,11 @@ internal class ABService {
                 request.httpMethod = "POST"
                 request.httpBody = data
                 
-                /// Add x-api-key for apacOption
+                /// Add x-api-key
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 
-                if (apacRegion != nil){
-                    
-                    request.addValue(apacRegion?.apiKey ?? "", forHTTPHeaderField: FSX_Api_Key)
-                }
-                
-                let session = URLSession(configuration:URLSessionConfiguration.default)
-                session.dataTask(with: request) { (responseData, response, error) in
+                //let session = URLSession(configuration:URLSessionConfiguration.default)
+                sessionService.dataTask(with: request) { (responseData, response, error) in
                       
                       if (error == nil){
                           

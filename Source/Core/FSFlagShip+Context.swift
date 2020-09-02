@@ -12,15 +12,7 @@ extension Flagship{
 
     
     ///////////////////////////// Boolean /////////////////////////
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: " use updateContext(_ key:String,  _ boolean:Bool)")
-    public func context(_ key:String,  _ boolean:Bool){
-        
-        self.context.addBoolenCtx(key, boolean)
-    }
-    
-    
-    
-    
+    ///
     /// Set key/value boolean to context
     /// - Parameters:
     ///   - key: name for key
@@ -35,14 +27,6 @@ extension Flagship{
     
     
     /////////////////// Double //////////////////////////////////
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ double:Double)")
-    public func context(_ key:String,  _ double:Double){
-        
-        self.context.addDoubleCtx(key, double)
-    }
-    
-    
     /// Set Double to context
     /// - Parameters:
     ///   - key: name for key
@@ -57,14 +41,6 @@ extension Flagship{
     
     
     /////////////////////////// Text //////////////////////////////
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ text:String)")
-    public func context(_ key:String,  _ text:String){
-        
-        self.context.addStringCtx(key, text)
-    }
-    
-    
     /// Set String
     /// - Parameters:
     ///   - key: name for key
@@ -77,37 +53,22 @@ extension Flagship{
     
     
     
-    /////////////////////////// Float /////////////////////////////
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ float:Float)")
-    public func context(_ key:String,  _ float:Float){
-        
-        self.context.addFloatCtx(key, float)
-    }
-    
-    /// set Float to context
-    /// - Parameters:
-    ///   - key: name for key
-    ///   - float: value
-    public func updateContext(_ key:String,  _ float:Float){
-        
-        self.context.addFloatCtx(key, float)
-    }
-    
+//    /////////////////////////// Float /////////////////////////////
+//    /// set Float to context
+//    /// - Parameters:
+//    ///   - key: name for key
+//    ///   - float: value
+//    public func updateContext(_ key:String,  _ float:Float){
+//        
+//        self.context.addFloatCtx(key, float)
+//    }
+//    
     
     
     
     
     
     /////////////////////////// Integer /////////////////////////////
-    
-    @available(iOS, introduced: 1.0.0, deprecated: 1.2.0, message: "use updateContext(_ key:String,  _ integer:Int)")
-    public func context(_ key:String,  _ integer:Int){
-        
-        self.context.addIntCtx(key, integer)
-    }
-    
-    
     /// Set Integer to context
     /// - Parameters:
     ///   - key: name for key
@@ -168,13 +129,14 @@ extension Flagship{
         
         if disabledSdk{
             FSLogger.FSlog("The Sdk is disabled", .Campaign)
+            completion(.Disabled)
             return
         }
         if sdkModeRunning == .DECISION_API{
             
             self.getCampaigns { (error) in
                 
-                if (error == nil){
+                if (error == .None){
                     
                     completion(.Updated)
                     
@@ -193,8 +155,14 @@ extension Flagship{
                 completion(.NotReady)
                 return
             }
+            /// If the visitor is not set before, then the matchTargetingForCustomID can't process
+            if ( visitorId == nil){
+                
+                FSLogger.FSlog("the sync bucketing can't process because the visitorId is not set", .Campaign)
+                completion(.NotReady)
+                return
+            }
             let bucketMgr:FSBucketManager = FSBucketManager()
-            
             let resultBucketCache = bucketMgr.matchTargetingForCustomID(cachedBucket, visitorId, false)
             
             self.campaigns = FSCampaigns(resultBucketCache)

@@ -11,101 +11,198 @@ import XCTest
 
 class FSServiceTest: XCTestCase {
     
-
-    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId")
+   
+  
+    var serviceTest:ABService!
+    let mockUrl = URL(string: "Mock")!
     
-
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        let configuration = URLSessionConfiguration.default
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let sessionTest = URLSession.init(configuration: configuration)
+        serviceTest = ABService("idClient", "isVisitor", "apiKey")
+        
+        /// Set our mock session into service
+        serviceTest.sessionService = sessionTest
+ 
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
-    func testGetCampaign(){
-           
-        Flagship.sharedInstance.service = serviceTest
-        let expectation = self.expectation(description: #function)
-
-        serviceTest.getCampaigns(Dictionary()) { (comp, error) in
-            
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 10)
-
-    }
+ 
+ 
+ 
     
     
     func testActivate(){
         
         serviceTest.activateCampaignRelativetoKey("key", FSCampaigns("idCamp"))
+        
+     }
+    
+    
+    func testsendkeyValueContext(){
+        
+        serviceTest.sendkeyValueContext(["key1":"", "":true, "key2":12, "key3":["key1":"", "":true, "key2":12]])
+        
+        
     }
     
     
+    func testSendTracking(){
+        
+ 
+        serviceTest.sendTracking(FSEvent(eventCategory: .Action_Tracking, eventAction: "act"))
+        
+ 
+     }
     
-    /// Send EventTrack
-    func testSendEventTrack(){
+    
+    //// Get Campaign
+    func testGetCampaignWithSucess(){
+        /// Create the mock response
+        /// Load the data
         
-        serviceTest.sendEvent( FSEventTrack(eventCategory: .User_Engagement, eventAction: "testAction"))
+        let expectation = XCTestExpectation(description: "Service-expectation")
+ 
+        do {
+            
+            let testBundle = Bundle(for: type(of: self))
+
+            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
+            
+            let data = try Data(contentsOf: path, options:.alwaysMapped)
+            
+            
+            MockURLProtocol.requestHandler = { request in
+                
+                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+                return (response, data)
+            }
+            
+             
+            
+            serviceTest.getCampaigns([:]) { (camp, error) in
+                
+                
+                if let campaign = camp {
+                    
+                    XCTAssert(campaign.visitorId == "2020072318165329233")
+                    XCTAssert(campaign.campaigns.count == 3)
+                    XCTAssert(campaign.campaigns.first?.idCampaign == "bsffhle242b2l3igq4dg")
+                    XCTAssert(campaign.campaigns.first?.variationGroupId == "bsffhle242b2l3igq4egaa")
+                    
+                    /// Test activate
+                    self.serviceTest.activateCampaignRelativetoKey("array", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("complex", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("object", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("object", campaign)
+                    self.serviceTest.activateCampaignRelativetoKey("noone", campaign)
+
+
+
+
+                }
+                
+            expectation.fulfill()
+                
+            }
+            
+         }catch{
+            
+            print("error")
+        }
         
-        serviceTest.sendEvent( FSEventTrack(eventCategory: .Action_Tracking, eventAction: "testAction"))
+        wait(for: [expectation], timeout: 5.0)
 
     }
     
     
-    //// Send Item
-    func testSendItemEvent(){
+    func testGetCampaignWithFailureParsing(){
+        let data =  Data()
         
-        let item:FSItemTrack = FSItemTrack(transactionId: "id", name: "testItem", code: "code")
+        let expectation = XCTestExpectation(description: "Service-FailureParsing")
+
+          MockURLProtocol.requestHandler = { request in
+              
+            let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+          }
+          
+          serviceTest.getCampaigns([:]) { (camp, error) in
+            
+            XCTAssert(error == FlagshipError.GetCampaignError)
+            
+            self.serviceTest.activateCampaignRelativetoKey("array", FSCampaigns(""))
+
+              
+              expectation.fulfill()
+              
+          }
+          
+          wait(for: [expectation], timeout: 5.0)
+    }
+    
+    
+    func testWithNot200OK(){
         
-        item.price = nil
-        item.code = nil
-        item.quantity =  nil
-        item.category = nil
-        serviceTest.sendEvent(item)
-    }
-    
-    
-    /// Send Transaction
-    
-    func testSendTransaction(){
+        let expectation = XCTestExpectation(description: "Service-200OK")
+        let data =  Data()
+          
+          MockURLProtocol.requestHandler = { request in
+              
+            let response = HTTPURLResponse(url:self.mockUrl , statusCode:0, httpVersion: nil, headerFields: nil)!
+              return (response, data)
+          }
         
-        let item:FSTransactionTrack = FSTransactionTrack(transactionId: "idTransac", affiliation: "affiliation")
-        item.couponCode = nil
-        item.currency = nil
-        item.itemCount = nil
-        item.paymentMethod = nil
-        item.revenue = nil
-        item.tax =  nil
-        item.ShippingMethod = nil
-        item.shipping = nil
-        serviceTest.sendEvent(item)
+        
+        serviceTest.getCampaigns([:]) { (camp, error) in
+          
+          XCTAssert(error == FlagshipError.GetCampaignError)
+            self.serviceTest.activateCampaignRelativetoKey("array", FSCampaigns(""))
+
+            
+            expectation.fulfill()
+            
+        }
+        
+        wait(for: [expectation], timeout: 5.0)
+          
+        
     }
     
-    /// Send Page Track
-    func testPageTrack(){
-        let item:FSPageTrack =  FSPageTrack("interfaceName")
-        serviceTest.sendEvent(item)
+    
+    func testTimeOutValue(){
+        
+        let expectation = XCTestExpectation(description: "Service-Timeout")
+
+        
+        let serviceTestWithTimeOut:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:1)
+
+        let serviceTestWithTimeOutBis:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:2)
+
+        let serviceTestWithTimeOutTer:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey", timeoutService:3)
+
+        
+ 
+          serviceTestWithTimeOut.getCampaigns([:]) { (camp, error) in
+              
+            
+            XCTAssert( serviceTestWithTimeOut.timeOutServiceForRequestApi  == 1)
+            XCTAssert( serviceTestWithTimeOutBis.timeOutServiceForRequestApi  == 2)
+            XCTAssert( serviceTestWithTimeOutTer.timeOutServiceForRequestApi  == 3)
+
+            expectation.fulfill()
+
+          }
+          
+        wait(for: [expectation], timeout: 5.0)
     }
     
     
     
-    func testsendkeyValueContext(){
-     
-        serviceTest.sendkeyValueContext(["key1":"", "":true, "key2":12, "key3":["key1":"", "":true, "key2":12]])
-    }
     
 }

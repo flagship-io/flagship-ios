@@ -23,16 +23,19 @@ class FlagshipMock:Flagship {
     
     
     
-     internal func startMock(environmentId:String, _ visitorId:String?, _ mode:FlagshipMode, apacRegion:FSRegion? = nil, completionHandler:@escaping(FlagshipResult)->Void){
+    internal override func start(envId:String, apiKey:String, visitorId:String? , config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
+        
+        
+        Flagship.sharedInstance.updateContext(ALL_USERS, "")
         
         // Checkc the environmentId
-        if (FSTools.chekcXidEnvironment(environmentId)){
+        if (FSTools.chekcXidEnvironment(envId)){
             
-            self.environmentId = environmentId
+            self.environmentId = envId
             
         }else{
             
-            completionHandler(.NotReady)
+            onStartDone(.NotReady)
             return
         }
         
@@ -42,18 +45,17 @@ class FlagshipMock:Flagship {
             
         }catch{
             
-            completionHandler(.NotReady)
+            onStartDone(.NotReady)
             FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
         }
         
          
          // Create tuple
-         fsProfile = FSProfile(self.visitorId)
+       //  fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
- 
-        self.service = ServiceMock(self.environmentId, self.visitorId ?? "", region: apacRegion)
+        self.service = ServiceMock(self.environmentId, self.visitorId ?? "", "")
 
         
                
@@ -69,14 +71,13 @@ class FlagshipMock:Flagship {
         FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
         
         // set mode running
-        self.sdkModeRunning = mode
-        
+        self.sdkModeRunning = config.mode
         
         switch self.sdkModeRunning {
         case .BUCKETING:
             
             
-            let serviceMockBis = ServiceMock(self.environmentId, self.visitorId ?? "", region: apacRegion)
+            let serviceMockBis = ServiceMock(self.environmentId, self.visitorId ?? "", "")
             
             serviceMockBis.getFSScriptMock { (scriptBucket, error) in
                 
@@ -90,23 +91,23 @@ class FlagshipMock:Flagship {
                         
                         // Exit the start with not ready state
                         FSLogger.FSlog("No cached script available",.Campaign)
-                        completionHandler(.NotReady)
+                        onStartDone(.NotReady)
                         return
                     }
                     
                     /// Bucket the variations with the cached script
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, cachedBucket)
+                    self.campaigns = bucketMgr.bucketVariations(self.visitorId, cachedBucket)
                 }else{
                     /// Bucket the variation with a new script from server
-                    self.campaigns = bucketMgr.bucketVariations(self.fsProfile.visitorId, scriptBucket ?? FSBucket())
+                    self.campaigns = bucketMgr.bucketVariations(self.visitorId, scriptBucket ?? FSBucket())
                 }
                 
                 /// Update the modifications
-                self.context.updateModification(self.campaigns)
+                Flagship.sharedInstance.context.updateModification(self.campaigns)
                 
                 
                 /// Call back with Ready state
-                completionHandler(.Ready)
+                onStartDone(.Ready)
             }
             
             break
@@ -131,17 +132,18 @@ class FlagshipMock:Flagship {
                          
                          FSLogger.FSlog(String(format: "Default values will be set by the SDK"), .Campaign)
 
-                         completionHandler(FlagshipResult.Disabled)
+                         onStartDone(FlagshipResult.Disabled)
                          
                      }else{
                          
                          self.disabledSdk = false
                          self.campaigns = campaigns
-                         self.context.updateModification(campaigns)
-                         completionHandler(FlagshipResult.Ready)
+                         Flagship.sharedInstance.context.updateModification(self.campaigns)
+
+                         onStartDone(FlagshipResult.Ready)
                      }
                  }else{
-                     completionHandler(FlagshipResult.NotReady)
+                     onStartDone(FlagshipResult.NotReady)
                  }
              }
             break

@@ -12,23 +12,21 @@
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
 
-
 **Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
 
 
 ## Docs
 
-- [Get Started](http://developers.flagship.io/ios/v1.2.0/#getting-started)
-- [Initialize and start](http://developers.flagship.io/ios/v1.2.0/#initialize-and-start-the-library)
-- [Campaign integration](http://developers.flagship.io/ios/v1.2.0/#campaign-integration)
-- [Hit tracking](http://developers.flagship.io/ios/v1.2.0/#hit-tracking)
-- [Release Notes](http://developers.flagship.io/ios/v1.2.0/#release)
+- [Get Started](http://developers.flagship.io/ios/v2.0.0/#getting-started)
+- [Initialize and start](http://developers.flagship.io/ios/v2.0.0/#initialize-and-start-the-library)
+- [Campaign integration](http://developers.flagship.io/ios/v2.0.0/#campaign-integration)
+- [Hit tracking](http://developers.flagship.io/ios/v2.0.0/#hit-tracking)
+- [Release Notes](http://developers.flagship.io/ios/v2.0.0/#release)
 
 
 ## Contributors
 
 - FERGUEN Adel [@ABTastyAdel](https://github.com/ABTastyAdel)
-
 
 ## Licence
 

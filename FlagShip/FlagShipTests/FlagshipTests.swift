@@ -44,33 +44,34 @@ class FlagshipTests: XCTestCase {
         }
     }
     
-    
-    
-    /// Test start Flagship
-    func testStartFlagshipWithBadEnvId(){
-
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "", "", .BUCKETING) { (result) in
-            
-            XCTAssert(result == .NotReady)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 10)
-       
-    }
-    
-    
     func testStartFlagshipwithEmptyUserID(){
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", "", .BUCKETING) { (result) in
-            
-            XCTAssert(result == .NotReady)
-            expectation.fulfill()
-        }
+        
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId: "ee") { (result) in
+             
+             XCTAssert(result == .NotReady)
+             expectation.fulfill()
+         }
+  
         waitForExpectations(timeout: 10)
        
     }
+    
+    
+      func testStartFlagshipWithBadEnvId(){
+
+          let expectation = self.expectation(description: #function)
+          
+          Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmderrfefeefef", apiKey: "", visitorId: "ee") { (result) in
+               
+               XCTAssert(result == .NotReady)
+               expectation.fulfill()
+           }
+    
+          waitForExpectations(timeout: 10)
+         
+      }
     
     
 
@@ -84,54 +85,102 @@ class FlagshipTests: XCTestCase {
         Flagship.sharedInstance.activateModification(key: "")
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING) { (result) in
+        
+        
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId:"zzz") { (result) in
 
-            XCTAssert(result == .Ready)
+            XCTAssert(result == .NotReady)
             
             Flagship.sharedInstance.activateModification(key: "btn-color")
 
-            
-            Flagship.sharedInstance.getCampaigns { (state) in
-                
-                expectation.fulfill()
-                
-            }
-            
-        }
-        waitForExpectations(timeout: 10)
-        
-
-    }
-    
-    
-    func testStartFlagshiWithApac(){
-
-        let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(environmentId: "bkk9glocmjcg0vtmdlng", nil, .BUCKETING, apacRegion:FSRegion("1212121212121##1#1#1#1;")) { (result) in
-
-            XCTAssert(result == .Ready)
             expectation.fulfill()
+            
         }
         waitForExpectations(timeout: 10)
-
+        
     }
     
     
+    func testStartFlagshiWithWrongApiKey(){
 
-    
-    
-    /// Deprecated start
-    
-    func testDeprecatedStart(){
-        
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.startFlagShip(environmentId: "bkk9glocmjcg0vtmdlng", "alias") { (result) in
-            
-            XCTAssert(result == .Ready)
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"") { (result) in
+
+            XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 10)
 
     }
+    
+    
+    func testStartWithTimeout(){
+        
+        let expectation = self.expectation(description: #function)
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"idUser",config: FSConfig(.DECISION_API, timeout:2)) { (result) in
+            
+            /// the time out set from config is matching
+            XCTAssert(Flagship.sharedInstance.service?.timeOutServiceForRequestApi == 2)
+            /// the application wil not start
+            XCTAssert(result == .NotReady)
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10)
+        
+    }
+    
+    
+ 
+    
+    
+    
+    
+    func testMockProtocol(){
+        
+         let apiURL = URL(string: "https://jsonplaceholder.typicode.com/posts/42")!
+        
+        let userID = 5
+        let id = 42
+        let title = "URLProtocol Post"
+        let body = "Post body...."
+        let jsonString = """
+                         {
+                            "userId": \(userID),
+                            "id": \(id),
+                            "title": "\(title)",
+                            "body": "\(body)"
+                         }
+                         """
+        let data = jsonString.data(using: .utf8)
+        
+        MockURLProtocol.requestHandler = { request in
+            
+            let response = HTTPURLResponse(url: apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, data)
+        }
+        
+        let MockConfig = URLSessionConfiguration.default
+        MockConfig.protocolClasses = [MockURLProtocol.self]
+        let session = URLSession(configuration:MockConfig)
+        
+        let expectation = self.expectation(description: #function)
+        
+        session.dataTask(with: apiURL) { (data, response, error) in
+            
+            print("done")
+             expectation.fulfill()
+        }.resume()
+        
+        waitForExpectations(timeout: 10)
+         
+    }
+    
+    
+    
+
+    
+    
+ 
 }

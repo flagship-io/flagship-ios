@@ -108,7 +108,7 @@ internal class FSOfflineTracking{
         
         let reachability = SCNetworkReachabilityCreateWithName(nil, "https://decision-api.canarybay.io")
         var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(reachability!, &flags) /// TO IFX
+        SCNetworkReachabilityGetFlags(reachability!, &flags)  
         return flags.contains(.reachable)
     }
     
