@@ -3,7 +3,7 @@
 set -eo pipefail
 
 # Type a script or drag a script file from your workspace to insert its path.
-UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
+UNIVERSAL_OUTPUTFOLDER=$PWD/build/${CONFIGURATION}-universal
 
 # make sure the output directory exists
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
