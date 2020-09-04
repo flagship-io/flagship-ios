@@ -11,4 +11,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Build universal FrameWork
-        run: ./.github/secrets/build_universal_fmk.sh
+        run: ./.github/scripts/build_universal_fmk.sh
