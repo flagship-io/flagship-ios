@@ -5,10 +5,9 @@ on:
       - master
 jobs:
   deploy:
-    name: Deploying to Testflight
+    name: Deploying Universal FrameWork
     runs-on: macOS-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
-      - name: Install gpg
-        run: brew install gnupg
+        uses: actions/checkout@v2
+        run: ./.github/secrets/build_universal_fmk.sh
