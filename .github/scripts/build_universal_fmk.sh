@@ -9,9 +9,12 @@ UNIVERSAL_OUTPUTFOLDER=$PWD/build/${CONFIGURATION}-universal
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
 # Step 1. Build Device and Simulator versions
-xcodebuild -target "Flagship" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build PLATFORM_NAME=iphoneos
+xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphoneos ONLY_ACTIVE_ARCH=NO  
+BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}"
 
-xcodebuild -target "Flagship" -configuration ${CONFIGURATION} -sdk  -arch x86_64 BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}" clean build PLATFORM_NAME=iphonesimulator
+xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=NO  
+BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}"
+
 
 # Step 2. Copy the framework structure to the universal folder
 cp -R "${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
