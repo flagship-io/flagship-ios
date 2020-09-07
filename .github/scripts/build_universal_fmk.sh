@@ -9,8 +9,8 @@ UNIVERSAL_OUTPUTFOLDER=$PWD/build/${CONFIGURATION}-universal
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
 # Step 1. Build Device and Simulator versions
-xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphoneos ONLY_ACTIVE_ARCH=NO  
-BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}"
+#xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphoneos ONLY_ACTIVE_ARCH=NO  
+#BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}"
 
 xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=NO  
 BUILD_DIR="${BUILD_DIR}" BUILD_ROOT="${BUILD_ROOT}"
