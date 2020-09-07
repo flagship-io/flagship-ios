@@ -22,3 +22,4 @@ cp -R "${BUILD_DIR}/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${BUILD_DIR}/Debug-iphonesimulator/Flagship.framework/Flagship" "${BUILD_DIR}/Debug-iphoneos/Flagship.framework/Flagship"
 
 cp -r "${BUILD_DIR}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
+
