@@ -3,6 +3,8 @@ set -eo pipefail
 # Type a script or drag a script file from your workspace to insert its path.
 UNIVERSAL_OUTPUTFOLDER=$PWD/build/universal
 
+mkdir -p  $PWD/build
+
 # make sure the output directory exists
 mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
@@ -16,9 +18,9 @@ echo $BUILD_DIR
 echo trace --------------
 
 # Step 2. Copy the framework structure to the universal folder
-cp -R "Flagship/${BUILD_DIR}/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
+cp -R "$PWD/build/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
 
 # Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory
-lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "FlagShip/${BUILD_DIR}/Debug-iphonesimulator/Flagship.framework/Flagship" "FlagShip/${BUILD_DIR}/Debug-iphoneos/Flagship.framework/Flagship"
+lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "$PWD/build/Debug-iphonesimulator/Flagship.framework/Flagship" "$PWD/build/Debug-iphoneos/Flagship.framework/Flagship"
 
 #cp -r "${BUILD_DIR}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
