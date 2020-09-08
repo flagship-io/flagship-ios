@@ -33,6 +33,6 @@ cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship
 
 echo ---- Before artifact -------
 mkdir -p path/to/artifact
-cp -R "/Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
+cp -R "/Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/"
 
 echo ---- Done -------
