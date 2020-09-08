@@ -31,6 +31,7 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${
 
 cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
 
+mkdir -p path/to/artifact
 Run cp "/Users/runner/work/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
 
 echo ---- Done -------
