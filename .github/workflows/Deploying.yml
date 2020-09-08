@@ -17,6 +17,7 @@ jobs:
     steps:
     - name: Upload Artifact
     - uses: actions/checkout@v2
+    - name: create folder
     - run: mkdir -p path/to/artifact
     - run: cp "${UNIVERSAL_OUTPUTFOLDER}"/Flagship.framework" "path/to/artifact/Flagship.framework"
     - uses: actions/upload-artifact@v2
