@@ -41,3 +41,11 @@ echo  ------- After copy in the universsal
 
 # Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphoneos/Flagship.framework/Flagship"
+
+cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
+
+cd UNIVERSAL_OUTPUTFOLDER
+
+ls
+
+echo ---- fin -------
