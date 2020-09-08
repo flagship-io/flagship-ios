@@ -15,8 +15,6 @@ jobs:
   Upload:
     runs-on: macOS-latest
     steps:
-    - name: Upload Artifact
-      uses: actions/checkout@v2
     - name: create folder
       uses: actions/upload-artifact@v2
       with:
