@@ -19,6 +19,6 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: path/to/artifact/Flagship.framework
+        path: /Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework
 
      
