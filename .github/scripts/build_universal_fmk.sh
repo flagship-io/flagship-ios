@@ -30,5 +30,7 @@ cp -R "${BUILD_FOLDER}/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOL
 lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphoneos/Flagship.framework/Flagship"
 
 cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
-
+echo ----- list output directory
+cd ${UNIVERSAL_OUTPUTFOLDER}
+ls
 echo ---- Done -------
