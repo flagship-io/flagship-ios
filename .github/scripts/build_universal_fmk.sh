@@ -37,7 +37,12 @@ xcodebuild  build -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk 
 # Step 2. Copy the framework structure to the universal folder
 cp -R ${BUILD_FOLDER}/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
 
-# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory
-#lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "$PWD/build/Debug-iphonesimulator/Flagship.framework/Flagship" "$PWD/build/Debug-iphoneos/Flagship.framework/Flagship"
+echo  ------- After copy in the universsal 
 
-#cp -r "${BUILD_DIR}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
+# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory
+lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Flagship" "${BUILD_FOLDER}/Debug-iphoneos/Flagship.framework/Flagship"
+
+echo After lipo 
+cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
+
+echo ---- fin -------
