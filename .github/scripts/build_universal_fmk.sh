@@ -15,10 +15,10 @@ mkdir -p "${UNIVERSAL_OUTPUTFOLDER}"
 
 
 # Step 1. Build Device and Simulator versions
-xcodebuild  build  -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphoneos ONLY_ACTIVE_ARCH=NO  BUILD_DIR=${BUILD_FOLDER} BUILD_ROOT="${BUILD_ROOT}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+xcodebuild  build -quiet  -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphoneos ONLY_ACTIVE_ARCH=NO  BUILD_DIR=${BUILD_FOLDER} BUILD_ROOT="${BUILD_ROOT}" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
  
 
-xcodebuild  build  -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=NO BUILD_DIR=${BUILD_FOLDER} BUILD_ROOT="${BUILD_ROOT}"
+xcodebuild  build -quiet -project Flagship/Flagship.xcodeproj -scheme "Flagship"  -sdk iphonesimulator -arch x86_64 ONLY_ACTIVE_ARCH=NO BUILD_DIR=${BUILD_FOLDER} BUILD_ROOT="${BUILD_ROOT}"
 
  
 
@@ -32,6 +32,6 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${
 cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
 
 mkdir -p path/to/artifact
-cp "/Users/runner/work/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
+cp "/Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
 
 echo ---- Done -------
