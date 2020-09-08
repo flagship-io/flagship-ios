@@ -20,7 +20,7 @@ jobs:
     - name: create folder
       run: mkdir -p path/to/artifact
     - name: copy
-      run: cp "$PWD/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
+      run: cp "/Users/runner/work/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
