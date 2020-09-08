@@ -16,10 +16,11 @@ jobs:
     runs-on: macOS-latest
     steps:
     - name: Upload Artifact
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - name: create folder
-    - run: mkdir -p path/to/artifact
-    - run: cp "${UNIVERSAL_OUTPUTFOLDER}"/Flagship.framework" "path/to/artifact/Flagship.framework"
+      run: mkdir -p path/to/artifact
+    - name: copy
+      run: cp "${UNIVERSAL_OUTPUTFOLDER}"/Flagship.framework" "path/to/artifact/Flagship.framework"
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
