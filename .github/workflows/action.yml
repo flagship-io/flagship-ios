@@ -1,3 +1,11 @@
+
+name: upload-artifact
+on:
+  push:
+    branches:
+      - master
+jobs:      
+runs-on: macOS-latest
 steps:
 - uses: actions/checkout@v2
 
