@@ -19,7 +19,9 @@ echo ${BUILD_ROOT}
 echo --------------
 echo ${BUILD_DIR}
 echo --------------
-
+echo --------------
+echo ${PWD}
+echo --------------
  
 
 
@@ -35,7 +37,7 @@ echo --------------
  
 
 # Step 2. Copy the framework structure to the universal folder
-cp -R "$PWD/FlagShip/build/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
+cp -R "FlagShip/build/Debug-iphoneos/Flagship.framework" "${UNIVERSAL_OUTPUTFOLDER}/"
 
 # Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory
 #lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "$PWD/build/Debug-iphonesimulator/Flagship.framework/Flagship" "$PWD/build/Debug-iphoneos/Flagship.framework/Flagship"
