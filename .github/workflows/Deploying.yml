@@ -18,9 +18,9 @@ jobs:
     - name: Upload Artifact
       uses: actions/checkout@v2
     - name: create folder
-      run: mkdir -p path/to/artifact
+      #run: mkdir -p path/to/artifact
     - name: copy
-      run: cp "/Users/runner/work/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
+    #  run: cp "/Users/runner/work/flagship-ios/build/universal/Flagship.framework" "path/to/artifact/Flagship.framework"
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
