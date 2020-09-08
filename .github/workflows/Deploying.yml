@@ -12,13 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build universal FrameWork
         run: ./.github/scripts/build_universal_fmk.sh
-  Upload:
-    runs-on: macOS-latest
-    steps:
-    - name: create folder
-      uses: actions/upload-artifact@v2
-      with:
-        name: my-artifact
-        path: /Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework
-
-     
+      - name: create folder
+        uses: actions/upload-artifact@v2
+        with:
+         name: my-artifact
+         path: /Users/runner/work/flagship-ios/flagship-ios/build/universal/Flagship.framework
