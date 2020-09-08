@@ -44,7 +44,7 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${
 
 cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
 
-cd UNIVERSAL_OUTPUTFOLDER
+cd ${UNIVERSAL_OUTPUTFOLDER}
 
 ls
 
