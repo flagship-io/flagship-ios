@@ -3,6 +3,8 @@ set -eo pipefail
 # Universal folder
 UNIVERSAL_OUTPUTFOLDER=$PWD/build/universal
 
+echo ${UNIVERSAL_OUTPUTFOLDER}
+
 # build folder
 BUILD_FOLDER=$PWD/build
 
@@ -31,6 +33,8 @@ lipo -create -output "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship" "${
 
 cp -r "${BUILD_FOLDER}/Debug-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/" "${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule"
 echo ----- list output directory
+
+
 cd ${UNIVERSAL_OUTPUTFOLDER}
 ls
 echo ---- Done -------
