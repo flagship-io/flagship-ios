@@ -18,11 +18,11 @@
 
 ## Docs
 
-- [Get Started](http://developers.flagship.io/ios/v2.0.0/#getting-started)
-- [Initialize and start](http://developers.flagship.io/ios/v2.0.0/#initialize-and-start-the-library)
-- [Campaign integration](http://developers.flagship.io/ios/v2.0.0/#campaign-integration)
-- [Hit tracking](http://developers.flagship.io/ios/v2.0.0/#hit-tracking)
-- [Release Notes](http://developers.flagship.io/ios/v2.0.0/#release)
+- [Get Started](http://developers.flagship.io/docs/sdk/ios/v2.0/#getting-started)
+- [Initialize and start](http://developers.flagship.io/docs/sdk/ios/v2.0/#initialize-and-start-the-library)
+- [Campaign integration](http://developers.flagship.io/docs/sdk/ios/v2.0/#campaign-integration)
+- [Hit tracking](http://developers.flagship.io/docs/sdk/ios/v2.0/#hit-tracking)
+- [Release Notes](http://developers.flagship.io/docs/sdk/ios/v2.0/#release)
 
 
 ## Contributors
