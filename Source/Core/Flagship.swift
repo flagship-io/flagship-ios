@@ -416,6 +416,17 @@ public class Flagship:NSObject{
     
     @objc public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
         
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+            return defaultArray
+        }
+        
+        if activate && self.campaigns != nil {
+            
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
+        }
+        
         return self.context.readArrayFromContext(key, defaultArray: defaultArray)
         
     }
@@ -434,6 +445,16 @@ public class Flagship:NSObject{
      
      */
     @objc public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+            return defaultJson
+        }
+        
+        if activate && self.campaigns != nil {
+            
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
+        }
         
         return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
         

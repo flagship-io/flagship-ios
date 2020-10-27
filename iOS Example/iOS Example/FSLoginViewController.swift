@@ -28,9 +28,13 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
  
+        
+        
         //Round button login
         loginBtn.layer.cornerRadius = loginBtn.frame.height/2
         loginBtn.layer.masksToBounds = true
+        
+        loginBtn.backgroundColor = .red
         
         
         // Add gesture
@@ -63,24 +67,24 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     
     /// Start Flagship
     
-    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "your api key", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
+    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
         
         
         /// When the sdk is ready ...
         if result == .Ready{
             
-            
-            Flagship.sharedInstance.activateModification(key: "complex")
-            
-            Flagship.sharedInstance.activateModification(key: "alias")
-            
-            Flagship.sharedInstance.activateModification(key: "array")
-            
-            let result = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
-            
-
-            let resultArray = Flagship.sharedInstance.getModification("array", defaultArray: [])
-            
+//            
+//            Flagship.sharedInstance.activateModification(key: "complex")
+//            
+//            Flagship.sharedInstance.activateModification(key: "alias")
+//            
+//            Flagship.sharedInstance.activateModification(key: "array")
+//            
+//            let result = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
+//            
+//
+//            let resultArray = Flagship.sharedInstance.getModification("array", defaultArray: [])
+//            
 
 
              DispatchQueue.main.async {
