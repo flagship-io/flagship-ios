@@ -88,7 +88,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.thirdButton.setTitle(Flagship.sharedInstance.getModification("ctxKeyString", defaultString:"None", activate: true), for: .normal)
         
         
-        let configjson = Flagship.sharedInstance.getModification("configs", defaultJson: [:], activate: true)
         
      //   let list = Flagship.sharedInstance.getModification("list", defaultArray: [], activate: true)
 
