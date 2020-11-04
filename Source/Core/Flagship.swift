@@ -73,11 +73,11 @@ public class Flagship:NSObject{
     }
     
     
-    /// Enable Logs, By default is equal to True
+    /// Enable Logs, By default the log is enabled
     @objc public var enableLogs:Bool = true
     
     
-    /// Panic Button let you disable the SDK if needed
+    /// Panic Button let you disable the SDK when needed
     private var _disabledSdk:Bool = false
     
     
@@ -100,7 +100,7 @@ public class Flagship:NSObject{
     
     
     
-    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default 
+    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default the sdk run with the decision mode
     
     
     /// Shared instance
@@ -506,7 +506,7 @@ public class Flagship:NSObject{
     
     
     /**
-     Send Hit for tracking data
+     Send Hits for tracking
      
      @param event Event Object (Page, Transaction, Item, Event)
      

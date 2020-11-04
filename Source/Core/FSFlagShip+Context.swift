@@ -169,7 +169,7 @@ extension Flagship{
             
             self.context.updateModification( self.campaigns)
             
-            completion(.Ready)
+            completion(.Updated)
 
         }
         
