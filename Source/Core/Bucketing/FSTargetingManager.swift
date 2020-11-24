@@ -130,24 +130,10 @@ class FSTargetingManager: NSObject {
             /// Special treatment for array
             var isOkay:Bool = false
             
-            isOkay = checkTargetingForList(currentValue: currentContextValue, opType: opType, listAudience: audienceValue)
 
             if (audienceValue is [String] || audienceValue is [Int] || audienceValue is [Double] ){
                 
-                if let values = audienceValue as? [Any] {
-                    
-                    for subAudienceValue in values  {
-                        
-                        isOkay  = checkCondition(currentContextValue as Any, opType, subAudienceValue as Any)
-                        
-                        if(isOkay){
-                            
-                            break
-                        }
-                    }
-                }
-                
-                
+                isOkay = checkTargetingForList(currentValue: currentContextValue, opType: opType, listAudience: audienceValue)
                 
             }else{
                 
