@@ -70,6 +70,42 @@
             "operator": "EQUALS",
             "key": "basketNumberBis",
             "value": 200
+          },          {
+              "operator": "EQUALS",
+              "key": "fs_users",
+              "value": [
+                "alias",
+                "beta",
+                "gama",
+                "alpha"
+              ]
+            },
+          {
+              "operator": "NOT_EQUALS",
+              "key": "testkey6",
+              "value": [
+                "alias",
+                "beta",
+                "gama",
+                "alpha"
+              ]
+            },{
+          "operator": "NOT_CONTAINS",
+          "key": "testkey7",
+          "value": [
+            "abc",
+            "def",
+            "ghi",
+            "jkl"
+          ]
+        },{
+            "operator": "CONTAINS",
+            "key": "testkey8",
+            "value": [
+              "yahoo.fr",
+              "gmail.com",
+              "mail.com"
+            ]
           }
         ]
       }
@@ -77,7 +113,3 @@
       
     ]
 }
-
-
-
-
