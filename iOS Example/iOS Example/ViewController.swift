@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // The get modificationInfo return [String:String]? // { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
         
-        let inofs = Flagship.sharedInstance.getModificationInfo("btn-color")
+        let inofs = Flagship.sharedInstance.getModificationInfoBis("btn-color")
         
         if let infoCampaign = inofs {
             
@@ -111,7 +111,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             let variationId = infoCampaign["variationId"] ?? "None"
             
             
-            print(campaignId   + variationId   + variationGroupId  )
+            //print(campaignId   + variationId   + variationGroupId  )
             
         }else {
             

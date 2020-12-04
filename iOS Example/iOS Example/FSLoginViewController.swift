@@ -62,12 +62,14 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     Flagship.sharedInstance.updateContext("Number_Key", 200)
     Flagship.sharedInstance.updateContext("Boolean_Key", true)
     Flagship.sharedInstance.updateContext("String_Key", "june")
+    
+    Flagship.sharedInstance.updateContext("devMode", true)
 
 
     
     /// Start Flagship
     
-    Flagship.sharedInstance.start(envId:"your envId", apiKey: "your apiKey", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
+    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
         
         
         /// When the sdk is ready ...
@@ -79,6 +81,9 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
             Flagship.sharedInstance.activateModification(key: "alias")
             
             Flagship.sharedInstance.activateModification(key: "array")
+            
+            
+            
             
             let result = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
             

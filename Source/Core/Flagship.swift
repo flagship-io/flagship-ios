@@ -480,6 +480,18 @@ public class Flagship:NSObject{
         return nil
     }
     
+    //// Tempo
+    @objc public func getModificationInfoBis(_ key:String) -> [String:Any]? {
+        
+        
+        if self.campaigns != nil {
+            
+            return self.campaigns.getRelativekeyModificationInfosBis(key)
+        }
+        
+        FSLogger.FSlog(" Any campaign found, to get the information's modification key", .Campaign) /// See later for the logs
+        return nil
+    }
     
     
     

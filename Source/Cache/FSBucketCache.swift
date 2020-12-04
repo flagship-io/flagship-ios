@@ -129,7 +129,7 @@ internal class FSVariationGroupCache:Codable {
     
     internal func getFSVariation()->FSVariation{
         
-        return FSVariation(idVariation: variation.variationId, variation.modification)
+        return FSVariation(idVariation: variation.variationId, variation.modification, isReference: variation.reference)
         
      }
     
@@ -165,6 +165,7 @@ internal class FSVariationCache:Codable{
         self.variationId = variationId
     }
     
+    var reference:Bool = false
     
     required public  init(from decoder: Decoder) throws{
         
@@ -172,6 +173,8 @@ internal class FSVariationCache:Codable{
         
         do{ self.variationId            = try values.decode(String.self, forKey: .variationId)} catch{ self.variationId = ""}
         do{ self.modification           = try values.decode(FSModifications.self, forKey: .modification)} catch{ self.modification = nil}
+        do{ self.reference              = try values.decode(Bool.self, forKey: .reference)} catch{ self.reference = false}
+
     }
     
     
@@ -179,6 +182,7 @@ internal class FSVariationCache:Codable{
         
         case variationId
         case modification
+        case reference
      }
     
 }
