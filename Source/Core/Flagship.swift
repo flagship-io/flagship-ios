@@ -468,7 +468,9 @@ public class Flagship:NSObject{
      
      @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”} or nil
      */
-    @objc public func getModificationInfo(_ key:String) -> [String:String]? {
+    
+    @available(iOS, introduced: 1.2.3, deprecated: 2.0.2, message: "Use func getModificationInfo(key:String) -> [String:Any]? ")
+    public func getModificationInfo(_ key:String) -> [String:String]? {
         
         
         if self.campaigns != nil {
@@ -480,15 +482,22 @@ public class Flagship:NSObject{
         return nil
     }
     
-    //// Tempo
-    @objc public func getModificationInfoBis(_ key:String) -> [String:Any]? {
-        
-        
+    /*
+     Get modification info.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
+     
+     @param key for associated  modification
+     
+     @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”, "isReference":true/false} or nil
+     */
+    
+    @objc public func getModificationInfo(key:String) -> [String:Any]? {
+
+
         if self.campaigns != nil {
-            
+
             return self.campaigns.getRelativekeyModificationInfosBis(key)
         }
-        
+
         FSLogger.FSlog(" Any campaign found, to get the information's modification key", .Campaign) /// See later for the logs
         return nil
     }

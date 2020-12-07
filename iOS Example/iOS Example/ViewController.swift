@@ -97,21 +97,29 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // The get modificationInfo return [String:String]? // { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
         
-        let inofs = Flagship.sharedInstance.getModificationInfoBis("btn-color")
+        let inofs = Flagship.sharedInstance.getModificationInfo(key:"btn-color")
         
         if let infoCampaign = inofs {
             
             /// Retreive the campaignId
-            let campaignId = infoCampaign["campaignId"] ?? "None"
+            let campaignId = infoCampaign["campaignId"]    as? String  ?? ""
             
             /// Retreive the variationGroupId
-            let variationGroupId = infoCampaign["variationGroupId"] ?? "None"
+            let variationGroupId = infoCampaign["variationGroupId"]    as? String ?? ""
             
             /// Retreive the variationId
-            let variationId = infoCampaign["variationId"] ?? "None"
+            let variationId = infoCampaign["variationId"]    as? String  ?? ""
+            
+            let isReference = infoCampaign["isReference"]    as? Bool  ?? false
+            
+            if (isReference){
+                
+                print("Reference")
+            }
+
             
             
-            //print(campaignId   + variationId   + variationGroupId  )
+            print(campaignId   + variationId   + variationGroupId  )
             
         }else {
             

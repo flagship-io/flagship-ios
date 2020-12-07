@@ -75,13 +75,14 @@ internal class FSCampaigns:Decodable{
     }
     
     //// Get relative information for modification key
+    /// This dunction will be remved later 
     internal func getRelativekeyModificationInfos(_ keyValue:String)->[String:String]?{
         
         for item:FSCampaign in self.campaigns{
             
             guard let value = item.variation?.modifications?.value else{
                 
-                FSLogger.FSlog(" No Value modification founded....", .Campaign)
+                FSLogger.FSlog(" No Value modification found....", .Campaign)
                 continue
             }
             if value.keys.contains(keyValue){
@@ -103,15 +104,15 @@ internal class FSCampaigns:Decodable{
             
             guard let value = item.variation?.modifications?.value else{
                 
-                FSLogger.FSlog(" No Value modification founded....", .Campaign)
+                FSLogger.FSlog(" No Value modification found....", .Campaign)
                 continue
             }
             if value.keys.contains(keyValue){
                                 
                 return ["campaignId"        : item.idCampaign,
                         "variationId"       : item.variation?.idVariation ?? "",
-                        "variationGroupId"  :item.variationGroupId ?? "",
-                        "isReference"       :item.variation?.reference ?? "false"]
+                        "variationGroupId"  : item.variationGroupId ?? "",
+                        "isReference"       : item.variation?.reference ?? false]
             }
         }
         return nil
@@ -193,7 +194,10 @@ internal class FSVariation:Decodable{
         do{ self.idVariation             = try values.decode(String.self, forKey: .idVariation)} catch{ self.idVariation = ""}
         do{ self.modifications           = try values.decode(FSModifications.self, forKey: .modifications)} catch{ self.modifications = nil}
         do{ self.allocation              = try values.decode(Int.self, forKey: .allocation)} catch{ self.allocation = 0}
-        do{ self.reference               = try values.decode(Bool.self, forKey: .allocation)} catch{ self.reference = false}
+        do{
+            self.reference               = try values.decode(Bool.self, forKey: .reference)} catch{
+            self.reference = false
+        }
 
     }
     

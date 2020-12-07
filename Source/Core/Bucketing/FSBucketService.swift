@@ -49,13 +49,16 @@ internal extension ABService {
                         
                         do {
                             
-                            let scriptObject = try JSONDecoder().decode(FSBucket.self, from: responseData)
-                            
                             // Print Json response
                             let dico = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
                             
                             FSLogger.FSlog("The script bucketing is : \(dico)", .Parsing)
+                            
+                            let scriptObject = try JSONDecoder().decode(FSBucket.self, from: responseData)
+                            
                             onGetScript(scriptObject, nil)
+
+              
                             
                             /// Save bucket script
                             self.cacheManager.saveBucketScriptInCache(data)
