@@ -108,6 +108,29 @@ class FSCampaignsTest: XCTestCase {
             XCTAssertEqual(dicoBis["variationGroupId"],  "")
         }
         
+        
+        /// Test for the new get
+        ///
+        ///
+        
+        XCTAssertNil(campaignTest?.getRelativekeyModificationInfosBis(""))
+
+
+        
+        /// ["campaignId" : item.idCampaign, "variationId": item.variation?.idVariation ?? "", "variationGroupId":item.variationGroupId ?? "","isReference":true]
+        if let dico = campaignTest?.getRelativekeyModificationInfosBis("alias"){
+            
+            XCTAssertEqual(dico.keys.count, 4)
+            
+            XCTAssertEqual(dico["campaignId"] as? String,  "bsffhle242b2l3igq4dg")
+            
+            XCTAssertEqual(dico["variationId"] as? String,  "bsffhle242b2l3igq4f0")
+            
+            XCTAssertEqual(dico["variationGroupId"] as? String,  "bsffhle242b2l3igq4egaa")
+            
+            XCTAssertEqual(dico["isReference"] as? Bool,  true)
+
+        }
 
         
     }

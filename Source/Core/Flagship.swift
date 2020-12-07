@@ -483,7 +483,7 @@ public class Flagship:NSObject{
     }
     
     /*
-     Get modification info.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
+     Get modification info.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”, "isReference":true/false}
      
      @param key for associated  modification
      

@@ -75,7 +75,7 @@ internal class FSCampaigns:Decodable{
     }
     
     //// Get relative information for modification key
-    /// This dunction will be remved later 
+    /// This function will be removed later
     internal func getRelativekeyModificationInfos(_ keyValue:String)->[String:String]?{
         
         for item:FSCampaign in self.campaigns{
@@ -96,7 +96,6 @@ internal class FSCampaigns:Decodable{
     }
     
     
-    /// Tempo
     //// Get relative information for modification key
     internal func getRelativekeyModificationInfosBis(_ keyValue:String)->[String:Any]?{
         
