@@ -24,7 +24,7 @@
     
     
     /// Get modification info
-    NSDictionary * dico =  [[Flagship sharedInstance] getModificationInfo:@"btn-color"];
+    NSDictionary * dico =  [[Flagship sharedInstance] getModificationInfoWithKey:@"btn-color"];
     
     if (dico){
         /// Get campaignid
@@ -57,7 +57,7 @@
    
     
     // Send Page
-    [[Flagship sharedInstance] sendPageEvent: [[FSPageTrack alloc] init:@"StorePage"]];
+    [[Flagship sharedInstance] sendPageEvent: [[FSPage alloc] init:@"StorePage"]];
     
 
     // Send Item
@@ -76,7 +76,7 @@
     
     
     // Send Event Track
-    [[Flagship sharedInstance] sendEventTrack:[[FSEventTrack alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"aaa"]];
+    [[Flagship sharedInstance] sendEventTrack:[[FSEvent alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"aaa"]];
 
  }
 

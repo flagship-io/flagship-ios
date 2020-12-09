@@ -30,26 +30,28 @@
     
     
     /// init config object
-    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API apiTimeout:0.2];
-    
-    
-    
-    
-    /// Start the sdk
-    [[Flagship sharedInstance] startWithEnvId:@"" apiKey:@"" visitorId:@"" config:config onStartDone:^(enum FlagshipResult result) {
-        
-        if (result == FlagshipResultReady){
-
-          dispatch_async(dispatch_get_main_queue(), ^{
-              
-              /// update UI
-         });
-        }else{
-            
-            /// An error occurs or the SDK is disabled
-        }
-        
-    }];
+//    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:2];
+//    
+//    
+//    
+//    
+//    
+//   // [Flagship sharedInstance] updateContext:{@"":YES}
+//    /// Start the sdk
+//    [[Flagship sharedInstance] startWithEnvId:@"bkk9glocmjcg0vtmdlng" apiKey:@"DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23" visitorId:NULL config:config onStartDone:^(enum FlagshipResult result) {
+//        
+//        if (result == FlagshipResultReady){
+//
+//          dispatch_async(dispatch_get_main_queue(), ^{
+//              
+//              /// update UI
+//         });
+//        }else{
+//            
+//            /// An error occurs or the SDK is disabled
+//        }
+//        
+//    }];
     
 
 
