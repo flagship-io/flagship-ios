@@ -97,6 +97,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         // The get modificationInfo return [String:String]? // { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
         
+        
         let inofs = Flagship.sharedInstance.getModificationInfo(key:"btn-color")
         
         if let infoCampaign = inofs {
