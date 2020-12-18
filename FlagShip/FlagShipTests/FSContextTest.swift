@@ -179,6 +179,26 @@ class FSContextTest: XCTestCase {
     }
     
     
+    func testUpdateContextWhenDisabled(){
+        
+        Flagship.sharedInstance.disabledSdk = true
+        
+        Flagship.sharedInstance.updateContext(["disabled": "disable"])
+        
+        XCTAssertNil(Flagship.sharedInstance.context.currentContext["disabled"])
+        
+       
+        Flagship.sharedInstance.updateContext(configuredKey: .APP_VERSION_NAME, value: "testDisable")
+        
+        
+        XCTAssertFalse(Flagship.sharedInstance.context.currentContext["sdk_versionName"] as? String == "testDisable")
+
+        
+        Flagship.sharedInstance.disabledSdk = false
+
+    }
+    
+    
     func testPresetContext(){
         
         Flagship.sharedInstance.updateContext(configuredKey: .APP_VERSION_CODE, value: 232323)
@@ -250,6 +270,20 @@ class FSContextTest: XCTestCase {
             
             XCTAssertTrue(result == .Disabled)
             Flagship.sharedInstance.disabledSdk = false
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+    }
+    
+    
+    func testSyncForBucket(){
+        
+        let expectation = self.expectation(description: #function)
+        
+        Flagship.sharedInstance.sdkModeRunning = .BUCKETING
+        
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+            
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10)
