@@ -91,13 +91,10 @@ internal class ABService {
                 var request:URLRequest = URLRequest(url:getUrl, timeoutInterval: timeOutServiceForRequestApi)  //// Request with time interval
                 request.httpMethod = "POST"
                 request.httpBody = data
-                request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
                 /// Add x-api-key
-                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
-               // let session = URLSession(configuration:URLSessionConfiguration.default)
-                
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)                
                 sessionService.dataTask(with: request) { (responseData, response, error) in
                     
                     if (error == nil){
@@ -188,11 +185,6 @@ internal class ABService {
                 var request:URLRequest = URLRequest(url:activateUrl)
                 request.httpMethod = "POST"
                 request.httpBody = data
-                
-                /// Add x-api-key
-                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
-                
-                //let session = URLSession(configuration:URLSessionConfiguration.default)
                 sessionService.dataTask(with: request) { (responseData, response, error) in
                       
                       if (error == nil){

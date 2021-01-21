@@ -182,7 +182,7 @@ public class Flagship:NSObject{
         switch sdkModeRunning {
             
         case .BUCKETING:
-            onSatrtBucketing(onStartDone)
+            onStartBucketing(onStartDone)
             break
             
         case .DECISION_API:

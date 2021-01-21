@@ -59,7 +59,7 @@ extension Flagship {
     /// Get Script on start the SDK
     ///
     /////////////////////////////////////////////
-    internal func onSatrtBucketing(_ onStartDone:@escaping(FlagshipResult)->Void){
+    internal func onStartBucketing(_ onStartDone:@escaping(FlagshipResult)->Void){
         
         self.service?.getFSScript { (scriptBucket, error) in
             
