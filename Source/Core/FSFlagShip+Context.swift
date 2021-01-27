@@ -191,9 +191,9 @@ extension Flagship{
     
     // Get context for the visitor
     /// - Returns: Dictionary , an empty one if the context is empty
-    @objc public func getAllModification()->[String:Any]{
+    @objc public func getAllModification()->String{
         
-        return self.context.currentModification 
+        return self.campaigns.debugDescription
     }
     
 }
