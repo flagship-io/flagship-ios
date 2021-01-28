@@ -260,7 +260,7 @@ class FSContextTest: XCTestCase {
     }
     
     
-    func testtestSyncWithoutPanic(){
+    func testSyncWithPanic(){
         
         let expectation = self.expectation(description: #function)
 
@@ -288,4 +288,22 @@ class FSContextTest: XCTestCase {
         }
         waitForExpectations(timeout: 10)
     }
+    
+    
+    func testGetVisitorContext(){
+        
+        Flagship.sharedInstance.context.addStringCtx("testGetCtx", "val")
+
+        let dico = Flagship.sharedInstance.getVisitorContext()
+        
+        XCTAssertTrue(dico.keys.contains("testGetCtx"))
+        
+        if let ret = dico["testGetCtx"] as? String{
+            
+            XCTAssertTrue(ret == "val")
+        }
+        
+        
+    }
 }
+
