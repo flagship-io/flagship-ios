@@ -161,7 +161,7 @@
     FSEvent * actionEvent = [[FSEvent alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"cta_Shop"];
     actionEvent.label = @"cta_Shop_label";
     actionEvent.eventValue = @1;
-    actionEvent.interfaceName = @"HomeScreen";
+    actionEvent.location = @"HomeScreen";
     [[Flagship sharedInstance] sendEventTrack:actionEvent];
     
     

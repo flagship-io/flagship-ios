@@ -8,26 +8,29 @@
 
 import Foundation
 
-
+@available(iOS, introduced: 1.0, deprecated: 2.0.4, message: "FSScreen")
 /**
  This hit should be sent each time a visitor arrives on a new interface.
  */
 @objcMembers public class FSPage:FSTracking{
     
+    /// Location Name where the event occurs
+    private var location:String?
     
     /**
      Init Page hit
      
-     @param interfaceName String
+     @param location String
           
      @return instance object
      */
     
-    @objc public init(_ interfaceName:String) {
+    @objc public init(_ location:String) {
         
         super.init()
-        self.type = .PAGE
-        self.interfaceName = interfaceName
+        self.type = .SCREEN
+        self.location = location
+        
     }
     
     
@@ -40,6 +43,59 @@ import Foundation
             
             // Set Type
             customParams.updateValue(self.type.typeString, forKey: "t")
+            
+            
+            // Location name
+            if (self.location != nil) {
+                customParams.updateValue(self.location ?? "", forKey: "dl")
+            }
+            
+            customParams.merge(self.communBodyTrack){  (_, new) in new }
+            return customParams
+        }
+        
+    }
+}
+
+/**
+ This hit should be sent each time a visitor arrives on a new screen.
+ */
+@objcMembers public class FSScreen:FSTracking{
+    
+    
+    /// Location Name where the event occurs
+    private var location:String?
+    /**
+     Init Page hit
+     
+     @param interfaceName String
+          
+     @return instance object
+     */
+    
+    @objc public init(_ location:String) {
+        
+        super.init()
+        self.type = .SCREEN
+        self.location = location
+    }
+    
+    
+    /// :nodoc:
+    public  override var bodyTrack: Dictionary<String, Any>{
+        
+        get {
+            
+            var customParams:Dictionary<String,Any> = Dictionary<String,Any>()
+            
+            // Set Type
+            customParams.updateValue(self.type.typeString, forKey: "t")
+            
+            // Location name
+            if (self.location != nil) {
+                customParams.updateValue(self.location ?? "", forKey: "dl")
+            }
+            
             
             customParams.merge(self.communBodyTrack){  (_, new) in new }
             return customParams

@@ -215,7 +215,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
            let actionEvent:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "ctx_event1105")
            actionEvent.label = "ctx_event1105_label"
            actionEvent.eventValue = 1
-           actionEvent.interfaceName = "HomeScreen"
+         
            // Send Event Tracking
            Flagship.sharedInstance.sendHit(actionEvent)
            
