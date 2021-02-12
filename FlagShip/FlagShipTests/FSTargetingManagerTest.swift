@@ -93,6 +93,15 @@ class FSTargetingManagerTest: XCTestCase {
             let retDouble = targetingManager.checkCondition(0.123456789123456789, itemOperator, 0.923456789123456789)
             
             let retDoubleBis = targetingManager.checkCondition(0.923456789123456789, itemOperator, 0.123456789123456789)
+            
+            let retBool = targetingManager.checkCondition(true, itemOperator, true)
+            
+            let retObj = targetingManager.checkCondition(NSData(), itemOperator, NSData())
+            
+            let retObjbis = targetingManager.checkCondition(NSData(), itemOperator, NSDate())
+
+
+
 
             
 
@@ -108,6 +117,11 @@ class FSTargetingManagerTest: XCTestCase {
                 XCTAssertFalse(retFour)
                 XCTAssertFalse(retDouble)
                 XCTAssertFalse(retDoubleBis)
+                XCTAssertTrue(retBool)
+                XCTAssertFalse(retObj)
+                XCTAssertFalse(retObjbis)
+
+
 
 
 
@@ -216,7 +230,7 @@ class FSTargetingManagerTest: XCTestCase {
             XCTAssertTrue(retbis)
             
             
-            let retTer = try  targetingManager.isCurrentValueIsGreaterThanAudience(Data(), Date())
+            let retTer = try  targetingManager.isCurrentValueIsGreaterThanAudience(Data(), Data())
 
              XCTAssertFalse(retTer)
 
@@ -249,7 +263,7 @@ class FSTargetingManagerTest: XCTestCase {
 
             
             
-            let retTer = try  targetingManager.isCurrentValueIsGreaterThanOrEqualAudience(Data(), Date())
+            let retTer = try  targetingManager.isCurrentValueIsGreaterThanOrEqualAudience(Data(), Data())
 
              XCTAssertFalse(retTer)
 
@@ -277,7 +291,9 @@ class FSTargetingManagerTest: XCTestCase {
             
             XCTAssertTrue(retTer)
             
+            let retObj = try  targetingManager.isCurrentValueContainAudience(Date(),Date())
             
+            XCTAssertFalse(retObj)
             
             
             do {
@@ -338,6 +354,12 @@ class FSTargetingManagerTest: XCTestCase {
             Flagship.sharedInstance.updateContext("basketNumber", 100) /// belong to first group
             
             Flagship.sharedInstance.updateContext("basketNumberBis", 200)  /// belong to second group
+            
+            Flagship.sharedInstance.updateContext("testkey6", "gamaa")  /// belong to second group
+                 
+            Flagship.sharedInstance.updateContext("testkey7", "abbc")  /// belong to second group
+                 
+            Flagship.sharedInstance.updateContext("testkey8", "yahoo.fr")  /// belong to second group
 
             
             if let item = targetObject.targetingGroups.first {

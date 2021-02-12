@@ -99,7 +99,9 @@ class FSBucketManager: NSObject {
                             
                             if (itemVariation.idVariation == variationIdSelected){
                                 
+                                /// the variationIdSelected is found , populate the attributes 
                                 variationCache.modification = itemVariation.modifications
+                                variationCache.reference = itemVariation.reference
                             }
                         }
                         

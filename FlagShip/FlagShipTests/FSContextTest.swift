@@ -179,6 +179,26 @@ class FSContextTest: XCTestCase {
     }
     
     
+    func testUpdateContextWhenDisabled(){
+        
+        Flagship.sharedInstance.disabledSdk = true
+        
+        Flagship.sharedInstance.updateContext(["disabled": "disable"])
+        
+        XCTAssertNil(Flagship.sharedInstance.context.currentContext["disabled"])
+        
+       
+        Flagship.sharedInstance.updateContext(configuredKey: .APP_VERSION_NAME, value: "testDisable")
+        
+        
+        XCTAssertFalse(Flagship.sharedInstance.context.currentContext["sdk_versionName"] as? String == "testDisable")
+
+        
+        Flagship.sharedInstance.disabledSdk = false
+
+    }
+    
+    
     func testPresetContext(){
         
         Flagship.sharedInstance.updateContext(configuredKey: .APP_VERSION_CODE, value: 232323)
@@ -240,7 +260,7 @@ class FSContextTest: XCTestCase {
     }
     
     
-    func testtestSyncWithoutPanic(){
+    func testSyncWithPanic(){
         
         let expectation = self.expectation(description: #function)
 
@@ -254,4 +274,36 @@ class FSContextTest: XCTestCase {
         }
         waitForExpectations(timeout: 10)
     }
+    
+    
+    func testSyncForBucket(){
+        
+        let expectation = self.expectation(description: #function)
+        
+        Flagship.sharedInstance.sdkModeRunning = .BUCKETING
+        
+        Flagship.sharedInstance.synchronizeModifications { (result) in
+            
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10)
+    }
+    
+    
+    func testGetVisitorContext(){
+        
+        Flagship.sharedInstance.context.addStringCtx("testGetCtx", "val")
+
+        let dico = Flagship.sharedInstance.getVisitorContext()
+        
+        XCTAssertTrue(dico.keys.contains("testGetCtx"))
+        
+        if let ret = dico["testGetCtx"] as? String{
+            
+            XCTAssertTrue(ret == "val")
+        }
+        
+        
+    }
 }
+

@@ -32,32 +32,40 @@
     [[Flagship sharedInstance] updateContext:@{@"basketNumber":@10, @"isVip":@YES, @"name":@"alice", @"valueKey":@1.2}];
     
     
-   
-    [[Flagship sharedInstance] synchronizeModificationsWithCompletion:^( FlagshipResult st) {
-        
-        
-    }];
     
     
     [[Flagship sharedInstance] updateContext:@{@"Boolean_Key":@YES,@"String_Key":@"june",@"Number_Key":@200}];
     
-    [[Flagship sharedInstance] startFlagShipWithEnvironmentId:@"bkk9glocmjcg0vtmdlng" :NULL completionHandler:^( FlagshipResult result) {
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:2];
+
+    [[Flagship sharedInstance] startWithEnvId:@"bkk9glocmjcg0vtmdlng" apiKey:@"DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23" visitorId:NULL config:config onStartDone:^(enum FlagshipResult result) {
         
         if (result == FlagshipResultReady){
+
+          dispatch_async(dispatch_get_main_queue(), ^{
+              
+              /// update UI
+              
+              [self docMe];
+               dispatch_async(dispatch_get_main_queue(), ^{
+
+                    self.storeBtn.hidden = NO;
+
+                   // Get the title for VIP user
+                   NSString * title = [[Flagship sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
+
+                   // Get the percent sale for VIP user
+                   float percentSales = [[Flagship sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
+           });
+
+         });
+        }else{
             
-               [self docMe];
-                dispatch_async(dispatch_get_main_queue(), ^{
-
-                     self.storeBtn.hidden = NO;
-
-                    // Get the title for VIP user
-                    NSString * title = [[Flagship sharedInstance] getModification:@"vipWording" defaultString:@"defaultTitle" activate:YES];
-
-                    // Get the percent sale for VIP user
-                    float percentSales = [[Flagship sharedInstance] getModification:@"percent" defaulfloat:10 activate:YES];
-            });
+            /// An error occurs or the SDK is disabled
         }
+        
     }];
+    
 
 }
 
@@ -170,6 +178,29 @@
     [[Flagship sharedInstance] sendPageEvent:eventPagev];
     
     [[Flagship sharedInstance] setEnableLogs:NO];
+    
+    NSDictionary * dico = [[Flagship sharedInstance] getModificationInfoWithKey:@"btn-color"];
+    
+    if (dico){
+        /// Get campaignid
+        NSString * campaignId = [dico valueForKey:@"campaignId"];
+        /// Get variation group id
+        NSString * variationGroupId = [dico valueForKey:@"variationGroupId"];
+        /// Get variation id
+        NSString * variationId = [dico valueForKey:@"variationId"];
+        
+        BOOL  isRef = [dico valueForKey:@"isReference"];
+
+        
+        NSLog(@" %@ , %@, %@", campaignId, variationGroupId, variationId);
+
+    }else{
+        
+        NSLog(@"The key modification doesn't exist.");
+    }
+
+    
+    NSLog(@"a");
     
 }
 

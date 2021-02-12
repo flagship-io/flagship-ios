@@ -12,7 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build
+<<<<<<< HEAD
       run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 8,OS=14"
+=======
+      run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 8,OS=14.3"
+>>>>>>> 98627c3a72aabe8c4b1fc7ad6826bce63d218d68
     - name: Update Code Coverage
       run: |
         bash <(curl -s https://codecov.io/bash)

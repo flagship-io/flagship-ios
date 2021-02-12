@@ -28,9 +28,13 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
  
+        
+        
         //Round button login
         loginBtn.layer.cornerRadius = loginBtn.frame.height/2
         loginBtn.layer.masksToBounds = true
+        
+        loginBtn.backgroundColor = .red
         
         
         // Add gesture
@@ -58,12 +62,14 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
     Flagship.sharedInstance.updateContext("Number_Key", 200)
     Flagship.sharedInstance.updateContext("Boolean_Key", true)
     Flagship.sharedInstance.updateContext("String_Key", "june")
+    
+    Flagship.sharedInstance.updateContext("devMode", true)
 
 
     
     /// Start Flagship
     
-    Flagship.sharedInstance.start(envId:"bkk9glocmjcg0vtmdlo0", apiKey: "your api key", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
+    Flagship.sharedInstance.start(envId:"envId", apiKey: "apiKey", visitorId: nil, config: FSConfig(.BUCKETING, timeout:0.4)) { (result) in
         
         
         /// When the sdk is ready ...
@@ -76,11 +82,14 @@ class FSLoginViewController: UIViewController, UITextFieldDelegate {
             
             Flagship.sharedInstance.activateModification(key: "array")
             
+            
+            
+            
             let result = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
             
 
             let resultArray = Flagship.sharedInstance.getModification("array", defaultArray: [])
-            
+//            
 
 
              DispatchQueue.main.async {

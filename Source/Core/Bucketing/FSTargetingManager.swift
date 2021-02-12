@@ -75,6 +75,40 @@ class FSTargetingManager: NSObject {
     }
     
     
+    
+    //// Check target for lists
+    
+    internal func checkTargetingForList(currentValue:Any?, opType:FSoperator, listAudience:Any?)->Bool{
+           /// Chekc the type list before
+               var isOkay:Bool = false
+               var result:Int = 0
+               if let values = listAudience as? [Any]  {
+                   for subAudienceValue in values  {
+                       isOkay  = checkCondition(currentValue as Any, opType , subAudienceValue as Any)
+                       /// For those operator, we use  --- OR ---
+                       if (opType == .CONTAINS || opType == .EQUAL){
+                           if(isOkay){
+                               /// At least one condition in the liste is valide ==> return true.
+                               return true
+                           }else{
+                               /// Set result == 1 to return false, in case when all condition on the liste are not valide
+                               result = 1
+                           }
+                           /// For those operator, we use  --- AND ---
+                       }else if (opType == .NOT_EQUAL || opType == .NOT_CONTAINS){
+                           result += isOkay ? 0 : 1
+                       }else{
+                           /// return false for others operator
+                           return false
+                       }
+                   }
+                   return (result == 0)
+               }
+               return false
+       }
+    
+    
+    
     internal func checkTargetGroupIsOkay(_ itemTargetGroup:FSTargetingGroup)->Bool{
         
         // let currentContext:Dictionary <String, Any> = ABFlagShip.sharedInstance.context!.currentContext
@@ -95,22 +129,11 @@ class FSTargetingManager: NSObject {
             
             /// Special treatment for array
             var isOkay:Bool = false
+            
+
             if (audienceValue is [String] || audienceValue is [Int] || audienceValue is [Double] ){
                 
-                if let values = audienceValue as? [Any] {
-                    
-                    for subAudienceValue in values  {
-                        
-                        isOkay  = checkCondition(currentContextValue as Any, opType, subAudienceValue as Any)
-                        
-                        if(isOkay){
-                            
-                            break
-                        }
-                    }
-                }
-                
-                
+                isOkay = checkTargetingForList(currentValue: currentContextValue, opType: opType, listAudience: audienceValue)
                 
             }else{
                 

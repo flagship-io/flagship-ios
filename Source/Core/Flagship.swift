@@ -73,11 +73,11 @@ public class Flagship:NSObject{
     }
     
     
-    /// Enable Logs, By default is equal to True
+    /// Enable Logs, By default the log is enabled
     @objc public var enableLogs:Bool = true
     
     
-    /// Panic Button let you disable the SDK if needed
+    /// Panic Button let you disable the SDK when needed
     private var _disabledSdk:Bool = false
     
     
@@ -100,7 +100,7 @@ public class Flagship:NSObject{
     
     
     
-    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default 
+    internal var sdkModeRunning:FlagshipMode = .DECISION_API  // By default the sdk run with the decision mode
     
     
     /// Shared instance
@@ -182,7 +182,7 @@ public class Flagship:NSObject{
         switch sdkModeRunning {
             
         case .BUCKETING:
-            onSatrtBucketing(onStartDone)
+            onStartBucketing(onStartDone)
             break
             
         case .DECISION_API:
@@ -416,6 +416,17 @@ public class Flagship:NSObject{
     
     @objc public func getModification(_ key:String, defaultArray:[Any], activate:Bool = false) ->[Any]{
         
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+            return defaultArray
+        }
+        
+        if activate && self.campaigns != nil {
+            
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
+        }
+        
         return self.context.readArrayFromContext(key, defaultArray: defaultArray)
         
     }
@@ -435,6 +446,16 @@ public class Flagship:NSObject{
      */
     @objc public func getModification(_ key:String, defaultJson:Dictionary<String,Any>, activate:Bool = false) ->Dictionary<String,Any>{
         
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+            return defaultJson
+        }
+        
+        if activate && self.campaigns != nil {
+            
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
+        }
+        
         return self.context.readJsonObjectFromContext(key, defaultDico: defaultJson)
         
     }
@@ -447,7 +468,9 @@ public class Flagship:NSObject{
      
      @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”} or nil
      */
-    @objc public func getModificationInfo(_ key:String) -> [String:String]? {
+    
+    @available(iOS, introduced: 1.2.3, deprecated: 2.0.2, message: "Use func getModificationInfo(key:String) -> [String:Any]? ")
+    public func getModificationInfo(_ key:String) -> [String:String]? {
         
         
         if self.campaigns != nil {
@@ -459,6 +482,25 @@ public class Flagship:NSObject{
         return nil
     }
     
+    /*
+     Get modification info.  { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”, "isReference":true/false}
+     
+     @param key for associated  modification
+     
+     @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”, "isReference":true/false} or nil
+     */
+    
+    @objc public func getModificationInfo(key:String) -> [String:Any]? {
+
+
+        if self.campaigns != nil {
+
+            return self.campaigns.getRelativekeyModificationInfosBis(key)
+        }
+
+        FSLogger.FSlog(" Any campaign found, to get the information's modification key", .Campaign) /// See later for the logs
+        return nil
+    }
     
     
     
@@ -485,7 +527,7 @@ public class Flagship:NSObject{
     
     
     /**
-     Send Hit for tracking data
+     Send Hits for tracking
      
      @param event Event Object (Page, Transaction, Item, Event)
      

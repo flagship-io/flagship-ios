@@ -89,7 +89,7 @@ class FlagshipTestWithMockedData: XCTestCase {
         // set context
         Flagship.sharedInstance.updateContext(ALL_USERS, "")
 
-        Flagship.sharedInstance.onSatrtBucketing { (result) in
+        Flagship.sharedInstance.onStartBucketing { (result) in
             
             XCTAssert(result == .NotReady)
             expectation.fulfill()
@@ -129,7 +129,7 @@ class FlagshipTestWithMockedData: XCTestCase {
 
             
             
-            Flagship.sharedInstance.onSatrtBucketing { (result) in
+            Flagship.sharedInstance.onStartBucketing { (result) in
                 
                 XCTAssert(result == .Ready)
                 // Check the value variation
@@ -391,9 +391,4 @@ class FlagshipTestWithMockedData: XCTestCase {
         
            wait(for: [expectation], timeout: 5.0)
     }
-    
-    
-    
-    
-    
 }

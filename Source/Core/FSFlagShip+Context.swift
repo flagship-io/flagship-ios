@@ -169,7 +169,7 @@ extension Flagship{
             
             self.context.updateModification( self.campaigns)
             
-            completion(.Ready)
+            completion(.Updated)
 
         }
         
@@ -181,4 +181,11 @@ extension Flagship{
         
     }
     
+    
+    /// Get context for the visitor
+    /// - Returns: Dictionary , an empty one if the context is empty
+    @objc public func getVisitorContext()->[String:Any]{
+        
+        return self.context.currentContext ?? [:]
+    }
 }
