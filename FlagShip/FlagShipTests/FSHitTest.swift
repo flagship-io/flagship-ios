@@ -64,7 +64,7 @@ class FSHitTest: XCTestCase {
         Flagship.sharedInstance.sendHit( FSPage("interfaceName"))
         
         /// Send with other func
-        Flagship.sharedInstance.sendPageEvent(FSPage("interfaceName"))
+        Flagship.sharedInstance.sendScreenEvent(FSScreen("interfaceName"))
  
        
     }
@@ -110,7 +110,6 @@ class FSHitTest: XCTestCase {
         tr.sessionNumber = 12
         tr.dataSource = "app"
         tr.fsUserId = "userId"
-        tr.interfaceName = "iName"
         tr.sessionEventNumber = 13
         tr.currentSessionTimeStamp = 1111
         tr.customVisitorId = "custom"
@@ -132,7 +131,7 @@ class FSHitTest: XCTestCase {
         XCTAssertTrue(dicoCommun["sd"] as? String == "depth")
         XCTAssertTrue(dicoCommun["ul"] as? String == "fr")
         XCTAssertTrue(dicoCommun["sn"] as? Double == 12)
-        XCTAssertTrue(dicoCommun["dl"] as? String == "iName")
+       // XCTAssertTrue(dicoCommun["dl"] as? String == "iName")
  
         
         let trBis = FSTracking()
@@ -222,7 +221,7 @@ class FSHitTest: XCTestCase {
         
         let itemPage = FSPage("pageTest")
         let dico = itemPage.bodyTrack
-        XCTAssertTrue(dico["t"]    as? String == FSTypeTrack.PAGE.typeString)
+        XCTAssertTrue(dico["t"]    as? String == FSTypeTrack.SCREEN.typeString)
         XCTAssertTrue(dico["dl"]    as? String == "pageTest")
     }
 }

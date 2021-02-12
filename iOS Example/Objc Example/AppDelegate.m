@@ -54,6 +54,17 @@
 //    }];
     
 
+    // Create event
+    FSScreen* eventScreen =  [[FSScreen alloc] init:@"loginScreen"];
+    // Fill data for event screen
+    eventScreen.userIp = @"168.192.1.0";
+    eventScreen.sessionNumber = @12;
+    eventScreen.screenResolution = @"750 x 1334";
+    eventScreen.screenColorDepth = @"#fd0027";
+    eventScreen.sessionNumber = @1;
+    eventScreen.userLanguage = @"fr";
+    eventScreen.sessionEventNumber = @2;
+    [[Flagship sharedInstance] sendScreenEvent:eventScreen];
 
     
     return YES;

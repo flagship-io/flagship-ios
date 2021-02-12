@@ -123,7 +123,7 @@
     FSPage * eventPage =  [[FSPage alloc] init:@"loginScreen"];
 
     // Send Event
-    [[Flagship sharedInstance] sendPageEvent:eventPage];
+    [[Flagship sharedInstance] sendScreenEvent:eventPage];
 
 
 
@@ -161,7 +161,6 @@
     FSEvent * actionEvent = [[FSEvent alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"cta_Shop"];
     actionEvent.label = @"cta_Shop_label";
     actionEvent.eventValue = @1;
-    actionEvent.interfaceName = @"HomeScreen";
     [[Flagship sharedInstance] sendEventTrack:actionEvent];
     
     
@@ -175,7 +174,7 @@
     eventPage.sessionNumber = @1;
     eventPage.userLanguage = @"fr";
     eventPage.sessionEventNumber = @2;
-    [[Flagship sharedInstance] sendPageEvent:eventPagev];
+    [[Flagship sharedInstance] sendScreenEvent:eventPagev];
     
     [[Flagship sharedInstance] setEnableLogs:NO];
     

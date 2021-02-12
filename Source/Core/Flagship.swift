@@ -573,13 +573,13 @@ public class Flagship:NSObject{
      @param pageEvent : Page event
      
      */
-    @objc public func sendPageEvent(_ pageEvent:FSPage){
+    @objc public func sendScreenEvent(_ screenEvent:FSScreen){
         
         if disabledSdk{
             FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
             return
         }
-        self.service?.sendTracking(pageEvent)
+        self.service?.sendTracking(screenEvent)
     }
     
     

@@ -10,7 +10,7 @@ import Foundation
  /// :nodoc:
 @objc public enum FSTypeTrack:NSInteger {
     
-    case PAGE        = 0
+    case SCREEN        = 0
     case TRANSACTION
     case ITEM
     case EVENT
@@ -19,7 +19,7 @@ import Foundation
     public var typeString:String{
 
         switch self {
-        case .PAGE:
+        case .SCREEN:
             return "SCREENVIEW"
         case .TRANSACTION:
             return "TRANSACTION"
@@ -101,10 +101,11 @@ import Foundation
     var fsUserId:String?
     var customVisitorId:String?
     var dataSource:String = "APP"
-    
-    // Optional
-    /// Interface Name
-    public var interfaceName:String?
+
+ 
+    /// InterfaceName
+    /// This attribute in no longer used in hits, use the location instead in screen hit
+    //public var interfaceName:String?
     
     /// User Ip
     public var userIp:String?
@@ -120,11 +121,6 @@ import Foundation
     public var currentSessionTimeStamp:TimeInterval?
     /// Session Number
     public var sessionNumber:NSNumber?
-    
-    // Custom Dimension .... a voir
-    
-    // Custom Metric
-    //var customMetric:Int?  ..... a voir
     
     // Session Event Number
     public var sessionEventNumber:NSNumber?
@@ -181,11 +177,6 @@ import Foundation
             // Session Number
             if (self.sessionNumber != nil) {
                 communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
-            }
-            
-            // Interface Name
-            if (self.interfaceName != nil) {
-                communParams.updateValue(self.interfaceName ?? "", forKey: "dl")
             }
             
             return communParams
