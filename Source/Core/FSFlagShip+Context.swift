@@ -189,8 +189,8 @@ extension Flagship{
         return self.context.currentContext ?? [:]
     }
     
-    // Get context for the visitor
-    /// - Returns: Dictionary , an empty one if the context is empty
+    // Get all modifications for the visitor
+    /// - Returns: Dictionary , an empty one if the modification is empty
     @objc public func getAllModification()->[String:Any]{
         
         return self.context.currentModification
