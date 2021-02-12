@@ -64,7 +64,7 @@ class FSHitTest: XCTestCase {
         Flagship.sharedInstance.sendHit( FSPage("interfaceName"))
         
         /// Send with other func
-        Flagship.sharedInstance.sendPageEvent(FSPage("interfaceName"))
+        Flagship.sharedInstance.sendScreenEvent(FSScreen("interfaceName"))
  
        
     }
