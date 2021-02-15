@@ -96,6 +96,12 @@ class FSOfflineTrackingTest: XCTestCase {
     }
     
     
+    func testGetAllBodyTrackFromDisk(){
+        
+        self.offlineTrack.getAllBodyTrackFromDisk()
+    }
+    
+    
     
     
 

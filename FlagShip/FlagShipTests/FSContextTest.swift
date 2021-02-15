@@ -300,10 +300,9 @@ class FSContextTest: XCTestCase {
         
         if let ret = dico["testGetCtx"] as? String{
             
-            XCTAssertTrue(ret == "val")
+         XCTAssertTrue(ret == "val")
         }
-        
-        
     }
+    
 }
 

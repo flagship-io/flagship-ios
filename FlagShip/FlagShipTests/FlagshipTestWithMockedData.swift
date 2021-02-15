@@ -154,8 +154,9 @@ class FlagshipTestWithMockedData: XCTestCase {
                     XCTAssertTrue(ret["variationId"] == "bs8r09hsbs4011lbgggg")
                     XCTAssertTrue(ret["variationGroupId"] == "bs8qvmo4nlr01fl9bbbb")
                 }
-
-
+                
+                /// Get all modification
+                XCTAssertTrue(Flagship.sharedInstance.getAllModification().count > 0)
 
                 Flagship.sharedInstance.disabledSdk = false
 

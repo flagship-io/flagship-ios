@@ -101,9 +101,9 @@ class FSServiceTest: XCTestCase {
                     self.serviceTest.activateCampaignRelativetoKey("", campaign)
                     self.serviceTest.activateCampaignRelativetoKey("object", campaign)
                     self.serviceTest.activateCampaignRelativetoKey("noone", campaign)
-
-
-
+                    
+                    
+               
 
                 }
                 
