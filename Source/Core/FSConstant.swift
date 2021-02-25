@@ -17,6 +17,18 @@ internal let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 internal let FSX_Api_Key   =  "x-api-key"
 
 
+/// Sdk name platforme ex : iOS
+internal let FSX_SDK_Client   =   "x-sdk-client"
+
+/// Sdk version ex: 2.0.1
+internal let FSX_SDK_Version   =  "x-sdk-version"
+
+/// platforme name
+
+internal let FS_iOS = "iOS"
+
+
+
  
 internal var FlagShipEndPoint :String {
     
