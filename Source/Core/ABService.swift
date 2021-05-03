@@ -121,7 +121,11 @@ internal class ABService {
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
                 
                 /// Add x-api-key
-                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)                
+                request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
+                /// Add headers client and version
+                request.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
+                request.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
+                
 
                 sessionService.dataTask(with: request) { (responseData, response, error) in
                     
@@ -223,6 +227,9 @@ internal class ABService {
             if let activateUrl = URL(string:FSActivate) {
                 
                 var request:URLRequest = URLRequest(url:activateUrl)
+                /// Add headers client and version
+                request.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
+                request.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
                 request.httpMethod = "POST"
                 request.httpBody = data
                 sessionService.dataTask(with: request) { (responseData, response, error) in

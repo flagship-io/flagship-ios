@@ -681,8 +681,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.4;
 
+				MARKETING_VERSION = 2.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -710,7 +710,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.4;
+
+				MARKETING_VERSION = 2.0.5;
 
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
