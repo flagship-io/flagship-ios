@@ -52,6 +52,30 @@
 //        }
 //        
 //    }];
+
+    
+   
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:0.2  authenticated:YES];
+    
+    
+    
+    
+    /// Start the sdk
+    [[Flagship sharedInstance] startWithEnvId:@"" apiKey:@"" visitorId:@"" config:config onStartDone:^(enum FlagshipResult result) {
+        
+        if (result == FlagshipResultReady){
+
+          dispatch_async(dispatch_get_main_queue(), ^{
+              
+              /// update UI
+         });
+        }else{
+            
+            /// An error occurs or the SDK is disabled
+        }
+        
+    }];
+
     
 
     // Create event

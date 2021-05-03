@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Set your Environment id</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>DefaultValue</key>
+			<string>bkk9glocmjcg0vtmdlng</string>
+			<key>Title</key>
+			<string>EnvId</string>
+			<key>Key</key>
+			<string>idKey</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>DefaultValue</key>
+			<string>DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23</string>
+			<key>Title</key>
+			<string>Api Key</string>
+			<key>Key</key>
+			<string>idApiKey</string>
+		</dict>
+	</array>
+</dict>
+</plist>

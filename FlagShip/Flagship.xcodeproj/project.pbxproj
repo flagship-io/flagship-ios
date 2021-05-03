@@ -23,14 +23,11 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
-		8B5028E224F93670001EA893 /* decisionApiBis.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5028E124F93670001EA893 /* decisionApiBis.json */; };
-		8B5028E424F95D02001EA893 /* targetings.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5028E324F95D02001EA893 /* targetings.json */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
 		8B535FFC240FAA14005A13CE /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FFB240FAA14005A13CE /* FSHits.swift */; };
 		8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5D9D23241005B500B813A4 /* FSContextTest.swift */; };
-		8B6B942A24F7DED6007E42F9 /* FsToolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */; };
 		8B6DF79224F41B5D004C177D /* Flagship+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79124F41B51004C177D /* Flagship+Config.swift */; };
 		8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6DF79324F41BA3004C177D /* FSConfig.swift */; };
 		8B6DF79924F41CFD004C177D /* sampleIdBucket.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6DF79524F41CFD004C177D /* sampleIdBucket.json */; };
@@ -55,6 +52,7 @@
 		8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4D24A24EC5001DE9F8 /* FSAudienceTest.swift */; };
 		8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4E24A24EC5001DE9F8 /* FSHitTest.swift */; };
 		8B871F5E24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B871F4F24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift */; };
+		8B900117257A72E100703DDB /* Flagship+Reconcilliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B900116257A72E000703DDB /* Flagship+Reconcilliation.swift */; };
 		8BBCAD1C23FAD0E200126600 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0D23FAA15200126600 /* FSBucket.swift */; };
 		8BBCAD1D23FAD0E200126600 /* FSLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7223C4CA24006D154E /* FSLogger.swift */; };
 		8BBCAD1E23FAD0E200126600 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7E23C4CA24006D154E /* FSStorage.swift */; };
@@ -78,9 +76,9 @@
 		8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7023C4CA24006D154E /* FSConstant.swift */; };
 		8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
 		8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
+		8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD1623FAA75600126600 /* FSProfile.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
-		8BE28A5324FDB577004C9E05 /* FSDeviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE28A5224FDB577004C9E05 /* FSDeviceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,12 +92,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8B116AE024FFA5ED005E40AB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8B5028E124F93670001EA893 /* decisionApiBis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApiBis.json; sourceTree = "<group>"; };
-		8B5028E324F95D02001EA893 /* targetings.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = targetings.json; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -108,7 +103,6 @@
 		8B535FFB240FAA14005A13CE /* FSHits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHits.swift; sourceTree = "<group>"; };
 		8B55835723E04243005D0AB5 /* FSTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTools.swift; sourceTree = "<group>"; };
 		8B5D9D23241005B500B813A4 /* FSContextTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSContextTest.swift; path = ../../Flagship/FlagShipTests/FSContextTest.swift; sourceTree = "<group>"; };
-		8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FsToolsTest.swift; path = ../../Flagship/FlagShipTests/FsToolsTest.swift; sourceTree = "<group>"; };
 		8B6DF79124F41B51004C177D /* Flagship+Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flagship+Config.swift"; sourceTree = "<group>"; };
 		8B6DF79324F41BA3004C177D /* FSConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConfig.swift; sourceTree = "<group>"; };
 		8B6DF79524F41CFD004C177D /* sampleIdBucket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleIdBucket.json; sourceTree = "<group>"; };
@@ -133,6 +127,7 @@
 		8B871F4D24A24EC5001DE9F8 /* FSAudienceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSAudienceTest.swift; path = ../../Flagship/FlagShipTests/FSAudienceTest.swift; sourceTree = "<group>"; };
 		8B871F4E24A24EC5001DE9F8 /* FSHitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSHitTest.swift; path = ../../Flagship/FlagShipTests/FSHitTest.swift; sourceTree = "<group>"; };
 		8B871F4F24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSOfflineTrackingTest.swift; path = ../../Flagship/FlagShipTests/FSOfflineTrackingTest.swift; sourceTree = "<group>"; };
+		8B900116257A72E000703DDB /* Flagship+Reconcilliation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Flagship+Reconcilliation.swift"; sourceTree = "<group>"; };
 		8BBCAD0723FAA14400126600 /* FSBucketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketManager.swift; sourceTree = "<group>"; };
 		8BBCAD0823FAA14400126600 /* FSBucketService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucketService.swift; sourceTree = "<group>"; };
 		8BBCAD0D23FAA15200126600 /* FSBucket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBucket.swift; sourceTree = "<group>"; };
@@ -142,7 +137,6 @@
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
 		8BC4745923D9B69100CCE1DE /* FSTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
-		8BE28A5224FDB577004C9E05 /* FSDeviceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSDeviceTest.swift; path = ../../Flagship/FlagShipTests/FSDeviceTest.swift; sourceTree = "<group>"; };
 		8BF02D6E23C4CA24006D154E /* Flagship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagship.swift; sourceTree = "<group>"; };
 		8BF02D6F23C4CA24006D154E /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
 		8BF02D7023C4CA24006D154E /* FSConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstant.swift; sourceTree = "<group>"; };
@@ -206,8 +200,6 @@
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
 				8B6DF7EB24F54541004C177D /* FSConfigTest.swift */,
-				8B6B942924F7DED6007E42F9 /* FsToolsTest.swift */,
-				8BE28A5224FDB577004C9E05 /* FSDeviceTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -225,8 +217,6 @@
 		8B871F4424A24EC5001DE9F8 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
-				8B5028E324F95D02001EA893 /* targetings.json */,
-				8B5028E124F93670001EA893 /* decisionApiBis.json */,
 				8B6DF79624F41CFD004C177D /* decisionApi.json */,
 				8B6DF79824F41CFD004C177D /* lightBucketMock.json */,
 				8B6DF79724F41CFD004C177D /* MockURLProtocol.swift */,
@@ -250,7 +240,6 @@
 		8BEF08AE23C3888F00396B78 = {
 			isa = PBXGroup;
 			children = (
-				8B116AE024FFA5ED005E40AB /* README.md */,
 				8B535FA823FD48CB005A13CE /* Flagship */,
 				8BF02D6C23C4CA24006D154E /* Source */,
 				8B39E04723FD45F400E02DCD /* FlagshipTests */,
@@ -294,6 +283,7 @@
 		8BF02D6D23C4CA24006D154E /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8B900116257A72E000703DDB /* Flagship+Reconcilliation.swift */,
 				8B6DF79324F41BA3004C177D /* FSConfig.swift */,
 				8B6DF79124F41B51004C177D /* Flagship+Config.swift */,
 				8BF02D6E23C4CA24006D154E /* Flagship.swift */,
@@ -472,14 +462,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B5028E224F93670001EA893 /* decisionApiBis.json in Resources */,
 				8B6DF79A24F41CFD004C177D /* decisionApi.json in Resources */,
 				8B6DF7A024F41D0D004C177D /* usersId.json in Resources */,
 				8B871F5224A24EC5001DE9F8 /* Data in Resources */,
 				8B871F5524A24EC5001DE9F8 /* bucketMock.json in Resources */,
 				8B6DF79924F41CFD004C177D /* sampleIdBucket.json in Resources */,
 				8B6DF79C24F41CFD004C177D /* lightBucketMock.json in Resources */,
-				8B5028E424F95D02001EA893 /* targetings.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"Flagship\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"Flagship\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build \n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework/Flagship\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"Flagship\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"Flagship\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework/Flagship\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -534,7 +522,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BE28A5324FDB577004C9E05 /* FSDeviceTest.swift in Sources */,
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B871F5924A24EC5001DE9F8 /* FSBucketCacheTest.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
@@ -543,7 +530,6 @@
 				8B871F5724A24EC5001DE9F8 /* FSCacheManagerTest.swift in Sources */,
 				8B871F5E24A24EC5001DE9F8 /* FSOfflineTrackingTest.swift in Sources */,
 				8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */,
-				8B6B942A24F7DED6007E42F9 /* FsToolsTest.swift in Sources */,
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,
@@ -585,10 +571,12 @@
 				8B6DF79224F41B5D004C177D /* Flagship+Config.swift in Sources */,
 				8BBCAD2E23FAD0E200126600 /* FSBucketService.swift in Sources */,
 				8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */,
+				8B900117257A72E100703DDB /* Flagship+Reconcilliation.swift in Sources */,
 				8BBCAD2F23FAD0E200126600 /* FSCacheManager.swift in Sources */,
 				8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */,
 				8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */,
 				8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */,
+				8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */,
 				8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */,
 				8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */,
 				8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */,
@@ -612,7 +600,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = FlagshipTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -631,7 +618,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = FlagshipTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,11 +666,10 @@
 		8BBCAD3C23FAD0E200126600 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -697,9 +682,9 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.4;
+
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -710,11 +695,10 @@
 		8BBCAD3D23FAD0E200126600 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -727,9 +711,9 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.4;
+
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
@@ -769,11 +753,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -834,11 +816,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

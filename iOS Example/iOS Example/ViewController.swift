@@ -44,29 +44,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-//        /// Create object configuration
-//        let fsConfig = FSConfig(.DECISION_API, apiTimeout: 0.2)
-//        
-//        /// Start the SDK
-//        Flagship.sharedInstance.start(envId:"your envId", apiKey: "your apiKey", visitorId:"visitorId", config:fsConfig){ (result) in
-//            
-//            if result == .Ready {
-//              DispatchQueue.main.async {
-//
-//                /// Update UI
-//              }
-//
-//              }else{
-//
-//                /// An error occurs or the SDK is disabled
-//              }
-//        }
-//        
-  
-        
-        
-        
          parrainageBtn.isHidden = false
         
         /// Get Color for background defined in dashboard flagship
@@ -78,22 +55,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
  
         /// Get color for button
         
-        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
+        self.firstButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
  
-        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
+        self.secondButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: true), alpha: 1.0)
         
-        self.thirdButton.backgroundColor = UIColor(hexString:Flagship.sharedInstance.getModification("btn-color", defaultString: "#ff7f50", activate: false), alpha: 1.0)
-        
-        self.thirdButton.setTitle(Flagship.sharedInstance.getModification("ctxKeyString", defaultString:"None", activate: true), for: .normal)
-        
-        
-        
-     //   let list = Flagship.sharedInstance.getModification("list", defaultArray: [], activate: true)
 
-        
-        
-        
         
         // The get modificationInfo return [String:String]? // { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”}
         
@@ -126,6 +93,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             print("The key modification don't exist")
         }
+ 
     }
     
     
@@ -154,6 +122,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onCancel(){
         self.dismiss(animated: true , completion: nil)
+        
+        Flagship.sharedInstance.unAuthenticateVisitor() { (result) in
+            
+            
+        }
     }
     
     /// Display Feature 1

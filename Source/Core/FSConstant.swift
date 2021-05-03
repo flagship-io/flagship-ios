@@ -11,6 +11,8 @@ import Foundation
 /// Universaal End Point
 internal let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 
+//internal let FlagshipUniversalEndPoint =  "https://decision-staging.flagship.io/v2/"
+
 
 
 /// XApi key

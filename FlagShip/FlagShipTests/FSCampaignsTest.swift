@@ -61,9 +61,9 @@ class FSCampaignsTest: XCTestCase {
             
             XCTAssertEqual(dico.keys.count, 2)
             
-            XCTAssertEqual(dico["vaid"],  "bsffhle242b2l3igq4f0")
+            XCTAssertEqual(dico["vaid"] as? String,  "bsffhle242b2l3igq4f0")
             
-            XCTAssertEqual(dico["caid"],  "bsffhle242b2l3igq4egaa")
+            XCTAssertEqual(dico["caid"] as? String,  "bsffhle242b2l3igq4egaa")
         }
         
 
@@ -71,9 +71,9 @@ class FSCampaignsTest: XCTestCase {
         //
         if let dicoBis = campaignTest?.getRelativeInfoTrackForValue("aliasTer"){
             
-            XCTAssertEqual(dicoBis["vaid"],  "")
+            XCTAssertEqual(dicoBis["vaid"] as? String,  "")
         
-            XCTAssertEqual(dicoBis["caid"],  "")
+            XCTAssertEqual(dicoBis["caid"] as? String,  "")
         }
         
 
@@ -90,22 +90,22 @@ class FSCampaignsTest: XCTestCase {
             
             XCTAssertEqual(dico.keys.count, 3)
             
-            XCTAssertEqual(dico["campaignId"],  "bsffhle242b2l3igq4dg")
+            XCTAssertEqual(dico["campaignId"] as? String,  "bsffhle242b2l3igq4dg")
             
-            XCTAssertEqual(dico["variationId"],  "bsffhle242b2l3igq4f0")
+            XCTAssertEqual(dico["variationId"] as? String,  "bsffhle242b2l3igq4f0")
             
-            XCTAssertEqual(dico["variationGroupId"],  "bsffhle242b2l3igq4egaa")
+            XCTAssertEqual(dico["variationGroupId"] as? String,  "bsffhle242b2l3igq4egaa")
         }
 
         
         
         if let dicoBis = campaignTest?.getRelativekeyModificationInfos("aliasTer"){
             
-            XCTAssertEqual(dicoBis["campaignId"],  "bsffhle242b2l3igq4dgb")
+            XCTAssertEqual(dicoBis["campaignId"] as? String,  "bsffhle242b2l3igq4dgb")
             
-            XCTAssertEqual(dicoBis["variationId"],  "")
+            XCTAssertEqual(dicoBis["variationId"] as? String,  "")
             
-            XCTAssertEqual(dicoBis["variationGroupId"],  "")
+            XCTAssertEqual(dicoBis["variationGroupId"] as? String,  "")
         }
         
         

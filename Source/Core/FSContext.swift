@@ -18,9 +18,9 @@ internal class FSContext{
     let contextQueue = DispatchQueue(label: "com.flagship.queue.context", attributes: .concurrent)
     
     // Dictionary that represent all keys value according to context users
-    private var _currentContext:Dictionary <String, Any>! // by Default the context is empty
+    private var _currentContext:Dictionary <String, Any> // by Default the context is empty
     
-    internal var currentContext:Dictionary <String, Any>!{
+    internal var currentContext:Dictionary <String, Any>{
         
           get {
               return contextQueue.sync {
@@ -238,5 +238,21 @@ internal class FSContext{
     public func cleanModification(){
         
         self.currentModification.removeAll()
+    }
+    
+    
+    internal func setNewContext(_ newContext:Dictionary <String, Any>?){
+        
+        if let aCtx = newContext{
+            
+            /// Remove all previous context
+            self.cleanContext()
+            /// Reload the default preset context
+            self.currentContext.merge(FSPresetContext.getPresetContextForApp()) { (_, new) in new }
+            /// Merge the new context provided with the setNewContext
+            self.currentContext.merge(aCtx) {  (_, new) in new }
+            
+        }
+
     }
 }

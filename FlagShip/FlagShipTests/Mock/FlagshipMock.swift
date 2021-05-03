@@ -55,7 +55,7 @@ class FlagshipMock:Flagship {
        //  fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
-        self.service = ServiceMock(self.environmentId, self.visitorId ?? "", "")
+        self.service = ServiceMock(self.environmentId, self.visitorId ?? "", self.anonymousId ?? "", "")
 
         
                
@@ -77,7 +77,7 @@ class FlagshipMock:Flagship {
         case .BUCKETING:
             
             
-            let serviceMockBis = ServiceMock(self.environmentId, self.visitorId ?? "", "")
+            let serviceMockBis = ServiceMock(self.environmentId, self.visitorId ?? "", self.anonymousId ?? "", "")
             
             serviceMockBis.getFSScriptMock { (scriptBucket, error) in
                 

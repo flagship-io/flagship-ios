@@ -17,6 +17,9 @@ internal class ABService {
     
     var visitorId:String?
     
+    var anonymousId:String?
+
+    
     private var offLineTracking:FSOfflineTracking!
     
     /// By default
@@ -53,7 +56,16 @@ internal class ABService {
     internal var sessionService:URLSession = URLSession(configuration: URLSessionConfiguration.default)
     
     
-    init(_ clientId:String, _ visitorId:String, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
+    internal func updateService(_ newVisitorId:String, _ newAnonymousId:String?){
+        
+        self.visitorId = newVisitorId
+        
+        self.anonymousId = newAnonymousId
+    }
+    
+    
+    
+    init(_ clientId:String, _ visitorId:String, _ anonymousId:String?, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
         
         
         /// SSet the Client ID
@@ -62,6 +74,9 @@ internal class ABService {
         
         /// Set visitor
         self.visitorId = visitorId
+        
+        /// Set anonymousId
+        self.anonymousId = anonymousId
         
         
         /// OFFLine Tracking
@@ -82,7 +97,19 @@ internal class ABService {
     func getCampaigns(_ currentContext:Dictionary <String,Any>,  onGetCampaign:@escaping(FSCampaigns?, FlagshipError?)->Void){
         
         do {
+            
+            /// Create param with visitor and currentContext
             let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "context":currentContext, "trigger_hit":false]
+            /// if anonymousId is not nil ===> add it to params
+            if let aId = anonymousId{
+                
+                params.setValue(aId, forKey: "anonymousId")
+            }
+            
+            FSLogger.FSlog(" @@@@@@@@@@@@@@@@@@@@@@@@@ visitorId =  \(self.visitorId ?? "null")  @@@@@@@@@@@@@@@@@@@@@@@@@", .Campaign)
+            
+            FSLogger.FSlog(" @@@@@@@@@@@@@@@@@@@@@@@@@ anonymousId =  \(self.anonymousId ?? "null")  @@@@@@@@@@@@@@@@@@@@@@@@@", .Campaign)
+
             
             let data = try JSONSerialization.data(withJSONObject: params, options:[])
             
@@ -95,6 +122,7 @@ internal class ABService {
                 
                 /// Add x-api-key
                 request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)                
+
                 sessionService.dataTask(with: request) { (responseData, response, error) in
                     
                     if (error == nil){
@@ -161,14 +189,26 @@ internal class ABService {
         }
         
         do {
+            
+            
             // Set Visitor Id
             infosTrack.updateValue(visitorId ?? "" , forKey: "vid")
             
-            // Set Client Id
-            infosTrack.updateValue(clientId, forKey: "cid")
+            /// Set anunymousId if available
+            if let aId = anonymousId{
+                
+                infosTrack.updateValue(aId , forKey: "aid")
+            }
             
+            // Set Client Id
+            infosTrack.updateValue(clientId ?? "", forKey: "cid")
+            
+            FSLogger.FSlog("Data to send through the activate hit \(infosTrack)", .Campaign)
+
             
             let data = try JSONSerialization.data(withJSONObject: infosTrack, options:[])
+           
+            
             
             // here we have data ready, check the connexion before
             

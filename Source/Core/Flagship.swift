@@ -17,11 +17,30 @@ import Foundation
 public class Flagship:NSObject{
     
     /// This id is unique for the app
-    internal(set) public var visitorId:String!
+    internal(set) public var visitorId:String!{
+        
+        willSet{
+             
+        }didSet {
+            
+            self.service?.visitorId = visitorId
+        }
+    }
     
+    /// This id used for the no logged session
+    internal(set) public var anonymousId:String?{
+        
+        
+        willSet{
+            
+        }didSet{
+            self.service?.anonymousId = anonymousId
+        }
+    }
     
     /// Client Id
     internal var environmentId:String!
+    
     
     
     // fsQueue
@@ -30,6 +49,7 @@ public class Flagship:NSObject{
     
     /// Current Context
     internal var context:FSContext!
+
     
     
     /// All Campaigns
@@ -121,7 +141,6 @@ public class Flagship:NSObject{
         self.context = FSContext()
         
         self.audience = FSAudience()
-        
     }
     
     
@@ -153,17 +172,26 @@ public class Flagship:NSObject{
         
         /// Manage visitor id
         do {
-            self.visitorId =  try FSTools.manageVisitorId(visitorId)
             
+            /// Before calling service manage the tuple
+            if config.authenticated{
+                
+                self.visitorId = visitorId     /// when the authenticated is true , the visitor id should not be nil
+                self.anonymousId = try FSTools.manageVisitorId(nil)
+            }else{
+                
+                self.visitorId =  try FSTools.manageVisitorId(visitorId)
+                self.anonymousId = nil
+            }
+
         }catch{
             
             onStartDone(.NotReady)
             FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
         }
-        
         /// Sservice with apiKey and Timeout
-        self.service = ABService(self.environmentId, self.visitorId ?? "", apiKey, timeoutService:config.flagshipTimeOutRequestApi)
+        self.service = ABService(self.environmentId, self.visitorId ?? "", self.anonymousId ,apiKey, timeoutService:config.flagshipTimeOutRequestApi)
         
         
         // Set the préconfigured Context
@@ -220,7 +248,7 @@ public class Flagship:NSObject{
                 
                 if (error == nil){
                     
-                    // Check if the sdk is disabled
+                    /// Check if the sdk is disabled
                     if let panic = campaigns?.panic {
                         
                         if(panic){
@@ -254,9 +282,6 @@ public class Flagship:NSObject{
             onGetCampaign(.GetCampaignError)
         }
     }
-    
-    
-    
     
     /////////////////////////////////////// SHIP VALUES /////////////////////////////////////////////////
     
@@ -316,6 +341,23 @@ public class Flagship:NSObject{
         }
         return context.readStringFromContext(key, defaultString: defaultString)
     }
+    
+    
+    @objc public func getModification(_ key:String, defaultValue:String, activate:Bool = false) -> String{
+        
+        if disabledSdk{
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
+            return defaultValue
+        }
+        
+        
+        if activate && self.campaigns != nil {
+            
+            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
+        }
+        return context.readStringFromContext(key, defaultString: defaultValue)
+    }
+    
     
     /**
      Get Modification for Double

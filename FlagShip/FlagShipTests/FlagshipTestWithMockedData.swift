@@ -24,7 +24,7 @@ class FlagshipTestWithMockedData: XCTestCase {
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
         let sessionTest = URLSession.init(configuration: configuration)
-        serviceTest = ABService("idClient", "isVisitor", "apiKey")
+        serviceTest = ABService("idClient", "isVisitor", "aid1","apiKey")
         
         /// Set our mock session into service
         serviceTest.sessionService = sessionTest

@@ -47,7 +47,7 @@ import Foundation
     case NotReady
     
     /// Updated completed
-    case Updated
+    case Updated 
     
     /// The sdk is disabled
     case Disabled

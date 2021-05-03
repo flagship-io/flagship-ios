@@ -36,10 +36,22 @@ class FSEntryViewCtrl: UIViewController {
         self.view.addSubview(loadView)
         
         
+        let config = FSConfig()
+        config.authenticated = false
         
-        /// Loading view
-        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onFinish), userInfo: nil, repeats: false)
+        Flagship.sharedInstance.updateContext("devMode", true)
         
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: "ABCD-ZASR-1234", config:config) { (result) in
+            
+            if result == .Ready {
+                
+                
+            }else{
+                
+             }
+            
+            self.onFinish()
+        }
     }
     
  
