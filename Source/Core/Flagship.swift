@@ -343,22 +343,6 @@ public class Flagship:NSObject{
     }
     
     
-    @objc public func getModification(_ key:String, defaultValue:String, activate:Bool = false) -> String{
-        
-        if disabledSdk{
-            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
-            return defaultValue
-        }
-        
-        
-        if activate && self.campaigns != nil {
-            
-            self.service?.activateCampaignRelativetoKey(key,self.campaigns)
-        }
-        return context.readStringFromContext(key, defaultString: defaultValue)
-    }
-    
-    
     /**
      Get Modification for Double
      
