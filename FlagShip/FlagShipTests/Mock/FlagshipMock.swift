@@ -51,8 +51,6 @@ class FlagshipMock:Flagship {
         }
         
          
-         // Create tuple
-       //  fsProfile = FSProfile(self.visitorId)
          
          // Get All Campaign for the moment
         self.service = ServiceMock(self.environmentId, self.visitorId ?? "", self.anonymousId ?? "", "")

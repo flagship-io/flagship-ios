@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
+		8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
@@ -76,7 +77,6 @@
 		8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D7023C4CA24006D154E /* FSConstant.swift */; };
 		8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BC4745923D9B69100CCE1DE /* FSTargets.swift */; };
 		8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
-		8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD1623FAA75600126600 /* FSProfile.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
 /* End PBXBuildFile section */
@@ -95,6 +95,7 @@
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReconcileTest.swift; path = ../../Flagship/FlagShipTests/ReconcileTest.swift; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 		8B39E04723FD45F400E02DCD /* FlagshipTests */ = {
 			isa = PBXGroup;
 			children = (
+				8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */,
 				8B6DF79D24F41D0D004C177D /* FSBucketServiceTest.swift */,
 				8B6DF79E24F41D0D004C177D /* usersId.json */,
 				8B871F4224A24EC5001DE9F8 /* Data */,
@@ -532,6 +534,7 @@
 				8B871F5024A24EC5001DE9F8 /* FSStorageTest.swift in Sources */,
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
+				8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,
 				8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,
@@ -576,7 +579,6 @@
 				8BBCAD3023FAD0E200126600 /* FSConstant.swift in Sources */,
 				8BBCAD3123FAD0E200126600 /* FSTargets.swift in Sources */,
 				8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */,
-				8BBCAD3323FAD0E200126600 /* FSProfile.swift in Sources */,
 				8B6DF79424F41BB1004C177D /* FSConfig.swift in Sources */,
 				8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */,
 				8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */,
@@ -681,7 +683,6 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 2.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -710,9 +711,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-
 				MARKETING_VERSION = 2.0.5;
-
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
