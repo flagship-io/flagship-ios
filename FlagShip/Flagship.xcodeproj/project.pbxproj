@@ -24,6 +24,8 @@
 		8B39E04923FD45F400E02DCD /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B39E04823FD45F400E02DCD /* FlagshipTests.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
 		8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */; };
+		8B3DE9BB2652AE180020D9D1 /* FSDeviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9B92652AE180020D9D1 /* FSDeviceTest.swift */; };
+		8B3DE9BC2652AE180020D9D1 /* FsToolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9BA2652AE180020D9D1 /* FsToolsTest.swift */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
@@ -96,6 +98,8 @@
 		8B39E04823FD45F400E02DCD /* FlagshipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B39E04A23FD45F400E02DCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReconcileTest.swift; path = ../../Flagship/FlagShipTests/ReconcileTest.swift; sourceTree = "<group>"; };
+		8B3DE9B92652AE180020D9D1 /* FSDeviceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSDeviceTest.swift; path = ../../Flagship/FlagShipTests/FSDeviceTest.swift; sourceTree = "<group>"; };
+		8B3DE9BA2652AE180020D9D1 /* FsToolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FsToolsTest.swift; path = ../../Flagship/FlagShipTests/FsToolsTest.swift; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -180,6 +184,8 @@
 		8B39E04723FD45F400E02DCD /* FlagshipTests */ = {
 			isa = PBXGroup;
 			children = (
+				8B3DE9B92652AE180020D9D1 /* FSDeviceTest.swift */,
+				8B3DE9BA2652AE180020D9D1 /* FsToolsTest.swift */,
 				8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */,
 				8B6DF79D24F41D0D004C177D /* FSBucketServiceTest.swift */,
 				8B6DF79E24F41D0D004C177D /* usersId.json */,
@@ -524,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B3DE9BB2652AE180020D9D1 /* FSDeviceTest.swift in Sources */,
 				8B5D9D24241005B500B813A4 /* FSContextTest.swift in Sources */,
 				8B871F5924A24EC5001DE9F8 /* FSBucketCacheTest.swift in Sources */,
 				8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */,
@@ -535,6 +542,7 @@
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
 				8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */,
+				8B3DE9BC2652AE180020D9D1 /* FsToolsTest.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,
 				8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */,
 				8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */,

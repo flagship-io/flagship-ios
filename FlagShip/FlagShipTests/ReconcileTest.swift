@@ -168,6 +168,8 @@ class ReconcileTest: XCTestCase {
             
             XCTAssert(ctx["sdk_deviceLanguage"] as? String == "fr") /// override the existant key
             
+            Flagship.sharedInstance.sendHit(FSScreen("myHomeScreen"))
+
             
             self.expectation.fulfill()
         }
@@ -192,6 +194,9 @@ class ReconcileTest: XCTestCase {
             
             XCTAssert(ctx["k2"] as? String == "v2")
             
+            Flagship.sharedInstance.sendHit(FSScreen("myHomeScreen"))
+
+            
             self.expectation.fulfill()
             
         }
@@ -210,6 +215,8 @@ class ReconcileTest: XCTestCase {
             let ctx = Flagship.sharedInstance.getVisitorContext()
             
             XCTAssert(ctx["kilo"] as? String == "bravo")
+            
+            Flagship.sharedInstance.sendHit(FSScreen("myHomeScreen"))
             
             self.expectation.fulfill()
             
