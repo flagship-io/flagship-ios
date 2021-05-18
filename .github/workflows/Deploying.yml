@@ -1,19 +1,19 @@
-name: Deploying
-on:
-  push:
-    branches:
-      - master
-jobs:
-  deploy:
-    name: Deploying Universal FrameWork
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Build universal FrameWork
-        run: ./.github/scripts/build_universal_fmk.sh
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-         name: Flagship.framework
-         path: /Users/runner/work/flagship-ios/flagship-ios/build/universal
+# name: Deploying
+# on:
+#   push:
+#     branches:
+#       - master
+# jobs:
+#   deploy:
+#     name: Deploying Universal FrameWork
+#     runs-on: macOS-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+#       - name: Build universal FrameWork
+#         run: ./.github/scripts/build_universal_fmk.sh
+#       - name: Upload Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#          name: Flagship.framework
+#          path: /Users/runner/work/flagship-ios/flagship-ios/build/universal
