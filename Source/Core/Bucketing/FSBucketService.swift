@@ -112,9 +112,13 @@ internal extension ABService {
                 
                 var uploadKeyValueCtxRqst:URLRequest = URLRequest(url: urlKeyCtx)
                 
+                /// Add headers client and version
+                uploadKeyValueCtxRqst.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
+                uploadKeyValueCtxRqst.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
                 uploadKeyValueCtxRqst.httpMethod = "POST"
                 uploadKeyValueCtxRqst.httpBody = data
                 uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
+
                 
                 
                 let session = URLSession(configuration:URLSessionConfiguration.default)

@@ -175,6 +175,7 @@ internal class FSVariation:Decodable{
     public var allocation:Int
     public var reference:Bool = false
     
+
     
     internal init(idVariation:String, _ modifications:FSModifications?, isReference:Bool) {
         
@@ -197,7 +198,6 @@ internal class FSVariation:Decodable{
             self.reference               = try values.decode(Bool.self, forKey: .reference)} catch{
             self.reference = false
         }
-
     }
     
     
@@ -208,6 +208,7 @@ internal class FSVariation:Decodable{
         case allocation
         case reference
     }
+
     
 }
 

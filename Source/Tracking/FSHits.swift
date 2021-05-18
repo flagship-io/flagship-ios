@@ -66,9 +66,9 @@ import Foundation
     /// Location Name where the event occurs
     private var location:String?
     /**
-     Init Page hit
+     Init Screen hit
      
-     @param interfaceName String
+     @param location String
           
      @return instance object
      */

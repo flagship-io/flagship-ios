@@ -20,7 +20,7 @@ class FSContextTest: XCTestCase {
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
         let sessionTest = URLSession.init(configuration: configuration)
-        serviceTest = ABService("idClient", "isVisitor", "apiKey")
+        serviceTest = ABService("idClient", "isVisitor", "anounymA", "apiKey")
         
         /// Set our mock session into service
         serviceTest.sessionService = sessionTest
@@ -220,7 +220,7 @@ class FSContextTest: XCTestCase {
     func testSyncWithoutVisitor(){
         
         /// Prepare ...
-        Flagship.sharedInstance.service = ABService("", "alias", "apikey")
+        Flagship.sharedInstance.service = ABService("", "alias","anounymA", "apikey")
         Flagship.sharedInstance.visitorId = nil
         
         let bucketManager:FSBucketManager = FSBucketManager()
@@ -300,10 +300,9 @@ class FSContextTest: XCTestCase {
         
         if let ret = dico["testGetCtx"] as? String{
             
-            XCTAssertTrue(ret == "val")
+         XCTAssertTrue(ret == "val")
         }
-        
-        
     }
+    
 }
 

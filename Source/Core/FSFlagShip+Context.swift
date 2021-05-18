@@ -173,12 +173,6 @@ extension Flagship{
 
         }
         
-        /// Send the keys/values context
-        DispatchQueue(label: "flagship.contextKey.queue").async {
-            
-            self.service?.sendkeyValueContext(self.context.currentContext)
-        }
-        
     }
     
     
@@ -186,11 +180,11 @@ extension Flagship{
     /// - Returns: Dictionary , an empty one if the context is empty
     @objc public func getVisitorContext()->[String:Any]{
         
-        return self.context.currentContext ?? [:]
+        return self.context.currentContext 
     }
     
-    // Get context for the visitor
-    /// - Returns: Dictionary , an empty one if the context is empty
+    // Get all modifications for the visitor
+    /// - Returns: Dictionary , an empty one if the modification is empty
     @objc public func getAllModification()->[String:Any]{
         
         return self.context.currentModification

@@ -18,7 +18,7 @@ class FSOfflineTrackingTest: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
         
-        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId", ""))
+        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId","aid1", ""))
     }
 
     override func tearDownWithError() throws {
@@ -93,6 +93,12 @@ class FSOfflineTrackingTest: XCTestCase {
             
             /// Error ..
         }
+    }
+    
+    
+    func testGetAllBodyTrackFromDisk(){
+        
+        self.offlineTrack.getAllBodyTrackFromDisk()
     }
     
     

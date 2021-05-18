@@ -15,7 +15,7 @@ class FSBucketServiceTest: XCTestCase {
     
     var serviceBucket:ABService!
     
-    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId", "apiKey")
+    var serviceTest:ABService = ABService("bkk9glocmjcg0vtmdlng", "userId","aid1", "apiKey")
     let mockUrl = URL(string: "BucketMock")!
     
     override func setUpWithError() throws {
@@ -23,7 +23,7 @@ class FSBucketServiceTest: XCTestCase {
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
         let sessionTest = URLSession.init(configuration: configuration)
-        serviceBucket = ABService("idClient", "isVisitor", "apiKey")
+        serviceBucket = ABService("idClient", "isVisitor","aid1", "apiKey")
         
         /// Set our mock session into service
         serviceBucket.sessionService = sessionTest
