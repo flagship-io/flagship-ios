@@ -1,17 +1,17 @@
-name: Swift
+name: Lint
 
-on:
-  push:
-  pull_request:
-    branches: [ master ]
+#on: [push, pull_request]
+on: []
+
 jobs:
   lint:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: checkout
-    - run:  swiftlint
-      
+      - name: Checkout
+        uses: actions/checkout@v2
 
-     
-    
+      - name: Set Xcode 12.4
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_12.4.app
+      - name: Lint
+        run: swiftlint 
