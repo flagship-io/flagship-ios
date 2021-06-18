@@ -1,8 +1,8 @@
-name: Lint
-
-#on: [push, pull_request]
-on: []
-
+name: swiftlint
+on:
+  push:
+    branches:
+      - master
 jobs:
   lint:
     runs-on: macos-latest
