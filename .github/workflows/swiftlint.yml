@@ -10,8 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: checkout
-    
-    - name: Lint
     - run: swiftlint
       
 
