@@ -10,21 +10,18 @@ import XCTest
 @testable import Flagship
 
 class FSOfflineTrackingTest: XCTestCase {
-    
-    
-    var offlineTrack:FSOfflineTracking!
+
+    var offlineTrack: FSOfflineTracking!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        
-        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId","aid1", ""))
+
+        self.offlineTrack = FSOfflineTracking( ABService("clientId", "userId", "aid1", ""))
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        
-        
+
         offlineTrack = nil
     }
 
@@ -39,70 +36,56 @@ class FSOfflineTrackingTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
-    func testflushNoStoredEvents(){
-        
+
+    func testflushNoStoredEvents() {
+
         self.offlineTrack.flushStoredEvents()
     }
-    
-    
-    
+
     /// Test Save event
-    func testSaveEvent(){
-        
+    func testSaveEvent() {
+
         self.offlineTrack.saveEvent(FSEvent(eventCategory: .Action_Tracking, eventAction: "savedEvent"))
     }
-    
 
-    
-    
     /// Test flush  with stored event
-    func testFlushStoredEvents(){
-        
+    func testFlushStoredEvents() {
+
         //// Save Event Action track
         self.offlineTrack.saveEvent(FSEvent(eventCategory: .Action_Tracking, eventAction: "savedEvent"))
 
         /// Save User engagment
         self.offlineTrack.saveEvent(FSEvent(eventCategory: .User_Engagement, eventAction: "savedEvent"))
-        
+
         /// Save transaction
         self.offlineTrack.saveEvent(FSTransaction(transactionId: "id", affiliation: "savedAffiliation"))
-        
+
         /// Save item
         self.offlineTrack.saveEvent(FSItem(transactionId: "id", name: "savedItem", code: "code"))
-        
+
         ///  save page
         self.offlineTrack.saveEvent(FSPage("Savedpage"))
-        
-        
+
         /// Flush Stored events
         self.offlineTrack.flushStoredEvents()
     }
-    
-    
-    
-    func testSaveActiavte(){
-        
-        let infosToSave = ["vaid": "idVaid" , "caid":"idCaid","visitorId":"vid","clientId":"cid"]
-        
+
+    func testSaveActiavte() {
+
+        let infosToSave = ["vaid": "idVaid", "caid": "idCaid", "visitorId": "vid", "clientId": "cid"]
+
         do {
-            let data = try JSONSerialization.data(withJSONObject: infosToSave, options:[])
+            let data = try JSONSerialization.data(withJSONObject: infosToSave, options: [])
             self.offlineTrack.saveActivateEvent(data)
-        }catch{
-            
+        } catch {
+
             /// Error ..
         }
     }
-    
-    
-    func testGetAllBodyTrackFromDisk(){
-        
+
+    func testGetAllBodyTrackFromDisk() {
+
         self.offlineTrack.getAllBodyTrackFromDisk()
     }
-    
-    
-    
-    
 
 }

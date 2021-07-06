@@ -9,27 +9,21 @@
 import UIKit
 
 class FSProductCell: UITableViewCell {
-    
-    
-    @IBOutlet var productImageView:UIImageView!
-    
-    @IBOutlet var nameLabel:UILabel!
-    
-    @IBOutlet var sizeLabel:UILabel!
-    
-    @IBOutlet var priceLabel:UILabel!
 
+    @IBOutlet var productImageView: UIImageView!
 
-    
-    
+    @IBOutlet var nameLabel: UILabel!
+
+    @IBOutlet var sizeLabel: UILabel!
+
+    @IBOutlet var priceLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-
-    
-    func configCell(_ product:FSProduct){
+    func configCell(_ product: FSProduct) {
         // Set name
         nameLabel.text = product.name
         // set Size
