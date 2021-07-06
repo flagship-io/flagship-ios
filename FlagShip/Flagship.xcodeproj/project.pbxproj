@@ -11,7 +11,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 8B6D325F23F5B2AF00916EF1 /* Build configuration list for PBXAggregateTarget "Universal" */;
 			buildPhases = (
-				8BF1B33423F5B3DD0076CAEB /* ShellScript */,
+				8BF1B33423F5B3DD0076CAEB /* Run Script */,
 			);
 			dependencies = (
 			);
@@ -504,9 +504,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ne\n../Script/update_FlagShip.sh ${MARKETING_VERSION}\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n../Script/update_FlagShip.sh ${MARKETING_VERSION}\n\nif which swiftlint >/dev/null; then  \nswiftlint\nelse  \necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		8BF1B33423F5B3DD0076CAEB /* ShellScript */ = {
+		8BF1B33423F5B3DD0076CAEB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -515,13 +515,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"Flagship\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\nxcodebuild -target \"Flagship\" -configuration ${CONFIGURATION} -sdk iphonesimulator -arch x86_64 BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Flagship\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/Flagship.framework/Flagship\"\n\ncp -r \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/Flagship.framework/Modules/Flagship.swiftmodule/\" \"${UNIVERSAL_OUTPUTFOLDER}/Flagship.framework/Modules/Flagship.swiftmodule\"\n\n";
+			shellScript = "#!/bin/bash\nset -e\n\nWORKING_DIR=$(pwd)\n\nFRAMEWORK_FOLDER_OUTPUT=\"Flagship_XCFramework\"\n\nFRAMEWORK_NAME=\"Flagship\"\n\nFRAMEWORK_OUTPUT=\"${WORKING_DIR}/${FRAMEWORK_FOLDER_OUTPUT}/${FRAMEWORK_NAME}.xcframework\"\n\nBUILD_SCHEME=\"Flagship\"\n\nSIMULATOR_ARCHIVE_PATH=\"${WORKING_DIR}/${FRAMEWORK_FOLDER_OUTPUT}/simulator.xcarchive\"\n\nIOS_DEVICE_ARCHIVE_PATH=\"${WORKING_DIR}/${FRAMEWORK_FOLDER_OUTPUT}/iOS.xcarchive\"\n\n\nrm -rf \"${WORKING_DIR}/${FRAMEWORK_FOLDER_OUTPUT}\"\necho \"Deleted ${FRAMEWORK_FOLDER_OUTPUT}\"\nmkdir \"${FRAMEWORK_FOLDER_OUTPUT}\"\necho \"Created ${FRAMEWORK_FOLDER_OUTPUT}\"\necho \"Archiving ${FRAMEWORK_NAME}\"\n#build simu archive\nxcodebuild archive ONLY_ACTIVE_ARCH=NO -scheme ${BUILD_SCHEME} -destination=\"generic/platform=iOS Simulator\" -archivePath \"${SIMULATOR_ARCHIVE_PATH}\" -sdk iphonesimulator SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n# build ios archive\nxcodebuild archive -scheme ${BUILD_SCHEME} -destination=\"generic/platform=iOS\" -archivePath \"${IOS_DEVICE_ARCHIVE_PATH}\" -sdk iphoneos SKIP_INSTALL=NO BUILD_LIBRARIES_FOR_DISTRIBUTION=YES\n# create xcframework\nxcodebuild -create-xcframework -framework ${SIMULATOR_ARCHIVE_PATH}/Products/Library/Frameworks/${FRAMEWORK_NAME}.framework -framework ${IOS_DEVICE_ARCHIVE_PATH}/Products/Library/Frameworks/${FRAMEWORK_NAME}.framework -output \"${FRAMEWORK_OUTPUT}\"\n\ncd \"${FRAMEWORK_OUTPUT}\"\necho \"Clean the xcFramework, by removing \\\"/Flagship.\\\"/ in *.swiftinterface files\"\nfind . -name \"*.swiftinterface\" -exec sed -i -e 's/Flagship\\.//g' {} \\;\n# remove and clean \nrm -rf \"${SIMULATOR_ARCHIVE_PATH}\"\nrm -rf \"${IOS_DEVICE_ARCHIVE_PATH}\"\nopen \"${WORKING_DIR}/${FRAMEWORK_FOLDER_OUTPUT}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -676,6 +677,7 @@
 		8BBCAD3C23FAD0E200126600 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -692,9 +694,10 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1.1;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -704,6 +707,7 @@
 		8BBCAD3D23FAD0E200126600 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -720,9 +724,10 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.1.1;
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

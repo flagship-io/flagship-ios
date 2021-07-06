@@ -157,7 +157,7 @@ public class Flagship:NSObject{
      
      @param onStartDone The block to be invoked when sdk is ready
      */
-    @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(), onStartDone:@escaping(FlagshipResult)->Void){
+    @objc public  func start( envId:String,  apiKey:String, visitorId:String?, config:FSConfig = FSConfig(.DECISION_API), onStartDone:@escaping(FlagshipResult)->Void){
         
         // Checkc the environmentId
         if (FSTools.chekcXidEnvironment(envId)){
