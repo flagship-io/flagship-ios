@@ -67,7 +67,9 @@ extension Flagship {
 
                     // Exit the start with not ready state
                     FSLogger.FSlog("No cached script available", .Campaign)
+                    self.sdkState.updateState(pState: FlagshipState.NOT_READY)
                     onStartDone(.NotReady)
+
                     return
                 }
 
@@ -82,6 +84,7 @@ extension Flagship {
             self.context.updateModification(self.campaigns)
 
             /// Call back with Ready state
+            self.sdkState.updateState(pState: FlagshipState.READY)
             onStartDone(.Ready)
         }
     }
@@ -110,17 +113,23 @@ extension Flagship {
                     FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
 
                     FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
+                    
+                    self.sdkState.updateState(pState: FlagshipState.PANIC)
 
                     onStartDone(FlagshipResult.Disabled)
+
 
                 } else {
 
                     self.disabledSdk = false
                     self.campaigns = campaigns
                     self.context.updateModification(campaigns)
+                    self.sdkState.updateState(pState: FlagshipState.READY)
                     onStartDone(FlagshipResult.Ready)
+
                 }
             } else {
+                self.sdkState.updateState(pState: FlagshipState.NOT_READY)
                 onStartDone(FlagshipResult.NotReady)
             }
         }

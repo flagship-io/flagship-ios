@@ -34,9 +34,20 @@ public class FSStorage {
         }
 
         if var url = FileManager.default.urls(for: searchPathDirectory, in: .userDomainMask).first {
+            
+            url.appendPathComponent("FlagShipCampaign/Allocation", isDirectory: true)
+            do {
+                
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes:nil)
+                
+                return url
 
-            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
-            return url
+            }catch{
+                
+                fatalError("Could not create URL for specified directory!")
+            }
+            
+           
 
         } else {
 
@@ -101,5 +112,16 @@ public class FSStorage {
     static func fileExists(_ fileName: String, in directory: Directory) -> Bool {
         let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         return FileManager.default.fileExists(atPath: url.path)
+    }
+    
+    internal static func deleteSavedAllocations(){
+        do{
+            try FileManager.default.removeItem(at: getURL(for: .documents))
+            FSLogger.FSlog("Delete all saved allocation", .Campaign)
+
+        }catch{
+            
+            FSLogger.FSlog("Failed to delete saved allocation", .Campaign)
+        }
     }
 }

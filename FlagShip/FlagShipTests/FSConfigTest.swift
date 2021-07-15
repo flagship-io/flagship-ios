@@ -54,5 +54,21 @@ class FSConfigTest: XCTestCase {
         XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
 
     }
+    
+    func testWithGrpdTrue(){
+        
+        let config = FSConfig(.BUCKETING, isConsented: true)
+        XCTAssert(config.mode == .BUCKETING)
+        XCTAssert(config.isConsent == true)
+
+    }
+    
+    func testWithGrpdFalse(){
+        
+        let config = FSConfig(.BUCKETING, isConsented: false)
+        XCTAssert(config.mode == .BUCKETING)
+        XCTAssert(config.isConsent == false)
+
+    }
 
 }

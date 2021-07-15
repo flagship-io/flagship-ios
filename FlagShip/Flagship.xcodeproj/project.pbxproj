@@ -26,6 +26,7 @@
 		8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */; };
 		8B3DE9BB2652AE180020D9D1 /* FSDeviceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9B92652AE180020D9D1 /* FSDeviceTest.swift */; };
 		8B3DE9BC2652AE180020D9D1 /* FsToolsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B3DE9BA2652AE180020D9D1 /* FsToolsTest.swift */; };
+		8B49368D269DCDC600101FCC /* FlagshipGdprTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B49368C269DCDC600101FCC /* FlagshipGdprTest.swift */; };
 		8B535FAC23FD6AED005A13CE /* FSServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */; };
 		8B535FAE23FEC2A6005A13CE /* FSBucketManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */; };
 		8B535FF4240D5599005A13CE /* PresetContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B535FF3240D5599005A13CE /* PresetContext.swift */; };
@@ -81,6 +82,7 @@
 		8BBCAD3223FAD0E200126600 /* FSAudience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF02D8E23C4CA24006D154E /* FSAudience.swift */; };
 		8BBCAD3523FAD0E200126600 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B55835723E04243005D0AB5 /* FSTools.swift */; };
 		8BBCAD3623FAD0E200126600 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BBCAD0F23FAA1B300126600 /* murmurhash3.swift */; };
+		8BCAF8942694B7860071F769 /* FSState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAF8932694B7860071F769 /* FSState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,7 @@
 		8B3DE9AD265299040020D9D1 /* ReconcileTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReconcileTest.swift; path = ../../Flagship/FlagShipTests/ReconcileTest.swift; sourceTree = "<group>"; };
 		8B3DE9B92652AE180020D9D1 /* FSDeviceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FSDeviceTest.swift; path = ../../Flagship/FlagShipTests/FSDeviceTest.swift; sourceTree = "<group>"; };
 		8B3DE9BA2652AE180020D9D1 /* FsToolsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FsToolsTest.swift; path = ../../Flagship/FlagShipTests/FsToolsTest.swift; sourceTree = "<group>"; };
+		8B49368C269DCDC600101FCC /* FlagshipGdprTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlagshipGdprTest.swift; path = ../../Flagship/FlagShipTests/FlagshipGdprTest.swift; sourceTree = "<group>"; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B535FAB23FD6AED005A13CE /* FSServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSServiceTest.swift; path = ../../Flagship/FlagshipTests/FSServiceTest.swift; sourceTree = "<group>"; };
@@ -142,6 +145,7 @@
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
 		8BC4745923D9B69100CCE1DE /* FSTargets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTargets.swift; sourceTree = "<group>"; };
+		8BCAF8932694B7860071F769 /* FSState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSState.swift; sourceTree = "<group>"; };
 		8BF02D6E23C4CA24006D154E /* Flagship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flagship.swift; sourceTree = "<group>"; };
 		8BF02D6F23C4CA24006D154E /* FlagShipError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagShipError.swift; sourceTree = "<group>"; };
 		8BF02D7023C4CA24006D154E /* FSConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConstant.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				8B535FAD23FEC2A6005A13CE /* FSBucketManagerTest.swift */,
 				8B5D9D23241005B500B813A4 /* FSContextTest.swift */,
 				8B6DF7EB24F54541004C177D /* FSConfigTest.swift */,
+				8B49368C269DCDC600101FCC /* FlagshipGdprTest.swift */,
 			);
 			path = FlagshipTests;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				8BF02D7423C4CA24006D154E /* Service */,
 				8BF02D7623C4CA24006D154E /* Bucketing */,
 				8BF02D7B23C4CA24006D154E /* FSFlagShip+Context.swift */,
+				8BCAF8932694B7860071F769 /* FSState.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -504,7 +510,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n../Script/update_FlagShip.sh ${MARKETING_VERSION}\n\nif which swiftlint >/dev/null; then  \nswiftlint\nelse  \necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n../Script/update_FlagShip.sh ${MARKETING_VERSION}\n\n#if which swiftlint >/dev/null; then  \n#swiftlint\n#else  \n#echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n#fi\n";
 		};
 		8BF1B33423F5B3DD0076CAEB /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -543,6 +549,7 @@
 				8B871F5A24A24EC5001DE9F8 /* murmurTest.swift in Sources */,
 				8B871F5C24A24EC5001DE9F8 /* FSAudienceTest.swift in Sources */,
 				8B3DE9AE265299040020D9D1 /* ReconcileTest.swift in Sources */,
+				8B49368D269DCDC600101FCC /* FlagshipGdprTest.swift in Sources */,
 				8B3DE9BC2652AE180020D9D1 /* FsToolsTest.swift in Sources */,
 				8B871F5D24A24EC5001DE9F8 /* FSHitTest.swift in Sources */,
 				8B871F5124A24EC5001DE9F8 /* FlagshipTestWithMockedData.swift in Sources */,
@@ -575,6 +582,7 @@
 				8BBCAD2623FAD0E200126600 /* FSOfflineTracking.swift in Sources */,
 				8BBCAD2723FAD0E200126600 /* FSDevice.swift in Sources */,
 				8BBCAD2823FAD0E200126600 /* FlagShipError.swift in Sources */,
+				8BCAF8942694B7860071F769 /* FSState.swift in Sources */,
 				8BBCAD2923FAD0E200126600 /* Flagship.swift in Sources */,
 				8BBCAD2A23FAD0E200126600 /* FSGenerator.swift in Sources */,
 				8BBCAD2B23FAD0E200126600 /* FSTracking.swift in Sources */,
@@ -693,7 +701,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.1.2;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -723,7 +731,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.1;
+				MARKETING_VERSION = 2.1.2;
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
 				PRODUCT_NAME = "$(TARGET_NAME)";

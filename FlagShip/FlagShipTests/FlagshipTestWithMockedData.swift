@@ -33,7 +33,7 @@ class FlagshipTestWithMockedData: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
 
-        synchronizeModifications()
+     //   synchronizeModifications()
 
     }
 
@@ -115,14 +115,15 @@ class FlagshipTestWithMockedData: XCTestCase {
                 let response = HTTPURLResponse(url: self.mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
-
+            
             // Set visitor id
             Flagship.sharedInstance.setVisitorId("202072017183814142")
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
-
             Flagship.sharedInstance.onStartBucketing { (result) in
-
+                
+                // Authorize tracking
+                Flagship.sharedInstance.allowTracking = true
                 XCTAssert(result == .Ready)
                 // Check the value variation
                 XCTAssert(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 4)
@@ -132,21 +133,6 @@ class FlagshipTestWithMockedData: XCTestCase {
                 XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString: "none", activate: true) == "value")
                 XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble: 3.14, activate: true) == 4.333)
 
-                Flagship.sharedInstance.disabledSdk = true
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 1)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variation50", defaultInt: 0) == 0)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool: false) == false)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString: "none") == "none")
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble: 3.14) == 3.14)
-
-                if let ret = Flagship.sharedInstance.getModificationInfo("variation") {
-
-                    XCTAssertTrue(ret["campaignId"] == "bs8qvmo4nlr01fl9aaaa")
-                    XCTAssertTrue(ret["variationId"] == "bs8r09hsbs4011lbgggg")
-                    XCTAssertTrue(ret["variationGroupId"] == "bs8qvmo4nlr01fl9bbbb")
-                }
-
-                /// Get all modification
                 XCTAssertTrue(Flagship.sharedInstance.getAllModification().count > 0)
 
                 Flagship.sharedInstance.disabledSdk = false
@@ -159,16 +145,8 @@ class FlagshipTestWithMockedData: XCTestCase {
             print("error")
         }
 
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 10.0)
     }
-
-    //
-    //    "variation": 4,
-    //       "variationBool": true,
-    //       "variationString": "value",
-    //       "variationDouble": 4.333
-    //// test get campaign
-
     func testonStartDecisionApiWithSucess() {
 
         /// Create the mock response
@@ -196,6 +174,8 @@ class FlagshipTestWithMockedData: XCTestCase {
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
 
             Flagship.sharedInstance.onStartDecisionApi { (result) in
+                
+                Flagship.sharedInstance.allowTracking = true
 
                 XCTAssert(result == .Ready)
 

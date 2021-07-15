@@ -106,6 +106,7 @@ public class Flagship: NSObject {
     }
 
     internal var sdkModeRunning: FlagshipMode = .DECISION_API  // By default the sdk run with the decision mode
+    
 
     /// Shared instance
     @objc public static let sharedInstance: Flagship = {
@@ -117,6 +118,31 @@ public class Flagship: NSObject {
 
     /// Audience
     let audience: FSAudience!
+    
+    
+    private var _allowTracking: Bool = false
+    
+    internal var sdkState:FSState = FSState()
+    
+    @objc public var allowTracking: Bool {
+
+        get {
+            return fsQueue.sync {
+
+                _allowTracking
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+
+                self._allowTracking = newValue
+                /// See later for refractor or chekcing
+                self.sdkState.updateRgpd(self._allowTracking ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+            }
+        }
+ 
+    }
+
 
     internal override init() {
         // init context
@@ -138,6 +164,8 @@ public class Flagship: NSObject {
      
      @param onStartDone The block to be invoked when sdk is ready
      */
+    
+    
     @objc public  func start( envId: String, apiKey: String, visitorId: String?, config: FSConfig = FSConfig(.DECISION_API), onStartDone:@escaping(FlagshipResult) -> Void) {
 
         // Checkc the environmentId
@@ -146,7 +174,8 @@ public class Flagship: NSObject {
             self.environmentId =   envId
 
         } else {
-
+            
+            sdkState.updateState(pState: FlagshipState.NOT_READY)
             onStartDone(.NotReady)
             return
         }
@@ -166,7 +195,7 @@ public class Flagship: NSObject {
             }
 
         } catch {
-
+            sdkState.updateState(pState: FlagshipState.NOT_READY)
             onStartDone(.NotReady)
             FSLogger.FSlog(String(format: "The visitor id is empty. The SDK Flagship is not ready "), .Campaign)
             return
@@ -184,6 +213,13 @@ public class Flagship: NSObject {
         FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
 
         sdkModeRunning = config.mode
+        
+        // update the state
+        if config.isConsent {
+            sdkState.updateRgpd(RGPD.AUTHORIZE_TRACKING)
+        }else{
+            sdkState.updateRgpd(RGPD.UNAUTHORIZE_TRACKING)
+        }
 
         switch sdkModeRunning {
 
@@ -195,13 +231,16 @@ public class Flagship: NSObject {
             onStartDecisionApi(onStartDone)
             break
         }
+        
+        if _allowTracking{ // send keys only when tracking is authorized
+            
+            /// Send the keys/values context
+            DispatchQueue(label: "flagship.contextKey.queue").async {
 
-        /// Send the keys/values context
-        DispatchQueue(label: "flagship.contextKey.queue").async {
+                self.service?.sendkeyValueContext(self.context.currentContext)
+            }
 
-            self.service?.sendkeyValueContext(self.context.currentContext)
         }
-
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {
             self.service?.threadSafeOffline.flushStoredEvents()
@@ -274,12 +313,19 @@ public class Flagship: NSObject {
      
      */
     @objc public func getModification(_ key: String, defaultBool: Bool, activate: Bool = false) -> Bool {
-
-        // Check if disabled
-        if disabledSdk {
+        
+        if (!sdkState.isAuthorized()){
+            
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultBool
+
         }
+        
+//        // Check if disabled
+//        if disabledSdk {
+//            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
+//            return defaultBool
+//        }
 
         if activate && self.campaigns != nil {
             // Activate
@@ -303,9 +349,11 @@ public class Flagship: NSObject {
      */
     @objc public func getModification(_ key: String, defaultString: String, activate: Bool = false) -> String {
 
-        if disabledSdk {
+        if (!sdkState.isAuthorized()){
+            
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultString
+
         }
 
         if activate && self.campaigns != nil {
@@ -328,9 +376,11 @@ public class Flagship: NSObject {
      */
     @objc public func getModification(_ key: String, defaultDouble: Double, activate: Bool = false) -> Double {
 
-        if disabledSdk {
+        if (!sdkState.isAuthorized()){
+            
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultDouble
+
         }
 
         if activate && self.campaigns != nil {
@@ -353,9 +403,11 @@ public class Flagship: NSObject {
      */
     @objc public func getModification(_ key: String, defaulfloat: Float, activate: Bool = false) -> Float {
 
-        if disabledSdk {
+        if (!sdkState.isAuthorized()){
+            
             FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaulfloat
+
         }
 
         if activate && self.campaigns != nil {
@@ -379,9 +431,11 @@ public class Flagship: NSObject {
      */
     @objc public func getModification(_ key: String, defaultInt: Int, activate: Bool = false) -> Int {
 
-        if disabledSdk {
-            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+        if (!sdkState.isAuthorized()){
+            
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultInt
+
         }
 
         if activate && self.campaigns != nil {
@@ -407,9 +461,11 @@ public class Flagship: NSObject {
 
     @objc public func getModification(_ key: String, defaultArray: [Any], activate: Bool = false) ->[Any] {
 
-        if disabledSdk {
-            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+        if (!sdkState.isAuthorized()){
+            
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultArray
+
         }
 
         if activate && self.campaigns != nil {
@@ -435,9 +491,11 @@ public class Flagship: NSObject {
      */
     @objc public func getModification(_ key: String, defaultJson: [String: Any], activate: Bool = false) -> [String: Any] {
 
-        if disabledSdk {
-            FSLogger.FSlog("The Sdk is disabled ... will return a default value ", .Campaign)
+        if (!sdkState.isAuthorized()){
+            
+            FSLogger.FSlog("The Sdk is disabled ... will return a default value", .Campaign)
             return defaultJson
+
         }
 
         if activate && self.campaigns != nil {
@@ -496,11 +554,10 @@ public class Flagship: NSObject {
      */
 
     @objc public func activateModification(key: String) {
-
-        if disabledSdk {
-            FSLogger.FSlog("The Sdk is disabled ... activate will not be sent", .Campaign)
+        
+        if (!sdkState.isAuthorized()){
+            FSLogger.FSlog("FlagShip Not allowed to send hit.....The event will not be sent", .Campaign)
             return
-
         }
 
         if self.campaigns != nil {
@@ -516,11 +573,14 @@ public class Flagship: NSObject {
      
      */
     public func sendHit<T: FSTrackingProtocol>(_ event: T) {
-
-        if disabledSdk {
-            FSLogger.FSlog("FlagShip Disabled.....The event will not be sent", .Campaign)
+        
+        if (!sdkState.isAuthorized()){
+            
+            FSLogger.FSlog("FlagShip Not allowed to send hit.....The event will not be sent", .Campaign)
             return
+
         }
+ 
         self.service?.sendTracking(event)
     }
 
@@ -536,7 +596,7 @@ public class Flagship: NSObject {
 
     @objc public func sendTransactionEvent(_ transacEvent: FSTransaction) {
 
-        if disabledSdk {
+        if !sdkState.isAuthorized() {
             FSLogger.FSlog("FlagShip Disabled.....The event Transaction will not be sent", .Campaign)
             return
         }
@@ -551,7 +611,7 @@ public class Flagship: NSObject {
      */
     @objc public func sendScreenEvent(_ screenEvent: FSScreen) {
 
-        if disabledSdk {
+        if !sdkState.isAuthorized() {
             FSLogger.FSlog("FlagShip Disabled.....The event Page will not be sent", .Campaign)
             return
         }
@@ -567,7 +627,7 @@ public class Flagship: NSObject {
 
     @objc public func sendItemEvent(_ itemEvent: FSItem) {
 
-        if disabledSdk {
+        if !sdkState.isAuthorized() {
             FSLogger.FSlog("FlagShip Disabled.....The event Item will not be sent", .Campaign)
             return
         }
@@ -582,7 +642,9 @@ public class Flagship: NSObject {
      */
     @objc public func sendEventTrack(_ eventTrack: FSEvent) {
 
-        if disabledSdk {
+   
+        
+        if !sdkState.isAuthorized() {
             FSLogger.FSlog("FlagShip Disabled.....The event Track will not be sent", .Campaign)
             return
         }

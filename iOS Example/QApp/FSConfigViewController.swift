@@ -20,6 +20,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var apiKetTextField: UITextField?
     @IBOutlet var visitorIdTextField: UITextField?
     @IBOutlet var authenticateSwitch: UISwitch?
+    @IBOutlet var allowTrackingSwitch: UISwitch?
+
 
     @IBOutlet var visitorCtxLabel: UILabel?
 
@@ -29,7 +31,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var startBtn: UIButton?
 
-    weak var delegate: FSConfigViewDelegate?
+    var delegate: FSConfigViewDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,14 +89,14 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
         /// Get the mode
         let mode: FlagshipMode =  modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
 
-        let config  = FSConfig(mode, authenticated: self.authenticateSwitch?.isOn ?? false)
+        let config  = FSConfig(mode, authenticated: self.authenticateSwitch?.isOn ?? false, allowTracking: self.allowTrackingSwitch?.isOn ?? false)
 
         /// Start function
         Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", visitorId: userIdToSet, config: config) { (result) in
 
             DispatchQueue.main.async {
 
-                /// Get the current context for you application
+                /// Get the current context for you applicationflas
                 self.visitorCtxLabel?.text = String(format: "%@", Flagship.sharedInstance.getVisitorContext())
 
             }
@@ -152,6 +154,23 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
         visitorCtxLabel?.text = nil
         modeBtn?.isSelected = false
 
+    }
+    
+    @IBAction func onSwitchTracking(){
+        
+        Flagship.sharedInstance.allowTracking = self.allowTrackingSwitch?.isOn ?? false
+        
+        if self.allowTrackingSwitch?.isOn ?? false {
+            
+            
+            print(" @@@@@@@@@@@@@@@@@@@@@@ AllowTracking @@@@@@@@@@@@@@@@@@@@@@@@@")
+
+        }else{
+            
+            print(" @@@@@@@@@@@@@@@@@@@@@@ No Tracking @@@@@@@@@@@@@@@@@@@@@@@@@")
+
+        }
+        
     }
 
     /// Delegate textfield
