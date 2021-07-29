@@ -39,7 +39,7 @@ internal class FSOfflineTracking {
                         try FileManager.default.removeItem(at: urlItem)
                     } catch {
 
-                        FSLogger.FSlog("Failed to save event in cache", .Network)
+                        FSLogger.FSlog("Failed to remove saved event in cache", .Network)
                     }
                 }
             }

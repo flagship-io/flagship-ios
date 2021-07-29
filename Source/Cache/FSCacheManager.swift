@@ -168,7 +168,7 @@ internal class FSCacheManager {
     
     internal func deleteAllCachedData(){
         FSStorage.deleteSavedAllocations()
-        deleteFolderInDocument("ABTasty")
+       // deleteFolderInDocument("ABTasty")
     }
     
     private func deleteFolderInDocument(_ nameFolder:String){

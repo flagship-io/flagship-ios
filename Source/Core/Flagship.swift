@@ -120,24 +120,25 @@ public class Flagship: NSObject {
     let audience: FSAudience!
     
     
-    private var _allowTracking: Bool = false
+    private var _hasConsented: Bool = false
     
     internal var sdkState:FSState = FSState()
     
-    @objc public var allowTracking: Bool {
+    @objc public var hasConsented: Bool {
 
         get {
             return fsQueue.sync {
 
-                _allowTracking
+                _hasConsented
             }
         }
         set {
             fsQueue.async(flags: .barrier) {
-
-                self._allowTracking = newValue
+                self._hasConsented = newValue
                 /// See later for refractor or chekcing
-                self.sdkState.updateRgpd(self._allowTracking ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                self.sdkState.updateRgpd(self._hasConsented ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                /// send Hit of consent
+                self._service?.sendHitConsent(_hasConsented: newValue)
             }
         }
  
@@ -168,7 +169,7 @@ public class Flagship: NSObject {
     
     @objc public  func start( envId: String, apiKey: String, visitorId: String?, config: FSConfig = FSConfig(.DECISION_API), onStartDone:@escaping(FlagshipResult) -> Void) {
 
-        // Checkc the environmentId
+        // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
 
             self.environmentId =   envId
@@ -213,12 +214,21 @@ public class Flagship: NSObject {
         FSLogger.FSlog("The current context is : \(self.context.currentContext.description)", .Campaign)
 
         sdkModeRunning = config.mode
+        // update consent in the start from config object
+        _hasConsented =  config.hasConsented;
         
         // update the state
-        if config.isConsent {
+        if hasConsented {
             sdkState.updateRgpd(RGPD.AUTHORIZE_TRACKING)
+            
+            /// Send the keys/values context
+            DispatchQueue(label: "flagship.contextKey.queue").async {
+
+                self.service?.sendkeyValueContext(self.context.currentContext)
+            }
         }else{
             sdkState.updateRgpd(RGPD.UNAUTHORIZE_TRACKING)
+            self.service?.sendHitConsent(_hasConsented: hasConsented)
         }
 
         switch sdkModeRunning {
@@ -230,16 +240,6 @@ public class Flagship: NSObject {
         case .DECISION_API:
             onStartDecisionApi(onStartDone)
             break
-        }
-        
-        if _allowTracking{ // send keys only when tracking is authorized
-            
-            /// Send the keys/values context
-            DispatchQueue(label: "flagship.contextKey.queue").async {
-
-                self.service?.sendkeyValueContext(self.context.currentContext)
-            }
-
         }
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {

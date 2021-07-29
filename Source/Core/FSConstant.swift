@@ -48,3 +48,5 @@ internal let FSGetScript = "https://cdn.flagship.io/%@/bucketing.json"
 /////// Upload all keys/values //////////////////
 
 internal let FSSendKeyValueContext = FlagShipEndPoint + "%@/events"
+
+internal let FSConsentAction = "fs_consent"

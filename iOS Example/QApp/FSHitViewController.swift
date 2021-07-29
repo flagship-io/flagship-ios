@@ -120,19 +120,18 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
                 /// revenue
                 if let inputRevenue = revenueField!.text {
 
-                    hitTransac.revenue = NSNumber(value: Int(String(format: "%@", inputRevenue)) ?? 0)
-
+                    hitTransac.revenue = NSNumber(value: Double(String(format: "%@", inputRevenue)) ?? 0)
                 }
                 /// shipping
                 if let inputShipping = shippingField.text {
 
-                    hitTransac.shipping = NSNumber(value: Int(String(format: "%@", inputShipping)) ?? 0)
+                    hitTransac.shipping = NSNumber(value: Double(String(format: "%@", inputShipping)) ?? 0)
 
                 }
                 /// tax
                 if let inputTax = taxField.text {
 
-                    hitTransac.tax = NSNumber(value: Int(String(format: "%@", inputTax)) ?? 0)
+                    hitTransac.tax = NSNumber(value: Double(String(format: "%@", inputTax)) ?? 0)
                 }
                 /// currency
                 if let inputCurrency = currencyField.text {
