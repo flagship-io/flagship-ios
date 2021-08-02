@@ -45,6 +45,8 @@ internal class FSOfflineTracking {
             }
         }
     }
+    
+    
 
     // Save Events
     func saveEvent<T: FSTrackingProtocol>(_ event: T) {
@@ -156,7 +158,7 @@ internal class FSOfflineTracking {
         if let urlEvent = self.urlForEvent {
 
             do {
-                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlEvent, includingPropertiesForKeys: [.creationDateKey], options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlEvent, includingPropertiesForKeys: [.creationDateKey], options: [FileManager.DirectoryEnumerationOptions.skipsHiddenFiles,FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants ])
 
                 return listElementUrl
 
@@ -224,6 +226,28 @@ internal class FSOfflineTracking {
 
             FSLogger.FSlog("Failed to send Event", .Network)
 
+        }
+    }
+    
+    
+    /// FLush Stored Event
+    func removeAllSavedTracking() {
+        // Flush All Events
+        FSLogger.FSlog("Flush all Events", .Campaign)
+        let listUrl =  self.getAllBodyTrackFromDisk()
+
+        for urlItem: URL in listUrl ?? [] {
+            
+            if (!urlItem.absoluteString.contains("consent_")){
+                
+                do {
+                    try FileManager.default.removeItem(at: urlItem)
+                } catch {
+
+                    FSLogger.FSlog("Failed to remove saved event in cache", .Network)
+                }
+            }
+            
         }
     }
 }

@@ -97,7 +97,8 @@ class FSState {
         print(" ##############@ Clean cache #############")
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {
-            Flagship.sharedInstance.service?.threadSafeOffline.flushStoredEvents()
+           // Flagship.sharedInstance.service?.threadSafeOffline.flushStoredEvents()
+            Flagship.sharedInstance.service?.threadSafeOffline.removeAllSavedTracking()
             FSCacheManager().deleteAllCachedData()
         })
     }

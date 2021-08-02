@@ -18,7 +18,7 @@ internal extension ABService {
     // Send Hit consent
     func sendHitConsent(_hasConsented :Bool){
         // create the hit consent
-        let consentHit = FSEvent(eventCategory: .User_Engagement, eventAction:FSConsentAction)
+        let consentHit = FSConsent(eventCategory: .User_Engagement, eventAction:FSConsentAction)
         consentHit.label =  String(format:"iOS:%@",_hasConsented ? "true":"false")
         sendEvent(consentHit)
     }

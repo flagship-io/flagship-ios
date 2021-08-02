@@ -373,4 +373,18 @@ import Foundation
         }
 
     }
+    
+}
+
+internal class FSConsent : FSEvent{
+    
+    public override var fileName: String! {
+
+        get {
+
+            let formatDate = DateFormatter()
+            formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
+            return String(format: "consent_%@.json", formatDate.string(from: Date()))
+        }
+    }
 }
