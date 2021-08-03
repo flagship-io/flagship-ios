@@ -165,7 +165,7 @@ internal class ABService {
 
     // Activate variation
     public func activateCampaignRelativetoKey(_ key: String, _ campaign: FSCampaigns) {
-
+        
         // Before send Activate
         // prepare somme actions
 

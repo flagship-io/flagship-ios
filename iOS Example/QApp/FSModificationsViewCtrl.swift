@@ -88,7 +88,7 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
                     result = Flagship.sharedInstance.getModification(keyValueInput, defaultBool: defaultValueSwitch?.isOn ?? false )
                     break
                 case .StringType:
-                    result = Flagship.sharedInstance.getModification(keyValueInput, defaultString: defaultValueInput)
+                    result = Flagship.sharedInstance.getModification(keyValueInput, defaultString: defaultValueInput, activate: true)
                     break
                 case .IntegerType:
 
@@ -148,8 +148,31 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
 }
 
 @IBAction func onClickActivate() {
+    
+    if let keyToActivate = keyTextField?.text {
+        
+        Flagship.sharedInstance.activateModification(key: keyToActivate)
 
-    Flagship.sharedInstance.getModification("btnTitle", defaultString: "toto", activate: true)
+        
+            /// Get the current selected
+//            let typeValue = getTypeValue()
+//
+//            switch typeValue {
+//
+//            case .BooleanType:
+//
+//                break
+//            case .StringType:
+//
+//                break
+//            case .IntegerType:
+//
+//                break
+//            case .DoubleType:
+//
+//                break
+//            }
+    }
 }
 
 //// delegate picker

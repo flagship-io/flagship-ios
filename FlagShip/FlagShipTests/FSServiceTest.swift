@@ -8,6 +8,8 @@
 
 import XCTest
 @testable import Flagship
+import SystemConfiguration
+import Network
 
 class FSServiceTest: XCTestCase {
 

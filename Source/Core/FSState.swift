@@ -11,15 +11,6 @@
 import Foundation
 
 
-@objc public enum FlagshipState: NSInteger {
-
-    case READY
-    case NOT_READY
-    case PANIC
-    
-}
-
-
 @objc public enum RGPD: NSInteger {
     
     case AUTHORIZE_TRACKING
@@ -28,32 +19,21 @@ import Foundation
 }
 
 
-
 class FSState {
     
-    internal var _state:FlagshipState
     internal var _rgpd :RGPD
     
     init(){
         
-        _state = .NOT_READY
         _rgpd = .UNAUTHORIZE_TRACKING
     }
     
     
-    func getState()->FlagshipState{
-        
-        return _state
-    }
+
     
     func getRgpd()->RGPD{
         
         return _rgpd
-    }
-    
-    func updateState(pState:FlagshipState){
-        
-        self._state = pState
     }
     
     func updateRgpd(_ newValue:RGPD){
@@ -68,12 +48,11 @@ class FSState {
         }
     }
     
-    
     func isAuthorized()->Bool{
         
         var ret = false
         
-        if (_rgpd == .UNAUTHORIZE_TRACKING || _state == .PANIC){
+        if (_rgpd == .UNAUTHORIZE_TRACKING){
             
         }else{
             
@@ -94,10 +73,9 @@ class FSState {
     
     private func unAuthorizedProtocol(){
         
-        print(" ##############@ Clean cache #############")
-        // Purge data event
-        DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {
-           // Flagship.sharedInstance.service?.threadSafeOffline.flushStoredEvents()
+        FSLogger.FSlog(" ##############@ Clean cache #############", .Campaign)
+        // Remove data event
+        DispatchQueue(label: "flagShip.RemoveStoredEvents.queue").async(execute: DispatchWorkItem {
             Flagship.sharedInstance.service?.threadSafeOffline.removeAllSavedTracking()
             FSCacheManager().deleteAllCachedData()
         })

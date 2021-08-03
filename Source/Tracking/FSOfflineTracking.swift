@@ -99,7 +99,7 @@ internal class FSOfflineTracking {
     // Is Connexion Available
     func isConnexionAvailable() -> Bool {
 
-        let reachability = SCNetworkReachabilityCreateWithName(nil, "https://decision-api.canarybay.io")
+        let reachability = SCNetworkReachabilityCreateWithName(nil, FlagshipUniversalEndPoint)
         var flags = SCNetworkReachabilityFlags()
         SCNetworkReachabilityGetFlags(reachability!, &flags)
         return flags.contains(.reachable)
@@ -211,12 +211,12 @@ internal class FSOfflineTracking {
                         switch httpResponse?.statusCode {
 
                         case 200:
-                            FSLogger.FSlog(" .................Stored Event Sent with success ..........\n\n \(savedInfoEventJson) \n\n ", .Network)
+                            FSLogger.FSlog(" .................Stored event eent with success ..........\n\n \(savedInfoEventJson) \n\n ", .Network)
                             // Delete the Event
                             onCompletion(nil)
                             break
                         default:
-                            FSLogger.FSlog(" .................Error on Sending Stored Event ..........", .Network)
+                            FSLogger.FSlog(" .................Error on Sending Stored event ..........", .Network)
                             onCompletion(.StoredEventError)
                         }
                     }.resume()
@@ -224,7 +224,7 @@ internal class FSOfflineTracking {
             }
         } catch {
 
-            FSLogger.FSlog("Failed to send Event", .Network)
+            FSLogger.FSlog("Failed to send event", .Network)
 
         }
     }
@@ -233,7 +233,7 @@ internal class FSOfflineTracking {
     /// FLush Stored Event
     func removeAllSavedTracking() {
         // Flush All Events
-        FSLogger.FSlog("Flush all Events", .Campaign)
+        FSLogger.FSlog("Remove all saved hits", .Campaign)
         let listUrl =  self.getAllBodyTrackFromDisk()
 
         for urlItem: URL in listUrl ?? [] {
@@ -244,7 +244,7 @@ internal class FSOfflineTracking {
                     try FileManager.default.removeItem(at: urlItem)
                 } catch {
 
-                    FSLogger.FSlog("Failed to remove saved event in cache", .Network)
+                    FSLogger.FSlog("Failed to remove the saved event in cache", .Network)
                 }
             }
             

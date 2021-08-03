@@ -39,7 +39,7 @@ class FlagshipGdprTest: XCTestCase {
     func testStartOptions(){
         
         
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKey", visitorId: "alias", config: FSConfig(.BUCKETING,isConsented: true)) { result in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKey", visitorId: "alias", config: FSConfig(.BUCKETING,isConsent:true)) { result in
             
             XCTAssert(Flagship.sharedInstance.sdkState.getRgpd() == .AUTHORIZE_TRACKING)
             

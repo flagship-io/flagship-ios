@@ -168,26 +168,5 @@ internal class FSCacheManager {
     
     internal func deleteAllCachedData(){
         FSStorage.deleteSavedAllocations()
-       // deleteFolderInDocument("ABTasty")
-    }
-    
-    private func deleteFolderInDocument(_ nameFolder:String){
-        
-        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            // Path
-            url.appendPathComponent(nameFolder, isDirectory: true)
-            
-            if FileManager.default.fileExists(atPath: url.path) == true {
-                
-                do{
-                    try FileManager.default.removeItem(at: url)
-                }catch{
-                    FSLogger.FSlog("Failed to delete directory", .Campaign)
-                }
-                
-            }
-            
-        }
-        
     }
 }

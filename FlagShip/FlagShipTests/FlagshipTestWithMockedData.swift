@@ -123,7 +123,7 @@ class FlagshipTestWithMockedData: XCTestCase {
             Flagship.sharedInstance.onStartBucketing { (result) in
                 
                 // Authorize tracking
-                Flagship.sharedInstance.allowTracking = true
+                Flagship.sharedInstance.hasConsented = true
                 XCTAssert(result == .Ready)
                 // Check the value variation
                 XCTAssert(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 4)
@@ -175,7 +175,7 @@ class FlagshipTestWithMockedData: XCTestCase {
 
             Flagship.sharedInstance.onStartDecisionApi { (result) in
                 
-                Flagship.sharedInstance.allowTracking = true
+                Flagship.sharedInstance.hasConsented = true
 
                 XCTAssert(result == .Ready)
 
@@ -202,7 +202,14 @@ class FlagshipTestWithMockedData: XCTestCase {
                         XCTAssert(subDico["cobject"] as? Int == 0)
                     }
                 }
-
+                
+                /// Check the get information for flag
+                if let infos = Flagship.sharedInstance.getModificationInfo(key: "array") {
+                    XCTAssert(infos.count == 4)
+                    XCTAssertTrue(infos["variationGroupId"] as? String == "bsffhle242b2l3igq4egaa")
+                    XCTAssertTrue(infos["campaignId"]       as? String == "bsffhle242b2l3igq4dg")
+                    XCTAssertTrue(infos["variationId"]      as? String == "bsffhle242b2l3igq4f0")
+                }
                 expectation.fulfill()
             }
 

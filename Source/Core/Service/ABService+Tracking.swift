@@ -31,7 +31,7 @@ internal extension ABService {
 
         if self.threadSafeOffline.isConnexionAvailable() == false {
 
-            FSLogger.FSlog("The connexion is not available ..... The event will be saved in Data Base", .Network)
+            FSLogger.FSlog("The connexion is not available ..... The event is saved", .Network)
 
             self.threadSafeOffline.saveEvent(event)
 

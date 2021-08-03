@@ -199,5 +199,12 @@ class FSHitTest: XCTestCase {
         XCTAssertTrue(dico["t"]    as? String == FSTypeTrack.SCREEN.typeString)
         XCTAssertTrue(dico["dl"]    as? String == "pageTest")
     }
+    
+    func testFSConsent(){
+        
+        let consentHit = FSConsent(eventCategory: .User_Engagement, eventAction: "testConset")
+        
+        XCTAssertTrue(consentHit.fileName.contains("consent_"))
+    }
 
 }
