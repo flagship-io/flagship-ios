@@ -37,13 +37,6 @@ class FSEntryViewCtrl: UIViewController {
         Flagship.sharedInstance.updateContext("devMode", true)
 
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "j2jL0rzlgVaODLw2Cl4JC3f4MflKrMgIaQOENv36", visitorId: "ABCD-ZASR-1234", config: config) { (result) in
-
-            if result == .Ready {
-
-            } else {
-
-             }
-
             self.onFinish()
         }
     }
