@@ -120,7 +120,7 @@ public class Flagship: NSObject {
     let audience: FSAudience!
     
     
-    private var _isConsent: Bool = false
+    private var _isConsent: Bool = true
     
     internal var sdkState:FSState = FSState()
     
