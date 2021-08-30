@@ -16,6 +16,8 @@ class FSHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
+        
         // Use the flagShip to get the title of cta_text
         let title =  Flagship.sharedInstance.getModification("cta_text", defaultString: "default", activate: false)
 
@@ -27,6 +29,7 @@ class FSHomeViewController: UIViewController {
 
         self.ctaButton.setTitle(title, for: .normal)
         self.ctaButton.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
+        Flagship.sharedInstance.isConsent = true
     }
 
     // Cancel Screen

@@ -55,10 +55,10 @@
 
     
    
-    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:0.2  authenticated:YES];
-    
-    
-    
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:0.2  authenticated:YES isConsent:YES];
+
+
+    [[Flagship sharedInstance]setIsConsent:FALSE];
     
     /// Start the sdk
     [[Flagship sharedInstance] startWithEnvId:@"" apiKey:@"" visitorId:@"" config:config onStartDone:^(enum FlagshipResult result) {

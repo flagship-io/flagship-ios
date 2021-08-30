@@ -158,7 +158,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onSwitchTracking(){
         
-        Flagship.sharedInstance.hasConsented = self.allowTrackingSwitch?.isOn ?? false
+        Flagship.sharedInstance.isConsent = self.allowTrackingSwitch?.isOn ?? false
         
         if self.allowTrackingSwitch?.isOn ?? false {
             

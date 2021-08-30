@@ -120,23 +120,23 @@ public class Flagship: NSObject {
     let audience: FSAudience!
     
     
-    private var _hasConsented: Bool = false
+    private var _isConsent: Bool = false
     
     internal var sdkState:FSState = FSState()
     
-    @objc public var hasConsented: Bool {
+    @objc public var isConsent: Bool {
 
         get {
             return fsQueue.sync {
 
-                _hasConsented
+                _isConsent
             }
         }
         set {
             fsQueue.async(flags: .barrier) {
-                self._hasConsented = newValue
+                self._isConsent = newValue
                 /// See later for refractor or chekcing
-                self.sdkState.updateRgpd(self._hasConsented ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
                 /// send Hit of consent
                 self._service?.sendHitConsent(_hasConsented: newValue)
             }
@@ -213,10 +213,10 @@ public class Flagship: NSObject {
 
         sdkModeRunning = config.mode
         // update consent in the start from config object
-        _hasConsented =  config.hasConsented;
+        _isConsent =  config.hasConsented;
         
         // update the state
-        if hasConsented {
+        if isConsent {
             sdkState.updateRgpd(RGPD.AUTHORIZE_TRACKING)
             
             /// Send the keys/values context
@@ -226,7 +226,7 @@ public class Flagship: NSObject {
             }
         }else{
             sdkState.updateRgpd(RGPD.UNAUTHORIZE_TRACKING)
-            self.service?.sendHitConsent(_hasConsented: hasConsented)
+            self.service?.sendHitConsent(_hasConsented: isConsent)
         }
 
         switch sdkModeRunning {
