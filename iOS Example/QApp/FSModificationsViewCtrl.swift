@@ -102,7 +102,7 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
                     break
                 }
 
-                let dicoInfo = Flagship.sharedInstance.getModificationInfo(keyValueInput)
+                let dicoInfo = Flagship.sharedInstance.getModificationInfo(key: keyValueInput)
 
                 //      @return { “campaignId”: “xxxx”, “variationGroupId”: “xxxx“, “variationId”: “xxxx”} or nil
 
