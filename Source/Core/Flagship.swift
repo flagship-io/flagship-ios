@@ -136,7 +136,7 @@ public class Flagship: NSObject {
             fsQueue.async(flags: .barrier) {
                 
                 // Check if the sdk is not disabled (panic mode)
-                if (self.disabledSdk == false){
+                if (self._disabledSdk == false){
                     self._isConsent = newValue
                     /// See later for refractor or chekcing
                     self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
