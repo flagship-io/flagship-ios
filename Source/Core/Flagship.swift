@@ -134,11 +134,15 @@ public class Flagship: NSObject {
         }
         set {
             fsQueue.async(flags: .barrier) {
-                self._isConsent = newValue
-                /// See later for refractor or chekcing
-                self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
-                /// send Hit of consent
-                self._service?.sendHitConsent(_hasConsented: newValue)
+                
+                // Check if the sdk is not disabled (panic mode)
+                if (self.disabledSdk == false){
+                    self._isConsent = newValue
+                    /// See later for refractor or chekcing
+                    self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                    /// send Hit of consent
+                    self._service?.sendHitConsent(_hasConsented: newValue)
+                }
             }
         }
  
@@ -614,5 +618,11 @@ public class Flagship: NSObject {
         }
         self.service?.sendTracking(eventTrack)
     }
-
+    
+    
+    
+    
+    
+    
+  
 }
