@@ -16,10 +16,10 @@ internal class FSCampaigns: Decodable {
 
     public var campaigns: [FSCampaign] = []
 
-    internal init(_ customId: String) {
+    internal init(_ customId: String, panic:Bool = false) {
 
         self.visitorId = customId
-        self.panic = false
+        self.panic = panic
     }
 
     //// this init from bucket cache model

@@ -134,13 +134,13 @@ public class Flagship: NSObject {
         }
         set {
             fsQueue.async(flags: .barrier) {
-                
-                // Check if the sdk is not disabled (panic mode)
+                /// Set the new value
+                self._isConsent = newValue
+                /// Upgrade RGPD protocol
+                self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                /// send Hit of consent
+                // Check if the sdk is not disabled (panic mode) before send the hit consent
                 if (self._disabledSdk == false){
-                    self._isConsent = newValue
-                    /// See later for refractor or chekcing
-                    self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
-                    /// send Hit of consent
                     self._service?.sendHitConsent(_hasConsented: newValue)
                 }
             }
@@ -223,14 +223,8 @@ public class Flagship: NSObject {
         if isConsent {
             sdkState.updateRgpd(RGPD.AUTHORIZE_TRACKING)
             
-            /// Send the keys/values context
-            DispatchQueue(label: "flagship.contextKey.queue").async {
-
-                self.service?.sendkeyValueContext(self.context.currentContext)
-            }
         }else{
             sdkState.updateRgpd(RGPD.UNAUTHORIZE_TRACKING)
-            self.service?.sendHitConsent(_hasConsented: isConsent)
         }
 
         switch sdkModeRunning {

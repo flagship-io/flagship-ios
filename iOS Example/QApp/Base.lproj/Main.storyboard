@@ -206,7 +206,7 @@
                             <constraint firstItem="V35-wM-L7B" firstAttribute="centerY" secondItem="Wbp-dq-cEg" secondAttribute="centerY" id="xc2-nG-Nhu"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" enabled="NO" title="Modifications" image="flag" catalog="system" id="gXj-1h-vb0"/>
+                    <tabBarItem key="tabBarItem" title="Modifications" image="flag" catalog="system" id="gXj-1h-vb0"/>
                     <navigationItem key="navigationItem" id="Uu9-Jv-jce"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -359,7 +359,7 @@
                             <constraint firstItem="L2w-h2-ppL" firstAttribute="top" secondItem="UPB-G3-lcf" secondAttribute="bottom" constant="20" id="x7d-22-WDI"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" enabled="NO" title="User" image="iconVisitors" id="RtV-Jl-EX8"/>
+                    <tabBarItem key="tabBarItem" title="User" image="iconVisitors" id="RtV-Jl-EX8"/>
                     <connections>
                         <outlet property="anonymousIdField" destination="Tn6-IZ-nCF" id="4a4-Mh-knl"/>
                         <outlet property="authBtn" destination="h0v-SG-gre" id="vDg-T7-JOl"/>
@@ -757,7 +757,7 @@
                             <constraint firstItem="1Jg-fo-tR4" firstAttribute="leading" secondItem="f98-lQ-uPU" secondAttribute="leading" id="ySR-sR-IGb"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" enabled="NO" title="Hits" image="target" catalog="system" id="KWr-fS-1n6"/>
+                    <tabBarItem key="tabBarItem" title="Hits" image="target" catalog="system" id="KWr-fS-1n6"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="affiliationField" destination="N4x-tc-mhQ" id="Cel-o4-b29"/>

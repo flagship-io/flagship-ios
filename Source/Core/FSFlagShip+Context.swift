@@ -146,6 +146,15 @@ extension Flagship {
             completion(.Updated)
 
         }
+        /// Before send context check if the user is consented 
+        if isConsent{
+            
+            /// Send the keys/values context
+               DispatchQueue(label: "flagship.contextKey.queue").async {
+                   
+                   self.service?.sendkeyValueContext(self.context.currentContext)
+               }
+        }
 
     }
 

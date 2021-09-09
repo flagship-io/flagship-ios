@@ -28,8 +28,8 @@ class FSBucketManager: NSObject {
         /// Check the panic mode
 
         if scriptBucket.panic == true {
-
-            return nil
+            
+            return FSCampaigns(visitorId, panic: true)
         }
 
         // check if the user exist in the cache , if yes then read his own modification from the cache

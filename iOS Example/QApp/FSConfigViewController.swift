@@ -104,23 +104,22 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
             if result == .Ready {
 
                 self.delegate?.onGetSdkReady()
-            } else {
-
-                self.showErrorMessage()
+            } else if result == .Disabled {
+                
+                self.showErrorMessage("Flagship, Panic Mode Activated")
+            }else{
+                self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
         }
     }
 
-    internal func showErrorMessage() {
+    internal func showErrorMessage(_ msg:String) {
 
         DispatchQueue.main.async {
-
-            let msg = "Sorry, something went wrong, please check your envId and apiKey"
             let alertCtrl = UIAlertController(title: "Start", message: msg, preferredStyle: .alert)
             alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertCtrl, animated: true, completion: nil)
         }
-
     }
 
     @IBAction func onSwichAuthenticate() {

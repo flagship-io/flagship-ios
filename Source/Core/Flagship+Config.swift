@@ -78,10 +78,8 @@ extension Flagship {
                 /// Bucket the variation with a new script from server
                 self.campaigns = bucketMgr.bucketVariations(self.visitorId ?? "", scriptBucket ?? FSBucket())
             }
-
-            /// Update the modifications
-            self.context.updateModification(self.campaigns)
-            onStartDone(.Ready)
+            /// Check the panic mode before return
+            self.checkPanicMode(onStartDone)
         }
     }
 
@@ -100,31 +98,44 @@ extension Flagship {
         self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
 
             if error == nil {
-
-                // Check if the panic button is activated
-                if campaigns?.panic ?? false {
-
-                    // Update the state
-                    self.disabledSdk = true
-                    FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
-
-                    FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
-                    
-                    onStartDone(FlagshipResult.Disabled)
-
-
-                } else {
-
-                    self.disabledSdk = false
-                    self.campaigns = campaigns
-                    self.context.updateModification(campaigns)
-                    onStartDone(FlagshipResult.Ready)
-
-                }
+                /// Check the panic mode before return
+                self.checkPanicMode(onStartDone)
             } else {
                 onStartDone(FlagshipResult.NotReady)
             }
         }
     }
+    
+    
+    private func checkPanicMode(_ onStartDone:@escaping(FlagshipResult) -> Void){
+        
+        // Check if the panic mode is activated
+        if campaigns?.panic ?? false {
 
+            // Update the state
+            self.disabledSdk = true
+            FSLogger.FSlog(String(format: "The SDK Flagship disabled from the flagship account - panic mode"), .Campaign)
+
+            FSLogger.FSlog(String(format: "Default values will be returned by the getModification function"), .Campaign)
+            
+            onStartDone(FlagshipResult.Disabled)
+
+        } else {
+            self.disabledSdk = false
+            self.campaigns = campaigns
+            self.context.updateModification(campaigns)
+            
+            // update the state
+            if isConsent {
+                /// Send the keys/values context
+                DispatchQueue(label: "flagship.contextKey.queue").async {
+
+                    self.service?.sendkeyValueContext(self.context.currentContext)
+                }
+            }else{
+                self.service?.sendHitConsent(_hasConsented: isConsent)
+            }
+            onStartDone(FlagshipResult.Ready)
+        }
+    }
 }
