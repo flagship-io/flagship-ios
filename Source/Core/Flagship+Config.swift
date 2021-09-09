@@ -58,6 +58,8 @@ extension Flagship {
         self.service?.getFSScript { (scriptBucket, error) in
 
             let bucketMgr: FSBucketManager = FSBucketManager()
+            
+            var aCampaigns:FSCampaigns?
 
             /// Error occured when trying to get script
             if error != nil {
@@ -73,13 +75,13 @@ extension Flagship {
                 }
 
                 /// Bucket the variations with the cached script
-                self.campaigns = bucketMgr.bucketVariations(self.visitorId ?? "", cachedBucket)
+                aCampaigns = bucketMgr.bucketVariations(self.visitorId ?? "", cachedBucket)
             } else {
                 /// Bucket the variation with a new script from server
-                self.campaigns = bucketMgr.bucketVariations(self.visitorId ?? "", scriptBucket ?? FSBucket())
+                aCampaigns = bucketMgr.bucketVariations(self.visitorId ?? "", scriptBucket ?? FSBucket())
             }
             /// Check the panic mode before return
-            self.checkPanicMode(onStartDone)
+            self.checkPanicMode(newFlags:aCampaigns, onStartDone)
         }
     }
 
@@ -95,11 +97,11 @@ extension Flagship {
         self.context.updateModification(self.campaigns)
 
         // Get campaign from server
-        self.service?.getCampaigns(context.currentContext) { (campaigns, error) in
+        self.service?.getCampaigns(context.currentContext) { (aCampaigns, error) in
 
             if error == nil {
                 /// Check the panic mode before return
-                self.checkPanicMode(onStartDone)
+                self.checkPanicMode(newFlags: aCampaigns,  onStartDone)
             } else {
                 onStartDone(FlagshipResult.NotReady)
             }
@@ -107,10 +109,10 @@ extension Flagship {
     }
     
     
-    private func checkPanicMode(_ onStartDone:@escaping(FlagshipResult) -> Void){
+    internal func checkPanicMode(newFlags:FSCampaigns?,_ onStartDone:@escaping(FlagshipResult) -> Void){
         
         // Check if the panic mode is activated
-        if campaigns?.panic ?? false {
+        if newFlags?.panic ?? false {
 
             // Update the state
             self.disabledSdk = true
@@ -122,8 +124,8 @@ extension Flagship {
 
         } else {
             self.disabledSdk = false
-            self.campaigns = campaigns
-            self.context.updateModification(campaigns)
+            self.campaigns = newFlags
+            self.context.updateModification(newFlags)
             
             // update the state
             if isConsent {

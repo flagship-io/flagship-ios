@@ -165,6 +165,7 @@ class ReconcileTest: XCTestCase {
         Flagship.sharedInstance.updateContext(["k1": "v1", "k2": "v2"])
         Flagship.sharedInstance.authenticateVisitor(visitorId: "alex")
 
+
         Flagship.sharedInstance.unAuthenticateVisitor { (_) in
 
             let ctx = Flagship.sharedInstance.getVisitorContext()
