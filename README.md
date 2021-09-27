@@ -7,7 +7,8 @@
 <h3 align="center">Bring your features to life</h3>
 
 ![Swift](https://github.com/abtasty/flagship-ios/workflows/Swift/badge.svg)
-[![codecov](https://codecov.io/gh/ABTastyAdel/flagship-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/ABTastyAdel/flagship-ios)[![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)](https://cocoapods.org/pods/FlagShip)
+[![codecov](https://codecov.io/gh/flagship-io/flagship-ios/branch/master/graph/badge.svg?token=IgydLlPtQI)](https://codecov.io/gh/flagship-io/flagship-ios)
+[![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)](https://cocoapods.org/pods/FlagShip)
 [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen)](https://swift.org/package-manager/)
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
 
