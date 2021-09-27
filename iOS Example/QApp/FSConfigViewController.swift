@@ -83,13 +83,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func onClikcStart() {
-
+        
         let userIdToSet: String? = (visitorIdTextField?.text?.count == 0) ? nil : visitorIdTextField?.text
 
         /// Get the mode
         let mode: FlagshipMode =  modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
 
-        let config  = FSConfig(mode, authenticated: self.authenticateSwitch?.isOn ?? false, isConsent: self.allowTrackingSwitch?.isOn ?? false)
+        let config  = FSConfig(mode, authenticated: self.authenticateSwitch?.isOn ?? false, hasConsented: self.allowTrackingSwitch?.isOn ?? false)
 
         /// Start function
         Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", visitorId: userIdToSet, config: config) { (result) in
@@ -157,7 +157,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func onSwitchTracking(){
         
-        Flagship.sharedInstance.isConsent = self.allowTrackingSwitch?.isOn ?? false
+        Flagship.sharedInstance.consent = self.allowTrackingSwitch?.isOn ?? false
         
         if self.allowTrackingSwitch?.isOn ?? false {
             

@@ -120,24 +120,24 @@ public class Flagship: NSObject {
     let audience: FSAudience!
     
     
-    private var _isConsent: Bool = true
+    private var _hasConsented: Bool = true
     
     internal var sdkState:FSState = FSState()
     
-    @objc public var isConsent: Bool {
+    @objc public var consent: Bool {
 
         get {
             return fsQueue.sync {
 
-                _isConsent
+                _hasConsented
             }
         }
         set {
             fsQueue.async(flags: .barrier) {
                 /// Set the new value
-                self._isConsent = newValue
+                self._hasConsented = newValue
                 /// Upgrade RGPD protocol
-                self.sdkState.updateRgpd(self._isConsent ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
+                self.sdkState.updateRgpd(self._hasConsented ? RGPD.AUTHORIZE_TRACKING : RGPD.UNAUTHORIZE_TRACKING)
                 /// send Hit of consent
                 // Check if the sdk is not disabled (panic mode) before send the hit consent
                 if (self._disabledSdk == false){
@@ -217,10 +217,10 @@ public class Flagship: NSObject {
 
         sdkModeRunning = config.mode
         // update consent in the start from config object
-        _isConsent =  config.hasConsented;
+        _hasConsented =  config._hasConsented;
         
         // update the state
-        if isConsent {
+        if consent {
             sdkState.updateRgpd(RGPD.AUTHORIZE_TRACKING)
             
         }else{

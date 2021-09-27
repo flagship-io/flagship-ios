@@ -70,7 +70,7 @@ class FlagshipGdprTest: XCTestCase {
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
             // allow tracking
-            Flagship.sharedInstance.isConsent = false
+            Flagship.sharedInstance.hasConsented = false
             Flagship.sharedInstance.onStartDecisionApi { result in
                 
                 XCTAssertTrue(Flagship.sharedInstance.sdkState.getRgpd() == .UNAUTHORIZE_TRACKING)

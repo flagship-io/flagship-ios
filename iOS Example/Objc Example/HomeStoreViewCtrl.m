@@ -36,7 +36,7 @@
     
     [[Flagship sharedInstance] updateContext:@{@"Boolean_Key":@YES,@"String_Key":@"june",@"Number_Key":@200}];
 
-    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:2 authenticated:YES isConsent:YES];
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:2 authenticated:YES hasConsented:YES];
 
     [[Flagship sharedInstance] startWithEnvId:@"bkk9glocmjcg0vtmdlng" apiKey:@"DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23" visitorId:NULL config:config onStartDone:^(enum FlagshipResult result) {
         

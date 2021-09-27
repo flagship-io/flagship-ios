@@ -35,7 +35,7 @@ class FSConfigTest: XCTestCase {
 
         let config =  FSConfig()
         XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
 
     }
 
@@ -43,7 +43,7 @@ class FSConfigTest: XCTestCase {
 
         let config =  FSConfig(.DECISION_API, timeout: 0)
         XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
 
     }
 
@@ -51,7 +51,7 @@ class FSConfigTest: XCTestCase {
 
         let config =  FSConfig(.DECISION_API, timeout: -1)
         XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
 
     }
     

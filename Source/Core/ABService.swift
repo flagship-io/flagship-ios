@@ -20,7 +20,7 @@ internal class ABService {
     private var offLineTracking: FSOfflineTracking!
 
     /// By default
-    internal var timeOutServiceForRequestApi = FS_TimeOutRequestApi
+    internal var timeOutServiceForRequestApi = FSTimeoutRequestApi
 
     // QueueModification
     let serviceQueue = DispatchQueue(label: "com.flagship.queue.service", attributes: .concurrent)
@@ -57,7 +57,7 @@ internal class ABService {
         self.anonymousId = newAnonymousId
     }
 
-    init(_ clientId: String, _ visitorId: String, _ anonymousId: String?, _ apiKey: String, timeoutService: TimeInterval = FS_TimeOutRequestApi) {
+    init(_ clientId: String, _ visitorId: String, _ anonymousId: String?, _ apiKey: String, timeoutService: TimeInterval = FSTimeoutRequestApi) {
 
         /// SSet the Client ID
         self.clientId = clientId

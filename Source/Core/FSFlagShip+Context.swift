@@ -147,7 +147,7 @@ extension Flagship {
 
         }
         /// Before send context check if the user is consented 
-        if isConsent{
+        if consent{
             
             /// Send the keys/values context
                DispatchQueue(label: "flagship.contextKey.queue").async {

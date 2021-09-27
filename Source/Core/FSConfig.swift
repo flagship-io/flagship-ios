@@ -9,7 +9,7 @@
 import Foundation
 
 /// By the default the timeout will be 2 seconds
-public let FS_TimeOutRequestApi = 2.0
+public let FSTimeoutRequestApi = 2.0
 
 /// This class will represent
 @objc public class FSConfig: NSObject {
@@ -23,16 +23,16 @@ public let FS_TimeOutRequestApi = 2.0
     public var authenticated:Bool = false
     
     /// Consent boolean
-    public var hasConsented:Bool = true
+    internal var _hasConsented:Bool = true
 
     /// Config object that represent all customized
     /// - Parameters:
     ///   - mode: The start car run under the bukceting or decision Api mode. The default mode is DECISION_API
     ///   - apiTimeout: Time for the sdk to wait response from the getCampaign request. The default timeout is 2 seconds
-    @objc public init(_ mode: FlagshipMode = .DECISION_API, timeout: TimeInterval = FS_TimeOutRequestApi, authenticated: Bool = false , isConsent:Bool = true) {
+    @objc public init(_ mode: FlagshipMode = .DECISION_API, timeout: TimeInterval = FSTimeoutRequestApi, authenticated: Bool = false , hasConsented:Bool = true) {
 
         /// Set Timeout
-        self.flagshipTimeOutRequestApi = (timeout > 0) ? timeout:FS_TimeOutRequestApi
+        self.flagshipTimeOutRequestApi = (timeout > 0) ? timeout:FSTimeoutRequestApi
 
         /// Set Mode
         self.mode = mode
@@ -47,7 +47,7 @@ public let FS_TimeOutRequestApi = 2.0
 
         }
         // set the consentment 
-        self.hasConsented = isConsent
+        self._hasConsented = hasConsented
 
     }
 }

@@ -128,14 +128,14 @@ extension Flagship {
             self.context.updateModification(newFlags)
             
             // update the state
-            if isConsent {
+            if consent {
                 /// Send the keys/values context
                 DispatchQueue(label: "flagship.contextKey.queue").async {
 
                     self.service?.sendkeyValueContext(self.context.currentContext)
                 }
             }else{
-                self.service?.sendHitConsent(_hasConsented: isConsent)
+                self.service?.sendHitConsent(_hasConsented: consent)
             }
             onStartDone(FlagshipResult.Ready)
         }

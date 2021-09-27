@@ -29,7 +29,7 @@ class FSHomeViewController: UIViewController {
 
         self.ctaButton.setTitle(title, for: .normal)
         self.ctaButton.backgroundColor = UIColor(hexString: colorHexTitle, alpha: 1.0)
-        Flagship.sharedInstance.isConsent = true
+        Flagship.sharedInstance.consent = true
     }
 
     // Cancel Screen
