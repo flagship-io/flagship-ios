@@ -57,17 +57,17 @@ class FSConfigTest: XCTestCase {
     
     func testWithGrpdTrue(){
         
-        let config = FSConfig(.BUCKETING, isConsent: true)
+        let config = FSConfig(.BUCKETING, hasConsented: true)
         XCTAssert(config.mode == .BUCKETING)
-        XCTAssert(config.hasConsented == true)
+        XCTAssert(config._hasConsented == true)
 
     }
     
     func testWithGrpdFalse(){
         
-        let config = FSConfig(.BUCKETING, isConsent: false)
+        let config = FSConfig(.BUCKETING, hasConsented: false)
         XCTAssert(config.mode == .BUCKETING)
-        XCTAssert(config.hasConsented == false)
+        XCTAssert(config._hasConsented == false)
 
     }
 

@@ -123,7 +123,7 @@ class FlagshipTestWithMockedData: XCTestCase {
             Flagship.sharedInstance.onStartBucketing { (result) in
                 
                 // Authorize tracking
-                Flagship.sharedInstance.hasConsented = true
+                Flagship.sharedInstance.consent = true
                 XCTAssert(result == .Ready)
                 // Check the value variation
                 XCTAssert(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 4)
@@ -175,7 +175,7 @@ class FlagshipTestWithMockedData: XCTestCase {
 
             Flagship.sharedInstance.onStartDecisionApi { (result) in
                 
-                Flagship.sharedInstance.hasConsented = true
+                Flagship.sharedInstance.consent = true
 
                 XCTAssert(result == .Ready)
 

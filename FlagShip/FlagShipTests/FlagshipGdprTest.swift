@@ -39,7 +39,7 @@ class FlagshipGdprTest: XCTestCase {
     func testStartOptions(){
         
         
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKey", visitorId: "alias", config: FSConfig(.BUCKETING,isConsent:true)) { result in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKey", visitorId: "alias", config: FSConfig(.BUCKETING,hasConsented:true)) { result in
             
             XCTAssert(Flagship.sharedInstance.sdkState.getRgpd() == .AUTHORIZE_TRACKING)
             
@@ -70,7 +70,7 @@ class FlagshipGdprTest: XCTestCase {
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
             // allow tracking
-            Flagship.sharedInstance.hasConsented = false
+            Flagship.sharedInstance.consent = false
             Flagship.sharedInstance.onStartDecisionApi { result in
                 
                 XCTAssertTrue(Flagship.sharedInstance.sdkState.getRgpd() == .UNAUTHORIZE_TRACKING)
