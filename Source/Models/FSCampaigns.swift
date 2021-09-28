@@ -65,29 +65,29 @@ internal class FSCampaigns: Decodable {
         return nil
     }
 
+//    //// Get relative information for modification key
+//    /// This function will be removed later
+//    internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: String]? {
+//
+//        for item: FSCampaign in self.campaigns {
+//
+//            guard let value = item.variation?.modifications?.value else {
+//
+//                FSLogger.FSlog(" No Value modification found....", .Campaign)
+//                continue
+//            }
+//            if value.keys.contains(keyValue) {
+//
+//                return ["campaignId": item.idCampaign,
+//                        "variationId": item.variation?.idVariation ?? "",
+//                        "variationGroupId": item.variationGroupId ?? ""]
+//            }
+//        }
+//        return nil
+//    }
+
     //// Get relative information for modification key
-    /// This function will be removed later
-    internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: String]? {
-
-        for item: FSCampaign in self.campaigns {
-
-            guard let value = item.variation?.modifications?.value else {
-
-                FSLogger.FSlog(" No Value modification found....", .Campaign)
-                continue
-            }
-            if value.keys.contains(keyValue) {
-
-                return ["campaignId": item.idCampaign,
-                        "variationId": item.variation?.idVariation ?? "",
-                        "variationGroupId": item.variationGroupId ?? ""]
-            }
-        }
-        return nil
-    }
-
-    //// Get relative information for modification key
-    internal func getRelativekeyModificationInfosBis(_ keyValue: String) -> [String: Any]? {
+    internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: Any]? {
 
         for item: FSCampaign in self.campaigns {
 

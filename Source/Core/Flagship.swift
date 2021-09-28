@@ -500,13 +500,19 @@ public class Flagship: NSObject {
      */
 
     @objc public func getModificationInfo(key: String) -> [String: Any]? {
-
+        
+        /// Check if the sdk is disabled
+        if disabledSdk {
+            FSLogger.FSlog("The Sdk is disabled ... will return a nil value", .Campaign)
+            return nil
+        }
+        /// Check if the campaign is not nil
         if self.campaigns != nil {
 
-            return self.campaigns.getRelativekeyModificationInfosBis(key)
+            return self.campaigns.getRelativekeyModificationInfos(key)
         }
-
-        FSLogger.FSlog(" Any campaign found, to retreive the information's modification key", .Campaign) /// See later for the logs
+        /// No Campaign found
+        FSLogger.FSlog(" Any campaign found, to retreive modification info", .Campaign)
         return nil
     }
 

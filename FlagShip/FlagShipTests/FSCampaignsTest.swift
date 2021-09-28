@@ -73,33 +73,33 @@ class FSCampaignsTest: XCTestCase {
 
     func testGetRelativekeyModificationInfos() {
 
-        XCTAssertNil(campaignTest?.getRelativekeyModificationInfos(""))
+       // XCTAssertNil(campaignTest?.getRelativekeyModificationInfos(""))
 
         // ["campaignId" : item.idCampaign, "variationId": item.variation?.idVariation ?? "", "variationGroupId":item.variationGroupId ?? ""]
-        if let dico = campaignTest?.getRelativekeyModificationInfos("alias") {
+//        if let dico = campaignTest?.getRelativekeyModificationInfos("alias") {
+//
+//            XCTAssertEqual(dico.keys.count, 3)
+//
+//            XCTAssertEqual(dico["campaignId"] as? String, "bsffhle242b2l3igq4dg")
+//
+//            XCTAssertEqual(dico["variationId"] as? String, "bsffhle242b2l3igq4f0")
+//
+//            XCTAssertEqual(dico["variationGroupId"] as? String, "bsffhle242b2l3igq4egaa")
+//        }
+//
+//        if let dicoBis = campaignTest?.getRelativekeyModificationInfos("aliasTer") {
+//
+//            XCTAssertEqual(dicoBis["campaignId"], "bsffhle242b2l3igq4dgb")
+//
+//            XCTAssertEqual(dicoBis["variationId"], "")
+//
+//            XCTAssertEqual(dicoBis["variationGroupId"], "")
+//        }
 
-            XCTAssertEqual(dico.keys.count, 3)
-
-            XCTAssertEqual(dico["campaignId"] as? String, "bsffhle242b2l3igq4dg")
-
-            XCTAssertEqual(dico["variationId"] as? String, "bsffhle242b2l3igq4f0")
-
-            XCTAssertEqual(dico["variationGroupId"] as? String, "bsffhle242b2l3igq4egaa")
-        }
-
-        if let dicoBis = campaignTest?.getRelativekeyModificationInfos("aliasTer") {
-
-            XCTAssertEqual(dicoBis["campaignId"], "bsffhle242b2l3igq4dgb")
-
-            XCTAssertEqual(dicoBis["variationId"], "")
-
-            XCTAssertEqual(dicoBis["variationGroupId"], "")
-        }
-
-        XCTAssertNil(campaignTest?.getRelativekeyModificationInfosBis(""))
+        XCTAssertNil(campaignTest?.getRelativekeyModificationInfos(""))
 
         // ["campaignId" : item.idCampaign, "variationId": item.variation?.idVariation ?? "", "variationGroupId":item.variationGroupId ?? "","isReference":true]
-        if let dico = campaignTest?.getRelativekeyModificationInfosBis("alias") {
+        if let dico = campaignTest?.getRelativekeyModificationInfos("alias") {
 
             XCTAssertEqual(dico.keys.count, 4)
 
