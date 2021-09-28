@@ -503,7 +503,7 @@ public class Flagship: NSObject {
         
         /// Check if the sdk is disabled
         if disabledSdk {
-            FSLogger.FSlog("The Sdk is disabled ... will return a nil value", .Campaign)
+            FSLogger.FSlog("The Sdk is disabled, will return a nil value for modification info", .Campaign)
             return nil
         }
         /// Check if the campaign is not nil
