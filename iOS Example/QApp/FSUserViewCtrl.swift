@@ -9,139 +9,117 @@
 import UIKit
 import Flagship
 class FSUserViewCtrl: UIViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+
         return .lightContent
     }
-    
-    
-    @IBOutlet var visitorTextField:UITextField?
-    @IBOutlet var anonymousIdField:UITextField?
-    @IBOutlet var newVisitorField:UITextField?
-    
-    
-    @IBOutlet var authBtn:UIButton?
-    @IBOutlet var unAuthBtn:UIButton?
-    @IBOutlet var syncBtn:UIButton?
 
-    
-    
+    @IBOutlet var visitorTextField: UITextField?
+    @IBOutlet var anonymousIdField: UITextField?
+    @IBOutlet var newVisitorField: UITextField?
+
+    @IBOutlet var authBtn: UIButton?
+    @IBOutlet var unAuthBtn: UIButton?
+    @IBOutlet var syncBtn: UIButton?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        
+
        // self.visitorTextField?.text =  Flagship.sharedInstance.visitorId
-        
+
       //  self.anonymousIdField?.text = Flagship.sharedInstance.anonymousId
-        
-        
+
         let redPlaceholderText = NSAttributedString(string: "New authenticated id",
                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-                
+
         newVisitorField?.attributedPlaceholder = redPlaceholderText
-        
-        
+
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
-        
-        
+
         FSCTools.roundButton(authBtn)
         FSCTools.roundButton(unAuthBtn)
         FSCTools.roundButton(syncBtn)
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+
         self.visitorTextField?.text =  Flagship.sharedInstance.visitorId
-        
+
         self.anonymousIdField?.text = Flagship.sharedInstance.anonymousId
-        
+
     }
-    
+
     // Hide KeyBoard
-    @objc func hideKeyBoard(){
-        
+    @objc func hideKeyBoard() {
+
         self.view.endEditing(true)
     }
-    
-    internal func updateIds(){
-        
+
+    internal func updateIds() {
+
         DispatchQueue.main.async {
-            
+
             self.visitorTextField?.text =  Flagship.sharedInstance.visitorId
-            
+
             self.anonymousIdField?.text = Flagship.sharedInstance.anonymousId
         }
     }
-    
-    
-    internal func cleanViewField(){
-        
+
+    internal func cleanViewField() {
+
         DispatchQueue.main.async {
-            
+
             self.visitorTextField?.text =  nil
-            
+
             self.anonymousIdField?.text = nil
-            
+
             self.newVisitorField?.text = nil
         }
     }
-    
-    
+
     /// authenticate
-    @IBAction func authenticate(){
-        
-        if let userId = newVisitorField?.text{
-            
+    @IBAction func authenticate() {
+
+        if let userId = newVisitorField?.text {
+
             /// Authenticate
-            Flagship.sharedInstance.authenticateVisitor(visitorId:userId) { (result) in
-                
-                
-                if result == .Updated{
-                    
+            Flagship.sharedInstance.authenticateVisitor(visitorId: userId) { (result) in
+
+                if result == .Updated {
+
                     /// Modifications are updated with success
                 }
-                
+
                 self.updateIds()
             }
         }
 
     }
-    
-    
+
     /// unAuthenticate
-    @IBAction func unAuthenticate(){
-        
-        Flagship.sharedInstance.unAuthenticateVisitor{ (result) in
-            
-            if result == .Updated{
-                
+    @IBAction func unAuthenticate() {
+
+        Flagship.sharedInstance.unAuthenticateVisitor { (result) in
+
+            if result == .Updated {
+
                 /// Modifications updated
             }
             self.updateIds()
         }
     }
-    
-    
+
     /// Synchronize
-    @IBAction func synchronize(){
-        
-    
-        Flagship.sharedInstance.synchronizeModifications { (result) in
-            
-            
+    @IBAction func synchronize() {
+
+        Flagship.sharedInstance.synchronizeModifications { (_) in
+
         }
-        
+
     }
-    
-    
- 
-    
-    
-    
-    
+
 }

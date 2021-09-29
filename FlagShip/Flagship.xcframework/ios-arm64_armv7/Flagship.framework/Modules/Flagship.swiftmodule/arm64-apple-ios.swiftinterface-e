@@ -1,0 +1,274 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
+// swift-module-flags: -target arm64-apple-ios8.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Flagship
+import ClassKit
+import CoreTelephony
+import Foundation
+import Network
+import Swift
+import SystemConfiguration
+import UIKit
+@objc @_hasMissingDesignatedInitializers @available(iOS, introduced: 1.0, deprecated: 2.0.4, message: "FSScreen")
+@objcMembers public class FSPage : Flagship.FSTracking {
+  @objc public init(_ location: Swift.String)
+  @objc override public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class FSScreen : Flagship.FSTracking {
+  @objc public init(_ location: Swift.String)
+  @objc override public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class FSTransaction : Flagship.FSTracking {
+  @objc public var revenue: Foundation.NSNumber?
+  @objc public var shipping: Foundation.NSNumber?
+  @objc public var tax: Foundation.NSNumber?
+  @objc public var currency: Swift.String?
+  @objc public var couponCode: Swift.String?
+  @objc public var paymentMethod: Swift.String?
+  @objc public var shippingMethod: Swift.String?
+  @objc public var itemCount: Foundation.NSNumber?
+  @objc public init(transactionId: Swift.String, affiliation: Swift.String)
+  @objc override public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class FSItem : Flagship.FSTracking {
+  @objc public var price: Foundation.NSNumber?
+  @objc public var quantity: Foundation.NSNumber?
+  @objc public var category: Swift.String?
+  @objc public init(transactionId: Swift.String, name: Swift.String, code: Swift.String)
+  @objc override public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @objcMembers public class FSEvent : Flagship.FSTracking {
+  @objc public var label: Swift.String?
+  @objc public var eventValue: Foundation.NSNumber?
+  @objc public init(eventCategory: Flagship.FSCategoryEvent, eventAction: Swift.String)
+  @objc override public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class FSStorage {
+  @objc deinit
+}
+extension Flagship {
+  public func updateContext(_ key: Swift.String, _ boolean: Swift.Bool)
+  public func updateContext(_ key: Swift.String, _ double: Swift.Double)
+  public func updateContext(_ key: Swift.String, _ text: Swift.String)
+  public func updateContext(_ key: Swift.String, _ integer: Swift.Int)
+  @objc dynamic public func updateContext(_ contextValues: Swift.Dictionary<Swift.String, Any>)
+  public func updateContext(configuredKey: Flagship.PresetContext, value: Any)
+  @objc dynamic public func synchronizeModifications(completion: @escaping ((Flagship.FlagshipResult) -> Swift.Void))
+  @objc dynamic public func getVisitorContext() -> [Swift.String : Any]
+  @objc dynamic public func getAllModification() -> [Swift.String : Any]
+}
+@objc public enum FlagshipError : ObjectiveC.NSInteger {
+  case None = 0
+  case ClientId_Error
+  case GetCampaignError
+  case StoredEventError
+  case CetScriptError
+  case ScriptNotModified
+  case NetworkError
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc public enum FlagshipResult : ObjectiveC.NSInteger {
+  case Ready = 0
+  case NotReady
+  case Updated
+  case Disabled
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Flagship : ObjectiveC.NSObject {
+  public var visitorId: Swift.String! {
+    get
+  }
+  public var anonymousId: Swift.String? {
+    get
+  }
+  @objc public var enableLogs: Swift.Bool
+  @objc public var disabledSdk: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public static let sharedInstance: Flagship.Flagship
+  @objc public func start(envId: Swift.String, apiKey: Swift.String, visitorId: Swift.String?, config: Flagship.FSConfig = FSConfig(), onStartDone: @escaping (Flagship.FlagshipResult) -> Swift.Void)
+  @objc public func getModification(_ key: Swift.String, defaultBool: Swift.Bool, activate: Swift.Bool = false) -> Swift.Bool
+  @objc public func getModification(_ key: Swift.String, defaultString: Swift.String, activate: Swift.Bool = false) -> Swift.String
+  @objc public func getModification(_ key: Swift.String, defaultDouble: Swift.Double, activate: Swift.Bool = false) -> Swift.Double
+  @objc public func getModification(_ key: Swift.String, defaulfloat: Swift.Float, activate: Swift.Bool = false) -> Swift.Float
+  @objc public func getModification(_ key: Swift.String, defaultInt: Swift.Int, activate: Swift.Bool = false) -> Swift.Int
+  @objc public func getModification(_ key: Swift.String, defaultArray: [Any], activate: Swift.Bool = false) -> [Any]
+  @objc public func getModification(_ key: Swift.String, defaultJson: Swift.Dictionary<Swift.String, Any>, activate: Swift.Bool = false) -> Swift.Dictionary<Swift.String, Any>
+  @available(iOS, introduced: 1.2.3, deprecated: 2.0.2, message: "Use func getModificationInfo(key:String) -> [String:Any]? ")
+  public func getModificationInfo(_ key: Swift.String) -> [Swift.String : Swift.String]?
+  @objc public func getModificationInfo(key: Swift.String) -> [Swift.String : Any]?
+  @objc public func activateModification(key: Swift.String)
+  public func sendHit<T>(_ event: T) where T : Flagship.FSTrackingProtocol
+  @objc public func sendTransactionEvent(_ transacEvent: Flagship.FSTransaction)
+  @objc public func sendScreenEvent(_ screenEvent: Flagship.FSScreen)
+  @objc public func sendItemEvent(_ itemEvent: Flagship.FSItem)
+  @objc public func sendEventTrack(_ eventTrack: Flagship.FSEvent)
+  @objc deinit
+}
+@objc public enum FSTypeTrack : ObjectiveC.NSInteger {
+  case SCREEN = 0
+  case TRANSACTION
+  case ITEM
+  case EVENT
+  case None
+  public var typeString: Swift.String {
+    get
+  }
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc public enum FSCategoryEvent : ObjectiveC.NSInteger {
+  case Action_Tracking = 1
+  case User_Engagement = 2
+  public var categoryString: Swift.String {
+    get
+  }
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+@objc public protocol FSTrackingProtocol {
+  @objc var type: Flagship.FSTypeTrack { get }
+  @objc var bodyTrack: Swift.Dictionary<Swift.String, Any> { get }
+  @objc var fileName: Swift.String! { get }
+  @objc func getCst() -> Foundation.NSNumber?
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class FSTracking : ObjectiveC.NSObject, Flagship.FSTrackingProtocol {
+  @objc public func getCst() -> Foundation.NSNumber?
+  @objc public var fileName: Swift.String! {
+    @objc get
+  }
+  @objc public var type: Flagship.FSTypeTrack
+  @objc public var userIp: Swift.String?
+  @objc public var screenResolution: Swift.String?
+  @objc public var screenColorDepth: Swift.String?
+  @objc public var userLanguage: Swift.String?
+  public var queueTime: Swift.Int64?
+  public var currentSessionTimeStamp: Foundation.TimeInterval?
+  @objc public var sessionNumber: Foundation.NSNumber?
+  @objc public var sessionEventNumber: Foundation.NSNumber?
+  @objc public var bodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc public var communBodyTrack: Swift.Dictionary<Swift.String, Any> {
+    @objc get
+  }
+  @objc deinit
+}
+public let FlagShipVersion: Swift.String
+@objc public enum FlagshipMode : ObjectiveC.NSInteger {
+  case DECISION_API = 1
+  case BUCKETING = 2
+  public init?(rawValue: ObjectiveC.NSInteger)
+  public typealias RawValue = ObjectiveC.NSInteger
+  public var rawValue: ObjectiveC.NSInteger {
+    get
+  }
+}
+extension Flagship {
+  public func setVisitorId(_ visitorId: Swift.String)
+}
+public enum PresetContext : Swift.String, Swift.CaseIterable {
+  case FIRST_TIME_INIT
+  case DEVICE_LOCALE
+  case DEVICE_TYPE
+  case DEVICE_MODEL
+  case LOCATION_CITY
+  case LOCATION_REGION
+  case LOCATION_COUNTRY
+  case LOCATION_LAT
+  case LOCATION_LONG
+  case IP
+  case OS_NAME
+  case OS_VERSION
+  case CARRIER_NAME
+  case DEV_MODE
+  case INTERNET_CONNECTION
+  case APP_VERSION_NAME
+  case APP_VERSION_CODE
+  case FLAGSHIP_VERSION
+  case INTERFACE_NAME
+  public func getValue() throws -> Any?
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [Flagship.PresetContext]
+  public typealias RawValue = Swift.String
+  public static var allCases: [Flagship.PresetContext] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class FSPresetContext : ObjectiveC.NSObject {
+  public class func getPresetContextForApp() -> [Swift.String : Any]
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension Flagship {
+  @objc dynamic public func authenticateVisitor(visitorId: Swift.String, visitorContext: [Swift.String : Any]? = nil, sync: ((Flagship.FlagshipResult) -> Swift.Void)? = nil)
+  @objc dynamic public func unAuthenticateVisitor(visitorContext: [Swift.String : Any]? = nil, sync: ((Flagship.FlagshipResult) -> Swift.Void)? = nil)
+}
+@objc @_inheritsConvenienceInitializers public class FSAudience : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+public let FS_TimeOutRequestApi: Swift.Double
+@objc public class FSConfig : ObjectiveC.NSObject {
+  public var flagshipTimeOutRequestApi: Foundation.TimeInterval
+  public var mode: Flagship.FlagshipMode
+  public var authenticated: Swift.Bool
+  @objc public init(_ mode: Flagship.FlagshipMode = .DECISION_API, timeout: Foundation.TimeInterval = FS_TimeOutRequestApi, authenticated: Swift.Bool = false)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class MurmurHash3 {
+  public static func doHash32(key: Swift.UnsafePointer<Swift.UInt8>, maxBytes: Swift.Int, seed: Swift.UInt32 = 0) -> Swift.UInt32
+  public static func hash32(key: Swift.String, seed: Swift.UInt32 = 0) -> Swift.UInt32
+  @objc deinit
+}
+extension Flagship.FlagshipError : Swift.Equatable {}
+extension Flagship.FlagshipError : Swift.Hashable {}
+extension Flagship.FlagshipError : Swift.RawRepresentable {}
+extension Flagship.FlagshipResult : Swift.Equatable {}
+extension Flagship.FlagshipResult : Swift.Hashable {}
+extension Flagship.FlagshipResult : Swift.RawRepresentable {}
+extension Flagship.FSTypeTrack : Swift.Equatable {}
+extension Flagship.FSTypeTrack : Swift.Hashable {}
+extension Flagship.FSTypeTrack : Swift.RawRepresentable {}
+extension Flagship.FSCategoryEvent : Swift.Equatable {}
+extension Flagship.FSCategoryEvent : Swift.Hashable {}
+extension Flagship.FSCategoryEvent : Swift.RawRepresentable {}
+extension Flagship.FlagshipMode : Swift.Equatable {}
+extension Flagship.FlagshipMode : Swift.Hashable {}
+extension Flagship.FlagshipMode : Swift.RawRepresentable {}
+extension Flagship.PresetContext : Swift.Equatable {}
+extension Flagship.PresetContext : Swift.Hashable {}
+extension Flagship.PresetContext : Swift.RawRepresentable {}

@@ -10,17 +10,17 @@ import Foundation
 internal class FSCacheManager {
     
     // Get All Event
-    func readCampaignFromCache()->FSCampaigns?{
+    func readCampaignFromCache() -> FSCampaigns? {
         
-        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
             url.appendPathComponent("FlagShipCampaign", isDirectory: true)
             // add file name
             url.appendPathComponent("campaigns.json")
             
-            if (FileManager.default.fileExists(atPath: url.path) == true){
+            if FileManager.default.fileExists(atPath: url.path) == true {
                 
-                do{
+                do {
                     FSLogger.FSlog("read campaign from cache", .Campaign)
                     
                     let data = try Data(contentsOf: url)
@@ -28,13 +28,13 @@ internal class FSCacheManager {
                     let object =  try JSONDecoder().decode(FSCampaigns.self, from: data)
                     
                     return object
-                }catch{
+                } catch {
                     
                     FSLogger.FSlog("Failed to read campaign from cache", .Campaign)
                     return nil
                 }
                 
-            }else{
+            } else {
                 
                 return nil
             }
@@ -42,17 +42,14 @@ internal class FSCacheManager {
         return nil
     }
     
-    
-    
     // Write Campaign on Directory
-    func saveCampaignsInCache(_ data:Data?){
-        
+    func saveCampaignsInCache(_ data: Data?) {
         
         if let dataCampaign = data {
             
             DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
                 
-                let urlForCache:URL? = self.createUrlForCache()
+                let urlForCache: URL? = self.createUrlForCache()
                 
                 guard let url = urlForCache?.appendingPathComponent("campaigns.json") else {
                     
@@ -69,24 +66,23 @@ internal class FSCacheManager {
                 }
             }
             
-        }else{
+        } else {
             
             FSLogger.FSlog("Failed to save campaign", .Network)
-
+            
             return
         }
     }
     
-    
     /// Write Bucket script on directory
     
-    func saveBucketScriptInCache(_ data:Data?){
+    func saveBucketScriptInCache(_ data: Data?) {
         
-        if let bucketData = data{
+        if let bucketData = data {
             
             DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
                 
-                let urlForCache:URL? = self.createUrlForCache()
+                let urlForCache: URL? = self.createUrlForCache()
                 
                 guard let url = urlForCache?.appendingPathComponent("bucket.json") else {
                     
@@ -102,24 +98,24 @@ internal class FSCacheManager {
                 }
             }
             
-        }else {
+        } else {
             
             FSLogger.FSlog("Failed to save Bucket script", .Network)
             return
         }
     }
     
-    func readBucketFromCache()->FSBucket?{
+    func readBucketFromCache() -> FSBucket? {
         
-        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
             url.appendPathComponent("FlagShipCampaign", isDirectory: true)
             // add file name
             url.appendPathComponent("bucket.json")
             
-            if (FileManager.default.fileExists(atPath: url.path) == true){
+            if FileManager.default.fileExists(atPath: url.path) == true {
                 
-                do{
+                do {
                     FSLogger.FSlog("read bucket from cache", .Campaign)
                     
                     let data = try Data(contentsOf: url)
@@ -127,13 +123,13 @@ internal class FSCacheManager {
                     let object =  try JSONDecoder().decode(FSBucket.self, from: data)
                     
                     return object
-                }catch{
+                } catch {
                     
                     FSLogger.FSlog("Failed to read bucket from cache", .Campaign)
                     return nil
                 }
                 
-            }else{
+            } else {
                 
                 return nil
             }
@@ -141,33 +137,36 @@ internal class FSCacheManager {
         return nil
     }
     
-    
-    
     /////////// Tools /////////////////////////////
-    func createUrlForCache()->URL?{
+    func createUrlForCache() -> URL? {
         
-        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
             url.appendPathComponent("FlagShipCampaign", isDirectory: true)
             
-            if (FileManager.default.fileExists(atPath: url.path) == false){
+            if FileManager.default.fileExists(atPath: url.path) == false {
                 
                 // create directory
                 do {
                     try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
                     return url
                     
-                }catch{
+                } catch {
                     
                     FSLogger.FSlog("Failed to create directory", .Network)
                     return nil
                 }
                 
-            }else{
+            } else {
                 
                 return url
             }
         }
         return nil
+    }
+    
+    
+    internal func deleteAllCachedData(){
+        FSStorage.deleteSavedAllocations()
     }
 }

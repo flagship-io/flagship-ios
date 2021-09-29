@@ -10,8 +10,8 @@ import XCTest
 @testable import Flagship
 
 class FlagshipTests: XCTestCase {
-    
-      var fsCacheMgr:FSCacheManager!
+
+      var fsCacheMgr: FSCacheManager!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -19,23 +19,20 @@ class FlagshipTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: FSLastModified_Key)
         fsCacheMgr = FSCacheManager()
 
-
-        
     }
 
     override func tearDown() {
-        
+
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         guard let resultUrl = fsCacheMgr.createUrlForCache() else { return  }
         do {
             try FileManager.default.removeItem(at: resultUrl)
-        }catch{
-            
+        } catch {
+
         }
          let resultUrlBis = fsCacheMgr.createUrlForCache()
         XCTAssertTrue(resultUrlBis?.absoluteString.count != 0)
     }
- 
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
@@ -43,91 +40,84 @@ class FlagshipTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    func testStartFlagshipwithEmptyUserID(){
+
+    func testStartFlagshipwithEmptyUserID() {
 
         let expectation = self.expectation(description: #function)
-        
+
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId: "ee") { (result) in
-             
+
              XCTAssert(result == .NotReady)
              expectation.fulfill()
          }
-  
+
         waitForExpectations(timeout: 10)
-       
+
     }
-    
-    
-      func testStartFlagshipWithBadEnvId(){
+
+      func testStartFlagshipWithBadEnvId() {
 
           let expectation = self.expectation(description: #function)
-          
+
           Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmderrfefeefef", apiKey: "", visitorId: "ee") { (result) in
-               
+
                XCTAssert(result == .NotReady)
                expectation.fulfill()
            }
-    
-          waitForExpectations(timeout: 10)
-         
-      }
-    
-    
 
-    func testStartFlagship(){
-        
+          waitForExpectations(timeout: 10)
+
+      }
+
+    func testStartFlagship() {
+
         Flagship.sharedInstance.updateContext("Boolean_Key", true)
         Flagship.sharedInstance.updateContext("String_Key", "june")
         Flagship.sharedInstance.updateContext("Number_Key", 200)
 
-
         Flagship.sharedInstance.activateModification(key: "")
 
         let expectation = self.expectation(description: #function)
-        
-        
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId:"zzz") { (result) in
+
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "", visitorId: "zzz") { (result) in
 
             XCTAssert(result == .NotReady)
-            
+
             Flagship.sharedInstance.activateModification(key: "btn-color")
 
             expectation.fulfill()
-            
+
         }
         waitForExpectations(timeout: 10)
-        
+
     }
-    
-    
-    func testStartFlagshiWithWrongApiKey(){
+
+    func testStartFlagshiWithWrongApiKey() {
 
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"") { (result) in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "ccc", visitorId: "") { (result) in
 
             XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 10)
 
     }
-    
-    
-    func testStartWithTimeout(){
-        
+
+    func testStartWithTimeout() {
+
         let expectation = self.expectation(description: #function)
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng",apiKey:"ccc", visitorId:"idUser",config: FSConfig(.DECISION_API, timeout:2)) { (result) in
-            
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "ccc", visitorId: "idUser", config: FSConfig(.DECISION_API, timeout: 2)) { (result) in
+
             /// the time out set from config is matching
             XCTAssert(Flagship.sharedInstance.service?.timeOutServiceForRequestApi == 2)
             /// the application wil not start
             XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 10)
-        
+
     }
 }

@@ -12,9 +12,7 @@ import XCTest
 class FSConfigTest: XCTestCase {
 
     override func setUpWithError() throws {
- 
 
-  
      }
 
     override func tearDownWithError() throws {
@@ -25,39 +23,51 @@ class FSConfigTest: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    
-    
-    func testInitConfig(){
-        
+
+    func testInitConfig() {
+
        let config =  FSConfig(.BUCKETING, timeout: 0.1)
         XCTAssert(config.mode == .BUCKETING)
         XCTAssert(config.flagshipTimeOutRequestApi == 0.1)
     }
-    
-    
-    func testInitWithDefault(){
-        
+
+    func testInitWithDefault() {
+
         let config =  FSConfig()
         XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
 
     }
-    
-    
-    func testInitWithZeroValue(){
-        
+
+    func testInitWithZeroValue() {
+
         let config =  FSConfig(.DECISION_API, timeout: 0)
         XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
+
+    }
+
+    func testInitWithNValue() {
+
+        let config =  FSConfig(.DECISION_API, timeout: -1)
+        XCTAssert(config.mode == .DECISION_API)
+        XCTAssert(config.flagshipTimeOutRequestApi == FSTimeoutRequestApi)
 
     }
     
-    
-    func testInitWithNValue(){
+    func testWithGrpdTrue(){
         
-        let config =  FSConfig(.DECISION_API, timeout:-1)
-        XCTAssert(config.mode == .DECISION_API)
-        XCTAssert(config.flagshipTimeOutRequestApi == FS_TimeOutRequestApi)
+        let config = FSConfig(.BUCKETING, hasConsented: true)
+        XCTAssert(config.mode == .BUCKETING)
+        XCTAssert(config._hasConsented == true)
+
+    }
+    
+    func testWithGrpdFalse(){
+        
+        let config = FSConfig(.BUCKETING, hasConsented: false)
+        XCTAssert(config.mode == .BUCKETING)
+        XCTAssert(config._hasConsented == false)
 
     }
 

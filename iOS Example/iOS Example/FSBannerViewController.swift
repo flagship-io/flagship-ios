@@ -9,37 +9,31 @@
 import UIKit
 import Flagship
 
-
-
-
 class FSBannerViewController: UIViewController {
-    
-    
-    @IBOutlet var bannerBtn:UIButton!
+
+    @IBOutlet var bannerBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+
         self.bannerBtn.layer.cornerRadius = 10
         self.bannerBtn.layer.masksToBounds = true
-        
-        let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos",activate: true)
-        
+
+        let title = Flagship.sharedInstance.getModification("bannerTitle", defaultString: "More Infos", activate: true)
+
          self.bannerBtn.setTitle(title, for: .normal)
     }
-    
-    
-    
-    override var prefersStatusBarHidden: Bool{
-        
+
+    override var prefersStatusBarHidden: Bool {
+
         return true
     }
-    
+
     // Exit
-    @IBAction func cancel(){
-        
-        self.dismiss(animated: true, completion:nil)
+    @IBAction func cancel() {
+
+        self.dismiss(animated: true, completion: nil)
     }
 }

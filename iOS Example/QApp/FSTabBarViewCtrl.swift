@@ -9,16 +9,9 @@
 import UIKit
 
 class FSTabBarViewCtrl: UITabBarController, FSConfigViewDelegate {
-    
-    
- 
-    
-    
-    
-    
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+
         return .lightContent
     }
 
@@ -26,75 +19,68 @@ class FSTabBarViewCtrl: UITabBarController, FSConfigViewDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        if let configCtrl = self.viewControllers?.first as? FSConfigViewController{
-            
+
+        if let configCtrl = self.viewControllers?.first as? FSConfigViewController {
+
             configCtrl.delegate = self
         }
 
     }
-    
-    
-    
-    
-    
+
     /// Delegate
-    
+
     /// Delegate FSConfig
-    
+
     func onGetSdkReady() {
-        
+
         let indexForUserCtrl = 1
         DispatchQueue.main.async {
-            
+
             let isValidIndex = indexForUserCtrl >= 0 && indexForUserCtrl <  self.viewControllers?.count ?? 0
-            
-            if (isValidIndex){
-                
-                if let userController = self.viewControllers?[indexForUserCtrl] as? FSUserViewCtrl{
-                    
+
+            if isValidIndex {
+
+                if let userController = self.viewControllers?[indexForUserCtrl] as? FSUserViewCtrl {
+
                     userController.updateIds()
-                   
+
                 }
             }
-            
+
             if let arrayItem = self.tabBar.items {
-                
-                for item:UITabBarItem in arrayItem {
-                    
+
+                for item: UITabBarItem in arrayItem {
+
                     item.isEnabled = true
                 }
             }
         }
     }
-    
-    
-    func onResetSdk(){
-        
+
+    func onResetSdk() {
+
         let indexForUserCtrl = 1
-        
+
         let isValidIndex = indexForUserCtrl >= 0 && indexForUserCtrl <  self.viewControllers?.count ?? 0
-        
-        if (isValidIndex){
-            
-            if let userController = self.viewControllers?[indexForUserCtrl] as? FSUserViewCtrl{
-                
+
+        if isValidIndex {
+
+            if let userController = self.viewControllers?[indexForUserCtrl] as? FSUserViewCtrl {
+
                     userController.cleanViewField()
-               
+
             }
         }
         DispatchQueue.main.async {
-                
+
                 if let arrayItem = self.tabBar.items {
-                    
-                    for item:UITabBarItem in arrayItem {
-                        
+
+                    for item: UITabBarItem in arrayItem {
+
                         item.isEnabled = false
                     }
                 }
             }
-        
+
     }
 }
-
-

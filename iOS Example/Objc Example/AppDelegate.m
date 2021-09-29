@@ -52,13 +52,11 @@
 //        }
 //        
 //    }];
+    
+    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:0.2  authenticated:YES hasConsented:YES];
 
-    
-   
-    FSConfig * config = [[FSConfig alloc] init:FlagshipModeDECISION_API timeout:0.2  authenticated:YES];
-    
-    
-    
+
+    [[Flagship sharedInstance]setConsent:FALSE];
     
     /// Start the sdk
     [[Flagship sharedInstance] startWithEnvId:@"" apiKey:@"" visitorId:@"" config:config onStartDone:^(enum FlagshipResult result) {

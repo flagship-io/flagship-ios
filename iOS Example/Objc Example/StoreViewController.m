@@ -57,7 +57,7 @@
    
     
     // Send Page
-    [[Flagship sharedInstance] sendPageEvent: [[FSPage alloc] init:@"StorePage"]];
+    [[Flagship sharedInstance] sendScreenEvent: [[FSScreen alloc] init:@"StorePage"]];
     
 
     // Send Item

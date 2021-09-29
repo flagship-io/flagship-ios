@@ -7,27 +7,24 @@
 
 import Foundation
 
+///: nodoc:
+@objc public enum FlagshipError: NSInteger {
 
-
-///:nodoc:
-@objc public enum FlagshipError:NSInteger {
-    
     case None = 0
-    
+
     case ClientId_Error
-    
+
     case GetCampaignError
-    
+
     case StoredEventError
-    
+
     case CetScriptError
-    
+
     case ScriptNotModified
-    
+
     case NetworkError
 
 }
-
 
 /**
  FlagShip State
@@ -37,27 +34,24 @@ import Foundation
  - Updated: The value for flagShip sdk are updated
  */
 
+@objc public enum FlagshipResult: NSInteger {
 
-@objc public enum FlagshipResult:NSInteger{
-   
     ///  Ready The sdk is ready to use
     case Ready = 0
-    
+
     /// The sdk is not ready, See logs for more informations
     case NotReady
-    
+
     /// Updated completed
-    case Updated 
-    
+    case Updated
+
     /// The sdk is disabled
     case Disabled
 
 }
 
-
 /// :nodoc:
-enum FSError:Error{
-    
+enum FSError: Error {
+
     case BadPlist
 }
-
