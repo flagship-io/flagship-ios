@@ -11,48 +11,35 @@ import XCTest
 
 class FlagshipGdprTest: XCTestCase {
     
-    var serviceTest: ABService!
+    var serviceTestGdpr: ABService!
     let mockUrl = URL(string: "Mock")!
-
-
     override func setUpWithError() throws {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        
-        let configuration = URLSessionConfiguration.default
-        configuration.protocolClasses = [MockURLProtocol.self]
-        
-        let sessionTest = URLSession.init(configuration: configuration)
-        serviceTest = ABService("idClient", "isVisitor", "aid1", "apiKey")
-
+        let configurationGdpr = URLSessionConfiguration.default
+        configurationGdpr.protocolClasses = [MockURLProtocol.self]
+        let sessionTest = URLSession.init(configuration: configurationGdpr)
+        serviceTestGdpr = ABService("idClient", "isVisitor", "aidGdpr", "apiKeyGdpr")
         // Set our mock session into service
-        serviceTest.sessionService = sessionTest
-        
-        Flagship.sharedInstance.service = serviceTest
+        serviceTestGdpr.sessionService = sessionTest
+        Flagship.sharedInstance.service = serviceTestGdpr
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     
     func testStartOptions(){
         
         
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKey", visitorId: "alias", config: FSConfig(.BUCKETING,hasConsented:true)) { result in
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "apiKeyGdpr", visitorId: "alias", config: FSConfig(.BUCKETING,hasConsented:true)) { result in
             
             XCTAssert(Flagship.sharedInstance.sdkState.getRgpd() == .AUTHORIZE_TRACKING)
-            
-            
         }
     }
+    
     
     func testAPIStartGdpr(){
         
         let expectation = XCTestExpectation(description: "Service-Gdpr")
         
         do {
-
             let testBundle = Bundle(for: type(of: self))
 
             guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
@@ -73,12 +60,9 @@ class FlagshipGdprTest: XCTestCase {
             Flagship.sharedInstance.consent = false
             Flagship.sharedInstance.onStartDecisionApi { result in
                 
-                XCTAssertTrue(Flagship.sharedInstance.sdkState.getRgpd() == .UNAUTHORIZE_TRACKING)
-                XCTAssertTrue( Flagship.sharedInstance.getModification("variation", defaultInt: 1)  == 1)
-                
-                print(result)
-                
-                expectation.fulfill()
+            XCTAssertTrue(Flagship.sharedInstance.sdkState.getRgpd() == .UNAUTHORIZE_TRACKING)
+            XCTAssertTrue( Flagship.sharedInstance.getModification("variation", defaultInt: 1)  == 1)
+            expectation.fulfill()
                 
             }
 
