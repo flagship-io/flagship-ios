@@ -132,6 +132,14 @@ class FlagshipTestWithMockedData: XCTestCase {
                 XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool: false, activate: true) == true)
                 XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString: "none", activate: true) == "value")
                 XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble: 3.14, activate: true) == 4.333)
+                
+                /// Check duplicate value, Must take the oldest key , the lastest in the reponse api
+                XCTAssertTrue(Flagship.sharedInstance.getModification("duplicatedkey", defaultString: "defaultValue") == "BBBB")
+               
+                if let infoForDuplicateKey = Flagship.sharedInstance.getModificationInfo(key: "duplicatedkey"){
+                    XCTAssertTrue(infoForDuplicateKey["variationId"] as? String == "bs8r119sbs4016mekkkk")       /// variationId
+                    XCTAssertTrue(infoForDuplicateKey["variationGroupId"] as? String == "bs8r119sbs4016meiiii")  /// variationGroupId
+                }
 
                 XCTAssertTrue(Flagship.sharedInstance.getAllModification().count > 0)
 
@@ -210,6 +218,32 @@ class FlagshipTestWithMockedData: XCTestCase {
                     XCTAssertTrue(infos["campaignId"]       as? String == "bsffhle242b2l3igq4dg")
                     XCTAssertTrue(infos["variationId"]      as? String == "bsffhle242b2l3igq4f0")
                 }
+                
+                /// Check the GetModification and getInformationkey with duplicated key
+                let duplicateKeyValue = Flagship.sharedInstance.getModification("duplicateKey", defaultBool: false)
+                let duplicateStringValue = Flagship.sharedInstance.getModification("duplicateStringKey", defaultString: "default")
+                let duplicateIntegerValue = Flagship.sharedInstance.getModification("duplicateIntegerKey", defaultInt: 0)
+
+                
+                /// Should be the oldes key , the lastest in response
+                XCTAssertTrue(duplicateKeyValue)
+                XCTAssertTrue(duplicateStringValue == "BBBBB")
+                XCTAssertTrue(duplicateIntegerValue == 22222 )
+                
+                if let infos = Flagship.sharedInstance.getModificationInfo(key: "duplicateKey") {
+                    XCTAssert(infos.count == 4)
+                    XCTAssertTrue(infos["variationGroupId"] as? String == "c82ta57u5lig4c8poeqg")
+                    XCTAssertTrue(infos["campaignId"]       as? String == "c82ta57u5lig4c8poepg")
+                    XCTAssertTrue(infos["variationId"]      as? String == "c82ta57u5lig4c8poerg")
+                }
+                
+                if let infosBis = Flagship.sharedInstance.getModificationInfo(key: "duplicateStringValue") {
+                    XCTAssert(infosBis.count == 4)
+                    XCTAssertTrue(infosBis["variationGroupId"] as? String == "c82ta57u5lig4c8poeqg")
+                    XCTAssertTrue(infosBis["campaignId"]       as? String == "c82ta57u5lig4c8poepg")
+                    XCTAssertTrue(infosBis["variationId"]      as? String == "c82ta57u5lig4c8poerg")
+                }
+                
                 expectation.fulfill()
             }
 

@@ -86,7 +86,7 @@ class FSServiceTest: XCTestCase {
                 if let campaign = camp {
 
                     XCTAssert(campaign.visitorId == "2020072318165329233")
-                    XCTAssert(campaign.campaigns.count == 3)
+                    XCTAssert(campaign.campaigns.count == 5)
                     XCTAssert(campaign.campaigns.first?.idCampaign == "bsffhle242b2l3igq4dg")
                     XCTAssert(campaign.campaigns.first?.variationGroupId == "bsffhle242b2l3igq4egaa")
 

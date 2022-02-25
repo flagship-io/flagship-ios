@@ -94,6 +94,7 @@ extension Flagship {
 
         // On starting make available the campaign already present in cache
         self.campaigns =  self.service?.cacheManager.readCampaignFromCache()
+        /// update the modifications
         self.context.updateModification(self.campaigns)
 
         // Get campaign from server
