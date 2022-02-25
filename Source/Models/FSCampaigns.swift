@@ -49,7 +49,7 @@ internal class FSCampaigns: Decodable {
 
     //// Get relative information tracking for Value
     public func getRelativeInfoTrackForValue(_ keyValue: String) -> [String: String]? {
-        /// Reverse the array, because we are interested by the lastest (oldest key), the ordre is set by json response
+        /// Reverse the array, because we are interested by the latest (oldest) key, the ordre is set by API response
         for item: FSCampaign in self.campaigns.reversed() {
 
             guard let value = item.variation?.modifications?.value else {
@@ -67,7 +67,7 @@ internal class FSCampaigns: Decodable {
     
     //// Get relative information for modification key
     internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: Any]? {
-        /// Reverse the array, because we are interested by the lastest (oldest key), the ordre is set by json response
+        /// Reverse the array, because we are interested by the lastest (oldest) key, the ordre is set by API response
         for item: FSCampaign in self.campaigns.reversed() {
 
             guard let value = item.variation?.modifications?.value else {
