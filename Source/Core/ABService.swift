@@ -190,7 +190,7 @@ internal class ABService {
             // Set Client Id
             infosTrack.updateValue(clientId ?? "", forKey: "cid")
 
-            FSLogger.FSlog("Data to send through the activate hit \(infosTrack)", .Campaign)
+            FSLogger.FSlog("Data to send through the activate hit : \(infosTrack)", .Campaign)
 
             let data = try JSONSerialization.data(withJSONObject: infosTrack, options: [])
 

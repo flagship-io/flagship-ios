@@ -49,8 +49,8 @@ internal class FSCampaigns: Decodable {
 
     //// Get relative information tracking for Value
     public func getRelativeInfoTrackForValue(_ keyValue: String) -> [String: String]? {
-
-        for item: FSCampaign in self.campaigns {
+        /// Reverse the array, because we are interested by the latest (oldest) key, the ordre is set by API response
+        for item: FSCampaign in self.campaigns.reversed() {
 
             guard let value = item.variation?.modifications?.value else {
 
@@ -58,38 +58,17 @@ internal class FSCampaigns: Decodable {
                 continue
             }
             if value.keys.contains(keyValue) {
-
+                
                 return ["vaid": item.variation?.idVariation ?? "", "caid": item.variationGroupId ?? ""]
             }
         }
         return nil
     }
-
-//    //// Get relative information for modification key
-//    /// This function will be removed later
-//    internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: String]? {
-//
-//        for item: FSCampaign in self.campaigns {
-//
-//            guard let value = item.variation?.modifications?.value else {
-//
-//                FSLogger.FSlog(" No Value modification found....", .Campaign)
-//                continue
-//            }
-//            if value.keys.contains(keyValue) {
-//
-//                return ["campaignId": item.idCampaign,
-//                        "variationId": item.variation?.idVariation ?? "",
-//                        "variationGroupId": item.variationGroupId ?? ""]
-//            }
-//        }
-//        return nil
-//    }
-
+    
     //// Get relative information for modification key
     internal func getRelativekeyModificationInfos(_ keyValue: String) -> [String: Any]? {
-
-        for item: FSCampaign in self.campaigns {
+        /// Reverse the array, because we are interested by the lastest (oldest) key, the ordre is set by API response
+        for item: FSCampaign in self.campaigns.reversed() {
 
             guard let value = item.variation?.modifications?.value else {
 

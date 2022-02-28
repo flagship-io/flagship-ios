@@ -26,7 +26,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation": null
+                  "variation": null,
+                  "duplicatedkey":null
                 }
               },
               "reference": true
@@ -36,7 +37,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation": 1
+                  "variation": 1,
+                  "duplicatedkey":"AAAA"
                 }
               },
               "allocation": 25
@@ -46,7 +48,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation": 2
+                  "variation": 2,
+                  "duplicatedkey":"AAAA"
                 }
               },
               "allocation": 25
@@ -56,7 +59,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation": 3
+                  "variation": 3,
+                  "duplicatedkey":"AAAA"
                 }
               },
               "allocation": 25
@@ -69,7 +73,8 @@
                   "variation": 4,
                   "variationBool": true,
                   "variationString": "value",
-                  "variationDouble": 4.333
+                  "variationDouble": 4.333,
+                  "duplicatedkey":"AAAa"
 
                 }
               },
@@ -104,7 +109,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation50": null
+                  "variation50": null,
+                  "duplicatedkey":null
                 }
               },
               "reference": true
@@ -114,7 +120,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation50": 1
+                  "variation50": 1,
+                  "duplicatedkey":"BBBB"
                 }
               },
               "allocation": 50
@@ -124,7 +131,8 @@
               "modifications": {
                 "type": "JSON",
                 "value": {
-                  "variation50": 2
+                  "variation50": 2,
+                  "duplicatedkey":"BBBB"
                 }
               },
               "allocation": 50
