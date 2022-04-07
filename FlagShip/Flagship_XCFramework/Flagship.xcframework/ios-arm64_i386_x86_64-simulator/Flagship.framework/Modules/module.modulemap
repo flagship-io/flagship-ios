@@ -1,0 +1,4 @@
+framework module Flagship {
+  header "Flagship-Swift.h"
+  requires objc
+}

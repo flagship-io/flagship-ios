@@ -30,53 +30,42 @@ class FSGeneratorTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
-    
-    func testGenerateId(){
-        
-        
+
+    func testGenerateId() {
+
         XCTAssertNotNil(FSGenerator.generateFlagShipId)
     }
-    
-    
-    
-    func testSaveGet(){
-        
-        /// set the id
+
+    func testSaveGet() {
+
+        // set the id
         FSGenerator.saveFlagShipIdInCache(userId: "id123")
-        
+
         /// Check the id read from cache
         XCTAssertTrue(FSGenerator.getFlagShipIdInCache() == "id123")
     }
-    
-    
-    
-    func testReset(){
-        
+
+    func testReset() {
+
          FSGenerator.resetFlagShipIdInCache()
     }
-    
-    
-    func testManageVisitor(){
-        
-        
+
+    func testManageVisitor() {
+
         do {
-            
+
             let idVisitor = try FSTools.manageVisitorId(nil)
-            
+
             XCTAssert(idVisitor.count != 0)
-            
+
             let idVisitorBis = try FSTools.manageVisitorId("abcdef")
-            
+
               XCTAssert(idVisitorBis.count != 0)
 
-            
-        }catch{
-            
-            
+        } catch {
+
         }
-        
+
     }
 
 }

@@ -9,7 +9,6 @@
 import XCTest
 @testable import Flagship
 
-
 class FsToolsTest: XCTestCase {
 
     override func setUpWithError() throws {
@@ -19,49 +18,39 @@ class FsToolsTest: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
-    
-    
-    func testchekcXidEnvironment(){
-        
+
+    func testchekcXidEnvironment() {
+
         XCTAssertFalse(FSTools.chekcXidEnvironment(""))
-        
+
         XCTAssertTrue(FSTools.chekcXidEnvironment("bkk9glocmjcg0vtmdabc"))
     }
-    
-    
-    
-    func testManageVisitorId(){
-        
+
+    func testManageVisitorId() {
+
         do {
-            
+
             let ret = try FSTools.manageVisitorId("visitorId")
-            
+
             XCTAssertEqual(ret, "visitorId")
-            
-            
+
             let retBis = try FSTools.manageVisitorId(nil)
-            
+
             XCTAssertTrue(retBis.count > 0)
-            
-            
+
             UserDefaults.standard.removeObject(forKey: FlagShipIdKey)
-            
+
             let retTer = try FSTools.manageVisitorId(nil)
-                 
+
             XCTAssertTrue(retTer.count > 0)
-            
-            /// Try with empty file
+
+            // Try with empty file
             try FSTools.manageVisitorId("")
 
-            
-        }catch{
-            
-            
+        } catch {
+
         }
-        
-        
-        
+
     }
 
 }

@@ -18,48 +18,44 @@ class FSDeviceTest: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-    
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
-    
-    func testGetDeviceLanguage(){
-        
+
+    func testGetDeviceLanguage() {
+
         XCTAssertTrue(NSLocale.current.languageCode == FSDevice.getDeviceLanguage() )
     }
-    
-    func testGetDeviceType(){
-        
+
+    func testGetDeviceType() {
+
        XCTAssertTrue("Mobile" == FSDevice.getDeviceType()  ||  "Tablet" == FSDevice.getDeviceType()  )
     }
-    
-    
-    func testIsFirstTimeUser(){
-        
+
+    func testIsFirstTimeUser() {
+
         UserDefaults.standard.removeObject(forKey: "sdk_firstTimeUser")
-        
+
         XCTAssertTrue(FSDevice.isFirstTimeUser())
-        
+
         XCTAssertFalse(FSDevice.isFirstTimeUser())
 
     }
-    
-    
-    func testValidateIpAddress(){
-        
+
+    func testValidateIpAddress() {
+
         // 2001:0db8:0a0b:12f0:0000:0000:0000:0001
-        
+
         XCTAssertTrue(FSDevice.validateIpAddress(ipToValidate: "684D:1111:222:3333:4444:5555:6:77"))
-        
+
         XCTAssertTrue(FSDevice.validateIpAddress(ipToValidate: "19.117.63.126"))
-        
+
         XCTAssertFalse(FSDevice.validateIpAddress(ipToValidate: "684D:1111:222:3333:4444:5555:6:77:4"))
-           
+
         XCTAssertFalse(FSDevice.validateIpAddress(ipToValidate: "319.117.63.126"))
 
     }

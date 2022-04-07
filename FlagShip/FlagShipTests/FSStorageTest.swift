@@ -10,15 +10,12 @@ import XCTest
 @testable import Flagship
 
 class FSStorageTest: XCTestCase {
-    
-    
-    var storage:FSStorage!
+
+    var storage: FSStorage!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-       
-        
+
     }
 
     override func tearDownWithError() throws {
@@ -36,35 +33,30 @@ class FSStorageTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
-   
-    
-    func testRetreive(){
+
+    func testRetreive() {
 
         /// Set File
         FSStorage.store(FSBucketCache("iduser"), to: .documents, as: "iduser")
-        
+
         /// Retreive existing file
-        let result = FSStorage.retrieve("iduser", from: .documents, as:FSBucketCache.self)
-        
-        XCTAssertEqual(result?.visitorId , "iduser")
-        
-        
+        let result = FSStorage.retrieve("iduser", from: .documents, as: FSBucketCache.self)
+
+        XCTAssertEqual(result?.visitorId, "iduser")
+
         /// File not existing
-        
-        let resultBis = FSStorage.retrieve("iduserBis", from: .documents, as:FSBucketCache.self)
-        
+
+        let resultBis = FSStorage.retrieve("iduserBis", from: .documents, as: FSBucketCache.self)
+
         XCTAssertTrue(resultBis == nil)
-        
-        
+
         //// Bad data
         FSStorage.store(Data(), to: .documents, as: "iduserTer")
 
-        let resultTer = FSStorage.retrieve("iduserTer", from: .documents, as:FSBucketCache.self)
-        
+        let resultTer = FSStorage.retrieve("iduserTer", from: .documents, as: FSBucketCache.self)
+
         XCTAssertTrue(resultTer == nil)
-         
+
     }
 
 }

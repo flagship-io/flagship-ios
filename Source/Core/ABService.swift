@@ -9,154 +9,139 @@ import Foundation
 
 //  This class will represent the service , here will be able to post the data
 
-
-
 internal class ABService {
-    
-    var clientId:String!
-    
-    var visitorId:String?
-    
-    var anonymousId:String?
 
-    
-    private var offLineTracking:FSOfflineTracking!
-    
+    var clientId: String!
+
+    var visitorId: String?
+
+    var anonymousId: String?
+
+    private var offLineTracking: FSOfflineTracking!
+
     /// By default
-    internal var timeOutServiceForRequestApi = FS_TimeOutRequestApi
-    
+    internal var timeOutServiceForRequestApi = FSTimeoutRequestApi
+
     // QueueModification
     let serviceQueue = DispatchQueue(label: "com.flagship.queue.service", attributes: .concurrent)
-    
-    internal var threadSafeOffline:FSOfflineTracking!{
-        
+
+    internal var threadSafeOffline: FSOfflineTracking! {
+
           get {
               return serviceQueue.sync {
-                
+
                   offLineTracking
               }
           }
           set {
               serviceQueue.async(flags: .barrier) {
-                
+
                   self.offLineTracking = newValue
               }
           }
       }
-    
+
     /// FSCache Manager
-    var cacheManager:FSCacheManager!
-    
-    
+    var cacheManager: FSCacheManager!
+
     /// Api Key
-    var apiKey:String!
-    
-    
+    var apiKey: String!
+
     /// Session
-    internal var sessionService:URLSession = URLSession(configuration: URLSessionConfiguration.default)
-    
-    
-    internal func updateService(_ newVisitorId:String, _ newAnonymousId:String?){
-        
+    internal var sessionService: URLSession = URLSession(configuration: URLSessionConfiguration.default)
+
+    internal func updateService(_ newVisitorId: String, _ newAnonymousId: String?) {
+
         self.visitorId = newVisitorId
-        
+
         self.anonymousId = newAnonymousId
     }
-    
-    
-    
-    init(_ clientId:String, _ visitorId:String, _ anonymousId:String?, _ apiKey:String, timeoutService:TimeInterval = FS_TimeOutRequestApi) {
-        
-        
+
+    init(_ clientId: String, _ visitorId: String, _ anonymousId: String?, _ apiKey: String, timeoutService: TimeInterval = FSTimeoutRequestApi) {
+
         /// SSet the Client ID
         self.clientId = clientId
-        
-        
+
         /// Set visitor
         self.visitorId = visitorId
-        
+
         /// Set anonymousId
         self.anonymousId = anonymousId
-        
-        
+
         /// OFFLine Tracking
         offLineTracking = FSOfflineTracking(self)
-        
-        
+
         /// Create cache manager
         cacheManager = FSCacheManager()
-        
+
         /// Set Api Key
         self.apiKey = apiKey
-        
+
         /// Set the TimeOut
         self.timeOutServiceForRequestApi = timeoutService
      }
-    
-    
-    func getCampaigns(_ currentContext:Dictionary <String,Any>,  onGetCampaign:@escaping(FSCampaigns?, FlagshipError?)->Void){
-        
+
+    func getCampaigns(_ currentContext: [String: Any], onGetCampaign:@escaping(FSCampaigns?, FlagshipError?) -> Void) {
+
         do {
-            
+
             /// Create param with visitor and currentContext
-            let params:NSMutableDictionary = ["visitor_id":visitorId ?? "" , "context":currentContext, "trigger_hit":false]
+            let params: NSMutableDictionary = ["visitor_id": visitorId ?? "", "context": currentContext, "trigger_hit": false]
             /// if anonymousId is not nil ===> add it to params
-            if let aId = anonymousId{
-                
+            if let aId = anonymousId {
+
                 params.setValue(aId, forKey: "anonymousId")
             }
-            
+
             FSLogger.FSlog(" @@@@@@@@@@@@@@@@@@@@@@@@@ visitorId =  \(self.visitorId ?? "null")  @@@@@@@@@@@@@@@@@@@@@@@@@", .Campaign)
-            
+
             FSLogger.FSlog(" @@@@@@@@@@@@@@@@@@@@@@@@@ anonymousId =  \(self.anonymousId ?? "null")  @@@@@@@@@@@@@@@@@@@@@@@@@", .Campaign)
 
-            
-            let data = try JSONSerialization.data(withJSONObject: params, options:[])
-            
-            if let getUrl = URL(string:String(format: FSGetCampaigns, clientId)){
-                
-                var request:URLRequest = URLRequest(url:getUrl, timeoutInterval: timeOutServiceForRequestApi)  //// Request with time interval
+            let data = try JSONSerialization.data(withJSONObject: params, options: [])
+
+            if let getUrl = URL(string: String(format: FSGetCampaigns, clientId)) {
+
+                var request: URLRequest = URLRequest(url: getUrl, timeoutInterval: timeOutServiceForRequestApi)  //// Request with time interval
                 request.httpMethod = "POST"
                 request.httpBody = data
                 request.addValue("application/json", forHTTPHeaderField: "Accept")
-                
+
                 /// Add x-api-key
                 request.addValue(apiKey, forHTTPHeaderField: FSX_Api_Key)
                 /// Add headers client and version
                 request.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
                 request.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
-                
 
                 sessionService.dataTask(with: request) { (responseData, response, error) in
-                    
-                    if (error == nil){
-                        
+
+                    if error == nil {
+
                         let httpResponse = response as? HTTPURLResponse
-                        switch (httpResponse?.statusCode){
+                        switch httpResponse?.statusCode {
                         case 200:
-                            
+
                             if let aResponseData = responseData {
-                                
+
                                 do {
-                                    
+
                                     let decoder = JSONDecoder()
                                     let objectDecoded = try decoder.decode(FSCampaigns.self, from: aResponseData)
-                                    
+
                                     // Print Json response
                                     let dico = try JSONSerialization.jsonObject(with: aResponseData, options: .allowFragments)
-                                    
+
                                     FSLogger.FSlog("getCampaigns is : \(dico)", .Campaign)
-                                    
+
                                     /// Save also the data in the Directory
                                     self.cacheManager.saveCampaignsInCache(aResponseData)
                                     onGetCampaign(objectDecoded, nil)
-                                    
+
                                 } catch {
-                                    
+
                                     onGetCampaign(nil, FlagshipError.GetCampaignError)
                                 }
-                            }else{
-                                
+                            } else {
+
                                 FSLogger.FSlog("responseData is nil when getCampaigns ", .Network)
                                 onGetCampaign(nil, FlagshipError.GetCampaignError)
                             }
@@ -165,112 +150,102 @@ internal class ABService {
                             FSLogger.FSlog("Error on get Campaign", .Network)
                             onGetCampaign(nil, FlagshipError.GetCampaignError)
                         }
-                    }else{
-                        
+                    } else {
+
                         onGetCampaign(nil, FlagshipError.NetworkError)
                     }
-                    
+
                     }.resume()
             }
-        }catch{
-            
+        } catch {
+
             FSLogger.FSlog("error on serializing json", .Network)
         }
     }
-    
-    
+
     // Activate variation
-    public func activateCampaignRelativetoKey(_ key:String, _ campaign:FSCampaigns){
+    public func activateCampaignRelativetoKey(_ key: String, _ campaign: FSCampaigns) {
         
         // Before send Activate
         // prepare somme actions
-        
-        guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else{
-            
+
+        guard var infosTrack = campaign.getRelativeInfoTrackForValue(key)else {
+
             FSLogger.FSlog("Failed to send activate .... The key : \(key) doesn't exist", .Campaign)
 
             return
         }
-        
+
         do {
-            
-            
+
             // Set Visitor Id
-            infosTrack.updateValue(visitorId ?? "" , forKey: "vid")
-            
+            infosTrack.updateValue(visitorId ?? "", forKey: "vid")
+
             /// Set anunymousId if available
-            if let aId = anonymousId{
-                
-                infosTrack.updateValue(aId , forKey: "aid")
+            if let aId = anonymousId {
+
+                infosTrack.updateValue(aId, forKey: "aid")
             }
-            
+
             // Set Client Id
             infosTrack.updateValue(clientId ?? "", forKey: "cid")
-            
-            FSLogger.FSlog("Data to send through the activate hit \(infosTrack)", .Campaign)
 
-            
-            let data = try JSONSerialization.data(withJSONObject: infosTrack, options:[])
-           
-            
-            
+            FSLogger.FSlog("Data to send through the activate hit : \(infosTrack)", .Campaign)
+
+            let data = try JSONSerialization.data(withJSONObject: infosTrack, options: [])
+
             // here we have data ready, check the connexion before
-            
-            if (self.offLineTracking.isConnexionAvailable() == false){
-                
+
+            if self.offLineTracking.isConnexionAvailable() == false {
+
                 self.offLineTracking.saveActivateEvent(data)
-                
+
                 FSLogger.FSlog("Activate will be send in the next lauch when connexion will available", .Network)
                 return
             }
-            
-            if let activateUrl = URL(string:FSActivate) {
-                
-                var request:URLRequest = URLRequest(url:activateUrl)
+
+            if let activateUrl = URL(string: FSActivate) {
+
+                var request: URLRequest = URLRequest(url: activateUrl)
                 /// Add headers client and version
                 request.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
                 request.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
                 request.httpMethod = "POST"
                 request.httpBody = data
-                sessionService.dataTask(with: request) { (responseData, response, error) in
-                      
-                      if (error == nil){
-                          
+                sessionService.dataTask(with: request) { (_, response, error) in
+
+                      if error == nil {
+
                           let httpResponse = response as? HTTPURLResponse
-                          
-                          switch (httpResponse?.statusCode){
-                              
-                          case 200,204:
-                              
+
+                          switch httpResponse?.statusCode {
+
+                          case 200, 204:
+
                               FSLogger.FSlog("The activate is sent with success ", .Network)
-                              
+
                               break
-                          case 403,400:
+                          case 403, 400:
                               FSLogger.FSlog("Error On sending activate ", .Network)
 
                               break
                           default:
                               FSLogger.FSlog("Bad Request", .Network)
-                              
+
                           }
-                      }else{
-                        
-                        FSLogger.FSlog("Fetch failed: \(error?.localizedDescription ?? "Unknown error")" , .Network)
+                      } else {
+
+                        FSLogger.FSlog("Fetch failed: \(error?.localizedDescription ?? "Unknown error")", .Network)
                       }
-                      
+
                       }.resume()
             }
-            
-        }catch{
-            
+
+        } catch {
+
             FSLogger.FSlog("Bad Request", .Network)
 
         }
     }
-    
+
 }
-
-
-
-
-

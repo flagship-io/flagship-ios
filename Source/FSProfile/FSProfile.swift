@@ -6,17 +6,14 @@
 //
 
 import  Foundation
-//typealias TupleId = (fsUserId:String , visitorId:String?)
+// typealias TupleId = (fsUserId:String , visitorId:String?)
 
   class FSProfile: NSObject {
-    
-    var visitorId:String
-    
-    init(_ visitorId:String) {
-        
+
+    var visitorId: String
+
+    init(_ visitorId: String) {
+
         self.visitorId = visitorId
     }
 }
-
-
-

@@ -31,14 +31,11 @@ class FSAudienceTest: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
- 
-    
-    func testchekValidity(){
-        
-      
-        
-        for itemPresetContext in PresetContext.allCases{
-            
+
+    func testchekValidity() {
+
+        for itemPresetContext in PresetContext.allCases {
+
             XCTAssert(itemPresetContext.chekcValidity("valueToSet") is Bool)
         }
     }

@@ -9,122 +9,110 @@
 import XCTest
 @testable import Flagship
 
-
 class FlagshipTestWithMockedData: XCTestCase {
-    
+
     //  var flagShipMock:FlagshipMock!
-    
-    var serviceTest:ABService!
+
+    var serviceTest: ABService!
     let mockUrl = URL(string: "Mock")!
-    
-    
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
+
         let configuration = URLSessionConfiguration.default
         configuration.protocolClasses = [MockURLProtocol.self]
         let sessionTest = URLSession.init(configuration: configuration)
-        serviceTest = ABService("idClient", "isVisitor", "aid1","apiKey")
-        
+        serviceTest = ABService("idClient", "isVisitor", "aid1", "apiKey")
+
         /// Set our mock session into service
         serviceTest.sessionService = sessionTest
-        
+
         Flagship.sharedInstance.service = serviceTest
     }
-    
+
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        
-       
-        SynchronizeModifications()
-       
+
+     //   synchronizeModifications()
+
     }
-    
-    
+
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-    
-    
 
-    
-    
-    func testOnSatrtBucketingWithFailed(){
-        
+    func testOnSatrtBucketingWithFailed() {
+
         /// Create the mock response
         /// Load the data
-        
-        if var url:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+
+        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
             url.appendPathComponent("FlagShipCampaign", isDirectory: true)
             // add file name
             url.appendPathComponent("bucket.json")
-            
-            if (FileManager.default.fileExists(atPath: url.path) == true){
-                
-                do{
-                    
+
+            if FileManager.default.fileExists(atPath: url.path) == true {
+
+                do {
+
                     try FileManager.default.removeItem(at: url)
-                    
-                }catch{
-                    
+
+                } catch {
+
                     //
                 }
-                
-            }else{
-                
+
+            } else {
+
                 /////
             }
         }
-        
-        
+
         let expectation = XCTestExpectation(description: "Flagship-GetScript")
-        
+
         let data = Data()
-        MockURLProtocol.requestHandler = { request in
-            
-            let response = HTTPURLResponse(url:self.mockUrl , statusCode: 400, httpVersion: nil, headerFields: nil)!
+        MockURLProtocol.requestHandler = { _ in
+
+            let response = HTTPURLResponse(url: self.mockUrl, statusCode: 400, httpVersion: nil, headerFields: nil)!
             return (response, data)
         }
-        
+
         // Set visitor id
         Flagship.sharedInstance.setVisitorId("202072017183814142")
         // set context
         Flagship.sharedInstance.updateContext(ALL_USERS, "")
-        
+
         Flagship.sharedInstance.onStartBucketing { (result) in
-            
+
             XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: 5.0)
     }
-    
-    
-    
-    func testOnSatrtBucketingWithSucess(){
-        
+
+    func testOnSatrtBucketingWithSucess() {
+
         /// Create the mock response
         /// Load the data
-        
+
         let expectation = XCTestExpectation(description: "Service-GetScript")
-        
+
         do {
-            
+
             let testBundle = Bundle(for: type(of: self))
-            
+
             guard let path = testBundle.url(forResource: "sampleIdBucket", withExtension: "json") else { return  }
-            
-            let data = try Data(contentsOf: path, options:.alwaysMapped)
-            
-            
-            MockURLProtocol.requestHandler = { request in
-                
-                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+
+            let data = try Data(contentsOf: path, options: .alwaysMapped)
+
+            MockURLProtocol.requestHandler = { _ in
+
+                let response = HTTPURLResponse(url: self.mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
             
@@ -132,269 +120,274 @@ class FlagshipTestWithMockedData: XCTestCase {
             Flagship.sharedInstance.setVisitorId("202072017183814142")
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
-            
-            
-            
             Flagship.sharedInstance.onStartBucketing { (result) in
                 
+                // Authorize tracking
+                Flagship.sharedInstance.consent = true
                 XCTAssert(result == .Ready)
                 // Check the value variation
                 XCTAssert(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 4)
                 // Check the value variation50
                 XCTAssert(Flagship.sharedInstance.getModification("variation50", defaultInt: 0, activate: true) == 1)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool:false,  activate: true) == true)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString:"none",  activate: true) == "value")
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble:3.14,  activate: true) == 4.333)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool: false, activate: true) == true)
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString: "none", activate: true) == "value")
+                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble: 3.14, activate: true) == 4.333)
                 
-                Flagship.sharedInstance.disabledSdk = true
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variation", defaultInt: 1) == 1)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variation50", defaultInt: 0) == 0)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationBool", defaultBool:false) == false)
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationString", defaultString:"none") == "none")
-                XCTAssertTrue(Flagship.sharedInstance.getModification("variationDouble", defaultDouble:3.14) == 3.14)
-                
-                
-                if let ret = Flagship.sharedInstance.getModificationInfo("variation"){
-                    
-                    XCTAssertTrue(ret["campaignId"] == "bs8qvmo4nlr01fl9aaaa")
-                    XCTAssertTrue(ret["variationId"] == "bs8r09hsbs4011lbgggg")
-                    XCTAssertTrue(ret["variationGroupId"] == "bs8qvmo4nlr01fl9bbbb")
+                /// Check duplicate value, Must take the oldest key , the lastest in the reponse api
+                XCTAssertTrue(Flagship.sharedInstance.getModification("duplicatedkey", defaultString: "defaultValue") == "BBBB")
+               
+                if let infoForDuplicateKey = Flagship.sharedInstance.getModificationInfo(key: "duplicatedkey"){
+                    XCTAssertTrue(infoForDuplicateKey["variationId"] as? String == "bs8r119sbs4016mekkkk")       /// variationId
+                    XCTAssertTrue(infoForDuplicateKey["variationGroupId"] as? String == "bs8r119sbs4016meiiii")  /// variationGroupId
                 }
-                
-                /// Get all modification
+
                 XCTAssertTrue(Flagship.sharedInstance.getAllModification().count > 0)
-                
+
                 Flagship.sharedInstance.disabledSdk = false
-                
+
                 expectation.fulfill()
             }
-            
-        }catch{
-            
+
+        } catch {
+
             print("error")
         }
-        
-        wait(for: [expectation], timeout: 5.0)
+
+        wait(for: [expectation], timeout: 10.0)
     }
-    
-    //
-    //    "variation": 4,
-    //       "variationBool": true,
-    //       "variationString": "value",
-    //       "variationDouble": 4.333
-    //// test get campaign
-    
-    func testonStartDecisionApiWithSucess(){
-        
+    func testonStartDecisionApiWithSucess() {
+
         /// Create the mock response
         /// Load the data
-        
+
         let expectation = XCTestExpectation(description: "Service-GetScript")
-        
+
         do {
-            
+
             let testBundle = Bundle(for: type(of: self))
-            
+
             guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
-            
-            let data = try Data(contentsOf: path, options:.alwaysMapped)
-            
-            
-            MockURLProtocol.requestHandler = { request in
-                
-                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+
+            let data = try Data(contentsOf: path, options: .alwaysMapped)
+
+            MockURLProtocol.requestHandler = { _ in
+
+                let response = HTTPURLResponse(url: self.mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
-            
+
             // Set visitor id
             Flagship.sharedInstance.setVisitorId("202072017183814142")
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
-            
+
             Flagship.sharedInstance.onStartDecisionApi { (result) in
                 
+                Flagship.sharedInstance.consent = true
+
                 XCTAssert(result == .Ready)
-                
+
                 /// Check array
                 let array = Flagship.sharedInstance.getModification("array", defaultArray: [])
-                
+
                 XCTAssert(array.count == 3)
-                
+
                 /// Chekc Dico (json)
-                let dico = Flagship.sharedInstance.getModification("object", defaultJson:[:])
-                
-                if let val = dico["value"] as? Int{
-                    
+                let dico = Flagship.sharedInstance.getModification("object", defaultJson: [:])
+
+                if let val = dico["value"] as? Int {
+
                     XCTAssert(val == 123456)
                 }
-                
+
                 /// Complex object
-                let valCpx = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
-                
-                if let subCpx = valCpx["carray"] as? [Dictionary<String, Any>]{
-                    
-                    
-                    if let subDico = subCpx.first{
-                        
+                let valCpx = Flagship.sharedInstance.getModification("complex", defaultJson: [:])
+
+                if let subCpx = valCpx["carray"] as? [[String: Any]] {
+
+                    if let subDico = subCpx.first {
+
                         XCTAssert(subDico["cobject"] as? Int == 0)
                     }
                 }
                 
+                /// Check the get information for flag
+                if let infos = Flagship.sharedInstance.getModificationInfo(key: "array") {
+                    XCTAssert(infos.count == 4)
+                    XCTAssertTrue(infos["variationGroupId"] as? String == "bsffhle242b2l3igq4egaa")
+                    XCTAssertTrue(infos["campaignId"]       as? String == "bsffhle242b2l3igq4dg")
+                    XCTAssertTrue(infos["variationId"]      as? String == "bsffhle242b2l3igq4f0")
+                }
+                
+                /// Check the GetModification and getInformationkey with duplicated key
+                let duplicateKeyValue = Flagship.sharedInstance.getModification("duplicateKey", defaultBool: false)
+                let duplicateStringValue = Flagship.sharedInstance.getModification("duplicateStringKey", defaultString: "default")
+                let duplicateIntegerValue = Flagship.sharedInstance.getModification("duplicateIntegerKey", defaultInt: 0)
+
+                
+                /// Should be the oldes key , the lastest in response
+                XCTAssertTrue(duplicateKeyValue)
+                XCTAssertTrue(duplicateStringValue == "BBBBB")
+                XCTAssertTrue(duplicateIntegerValue == 22222 )
+                
+                if let infos = Flagship.sharedInstance.getModificationInfo(key: "duplicateKey") {
+                    XCTAssert(infos.count == 4)
+                    XCTAssertTrue(infos["variationGroupId"] as? String == "c82ta57u5lig4c8poeqg")
+                    XCTAssertTrue(infos["campaignId"]       as? String == "c82ta57u5lig4c8poepg")
+                    XCTAssertTrue(infos["variationId"]      as? String == "c82ta57u5lig4c8poerg")
+                }
+                
+                if let infosBis = Flagship.sharedInstance.getModificationInfo(key: "duplicateStringValue") {
+                    XCTAssert(infosBis.count == 4)
+                    XCTAssertTrue(infosBis["variationGroupId"] as? String == "c82ta57u5lig4c8poeqg")
+                    XCTAssertTrue(infosBis["campaignId"]       as? String == "c82ta57u5lig4c8poepg")
+                    XCTAssertTrue(infosBis["variationId"]      as? String == "c82ta57u5lig4c8poerg")
+                }
                 
                 expectation.fulfill()
             }
-            
-        }catch{
-            
+
+        } catch {
+
             print("error")
         }
-        
+
         wait(for: [expectation], timeout: 5.0)
-        
-        
+
     }
-    
-    
-    func testOnSatrtDecisionApiWithFailed(){
-        
+
+    func testOnSatrtDecisionApiWithFailed() {
+
         /// Create the mock response
         /// Load the data
-        
+
         let expectation = XCTestExpectation(description: "Flagship-GetScript")
-        
+
         let data = Data()
-        MockURLProtocol.requestHandler = { request in
-            
-            let response = HTTPURLResponse(url:self.mockUrl , statusCode: 400, httpVersion: nil, headerFields: nil)!
+        MockURLProtocol.requestHandler = { _ in
+
+            let response = HTTPURLResponse(url: self.mockUrl, statusCode: 400, httpVersion: nil, headerFields: nil)!
             return (response, data)
         }
-        
+
         // Set visitor id
         Flagship.sharedInstance.setVisitorId("202072017183814142")
         // set context
         Flagship.sharedInstance.updateContext(ALL_USERS, "")
-        
+
         Flagship.sharedInstance.onStartDecisionApi { (result) in
-            
+
             XCTAssert(result == .NotReady)
             expectation.fulfill()
         }
-        
+
         wait(for: [expectation], timeout: 5.0)
     }
-    
-    
-    func testonStartDecisionApiWithWrongFormat(){
-        
+
+    func testonStartDecisionApiWithWrongFormat() {
+
         /// Create the mock response
         /// Load the data
-        
+
         let expectation = XCTestExpectation(description: "Service-GetScript")
-        
+
         do {
-            
+
             let testBundle = Bundle(for: type(of: self))
-            
+
             guard let path = testBundle.url(forResource: "decisionApiBis", withExtension: "json") else { return  }
-            
-            let data = try Data(contentsOf: path, options:.alwaysMapped)
-            
-            
-            MockURLProtocol.requestHandler = { request in
-                
-                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+
+            let data = try Data(contentsOf: path, options: .alwaysMapped)
+
+            MockURLProtocol.requestHandler = { _ in
+
+                let response = HTTPURLResponse(url: self.mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
-            
+
             // Set visitor id
             Flagship.sharedInstance.setVisitorId("202072017183814142")
             // set context
             Flagship.sharedInstance.updateContext(ALL_USERS, "")
-            
+
             Flagship.sharedInstance.onStartDecisionApi { (result) in
-                
+
                 XCTAssert(result == .NotReady)
-                
+
                 expectation.fulfill()
             }
-            
-        }catch{
-            
+
+        } catch {
+
             print("error")
         }
-        
+
         wait(for: [expectation], timeout: 5.0)
-        
-        
+
     }
-    
+
     //// test synchronizeModifications
-    
-    func SynchronizeModifications(){
-        
+
+    func synchronizeModifications() {
+
         /// prepare data mock
-        
+
         let expectation = XCTestExpectation(description: "Flagship-GetScript")
-        
+
         do {
-            
+
             let testBundle = Bundle(for: type(of: self))
-            
+
             guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return  }
-            
-            let data = try Data(contentsOf: path, options:.alwaysMapped)
-            
-            MockURLProtocol.requestHandler = { request in
-                
-                let response = HTTPURLResponse(url:self.mockUrl , statusCode: 200, httpVersion: nil, headerFields: nil)!
+
+            let data = try Data(contentsOf: path, options: .alwaysMapped)
+
+            MockURLProtocol.requestHandler = { _ in
+
+                let response = HTTPURLResponse(url: self.mockUrl, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
-            
-        }catch{
-            
+
+        } catch {
+
             return
         }
-        
-        
+
         Flagship.sharedInstance.sdkModeRunning = .DECISION_API
         Flagship.sharedInstance.setVisitorId("202072017183814142")
-        
-        
-        
+
         Flagship.sharedInstance.synchronizeModifications { (result) in
-            
-            
+
             XCTAssert(result == .Updated)
-            
+
             /// Check array
             let array = Flagship.sharedInstance.getModification("array", defaultArray: [])
-            
+
             XCTAssert(array.count == 3)
-            
+
             /// Chekc Dico (json)
-            let dico = Flagship.sharedInstance.getModification("object", defaultJson:[:])
-            
-            if let val = dico["value"] as? Int{
-                
+            let dico = Flagship.sharedInstance.getModification("object", defaultJson: [:])
+
+            if let val = dico["value"] as? Int {
+
                 XCTAssert(val == 123456)
             }
-            
+
             /// Complex object
-            let valCpx = Flagship.sharedInstance.getModification("complex", defaultJson:[:])
-            
-            if let subCpx = valCpx["carray"] as? [Dictionary<String, Any>]{
-                
-                
-                if let subDico = subCpx.first{
-                    
+            let valCpx = Flagship.sharedInstance.getModification("complex", defaultJson: [:])
+
+            if let subCpx = valCpx["carray"] as? [[String: Any]] {
+
+                if let subDico = subCpx.first {
+
                     XCTAssert(subDico["cobject"] as? Int == 0)
                 }
             }
-            
+
             expectation.fulfill()
         }
-        
-        
+
         wait(for: [expectation], timeout: 5.0)
     }
+
 }

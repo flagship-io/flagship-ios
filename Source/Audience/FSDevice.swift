@@ -7,19 +7,17 @@
 
 import UIKit
 import CoreTelephony
-//import SystemConfiguration
+// import SystemConfiguration
 
 internal class FSDevice: NSObject {
-    
-    
-    class func getDeviceLanguage()->String?{
-        
+
+    class func getDeviceLanguage() -> String? {
+
         return NSLocale.current.languageCode
     }
-    
-    
-    class func getDeviceType()->String{
-        
+
+    class func getDeviceType() -> String {
+
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
             return "Mobile"
@@ -30,48 +28,43 @@ internal class FSDevice: NSObject {
             return "Mobile"
         }
     }
-    
-    
-    class func getDeviceModel()->String{
-        
+
+    class func getDeviceModel() -> String {
+
         return UIDevice.modelName
     }
-    
-    
-    class func getCarrierName()->String?{
-        
+
+    class func getCarrierName() -> String? {
+
         if #available(iOS 12, *) {
-            
-            guard let dico = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders else{
-                
+
+            guard let dico = CTTelephonyNetworkInfo().serviceSubscriberCellularProviders else {
+
                 return nil
             }
             return dico.first?.value.carrierName
-            
-        }else{
-            
+
+        } else {
+
              return CTTelephonyNetworkInfo().subscriberCellularProvider?.carrierName
          }
     }
 
-    class func isFirstTimeUser()->Bool{
-        
+    class func isFirstTimeUser() -> Bool {
+
         let startedBefore = UserDefaults.standard.bool(forKey: "sdk_firstTimeUser")
-        if startedBefore
-        {
+        if startedBefore {
             FSLogger.FSlog("Already started before ......", .Campaign)
-        }
-        else
-        {
+        } else {
 
             FSLogger.FSlog("This is a first start.....", .Campaign)
-            
+
             UserDefaults.standard.set(true, forKey: "sdk_firstTimeUser")
         }
         // FIRST_TIME_USER : TRUE (FALSE if the user is a returning one)
         return !startedBefore
     }
-    
+
     class func validateIpAddress(ipToValidate: String) -> Bool {
 
         var sin = sockaddr_in()
@@ -80,16 +73,14 @@ internal class FSDevice: NSObject {
         if ipToValidate.withCString({ cstring in inet_pton(AF_INET6, cstring, &sin6.sin6_addr) }) == 1 {
             // IPv6 peer.
             return true
-        }
-        else if ipToValidate.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
+        } else if ipToValidate.withCString({ cstring in inet_pton(AF_INET, cstring, &sin.sin_addr) }) == 1 {
             // IPv4 peer.
             return true
         }
 
-        return false;
+        return false
     }
 }
-
 
 internal extension UIDevice {
 
@@ -169,6 +160,3 @@ internal extension UIDevice {
     }()
 
 }
-
-
-

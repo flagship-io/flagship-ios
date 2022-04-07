@@ -1,4 +1,3 @@
-
 /// :nodoc:
 public class MurmurHash3 {
 
@@ -18,11 +17,11 @@ public class MurmurHash3 {
     var hash: UInt32 = seed
     var k: UInt32 = 0
     let l = maxBytes / 4 // chunk length
-    
+
     key.withMemoryRebound(to: UInt32.self, capacity: 4) { (keyBis) -> Void in
-        
+
         let chunks = UnsafeBufferPointer<UInt32>(start: keyBis, count: l)
-        
+
         for chunk in chunks {
           k = chunk &* c1
           k = (k << r1) | (k >> (32 - r1))
@@ -33,9 +32,8 @@ public class MurmurHash3 {
         }
     }
 
-  
     let tail = UnsafeBufferPointer<UInt8>(start: UnsafePointer<UInt8>(key) + (l * 4), count: 4)
-    
+
     k = 0
 
     // remainder
