@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
-internal class FSCTools {
 
-    public class func roundButton(_ button: UIButton?) {
-
+internal class FSCTools{
+    
+    
+    public class func roundButton(_ button:UIButton?){
+        
         button?.layer.cornerRadius = 5
         button?.layer.masksToBounds =  true
     }
