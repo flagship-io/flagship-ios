@@ -124,7 +124,7 @@ class MurmurTest: XCTestCase {
 
             let data = try Data(contentsOf: path, options: .alwaysMapped)
 
-            if let jsonResult: NSDictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? NSDictionary {
+            if let jsonResult: NSDictionary = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? NSDictionary {
 
                 if let userId: [String] = jsonResult ["usersId"] as? [String] {
 
@@ -146,7 +146,7 @@ class MurmurTest: XCTestCase {
             var variationA: Double = 0
             var variationB: Double = 0
             /// To fit the targeting for all userss
-            Flagship.sharedInstance.updateContext(ALL_USERS, "")
+          //  Flagship.sharedInstance.updateContext(ALL_USERS, "")
 
             /// Will test for 10 000 users
             let max: Int = 1000
@@ -157,7 +157,10 @@ class MurmurTest: XCTestCase {
                 let idToTesst = FSGenerator.generateFlagShipId()
 
                 print("Test distribution for id : \(idToTesst)")
-                let bucketCache =  FSBucketManager().matchTargetingForCustomID(lightBucketObject, idToTesst, true)
+                let service = FSService("", "", "", nil)
+                let bucketMgr:FSBucketingManager = FSBucketingManager(service:service, userId: idToTesst, currentContext: [ALL_USERS : ""], 60)
+                
+                    let bucketCache =  bucketMgr.matchTargetingForCustomID(lightBucketObject, idToTesst)
 
                 // Check wich variation we got :
 
@@ -205,13 +208,14 @@ class MurmurTest: XCTestCase {
 
         if let sampleBucket = getLightMock("sampleIdBucket") {
 
-            Flagship.sharedInstance.updateContext(ALL_USERS, "")
 
             for item: Sample in sampleIds {
 
                 modifsValuesMock.removeAll()
+                let service = FSService("", "", "", nil)
+                let bucketMgr:FSBucketingManager = FSBucketingManager(service:service, userId: item.idSample, currentContext: [ALL_USERS : ""], 60)
 
-                let sampleBucketCache = FSBucketManager().matchTargetingForCustomID(sampleBucket, item.idSample, true)
+                let sampleBucketCache = bucketMgr.matchTargetingForCustomID(sampleBucket, item.idSample)
 
                 /// preced to check the results
 

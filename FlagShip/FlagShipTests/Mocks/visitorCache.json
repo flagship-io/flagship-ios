@@ -1,0 +1,25 @@
+{
+    "version": 1,
+    "data": {
+      "visitorId": "visitor_1",
+      "anonymousId": "anonym_0",
+      "consent": true,
+      "context": {
+        "vip": false
+      },
+      "campaigns": [
+        {
+          "campaignId": "bmsor064jaeg0gm41het",
+          "variationGroupId": "bmsor064jaeg0gm49cjg",
+          "variationId": "bmsor064jaeg0gm49ckg",
+          "isReference":true,
+          "type": "ab",
+          "activated": false,
+          "flags": {
+            "text": "custom title",
+            "textColor": "#27c451"
+          }
+        }
+      ]
+    }
+  }
