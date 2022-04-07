@@ -1,0 +1,43 @@
+{
+    "visitorId": "azoiuezro",
+    "campaigns": [
+        {
+            "id": "bvcdqksmicqghldq9agg",
+            "slug" : "cmapForTest",
+            "variationGroupId": "bvcdqksmicqghldq9ahg",
+            "variation": {
+                "id": "bvcdqksmicqghldq9aig",
+                "modifications": {
+                    "type": "FLAG",
+                    "value": {
+                        "background_color": "#000000",
+                        "btnTitle": "Alpha_demoApp",
+                        "config": {
+                            "lists": [
+                                {
+                                    "categoryNameHexColor": "#180C18",
+                                    "name": "Current Demo11",
+                                    "numberOfItem": 3
+                                },
+                                {
+                                    "categoryNameHexColor": "#3B033B",
+                                    "name": "Inspirations22",
+                                    "numberOfItem": 3
+                                },
+                                {
+                                    "categoryNameHexColor": "#555555",
+                                    "favoriteBackGroundHexColor": "#f58a42",
+                                    "isFavorite": true,
+                                    "name": "Promo33",
+                                    "numberOfItem": 4
+                                }
+                            ]
+                        },
+                        "isMenuUpdateVisible": false
+                    }
+                },
+                "reference": false
+            }
+        }
+    ]
+}
