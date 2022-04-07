@@ -14,7 +14,7 @@ class FlagshipBucketingTest: XCTestCase {
     
     var testVisitor:FSVisitor?
     var urlFakeSession: URLSession?
-    let fsConfig:FlagshipConfig = FSConfigBuilder().Bucketing().build()
+    let fsConfig:FlagshipConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(2).build()
     
     override func setUpWithError() throws {
 
@@ -35,7 +35,10 @@ class FlagshipBucketingTest: XCTestCase {
             
             let testBundle = Bundle(for: type(of: self))
             
-            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else { return  }
+            guard let path = testBundle.url(forResource: "bucketMock", withExtension: "json") else {
+                return
+                
+            }
             
             let data = try Data(contentsOf: path, options: .alwaysMapped)
             

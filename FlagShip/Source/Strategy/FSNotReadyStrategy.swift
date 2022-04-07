@@ -20,6 +20,7 @@ class FSNotReadyStrategy :FSDefaultStrategy{
     override func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
         
         FlagshipLogManager.Log(level: .INFO, tag:.SYNCHRONIZE , messageToDisplay:FSLogMessage.SYNCHRONIZE_NOT_READY)
+        onSyncCompleted(.NOT_INITIALIZED)
     }
     
     override func getModification<T>(_ key: String, defaultValue: T) -> T {

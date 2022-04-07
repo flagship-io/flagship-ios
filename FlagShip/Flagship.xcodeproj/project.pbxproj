@@ -22,6 +22,11 @@
 
 /* Begin PBXBuildFile section */
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
+		8B5438B127FF988B00299654 /* decisionApi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370D27FED7F3003EC960 /* decisionApi.json */; };
+		8B5438B227FF988F00299654 /* bucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370E27FED7F3003EC960 /* bucketMock.json */; };
+		8B5438B327FF989100299654 /* decisionApiPanic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370F27FED7F3003EC960 /* decisionApiPanic.json */; };
+		8B5438B427FF98A500299654 /* visitorCache.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370C27FED7F3003EC960 /* visitorCache.json */; };
+		8B5438B527FF98D800299654 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370227FED7F2003EC960 /* MockURLProtocol.swift */; };
 		8B67369F27FED3E5003EC960 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
 		8B6736A027FED3E5003EC960 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
 		8B6736A127FED3E5003EC960 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366027FEBE4C003EC960 /* FSTools.swift */; };
@@ -84,13 +89,8 @@
 		8B67371927FEDA3E003EC960 /* FSTargetingManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370827FED7F3003EC960 /* FSTargetingManagerTest.swift */; };
 		8B67371A27FEDA3E003EC960 /* FSVisitorBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FF27FED7F2003EC960 /* FSVisitorBuilderTest.swift */; };
 		8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */; };
-		8B67371C27FEDA3E003EC960 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370B27FED7F3003EC960 /* MockURLProtocol.swift */; };
 		8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370327FED7F2003EC960 /* murmurTest.swift */; };
 		8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370427FED7F3003EC960 /* QAReportTest.swift */; };
-		8B67372827FEDF01003EC960 /* visitorCache.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370527FED7F3003EC960 /* visitorCache.json */; };
-		8B67372927FEE0C3003EC960 /* bucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6736FE27FED7F2003EC960 /* bucketMock.json */; };
-		8B67372A27FEE0C5003EC960 /* decisionApi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67371027FED7F3003EC960 /* decisionApi.json */; };
-		8B67372B27FEE0C9003EC960 /* decisionApiPanic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B6736FD27FED7F2003EC960 /* decisionApiPanic.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,25 +163,20 @@
 		8B6736FA27FED7F2003EC960 /* FSFlagTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSFlagTest.swift; sourceTree = "<group>"; };
 		8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVisitorTests.swift; sourceTree = "<group>"; };
 		8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagshipContextTest.swift; sourceTree = "<group>"; };
-		8B6736FD27FED7F2003EC960 /* decisionApiPanic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = decisionApiPanic.json; path = Mocks/decisionApiPanic.json; sourceTree = "<group>"; };
-		8B6736FE27FED7F2003EC960 /* bucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = bucketMock.json; path = Mocks/bucketMock.json; sourceTree = "<group>"; };
 		8B6736FF27FED7F2003EC960 /* FSVisitorBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVisitorBuilderTest.swift; sourceTree = "<group>"; };
 		8B67370027FED7F2003EC960 /* FSConsentStrategyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConsentStrategyTest.swift; sourceTree = "<group>"; };
 		8B67370127FED7F2003EC960 /* FlagshipTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B67370227FED7F2003EC960 /* MockURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockURLProtocol.swift; path = Mocks/MockURLProtocol.swift; sourceTree = "<group>"; };
 		8B67370327FED7F2003EC960 /* murmurTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = murmurTest.swift; sourceTree = "<group>"; };
 		8B67370427FED7F3003EC960 /* QAReportTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QAReportTest.swift; sourceTree = "<group>"; };
-		8B67370527FED7F3003EC960 /* visitorCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = visitorCache.json; path = Mocks/visitorCache.json; sourceTree = "<group>"; };
 		8B67370627FED7F3003EC960 /* FSGeneratorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSGeneratorTest.swift; sourceTree = "<group>"; };
 		8B67370727FED7F3003EC960 /* FSReconcileTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSReconcileTest.swift; sourceTree = "<group>"; };
 		8B67370827FED7F3003EC960 /* FSTargetingManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSTargetingManagerTest.swift; sourceTree = "<group>"; };
 		8B67370927FED7F3003EC960 /* FlagshipBucketingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagshipBucketingTest.swift; sourceTree = "<group>"; };
-		8B67370B27FED7F3003EC960 /* MockURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		8B67370C27FED7F3003EC960 /* visitorCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = visitorCache.json; sourceTree = "<group>"; };
 		8B67370D27FED7F3003EC960 /* decisionApi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApi.json; sourceTree = "<group>"; };
 		8B67370E27FED7F3003EC960 /* bucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bucketMock.json; sourceTree = "<group>"; };
 		8B67370F27FED7F3003EC960 /* decisionApiPanic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApiPanic.json; sourceTree = "<group>"; };
-		8B67371027FED7F3003EC960 /* decisionApi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = decisionApi.json; path = Mocks/decisionApi.json; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -389,9 +384,6 @@
 		8B6736D427FED75A003EC960 /* FlagShipTests */ = {
 			isa = PBXGroup;
 			children = (
-				8B6736FE27FED7F2003EC960 /* bucketMock.json */,
-				8B67371027FED7F3003EC960 /* decisionApi.json */,
-				8B6736FD27FED7F2003EC960 /* decisionApiPanic.json */,
 				8B67370927FED7F3003EC960 /* FlagshipBucketingTest.swift */,
 				8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */,
 				8B67370127FED7F2003EC960 /* FlagshipTests.swift */,
@@ -406,7 +398,6 @@
 				8B67370227FED7F2003EC960 /* MockURLProtocol.swift */,
 				8B67370327FED7F2003EC960 /* murmurTest.swift */,
 				8B67370427FED7F3003EC960 /* QAReportTest.swift */,
-				8B67370527FED7F3003EC960 /* visitorCache.json */,
 				8B6736F927FED7F2003EC960 /* Universal-Bridging-Header.h */,
 			);
 			path = FlagShipTests;
@@ -415,7 +406,6 @@
 		8B67370A27FED7F3003EC960 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				8B67370B27FED7F3003EC960 /* MockURLProtocol.swift */,
 				8B67370C27FED7F3003EC960 /* visitorCache.json */,
 				8B67370D27FED7F3003EC960 /* decisionApi.json */,
 				8B67370E27FED7F3003EC960 /* bucketMock.json */,
@@ -546,10 +536,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B67372B27FEE0C9003EC960 /* decisionApiPanic.json in Resources */,
-				8B67372A27FEE0C5003EC960 /* decisionApi.json in Resources */,
-				8B67372827FEDF01003EC960 /* visitorCache.json in Resources */,
-				8B67372927FEE0C3003EC960 /* bucketMock.json in Resources */,
+				8B5438B327FF989100299654 /* decisionApiPanic.json in Resources */,
+				8B5438B427FF98A500299654 /* visitorCache.json in Resources */,
+				8B5438B227FF988F00299654 /* bucketMock.json in Resources */,
+				8B5438B127FF988B00299654 /* decisionApi.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +595,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B67371C27FEDA3E003EC960 /* MockURLProtocol.swift in Sources */,
 				8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */,
 				8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
@@ -613,6 +602,7 @@
 				8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */,
 				8B67371527FEDA3E003EC960 /* FSConsentStrategyTest.swift in Sources */,
 				8B67371627FEDA3E003EC960 /* FSFlagTest.swift in Sources */,
+				8B5438B527FF98D800299654 /* MockURLProtocol.swift in Sources */,
 				8B67371727FEDA3E003EC960 /* FSGeneratorTest.swift in Sources */,
 				8B67371827FEDA3E003EC960 /* FSReconcileTest.swift in Sources */,
 				8B67371927FEDA3E003EC960 /* FSTargetingManagerTest.swift in Sources */,
