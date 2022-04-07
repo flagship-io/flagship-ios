@@ -30,7 +30,7 @@ class FlagshipBucketingTest: XCTestCase {
     }
     
     func testBucketingWithSucess() {
-        return
+        
         do {
             
             let testBundle = Bundle(for: type(of: self))
@@ -51,7 +51,7 @@ class FlagshipBucketingTest: XCTestCase {
         }
         
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("bucketUser").build()
+        testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
         
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
@@ -74,10 +74,11 @@ class FlagshipBucketingTest: XCTestCase {
             XCTAssertTrue(retValue == "value")
             
             // Get from alloc 100
-            let retValue1 = self.testVisitor?.getModification("stringFlag", defaultValue: "default") as? String
-            XCTAssertTrue(retValue1 == "alloc_100")
-
             
+            if let flag =  self.testVisitor?.getFlag(key: "stringFlag", defaultValue: "default") {
+                
+                XCTAssertTrue(flag.value() as? String == "alloc_100")
+            }            
             if let infos = self.testVisitor?.getModificationInfo("key"){
                 
                 XCTAssertTrue((infos["campaignId"]       as? String) == "br6h4dv811lg07g61g00")
