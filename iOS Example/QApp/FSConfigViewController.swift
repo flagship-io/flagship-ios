@@ -106,7 +106,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         
         let userIdToSet:String = visitorIdTextField?.text ?? "UnknowVisitor"
         
-        return  Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: self.allowTrackingSwitch?.isOn ?? true).withContext(context: ["isPoc":true, "plan":"enterprise" ,"qa_report_xpc2":true, "cacheEnabled":true]).isAuthenticated(self.authenticateSwitch?.isOn ?? false).build()
+        return  Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: self.allowTrackingSwitch?.isOn ?? true).withContext(context: ["isPoc":true, "plan":"enterprise" ,"qa_report_xpc":true, "cacheEnabled":true]).isAuthenticated(self.authenticateSwitch?.isOn ?? false).build()
         
     }
     
