@@ -7,11 +7,8 @@
 <h3 align="center">Bring your features to life</h3>
 
 ![Swift](https://github.com/abtasty/flagship-ios/workflows/Swift/badge.svg)
-<<<<<<< HEAD
-[![codecov](https://codecov.io/gh/ABTastyAdel/flagship-ios/branch/master/graph/badge.svg)](https://codecov.io/gh/ABTastyAdel/flagship-ios)
-=======
+
 [![codecov](https://codecov.io/gh/flagship-io/flagship-ios/branch/master/graph/badge.svg?token=IgydLlPtQI)](https://codecov.io/gh/flagship-io/flagship-ios)
->>>>>>> upstream/master
 [![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)](https://cocoapods.org/pods/FlagShip)
 [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen)](https://swift.org/package-manager/)
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
@@ -22,11 +19,11 @@
 
 ## Docs
 
-- [Get Started](http://developers.flagship.io/docs/sdk/ios/v2.0/#getting-started)
-- [Initialize and start](http://developers.flagship.io/docs/sdk/ios/v2.0/#initialize-and-start-the-library)
-- [Campaign integration](http://developers.flagship.io/docs/sdk/ios/v2.0/#campaign-integration)
-- [Hit tracking](http://developers.flagship.io/docs/sdk/ios/v2.0/#hit-tracking)
-- [Release Notes](http://developers.flagship.io/docs/sdk/ios/v2.0/#release)
+- [Get Started](https://docs.developers.flagship.io/docs/ios-v2#getting-started) 
+- [Initialize and start](https://docs.developers.flagship.io/docs/ios-v2#initialization)
+- [Campaign integration](https://docs.developers.flagship.io/docs/ios-v2#campaign-synchronization)
+- [Hit tracking](https://docs.developers.flagship.io/docs/ios-v2#hit-tracking)
+- [Release Notes](https://docs.developers.flagship.io/docs/ios-sdk)
 
 
 ## Contributors
