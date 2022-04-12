@@ -172,7 +172,6 @@
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModificationsViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
-		8BF4D61A28047E4A00BAF55F /* QApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,7 +399,6 @@
 		8BF2DDDF25681A97005FF664 /* QApp */ = {
 			isa = PBXGroup;
 			children = (
-				8BF4D61A28047E4A00BAF55F /* QApp.entitlements */,
 				8B493A6C27FF365000DDAAB5 /* FSJsonEditorCtrl.swift */,
 				8B493A6B27FF365000DDAAB5 /* FSLoggerCtrl.swift */,
 				8B4939F027FF35B600DDAAB5 /* XNLogger */,

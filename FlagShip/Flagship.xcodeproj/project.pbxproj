@@ -90,7 +90,6 @@
 		8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */; };
 		8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370327FED7F2003EC960 /* murmurTest.swift */; };
 		8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370427FED7F3003EC960 /* QAReportTest.swift */; };
-		8BF4D5C32804651F00BAF55F /* Flagship_tvOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4D5C22804651F00BAF55F /* Flagship_tvOS.docc */; };
 		8BF4D5C42804651F00BAF55F /* Flagship_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8BF4D5C82804661E00BAF55F /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
 		8BF4D5C92804661E00BAF55F /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
@@ -232,7 +231,6 @@
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
 		8BF4D5BF2804651F00BAF55F /* Flagship_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_tvOS.h; sourceTree = "<group>"; };
-		8BF4D5C22804651F00BAF55F /* Flagship_tvOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Flagship_tvOS.docc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -508,7 +506,6 @@
 			isa = PBXGroup;
 			children = (
 				8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */,
-				8BF4D5C22804651F00BAF55F /* Flagship_tvOS.docc */,
 			);
 			path = Flagship_tvOS;
 			sourceTree = "<group>";
@@ -832,7 +829,6 @@
 				8BF4D5F92804661E00BAF55F /* FSDefaultStrategy.swift in Sources */,
 				8BF4D5FA2804661E00BAF55F /* FSNotReadyStrategy.swift in Sources */,
 				8BF4D5FB2804661E00BAF55F /* FSNoConsentStrategy.swift in Sources */,
-				8BF4D5C32804651F00BAF55F /* Flagship_tvOS.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
