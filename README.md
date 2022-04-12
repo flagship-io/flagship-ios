@@ -12,9 +12,10 @@
 [![Cocoapods](https://img.shields.io/cocoapods/v/FlagShip)](https://cocoapods.org/pods/FlagShip)
 [![SPM](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen)](https://swift.org/package-manager/)
 [![license](https://badgen.now.sh/badge/license/MIT/blue)](./LICENSE)
+[![Platform](https://img.shields.io/cocoapods/p/FlagShip)](https://docs.developers.flagship.io/docs/ios-sdk)
 
 
-**Visit [https://developers.flagship.io/](https://developers.flagship.io/) to get started with Flagship.**
+**Visit [https://developers.flagship.io/](https://docs.developers.flagship.io/docs/ios-sdk) to get started with Flagship.**
 
 
 ## Docs
