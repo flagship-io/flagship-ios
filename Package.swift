@@ -7,7 +7,8 @@ let package = Package(
     name: "Flagship",
 
     platforms: [
-        .iOS(.v8)
+        .iOS(.v8),
+        .tvOS(.v10)
     ],
 
     products: [
@@ -19,6 +20,6 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(name: "Flagship", path: "Source")
+        .target(name: "Flagship", path: "FlagShip/Source")
     ]
 )

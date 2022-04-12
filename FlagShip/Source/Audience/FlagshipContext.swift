@@ -10,7 +10,12 @@ import UIKit
 import Foundation
 
 
+#if os(iOS)
 let IOS_VERSION = "iOS"
+#elseif os(tvOS)
+let IOS_VERSION = "tvOS"
+#endif
+
 let ALL_USERS   = "fs_all_users"
 
 /// Enumeration cases that represent **Predefined** targetings
@@ -58,13 +63,6 @@ let ALL_USERS   = "fs_all_users"
     /// Is the app in debug mode?
     case DEV_MODE           = "sdk_devMode"
 
-    /// USER
-//    case LOGGED_IN_USER
-//    case LOGGED_OUT_USER
-//    case NUMBER_OF_SESSION
-//    case VISITOR_ID
-//    case TIME_SPENT
-//    case TIME_INACTIVITY
 
     /// What is the internet connection
     case INTERNET_CONNECTION = "sdk_internetConnection"
