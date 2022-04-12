@@ -203,7 +203,6 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
     
     @IBAction func onClickJsonView(){
         
-        return
         /// If sselected ====> Bucketing mode
         if let isSelected = jsonViewBtn?.isSelected{
             

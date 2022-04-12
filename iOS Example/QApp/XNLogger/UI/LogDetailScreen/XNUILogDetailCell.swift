@@ -70,11 +70,6 @@ class XNUILogDetailCell: UITableViewCell {
                     self.logDetailMsg.isScrollEnabled = false
                 }
             }
-            if logDetailMsg.isScrollEnabled {
-                self.logDetailMsg.showsVerticalScrollIndicator = true
-            } else {
-                self.logDetailMsg.showsVerticalScrollIndicator = true
-            }
         }
         else {
             
