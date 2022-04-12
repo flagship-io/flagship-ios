@@ -162,14 +162,14 @@ public class FSStorage {
         
         let url = getURL(for: directory).appendingPathComponent(fileName, isDirectory: false)
         if !FileManager.default.fileExists(atPath: url.path) {
-            FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay:FSLogMessage.MESSAGE("The file \(fileName) don't exist"))
+            FlagshipLogManager.Log(level: .DEBUG, tag: .STORAGE, messageToDisplay:FSLogMessage.MESSAGE("The cache visitor don't exist or already deleted"))
             return 
         }
         do{
             try FileManager.default.removeItem(at: url)
-            FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay:FSLogMessage.MESSAGE("The file \(fileName) was deleted"))
+            FlagshipLogManager.Log(level: .DEBUG, tag: .STORAGE, messageToDisplay:FSLogMessage.MESSAGE("The cache visitor was deleted"))
         }catch{
-            FlagshipLogManager.Log(level: .ALL, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Error on delete file \(fileName)"))
+            FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Error on delete file \(fileName)"))
         }
     }
     
