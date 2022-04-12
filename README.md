@@ -20,10 +20,10 @@
 
 ## Docs
 
-- [Get Started](https://docs.developers.flagship.io/docs/ios-v2#getting-started) 
-- [Initialize and start](https://docs.developers.flagship.io/docs/ios-v2#initialization)
-- [Campaign integration](https://docs.developers.flagship.io/docs/ios-v2#campaign-synchronization)
-- [Hit tracking](https://docs.developers.flagship.io/docs/ios-v2#hit-tracking)
+- [Get Started](https://docs.developers.flagship.io/docs/ios-v3#getting-started) 
+- [Initialize and start](https://docs.developers.flagship.io/docs/ios-v3#initialization)
+- [Campaign integration](https://docs.developers.flagship.io/docs/ios-v3#managing-visitor-campaigns-and-their-flags)
+- [Hit tracking](https://docs.developers.flagship.io/docs/ios-v3#hit-tracking)
 - [Release Notes](https://docs.developers.flagship.io/docs/ios-sdk)
 
 
