@@ -273,7 +273,7 @@ class FSTargetingManagerTest: XCTestCase {
 
     func testGetCurrentValueFromCtx() {
 
-        Flagship.sharedInstance.visitorId = "alias"
+        targetingManager.userId = "alias"
 
         if let ret = targetingManager.getCurrentValueFromCtx(FS_USERS) as? String {
 
@@ -296,17 +296,18 @@ class FSTargetingManagerTest: XCTestCase {
 
             print(targetObject)
 
-            Flagship.sharedInstance.visitorId = "alias"   /// Visitor id
+            targetingManager.userId = "alias"   /// Visitor id
 
-            Flagship.sharedInstance.updateContext("basketNumber", 100) /// belong to first group
+            targetingManager.currentContext.updateValue(100, forKey: "basketNumber")
+            
 
-            Flagship.sharedInstance.updateContext("basketNumberBis", 200)  /// belong to second group
+            targetingManager.currentContext.updateValue(200, forKey: "basketNumberBis")  /// belong to second group
 
-            Flagship.sharedInstance.updateContext("testkey6", "gamaa")  /// belong to second group
+            targetingManager.currentContext.updateValue("gamaa", forKey: "testkey6")  /// belong to second group
 
-            Flagship.sharedInstance.updateContext("testkey7", "abbc")  /// belong to second group
+            targetingManager.currentContext.updateValue("abbc", forKey: "testkey7")  /// belong to second group
 
-            Flagship.sharedInstance.updateContext("testkey8", "yahoo.fr")  /// belong to second group
+            targetingManager.currentContext.updateValue("yahoo.fr",forKey: "testkey8")  /// belong to second group
 
             if let item = targetObject.targetingGroups.first {
 

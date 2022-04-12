@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FlagShip"
-  s.version          = "2.1.3"
+  s.version          = "3.0.0"
   s.summary          = "Flagship SDK"
   
 # This description is used to generate tags and improve search results.
@@ -27,9 +27,12 @@ The FlagShip SDK is an iOS framework whose goal is to help you run FlagShip camp
   s.source           = { :git => 'https://github.com/flagship-io/flagship-ios.git', :tag => s.version.to_s }
   s.frameworks       = 'SystemConfiguration'
  
-  s.ios.deployment_target = "8.0"
+  s.ios.deployment_target  = "8.0"
+  s.tvos.deployment_target = "10.0"
+  
+  
 
-  s.source_files = 'Source/**/*.swift'
+  s.source_files = 'FlagShip/Source/**/*.swift'
   
   s.swift_version           = "5.0"
   end

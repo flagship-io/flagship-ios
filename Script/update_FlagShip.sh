@@ -21,7 +21,7 @@ cd "$(dirname $0)/.."
 
  # update FLagShip version in FlagShipVersion
 
-sdkVersionFilepath="Source/Utils/FlagShipVersion.swift"
+sdkVersionFilepath="Flagship/Source/Tools/FlagShipVersion.swift"
 sdkVersionKey="FlagShipVersion"
 
 printf "\tUpdating ${sdkVersionKey} to ${releaseSDKVersion}.\n"

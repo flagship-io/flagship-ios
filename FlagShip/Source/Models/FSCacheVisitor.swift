@@ -1,0 +1,288 @@
+//
+//  FSCacheVisitor.swift
+//  Flagship
+//
+//  Created by Adel on 31/12/2021.
+//
+
+
+internal let CACHE_MODEL_VERSION:Double = 1.0
+
+
+
+
+internal enum MIGRATION_MODEL:Double{
+    
+    case MIGRATION_MODEL_V1 = 1.0
+   /// Next generation add here the updated models
+}
+
+
+public class FSCacheVisitor: Codable {
+    
+    var version:Double
+    var data:FSCacheDataVistor?
+    
+    
+    private enum CodingKeys: String, CodingKey {
+
+        case version
+        case data
+     }
+    
+    required public  init(from decoder: Decoder) throws {
+
+        let values     = try decoder.container(keyedBy: CodingKeys.self)
+
+        do { self.version          = try values.decode(Double.self, forKey: .version)} catch { self.version = 1.0}
+        /// In the future when update the migration plan will use the switch to select the correct model
+        do { self.data             = try values.decode(FSCacheDataVistor.self, forKey: .data)} catch { self.data =  nil}
+    }
+    
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.version, forKey: .version)
+        try container.encode(self.data, forKey: .data)
+    }
+    
+    /// Wrapper from visitor to visitorCache
+    init(_ visitor:FSVisitor){
+        self.version = CACHE_MODEL_VERSION
+        self.data = FSCacheDataVistor(visitor)
+    }
+    
+    /// Wrapper from visitor to visitorCache & oldest cache
+    init(_ visitor:FSVisitor, assignationHistory:[String:String]){
+        self.version = CACHE_MODEL_VERSION
+        self.data = FSCacheDataVistor(visitor)
+    }
+    
+}
+
+internal class FSCacheDataVistor : Codable{
+    
+    var visitorId   :String?
+    var anonymousId :String?
+    var consent     :Bool =  true
+    var context     :[String:Any] = [:]
+    var campaigns   :[FSCacheCampaign] = []   /// Used on offline Mode  (utilisable en mode offline)
+    var assignationHistory:[String:String] = [:] /// variationGroupId:variationId il garde tout l'historique pour éviter la realloc
+
+    
+    
+    private enum CodingKeys: String, CodingKey {
+        case visitorId
+        case anonymousId
+        case consent
+        case context
+        case campaigns
+        case assignationHistory
+     }
+    
+    
+    
+    required init(from decoder: Decoder) throws {
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        do {self.visitorId   = try values.decode(String.self, forKey:            .visitorId)} catch {self.visitorId = ""}
+        do {self.anonymousId = try values.decode(String.self, forKey:            .anonymousId)} catch {self.anonymousId = ""}
+        do {self.consent     = try values.decode(Bool.self, forKey:              .consent)} catch {self.consent = true}
+        do {self.context     = try values.decode([String : Any].self, forKey:    .context)} catch {self.context = [:]}
+        do {self.campaigns   = try values.decode([FSCacheCampaign].self, forKey: .campaigns)} catch {
+            self.campaigns   = []}
+        
+        do {self.assignationHistory = try values.decode([String:String].self, forKey: .assignationHistory)} catch {
+            self.assignationHistory = [:]}
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.visitorId,          forKey: .visitorId)
+        try container.encode(self.anonymousId,        forKey: .anonymousId)
+        try container.encode(self.consent,            forKey: .consent)
+        try container.encode(self.context,            forKey: .context)
+        try container.encode(self.campaigns,          forKey: .campaigns)
+        try container.encode(self.assignationHistory, forKey: .assignationHistory)
+
+    }
+    
+
+    
+//    /// Wrapper from visitor to visitorCache
+//    init(_ visitor:FSVisitor, initialCampaigns:[FSCacheCampaign] = []){
+//
+//        /// Set the visitor
+//        self.visitorId = visitor.visitorId
+//        /// Set the anonymous
+//        self.anonymousId = visitor.anonymousId
+//        /// Set the consent
+//        self.consent = visitor.hasConsented
+//        /// Populate the context
+//        self.context.merge(visitor.getCurrentContext()){ (_, new) in new }
+//        /// Populate the campaign cache object
+//        /// Start by the initial cached campaigns
+//        if (initialCampaigns.isEmpty == false) {
+//            self.campaigns.append(contentsOf: initialCampaigns)
+//        }
+//        visitor.currentFlags.forEach({ (key, value) in
+//
+//            /// new elem to save in cache
+//            let newCacheCampaign = FSCacheCampaign(key,value)
+//
+//            /// Check if the campaign of the element to save if not already saved
+//            /// if it is then will merge the flags
+//            let exist = self.campaigns.contains(where: { elemCacheCamp in
+//
+//                if (newCacheCampaign.campaignId == elemCacheCamp.campaignId){
+//                    /// Merge the flags
+//                    elemCacheCamp.flags.merge(newCacheCampaign.flags) {  (_, new) in new }
+//                    return true
+//                }else{
+//                    return false
+//                }
+//            })
+//
+//            if !exist{ /// The campaign id for this element is not already added to cache
+//
+//                self.campaigns.append(newCacheCampaign)
+//            }
+//
+//            //// In the same time create asssigned history
+//            assignationHistory[newCacheCampaign.variationGroupId] = newCacheCampaign.variationId
+//        })
+//
+//    }
+    
+    
+    /// Wrapper from visitor to visitorCache
+    init(_ visitor:FSVisitor){
+        
+        /// Set the visitor
+        self.visitorId = visitor.visitorId
+        /// Set the anonymous
+        self.anonymousId = visitor.anonymousId
+        /// Set the consent
+        self.consent = visitor.hasConsented
+        /// Populate the context
+        self.context.merge(visitor.getContext()){ (_, new) in new }
+        /// Populate the campaign cache object
+        /// Start by the initial cached campaigns
+        if (visitor.assignedVariationHistory.isEmpty == false) {
+            self.assignationHistory.merge(visitor.assignedVariationHistory){(_,new)in new}
+        }
+        visitor.currentFlags.forEach({ (key, value) in
+            
+            /// new elem to save in cache
+            let newCacheCampaign = FSCacheCampaign(key,value)
+            
+//            /// Check if the campaign of the element to save if not already saved
+//            /// if it is then will merge the flags
+            let exist = self.campaigns.contains(where: { elemCacheCamp in
+
+                if (newCacheCampaign.campaignId == elemCacheCamp.campaignId){
+                    /// Merge the flags
+                    elemCacheCamp.flags.merge(newCacheCampaign.flags) {  (_, new) in new }
+                    return true
+                }else{
+                    return false
+                }
+            })
+            
+            if !exist{ /// The campaign id for this element is not already added to cache
+                
+                self.campaigns.append(newCacheCampaign)
+            }
+            
+            //// In the same time create asssigned history
+            assignationHistory[newCacheCampaign.variationGroupId] = newCacheCampaign.variationId
+        })
+        
+    }
+    
+    
+    
+}
+
+internal class FSCacheCampaign:Codable{
+    
+    var campaignId:String
+    var variationGroupId:String
+    var variationId:String
+    var isReference:Bool
+    var type:String
+    var slug:String
+    var activated: Bool
+    var flags:[String:Any] = [:]
+    
+    
+    required init(from decoder: Decoder) throws {
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        do {self.campaignId       = try values.decode(String.self,      forKey: .campaignId)}       catch {self.campaignId       = ""   }
+        do {self.variationGroupId = try values.decode(String.self,      forKey: .variationGroupId)} catch {self.variationGroupId = ""   }
+        do {self.variationId      = try values.decode(String.self,      forKey: .variationId)}      catch {self.variationId      = ""   }
+        do {self.isReference      = try values.decode(Bool.self,        forKey: .isReference)}      catch {self.isReference      = true }
+        do {self.activated        = try values.decode(Bool.self,        forKey: .activated)}        catch {self.activated        = true }
+        do {self.type             = try values.decode(String.self,      forKey: .type)}             catch {self.type             = ""   }
+        do {self.slug             = try values.decode(String.self,      forKey: .slug)}             catch {self.slug             = ""   }
+        do {self.flags            = try values.decode([String:Any].self,forKey: .flags)}            catch {self.flags            = [:]  }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.campaignId, forKey: .campaignId)
+        try container.encode(self.variationGroupId, forKey: .variationGroupId)
+        try container.encode(self.variationId, forKey: .variationId)
+        try container.encode(self.isReference, forKey: .isReference)
+        try container.encode(self.activated, forKey: .activated)
+        try container.encode(self.type, forKey: .type)
+        try container.encode(self.slug, forKey: .slug)
+
+        /// Encode flags
+        try container.encode(self.flags, forKey: .flags)
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case campaignId
+        case variationGroupId
+        case variationId
+        case isReference
+        case type
+        case slug
+        case activated
+        case flags
+     }
+    
+    /// Wrapper for FSModification ----> to FSCacheCampaign
+    init(_ key :String , _ modifObject:FSModification){
+        
+        self.campaignId       = modifObject.campaignId
+        self.variationGroupId = modifObject.variationGroupId
+        self.variationId      = modifObject.variationId
+        self.isReference      = modifObject.isReference
+        self.type             = modifObject.type
+        self.activated        = false /// later refractor
+        self.flags[key]       = modifObject.value
+        self.slug             = modifObject.slug
+    }
+    
+    internal func getFlagsFromCachedCampaign()->[String:FSModification]{
+        var result:[String:FSModification] = [:]
+        for item in self.flags.keys {
+            if let value = self.flags[item]{
+                result[item] =  FSModification(campId: self.campaignId, varGroupId:self.variationGroupId, varId: self.variationId, isRef: self.isReference, typeOfTest: self.type,aSlug:self.slug, val:value)
+            }
+        }
+        return result
+    }
+}
+
+
+internal class FSCacheDataVistorBis : Codable{
+    
+}

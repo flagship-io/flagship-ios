@@ -2,9 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:iOS Example/iOS Example.xcodeproj">
+      location = "group:FlagShip.podspec">
    </FileRef>
    <FileRef
-      location = "group:/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/Flagship.xcodeproj">
+      location = "group:Package.swift">
+   </FileRef>
+   <FileRef
+      location = "group:FlagShip/Flagship.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iOS Example/iOS Example.xcodeproj">
    </FileRef>
 </Workspace>
