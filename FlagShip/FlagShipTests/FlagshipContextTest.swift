@@ -39,9 +39,10 @@ class FlagshipContextTest: XCTestCase {
                 visitorCtx.updateContext(itemCase, true)
                 break
                 
-            case .CARRIER_NAME,.DEVICE_LOCALE,.DEVICE_TYPE,.DEVICE_MODEL,.LOCATION_CITY,.LOCATION_REGION,.IP,.OS_NAME,.OS_VERSION, .INTERNET_CONNECTION, .APP_VERSION_CODE, .APP_VERSION_NAME, .FLAGSHIP_VERSION, .INTERFACE_NAME,.LOCATION_COUNTRY:
+            case .CARRIER_NAME,.DEVICE_LOCALE,.DEVICE_TYPE,.DEVICE_MODEL,.LOCATION_CITY,.LOCATION_REGION,.IP,.OS_NAME,.OS_VERSION_CODE, .INTERNET_CONNECTION, .APP_VERSION_CODE, .APP_VERSION_NAME, .FLAGSHIP_VERSION, .INTERFACE_NAME,.LOCATION_COUNTRY,.OS_VERSION_NAME:
                 visitorCtx.updateContext(itemCase, "unitTest")
                 break
+
             }
         }
         
