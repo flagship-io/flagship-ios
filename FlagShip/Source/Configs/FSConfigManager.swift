@@ -45,5 +45,8 @@ internal class FSConfigManager{
         }
         /// Tracking manager
         self.trackingManger = FSTrackingManager(self.service)
+        
+        /// Check the connectivity
+        FSTools().checkConnectevity()
     }
 }

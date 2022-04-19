@@ -21,6 +21,57 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8B2D51372805D43C00866D61 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
+		8B2D51382805D43C00866D61 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
+		8B2D51392805D43C00866D61 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366027FEBE4C003EC960 /* FSTools.swift */; };
+		8B2D513A2805D43C00866D61 /* decode-json-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366127FEBE4C003EC960 /* decode-json-swift.swift */; };
+		8B2D513B2805D43C00866D61 /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366227FEBE4C003EC960 /* FSGenerator.swift */; };
+		8B2D513C2805D43C00866D61 /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366327FEBE4C003EC960 /* FlagShipVersion.swift */; };
+		8B2D513D2805D43C00866D61 /* Flagship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366527FEBE4C003EC960 /* Flagship.swift */; };
+		8B2D513E2805D43C00866D61 /* FSVisitor+Reconcilliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366627FEBE4C003EC960 /* FSVisitor+Reconcilliation.swift */; };
+		8B2D513F2805D43C00866D61 /* FSFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366727FEBE4C003EC960 /* FSFlag.swift */; };
+		8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366827FEBE4C003EC960 /* FSVisitorBuilder.swift */; };
+		8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366927FEBE4C003EC960 /* FSVisitor+Campaigns.swift */; };
+		8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366A27FEBE4C003EC960 /* FSVisitor+objc.swift */; };
+		8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366B27FEBE4C003EC960 /* FSVisitor.swift */; };
+		8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366D27FEBE4C003EC960 /* FlagshipLogManager.swift */; };
+		8B2D51452805D43C00866D61 /* FSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366E27FEBE4C003EC960 /* FSError.swift */; };
+		8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366F27FEBE4C003EC960 /* FSLogManager.swift */; };
+		8B2D51472805D43C00866D61 /* FlagshipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367027FEBE4C003EC960 /* FlagshipConstants.swift */; };
+		8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */; };
+		8B2D51492805D43C00866D61 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367327FEBE4C003EC960 /* FSCacheManager.swift */; };
+		8B2D514A2805D43C00866D61 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367527FEBE4C003EC960 /* FSBucket.swift */; };
+		8B2D514B2805D43C00866D61 /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367627FEBE4C003EC960 /* FSCampaigns.swift */; };
+		8B2D514C2805D43C00866D61 /* FSModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367727FEBE4C003EC960 /* FSModification.swift */; };
+		8B2D514D2805D43C00866D61 /* FSCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367827FEBE4C003EC960 /* FSCampaign.swift */; };
+		8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367927FEBE4C003EC960 /* FSContext.swift */; };
+		8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367A27FEBE4C003EC960 /* FSTargets.swift */; };
+		8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367C27FEBE4C003EC960 /* FSTracking.swift */; };
+		8B2D51512805D43C00866D61 /* FSCacheHit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367D27FEBE4C003EC960 /* FSCacheHit.swift */; };
+		8B2D51522805D43C00866D61 /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367E27FEBE4C003EC960 /* FSHits.swift */; };
+		8B2D51532805D43C00866D61 /* FSCacheVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367F27FEBE4C003EC960 /* FSCacheVisitor.swift */; };
+		8B2D51542805D43C00866D61 /* FSModifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368027FEBE4C003EC960 /* FSModifications.swift */; };
+		8B2D51552805D43C00866D61 /* FSStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368227FEBE4C003EC960 /* FSStorageManager.swift */; };
+		8B2D51562805D43C00866D61 /* FSBucketCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368327FEBE4C003EC960 /* FSBucketCache.swift */; };
+		8B2D51572805D43C00866D61 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368427FEBE4C003EC960 /* FSStorage.swift */; };
+		8B2D51582805D43C00866D61 /* FlagshipConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */; };
+		8B2D51592805D43C00866D61 /* FSConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368727FEBE4C003EC960 /* FSConfigManager.swift */; };
+		8B2D515A2805D43C00866D61 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368927FEBE4C003EC960 /* FSConstant.swift */; };
+		8B2D515B2805D43C00866D61 /* FSService+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368A27FEBE4C003EC960 /* FSService+Request.swift */; };
+		8B2D515C2805D43C00866D61 /* FSService+Bucketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368B27FEBE4C003EC960 /* FSService+Bucketing.swift */; };
+		8B2D515D2805D43C00866D61 /* FSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368C27FEBE4C003EC960 /* FSService.swift */; };
+		8B2D515E2805D43C00866D61 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
+		8B2D515F2805D43C00866D61 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
+		8B2D51602805D43C00866D61 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
+		8B2D51612805D43C00866D61 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		8B2D51622805D43C00866D61 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
+		8B2D51632805D43C00866D61 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
+		8B2D51642805D43C00866D61 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
+		8B2D51652805D43C00866D61 /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369927FEBE4C003EC960 /* FSDevice.swift */; };
+		8B2D51662805D43C00866D61 /* FSPanicStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369B27FEBE4C003EC960 /* FSPanicStrategy.swift */; };
+		8B2D51672805D43C00866D61 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
+		8B2D51682805D43C00866D61 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
+		8B2D51692805D43C00866D61 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
 		8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */; };
 		8B5438B127FF988B00299654 /* decisionApi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370D27FED7F3003EC960 /* decisionApi.json */; };
 		8B5438B227FF988F00299654 /* bucketMock.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B67370E27FED7F3003EC960 /* bucketMock.json */; };
@@ -90,58 +141,110 @@
 		8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */; };
 		8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370327FED7F2003EC960 /* murmurTest.swift */; };
 		8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370427FED7F3003EC960 /* QAReportTest.swift */; };
-		8BF4D5C42804651F00BAF55F /* Flagship_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8BF4D5C82804661E00BAF55F /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
-		8BF4D5C92804661E00BAF55F /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
-		8BF4D5CA2804661E00BAF55F /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366027FEBE4C003EC960 /* FSTools.swift */; };
-		8BF4D5CB2804661E00BAF55F /* decode-json-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366127FEBE4C003EC960 /* decode-json-swift.swift */; };
-		8BF4D5CC2804661E00BAF55F /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366227FEBE4C003EC960 /* FSGenerator.swift */; };
-		8BF4D5CD2804661E00BAF55F /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366327FEBE4C003EC960 /* FlagShipVersion.swift */; };
-		8BF4D5CE2804661E00BAF55F /* Flagship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366527FEBE4C003EC960 /* Flagship.swift */; };
-		8BF4D5CF2804661E00BAF55F /* FSVisitor+Reconcilliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366627FEBE4C003EC960 /* FSVisitor+Reconcilliation.swift */; };
-		8BF4D5D02804661E00BAF55F /* FSFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366727FEBE4C003EC960 /* FSFlag.swift */; };
-		8BF4D5D12804661E00BAF55F /* FSVisitorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366827FEBE4C003EC960 /* FSVisitorBuilder.swift */; };
-		8BF4D5D22804661E00BAF55F /* FSVisitor+Campaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366927FEBE4C003EC960 /* FSVisitor+Campaigns.swift */; };
-		8BF4D5D32804661E00BAF55F /* FSVisitor+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366A27FEBE4C003EC960 /* FSVisitor+objc.swift */; };
-		8BF4D5D42804661E00BAF55F /* FSVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366B27FEBE4C003EC960 /* FSVisitor.swift */; };
-		8BF4D5D52804661E00BAF55F /* FlagshipLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366D27FEBE4C003EC960 /* FlagshipLogManager.swift */; };
-		8BF4D5D62804661E00BAF55F /* FSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366E27FEBE4C003EC960 /* FSError.swift */; };
-		8BF4D5D72804661E00BAF55F /* FSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366F27FEBE4C003EC960 /* FSLogManager.swift */; };
-		8BF4D5D82804661E00BAF55F /* FlagshipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367027FEBE4C003EC960 /* FlagshipConstants.swift */; };
-		8BF4D5D92804661E00BAF55F /* FSCacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */; };
-		8BF4D5DA2804661E00BAF55F /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367327FEBE4C003EC960 /* FSCacheManager.swift */; };
-		8BF4D5DB2804661E00BAF55F /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367527FEBE4C003EC960 /* FSBucket.swift */; };
-		8BF4D5DC2804661E00BAF55F /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367627FEBE4C003EC960 /* FSCampaigns.swift */; };
-		8BF4D5DD2804661E00BAF55F /* FSModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367727FEBE4C003EC960 /* FSModification.swift */; };
-		8BF4D5DE2804661E00BAF55F /* FSCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367827FEBE4C003EC960 /* FSCampaign.swift */; };
-		8BF4D5DF2804661E00BAF55F /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367927FEBE4C003EC960 /* FSContext.swift */; };
-		8BF4D5E02804661E00BAF55F /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367A27FEBE4C003EC960 /* FSTargets.swift */; };
-		8BF4D5E12804661E00BAF55F /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367C27FEBE4C003EC960 /* FSTracking.swift */; };
-		8BF4D5E22804661E00BAF55F /* FSCacheHit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367D27FEBE4C003EC960 /* FSCacheHit.swift */; };
-		8BF4D5E32804661E00BAF55F /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367E27FEBE4C003EC960 /* FSHits.swift */; };
-		8BF4D5E42804661E00BAF55F /* FSCacheVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367F27FEBE4C003EC960 /* FSCacheVisitor.swift */; };
-		8BF4D5E52804661E00BAF55F /* FSModifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368027FEBE4C003EC960 /* FSModifications.swift */; };
-		8BF4D5E62804661E00BAF55F /* FSStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368227FEBE4C003EC960 /* FSStorageManager.swift */; };
-		8BF4D5E72804661E00BAF55F /* FSBucketCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368327FEBE4C003EC960 /* FSBucketCache.swift */; };
-		8BF4D5E82804661E00BAF55F /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368427FEBE4C003EC960 /* FSStorage.swift */; };
-		8BF4D5E92804661E00BAF55F /* FlagshipConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */; };
-		8BF4D5EA2804661E00BAF55F /* FSConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368727FEBE4C003EC960 /* FSConfigManager.swift */; };
-		8BF4D5EB2804661E00BAF55F /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368927FEBE4C003EC960 /* FSConstant.swift */; };
-		8BF4D5EC2804661E00BAF55F /* FSService+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368A27FEBE4C003EC960 /* FSService+Request.swift */; };
-		8BF4D5ED2804661E00BAF55F /* FSService+Bucketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368B27FEBE4C003EC960 /* FSService+Bucketing.swift */; };
-		8BF4D5EE2804661E00BAF55F /* FSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368C27FEBE4C003EC960 /* FSService.swift */; };
-		8BF4D5EF2804661E00BAF55F /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
-		8BF4D5F02804661E00BAF55F /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
-		8BF4D5F12804661E00BAF55F /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
-		8BF4D5F22804661E00BAF55F /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
-		8BF4D5F32804661E00BAF55F /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
-		8BF4D5F52804661E00BAF55F /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
-		8BF4D5F62804661E00BAF55F /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
-		8BF4D5F72804661E00BAF55F /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369927FEBE4C003EC960 /* FSDevice.swift */; };
-		8BF4D5F82804661E00BAF55F /* FSPanicStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369B27FEBE4C003EC960 /* FSPanicStrategy.swift */; };
-		8BF4D5F92804661E00BAF55F /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
-		8BF4D5FA2804661E00BAF55F /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
-		8BF4D5FB2804661E00BAF55F /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
+		8B9F2A822809B8B300323094 /* Flagship_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9F2A812809B8B300323094 /* Flagship_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B9F2A862809B8E600323094 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
+		8B9F2A872809B8E600323094 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
+		8B9F2A882809B8E600323094 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366027FEBE4C003EC960 /* FSTools.swift */; };
+		8B9F2A892809B8E600323094 /* decode-json-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366127FEBE4C003EC960 /* decode-json-swift.swift */; };
+		8B9F2A8A2809B8E600323094 /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366227FEBE4C003EC960 /* FSGenerator.swift */; };
+		8B9F2A8B2809B8E600323094 /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366327FEBE4C003EC960 /* FlagShipVersion.swift */; };
+		8B9F2A8C2809B8E600323094 /* Flagship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366527FEBE4C003EC960 /* Flagship.swift */; };
+		8B9F2A8D2809B8E600323094 /* FSVisitor+Reconcilliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366627FEBE4C003EC960 /* FSVisitor+Reconcilliation.swift */; };
+		8B9F2A8E2809B8E600323094 /* FSFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366727FEBE4C003EC960 /* FSFlag.swift */; };
+		8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366827FEBE4C003EC960 /* FSVisitorBuilder.swift */; };
+		8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366927FEBE4C003EC960 /* FSVisitor+Campaigns.swift */; };
+		8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366A27FEBE4C003EC960 /* FSVisitor+objc.swift */; };
+		8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366B27FEBE4C003EC960 /* FSVisitor.swift */; };
+		8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366D27FEBE4C003EC960 /* FlagshipLogManager.swift */; };
+		8B9F2A942809B8E600323094 /* FSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366E27FEBE4C003EC960 /* FSError.swift */; };
+		8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366F27FEBE4C003EC960 /* FSLogManager.swift */; };
+		8B9F2A962809B8E600323094 /* FlagshipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367027FEBE4C003EC960 /* FlagshipConstants.swift */; };
+		8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */; };
+		8B9F2A982809B8E600323094 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367327FEBE4C003EC960 /* FSCacheManager.swift */; };
+		8B9F2A992809B8E600323094 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367527FEBE4C003EC960 /* FSBucket.swift */; };
+		8B9F2A9A2809B8E600323094 /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367627FEBE4C003EC960 /* FSCampaigns.swift */; };
+		8B9F2A9B2809B8E600323094 /* FSModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367727FEBE4C003EC960 /* FSModification.swift */; };
+		8B9F2A9C2809B8E600323094 /* FSCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367827FEBE4C003EC960 /* FSCampaign.swift */; };
+		8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367927FEBE4C003EC960 /* FSContext.swift */; };
+		8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367A27FEBE4C003EC960 /* FSTargets.swift */; };
+		8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367C27FEBE4C003EC960 /* FSTracking.swift */; };
+		8B9F2AA02809B8E600323094 /* FSCacheHit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367D27FEBE4C003EC960 /* FSCacheHit.swift */; };
+		8B9F2AA12809B8E600323094 /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367E27FEBE4C003EC960 /* FSHits.swift */; };
+		8B9F2AA22809B8E600323094 /* FSCacheVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367F27FEBE4C003EC960 /* FSCacheVisitor.swift */; };
+		8B9F2AA32809B8E600323094 /* FSModifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368027FEBE4C003EC960 /* FSModifications.swift */; };
+		8B9F2AA42809B8E600323094 /* FSStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368227FEBE4C003EC960 /* FSStorageManager.swift */; };
+		8B9F2AA52809B8E600323094 /* FSBucketCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368327FEBE4C003EC960 /* FSBucketCache.swift */; };
+		8B9F2AA62809B8E600323094 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368427FEBE4C003EC960 /* FSStorage.swift */; };
+		8B9F2AA72809B8E600323094 /* FlagshipConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */; };
+		8B9F2AA82809B8E600323094 /* FSConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368727FEBE4C003EC960 /* FSConfigManager.swift */; };
+		8B9F2AA92809B8E600323094 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368927FEBE4C003EC960 /* FSConstant.swift */; };
+		8B9F2AAA2809B8E600323094 /* FSService+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368A27FEBE4C003EC960 /* FSService+Request.swift */; };
+		8B9F2AAB2809B8E600323094 /* FSService+Bucketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368B27FEBE4C003EC960 /* FSService+Bucketing.swift */; };
+		8B9F2AAC2809B8E600323094 /* FSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368C27FEBE4C003EC960 /* FSService.swift */; };
+		8B9F2AAD2809B8E600323094 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
+		8B9F2AAE2809B8E600323094 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
+		8B9F2AAF2809B8E600323094 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
+		8B9F2AB02809B8E600323094 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		8B9F2AB12809B8E600323094 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
+		8B9F2AB22809B8E600323094 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
+		8B9F2AB32809B8E600323094 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
+		8B9F2AB42809B8E600323094 /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369927FEBE4C003EC960 /* FSDevice.swift */; };
+		8B9F2AB52809B8E600323094 /* FSPanicStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369B27FEBE4C003EC960 /* FSPanicStrategy.swift */; };
+		8B9F2AB62809B8E700323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
+		8B9F2AB72809B8E700323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
+		8B9F2AB82809B8E700323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
+		8B9F2AC12809BA6100323094 /* Flagship_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B9F2AC52809BA8200323094 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
+		8B9F2AC62809BA8200323094 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
+		8B9F2AC72809BA8200323094 /* FSTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366027FEBE4C003EC960 /* FSTools.swift */; };
+		8B9F2AC82809BA8200323094 /* decode-json-swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366127FEBE4C003EC960 /* decode-json-swift.swift */; };
+		8B9F2AC92809BA8200323094 /* FSGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366227FEBE4C003EC960 /* FSGenerator.swift */; };
+		8B9F2ACA2809BA8200323094 /* FlagShipVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366327FEBE4C003EC960 /* FlagShipVersion.swift */; };
+		8B9F2ACB2809BA8200323094 /* Flagship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366527FEBE4C003EC960 /* Flagship.swift */; };
+		8B9F2ACC2809BA8200323094 /* FSVisitor+Reconcilliation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366627FEBE4C003EC960 /* FSVisitor+Reconcilliation.swift */; };
+		8B9F2ACD2809BA8200323094 /* FSFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366727FEBE4C003EC960 /* FSFlag.swift */; };
+		8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366827FEBE4C003EC960 /* FSVisitorBuilder.swift */; };
+		8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366927FEBE4C003EC960 /* FSVisitor+Campaigns.swift */; };
+		8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366A27FEBE4C003EC960 /* FSVisitor+objc.swift */; };
+		8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366B27FEBE4C003EC960 /* FSVisitor.swift */; };
+		8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366D27FEBE4C003EC960 /* FlagshipLogManager.swift */; };
+		8B9F2AD32809BA8200323094 /* FSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366E27FEBE4C003EC960 /* FSError.swift */; };
+		8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67366F27FEBE4C003EC960 /* FSLogManager.swift */; };
+		8B9F2AD52809BA8200323094 /* FlagshipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367027FEBE4C003EC960 /* FlagshipConstants.swift */; };
+		8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */; };
+		8B9F2AD72809BA8200323094 /* FSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367327FEBE4C003EC960 /* FSCacheManager.swift */; };
+		8B9F2AD82809BA8200323094 /* FSBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367527FEBE4C003EC960 /* FSBucket.swift */; };
+		8B9F2AD92809BA8200323094 /* FSCampaigns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367627FEBE4C003EC960 /* FSCampaigns.swift */; };
+		8B9F2ADA2809BA8200323094 /* FSModification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367727FEBE4C003EC960 /* FSModification.swift */; };
+		8B9F2ADB2809BA8200323094 /* FSCampaign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367827FEBE4C003EC960 /* FSCampaign.swift */; };
+		8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367927FEBE4C003EC960 /* FSContext.swift */; };
+		8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367A27FEBE4C003EC960 /* FSTargets.swift */; };
+		8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367C27FEBE4C003EC960 /* FSTracking.swift */; };
+		8B9F2ADF2809BA8200323094 /* FSCacheHit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367D27FEBE4C003EC960 /* FSCacheHit.swift */; };
+		8B9F2AE02809BA8200323094 /* FSHits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367E27FEBE4C003EC960 /* FSHits.swift */; };
+		8B9F2AE12809BA8200323094 /* FSCacheVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67367F27FEBE4C003EC960 /* FSCacheVisitor.swift */; };
+		8B9F2AE22809BA8200323094 /* FSModifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368027FEBE4C003EC960 /* FSModifications.swift */; };
+		8B9F2AE32809BA8200323094 /* FSStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368227FEBE4C003EC960 /* FSStorageManager.swift */; };
+		8B9F2AE42809BA8200323094 /* FSBucketCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368327FEBE4C003EC960 /* FSBucketCache.swift */; };
+		8B9F2AE52809BA8200323094 /* FSStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368427FEBE4C003EC960 /* FSStorage.swift */; };
+		8B9F2AE62809BA8200323094 /* FlagshipConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */; };
+		8B9F2AE72809BA8200323094 /* FSConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368727FEBE4C003EC960 /* FSConfigManager.swift */; };
+		8B9F2AE82809BA8200323094 /* FSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368927FEBE4C003EC960 /* FSConstant.swift */; };
+		8B9F2AE92809BA8200323094 /* FSService+Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368A27FEBE4C003EC960 /* FSService+Request.swift */; };
+		8B9F2AEA2809BA8200323094 /* FSService+Bucketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368B27FEBE4C003EC960 /* FSService+Bucketing.swift */; };
+		8B9F2AEB2809BA8200323094 /* FSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368C27FEBE4C003EC960 /* FSService.swift */; };
+		8B9F2AEC2809BA8200323094 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
+		8B9F2AED2809BA8200323094 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
+		8B9F2AEE2809BA8200323094 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
+		8B9F2AEF2809BA8200323094 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		8B9F2AF02809BA8200323094 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
+		8B9F2AF12809BA8300323094 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
+		8B9F2AF22809BA8300323094 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
+		8B9F2AF32809BA8300323094 /* FSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369927FEBE4C003EC960 /* FSDevice.swift */; };
+		8B9F2AF42809BA8300323094 /* FSPanicStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369B27FEBE4C003EC960 /* FSPanicStrategy.swift */; };
+		8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
+		8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
+		8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +258,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B2D512C2805D36200866D61 /* Flagship_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B2D51352805D3FD00866D61 /* Flagship_macOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship_macOS.h; sourceTree = "<group>"; };
 		8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlagshipTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B535FA923FD48CB005A13CE /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		8B535FAA23FD48CB005A13CE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -227,18 +332,42 @@
 		8B67370D27FED7F3003EC960 /* decisionApi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApi.json; sourceTree = "<group>"; };
 		8B67370E27FED7F3003EC960 /* bucketMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bucketMock.json; sourceTree = "<group>"; };
 		8B67370F27FED7F3003EC960 /* decisionApiPanic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = decisionApiPanic.json; sourceTree = "<group>"; };
+		8B9F2A7F2809B8B300323094 /* Flagship_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9F2A812809B8B300323094 /* Flagship_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_tvOS.h; sourceTree = "<group>"; };
+		8B9F2ABE2809BA6100323094 /* Flagship_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
-		8BF4D5BF2804651F00BAF55F /* Flagship_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_tvOS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8B2D51292805D36200866D61 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B39E04323FD45F400E02DCD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8B39E04B23FD45F400E02DCD /* Flagship.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2A7C2809B8B300323094 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2ABB2809BA6100323094 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,16 +378,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF4D5BC2804651F00BAF55F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B2D512D2805D36200866D61 /* Flagship-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				8B2D51352805D3FD00866D61 /* Flagship_macOS.h */,
+			);
+			path = "Flagship-macOS";
+			sourceTree = "<group>";
+		};
 		8B535FA823FD48CB005A13CE /* Flagship */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +602,22 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		8B9F2A802809B8B300323094 /* Flagship-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				8B9F2A812809B8B300323094 /* Flagship_tvOS.h */,
+			);
+			path = "Flagship-tvOS";
+			sourceTree = "<group>";
+		};
+		8B9F2ABF2809BA6100323094 /* Flagship-watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */,
+			);
+			path = "Flagship-watchOS";
+			sourceTree = "<group>";
+		};
 		8BEF08AE23C3888F00396B78 = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +625,9 @@
 				8B67365C27FEBE4C003EC960 /* Source */,
 				8B535FA823FD48CB005A13CE /* Flagship */,
 				8BF4D5C02804651F00BAF55F /* Flagship_tvOS */,
+				8B2D512D2805D36200866D61 /* Flagship-macOS */,
+				8B9F2A802809B8B300323094 /* Flagship-tvOS */,
+				8B9F2ABF2809BA6100323094 /* Flagship-watchOS */,
 				8BEF08B923C3888F00396B78 /* Products */,
 				8BF02D6223C394F5006D154E /* Frameworks */,
 				8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */,
@@ -490,7 +639,9 @@
 			children = (
 				8BBCAD3E23FAD0E200126600 /* Flagship.framework */,
 				8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */,
-				8BF4D5BF2804651F00BAF55F /* Flagship_tvOS.framework */,
+				8B2D512C2805D36200866D61 /* Flagship_macOS.framework */,
+				8B9F2A7F2809B8B300323094 /* Flagship_tvOS.framework */,
+				8B9F2ABE2809BA6100323094 /* Flagship_watchOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -513,6 +664,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8B2D51272805D36200866D61 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2A7A2809B8B300323094 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9F2A822809B8B300323094 /* Flagship_tvOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2AB92809BA6100323094 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9F2AC12809BA6100323094 /* Flagship_watchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BBCAD1923FAD0E200126600 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,17 +694,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF4D5BA2804651F00BAF55F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BF4D5C42804651F00BAF55F /* Flagship_tvOS.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8B2D512B2805D36200866D61 /* Flagship-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B2D51322805D36200866D61 /* Build configuration list for PBXNativeTarget "Flagship-macOS" */;
+			buildPhases = (
+				8B2D51272805D36200866D61 /* Headers */,
+				8B2D51282805D36200866D61 /* Sources */,
+				8B2D51292805D36200866D61 /* Frameworks */,
+				8B2D512A2805D36200866D61 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flagship-macOS";
+			productName = "Flagship-macOS";
+			productReference = 8B2D512C2805D36200866D61 /* Flagship_macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8B39E04523FD45F400E02DCD /* FlagshipTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8B39E04E23FD45F400E02DCD /* Build configuration list for PBXNativeTarget "FlagshipTests" */;
@@ -548,6 +732,42 @@
 			productName = FlagshipTests;
 			productReference = 8B39E04623FD45F400E02DCD /* FlagshipTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8B9F2A7E2809B8B300323094 /* Flagship-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B9F2A832809B8B300323094 /* Build configuration list for PBXNativeTarget "Flagship-tvOS" */;
+			buildPhases = (
+				8B9F2A7A2809B8B300323094 /* Headers */,
+				8B9F2A7B2809B8B300323094 /* Sources */,
+				8B9F2A7C2809B8B300323094 /* Frameworks */,
+				8B9F2A7D2809B8B300323094 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flagship-tvOS";
+			productName = "Flagship-tvOS";
+			productReference = 8B9F2A7F2809B8B300323094 /* Flagship_tvOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8B9F2ABD2809BA6100323094 /* Flagship-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B9F2AC22809BA6100323094 /* Build configuration list for PBXNativeTarget "Flagship-watchOS" */;
+			buildPhases = (
+				8B9F2AB92809BA6100323094 /* Headers */,
+				8B9F2ABA2809BA6100323094 /* Sources */,
+				8B9F2ABB2809BA6100323094 /* Frameworks */,
+				8B9F2ABC2809BA6100323094 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Flagship-watchOS";
+			productName = "Flagship-watchOS";
+			productReference = 8B9F2ABE2809BA6100323094 /* Flagship_watchOS.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		8BBCAD1823FAD0E200126600 /* Flagship */ = {
 			isa = PBXNativeTarget;
@@ -568,24 +788,6 @@
 			productReference = 8BBCAD3E23FAD0E200126600 /* Flagship.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8BF4D5BE2804651F00BAF55F /* Flagship_tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8BF4D5C72804651F00BAF55F /* Build configuration list for PBXNativeTarget "Flagship_tvOS" */;
-			buildPhases = (
-				8BF4D5BA2804651F00BAF55F /* Headers */,
-				8BF4D5BB2804651F00BAF55F /* Sources */,
-				8BF4D5BC2804651F00BAF55F /* Frameworks */,
-				8BF4D5BD2804651F00BAF55F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Flagship_tvOS;
-			productName = Flagship_tvOS;
-			productReference = 8BF4D5BF2804651F00BAF55F /* Flagship_tvOS.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -596,6 +798,9 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = FlagShip;
 				TargetAttributes = {
+					8B2D512B2805D36200866D61 = {
+						CreatedOnToolsVersion = 13.0;
+					};
 					8B39E04523FD45F400E02DCD = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -603,7 +808,10 @@
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1300;
 					};
-					8BF4D5BE2804651F00BAF55F = {
+					8B9F2A7E2809B8B300323094 = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					8B9F2ABD2809BA6100323094 = {
 						CreatedOnToolsVersion = 13.0;
 					};
 				};
@@ -624,12 +832,21 @@
 				8B6D325C23F5B2AF00916EF1 /* Universal */,
 				8BBCAD1823FAD0E200126600 /* Flagship */,
 				8B39E04523FD45F400E02DCD /* FlagshipTests */,
-				8BF4D5BE2804651F00BAF55F /* Flagship_tvOS */,
+				8B2D512B2805D36200866D61 /* Flagship-macOS */,
+				8B9F2A7E2809B8B300323094 /* Flagship-tvOS */,
+				8B9F2ABD2809BA6100323094 /* Flagship-watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8B2D512A2805D36200866D61 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B39E04423FD45F400E02DCD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -641,14 +858,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BBCAD3823FAD0E200126600 /* Resources */ = {
+		8B9F2A7D2809B8B300323094 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF4D5BD2804651F00BAF55F /* Resources */ = {
+		8B9F2ABC2809BA6100323094 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8BBCAD3823FAD0E200126600 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -696,6 +920,64 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8B2D51282805D36200866D61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B2D51372805D43C00866D61 /* murmurhash3.swift in Sources */,
+				8B2D51382805D43C00866D61 /* Data+PrettyPrint.swift in Sources */,
+				8B2D51392805D43C00866D61 /* FSTools.swift in Sources */,
+				8B2D513A2805D43C00866D61 /* decode-json-swift.swift in Sources */,
+				8B2D513B2805D43C00866D61 /* FSGenerator.swift in Sources */,
+				8B2D513C2805D43C00866D61 /* FlagShipVersion.swift in Sources */,
+				8B2D513D2805D43C00866D61 /* Flagship.swift in Sources */,
+				8B2D513E2805D43C00866D61 /* FSVisitor+Reconcilliation.swift in Sources */,
+				8B2D513F2805D43C00866D61 /* FSFlag.swift in Sources */,
+				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
+				8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */,
+				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
+				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
+				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
+				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
+				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
+				8B2D51472805D43C00866D61 /* FlagshipConstants.swift in Sources */,
+				8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */,
+				8B2D51492805D43C00866D61 /* FSCacheManager.swift in Sources */,
+				8B2D514A2805D43C00866D61 /* FSBucket.swift in Sources */,
+				8B2D514B2805D43C00866D61 /* FSCampaigns.swift in Sources */,
+				8B2D514C2805D43C00866D61 /* FSModification.swift in Sources */,
+				8B2D514D2805D43C00866D61 /* FSCampaign.swift in Sources */,
+				8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */,
+				8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */,
+				8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */,
+				8B2D51512805D43C00866D61 /* FSCacheHit.swift in Sources */,
+				8B2D51522805D43C00866D61 /* FSHits.swift in Sources */,
+				8B2D51532805D43C00866D61 /* FSCacheVisitor.swift in Sources */,
+				8B2D51542805D43C00866D61 /* FSModifications.swift in Sources */,
+				8B2D51552805D43C00866D61 /* FSStorageManager.swift in Sources */,
+				8B2D51562805D43C00866D61 /* FSBucketCache.swift in Sources */,
+				8B2D51572805D43C00866D61 /* FSStorage.swift in Sources */,
+				8B2D51582805D43C00866D61 /* FlagshipConfig.swift in Sources */,
+				8B2D51592805D43C00866D61 /* FSConfigManager.swift in Sources */,
+				8B2D515A2805D43C00866D61 /* FSConstant.swift in Sources */,
+				8B2D515B2805D43C00866D61 /* FSService+Request.swift in Sources */,
+				8B2D515C2805D43C00866D61 /* FSService+Bucketing.swift in Sources */,
+				8B2D515D2805D43C00866D61 /* FSService.swift in Sources */,
+				8B2D515E2805D43C00866D61 /* FSTrackingManager.swift in Sources */,
+				8B2D515F2805D43C00866D61 /* FSDecisionManager.swift in Sources */,
+				8B2D51602805D43C00866D61 /* FSBucketingManager.swift in Sources */,
+				8B2D51612805D43C00866D61 /* FSPollingScript.swift in Sources */,
+				8B2D51622805D43C00866D61 /* FSTargetingManager.swift in Sources */,
+				8B2D51632805D43C00866D61 /* FlagshipContext.swift in Sources */,
+				8B2D51642805D43C00866D61 /* FlagshipContextManager.swift in Sources */,
+				8B2D51652805D43C00866D61 /* FSDevice.swift in Sources */,
+				8B2D51662805D43C00866D61 /* FSPanicStrategy.swift in Sources */,
+				8B2D51672805D43C00866D61 /* FSDefaultStrategy.swift in Sources */,
+				8B2D51682805D43C00866D61 /* FSNotReadyStrategy.swift in Sources */,
+				8B2D51692805D43C00866D61 /* FSNoConsentStrategy.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8B39E04223FD45F400E02DCD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -713,6 +995,122 @@
 				8B67371927FEDA3E003EC960 /* FSTargetingManagerTest.swift in Sources */,
 				8B67371A27FEDA3E003EC960 /* FSVisitorBuilderTest.swift in Sources */,
 				8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2A7B2809B8B300323094 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9F2A862809B8E600323094 /* murmurhash3.swift in Sources */,
+				8B9F2A872809B8E600323094 /* Data+PrettyPrint.swift in Sources */,
+				8B9F2A882809B8E600323094 /* FSTools.swift in Sources */,
+				8B9F2A892809B8E600323094 /* decode-json-swift.swift in Sources */,
+				8B9F2A8A2809B8E600323094 /* FSGenerator.swift in Sources */,
+				8B9F2A8B2809B8E600323094 /* FlagShipVersion.swift in Sources */,
+				8B9F2A8C2809B8E600323094 /* Flagship.swift in Sources */,
+				8B9F2A8D2809B8E600323094 /* FSVisitor+Reconcilliation.swift in Sources */,
+				8B9F2A8E2809B8E600323094 /* FSFlag.swift in Sources */,
+				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
+				8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */,
+				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
+				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
+				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
+				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
+				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
+				8B9F2A962809B8E600323094 /* FlagshipConstants.swift in Sources */,
+				8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */,
+				8B9F2A982809B8E600323094 /* FSCacheManager.swift in Sources */,
+				8B9F2A992809B8E600323094 /* FSBucket.swift in Sources */,
+				8B9F2A9A2809B8E600323094 /* FSCampaigns.swift in Sources */,
+				8B9F2A9B2809B8E600323094 /* FSModification.swift in Sources */,
+				8B9F2A9C2809B8E600323094 /* FSCampaign.swift in Sources */,
+				8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */,
+				8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */,
+				8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */,
+				8B9F2AA02809B8E600323094 /* FSCacheHit.swift in Sources */,
+				8B9F2AA12809B8E600323094 /* FSHits.swift in Sources */,
+				8B9F2AA22809B8E600323094 /* FSCacheVisitor.swift in Sources */,
+				8B9F2AA32809B8E600323094 /* FSModifications.swift in Sources */,
+				8B9F2AA42809B8E600323094 /* FSStorageManager.swift in Sources */,
+				8B9F2AA52809B8E600323094 /* FSBucketCache.swift in Sources */,
+				8B9F2AA62809B8E600323094 /* FSStorage.swift in Sources */,
+				8B9F2AA72809B8E600323094 /* FlagshipConfig.swift in Sources */,
+				8B9F2AA82809B8E600323094 /* FSConfigManager.swift in Sources */,
+				8B9F2AA92809B8E600323094 /* FSConstant.swift in Sources */,
+				8B9F2AAA2809B8E600323094 /* FSService+Request.swift in Sources */,
+				8B9F2AAB2809B8E600323094 /* FSService+Bucketing.swift in Sources */,
+				8B9F2AAC2809B8E600323094 /* FSService.swift in Sources */,
+				8B9F2AAD2809B8E600323094 /* FSTrackingManager.swift in Sources */,
+				8B9F2AAE2809B8E600323094 /* FSDecisionManager.swift in Sources */,
+				8B9F2AAF2809B8E600323094 /* FSBucketingManager.swift in Sources */,
+				8B9F2AB02809B8E600323094 /* FSPollingScript.swift in Sources */,
+				8B9F2AB12809B8E600323094 /* FSTargetingManager.swift in Sources */,
+				8B9F2AB22809B8E600323094 /* FlagshipContext.swift in Sources */,
+				8B9F2AB32809B8E600323094 /* FlagshipContextManager.swift in Sources */,
+				8B9F2AB42809B8E600323094 /* FSDevice.swift in Sources */,
+				8B9F2AB52809B8E600323094 /* FSPanicStrategy.swift in Sources */,
+				8B9F2AB62809B8E700323094 /* FSDefaultStrategy.swift in Sources */,
+				8B9F2AB72809B8E700323094 /* FSNotReadyStrategy.swift in Sources */,
+				8B9F2AB82809B8E700323094 /* FSNoConsentStrategy.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F2ABA2809BA6100323094 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9F2AC52809BA8200323094 /* murmurhash3.swift in Sources */,
+				8B9F2AC62809BA8200323094 /* Data+PrettyPrint.swift in Sources */,
+				8B9F2AC72809BA8200323094 /* FSTools.swift in Sources */,
+				8B9F2AC82809BA8200323094 /* decode-json-swift.swift in Sources */,
+				8B9F2AC92809BA8200323094 /* FSGenerator.swift in Sources */,
+				8B9F2ACA2809BA8200323094 /* FlagShipVersion.swift in Sources */,
+				8B9F2ACB2809BA8200323094 /* Flagship.swift in Sources */,
+				8B9F2ACC2809BA8200323094 /* FSVisitor+Reconcilliation.swift in Sources */,
+				8B9F2ACD2809BA8200323094 /* FSFlag.swift in Sources */,
+				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
+				8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */,
+				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
+				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
+				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
+				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
+				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
+				8B9F2AD52809BA8200323094 /* FlagshipConstants.swift in Sources */,
+				8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */,
+				8B9F2AD72809BA8200323094 /* FSCacheManager.swift in Sources */,
+				8B9F2AD82809BA8200323094 /* FSBucket.swift in Sources */,
+				8B9F2AD92809BA8200323094 /* FSCampaigns.swift in Sources */,
+				8B9F2ADA2809BA8200323094 /* FSModification.swift in Sources */,
+				8B9F2ADB2809BA8200323094 /* FSCampaign.swift in Sources */,
+				8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */,
+				8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */,
+				8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */,
+				8B9F2ADF2809BA8200323094 /* FSCacheHit.swift in Sources */,
+				8B9F2AE02809BA8200323094 /* FSHits.swift in Sources */,
+				8B9F2AE12809BA8200323094 /* FSCacheVisitor.swift in Sources */,
+				8B9F2AE22809BA8200323094 /* FSModifications.swift in Sources */,
+				8B9F2AE32809BA8200323094 /* FSStorageManager.swift in Sources */,
+				8B9F2AE42809BA8200323094 /* FSBucketCache.swift in Sources */,
+				8B9F2AE52809BA8200323094 /* FSStorage.swift in Sources */,
+				8B9F2AE62809BA8200323094 /* FlagshipConfig.swift in Sources */,
+				8B9F2AE72809BA8200323094 /* FSConfigManager.swift in Sources */,
+				8B9F2AE82809BA8200323094 /* FSConstant.swift in Sources */,
+				8B9F2AE92809BA8200323094 /* FSService+Request.swift in Sources */,
+				8B9F2AEA2809BA8200323094 /* FSService+Bucketing.swift in Sources */,
+				8B9F2AEB2809BA8200323094 /* FSService.swift in Sources */,
+				8B9F2AEC2809BA8200323094 /* FSTrackingManager.swift in Sources */,
+				8B9F2AED2809BA8200323094 /* FSDecisionManager.swift in Sources */,
+				8B9F2AEE2809BA8200323094 /* FSBucketingManager.swift in Sources */,
+				8B9F2AEF2809BA8200323094 /* FSPollingScript.swift in Sources */,
+				8B9F2AF02809BA8200323094 /* FSTargetingManager.swift in Sources */,
+				8B9F2AF12809BA8300323094 /* FlagshipContext.swift in Sources */,
+				8B9F2AF22809BA8300323094 /* FlagshipContextManager.swift in Sources */,
+				8B9F2AF32809BA8300323094 /* FSDevice.swift in Sources */,
+				8B9F2AF42809BA8300323094 /* FSPanicStrategy.swift in Sources */,
+				8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */,
+				8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */,
+				8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -774,64 +1172,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF4D5BB2804651F00BAF55F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BF4D5C82804661E00BAF55F /* murmurhash3.swift in Sources */,
-				8BF4D5C92804661E00BAF55F /* Data+PrettyPrint.swift in Sources */,
-				8BF4D5CA2804661E00BAF55F /* FSTools.swift in Sources */,
-				8BF4D5CB2804661E00BAF55F /* decode-json-swift.swift in Sources */,
-				8BF4D5CC2804661E00BAF55F /* FSGenerator.swift in Sources */,
-				8BF4D5CD2804661E00BAF55F /* FlagShipVersion.swift in Sources */,
-				8BF4D5CE2804661E00BAF55F /* Flagship.swift in Sources */,
-				8BF4D5CF2804661E00BAF55F /* FSVisitor+Reconcilliation.swift in Sources */,
-				8BF4D5D02804661E00BAF55F /* FSFlag.swift in Sources */,
-				8BF4D5D12804661E00BAF55F /* FSVisitorBuilder.swift in Sources */,
-				8BF4D5D22804661E00BAF55F /* FSVisitor+Campaigns.swift in Sources */,
-				8BF4D5D32804661E00BAF55F /* FSVisitor+objc.swift in Sources */,
-				8BF4D5D42804661E00BAF55F /* FSVisitor.swift in Sources */,
-				8BF4D5D52804661E00BAF55F /* FlagshipLogManager.swift in Sources */,
-				8BF4D5D62804661E00BAF55F /* FSError.swift in Sources */,
-				8BF4D5D72804661E00BAF55F /* FSLogManager.swift in Sources */,
-				8BF4D5D82804661E00BAF55F /* FlagshipConstants.swift in Sources */,
-				8BF4D5D92804661E00BAF55F /* FSCacheDelegate.swift in Sources */,
-				8BF4D5DA2804661E00BAF55F /* FSCacheManager.swift in Sources */,
-				8BF4D5DB2804661E00BAF55F /* FSBucket.swift in Sources */,
-				8BF4D5DC2804661E00BAF55F /* FSCampaigns.swift in Sources */,
-				8BF4D5DD2804661E00BAF55F /* FSModification.swift in Sources */,
-				8BF4D5DE2804661E00BAF55F /* FSCampaign.swift in Sources */,
-				8BF4D5DF2804661E00BAF55F /* FSContext.swift in Sources */,
-				8BF4D5E02804661E00BAF55F /* FSTargets.swift in Sources */,
-				8BF4D5E12804661E00BAF55F /* FSTracking.swift in Sources */,
-				8BF4D5E22804661E00BAF55F /* FSCacheHit.swift in Sources */,
-				8BF4D5E32804661E00BAF55F /* FSHits.swift in Sources */,
-				8BF4D5E42804661E00BAF55F /* FSCacheVisitor.swift in Sources */,
-				8BF4D5E52804661E00BAF55F /* FSModifications.swift in Sources */,
-				8BF4D5E62804661E00BAF55F /* FSStorageManager.swift in Sources */,
-				8BF4D5E72804661E00BAF55F /* FSBucketCache.swift in Sources */,
-				8BF4D5E82804661E00BAF55F /* FSStorage.swift in Sources */,
-				8BF4D5E92804661E00BAF55F /* FlagshipConfig.swift in Sources */,
-				8BF4D5EA2804661E00BAF55F /* FSConfigManager.swift in Sources */,
-				8BF4D5EB2804661E00BAF55F /* FSConstant.swift in Sources */,
-				8BF4D5EC2804661E00BAF55F /* FSService+Request.swift in Sources */,
-				8BF4D5ED2804661E00BAF55F /* FSService+Bucketing.swift in Sources */,
-				8BF4D5EE2804661E00BAF55F /* FSService.swift in Sources */,
-				8BF4D5EF2804661E00BAF55F /* FSTrackingManager.swift in Sources */,
-				8BF4D5F02804661E00BAF55F /* FSDecisionManager.swift in Sources */,
-				8BF4D5F12804661E00BAF55F /* FSBucketingManager.swift in Sources */,
-				8BF4D5F22804661E00BAF55F /* FSPollingScript.swift in Sources */,
-				8BF4D5F32804661E00BAF55F /* FSTargetingManager.swift in Sources */,
-				8BF4D5F52804661E00BAF55F /* FlagshipContext.swift in Sources */,
-				8BF4D5F62804661E00BAF55F /* FlagshipContextManager.swift in Sources */,
-				8BF4D5F72804661E00BAF55F /* FSDevice.swift in Sources */,
-				8BF4D5F82804661E00BAF55F /* FSPanicStrategy.swift in Sources */,
-				8BF4D5F92804661E00BAF55F /* FSDefaultStrategy.swift in Sources */,
-				8BF4D5FA2804661E00BAF55F /* FSNotReadyStrategy.swift in Sources */,
-				8BF4D5FB2804661E00BAF55F /* FSNoConsentStrategy.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -843,6 +1183,72 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8B2D51332805D36200866D61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8B2D51342805D36200866D61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		8B39E04F23FD45F400E02DCD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -913,6 +1319,136 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "FlagShipTests/Universal-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8B9F2A842809B8B300323094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		8B9F2A852809B8B300323094 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		8B9F2AC32809BA6100323094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.0;
+			};
+			name = Debug;
+		};
+		8B9F2AC42809BA6100323094 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.0;
 			};
 			name = Release;
 		};
@@ -1029,13 +1565,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1086,85 +1623,31 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		8BF4D5C52804651F00BAF55F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		8BF4D5C62804651F00BAF55F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 FlagShip. All rights reserved.";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ABTasty.Flagship-tvOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8B2D51322805D36200866D61 /* Build configuration list for PBXNativeTarget "Flagship-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B2D51332805D36200866D61 /* Debug */,
+				8B2D51342805D36200866D61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8B39E04E23FD45F400E02DCD /* Build configuration list for PBXNativeTarget "FlagshipTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1183,6 +1666,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8B9F2A832809B8B300323094 /* Build configuration list for PBXNativeTarget "Flagship-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F2A842809B8B300323094 /* Debug */,
+				8B9F2A852809B8B300323094 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B9F2AC22809BA6100323094 /* Build configuration list for PBXNativeTarget "Flagship-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F2AC32809BA6100323094 /* Debug */,
+				8B9F2AC42809BA6100323094 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BBCAD3B23FAD0E200126600 /* Build configuration list for PBXNativeTarget "Flagship" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1197,15 +1698,6 @@
 			buildConfigurations = (
 				8BEF08CA23C3889000396B78 /* Debug */,
 				8BEF08CB23C3889000396B78 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8BF4D5C72804651F00BAF55F /* Build configuration list for PBXNativeTarget "Flagship_tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8BF4D5C52804651F00BAF55F /* Debug */,
-				8BF4D5C62804651F00BAF55F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

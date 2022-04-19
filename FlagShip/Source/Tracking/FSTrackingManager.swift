@@ -5,7 +5,7 @@
 //  Created by Adel on 02/09/2021.
 //
 
-import UIKit
+import Foundation
 
 
 let MAX_SIZE_BATCH = 2621440  /// Bytes
