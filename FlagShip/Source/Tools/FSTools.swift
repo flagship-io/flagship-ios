@@ -26,8 +26,9 @@ internal class FSTools: NSObject {
 #endif
     
     
-#if os(watchOS)
+
     func checkConnectevity(){
+#if os(watchOS)
         FSTools.monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 FSTools.available = true
@@ -38,8 +39,9 @@ internal class FSTools: NSObject {
         let queue = DispatchQueue.global(qos: .default)
         FSTools.monitor.start(queue: queue)
         print(FSTools.available)
-    }
 #endif
+    }
+
 
     
     /// Manage EnvId
