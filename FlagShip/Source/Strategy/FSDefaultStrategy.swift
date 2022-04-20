@@ -5,7 +5,7 @@
 //  Created by Adel on 10/09/2021.
 //
 
-import UIKit
+import Foundation
 
 
 class FSStrategy {
@@ -111,7 +111,9 @@ class FSDefaultStrategy : FSDelegateStrategy{
                     onSyncCompleted(.READY)
                 }
             }else{
-                onSyncCompleted(.NOT_INITIALIZED)
+                
+                FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
+                onSyncCompleted(.READY) /// Even if we got an error, the sdk is ready to read flags, in this cas the flag will be the default vlaue
             }
         })
     }

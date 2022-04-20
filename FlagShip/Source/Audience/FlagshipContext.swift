@@ -6,15 +6,28 @@
 //  Copyright © 2020 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 import Foundation
 
 
 #if os(iOS)
-let IOS_VERSION = "iOS"
+let OSName = UIDevice.current.systemName  // iOS
 #elseif os(tvOS)
-let IOS_VERSION = "tvOS"
+let OSName = "tvOS"
+#elseif os(macOS)
+let OSName = "macOS"
+#elseif os(watchOS)
+let OSName = "watchOS"
+#else
+let OSName = "iOS"
 #endif
+
+
 
 let ALL_USERS   = "fs_all_users"
 
@@ -53,10 +66,13 @@ let ALL_USERS   = "fs_all_users"
 
     /// Ios
     case OS_NAME            = "sdk_osName"
+     
+    /// Define the current OS version name in the visitor context. Must be a String.
+    case OS_VERSION_NAME        = "sdk_osVersionName"
 
-    /// iOS Version
-    case OS_VERSION         = "sdk_iOSVersion"
-
+    /// Define the current OS version code in the visitor context
+    case OS_VERSION_CODE         = "sdk_osVersionCode"
+     
     /// Name of the operator
     case CARRIER_NAME       = "sdk_carrierName"
 
@@ -102,12 +118,18 @@ let ALL_USERS   = "fs_all_users"
 
             // Automatically set by the sdk
         case .OS_NAME:
-             return IOS_VERSION
+             return OSName
 
             // Automatically set by the sdk
-        case .OS_VERSION:
-            return UIDevice.current.systemVersion
-
+        case .OS_VERSION_CODE:
+            return FSDevice.getSystemVersion()
+            
+        case .OS_VERSION_NAME:
+            
+            // set by the client
+            return FSDevice.getSystemVersionName()
+            //return FlagshipContextManager.readValueFromPreDefinedContext(self)
+            
             // Set by the client
         case .CARRIER_NAME:
             return FlagshipContextManager.readValueFromPreDefinedContext(self)
@@ -187,9 +209,11 @@ let ALL_USERS   = "fs_all_users"
         case .OS_NAME:
              return (valueToSet is String)
 
-        case .OS_VERSION:
+        case .OS_VERSION_CODE:
              return (valueToSet is String)
-
+            
+        case .OS_VERSION_NAME:
+            return (valueToSet is String)
         case .CARRIER_NAME:
              return (valueToSet is String)
 

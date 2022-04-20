@@ -6,13 +6,44 @@
 //
 
 import Foundation
+
+
+#if os(watchOS)
+import Network
+#else
 import SystemConfiguration
+#endif
 
 
 let FSLengthId = 20
 
 internal class FSTools: NSObject {
+    
+    
+#if os(watchOS)
+    static var available = false
+    static let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
+#endif
+    
+    
 
+    func checkConnectevity(){
+#if os(watchOS)
+        FSTools.monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                FSTools.available = true
+            } else {
+                FSTools.available =  false
+            }
+        }
+        let queue = DispatchQueue.global(qos: .default)
+        FSTools.monitor.start(queue: queue)
+        print(FSTools.available)
+#endif
+    }
+
+
+    
     /// Manage EnvId
     class func chekcXidEnvironment(_ xid: String) -> Bool {
 
@@ -58,10 +89,13 @@ internal class FSTools: NSObject {
     
     // Is Connexion Available
     class func isConnexionAvailable() -> Bool {
-
+        #if os(watchOS)
+        return FSTools.available
+        #else
         let reachability = SCNetworkReachabilityCreateWithName(nil, FlagshipUniversalEndPoint)
         var flags = SCNetworkReachabilityFlags()
         SCNetworkReachabilityGetFlags(reachability!, &flags)
         return flags.contains(.reachable)
+        #endif
     }
 }
