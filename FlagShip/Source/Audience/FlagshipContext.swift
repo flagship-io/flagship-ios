@@ -127,7 +127,8 @@ let ALL_USERS   = "fs_all_users"
         case .OS_VERSION_NAME:
             
             // set by the client
-            return FlagshipContextManager.readValueFromPreDefinedContext(self)
+            return FSDevice.getSystemVersionName()
+            //return FlagshipContextManager.readValueFromPreDefinedContext(self)
             
             // Set by the client
         case .CARRIER_NAME:

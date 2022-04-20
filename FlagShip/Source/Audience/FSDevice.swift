@@ -91,7 +91,19 @@ internal class FSDevice: NSObject {
         #elseif os(watchOS)
         WKInterfaceDevice.current().systemVersion
         #else
-        return "to define"
+        return ""
+        #endif
+    }
+    
+    class func getSystemVersionName()->String{
+        #if os(iOS) || os(tvOS)
+        return UIDevice.current.systemName
+        #elseif os(macOS)
+        return FSDevice.getOSversionName()
+        #elseif os(watchOS)
+        WKInterfaceDevice.current().systemName
+        #else
+        return ""
         #endif
     }
     
@@ -103,5 +115,12 @@ internal class FSDevice: NSObject {
         let version = ProcessInfo().operatingSystemVersion
         /// Return the verison string
         return  String(format:"%d.%d", version.majorVersion, version.minorVersion)
+    }
+    
+    /// Get the system Name
+    /// Ex: "IOS" for iphone
+    class func getOSversionName()->String{
+        /// Get operatingSystemVersionString
+        return ProcessInfo().operatingSystemVersionString
     }
 }
