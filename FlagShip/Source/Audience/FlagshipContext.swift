@@ -71,7 +71,7 @@ let ALL_USERS   = "fs_all_users"
     case OS_VERSION_NAME        = "sdk_osVersionName"
 
     /// Define the current OS version code in the visitor context
-    case OS_VERSION_CODE         = "sdk_osVersionCode"
+    case OS_VERSION_CODE,OS_VERSION         = "sdk_osVersionCode"
      
     /// Name of the operator
     case CARRIER_NAME       = "sdk_carrierName"
@@ -121,7 +121,7 @@ let ALL_USERS   = "fs_all_users"
              return OSName
 
             // Automatically set by the sdk
-        case .OS_VERSION_CODE:
+        case .OS_VERSION_CODE,.OS_VERSION:
             return FSDevice.getSystemVersion()
             
         case .OS_VERSION_NAME:
@@ -164,36 +164,15 @@ let ALL_USERS   = "fs_all_users"
      
      @return Yes is the value is valide, No otherwise
      */
-
     func chekcValidity(_ valueToSet: Any) -> Bool {
 
         switch self {
 
-        case .DEVICE_LOCALE:
-
+        case .DEVICE_LOCALE,.DEVICE_TYPE,.DEVICE_MODEL,.LOCATION_CITY,.LOCATION_REGION,.LOCATION_COUNTRY,.INTERNET_CONNECTION,.APP_VERSION_NAME,.FLAGSHIP_VERSION,.INTERFACE_NAME,.CARRIER_NAME,.OS_VERSION_NAME,.OS_VERSION_CODE,.OS_VERSION,.OS_NAME:
+            
             return (valueToSet is String)
 
-        case .DEVICE_TYPE:
-
-             return (valueToSet is String)
-
-        case .DEVICE_MODEL:
-
-             return (valueToSet is String)
-
-        case .LOCATION_CITY:
-            return (valueToSet is String)
-
-        case .LOCATION_REGION:
-            return (valueToSet is String)
-
-        case .LOCATION_COUNTRY:
-            return (valueToSet is String)
-
-        case .LOCATION_LAT:
-            return (valueToSet is Double)
-
-        case .LOCATION_LONG:
+        case .LOCATION_LAT,.LOCATION_LONG,.APP_VERSION_CODE:
             return (valueToSet is Double)
 
         case .IP:
@@ -205,40 +184,9 @@ let ALL_USERS   = "fs_all_users"
 
                 return false
             }
-
-        case .OS_NAME:
-             return (valueToSet is String)
-
-        case .OS_VERSION_CODE:
-             return (valueToSet is String)
-            
-        case .OS_VERSION_NAME:
-            return (valueToSet is String)
-        case .CARRIER_NAME:
-             return (valueToSet is String)
-
-        case .DEV_MODE:
+        case .DEV_MODE,.FIRST_TIME_INIT:
              return (valueToSet is Bool)
-
-        case .FIRST_TIME_INIT:
-              return (valueToSet is Bool)
-
-        case .INTERNET_CONNECTION:
-             return (valueToSet is String)
-
-        case .APP_VERSION_NAME:
-            return (valueToSet is String)
-
-        case .APP_VERSION_CODE:
-            return (valueToSet is Double)
-
-        case .FLAGSHIP_VERSION:
-            return (valueToSet is String)
-
-        case .INTERFACE_NAME:
-            return (valueToSet is String)
         }
     }
-
 }
 
