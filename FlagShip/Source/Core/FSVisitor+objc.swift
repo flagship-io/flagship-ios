@@ -35,7 +35,8 @@ extension FSVisitor{
      @param transacEvent : Transaction event
      
      */
-
+    /// sendTransactionEvent only visible for objective C, use sendHit
+    @available(swift, obsoleted: 1.0)
     @objc public func sendTransactionEvent(_ transacEvent: FSTransaction) {
         
         self.sendHit(transacEvent)
@@ -47,6 +48,8 @@ extension FSVisitor{
      @param pageEvent : Page event
      
      */
+    /// sendScreenEvent only visible for objective C, use sendHit
+    @available(swift, obsoleted: 1.0)
     @objc public func sendScreenEvent(_ screenEvent: FSScreen) {
         
         self.sendHit(screenEvent)
@@ -58,7 +61,8 @@ extension FSVisitor{
      @param itemEvent : Item event
      
      */
-
+    /// sendItemEvent only visible for objective C, use sendHit
+    @available(swift, obsoleted: 1.0)
     @objc public func sendItemEvent(_ itemEvent: FSItem) {
         
         self.sendHit(itemEvent)
@@ -70,6 +74,8 @@ extension FSVisitor{
      @param eventTrack : track event
      
      */
+    /// sendEventTrack only visible for objective C, use sendHit
+    @available(swift, obsoleted: 1.0)
     @objc public func sendEventTrack(_ eventTrack: FSEvent) {
         
         self.sendHit(eventTrack)

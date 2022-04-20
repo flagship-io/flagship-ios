@@ -338,7 +338,6 @@
 		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
-		8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_tvOS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -624,7 +623,6 @@
 				8B6736D427FED75A003EC960 /* FlagShipTests */,
 				8B67365C27FEBE4C003EC960 /* Source */,
 				8B535FA823FD48CB005A13CE /* Flagship */,
-				8BF4D5C02804651F00BAF55F /* Flagship_tvOS */,
 				8B2D512D2805D36200866D61 /* Flagship-macOS */,
 				8B9F2A802809B8B300323094 /* Flagship-tvOS */,
 				8B9F2ABF2809BA6100323094 /* Flagship-watchOS */,
@@ -651,14 +649,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8BF4D5C02804651F00BAF55F /* Flagship_tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				8BF4D5C12804651F00BAF55F /* Flagship_tvOS.h */,
-			);
-			path = Flagship_tvOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
