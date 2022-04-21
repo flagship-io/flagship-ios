@@ -22,24 +22,14 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBOutlet var visitorIdTextField:UITextField?
     @IBOutlet var authenticateSwitch:UISwitch?
     @IBOutlet var allowTrackingSwitch: UISwitch?
-    
     @IBOutlet var timeOutFiled:UITextField?
-    
-    
-    
+
     @IBOutlet var visitorCtxLabel:UILabel?
-    
     @IBOutlet var modeBtn:UIButton?
-    
     @IBOutlet var resetBtn:UIButton?
-    
     @IBOutlet var startBtn:UIButton?
     
-    
-    
-    
-    
-    
+
     var delegate:FSConfigViewDelegate?
     
     
@@ -62,9 +52,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         FSCTools.roundButton(modeBtn)
         FSCTools.roundButton(startBtn)
         FSCTools.roundButton(resetBtn)
-        
-        
-        
     }
     
     
@@ -89,13 +76,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 self.present(contextCtrl, animated: true) {
                     
                 }
-                
             }
-            
         }
     }
-    
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -152,7 +135,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         let currentVisitor = createVisitor()
         
         currentVisitor.updateContext(.CARRIER_NAME, "SFR")
-        
         currentVisitor.synchronize { () in
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY{
@@ -260,49 +242,17 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             }
         }
     }
-    
-    //// Tempo for demo
-    
-    func demoMe(){
-        
-       
-        
-        Flagship.sharedInstance.start(envId:"_ENV_ID_", apiKey: "_API_KEY_",
-                                      config: FSConfigBuilder().DecisionApi()
-                                        .withTimeout(500)
-                                        .withLogLevel(.ALL).build())
-        
-        
-/// Instanciate Custom cache manager
-let customCacheManager = FSCacheManager(CustomClientVisitorCache(),customClientHitCache())
-
-Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_",config:FSConfigBuilder()
-                  .DecisionApi()
-                  .withCacheManager(customCacheManager)
-                  .build())
-
-        
-    }
-    
-    
-    
-
-
 }
 
 
 ///// Delegate
 ///
 protocol FSConfigViewDelegate {
-    
     func onGetSdkReady()
-    
     func onResetSdk()
-    
-    
-    
-    
 }
+
+
 
 public class CustomClientVisitorCache:FSVisitorCacheDelegate {
     

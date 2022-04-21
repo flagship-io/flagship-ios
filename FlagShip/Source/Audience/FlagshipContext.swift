@@ -32,6 +32,7 @@ let OSName = "iOS"
 let ALL_USERS   = "fs_all_users"
 
 /// Enumeration cases that represent **Predefined** targetings
+/// Warning
  public enum FlagshipContext: String, CaseIterable {
 
     /// First init of the app
@@ -67,10 +68,10 @@ let ALL_USERS   = "fs_all_users"
     /// Ios
     case OS_NAME            = "sdk_osName"
      
-    /// Define the current OS version name in the visitor context. Must be a String.
+    /// The current OS version name in the visitor context. Must be a String.
     case OS_VERSION_NAME        = "sdk_osVersionName"
 
-    /// Define the current OS version code in the visitor context
+    /// The current OS version code in the visitor context. OS_VERSION is deprecated use OS_VERSION_CODE
     case OS_VERSION_CODE,OS_VERSION         = "sdk_osVersionCode"
      
     /// Name of the operator
@@ -128,7 +129,6 @@ let ALL_USERS   = "fs_all_users"
             
             // set by the client
             return FSDevice.getSystemVersionName()
-            //return FlagshipContextManager.readValueFromPreDefinedContext(self)
             
             // Set by the client
         case .CARRIER_NAME:

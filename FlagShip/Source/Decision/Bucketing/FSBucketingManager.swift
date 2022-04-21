@@ -76,7 +76,6 @@ internal class FSBucketingManager:FSDecisionManager, FSPollingScriptDelegate{
             self.targetManager.userId = self.userId
             
             if let aScriptBucket = self.scriptBucket {
-                /// Check this function TODO
                 let aCampaigns = self.bucketVariations(self.userId,aScriptBucket)
                 completion(aCampaigns, self.scriptError)
                 

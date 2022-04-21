@@ -18,15 +18,14 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-The FlagShip SDK is an iOS framework whose goal is to help you run FlagShip campaigns on your ios native app.
+The FlagShip SDK is an iOS framework whose goal is to help you run Flagship campaigns on your native app.
                        DESC
 
   s.homepage         = "https://app.flagship.io/login"
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'FlagShip' => 'adel@abtasty.com' }
   s.source           = { :git => 'https://github.com/flagship-io/flagship-ios.git', :tag => s.version.to_s }
- # s.frameworks       = 'SystemConfiguration'
- 
+  
   s.ios.deployment_target  = "9.0"
   s.tvos.deployment_target = "10.0"
   s.osx.deployment_target = "10.10"

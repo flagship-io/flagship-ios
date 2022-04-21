@@ -38,7 +38,6 @@ internal class FSTools: NSObject {
         }
         let queue = DispatchQueue.global(qos: .default)
         FSTools.monitor.start(queue: queue)
-        print(FSTools.available)
 #endif
     }
 
