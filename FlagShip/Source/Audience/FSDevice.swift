@@ -9,6 +9,8 @@
 import UIKit
 #elseif os(watchOS)
 import WatchKit
+#elseif os(macOS)
+import IOKit
 #endif
 import Foundation
 
@@ -47,7 +49,7 @@ internal class FSDevice: NSObject {
             #if os(iOS) || os(tvOS)
                 return UIDevice.current.name
             #elseif os (macOS)
-                return "iMac"
+                return FSDevice.getModelIdentifier() ?? "Mac"
             #elseif os(watchOS)
                 return  WKInterfaceDevice.current().model
             #else
@@ -123,4 +125,19 @@ internal class FSDevice: NSObject {
         /// Get operatingSystemVersionString
         return ProcessInfo().operatingSystemVersionString
     }
+    
+#if os(macOS)
+    /// Used only for macOS to get model name
+    class func getModelIdentifier() -> String? {
+        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
+                                                  IOServiceMatching("IOPlatformExpertDevice"))
+        var modelIdentifier: String?
+        if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as? Data {
+            modelIdentifier = String(data: modelData, encoding: .utf8)?.trimmingCharacters(in: .controlCharacters)
+        }
+
+        IOObjectRelease(service)
+        return modelIdentifier
+    }
+#endif
 }
