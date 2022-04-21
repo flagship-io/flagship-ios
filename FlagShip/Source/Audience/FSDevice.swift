@@ -5,7 +5,13 @@
 //  Created by Adel on 10/12/2019.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(watchOS)
+import WatchKit
+#elseif os(macOS)
+import IOKit
+#endif
 import Foundation
 
 
@@ -16,24 +22,40 @@ internal class FSDevice: NSObject {
         return NSLocale.current.languageCode
     }
 
+    /// Type od device
     class func getDeviceType() -> String {
-
+        #if os(iOS) || os(tvOS)
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
             return "Mobile"
         case .pad:
             return "Tablet"
         case .tv:
-            return "tv"
+            return "TV"
         default:
             return "Mobile"
         }
-    }
-
-    class func getDeviceModel() -> String {
-        return UIDevice.current.name
+        #elseif os(macOS)
+            return "Desktop"
+        #elseif os(watchOS)
+        return "Watch"
+        #else
+        return ""
+        #endif
     }
     
+    /// Get the Model
+    class func getDeviceModel() -> String {
+            #if os(iOS) || os(tvOS)
+                return UIDevice.current.name
+            #elseif os (macOS)
+                return FSDevice.getModelIdentifier() ?? "Mac"
+            #elseif os(watchOS)
+                return  WKInterfaceDevice.current().model
+            #else
+                return ""
+            #endif
+    }
     class func isFirstTimeUser() -> Bool {
 
         let startedBefore = UserDefaults.standard.bool(forKey: "sdk_firstTimeUser")
@@ -61,4 +83,61 @@ internal class FSDevice: NSObject {
 
         return false
     }
+    
+    
+    class func getSystemVersion()->String{
+        #if os(iOS) || os(tvOS)
+        return UIDevice.current.systemVersion
+        #elseif os(macOS)
+        return FSDevice.getOSversion()
+        #elseif os(watchOS)
+        WKInterfaceDevice.current().systemVersion
+        #else
+        return ""
+        #endif
+    }
+    
+    class func getSystemVersionName()->String{
+        #if os(iOS) || os(tvOS)
+        return UIDevice.current.systemName
+        #elseif os(macOS)
+        return FSDevice.getOSversionName()
+        #elseif os(watchOS)
+        WKInterfaceDevice.current().systemName
+        #else
+        return ""
+        #endif
+    }
+    
+    
+    /// Get the system version
+    /// Ex: "11.6" for macOS
+    class func getOSversion()->String{
+        /// Get OperatingSystemVersion
+        let version = ProcessInfo().operatingSystemVersion
+        /// Return the verison string
+        return  String(format:"%d.%d", version.majorVersion, version.minorVersion)
+    }
+    
+    /// Get the system Name
+    /// Ex: "IOS" for iphone
+    class func getOSversionName()->String{
+        /// Get operatingSystemVersionString
+        return ProcessInfo().operatingSystemVersionString
+    }
+    
+#if os(macOS)
+    /// Used only for macOS to get model name
+    class func getModelIdentifier() -> String? {
+        let service = IOServiceGetMatchingService(kIOMasterPortDefault,
+                                                  IOServiceMatching("IOPlatformExpertDevice"))
+        var modelIdentifier: String?
+        if let modelData = IORegistryEntryCreateCFProperty(service, "model" as CFString, kCFAllocatorDefault, 0).takeRetainedValue() as? Data {
+            modelIdentifier = String(data: modelData, encoding: .utf8)?.trimmingCharacters(in: .controlCharacters)
+        }
+
+        IOObjectRelease(service)
+        return modelIdentifier
+    }
+#endif
 }

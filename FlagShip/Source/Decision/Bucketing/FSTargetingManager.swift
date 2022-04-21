@@ -407,9 +407,6 @@ class FSTargetingManager {
 
     internal func getCurrentValueFromCtx(_ targetKey: String)->Any? {
         
-//// REFRACTOR ///////////////
-       // let currentContext = Flagship.sharedInstance.currentVisitor?.context.getCurrentContext()
-
         if targetKey == FS_USERS {
             return userId
         } else {

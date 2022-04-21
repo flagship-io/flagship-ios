@@ -79,17 +79,11 @@ import Foundation
         /// Set config
         self.configManager = aConfigManager
         
-//        /// Create strategy
-//        self.strategy = FSStrategy(self, state:Flagship.sharedInstance.currentStatus)
-        
         /// Set consent
         self.hasConsented = aHasConsented
         
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
-        
-//        /// Send consent hit
-//         self.sendHitConsent(hasConsented)
         
         if aHasConsented{
             /// Read the cached visitor

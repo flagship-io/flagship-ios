@@ -7,8 +7,6 @@
 
 import Foundation
 
-/// Todo set the strategy later 
-
 extension FSVisitor {
     
     /// Use authenticate methode to go from Logged out  session to logged in session

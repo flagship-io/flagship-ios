@@ -7,8 +7,10 @@ let package = Package(
     name: "Flagship",
 
     platforms: [
-        .iOS(.v8),
-        .tvOS(.v10)
+        .iOS(.v9),
+        .tvOS(.v10),
+        .macOS(.v10_10),
+        .watchOS(.v5)
     ],
 
     products: [
@@ -23,3 +25,4 @@ let package = Package(
         .target(name: "Flagship", path: "FlagShip/Source")
     ]
 )
+      
