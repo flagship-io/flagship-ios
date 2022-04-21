@@ -26,7 +26,7 @@ internal class FSTools: NSObject {
 #endif
     
     
-
+/// Check only for watchOS, will refractor checking connectevity for other platforms that use reachability
     func checkConnectevity(){
 #if os(watchOS)
         FSTools.monitor.pathUpdateHandler = { path in

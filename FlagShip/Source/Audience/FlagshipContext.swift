@@ -24,7 +24,7 @@ let OSName = "macOS"
 #elseif os(watchOS)
 let OSName = "watchOS"
 #else
-let OSName = "iOS"
+let OSName = ""
 #endif
 
 
