@@ -34,3 +34,17 @@
 ## Licence
 
 [MIT License.](https://github.com/abtasty/flagship-ios/blob/master/LICENSE)
+
+## About Flagship
+​
+<img src="https://www.flagship.io/wp-content/uploads/Flagship-horizontal-black-wake-AB.png" alt="drawing" width="150"/>
+​
+[Flagship by AB Tasty](https://www.flagship.io/) is a feature flagging platform for modern engineering and product teams. It eliminates the risks of future releases by separating code deployments from these releases :bulb: With Flagship, you have full control over the release process. You can:
+​
+- Switch features on or off through remote config.
+- Automatically roll-out your features gradually to monitor performance and gather feedback from your most relevant users.
+- Roll back any feature should any issues arise while testing in production.
+- Segment users by granting access to a feature based on certain user attributes.
+- Carry out A/B tests by easily assigning feature variations to groups of users.
+​
+<img src="https://www.flagship.io/wp-content/uploads/demo-setup.png" alt="drawing" width="600"/>
