@@ -50,6 +50,7 @@
 <img src="https://www.flagship.io/wp-content/uploads/demo-setup.png" alt="drawing" width="600"/>
 
 Flagship also allows you to choose whatever implementation method works for you from our many available SDKs or directly through a REST API. Additionally, our architecture is based on multi-cloud providers that offer high performance and highly-scalable managed services.
+
 ​
 **To learn more:**
 ​
