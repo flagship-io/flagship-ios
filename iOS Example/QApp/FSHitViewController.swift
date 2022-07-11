@@ -225,9 +225,9 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
         /// if the tag is over 400 ===> only number field
         if textField.tag > 400 {
             
-            let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
+            let allowedChar = CharacterSet(charactersIn: "0123456789").inverted
             
-            return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+            return (string.rangeOfCharacter(from: allowedChar) == nil)
                 
         }
         
