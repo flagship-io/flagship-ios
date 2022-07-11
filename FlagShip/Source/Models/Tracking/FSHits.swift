@@ -319,8 +319,8 @@ import Foundation
     /// description of the event.
     public  var label: String?
 
-    /// value of the event, must be non-negative.
-    public  var eventValue: Int?
+    /// value of the event, must be non-negative. (An unsigned integer value type)
+    public  var eventValue: UInt?
 
     /**
      Init Event object

@@ -116,7 +116,7 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
                 
                 let type:FSCategoryEvent = typeEventSwitch.isOn ? .Action_Tracking : .User_Engagement
                 let eventToSend = FSEvent(eventCategory:type, eventAction: input)
-                eventToSend.eventValue = Int(eventValueField.text ?? "0")
+                eventToSend.eventValue = UInt(eventValueField.text ?? "0")
                 Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
                 showPopUpMessage("Event name: \(input)")
             }
