@@ -26,6 +26,9 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
     
     @IBOutlet weak var labelSwitch: UILabel!
     
+    @IBOutlet weak var eventValueField: UITextField!
+
+    
     
     /// Transaction
     
@@ -112,7 +115,9 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
             if input.count > 2{
                 
                 let type:FSCategoryEvent = typeEventSwitch.isOn ? .Action_Tracking : .User_Engagement
-                Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory:type, eventAction: input))
+                let eventToSend = FSEvent(eventCategory:type, eventAction: input)
+                eventToSend.eventValue = Int(eventValueField.text ?? "0")
+                Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
                 showPopUpMessage("Event name: \(input)")
             }
         }

@@ -320,7 +320,7 @@ import Foundation
     public  var label: String?
 
     /// value of the event, must be non-negative.
-    public  var eventValue: NSNumber?
+    public  var eventValue: Int?
 
     /**
      Init Event object
