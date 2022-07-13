@@ -373,13 +373,9 @@ import Foundation
         }
     }
     
-   // @available(swift, obsoleted: 1.0)
-    @objc func setValueForEvent(_ newValue:UInt){
+    @available(swift, obsoleted: 1.0)
+    @objc public func setValueForEvent(_ newValue:UInt){
         self.eventValue = newValue
-    }
-    
-    @objc func setTest(){
-       print("Test")
     }
 }
 
