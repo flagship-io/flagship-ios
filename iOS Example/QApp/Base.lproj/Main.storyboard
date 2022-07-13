@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WDh-sp-kh2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="WDh-sp-kh2">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +12,7 @@
         <!--Modification-->
         <scene sceneID="BsX-wt-cTo">
             <objects>
-                <viewController id="ERx-wN-Mjd" customClass="FSModificationsViewCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ERx-wN-Mjd" customClass="FSModificationsViewCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RWa-6t-otV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,7 +105,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" smartDashesType="no" smartInsertDeleteType="no"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsB-TZ-ovA" customClass="FSLabel" customModule="FlagshipQA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsB-TZ-ovA" customClass="FSLabel" customModule="QApp" customModuleProvider="target">
                                                 <rect key="frame" x="135" y="276" width="180" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="180" id="A8s-ec-8lj"/>
@@ -145,7 +145,7 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkV-uP-3ip" customClass="FSLabel" customModule="FlagshipQA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QkV-uP-3ip" customClass="FSLabel" customModule="QApp" customModuleProvider="target">
                                                 <rect key="frame" x="135" y="382" width="180" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="Wrr-D9-W8K"/>
@@ -161,7 +161,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pih-BP-xyV" customClass="FSLabel" customModule="FlagshipQA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pih-BP-xyV" customClass="FSLabel" customModule="QApp" customModuleProvider="target">
                                                 <rect key="frame" x="135" y="223" width="180" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="180" id="Ctg-1N-CHh"/>
@@ -171,7 +171,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIg-6k-0ER" customClass="FSLabel" customModule="FlagshipQA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fIg-6k-0ER" customClass="FSLabel" customModule="QApp" customModuleProvider="target">
                                                 <rect key="frame" x="135" y="329" width="180" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="180" id="3Wa-4t-HN3"/>
@@ -187,7 +187,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs2-Tr-UCD" customClass="FSLabel" customModule="FlagshipQA" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs2-Tr-UCD" customClass="FSLabel" customModule="QApp" customModuleProvider="target">
                                                 <rect key="frame" x="135" y="435" width="180" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="QxF-CN-nhB"/>
@@ -317,7 +317,7 @@
         <!--User-->
         <scene sceneID="SCT-z6-GYJ">
             <objects>
-                <viewController id="X96-Ei-mbz" customClass="FSUserViewCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="X96-Ei-mbz" customClass="FSUserViewCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ruj-oM-h8F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -466,7 +466,7 @@
         <!--Hits-->
         <scene sceneID="JiU-OC-5xW">
             <objects>
-                <viewController id="kfb-Ty-cm5" customClass="FSHitViewController" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kfb-Ty-cm5" customClass="FSHitViewController" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Fd-0F-sYz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -531,7 +531,7 @@
                                                 </connections>
                                             </switch>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Action Tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-FI-UcL">
-                                                <rect key="frame" x="94" y="386" width="118" height="21"/>
+                                                <rect key="frame" x="87" y="379.5" width="118" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -552,6 +552,14 @@
                                                     <action selector="onClickEventHit" destination="kfb-Ty-cm5" eventType="touchUpInside" id="P2O-Wh-XgD"/>
                                                 </connections>
                                             </button>
+                                            <textField opaque="NO" tag="444" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="value (Int)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DTQ-mF-DGV">
+                                                <rect key="frame" x="215" y="379.5" width="85" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="kfb-Ty-cm5" id="E3C-ye-Y7Z"/>
+                                                </connections>
+                                            </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hit Transaction" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUu-B0-IYV">
                                                 <rect key="frame" x="15" y="547" width="115" height="21"/>
                                                 <constraints>
@@ -772,6 +780,8 @@
                                             <constraint firstItem="oVo-5D-QKK" firstAttribute="leading" secondItem="jyg-EV-kcJ" secondAttribute="leading" id="C2v-gT-ifj"/>
                                             <constraint firstItem="jyg-EV-kcJ" firstAttribute="centerY" secondItem="zge-Lu-UT0" secondAttribute="centerY" id="C5d-Ex-SOb"/>
                                             <constraint firstItem="VHL-Z2-raO" firstAttribute="top" secondItem="eKb-8h-v5G" secondAttribute="bottom" constant="20" id="DKY-nj-pkc"/>
+                                            <constraint firstAttribute="trailing" secondItem="DTQ-mF-DGV" secondAttribute="trailing" constant="20" id="Dym-j7-6Io"/>
+                                            <constraint firstItem="DTQ-mF-DGV" firstAttribute="leading" secondItem="Bxt-FI-UcL" secondAttribute="trailing" constant="10" id="FmY-QV-U4x"/>
                                             <constraint firstItem="lQd-Lj-G7o" firstAttribute="leading" secondItem="ZkD-Hd-hhp" secondAttribute="leading" constant="15" id="G8k-fU-jci"/>
                                             <constraint firstItem="DLu-Zh-2Iu" firstAttribute="top" secondItem="HOv-bQ-gbD" secondAttribute="bottom" constant="25" id="GPv-NU-c9k"/>
                                             <constraint firstItem="YD2-Vk-hSa" firstAttribute="leading" secondItem="1mj-qY-GfQ" secondAttribute="leading" id="Gzx-Ix-Np5"/>
@@ -788,6 +798,7 @@
                                             <constraint firstItem="ZUu-B0-IYV" firstAttribute="leading" secondItem="ZkD-Hd-hhp" secondAttribute="leading" constant="15" id="OcD-dh-Uru"/>
                                             <constraint firstItem="o6Z-n4-KBS" firstAttribute="top" secondItem="DtK-b3-luf" secondAttribute="bottom" constant="30" id="OuZ-xF-WzD"/>
                                             <constraint firstItem="Fsj-Ej-jqI" firstAttribute="leading" secondItem="ZkD-Hd-hhp" secondAttribute="leading" constant="15" id="PJi-5g-bPV"/>
+                                            <constraint firstItem="DTQ-mF-DGV" firstAttribute="bottom" secondItem="Bxt-FI-UcL" secondAttribute="bottom" id="Q3u-kp-3g1"/>
                                             <constraint firstItem="N4x-tc-mhQ" firstAttribute="centerY" secondItem="YD2-Vk-hSa" secondAttribute="centerY" id="QIa-Xe-Dr0"/>
                                             <constraint firstItem="lQd-Lj-G7o" firstAttribute="top" secondItem="Jwp-Zc-wHw" secondAttribute="bottom" constant="40" id="RGY-mZ-N3L"/>
                                             <constraint firstItem="GR6-BE-9hO" firstAttribute="top" secondItem="zge-Lu-UT0" secondAttribute="bottom" constant="25" id="SLO-MP-qgx"/>
@@ -808,9 +819,9 @@
                                             <constraint firstItem="Fsj-Ej-jqI" firstAttribute="top" secondItem="o6Z-n4-KBS" secondAttribute="bottom" constant="45" id="hUg-zI-8bD"/>
                                             <constraint firstItem="aec-vu-NcR" firstAttribute="top" secondItem="VHL-Z2-raO" secondAttribute="bottom" constant="45" id="hi8-TQ-XKp"/>
                                             <constraint firstItem="MOA-eJ-ugc" firstAttribute="leading" secondItem="ZkD-Hd-hhp" secondAttribute="leading" constant="15" id="hwG-nj-L0o"/>
-                                            <constraint firstItem="Bxt-FI-UcL" firstAttribute="leading" secondItem="VHL-Z2-raO" secondAttribute="trailing" constant="30" id="kms-xT-yDW"/>
                                             <constraint firstAttribute="trailing" secondItem="lPg-rl-HmE" secondAttribute="trailing" constant="15" id="lYU-eP-pdL"/>
                                             <constraint firstItem="TTl-20-n2L" firstAttribute="top" secondItem="Fsj-Ej-jqI" secondAttribute="bottom" constant="45" id="nra-yY-4iE"/>
+                                            <constraint firstItem="DTQ-mF-DGV" firstAttribute="centerY" secondItem="Bxt-FI-UcL" secondAttribute="centerY" id="oUw-nl-6gU"/>
                                             <constraint firstItem="eKb-8h-v5G" firstAttribute="top" secondItem="TTl-20-n2L" secondAttribute="bottom" constant="20" id="ogx-Ae-ojy"/>
                                             <constraint firstAttribute="trailing" secondItem="lQd-Lj-G7o" secondAttribute="trailing" constant="15" id="rCU-pS-zdF"/>
                                             <constraint firstItem="jyg-EV-kcJ" firstAttribute="leading" secondItem="mgp-NZ-19t" secondAttribute="leading" id="rYu-3A-X9l"/>
@@ -855,6 +866,7 @@
                         <outlet property="currencyField" destination="zge-Lu-UT0" id="2M1-HI-26b"/>
                         <outlet property="eventAction" destination="eKb-8h-v5G" id="VZ7-S3-pZ2"/>
                         <outlet property="eventHitBtn" destination="aec-vu-NcR" id="pA0-el-zeD"/>
+                        <outlet property="eventValueField" destination="DTQ-mF-DGV" id="pW9-c9-vXw"/>
                         <outlet property="idTransacField" destination="lPg-rl-HmE" id="fOd-xX-PP3"/>
                         <outlet property="interfaceNameFiled" destination="o6Z-n4-KBS" id="Tg0-rd-G34"/>
                         <outlet property="labelSwitch" destination="Bxt-FI-UcL" id="CAr-z1-Wuu"/>
@@ -870,12 +882,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="COv-Ws-8T8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1757.9710144927537" y="395.75892857142856"/>
+            <point key="canvasLocation" x="-1758.75" y="395.07042253521126"/>
         </scene>
         <!--Logs-->
         <scene sceneID="k3E-r9-c16">
             <objects>
-                <viewController id="33D-Zc-7ZW" customClass="FSLoggerCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="33D-Zc-7ZW" customClass="FSLoggerCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ojh-El-j3z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -912,7 +924,7 @@
         <!--Context View Ctrl-->
         <scene sceneID="z2h-Mb-OkA">
             <objects>
-                <viewController storyboardIdentifier="contextPopUp" modalPresentationStyle="formSheet" id="TH6-B8-zyd" customClass="FSContextViewCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="contextPopUp" modalPresentationStyle="formSheet" id="TH6-B8-zyd" customClass="FSContextViewCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vfr-3g-J2t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1031,7 +1043,7 @@
         <!--Configuration-->
         <scene sceneID="LbK-T4-91s">
             <objects>
-                <viewController id="rjy-GE-W2V" customClass="FSConfigViewController" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="rjy-GE-W2V" customClass="FSConfigViewController" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bB9-0l-qJm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1311,7 +1323,7 @@
         <!--Json Editor Ctrl-->
         <scene sceneID="5jh-G9-2MX">
             <objects>
-                <viewController storyboardIdentifier="FSJsonEditorCtrl" id="9C5-IE-WeJ" customClass="FSJsonEditorCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FSJsonEditorCtrl" id="9C5-IE-WeJ" customClass="FSJsonEditorCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VhK-Df-a5W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1362,7 +1374,7 @@
         <!--Tab Bar View Ctrl-->
         <scene sceneID="wqF-95-teO">
             <objects>
-                <tabBarController id="WDh-sp-kh2" customClass="FSTabBarViewCtrl" customModule="FlagshipQA" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="WDh-sp-kh2" customClass="FSTabBarViewCtrl" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yfs-fc-iSe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

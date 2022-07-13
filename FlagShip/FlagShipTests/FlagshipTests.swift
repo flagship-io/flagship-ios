@@ -24,9 +24,7 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentStatus == .READY)
         
         XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
-        // ::XCTAssert(Flagship.sharedInstance.currentConfig.isConsent == true)
         XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
-        XCTAssert(Flagship.sharedInstance.currentConfig.isAuthenticate == false)
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 2)
 
     }
@@ -41,9 +39,7 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentStatus == .READY)
         
         XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
-       // XCTAssert(Flagship.sharedInstance.currentConfig.isConsent == false)
         XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
-        XCTAssert(Flagship.sharedInstance.currentConfig.isAuthenticate == false)
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12/1000)
 
     }
