@@ -377,6 +377,10 @@ import Foundation
     @objc func setValueForEvent(_ newValue:UInt){
         self.eventValue = newValue
     }
+    
+    @objc func setTest(){
+       print("Test")
+    }
 }
 
 internal class FSConsent : FSEvent{
