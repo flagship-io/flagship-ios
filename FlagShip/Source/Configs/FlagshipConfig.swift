@@ -27,7 +27,6 @@ public enum FSMode:Int {
     
     var mode            :FSMode         = .DECISION_API
     var timeout         :TimeInterval
-    var isAuthenticate  :Bool
     var logLevel        :FSLevel        = .ALL
     var pollingTime     :TimeInterval   = FSPollingTime
     
@@ -37,11 +36,10 @@ public enum FSMode:Int {
     var cacheManger     :FSCacheManager
 
     
-    internal init(_ mode:FSMode = .DECISION_API, _ timeOut:TimeInterval = FSTimeoutRequestApi, isAuthenticate:Bool = false, _ logLevel:FSLevel = .ALL, pollingTime:TimeInterval = FSPollingTime, cacheManager:FSCacheManager ,_ onStatusChanged: ((_ newStatus : FStatus)->(Void))? = nil) {
+    internal init(_ mode:FSMode = .DECISION_API, _ timeOut:TimeInterval = FSTimeoutRequestApi, _ logLevel:FSLevel = .ALL, pollingTime:TimeInterval = FSPollingTime, cacheManager:FSCacheManager ,_ onStatusChanged: ((_ newStatus : FStatus)->(Void))? = nil) {
         
         self.mode               = mode
         self.timeout            = timeOut
-        self.isAuthenticate     = isAuthenticate
         self.logLevel           = logLevel
         self.pollingTime        = pollingTime
         self.cacheManger        = cacheManager
@@ -61,9 +59,6 @@ public enum FSMode:Int {
     
     /// _timeOut
     public private (set) var _timeOut:TimeInterval = FSTimeoutRequestApi
-    
-    /// _isAuthenticate
-    public private (set) var _isAuthenticate:Bool = false
     
     /// _logLevel
     public private (set) var _logLevel:FSLevel = .ALL
@@ -129,6 +124,6 @@ public enum FSMode:Int {
     
     @objc public func build()->FlagshipConfig{
         
-        return FlagshipConfig(_mode, _timeOut, isAuthenticate:_isAuthenticate, _logLevel,pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged)
+        return FlagshipConfig(_mode, _timeOut, _logLevel,pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged)
     }
 }
