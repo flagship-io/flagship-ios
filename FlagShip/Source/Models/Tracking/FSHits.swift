@@ -320,7 +320,7 @@ import Foundation
     public  var label: String?
 
     /// value of the event, must be non-negative. (An unsigned integer value type)
-    public  var eventValue: UInt?
+    public  var eventValue: UInt?;
 
     /**
      Init Event object
@@ -371,9 +371,12 @@ import Foundation
             return customParams
 
         }
-
     }
     
+    @available(swift, obsoleted: 1.0)
+    @objc func setEventValue(_ newValue:UInt){
+        self.eventValue = newValue
+    }
 }
 
 internal class FSConsent : FSEvent{
