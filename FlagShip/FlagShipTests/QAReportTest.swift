@@ -205,7 +205,7 @@ class QAReportTest: XCTestCase {
                 }
             }
         }
-        wait(for: [expectationSync], timeout: 5.0)
+        wait(for: [expectationSync], timeout: 10.0)
         
     }
     

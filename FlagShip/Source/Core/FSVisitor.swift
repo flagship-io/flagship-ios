@@ -33,9 +33,16 @@ import Foundation
     
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
     /// visitor id
-    public internal (set) var visitorId:String
-    /// Anonymous Id 
-    public internal (set) var anonymousId:String?
+    public internal (set) var visitorId:String {
+        willSet(newValue){
+            configManager.updateVisitorId(newValue)
+        }
+    }
+    public internal (set) var anonymousId:String?{
+        willSet(newValue){
+            configManager.updateAid(newValue)
+        }
+    }
     /// Modifications
     public var currentFlags:[String:FSModification] = [:] /// Empty
     /// Context
@@ -57,17 +64,19 @@ import Foundation
        
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
-        /// Before calling service manage the tuple
+        /// Before calling service manage the tuple (vid,aid)
         if self.isAuthenticated {
 
             self.visitorId   =  aVisitorId     /// When the authenticated is true , the visitor id should not be nil
             self.anonymousId =  FSTools.manageVisitorId(nil)
+            /// When authenticated is true --> update the anonymousId given by the sdk
+            aConfigManager.updateAid(self.anonymousId)
         } else {
 
             self.visitorId =   FSTools.manageVisitorId(aVisitorId)
             self.anonymousId = nil
         }
-        
+                 
         Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .NOT_INITIALIZED
         
         /// Set the user context
