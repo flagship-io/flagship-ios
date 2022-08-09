@@ -30,15 +30,29 @@ class ReconcileTest: XCTestCase {
         XCTAssert(v1.visitorId == "ABCD-EFGH")
         XCTAssert(v1.anonymousId == nil)
         
+        /// Check the service
+        XCTAssert(v1.configManager.decisionManager?.networkService.visitorId == "ABCD-EFGH")
+        XCTAssert(v1.configManager.decisionManager?.networkService.anonymousId == nil)
+        
         /// Set Authenticate
         v1.authenticate(visitorId: "Alex")
         XCTAssert(v1.visitorId         == "Alex")
         XCTAssert(v1.anonymousId       == "ABCD-EFGH")
         
+        /// Check the service
+        XCTAssert(v1.configManager.decisionManager?.networkService.visitorId == "Alex")
+        XCTAssert(v1.configManager.decisionManager?.networkService.anonymousId == "ABCD-EFGH")
+        
         /// Set unAuthenticate
         v1.unauthenticate()
         XCTAssert(v1.visitorId == "ABCD-EFGH")
         XCTAssert(v1.anonymousId == nil)
+        
+        /// Check the service
+        XCTAssert(v1.configManager.decisionManager?.networkService.visitorId == "ABCD-EFGH")
+        XCTAssert(v1.configManager.decisionManager?.networkService.anonymousId == nil)
+
+
     }
 
     func testTupleAuthenticationWithLoggedSessionAtSatrt() {
@@ -50,16 +64,28 @@ class ReconcileTest: XCTestCase {
         
         XCTAssert(v2.visitorId == "Alex")
         XCTAssert(v2.anonymousId == "id123" )
+        
+        /// Check the service
+        XCTAssert(v2.configManager.decisionManager?.networkService.visitorId == "Alex")
+        XCTAssert(v2.configManager.decisionManager?.networkService.anonymousId == "id123")
 
         /// Set authenticate
         v2.authenticate(visitorId: "Alex")
         XCTAssert(v2.visitorId == "Alex")
         XCTAssert(v2.anonymousId == "id123" )
+        
+        /// Check the service
+        XCTAssert(v2.configManager.decisionManager?.networkService.visitorId == "Alex")
+        XCTAssert(v2.configManager.decisionManager?.networkService.anonymousId == "id123")
 
         /// Set unAuthenticate
         v2.unauthenticate()
         XCTAssert(v2.visitorId == "id123")
         XCTAssert(v2.anonymousId == nil)
+        
+        /// Check the service
+        XCTAssert(v2.configManager.decisionManager?.networkService.visitorId == "id123")
+        XCTAssert(v2.configManager.decisionManager?.networkService.anonymousId == nil)
     }
     
 }

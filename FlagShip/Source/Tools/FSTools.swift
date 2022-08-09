@@ -51,8 +51,8 @@ internal class FSTools: NSObject {
             return true
 
         } else {
-
-           // FSLogger.FSlog("The environmentId : \(xid) is not valide ", .Campaign)
+            
+            FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The environmentId : \(xid) is not valide "))
             return false
         }
     }
@@ -65,19 +65,15 @@ internal class FSTools: NSObject {
 
             if let storedId = FSGenerator.getFlagShipIdInCache() {
 
-               // FSLogger.FSlog("The Sdk started with NIL visitorId. The SDK will handle it automatically", .Campaign)
-
-               // FSLogger.FSlog("The Sdk will use the stored visitorId : \(storedId),  generated automatically", .Campaign)
-
                 return storedId
 
              } else {
 
-                 // Create visitor Id
+                 /// Create visitor Id
                  let newId = FSGenerator.generateFlagShipId()
-               // FSLogger.FSlog("The Sdk FlagShip generate a new visitorId \(newId)", .Campaign)
+                 /// The Sdk FlagShip generate an anonymousId
 
-                // Save the visitor id
+                 /// Save the visitor id
                  FSGenerator.saveFlagShipIdInCache(userId: newId)
                 return newId
              }

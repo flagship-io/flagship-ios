@@ -22,7 +22,7 @@ internal class FSConfigManager{
     private var service:FSService
     
     
-    init(_ pVisitorId:String, config:FlagshipConfig){
+    init(_ pVisitorId:String,  config:FlagshipConfig){
         
         /// Create service
         let shared = Flagship.sharedInstance
@@ -48,5 +48,16 @@ internal class FSConfigManager{
         
         /// Check the connectivity
         FSTools().checkConnectevity()
+    }
+    
+    /// Update the visitorId for service
+    internal func updateVisitorId(_ visitorId:String){
+        service.visitorId = visitorId
+    
+    }
+    /// Update the aid for service
+    internal func updateAid(_ aid:String?){
+        service.anonymousId = aid
+    
     }
 }

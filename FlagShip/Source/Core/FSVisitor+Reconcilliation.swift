@@ -9,9 +9,12 @@ import Foundation
 
 extension FSVisitor {
     
-    /// Use authenticate methode to go from Logged out  session to logged in session
+    ///   Use authenticate methode to go from Logged-out session to logged-in session
+    ///
     /// - Parameters:
-    ///   - visitorId: newVisitorId to atuthenticate
+    ///      - visitorId: newVisitorId to authenticate
+    /// - Important: After using this method, you should use Flagship.fetchFlags method to update the visitor informations
+    /// - Requires: Make sure that the experience continuity option is enabled on the flagship platform before using this method
    @objc public func authenticate(visitorId: String) {
        
        self.strategy?.getStrategy().authenticateVisitor(visitorId: visitorId)
@@ -23,4 +26,3 @@ extension FSVisitor {
         self.strategy?.getStrategy().unAuthenticateVisitor()
     }
 }
-
