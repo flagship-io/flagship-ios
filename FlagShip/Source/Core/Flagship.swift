@@ -95,7 +95,7 @@ public class Flagship:NSObject{
     }
     
     /// Set the shared visitor 
-    @objc public func setSharedVisitor(_ visitor: FSVisitor) {
+     public func setSharedVisitor(_ visitor: FSVisitor) {
         
         Flagship.sharedInstance.sharedVisitor = visitor
       }
