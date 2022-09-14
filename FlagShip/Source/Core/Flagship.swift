@@ -34,7 +34,7 @@ public class Flagship:NSObject{
     /// Configuration
     var currentConfig:FlagshipConfig = FSConfigBuilder().build()
     /// Current visitor
-    public private (set) var sharedVisitor:FSVisitor?
+    @objc public private (set) var sharedVisitor:FSVisitor?
     /// Current status
     internal var currentStatus:FStatus = .NOT_INITIALIZED
     
@@ -95,7 +95,7 @@ public class Flagship:NSObject{
     }
     
     /// Set the shared visitor 
-    public func setSharedVisitor(_ visitor: FSVisitor) {
+    @objc public func setSharedVisitor(_ visitor: FSVisitor) {
         
         Flagship.sharedInstance.sharedVisitor = visitor
       }
