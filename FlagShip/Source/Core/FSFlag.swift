@@ -127,12 +127,12 @@ public class FSFlag:NSObject {
 
 @objc public class FSFlagMetadata:NSObject{
     
-    var campaignId      :String       = ""
-    var variationGroupId:String       = ""
-    var variationId     :String       = ""
-    var isReference     :Bool         = false
-    var campaignType    :String       = ""
-    var slug            :String       = ""
+    public private (set)  var campaignId      :String       = ""
+    public private (set)  var variationGroupId:String       = ""
+    public private (set)  var variationId     :String       = ""
+    public private (set)  var isReference     :Bool         = false
+    public private (set)  var campaignType    :String       = ""
+    public private (set)  var slug            :String       = ""
     
     
     internal init(_ modification:FSModification?){
@@ -145,7 +145,7 @@ public class FSFlag:NSObject {
         slug             = modification?.slug             ?? ""
     }
     
-    public func toJson()->[String:Any]{
+    @objc public func toJson()->[String:Any]{
         
         return      ["campaignId"           :campaignId,
                      "variationGroupId"     :variationGroupId,
