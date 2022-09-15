@@ -245,6 +245,8 @@
 		8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
 		8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
 		8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
+		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
+		F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */ = {isa = PBXBuildFile; fileRef = F567A44028D32BB2008E9FC0 /* hitCache.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -338,6 +340,8 @@
 		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
+		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
+		F567A44028D32BB2008E9FC0 /* hitCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hitCache.json; path = ../../../Flagship/FlagShipTests/Mocks/hitCache.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -586,6 +590,7 @@
 				8B67370327FED7F2003EC960 /* murmurTest.swift */,
 				8B67370427FED7F3003EC960 /* QAReportTest.swift */,
 				8B6736F927FED7F2003EC960 /* Universal-Bridging-Header.h */,
+				F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				8B67370C27FED7F3003EC960 /* visitorCache.json */,
+				F567A44028D32BB2008E9FC0 /* hitCache.json */,
 				8B67370D27FED7F3003EC960 /* decisionApi.json */,
 				8B67370E27FED7F3003EC960 /* bucketMock.json */,
 				8B67370F27FED7F3003EC960 /* decisionApiPanic.json */,
@@ -842,6 +848,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B5438B327FF989100299654 /* decisionApiPanic.json in Resources */,
+				F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */,
 				8B5438B427FF98A500299654 /* visitorCache.json in Resources */,
 				8B5438B227FF988F00299654 /* bucketMock.json in Resources */,
 				8B5438B127FF988B00299654 /* decisionApi.json in Resources */,
@@ -985,6 +992,7 @@
 				8B67371927FEDA3E003EC960 /* FSTargetingManagerTest.swift in Sources */,
 				8B67371A27FEDA3E003EC960 /* FSVisitorBuilderTest.swift in Sources */,
 				8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */,
+				F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1461,7 +1469,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1492,7 +1500,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.3;
+				MARKETING_VERSION = 3.0.4;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;

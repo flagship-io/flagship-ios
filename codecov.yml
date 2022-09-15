@@ -30,3 +30,4 @@ comment:
 
 ignore:
   - "FlagShip/FlagShipTests"
+  - "Source/Core/FSVisitor+objc.swift"
