@@ -43,5 +43,13 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12/1000)
 
     }
+    
+    func testLogManager(){
+        
+        let customLoger = FSLogManager()
+        customLoger.level = .WARNING
+        customLoger.onLog(level: .DEBUG, tag: "testTag", message: "testMsg")
+       XCTAssertTrue( customLoger.getLevel() == .WARNING)
+    }
 
 }

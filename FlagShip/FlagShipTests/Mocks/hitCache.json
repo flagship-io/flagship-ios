@@ -1,0 +1,11 @@
+{
+    "version":2,
+    "data": {
+      "visitorId": "visitor_1",
+      "anonymousId": "anonym_0",
+      "type":"screen",
+      "time":0.0,
+      "content":null,
+      "numberOfBytes":4,
+    }
+}
