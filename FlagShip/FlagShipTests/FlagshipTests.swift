@@ -10,9 +10,9 @@ import XCTest
 @testable import Flagship
 
 class FlagshipTests: XCTestCase {
-
+    
     override func setUpWithError() throws {
-
+        
     }
     
     
@@ -26,7 +26,7 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
         XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 2)
-
+        
     }
     
     
@@ -41,15 +41,14 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
         XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12/1000)
-
+        
     }
     
     func testLogManager(){
-        
         let customLoger = FSLogManager()
         customLoger.level = .WARNING
         customLoger.onLog(level: .DEBUG, tag: "testTag", message: "testMsg")
-       XCTAssertTrue( customLoger.getLevel() == .WARNING)
+        XCTAssertTrue( customLoger.getLevel() == .WARNING)
     }
-
+    
 }

@@ -13,7 +13,7 @@ public class FSFlag:NSObject {
     var key             :String
     var defaultValue    :Any?
     internal var strategy:FSStrategy?
-
+    
     
     internal init<T>(_ aKey:String,_ aModification:FSModification?, _ aDefaultValue:T? = nil, _ aStrategy:FSStrategy?){
         
@@ -153,8 +153,7 @@ public class FSFlag:NSObject {
                      "isReference"          :isReference,
                      "campaignType"         :campaignType,
                      "slug"                 : slug
-                    ]
+        ]
     }
 }
-
 

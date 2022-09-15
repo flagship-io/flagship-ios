@@ -22,7 +22,7 @@ import Foundation
     case READY           = 0x100
 }
 
- 
+
 
 
 public class Flagship:NSObject{
@@ -53,7 +53,7 @@ public class Flagship:NSObject{
     private override init(){
     }
     
-   @objc public func start(envId:String, apiKey:String, config:FlagshipConfig = FSConfigBuilder().build()){
+    @objc public func start(envId:String, apiKey:String, config:FlagshipConfig = FSConfigBuilder().build()){
         
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
@@ -75,13 +75,13 @@ public class Flagship:NSObject{
         /// If the mode bucketing we set the mode at NotReady, until the polling get the
         self.currentStatus = (config.mode == .DECISION_API) ? .READY:.POLLING
         
-
+        
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay:FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
     
     internal func newVisitor(_ visitorId:String, context:[String:Any] = [:], hasConsented:Bool = true, isAuthenticated:Bool ) -> FSVisitor {
-
+        
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config:self.currentConfig), aHasConsented:hasConsented, aIsAuthenticated: isAuthenticated)
         
         /// Define strategy
@@ -89,16 +89,16 @@ public class Flagship:NSObject{
         
         /// Send consent hit
         newVisitor.sendHitConsent(hasConsented)
-
+        
         return newVisitor
-
+        
     }
     
-    /// Set the shared visitor 
-     public func setSharedVisitor(_ visitor: FSVisitor) {
+    /// Set the shared visitor
+    public func setSharedVisitor(_ visitor: FSVisitor) {
         
         Flagship.sharedInstance.sharedVisitor = visitor
-      }
+    }
     
     /// Reset the sdk
     internal func reset(){
