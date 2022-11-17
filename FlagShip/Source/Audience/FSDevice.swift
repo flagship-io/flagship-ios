@@ -47,7 +47,7 @@ internal class FSDevice: NSObject {
     /// Get the Model
     class func getDeviceModel() -> String {
             #if os(iOS) || os(tvOS)
-                return UIDevice.current.name
+                return UIDevice.current.model
             #elseif os (macOS)
                 return FSDevice.getModelIdentifier() ?? "Mac"
             #elseif os(watchOS)
