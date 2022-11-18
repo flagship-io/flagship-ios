@@ -47,23 +47,15 @@ internal class FSDevice: NSObject {
     /// Get the Model
     class func getDeviceModel() -> String {
         
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        let machineMirror = Mirror(reflecting: systemInfo.machine)
-        return machineMirror.children.reduce("") { identifier, element in
-          guard let value = element.value as? Int8, value != 0 else { return identifier }
-          return identifier + String(UnicodeScalar(UInt8(value)))
-        }
-        
-//            #if os(iOS) || os(tvOS)
-//                return UIDevice.current.model
-//            #elseif os (macOS)
-//                return FSDevice.getModelIdentifier() ?? "Mac"
-//            #elseif os(watchOS)
-//                return  WKInterfaceDevice.current().model
-//            #else
-//                return ""
-//            #endif
+            #if os(iOS) || os(tvOS)
+                return UIDevice.current.model
+            #elseif os (macOS)
+                return FSDevice.getModelIdentifier() ?? "Mac"
+            #elseif os(watchOS)
+                return  WKInterfaceDevice.current().model
+            #else
+                return ""
+            #endif
     }
     class func isFirstTimeUser() -> Bool {
 
