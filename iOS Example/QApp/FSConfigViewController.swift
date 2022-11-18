@@ -135,6 +135,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         let currentVisitor = createVisitor()
         
         currentVisitor.updateContext(.CARRIER_NAME, "SFR")
+        
+        // Alternaive solution waiting the fix in production
+        // Override the device model, e.g. "iPhone", "iPad"
+ 
+        
+        
+        
         currentVisitor.synchronize { () in
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY{
