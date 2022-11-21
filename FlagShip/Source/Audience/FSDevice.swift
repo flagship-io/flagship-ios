@@ -47,11 +47,13 @@ internal class FSDevice: NSObject {
     
     
     
-    
-    
     /// Get the Model
     class func getDeviceModel() -> String {
 #if os(iOS)
+        ///in simulaor  the system info machine return armv
+#if targetEnvironment(simulator)
+        return UIDevice.current.model
+#else
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -59,6 +61,7 @@ internal class FSDevice: NSObject {
             guard let value = element.value as? Int8, value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
+#endif
 #elseif os(tvOS)
         return UIDevice.current.model
 #elseif os (macOS)
