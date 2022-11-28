@@ -66,7 +66,6 @@
 		8B90008C2575298600703DDB /* FSCustomTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B90008B2575298600703DDB /* FSCustomTools.swift */; };
 		8B90016A2580D25800703DDB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8B9001692580D25800703DDB /* Settings.bundle */; };
 		8BF2DDE125681A97005FF664 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DDE025681A97005FF664 /* AppDelegate.swift */; };
-		8BF2DDE325681A97005FF664 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DDE225681A97005FF664 /* SceneDelegate.swift */; };
 		8BF2DDE525681A97005FF664 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DDE425681A97005FF664 /* ViewController.swift */; };
 		8BF2DDE825681A97005FF664 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF2DDE625681A97005FF664 /* Main.storyboard */; };
 		8BF2DDEA25681A9C005FF664 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF2DDE925681A9C005FF664 /* Assets.xcassets */; };
@@ -551,7 +550,6 @@
 				8B493A5327FF35B600DDAAB5 /* XNUIBaseViewController.swift in Sources */,
 				8B493A5827FF35B600DDAAB5 /* XNFileLogHandler.swift in Sources */,
 				8B493A6D27FF365000DDAAB5 /* FSLoggerCtrl.swift in Sources */,
-				8BF2DDE325681A97005FF664 /* SceneDelegate.swift in Sources */,
 				8B493A6927FF35B600DDAAB5 /* XNLogData.swift in Sources */,
 				8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */,
 				8B493A4027FF35B600DDAAB5 /* XNUILogDetailCell.swift in Sources */,
@@ -717,7 +715,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = QApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -745,7 +743,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
