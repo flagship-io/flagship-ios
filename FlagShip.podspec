@@ -29,7 +29,7 @@ The FlagShip SDK is an iOS framework whose goal is to help you run Flagship camp
   s.ios.deployment_target  = "9.0"
   s.tvos.deployment_target = "10.0"
   s.osx.deployment_target = "10.10"
-  s.watchos.deployment_target = "5.0"
+  #s.watchos.deployment_target = "5.0"   #publishing podspecs that support watchOS platform is currently broken under Xcode 14
   
   
 
