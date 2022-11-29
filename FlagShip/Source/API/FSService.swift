@@ -38,15 +38,17 @@ internal class FSService {
     /// Get campaign
     func getCampaigns(_ currentContext: [String: Any],hasConsented:Bool,onGetCampaign:@escaping(FSCampaigns?, Error?) -> Void){
         
-        /// Create param with visitor and currentContext
+        // Create param with visitor and currentContext
         let params: NSMutableDictionary = ["visitor_id": visitorId , "context": currentContext, "trigger_hit": false]
-        /// if anonymousId is not nil ===> add it to params
+        // if anonymousId is not nil ===> add it to params
         if let aId = anonymousId {
             params.setValue(aId, forKey: "anonymousId")
         }
+        // Add the consent param
+        params.setValue(hasConsented ? true: false, forKey: VISITOR_CONSENT)
         do {
             
-            guard let getUrl = URL(string: String(format: FSGetCampaigns + (!hasConsented ? CONTEXT_PARAM:""), envId))else {
+            guard let getUrl = URL(string: String(format: FSGetCampaigns, envId))else {
                 
                 /// The Url creation failed
                 onGetCampaign(nil, FSError(codeError: 400, kind: .badRequest))
