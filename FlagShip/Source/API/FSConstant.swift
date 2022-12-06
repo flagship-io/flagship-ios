@@ -39,7 +39,7 @@ internal var FlagShipEndPoint: String {
 internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
 
 /// Add this part when the user don't consent 
-internal let  CONTEXT_PARAM = "&sendContextEvent=false"
+internal let  VISITOR_CONSENT = "visitor_consent"
 
 
 ///// ACTIVATE ///////////////
