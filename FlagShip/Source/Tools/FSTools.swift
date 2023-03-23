@@ -7,33 +7,28 @@
 
 import Foundation
 
-
 #if os(watchOS)
 import Network
 #else
 import SystemConfiguration
 #endif
 
-
 let FSLengthId = 20
 
 internal class FSTools: NSObject {
-    
-    
 #if os(watchOS)
     static var available = false
     static let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
 #endif
-    
-    
-/// Check only for watchOS, will refractor checking connectevity for other platforms that use reachability
-    func checkConnectevity(){
+
+    /// Check only for watchOS, will refractor checking connectevity for other platforms that use reachability
+    func checkConnectevity() {
 #if os(watchOS)
         FSTools.monitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 FSTools.available = true
             } else {
-                FSTools.available =  false
+                FSTools.available = false
             }
         }
         let queue = DispatchQueue.global(qos: .default)
@@ -41,17 +36,12 @@ internal class FSTools: NSObject {
 #endif
     }
 
-
-    
     /// Manage EnvId
     class func chekcXidEnvironment(_ xid: String) -> Bool {
-
-        if(xid.count == FSLengthId && (xid.range(of: "[0-9a-v]{20}", options: .regularExpression) != nil)) {
-
+        if xid.count == FSLengthId && (xid.range(of: "[0-9a-v]{20}", options: .regularExpression) != nil) {
             return true
 
         } else {
-            
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The environmentId : \(xid) is not valide "))
             return false
         }
@@ -59,38 +49,38 @@ internal class FSTools: NSObject {
 
     /// Manage the visitor Id
 
-    class func manageVisitorId(_ visitorId: String?)->String {
-
+    class func manageVisitorId(_ visitorId: String?) -> String {
         guard let newVisitor = visitorId else {
-
             if let storedId = FSGenerator.getFlagShipIdInCache() {
-
                 return storedId
 
-             } else {
+            } else {
+                /// Create visitor Id
+                let newId = FSGenerator.generateFlagShipId()
+                /// The Sdk FlagShip generate an anonymousId
 
-                 /// Create visitor Id
-                 let newId = FSGenerator.generateFlagShipId()
-                 /// The Sdk FlagShip generate an anonymousId
-
-                 /// Save the visitor id
-                 FSGenerator.saveFlagShipIdInCache(userId: newId)
+                /// Save the visitor id
+                FSGenerator.saveFlagShipIdInCache(userId: newId)
                 return newId
-             }
-         }
-         
+            }
+        }
+
         return newVisitor
     }
-    
+
     // Is Connexion Available
     class func isConnexionAvailable() -> Bool {
-        #if os(watchOS)
+#if os(watchOS)
         return FSTools.available
-        #else
+#else
         let reachability = SCNetworkReachabilityCreateWithName(nil, FlagshipUniversalEndPoint)
         var flags = SCNetworkReachabilityFlags()
         SCNetworkReachabilityGetFlags(reachability!, &flags)
         return flags.contains(.reachable)
-        #endif
+#endif
+    }
+
+    class func generateUuidv4() -> String {
+        return UUID().uuidString
     }
 }
