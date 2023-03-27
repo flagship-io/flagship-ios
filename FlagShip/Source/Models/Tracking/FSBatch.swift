@@ -46,26 +46,29 @@ class FSBatch: FSTracking {
     }
 }
 
-// {
-//    "t": "BATCH",
-//    "cid": "bkk4s7gcmjcg07fke9dg",
-//    "ds": "APP",
+//
+//       Batch for Activate
+//
+/////////////////////////////////////
 
-//    "h": [
-//        {
-//            "vid": "visitor1",
-//            "t": "PAGEVIEW",
-//            "dl": "https://myurl.com",
-//            "qt": 9210
-//        },
-//        {
-//            "vid": "visitor1",
-//            "ev": 12,
-//            "t": "EVENT",
-//            "el": "label",
-//            "ea": "action",
-//            "ec": "Action Tracking",
-//            "qt": 4178
-//        }
-//    ]
-// }
+class ActivateBatch {
+    var listActivate: [FSTrackingProtocol]
+
+    var envId: String = ""
+
+    init(listActivate: [FSTrackingProtocol]) {
+        self.listActivate = listActivate
+        self.envId = listActivate.first?.envId ?? ""
+    }
+
+    func toJson() -> [String: Any] {
+        var ret: [[String: Any]] = []
+
+        for item in self.listActivate {
+            var elemToAdd = item.bodyTrack
+            elemToAdd.removeValue(forKey: "cid")
+            ret.append(elemToAdd)
+        }
+        return ["cid": self.envId, "batch": ret]
+    }
+}

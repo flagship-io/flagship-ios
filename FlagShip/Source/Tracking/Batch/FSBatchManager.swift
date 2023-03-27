@@ -22,9 +22,11 @@ class FSBatchManager {
     // Batch timer
     var batchTimer: FSRepeatingTimer?
 
-    var onProcess: (() -> Void)? /// callBack
-
-    init() {
+    init(_ pPoolMaxSize: Int, _ pBatchIntervals: Double) {
+        // Set the pool size
+        poolMaxSize = pPoolMaxSize
+        // Set the interval batch
+        batchIntervals = pBatchIntervals
         // Init batch timer
         batchTimer = FSRepeatingTimer(timeInterval: batchIntervals)
     }
@@ -34,7 +36,7 @@ class FSBatchManager {
         fsPool.addNewTrackElement(newElement)
 
         if fsPool.count() >= poolMaxSize {
-            print("@@@@@@@@@@@ The size limit for the pool is reached , will process btaching ")
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Maximum size for queuePool is reached , process batching immediately"))
             batchFromQueue()
         }
     }
@@ -46,16 +48,11 @@ class FSBatchManager {
     }
 
     func batchFromQueue() {
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Prcocess Batch Starting : .... 👍"))
         batchTimer?.suspend()
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
-        // Extract the hits from the pool
-        var result = fsPool.dequeueElements(poolMaxSize)
-
-        if !result.isEmpty {
-            // Create a batch object
-        }
-        print("@@@@@@@@@@@@@@ The size of extracted pool is \(result.count) @@@@@@@@@@@@@@@@@@@@")
-        delegate?.processBatching(batchToSend: FSBatch(result))
+        // Extract the hits from the pool and trigger the delegate
+        delegate?.processBatching(batchToSend: FSBatch(fsPool.dequeueElements(poolMaxSize)))
         batchTimer?.resume()
     }
 
@@ -64,6 +61,7 @@ class FSBatchManager {
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Batching Process"))
         batchTimer?.eventHandler = {
             if !self.fsPool.isEmpty() {
+                FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Duration of the periodic Batching is reached , process batching immediately"))
                 self.batchFromQueue()
             }
         }

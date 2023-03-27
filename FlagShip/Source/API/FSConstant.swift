@@ -46,7 +46,9 @@ internal let  VISITOR_CONSENT = "visitor_consent"
 internal let FSActivate = FlagShipEndPoint + "activate"
 
 ///////////// ARIANE ////////////////////////////////
-internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
+//internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
+
+internal let EVENT_TRACKING = "https://events.flagship.io";
 
 /////////////// GET SCRIPT ////////////////////////
 

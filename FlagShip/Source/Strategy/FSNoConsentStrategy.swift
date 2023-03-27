@@ -20,7 +20,7 @@ class FSNoConsentStrategy:FSDefaultStrategy{
     override func sendHit(_ hit: FSTrackingProtocol) {
         switch hit.type {
         case .CONSENT:
-            visitor.configManager.trackingManger?.sendEvent(hit, forTuple: visitor.createTupleId())
+         //   visitor.configManager.trackingManger?.sendEvent(hit, forTuple: visitor.createTupleId())
             break
         default:
             FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay:FSLogMessage.HIT_NO_CONSENT)

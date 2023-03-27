@@ -33,7 +33,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         // Set envid
         envIdTextField?.text = UserDefaults.standard.value(forKey: "idKey") as? String ?? ""
         apiKetTextField?.text = UserDefaults.standard.value(forKey: "idApiKey") as? String ?? ""
-        
+
         // self.visitorIdTextField?.text = nil
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         visitorCtxLabel?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showEditContext)))
@@ -62,8 +62,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 /// push view
                 contextCtrl.modalPresentationStyle = .popover
                 contextCtrl.delegate = self
-                self.present(contextCtrl, animated: true) {
-                }
+                self.present(contextCtrl, animated: true) {}
             }
         }
     }
@@ -83,7 +82,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
 
         // Retreive the timeout value
-        var timeOut: Double = 2.0 /// Default value is 2 seconds
+        var timeOut = 2.0 /// Default value is 2 seconds
 
         if let timeOutInputValue = Double(timeOutFiled?.text ?? "2") {
             timeOut = timeOutInputValue
@@ -101,7 +100,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }
+        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 20, batchIntervalTimer: 5, strategy: .CONTINUOUS_CACHING_STRATEGY))
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
         } else {
@@ -173,16 +172,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         visitorCtxLabel?.text = nil
         modeBtn?.isSelected = false
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         hideKeyBoard()
         return true
     }
 
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {}
 
-    //Delegate JsonEditor
+    // Delegate JsonEditor
     func onUpdateContextFromEditor() {
         DispatchQueue.main.async {
             if let visitor = Flagship.sharedInstance.sharedVisitor {
@@ -193,7 +191,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 }
 
-//Delegate
+// Delegate
 protocol FSConfigViewDelegate {
     func onGetSdkReady()
     func onResetSdk()

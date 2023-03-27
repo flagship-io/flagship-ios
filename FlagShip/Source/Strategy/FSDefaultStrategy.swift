@@ -83,12 +83,17 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 if campaigns?.panic == true {
                     Flagship.sharedInstance.currentStatus = .PANIC_ON
                     self.visitor.currentFlags.removeAll()
+                    // Stop the process batching when the panic mode is ON
+                    self.visitor.configManager.trackingManger?.stopBatchingProcess()
                     onSyncCompleted(.PANIC_ON)
                     
                 } else {
                     /// Update new flags
                     self.visitor.updateFlags(campaigns?.getAllModification())
                     Flagship.sharedInstance.currentStatus = .READY
+                    // Resume the process batching when the panic mode is OFF
+                    self.visitor.configManager.trackingManger?.resumeBatchingProcess()
+
                     onSyncCompleted(.READY)
                 }
             } else {
@@ -129,7 +134,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     func sendHit(_ hit: FSTrackingProtocol) {
         // TODO: Comment this line , the hit will be sent with trackingManger?.sendHit(hit)
-     //   visitor.configManager.trackingManger?.sendEvent(hit, forTuple: visitor.createTupleId())
+        //   visitor.configManager.trackingManger?.sendEvent(hit, forTuple: visitor.createTupleId())
         
         // Set the visitor Id and anonymous id  (See later to better )
         hit.visitorId = visitor.visitorId
@@ -245,7 +250,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                         }
                     }
                     DispatchQueue(label: "flagShip.batchHits.queue").async(execute: DispatchWorkItem {
-                        self.visitor.configManager.trackingManger?.sendBatchHits(savedHits)
+                      //  self.visitor.configManager.trackingManger?.sendBatchHits(savedHits)
                     })
                 }
             }

@@ -18,8 +18,6 @@ class FSQueue<T> {
     
     func enqueue(_ value: T) {
         listQueue.append(value)
-        
-        print(" after enqueue the hit \(listQueue.count)")
     }
 
     func dequeue() -> T? {

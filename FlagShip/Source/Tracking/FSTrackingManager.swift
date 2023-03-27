@@ -15,32 +15,24 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     // Create service
     var service: FSService
 
-    init(_ pService: FSService) {
+    // Tracking config
+    var trackingConfig: FSTrackingConfig
+
+    init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig) {
         service = pService
+        // Set config tracking
+        trackingConfig = pTrackingConfig // Revoir cette partie
         // Init the batchManager
-        batchManager = FSBatchManager()
+        batchManager = FSBatchManager(trackingConfig.poolMaxSize, trackingConfig.batchIntervalTimer)
         // Set the delegate
         batchManager.delegate = self
         // Start the process
         batchManager.startBatchProcess()
     }
 
-    func sendEvent<T: FSTrackingProtocol>(_ event: T, forTuple: [String: String]) {
-        // Before send hit we should fill the visitorId and anonymous id
-        var trackingObject = event.bodyTrack
-        trackingObject.merge(forTuple) { _, new in new }
-
-        do {
-            let hitData = try JSONSerialization.data(withJSONObject: trackingObject as Any, options: .prettyPrinted)
-            sendDataForHit(hitData)
-        } catch {
-            FlagshipLogManager.Log(level: .ERROR, tag: .TARGETING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
-        }
-    }
-
     private func sendDataForHit(_ dataHit: Data) {
         /// Create URL
-        if let urlEvent = URL(string: FSDATA_ARIANE) {
+        if let urlEvent = URL(string: EVENT_TRACKING) {
             service.sendRequest(urlEvent, type: .Tracking, data: dataHit, onCompleted: { _, error in
 
                 if error == nil {
@@ -51,117 +43,43 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
         }
     }
 
-    ///////////////
-    /// BATCHS ////
-    /// ///////////
-
-    internal func sendBatchHits(_ listCachedHits: [FSCacheHit]) {
-        var globalSize = 0
-
-        /// Core batch to send
-        var coreBatch: [String: Any] = [:]
-        /// Set the "cid"
-        coreBatch["cid"] = service.envId
-        /// Add type
-        coreBatch["t"] = "BATCH"
-        /// Set the visitorId
-        coreBatch["vid"] = listCachedHits.first?.data?.visitorId
-        /// Set the Anonymous Id
-        coreBatch["cuid"] = listCachedHits.first?.data?.anonymousId
-        /// Set the data source
-        coreBatch["ds"] = listCachedHits.first?.data?.content["ds"]
-
-        /// Look for the hits
-        var hitsArray: [[String: Any]] = []
-        for item in listCachedHits { ///// Main Loop for hits
-            if let dataHit = item.data {
-                do {
-                    /// Get cst time stored
-                    if let savedCst = dataHit.content["cst"] as? NSNumber {
-                        /// Calculate QueueTime
-                        let qt: Double = Date.timeIntervalSinceReferenceDate - savedCst.doubleValue
-                        /// Set QueueTime
-                        dataHit.content.updateValue(qt, forKey: "qt")
-                        /// Remove cst Time
-                        dataHit.content.removeValue(forKey: "cst")
-                    }
-
-                    /// Remove redundant information
-                    dataHit.content.removeValue(forKey: "cid")
-                    dataHit.content.removeValue(forKey: "ds")
-
-                    if (globalSize + dataHit.numberOfBytes) > MAX_SIZE_BATCH {
-                        /// Send this array now
-                        /// Add hits
-                        coreBatch.updateValue(hitsArray, forKey: "h")
-                        /// Send Batch
-                        sendCoreBatch(coreBatch)
-                        /// clean hitsArray
-                        hitsArray.removeAll()
-                        coreBatch.removeValue(forKey: "h")
-                        globalSize = 0
-
-                    } else {
-                        /// Add the hit to batch via "h"
-                        hitsArray.append(dataHit.content)
-                        globalSize = globalSize + dataHit.numberOfBytes
-                    }
-                }
-            }
-        }
-        /// if we are here and the hitsArray is not empty then send it
-        if !hitsArray.isEmpty {
-            /// Add hits
-            coreBatch.updateValue(hitsArray, forKey: "h")
-            /// Send batch
-            sendCoreBatch(coreBatch)
-        }
-    }
-
-    internal func sendCoreBatch(_ coreBatch: [String: Any]) {
-        do {
-            let hitBatch = try JSONSerialization.data(withJSONObject: coreBatch as Any, options: .prettyPrinted)
-            /// Send the core batch
-            sendDataForHit(hitBatch)
-        } catch {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: .MESSAGE("Failed to send batch of hits"))
-        }
-    }
-
+    // Send Hit
     func sendHit(_ hitToSend: FSTrackingProtocol) {
-        batchManager.addTrackElement(hitToSend)
-    }
-
-    func sendActivate() {}
-
-    // Delegate FSBatchingManagerDelegate
-    func processBatching(batchToSend: FSBatch) {
-        var batchToSendObject = batchToSend.bodyTrack
         do {
-            let batchData = try JSONSerialization.data(withJSONObject: batchToSendObject as Any, options: .prettyPrinted)
-
-            print(batchToSend.bodyTrack.description)
-            sendDataForHit(batchData) // Revoir ca apres ..... TODO
+            let dataToSend = try JSONSerialization.data(withJSONObject: hitToSend.bodyTrack as Any, options: .prettyPrinted)
+            // Send Data
+            sendDataForHit(dataToSend)
         } catch {
             FlagshipLogManager.Log(level: .ERROR, tag: .TARGETING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
         }
     }
-}
 
-protocol ITrackingManager {
-    func sendHit(_ hitToSend: FSTrackingProtocol)
-
-    func sendActivate()
-}
-
-class ContinousTrackingManager: ITrackingManager {
-    func sendHit(_ hitToSend: FSTrackingProtocol) {}
-
+    // Send Activate
     func sendActivate() {}
-}
 
-class PeriodicTrackingManager: ITrackingManager {
-    func sendHit(_ hitToSend: FSTrackingProtocol) {}
+    func stopBatchingProcess() {}
 
-    func sendActivate() {}
+    func resumeBatchingProcess() {}
+
+    // Delegate FSBatchingManagerDelegate
+    func processBatching(batchToSend: FSBatch) {
+        do {
+            let batchData = try JSONSerialization.data(withJSONObject: batchToSend.bodyTrack as Any, options: .prettyPrinted)
+
+            FlagshipLogManager.Log(level: .ALL, tag: FSTag.TRACKING, messageToDisplay: FSLogMessage.MESSAGE(batchData.prettyPrintedJSONString as String?))
+
+            if let urlEvent = URL(string: EVENT_TRACKING) {
+                service.sendRequest(urlEvent, type: .Tracking, data: batchData, onCompleted: { _, error in
+
+                    if error == nil {
+                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SUCCESS_SEND_HIT)
+                    } else {
+                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
+                    }
+                })
+            }
+        } catch {
+            FlagshipLogManager.Log(level: .ERROR, tag: .TARGETING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
+        }
+    }
 }

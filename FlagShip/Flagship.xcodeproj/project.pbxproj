@@ -245,6 +245,22 @@
 		8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
 		8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
 		8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
+		F50E958F29CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
+		F50E959029CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
+		F50E959129CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
+		F50E959229CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
+		F50E959929D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
+		F50E959A29D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
+		F50E959B29D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
+		F50E959C29D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
+		F50E95A329D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */; };
+		F50E95A429D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */; };
+		F50E95A529D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */; };
+		F50E95A629D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */; };
+		F50E95A829D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
+		F50E95A929D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
+		F50E95AA29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
+		F50E95AB29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
 		F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */ = {isa = PBXBuildFile; fileRef = F567A44028D32BB2008E9FC0 /* hitCache.json */; };
 		F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
@@ -352,6 +368,10 @@
 		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
+		F50E958E29CDD977000B333F /* FSTrackingConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingConfig.swift; sourceTree = "<group>"; };
+		F50E959829D19EEB000B333F /* FSITrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSITrackingManager.swift; sourceTree = "<group>"; };
+		F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContinuousTrackingManager.swift; sourceTree = "<group>"; };
+		F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPeriodicTrackingManager.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
 		F567A44028D32BB2008E9FC0 /* hitCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hitCache.json; path = ../../../Flagship/FlagShipTests/Mocks/hitCache.json; sourceTree = "<group>"; };
 		F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPoolQueue.swift; sourceTree = "<group>"; };
@@ -525,6 +545,7 @@
 			children = (
 				8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */,
 				8B67368727FEBE4C003EC960 /* FSConfigManager.swift */,
+				F50E958E29CDD977000B333F /* FSTrackingConfig.swift */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -543,9 +564,10 @@
 		8B67368D27FEBE4C003EC960 /* Tracking */ = {
 			isa = PBXGroup;
 			children = (
-				F5FC951B29C4B87D00686BC6 /* FSBatchManager.swift */,
-				F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */,
+				F50E95AD29D1A02C000B333F /* Batch */,
+				F50E95AC29D1A000000B333F /* TrackingStrategies */,
 				8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */,
+				F50E959829D19EEB000B333F /* FSITrackingManager.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -673,6 +695,24 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F50E95AC29D1A000000B333F /* TrackingStrategies */ = {
+			isa = PBXGroup;
+			children = (
+				F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */,
+				F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */,
+			);
+			path = TrackingStrategies;
+			sourceTree = "<group>";
+		};
+		F50E95AD29D1A02C000B333F /* Batch */ = {
+			isa = PBXGroup;
+			children = (
+				F5FC951B29C4B87D00686BC6 /* FSBatchManager.swift */,
+				F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */,
+			);
+			path = Batch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -951,12 +991,14 @@
 				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
 				8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */,
 				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
+				F50E959029CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
 				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
 				8B2D51472805D43C00866D61 /* FlagshipConstants.swift in Sources */,
 				8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */,
+				F50E959A29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B2D51492805D43C00866D61 /* FSCacheManager.swift in Sources */,
 				8B2D514A2805D43C00866D61 /* FSBucket.swift in Sources */,
 				8B2D514B2805D43C00866D61 /* FSCampaigns.swift in Sources */,
@@ -967,6 +1009,7 @@
 				8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */,
 				8B2D51512805D43C00866D61 /* FSCacheHit.swift in Sources */,
 				8B2D51522805D43C00866D61 /* FSHits.swift in Sources */,
+				F50E95A929D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */,
 				8B2D51532805D43C00866D61 /* FSCacheVisitor.swift in Sources */,
 				8B2D51542805D43C00866D61 /* FSModifications.swift in Sources */,
 				8B2D51552805D43C00866D61 /* FSStorageManager.swift in Sources */,
@@ -974,6 +1017,7 @@
 				F5FC951D29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B2D51572805D43C00866D61 /* FSStorage.swift in Sources */,
 				8B2D51582805D43C00866D61 /* FlagshipConfig.swift in Sources */,
+				F50E95A429D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */,
 				8B2D51592805D43C00866D61 /* FSConfigManager.swift in Sources */,
 				F5FC952129C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B2D515A2805D43C00866D61 /* FSConstant.swift in Sources */,
@@ -1033,12 +1077,14 @@
 				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
+				F50E959129CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
 				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
 				8B9F2A962809B8E600323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */,
+				F50E959B29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2A982809B8E600323094 /* FSCacheManager.swift in Sources */,
 				8B9F2A992809B8E600323094 /* FSBucket.swift in Sources */,
 				8B9F2A9A2809B8E600323094 /* FSCampaigns.swift in Sources */,
@@ -1049,6 +1095,7 @@
 				8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */,
 				8B9F2AA02809B8E600323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AA12809B8E600323094 /* FSHits.swift in Sources */,
+				F50E95AA29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */,
 				8B9F2AA22809B8E600323094 /* FSCacheVisitor.swift in Sources */,
 				8B9F2AA32809B8E600323094 /* FSModifications.swift in Sources */,
 				8B9F2AA42809B8E600323094 /* FSStorageManager.swift in Sources */,
@@ -1056,6 +1103,7 @@
 				F5FC951E29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B9F2AA62809B8E600323094 /* FSStorage.swift in Sources */,
 				8B9F2AA72809B8E600323094 /* FlagshipConfig.swift in Sources */,
+				F50E95A529D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */,
 				8B9F2AA82809B8E600323094 /* FSConfigManager.swift in Sources */,
 				F5FC952229C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B9F2AA92809B8E600323094 /* FSConstant.swift in Sources */,
@@ -1094,12 +1142,14 @@
 				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
+				F50E959229CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
 				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
 				8B9F2AD52809BA8200323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */,
+				F50E959C29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2AD72809BA8200323094 /* FSCacheManager.swift in Sources */,
 				8B9F2AD82809BA8200323094 /* FSBucket.swift in Sources */,
 				8B9F2AD92809BA8200323094 /* FSCampaigns.swift in Sources */,
@@ -1110,6 +1160,7 @@
 				8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */,
 				8B9F2ADF2809BA8200323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AE02809BA8200323094 /* FSHits.swift in Sources */,
+				F50E95AB29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */,
 				8B9F2AE12809BA8200323094 /* FSCacheVisitor.swift in Sources */,
 				8B9F2AE22809BA8200323094 /* FSModifications.swift in Sources */,
 				8B9F2AE32809BA8200323094 /* FSStorageManager.swift in Sources */,
@@ -1117,6 +1168,7 @@
 				F5FC951F29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B9F2AE52809BA8200323094 /* FSStorage.swift in Sources */,
 				8B9F2AE62809BA8200323094 /* FlagshipConfig.swift in Sources */,
+				F50E95A629D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */,
 				8B9F2AE72809BA8200323094 /* FSConfigManager.swift in Sources */,
 				F5FC952329C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B9F2AE82809BA8200323094 /* FSConstant.swift in Sources */,
@@ -1155,12 +1207,14 @@
 				8B6736A827FED3E5003EC960 /* FSVisitorBuilder.swift in Sources */,
 				8B6736A927FED3E5003EC960 /* FSVisitor+Campaigns.swift in Sources */,
 				8B6736AA27FED3E5003EC960 /* FSVisitor+objc.swift in Sources */,
+				F50E958F29CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B6736AB27FED3E5003EC960 /* FSVisitor.swift in Sources */,
 				8B6736AC27FED3E5003EC960 /* FlagshipLogManager.swift in Sources */,
 				8B6736AD27FED3E5003EC960 /* FSError.swift in Sources */,
 				8B6736AE27FED3E5003EC960 /* FSLogManager.swift in Sources */,
 				8B6736AF27FED3E5003EC960 /* FlagshipConstants.swift in Sources */,
 				8B6736B027FED3E5003EC960 /* FSCacheDelegate.swift in Sources */,
+				F50E959929D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B6736B127FED3E5003EC960 /* FSCacheManager.swift in Sources */,
 				8B6736B227FED3E5003EC960 /* FSBucket.swift in Sources */,
 				8B6736B327FED3E5003EC960 /* FSCampaigns.swift in Sources */,
@@ -1171,6 +1225,7 @@
 				8B6736B827FED3E5003EC960 /* FSTracking.swift in Sources */,
 				8B6736B927FED3E5003EC960 /* FSCacheHit.swift in Sources */,
 				8B6736BA27FED3E5003EC960 /* FSHits.swift in Sources */,
+				F50E95A829D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */,
 				8B6736BB27FED3E5003EC960 /* FSCacheVisitor.swift in Sources */,
 				8B6736BC27FED3E5003EC960 /* FSModifications.swift in Sources */,
 				8B6736BD27FED3E5003EC960 /* FSStorageManager.swift in Sources */,
@@ -1178,6 +1233,7 @@
 				F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B6736BF27FED3E5003EC960 /* FSStorage.swift in Sources */,
 				8B6736C027FED3E5003EC960 /* FlagshipConfig.swift in Sources */,
+				F50E95A329D19FBB000B333F /* FSContinuousTrackingManager.swift in Sources */,
 				8B6736C127FED3E5003EC960 /* FSConfigManager.swift in Sources */,
 				F5FC952029C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B6736C227FED3E5003EC960 /* FSConstant.swift in Sources */,
