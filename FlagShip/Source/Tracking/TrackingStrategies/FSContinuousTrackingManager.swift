@@ -19,7 +19,16 @@ class ContinuousTrackingManager: FSTrackingManager {
         batchManager.addTrackElement(hitToSend)
     }
 
-    override func sendActivate() {}
+    override func sendActivate(_ currentActivate: Activate) {
+        self.service.activate(currentActivate.bodyTrack) { error in
+
+            if error == nil {
+                print(" ------------ Activate with sucess -------------")
+            } else {
+                print(" ------------ Activate failed -------------")
+            }
+        }
+    }
 
     override func stopBatchingProcess() {
         batchManager.pauseBatchProcess()

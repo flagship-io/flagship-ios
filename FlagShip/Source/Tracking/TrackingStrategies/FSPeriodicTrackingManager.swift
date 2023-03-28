@@ -10,14 +10,16 @@ import Foundation
 
 class PeriodicTrackingManager: ContinuousTrackingManager {
     // Create batch manager
-    
+
     override init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig) {
         super.init(pService, pTrackingConfig)
     }
-    
+
     override func sendHit(_ hitToSend: FSTrackingProtocol) {
         print("------------- PERIODIC BATCHING --------------------")
     }
-    
-    override func sendActivate() {}
+
+    override func sendActivate(_ currentActivate: Activate){
+        
+    }
 }

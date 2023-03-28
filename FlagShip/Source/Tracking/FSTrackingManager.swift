@@ -55,7 +55,11 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     }
 
     // Send Activate
-    func sendActivate() {}
+    func sendActivate(_ currentActivate:Activate) {
+        
+    }
+    
+    
 
     func stopBatchingProcess() {}
 

@@ -25,18 +25,25 @@ internal class FSDecisionManager {
     
     /// Send activate via /activate
     /// - Parameter activateInfos: Information relative to activate
-    func activate(_ activateInfos:[String:Any]){
+    func activate(_ currentActivate:[String:Any]){
         
-        self.networkService.activate(activateInfos) { error in
+        
+     
+        
+        self.networkService.activate(currentActivate) { error in
             
-            if(error != nil){
-                FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay:FSLogMessage.ACTIVATE_FAILED)
-            }else{
-                FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay:FSLogMessage.ACTIVATE_SUCCESS("\(activateInfos)"))
+            if (error == nil){
+                
+                
             }
-            
+
         }
     }
+    
+    
+    
+    
+    
     
     /// private
     internal func launchPolling(){

@@ -14,6 +14,7 @@ import Foundation
     case EVENT
     case CONSENT
     case BATCH
+    case ACTIVATE
     case None
 
     public var typeString: String {
@@ -28,6 +29,8 @@ import Foundation
             return "EVENT"
         case .BATCH:
             return "BATCH"
+        case .ACTIVATE:
+            return "ACTIVATE"
         case .None:
             return "None"
         }
@@ -70,11 +73,16 @@ import Foundation
     /// Required
     var envId: String? { get }
 
+    /// Queue Time
+    var queueTimeBis: NSNumber? { get }
+
     /// Get cst
     func getCst() -> NSNumber?
 }
 
 @objcMembers public class FSTracking: NSObject, FSTrackingProtocol {
+    public var queueTimeBis: NSNumber?
+
     public var visitorId: String?
 
     public var id: String?

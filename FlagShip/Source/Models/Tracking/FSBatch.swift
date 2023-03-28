@@ -50,6 +50,57 @@ class FSBatch: FSTracking {
 //       Batch for Activate
 //
 /////////////////////////////////////
+///
+
+class Activate: FSTrackingProtocol {
+    var queueTimeBis: NSNumber?
+
+    var id: String?
+
+    var anonymousId: String?
+
+    var visitorId: String?
+
+    var type: FSTypeTrack
+
+    var fileName: String!
+
+    var envId: String?
+
+    // VariationId
+    var variationId: String?
+    // Variation GroupId
+    var variationGroupeId: String?
+
+    func getCst() -> NSNumber? {
+        return 0
+    }
+
+    init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
+        self.queueTimeBis = NSNumber(value: Date().timeIntervalSince1970)
+        self.type = .ACTIVATE
+        self.visitorId = visitorId
+        self.anonymousId = anonymousId
+        self.variationId = variationId
+        self.variationGroupeId = variationGroupeId
+    }
+
+    public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
+        // EnvId
+        customParams.updateValue(self.envId ?? "", forKey: "cid")
+        // VariationId
+        customParams.updateValue(self.variationId ?? "", forKey: "vaid")
+        // Variation GroupId
+        customParams.updateValue(self.variationGroupeId ?? "", forKey: "caid")
+
+        //  customParams.updateValue(self.queueTimeBis , forKey: "qt") // Revoie later
+
+        return customParams
+    }
+}
 
 class ActivateBatch {
     var listActivate: [FSTrackingProtocol]
@@ -61,7 +112,7 @@ class ActivateBatch {
         self.envId = listActivate.first?.envId ?? ""
     }
 
-    func toJson() -> [String: Any] {
+    public var bodyTrack: [String: Any] {
         var ret: [[String: Any]] = []
 
         for item in self.listActivate {
