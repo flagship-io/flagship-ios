@@ -20,12 +20,19 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     override func sendActivate(_ currentActivate: Activate) {
-        self.service.activate(currentActivate.bodyTrack) { error in
+        let activateBatch = ActivateBatch(pListActivate: [currentActivate])
+        let oldActivate = batchManager.extractAllElements(activatePool: true)
+        if oldActivate.count > 0 {
+            activateBatch.addListOfElement(oldActivate)
+        }
+        service.activate(activateBatch.bodyTrack) { error in
 
             if error == nil {
-                print(" ------------ Activate with sucess -------------")
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
             } else {
-                print(" ------------ Activate failed -------------")
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
+                // Add the current activate to batch
+                self.batchManager.reInjectElements(listToReInject: activateBatch.listActivate, activatePool: true)
             }
         }
     }

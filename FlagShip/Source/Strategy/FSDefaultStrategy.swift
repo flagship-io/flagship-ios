@@ -65,10 +65,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
             
             if FSTools.isConnexionAvailable() {
-                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .ACTIVATE_SUCCESS(""))
                 //  visitor.configManager.decisionManager?.activate(infosTrack)
-                
-                visitor.configManager.trackingManger?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, variationId: aModification.variationId, variationGroupeId: aModification.variationId))
+                visitor.configManager.trackingManger?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
                 
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .STORE_ACTIVATE)

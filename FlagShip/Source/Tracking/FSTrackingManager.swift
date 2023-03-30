@@ -55,11 +55,17 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     }
 
     // Send Activate
-    func sendActivate(_ currentActivate:Activate) {
-        
+
+    func sendActivate(_ currentActivate: Activate) {
+        service.activate(currentActivate.bodyTrack) { error in
+
+            if error == nil {
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
+            }
+        }
     }
-    
-    
 
     func stopBatchingProcess() {}
 

@@ -15,8 +15,10 @@ class FSBatchManager {
     var batchIntervals: Double = 10
     // Delegate
     var delegate: FSBatchingManagerDelegate?
-    // Init the poolQueue
-    var fsPool: FlagshipPoolQueue = .init(10) // TO do set the param for the size limitation
+    // Queue for hits
+    var hitQueue: FlagshipPoolQueue
+    // Queue for hits
+    private var activateQueue: FlagshipPoolQueue
     // Timer to run to manage the timinig
     var cronTimer: Timer?
     // Batch timer
@@ -29,21 +31,55 @@ class FSBatchManager {
         batchIntervals = pBatchIntervals
         // Init batch timer
         batchTimer = FSRepeatingTimer(timeInterval: batchIntervals)
+        // Create queue for hit
+        hitQueue = FlagshipPoolQueue(pPoolMaxSize)
+        // Create queue for activate
+        activateQueue = FlagshipPoolQueue(pPoolMaxSize)
     }
 
-    func addTrackElement(_ newElement: FSTrackingProtocol) {
-        // Add New Element if the pool
-        fsPool.addNewTrackElement(newElement)
+//
+//    func addTrackElement(_ newElement: FSTrackingProtocol) {
+//        // Add New Element if the pool
+//        hitQueue.addNewTrackElement(newElement)
+//
+//        if hitQueue.count() >= poolMaxSize {
+//            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Maximum size for queuePool is reached , process batching immediately"))
+//            batchFromQueue()
+//        }
+//    }
 
-        if fsPool.count() >= poolMaxSize {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Maximum size for queuePool is reached , process batching immediately"))
-            batchFromQueue()
+    func addTrackElement(_ newElement: FSTrackingProtocol, activatePool: Bool = false) {
+        // Add New Element if the pool
+        if activatePool {
+            activateQueue.addNewTrackElement(newElement)
+        } else {
+            hitQueue.addNewTrackElement(newElement)
+            if hitQueue.count() >= poolMaxSize {
+                FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Maximum size for queuePool is reached , process batching immediately"))
+                batchFromQueue()
+            }
         }
     }
 
     func removeTrackElement(_ elementToRemove: FSTrackingProtocol) {
         if let idForElementToremove = elementToRemove.id {
-            fsPool.removeTrackElement(idForElementToremove)
+            hitQueue.removeTrackElement(idForElementToremove)
+        }
+    }
+
+    func extractAllElements(activatePool: Bool = false) -> [FSTrackingProtocol] {
+        if activatePool {
+            return activateQueue.extrcatAllElements()
+        } else {
+            return hitQueue.extrcatAllElements()
+        }
+    }
+
+    func reInjectElements(listToReInject: [FSTrackingProtocol], activatePool: Bool = false) {
+        if activatePool {
+            return activateQueue.reInjectElements(listToReInject)
+        } else {
+            return hitQueue.reInjectElements(listToReInject)
         }
     }
 
@@ -52,7 +88,7 @@ class FSBatchManager {
         batchTimer?.suspend()
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
         // Extract the hits from the pool and trigger the delegate
-        delegate?.processBatching(batchToSend: FSBatch(fsPool.dequeueElements(poolMaxSize)))
+        delegate?.processBatching(batchToSend: FSBatch(hitQueue.dequeueElements(poolMaxSize)))
         batchTimer?.resume()
     }
 
@@ -60,7 +96,7 @@ class FSBatchManager {
     func startBatchProcess() {
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Batching Process"))
         batchTimer?.eventHandler = {
-            if !self.fsPool.isEmpty() {
+            if !self.hitQueue.isEmpty() {
                 FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Duration of the periodic Batching is reached , process batching immediately"))
                 self.batchFromQueue()
             }

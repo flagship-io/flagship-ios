@@ -39,6 +39,13 @@ class FSQueue<T> {
     public func count() -> Int {
         return listQueue.count
     }
+    
+    // Return all elements
+    public func extractAllElements() -> [T] {
+        let extractedList = Array(listQueue)
+        clear()
+        return extractedList
+    }
 }
 
 class FlagshipPoolQueue {
@@ -61,6 +68,13 @@ class FlagshipPoolQueue {
         }
     }
     
+    func reInjectElements(_ listToReInject: [FSTrackingProtocol]) {
+        for item in listToReInject {
+            fsQueue.enqueue(item)
+        }
+    }
+    
+    // Dequeue Elements
     func dequeueElements(_ dequeueLength: Int) -> [FSTrackingProtocol] {
         var extractedElements: [FSTrackingProtocol] = []
         var number = 0
@@ -74,6 +88,11 @@ class FlagshipPoolQueue {
         return extractedElements
     }
     
+    // Extract Elements and remove all elements is Queue
+    func extrcatAllElements() -> [FSTrackingProtocol] {
+        return fsQueue.extractAllElements()
+    }
+
     func removeTrackElement(_ idElement: String) {
         fsQueue.removeElement { elem in
             elem.id == idElement

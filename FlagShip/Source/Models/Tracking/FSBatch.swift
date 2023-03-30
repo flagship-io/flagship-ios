@@ -83,20 +83,37 @@ class Activate: FSTrackingProtocol {
         self.anonymousId = anonymousId
         self.variationId = variationId
         self.variationGroupeId = variationGroupeId
+
+        let shared = Flagship.sharedInstance
+        if let aEnvId = shared.envId {
+            self.envId = aEnvId
+        }
+    }
+
+    init(_ visitorId: String, _ anonymousId: String?, modification: FSModification) {
+        self.envId = Flagship.sharedInstance.envId
+        self.visitorId = visitorId
+        self.anonymousId = anonymousId
+        self.variationId = modification.variationId
+        self.variationGroupeId = modification.variationGroupId
+        self.type = .ACTIVATE
     }
 
     public var bodyTrack: [String: Any] {
         var customParams = [String: Any]()
-        // Set Type
-        customParams.updateValue(self.type.typeString, forKey: "t")
-        // EnvId
-        customParams.updateValue(self.envId ?? "", forKey: "cid")
+
+        // Set client Id
+        customParams.updateValue(self.envId ?? "}", forKey: "cid")
         // VariationId
         customParams.updateValue(self.variationId ?? "", forKey: "vaid")
         // Variation GroupId
         customParams.updateValue(self.variationGroupeId ?? "", forKey: "caid")
-
-        //  customParams.updateValue(self.queueTimeBis , forKey: "qt") // Revoie later
+        // Set visitor id
+        customParams.updateValue(self.visitorId ?? "", forKey: "vid")
+        // Set anonymous Id if is defined
+        if let aId = anonymousId {
+            customParams.updateValue(aId, forKey: "aid")
+        }
 
         return customParams
     }
@@ -104,12 +121,19 @@ class Activate: FSTrackingProtocol {
 
 class ActivateBatch {
     var listActivate: [FSTrackingProtocol]
-
     var envId: String = ""
 
-    init(listActivate: [FSTrackingProtocol]) {
-        self.listActivate = listActivate
-        self.envId = listActivate.first?.envId ?? ""
+    init(pListActivate: [FSTrackingProtocol]) {
+        self.listActivate = Array(pListActivate)
+        self.envId = self.listActivate.first?.envId ?? ""
+    }
+
+    func addElement(_ newElement: FSTrackingProtocol) {
+        self.listActivate.append(newElement)
+    }
+
+    func addListOfElement(_ list: [FSTrackingProtocol]) {
+        self.listActivate.append(contentsOf: list)
     }
 
     public var bodyTrack: [String: Any] {
