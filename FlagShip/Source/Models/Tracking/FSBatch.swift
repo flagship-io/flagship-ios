@@ -38,7 +38,10 @@ class FSBatch: FSTracking {
         // Set Data source
         customParams.updateValue(self.dataSource, forKey: "ds")
         var listsForHKey: [[String: Any]] = []
+        
+        // Fill the list of hit thant contain a batch
         for item: FSTrackingProtocol in self.items {
+            
             listsForHKey.append(item.bodyTrack)
         }
         customParams.updateValue(listsForHKey, forKey: "h")

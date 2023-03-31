@@ -20,13 +20,15 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     override func sendActivate(_ currentActivate: Activate) {
+        print("------------- SEND ACTIVATE CONTINUOUS BATCHING --------------------")
+        // Create activate batch
         let activateBatch = ActivateBatch(pListActivate: [currentActivate])
-        let oldActivate = batchManager.extractAllElements(activatePool: true)
-        if oldActivate.count > 0 {
-            activateBatch.addListOfElement(oldActivate)
+        // Get the old activate if exisit
+        if !batchManager.isQueueEmpty(activatePool: true) {
+            activateBatch.addListOfElement(batchManager.extractAllElements(activatePool: true))
         }
+        // Send Activate
         service.activate(activateBatch.bodyTrack) { error in
-
             if error == nil {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
             } else {

@@ -81,7 +81,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         //  if let input = interfaceNameFiled!.text {
         //   if input.count > 2 {
         for index in 0...2 {
-            let nameScreen = String(format: "testScreen_%d", index)
+            let nameScreen = String(format: "screen_%d", index)
             Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen(nameScreen))
         }
         
@@ -94,6 +94,9 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
             event.userLanguage = "FR"
             Flagship.sharedInstance.sharedVisitor?.sendHit(event)
         }
+        let event = FSEvent(eventCategory: .Action_Tracking, eventAction: "ios_event")
+        Flagship.sharedInstance.sharedVisitor?.sendHit(event)
+
         
         for indexBis in 0...2 {
             let nameTransac = String(format: "transac_%d", indexBis)
@@ -106,6 +109,9 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
             eventTransac.tax = 0.5
             Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
         }
+        
+        let eventTransac = FSTransaction(transactionId: "id_transac", affiliation: "ios_transaction")
+        Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
     }
     
     /// Send Event hit

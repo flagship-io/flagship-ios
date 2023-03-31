@@ -139,7 +139,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
         // Set the visitor Id and anonymous id  (See later to better )
         hit.visitorId = visitor.visitorId
         hit.anonymousId = visitor.anonymousId
-        
         visitor.configManager.trackingManger?.sendHit(hit)
     }
     

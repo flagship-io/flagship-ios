@@ -16,7 +16,7 @@ class FSBatchManager {
     // Delegate
     var delegate: FSBatchingManagerDelegate?
     // Queue for hits
-    var hitQueue: FlagshipPoolQueue
+    private var hitQueue: FlagshipPoolQueue
     // Queue for hits
     private var activateQueue: FlagshipPoolQueue
     // Timer to run to manage the timinig
@@ -114,6 +114,15 @@ class FSBatchManager {
     func pauseBatchProcess() {
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Stop Batching Process"))
         batchTimer?.suspend()
+    }
+
+    // Count of hits in the queue
+    func isQueueEmpty(activatePool: Bool = false) -> Bool {
+        if activatePool {
+            return activateQueue.isEmpty()
+        } else {
+            return hitQueue.isEmpty()
+        }
     }
 }
 

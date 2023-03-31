@@ -120,7 +120,7 @@ import Foundation
     /// User Language
     public var userLanguage: String?
     /// Queue Time
-    public var queueTime: Int64?
+    // public var queueTime: Int64?
     /// Current Session Time Stamp
     public var currentSessionTimeStamp: TimeInterval?
     /// Session Number
@@ -129,10 +129,15 @@ import Foundation
     // Session Event Number
     public var sessionEventNumber: NSNumber?
 
+    // Created time
+    public var createdAt: TimeInterval??
+
     override init() {
         self.envId = Flagship.sharedInstance.envId
-        // Set Time Stamps
+        // Set TimeInterval
         self.currentSessionTimeStamp = Date.timeIntervalSinceReferenceDate
+        // Created date
+        self.createdAt = Date.timeIntervalSinceReferenceDate
     }
 
     public var bodyTrack: [String: Any] {
@@ -167,7 +172,31 @@ import Foundation
         if self.sessionNumber != nil {
             communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
         }
+        // Merge the visitorId and AnonymousId
+        communParams.merge(self.createTupleId()) { _, new in new }
+
+        /// Add qt entries
+        /// Time difference between when the hit was created and when it was sent
+        ///
+        if let aCreatedTime = self.createdAt {
+            let duration = aCreatedTime?.distance(to: Date.timeIntervalSinceReferenceDate)
+            communParams.updateValue(duration ?? 0, forKey: "qt")
+        }
 
         return communParams
+    }
+
+    internal func createTupleId() -> [String: String] {
+        var tupleId = [String: String]()
+
+        if self.anonymousId != nil /* && self.visitorId != nil */ {
+            // envoyer: cuid = visitorId, et vid=anonymousId
+            tupleId.updateValue(self.visitorId ?? "", forKey: "cuid") //// rename it
+            tupleId.updateValue(self.anonymousId ?? "", forKey: "vid") //// rename it
+        } else /* if self.visitorId != nil*/ {
+            // Si visitorid défini mais pas anonymousId, cuid pas envoyé, vid = visitorId
+            tupleId.updateValue(self.visitorId ?? "", forKey: "vid") //// rename it
+        }
+        return tupleId
     }
 }
