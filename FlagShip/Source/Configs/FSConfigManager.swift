@@ -42,9 +42,9 @@ internal class FSConfigManager {
         /// Tracking manager
         switch config.trackingConfig.strategy {
         case .CONTINUOUS_CACHING_STRATEGY:
-            self.trackingManger = ContinuousTrackingManager(service, config.trackingConfig)
+            self.trackingManger = ContinuousTrackingManager(service, config.trackingConfig, config.cacheManger)
         case .PERIODIC_CACHING_STRATEGY:
-            self.trackingManger = PeriodicTrackingManager(service, config.trackingConfig)
+            self.trackingManger = PeriodicTrackingManager(service, config.trackingConfig, config.cacheManger)
         case .NO_BATCHING_CONTINUOUS_CACHING_STRATEGY:
             self.trackingManger = FSTrackingManager(service, config.trackingConfig)
         }

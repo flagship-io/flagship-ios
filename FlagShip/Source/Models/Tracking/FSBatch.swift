@@ -38,10 +38,9 @@ class FSBatch: FSTracking {
         // Set Data source
         customParams.updateValue(self.dataSource, forKey: "ds")
         var listsForHKey: [[String: Any]] = []
-        
+
         // Fill the list of hit thant contain a batch
         for item: FSTrackingProtocol in self.items {
-            
             listsForHKey.append(item.bodyTrack)
         }
         customParams.updateValue(listsForHKey, forKey: "h")
@@ -56,9 +55,13 @@ class FSBatch: FSTracking {
 ///
 
 class Activate: FSTrackingProtocol {
+    func isValid() -> Bool {
+        return true
+    }
+
     var queueTimeBis: NSNumber?
 
-    var id: String?
+    var id: String = ""
 
     var anonymousId: String?
 

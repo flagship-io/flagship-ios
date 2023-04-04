@@ -49,22 +49,24 @@ class FSQueue<T> {
 }
 
 class FlagshipPoolQueue {
-    init(_ sizeLimitation: Int) {
-        print("init FlagshipPoolQueue")
-        self.sizeLimitation = sizeLimitation
-    }
-    
     // Queue for tracking
     var fsQueue: FSQueue<FSTrackingProtocol> = FSQueue()
     
     // Size limitation
-    var sizeLimitation: Int
-
+    // var sizeLimitation: Int
+    
+    init( /* _ sizeLimitation: Int */ ) {
+        print("init FlagshipPoolQueue")
+        // self.sizeLimitation = sizeLimitation
+    }
+    
     // Add new elment into the queue
     func addNewTrackElement(_ newElement: FSTrackingProtocol) {
         if let visitorId = newElement.visitorId {
             newElement.id = visitorId + ":" + FSTools.generateUuidv4()
             fsQueue.enqueue(newElement)
+        } else {
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The tracking element was not added, visitorId not defined yes "))
         }
     }
     
@@ -77,7 +79,7 @@ class FlagshipPoolQueue {
     // Dequeue Elements
     func dequeueElements(_ dequeueLength: Int) -> [FSTrackingProtocol] {
         var extractedElements: [FSTrackingProtocol] = []
-        var number = 0
+        var number = 1
         while number <= dequeueLength, !isEmpty() {
             if let item = fsQueue.dequeue() {
                 extractedElements.append(item)
@@ -97,6 +99,10 @@ class FlagshipPoolQueue {
         fsQueue.removeElement { elem in
             elem.id == idElement
         }
+    }
+    
+    func removeElement(where shouldBeRemoved: (FSTrackingProtocol) throws -> Bool) rethrows {
+        try fsQueue.removeElement(where: shouldBeRemoved)
     }
     
     func flushAllTrackFromQueue() {

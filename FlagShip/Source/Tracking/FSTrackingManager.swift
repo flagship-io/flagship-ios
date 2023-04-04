@@ -18,6 +18,9 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     // Tracking config
     var trackingConfig: FSTrackingConfig
 
+    // Interface cache hits
+    var cacheManager: FSCacheManager?
+
     init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig) {
         service = pService
         // Set config tracking

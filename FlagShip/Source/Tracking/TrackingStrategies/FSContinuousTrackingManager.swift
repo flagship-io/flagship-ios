@@ -10,13 +10,20 @@ import Foundation
 
 class ContinuousTrackingManager: FSTrackingManager {
     // Create batch manager
-    override init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig) {
+    init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig, _ pCacheManager: FSCacheManager) {
         super.init(pService, pTrackingConfig)
+        super.cacheManager = pCacheManager
     }
 
     override func sendHit(_ hitToSend: FSTrackingProtocol) {
         print("------------- SEND HIT CONTINUOUS BATCHING --------------------")
-        batchManager.addTrackElement(hitToSend)
+        if hitToSend.isValid() {
+            batchManager.addTrackElement(hitToSend)
+            // Save hit in Database
+            cacheManager?.cacheHits(hits: [[hitToSend.id: hitToSend.bodyTrack]])
+        } else {
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
+        }
     }
 
     override func sendActivate(_ currentActivate: Activate) {

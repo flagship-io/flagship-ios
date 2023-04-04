@@ -261,6 +261,16 @@
 		F50E95A929D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
 		F50E95AA29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
 		F50E95AB29D19FEC000B333F /* FSPeriodicTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */; };
+		F539709529DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
+		F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
+		F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
+		F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
+		F539709A29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */; };
+		F539709B29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */; };
+		F539709C29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */; };
+		F539709D29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */; };
+		F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */; };
+		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
 		F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */ = {isa = PBXBuildFile; fileRef = F567A44028D32BB2008E9FC0 /* hitCache.json */; };
 		F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
@@ -372,6 +382,10 @@
 		F50E959829D19EEB000B333F /* FSITrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSITrackingManager.swift; sourceTree = "<group>"; };
 		F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContinuousTrackingManager.swift; sourceTree = "<group>"; };
 		F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPeriodicTrackingManager.swift; sourceTree = "<group>"; };
+		F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDefaultCache.swift; sourceTree = "<group>"; };
+		F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSTrackingManager+Consent.swift"; sourceTree = "<group>"; };
+		F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipPoolQueueTest.swift; sourceTree = "<group>"; };
+		F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatchManagerTest.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
 		F567A44028D32BB2008E9FC0 /* hitCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hitCache.json; path = ../../../Flagship/FlagShipTests/Mocks/hitCache.json; sourceTree = "<group>"; };
 		F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPoolQueue.swift; sourceTree = "<group>"; };
@@ -499,6 +513,7 @@
 			children = (
 				8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */,
 				8B67367327FEBE4C003EC960 /* FSCacheManager.swift */,
+				F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -631,6 +646,8 @@
 				8B67370427FED7F3003EC960 /* QAReportTest.swift */,
 				8B6736F927FED7F2003EC960 /* Universal-Bridging-Header.h */,
 				F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */,
+				F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */,
+				F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -702,6 +719,7 @@
 			children = (
 				F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */,
 				F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */,
+				F539709929DC65BF00D650E4 /* FSTrackingManager+Consent.swift */,
 			);
 			path = TrackingStrategies;
 			sourceTree = "<group>";
@@ -993,11 +1011,13 @@
 				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
 				F50E959029CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
+				F539709B29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */,
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
 				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
 				8B2D51472805D43C00866D61 /* FlagshipConstants.swift in Sources */,
 				8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */,
+				F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F50E959A29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B2D51492805D43C00866D61 /* FSCacheManager.swift in Sources */,
 				8B2D514A2805D43C00866D61 /* FSBucket.swift in Sources */,
@@ -1045,6 +1065,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */,
+				F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */,
 				8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
 				8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */,
@@ -1052,6 +1073,7 @@
 				8B67371527FEDA3E003EC960 /* FSConsentStrategyTest.swift in Sources */,
 				8B67371627FEDA3E003EC960 /* FSFlagTest.swift in Sources */,
 				8B5438B527FF98D800299654 /* MockURLProtocol.swift in Sources */,
+				F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */,
 				8B67371727FEDA3E003EC960 /* FSGeneratorTest.swift in Sources */,
 				8B67371827FEDA3E003EC960 /* FSReconcileTest.swift in Sources */,
 				8B67371927FEDA3E003EC960 /* FSTargetingManagerTest.swift in Sources */,
@@ -1079,11 +1101,13 @@
 				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
 				F50E959129CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
+				F539709C29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */,
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
 				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
 				8B9F2A962809B8E600323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */,
+				F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F50E959B29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2A982809B8E600323094 /* FSCacheManager.swift in Sources */,
 				8B9F2A992809B8E600323094 /* FSBucket.swift in Sources */,
@@ -1144,11 +1168,13 @@
 				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
 				F50E959229CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
+				F539709D29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */,
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
 				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
 				8B9F2AD52809BA8200323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */,
+				F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F50E959C29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2AD72809BA8200323094 /* FSCacheManager.swift in Sources */,
 				8B9F2AD82809BA8200323094 /* FSBucket.swift in Sources */,
@@ -1209,11 +1235,13 @@
 				8B6736AA27FED3E5003EC960 /* FSVisitor+objc.swift in Sources */,
 				F50E958F29CDD977000B333F /* FSTrackingConfig.swift in Sources */,
 				8B6736AB27FED3E5003EC960 /* FSVisitor.swift in Sources */,
+				F539709A29DC65BF00D650E4 /* FSTrackingManager+Consent.swift in Sources */,
 				8B6736AC27FED3E5003EC960 /* FlagshipLogManager.swift in Sources */,
 				8B6736AD27FED3E5003EC960 /* FSError.swift in Sources */,
 				8B6736AE27FED3E5003EC960 /* FSLogManager.swift in Sources */,
 				8B6736AF27FED3E5003EC960 /* FlagshipConstants.swift in Sources */,
 				8B6736B027FED3E5003EC960 /* FSCacheDelegate.swift in Sources */,
+				F539709529DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F50E959929D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B6736B127FED3E5003EC960 /* FSCacheManager.swift in Sources */,
 				8B6736B227FED3E5003EC960 /* FSBucket.swift in Sources */,

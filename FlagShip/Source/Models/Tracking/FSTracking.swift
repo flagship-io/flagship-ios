@@ -58,7 +58,7 @@ import Foundation
 
 /// :nodoc:
 @objc public protocol FSTrackingProtocol {
-    var id: String? { get set }
+    var id: String { get set }
 
     var anonymousId: String? { get set }
 
@@ -78,6 +78,8 @@ import Foundation
 
     /// Get cst
     func getCst() -> NSNumber?
+
+    func isValid() -> Bool
 }
 
 @objcMembers public class FSTracking: NSObject, FSTrackingProtocol {
@@ -85,7 +87,7 @@ import Foundation
 
     public var visitorId: String?
 
-    public var id: String?
+    public var id: String
 
     // Anonymous ID
     public var anonymousId: String?
@@ -133,6 +135,7 @@ import Foundation
     public var createdAt: TimeInterval??
 
     override init() {
+        self.id = ""
         self.envId = Flagship.sharedInstance.envId
         // Set TimeInterval
         self.currentSessionTimeStamp = Date.timeIntervalSinceReferenceDate
@@ -184,6 +187,14 @@ import Foundation
         }
 
         return communParams
+    }
+
+    public func isValid() -> Bool {
+        if let aVisitorId = self.visitorId, let aClientId = self.envId {
+            return (!aVisitorId.isEmpty && !aClientId.isEmpty && self.type != .None)
+        }
+
+        return false
     }
 
     internal func createTupleId() -> [String: String] {

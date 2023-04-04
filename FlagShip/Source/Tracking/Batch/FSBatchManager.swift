@@ -32,21 +32,10 @@ class FSBatchManager {
         // Init batch timer
         batchTimer = FSRepeatingTimer(timeInterval: batchIntervals)
         // Create queue for hit
-        hitQueue = FlagshipPoolQueue(pPoolMaxSize)
+        hitQueue = FlagshipPoolQueue()
         // Create queue for activate
-        activateQueue = FlagshipPoolQueue(pPoolMaxSize)
+        activateQueue = FlagshipPoolQueue()
     }
-
-//
-//    func addTrackElement(_ newElement: FSTrackingProtocol) {
-//        // Add New Element if the pool
-//        hitQueue.addNewTrackElement(newElement)
-//
-//        if hitQueue.count() >= poolMaxSize {
-//            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Maximum size for queuePool is reached , process batching immediately"))
-//            batchFromQueue()
-//        }
-//    }
 
     func addTrackElement(_ newElement: FSTrackingProtocol, activatePool: Bool = false) {
         // Add New Element if the pool
@@ -62,8 +51,8 @@ class FSBatchManager {
     }
 
     func removeTrackElement(_ elementToRemove: FSTrackingProtocol) {
-        if let idForElementToremove = elementToRemove.id {
-            hitQueue.removeTrackElement(idForElementToremove)
+        if !elementToRemove.id.isEmpty {
+            hitQueue.removeTrackElement(elementToRemove.id)
         }
     }
 
@@ -123,6 +112,24 @@ class FSBatchManager {
         } else {
             return hitQueue.isEmpty()
         }
+    }
+
+    // Remove Hits and keep the consent
+    // Return the ids for the hits to delete
+    func flushTrackAndKeepConsent(_ visitorId: String) -> [String] {
+        var ret: [String] = [] // result for ids to remove
+        if !hitQueue.isEmpty() {
+            hitQueue.removeElement { elem in
+
+                if elem.type != .CONSENT, elem.visitorId == visitorId {
+                    ret.append(elem.id)
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        return ret
     }
 }
 

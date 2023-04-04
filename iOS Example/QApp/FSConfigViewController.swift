@@ -100,7 +100,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 20, batchIntervalTimer: 5, strategy: .CONTINUOUS_CACHING_STRATEGY))
+        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING_STRATEGY))
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
         } else {
@@ -213,6 +213,16 @@ public class CustomClientVisitorCache: FSVisitorCacheDelegate {
 }
 
 public class customClientHitCache: FSHitCacheDelegate {
+    public func cacheHits(hits: [[String: [String: Any]]]) {}
+
+    public func lookupHits() -> [String: [String: Any]] {
+        return [:]
+    }
+
+    public func flushHits(hitIds: [String]) {}
+
+    public func flushAllHits() {}
+
     public func cacheHit(visitorId: String, data: Data) {
         // Insert in your database
     }

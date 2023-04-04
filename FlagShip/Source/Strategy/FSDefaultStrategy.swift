@@ -260,7 +260,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     func flushHits() {
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {
-            self.visitor.configManager.flagshipConfig.cacheManger.flushHIts(self.visitor.visitorId)
+            self.visitor.configManager.trackingManger?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
 }
