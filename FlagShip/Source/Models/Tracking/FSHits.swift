@@ -13,45 +13,54 @@ import Foundation
  This hit should be sent each time a visitor arrives on a new interface.
  */
 @objcMembers public class FSPage: FSTracking {
-
     /// Location Name where the event occurs
     private var location: String?
 
     /**
      Init Page hit
-     
+
      @param location String
-          
+
      @return instance object
      */
 
     public init(_ location: String) {
-
         super.init()
         self.type = .SCREEN
         self.location = location
+    }
 
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+
+        do {
+            try super.init(from: decoder)
+        }
+        do {
+            self.location = try values.decode(String.self, forKey: .location)
+        } catch { self.location = "" }
+    }
+
+    override public func encode(to encoder: Encoder) throws {}
+
+    private enum CodingKeys: String, CodingKey {
+        case location
     }
 
     /// :nodoc:
-    public  override var bodyTrack: [String: Any] {
+    override public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
 
-        get {
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
 
-            var customParams: [String: Any] = [String: Any]()
-
-            // Set Type
-            customParams.updateValue(self.type.typeString, forKey: "t")
-
-            // Location name
-            if self.location != nil {
-                customParams.updateValue(self.location ?? "", forKey: "dl")
-            }
-
-            customParams.merge(self.communBodyTrack) {  (_, new) in new }
-            return customParams
+        // Location name
+        if self.location != nil {
+            customParams.updateValue(self.location ?? "", forKey: "dl")
         }
 
+        customParams.merge(self.communBodyTrack) { _, new in new }
+        return customParams
     }
 }
 
@@ -59,43 +68,53 @@ import Foundation
  This hit should be sent each time a visitor arrives on a new screen.
  */
 @objcMembers public class FSScreen: FSTracking {
-
     /// Location Name where the event occurs
     private var location: String?
     /**
      Init Screen hit
-     
+
      @param location String
-          
+
      @return instance object
      */
 
     public init(_ location: String) {
-
         super.init()
         self.type = .SCREEN
         self.location = location
     }
 
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+
+        do {
+            try super.init(from: decoder)
+        }
+        do {
+            self.location = try values.decode(String.self, forKey: .location)
+        } catch { self.location = "" }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case location = "dl"
+    }
+
+    override public func encode(to encoder: Encoder) throws {}
+
     /// :nodoc:
-    public  override var bodyTrack: [String: Any] {
+    override public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
 
-        get {
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
 
-            var customParams: [String: Any] = [String: Any]()
-
-            // Set Type
-            customParams.updateValue(self.type.typeString, forKey: "t")
-
-            // Location name
-            if self.location != nil {
-                customParams.updateValue(self.location ?? "", forKey: "dl")
-            }
-
-            customParams.merge(self.communBodyTrack) {  (_, new) in new }
-            return customParams
+        // Location name
+        if self.location != nil {
+            customParams.updateValue(self.location ?? "", forKey: "dl")
         }
 
+        customParams.merge(self.communBodyTrack) { _, new in new }
+        return customParams
     }
 }
 
@@ -105,11 +124,10 @@ import Foundation
  */
 
 @objcMembers public class FSTransaction: FSTracking {
-
     /// Transaction unique identifier.
-     private (set) var transactionId: String!
+    private(set) var transactionId: String
     /// Transaction name. Name of the goal in the reporting.
-     private (set) var affiliation: String!
+    private(set) var affiliation: String
 
     /// Total revenue associated with the transaction. This value should include any shipping or tax costs
     public var revenue: NSNumber?
@@ -136,83 +154,92 @@ import Foundation
 
     /**
      Init transaction object
-     
+
      @param transactionId String
-     
+
      @param affiliation String
-     
+
      @return instance object
      */
-     public init(transactionId: String, affiliation: String) {
-
-        super.init()
-
-        self.type          = .TRANSACTION
-
-        self.affiliation   = affiliation
-
+    public init(transactionId: String, affiliation: String) {
+        self.affiliation = affiliation
         self.transactionId = transactionId
-
+        super.init()
+        self.type = .TRANSACTION
     }
 
-     /// :nodoc:
-    public  override var bodyTrack: [String: Any] {
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        get {
+        do {
+            self.transactionId = try values.decode(String.self, forKey: .transactionId)
+        } catch { self.transactionId = "" }
 
-            var customParams: [String: Any] = [String: Any]()
+        do {
+            self.affiliation = try values.decode(String.self, forKey: .affiliation)
+        } catch { self.affiliation = "" }
+        do {
+            try super.init(from: decoder)
+        }
+    }
 
-            // Set Type
-            customParams.updateValue(self.type.typeString, forKey: "t")
+    private enum CodingKeys: String, CodingKey {
+        case affiliation = "tid"
+        case transactionId = "ta"
+    }
 
-            // Set transactionId
-            if self.transactionId != nil {
-                customParams.updateValue(self.transactionId ?? "", forKey: "tid")
-            }
-            // Set affiliation
-            if self.affiliation != nil {
-                customParams.updateValue(self.affiliation ?? "", forKey: "ta")
-            }
-            // Set price
-            if self.revenue != nil {
-                customParams.updateValue(self.revenue ?? 0, forKey: "tr")
-            }
-            // Set shipping
-            if self.shipping != nil {
-                customParams.updateValue(self.shipping ?? 0, forKey: "ts")
-            }
-            // Set Tax
-            if self.tax != nil {
-                customParams.updateValue(self.tax ?? 0, forKey: "tt")
-            }
-            // Set currency
-            if self.currency != nil {
-                customParams.updateValue(self.currency ?? "", forKey: "tc")
-            }
-            // Set couponCode
-            if self.couponCode != nil {
-                customParams.updateValue(self.couponCode ?? "", forKey: "tcc")
-            }
-            // Set paymentMethod
-            if self.paymentMethod != nil {
-                customParams.updateValue(self.paymentMethod ?? "", forKey: "pm")
-            }
-            // Set ShippingMethod
-            if self.shippingMethod != nil {
-                customParams.updateValue(self.shippingMethod ?? "", forKey: "sm")
-            }
-            // Set itemCount
-            if self.itemCount != nil {
-                customParams.updateValue(self.itemCount ?? 0, forKey: "icn")
-            }
+    /// :nodoc:
+    override public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
 
-            customParams.merge(self.communBodyTrack) {  (_, new) in new }
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
 
-            return customParams
+        // Set transactionId
+        //  if self.transactionId != nil {
+        customParams.updateValue(self.transactionId, forKey: "tid")
+        // }
+        // Set affiliation
+        //  if self.affiliation != nil {
+        customParams.updateValue(self.affiliation, forKey: "ta")
+        // }
+        // Set price
+        if self.revenue != nil {
+            customParams.updateValue(self.revenue ?? 0, forKey: "tr")
+        }
+        // Set shipping
+        if self.shipping != nil {
+            customParams.updateValue(self.shipping ?? 0, forKey: "ts")
+        }
+        // Set Tax
+        if self.tax != nil {
+            customParams.updateValue(self.tax ?? 0, forKey: "tt")
+        }
+        // Set currency
+        if self.currency != nil {
+            customParams.updateValue(self.currency ?? "", forKey: "tc")
+        }
+        // Set couponCode
+        if self.couponCode != nil {
+            customParams.updateValue(self.couponCode ?? "", forKey: "tcc")
+        }
+        // Set paymentMethod
+        if self.paymentMethod != nil {
+            customParams.updateValue(self.paymentMethod ?? "", forKey: "pm")
+        }
+        // Set ShippingMethod
+        if self.shippingMethod != nil {
+            customParams.updateValue(self.shippingMethod ?? "", forKey: "sm")
+        }
+        // Set itemCount
+        if self.itemCount != nil {
+            customParams.updateValue(self.itemCount ?? 0, forKey: "icn")
         }
 
-    }
+        customParams.merge(self.communBodyTrack) { _, new in new }
 
+        return customParams
+    }
 }
 
 /**
@@ -220,120 +247,128 @@ import Foundation
  */
 
 @objcMembers public class FSItem: FSTracking {
-
     /// Transaction unique identifier
-    private (set) var transactionId: String!
+    private(set) var transactionId: String
 
     /// Product name
-    private (set) var name: String!
+    private(set) var name: String
 
     /// Specifies the item price
-    public  var price: NSNumber?
+    public var price: NSNumber?
 
     /// Specifies the item quantity
     public var quantity: NSNumber?
 
     /// Specifies the item code or SKU
-    private (set) var code: String!
+    private(set) var code: String!
 
     /// Specifies the item category
     public var category: String?
 
     /**
      Init Item object
-     
+
      @param transactionId :String
-     
+
      @param name :String
-     
+
      @return instance object
      */
     public init(transactionId: String, name: String, code: String) {
-
-        super.init()
-
-        self.type          = .ITEM
         self.transactionId = transactionId
-        self.name          = name
-        self.price         = 0
-        self.quantity      = 0
-        self.code          = code
-        self.category      = nil
+        self.name = name
+        super.init()
+        self.type = .ITEM
+        self.price = 0
+        self.quantity = 0
+        self.code = code
+        self.category = nil
     }
-     /// :nodoc:
-    public  override var bodyTrack: [String: Any] {
 
-        get {
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            self.name = try values.decode(String.self, forKey: .name)
+        } catch { self.name = "" }
+        do {
+            self.transactionId = try values.decode(String.self, forKey: .transactionId)
+        } catch { self.transactionId = "" }
+        do {
+            try super.init(from: decoder)
+        }
+    }
 
-            var customParams: [String: Any] = [String: Any]()
+    private enum CodingKeys: String, CodingKey {
+        case name = "tid"
+        case transactionId = "in"
+    }
 
-            // Set Type
-            customParams.updateValue(self.type.typeString, forKey: "t")
+    /// :nodoc:
+    override public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
 
-            // Set transactionId
-            if self.transactionId != nil {
-                customParams.updateValue(self.transactionId ?? "", forKey: "tid")
-            }
-            // Set name
-            if self.name != nil {
-                customParams.updateValue(self.name ?? "", forKey: "in")
-            }
-            // Set price
-            if self.price != nil {
-                customParams.updateValue(self.price ?? 0, forKey: "ip")
-            }
-            // Set quantity
-            if self.quantity != nil {
-                customParams.updateValue(self.quantity ?? 0, forKey: "iq")
-            }
-            // Set code
-            if self.code != nil {
-                customParams.updateValue(self.code ?? "", forKey: "ic")
-            }
-            // Set category
-            if self.category != nil {
-                customParams.updateValue(self.category ?? "", forKey: "iv")
-            }
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
 
-            customParams.merge(self.communBodyTrack) {  (_, new) in new }
-
-            return customParams
-
+        // Set transactionId
+        // if self.transactionId != nil {
+        customParams.updateValue(self.transactionId, forKey: "tid")
+        // }
+        // Set name
+        /// if self.name != nil {
+        customParams.updateValue(self.name, forKey: "in")
+        // }
+        // Set price
+        if self.price != nil {
+            customParams.updateValue(self.price ?? 0, forKey: "ip")
+        }
+        // Set quantity
+        if self.quantity != nil {
+            customParams.updateValue(self.quantity ?? 0, forKey: "iq")
+        }
+        // Set code
+        if self.code != nil {
+            customParams.updateValue(self.code ?? "", forKey: "ic")
+        }
+        // Set category
+        if self.category != nil {
+            customParams.updateValue(self.category ?? "", forKey: "iv")
         }
 
+        customParams.merge(self.communBodyTrack) { _, new in new }
+
+        return customParams
     }
 }
 
 /**
- 
+
  Represents an event
  */
 @objcMembers public class FSEvent: FSTracking {
-
     /// category of the event (Action_Tracking or User_Engagement).
-    private (set) var category: FSCategoryEvent!
+    private(set) var category: FSCategoryEvent = .Action_Tracking
 
     /// name of the event.
-    private (set) var action: String?
+    private(set) var action: String?
 
     /// description of the event.
-    public  var label: String?
+    public var label: String?
 
     /// value of the event, must be non-negative. (An unsigned integer value type)
-    public  var eventValue: UInt?
+    public var eventValue: UInt?
 
     /**
      Init Event object
-     
+
      @param eventCategory :FSCategoryEvent
-     
+
      @param eventAction :String
-     
+
      @return instance object
      */
     public init(eventCategory: FSCategoryEvent, eventAction: String) {
-
-        super.init()  /// Set dans la base les element vitales
+        super.init() /// Set dans la base les element vitales
 
         self.type = .EVENT
 
@@ -346,53 +381,64 @@ import Foundation
         self.eventValue = nil
     }
 
-     /// :nodoc:
-    public override var bodyTrack: [String: Any] {
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        get {
-            var customParams: [String: Any] = [String: Any]()
-            // Set category
-            customParams.updateValue(self.category.categoryString, forKey: "ec")
-            // Set Type
-            customParams.updateValue(self.type.typeString, forKey: "t")
-            // Set Action
-            customParams.updateValue(self.action ?? "", forKey: "ea")
-            // Set Label
-            if self.label != nil {
-                customParams.updateValue(self.label ?? "", forKey: "el")
-            }
-            // Set Value
-            if self.eventValue != nil {
-                customParams.updateValue(self.eventValue ?? 0, forKey: "ev")
-            }
-            // Merge the commun params
-            customParams.merge(self.communBodyTrack) {  (_, new) in new }
-
-            return customParams
-
+        do {
+            try super.init(from: decoder)
         }
+
+        self.category = .Action_Tracking
     }
-    
+
+    private enum CodingKeys: String, CodingKey {
+        case category = "ec"
+    }
+
+    /// :nodoc:
+    override public var bodyTrack: [String: Any] {
+        var customParams = [String: Any]()
+        // Set category
+        customParams.updateValue(self.category.categoryString, forKey: "ec")
+        // Set Type
+        customParams.updateValue(self.type.typeString, forKey: "t")
+        // Set Action
+        customParams.updateValue(self.action ?? "", forKey: "ea")
+        // Set Label
+        if self.label != nil {
+            customParams.updateValue(self.label ?? "", forKey: "el")
+        }
+        // Set Value
+        if self.eventValue != nil {
+            customParams.updateValue(self.eventValue ?? 0, forKey: "ev")
+        }
+        // Merge the commun params
+        customParams.merge(self.communBodyTrack) { _, new in new }
+
+        return customParams
+    }
+
     @available(swift, obsoleted: 1.0)
-    @objc public func setEventValue(_ newValue:UInt){
+    public func setEventValue(_ newValue: UInt) {
         self.eventValue = newValue
     }
 }
 
-internal class FSConsent : FSEvent{
-    
+internal class FSConsent: FSEvent {
     override init(eventCategory: FSCategoryEvent, eventAction: String) {
         super.init(eventCategory: eventCategory, eventAction: eventAction)
         self.type = .CONSENT
     }
-    
-    public override var fileName: String! {
 
-        get {
+    override public var fileName: String! {
+        let formatDate = DateFormatter()
+        formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
+        return String(format: "consent_%@.json", formatDate.string(from: Date()))
+    }
 
-            let formatDate = DateFormatter()
-            formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
-            return String(format: "consent_%@.json", formatDate.string(from: Date()))
+    public required init(from decoder: Decoder) throws {
+        do {
+            try super.init(from: decoder)
         }
     }
 }

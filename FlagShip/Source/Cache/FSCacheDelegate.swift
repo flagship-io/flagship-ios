@@ -21,18 +21,6 @@ import Foundation
 
 @objc public protocol FSHitCacheDelegate: AnyObject {
     
-    func cacheHit(visitorId: String, data: Data)
-    
-    /// Lookup
-    func lookupHits(visitorId: String) -> [Data]?
-    
-    /// Flush all hit
-    func flushHits(visitorId: String)
-    
-    
-    
-    // ---------- New Interface hit implementation --------------- //
-    
     // Hits represent an array of dictionary
     func cacheHits(hits: [[String: [String: Any]]])
     

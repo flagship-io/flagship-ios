@@ -50,54 +50,28 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
         }
     }
 
-    public func cacheHit(visitorId: String, data: Data) {
-        /// Create file name
-        let formatDate = DateFormatter()
-        formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
-        let fileName = String(format: "%@.json", formatDate.string(from: Date()))
-
-        /// Folder with visitor id name
-        guard let url: URL = createUrlEventURL(visitorId)?.appendingPathComponent(fileName) else {
-            return
-        }
-
-        do {
-            /// write on the disk
-            try data.write(to: url, options: [])
-        } catch {
-            FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to cache hit"))
-        }
-    }
+//    public func cacheHit(visitorId: String, data: Data) {
+//        /// Create file name
+//        let formatDate = DateFormatter()
+//        formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
+//        let fileName = String(format: "%@.json", formatDate.string(from: Date()))
+//
+//        /// Folder with visitor id name
+//        guard let url: URL = createUrlEventURL(visitorId)?.appendingPathComponent(fileName) else {
+//            return
+//        }
+//
+//        do {
+//            /// write on the disk
+//            try data.write(to: url, options: [])
+//        } catch {
+//            FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to cache hit"))
+//        }
+//    }
 
     // Hits represent an array of dictionary
     public func cacheHits(hits: [[String: [String: Any]]]) {
         print("----------- Cache hits with a new version of Tracking Manager -----------")
-    }
-
-    public func lookupHits(visitorId: String) -> [Data]? {
-        /// The url folder
-        if let urlFolder = createUrlEventURL(visitorId) {
-            do {
-                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlFolder, includingPropertiesForKeys: [.creationDateKey], options: [FileManager.DirectoryEnumerationOptions.skipsHiddenFiles, FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants])
-
-                var listDataCachedHits: [Data] = []
-                for itemUrl in listElementUrl {
-                    if let cachedDataHit = FSStorage.retrieve(itemUrl, from: .documents) {
-                        /// Check if this hit is less than 4H
-                        //  if (cachedHit.isLessThan4Hours()){
-                        listDataCachedHits.append(cachedDataHit)
-                        //   }
-                        /// Remove this item
-                        try FileManager.default.removeItem(at: itemUrl)
-                    }
-                }
-                return listDataCachedHits
-            } catch {
-                FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to read info track from directory"))
-                return nil
-            }
-        }
-        return nil
     }
 
     public func flushHits(visitorId: String) {
@@ -112,7 +86,58 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
 
     /// NEW -----
     public func lookupHits() -> [String: [String: Any]] {
-        return [:]
+        print(" ------- LOOKUP HITS ---------------")
+        return ["abcdeefg": ["dl": "ios_screen",
+                             "qt": 3.6893339157104492,
+                             "vid": "alias",
+                             "t": "SCREENVIEW", "ds": "APP",
+                             "cid": "bkk9glocmjcg0vtmdlng",
+                             "id": "123456788888",
+                             "uip": "adresIP",
+                             "cuid": "ano1",
+                             "ur": "fr",
+                             "sr": "200-200"],
+
+                "abcdeefg1": ["dl": "ios_screen",
+                              "qt": 3.6893339157104492,
+                              "vid": "alias",
+                              "t": "SCREENVIEW", "ds": "APP",
+                              "cid": "bkk9glocmjcg0vtmdlng",
+                              "id": "12345677888",
+                              "uip": "adresIP",
+                              "cuid": "ano1",
+                              "ul": "fr",
+                              "sr": "200-200"],
+                "abcdeefg2": ["dl": "ios_screen",
+                              "qt": 3.6893339157104492,
+                              "vid": "alias",
+                              "t": "SCREENVIEW", "ds": "APP",
+                              "cid": "bkk9glocmjcg0vtmdlng", "id": "12345678688",
+                              "uip": "adresIP",
+                              "cuid": "ano1",
+                              "ul": "fr",
+                              "sr": "200-200"],
+                "abcdeefg3": ["dl": "ios_screen",
+                              "qt": 3.6893339157104492,
+                              "vid": "alias",
+                              "t": "SCREENVIEW", "ds": "APP",
+                              "cid": "bkk9glocmjcg0vtmdlng",
+                              "id": "12345678848",
+                              "uip": "adresIP",
+                              "cuid": "ano1",
+                              "ur": "fr",
+                              "sr": "200-200"],
+                "abcdeefg4": ["dl": "ios_screen",
+                              "qt": 3.6893339157104492,
+                              "vid": "alias",
+                              "t": "SCREENVIEW",
+                              "ds": "APP",
+                              "cid": "bkk9glocmjcg0vtmdlng",
+                              "id": "12345678883",
+                              "uip": "adresIP",
+                              "cuid": "ano1",
+                              "ur": "fr",
+                              "sr": "200-200"]]
     }
 
     /// NEW -----

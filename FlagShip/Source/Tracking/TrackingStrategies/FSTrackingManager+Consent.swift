@@ -9,11 +9,11 @@
 import Foundation
 
 extension FSTrackingManager {
-    // Remove hits for visitorId and keep the consent hits
-    func flushTrackAndKeepConsent(_ visitorId: String) {
-        var listIdsToRemove = self.batchManager.flushTrackAndKeepConsent(visitorId)
-        if !listIdsToRemove.isEmpty {
-            self.cacheManager?.flushHits(listIdsToRemove)
-        }
-    }
+//    // Remove hits for visitorId and keep the consent hits
+//    func flushTrackAndKeepConsent(_ visitorId: String) {
+//        var listIdsToRemove = self.batchManager.flushTrackAndKeepConsent(visitorId)
+//        if !listIdsToRemove.isEmpty {
+//            self.cacheManager?.flushHits(listIdsToRemove)
+//        }
+//    }
 }

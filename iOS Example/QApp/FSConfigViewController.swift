@@ -100,7 +100,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING_STRATEGY))
+        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING))
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
         } else {

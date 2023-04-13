@@ -35,7 +35,7 @@ final class FSBatchManagerTest: XCTestCase, FSBatchingManagerDelegate {
         XCTAssertTrue(batchManager.isQueueEmpty())
     }
 
-    func processBatching(batchToSend: FSBatch) {
+    func processHitsBatching(batchToSend: FSBatch) {
         XCTAssertTrue(batchToSend.items.count == 10)
     }
 }

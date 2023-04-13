@@ -100,15 +100,11 @@ import Foundation
     ///                        ///
     //////////////////////////////
     
-    internal func cacheHit(visitorId: String, data: Data) {
-        hitCacheDelegate?.cacheHit(visitorId: visitorId, data: data)
-    }
-    
     internal func cacheHits(hits: [[String: [String: Any]]]) {
         hitCacheDelegate?.cacheHits(hits: hits)
     }
     
-    internal func lookupHits(_ visitorId: String, onCompletion: @escaping (Error?, [FSCacheHit]?)->Void) {
+    internal func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?)->Void) {
         /// Create a thread
         let fsHitCacheQueue = DispatchQueue(label: "com.flagshipLookupHitCache.queue", attributes: .concurrent)
         /// Init the semaphore
@@ -116,28 +112,10 @@ import Foundation
         
         /// Ask the delegate to lookup the hits
         fsHitCacheQueue.async {
-            if let listOfData = self.hitCacheDelegate?.lookupHits(visitorId: visitorId) {
-                var listOfHits: [FSCacheHit] = []
-                
-                for itemOfData in listOfData {
-                    /// decode the array of data
-                    let decoder = JSONDecoder()
-                    do {
-                        let cachedHit = try decoder.decode(FSCacheHit.self, from: itemOfData)
-                        
-                        if cachedHit.isLessThan4Hours() {
-                            listOfHits.append(cachedHit)
-                        }
-                    } catch {
-                        FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .STORAGE, messageToDisplay: .MESSAGE("Error on decode cached hit"))
-                    }
-                }
-                
-                onCompletion(nil, listOfHits)
-                
-            } else {
-                onCompletion(FSError(codeError: 400, kind: .internalError), nil)
-            }
+            let remainedTracks = self.hitCacheDelegate?.lookupHits()
+            
+            // TO DO MAKE TRANSFORMATION HERE from cache model --> FSTracking
+            onCompletion(nil, []) // --- TODO ----
             semaphore.signal()
         }
         /// complete the job event if the response for lookupHit still not ready
@@ -147,164 +125,13 @@ import Foundation
         }
     }
     
-//    internal func flushHIts(_ visitorId: String) {
-//        hitCacheDelegate?.flushHits(visitorId: visitorId)
-//    }
-    
-    
-    // Flush the given list of ids 
+    // Flush the given list of ids
     internal func flushHits(_ listIds: [String]) {
         hitCacheDelegate?.flushHits(hitIds: listIds)
     }
+
+    // Flush all hits
+    internal func flushAllHits() {
+        hitCacheDelegate?.flushAllHits()
+    }
 }
-
-//////////////////////////////||
-/////                         ||
-/////   FSDefaultCacheVisitor ||
-/////                         ||
-//////////////////////////////||
-//
-// public class FSDefaultCacheVisitor:FSVisitorCacheDelegate{
-//
-//
-//    public func lookupVisitor(visitorId: String)->Data? {
-//
-//        /// The object saved with the encoded FSCacheVisitor
-//        return FSStorage.retrieve(String(format: "%@.json",visitorId), from: .documents)
-//    }
-//
-//    public func cacheVisitor(visitorId: String, _ ObjectToStore: Data) {
-//
-//        FSStorage.store(ObjectToStore, to: .documents, as: String(format: "%@.json", visitorId))
-//    }
-//
-//    public func flushVisitor(visitorId: String) {
-//        /// in FSStorage add new function to delete file's visitor
-//        FSStorage.deleteFile(String(format: "%@.json", visitorId), from: .documents)
-//    }
-//
-//
-//
-//
-// }
-
-// public class FSDefaultCacheHit:FSHitCacheDelegate{
-//
-//
-//    func createUrlEventURL(_ folderName:String) -> URL? {
-//
-//        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//            // Path
-//            url.appendPathComponent("FlagshipHit/\(folderName)", isDirectory: true)
-//
-//            // create directory
-//            do {
-//                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-//                return url
-//
-//            } catch {
-//
-//                return nil
-//            }
-//
-//        } else {
-//
-//            return nil
-//        }
-//    }
-//
-//
-//
-//    public func cacheHit(visitorId: String, data: Data) {
-//
-//        /// Create file name
-//        let formatDate = DateFormatter()
-//        formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
-//        let fileName = String(format: "%@.json", formatDate.string(from: Date()))
-//
-//        /// Folder with visitor id name
-//        guard let url: URL = createUrlEventURL(visitorId)?.appendingPathComponent(fileName) else {
-//
-//            return
-//        }
-//
-//        do {
-//            /// write on the disk
-//            try data.write(to: url, options: [])
-//        } catch {
-//
-//            FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Failed to cache hit"))
-//        }
-//    }
-//
-//
-////    public func lookupHits<T:Codable>(visitorId: String) -> [T]? {
-////
-////        /// The url folder
-////        if let urlFolder = createUrlEventURL(visitorId){
-////
-////            do {
-////                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlFolder, includingPropertiesForKeys: [.creationDateKey], options: [FileManager.DirectoryEnumerationOptions.skipsHiddenFiles,FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants ])
-////
-////                var listCachedHits:[FSCacheHit] = []
-////                for itemUrl in listElementUrl{
-////
-////                    if let cachedHit = FSStorage.retrieve(itemUrl, from: .documents, as: FSCacheHit.self){
-////                        /// Check if this hit is less than 4H
-////                        if (cachedHit.isLessThan4Hours()){
-////                            listCachedHits.append(cachedHit)
-////                        }
-////                        /// Remove this item
-////                        try FileManager.default.removeItem(at: itemUrl)
-////                    }
-////                }
-////                return listCachedHits as? [T]
-////            } catch {
-////                FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Failed to read info track from directory"))
-////                return nil
-////            }
-////
-////        }
-////        return nil
-////    }
-//
-//    public func lookupHits(visitorId: String) -> [Data]? {
-//
-//        /// The url folder
-//        if let urlFolder = createUrlEventURL(visitorId){
-//
-//            do {
-//                let listElementUrl = try FileManager.default.contentsOfDirectory(at: urlFolder, includingPropertiesForKeys: [.creationDateKey], options: [FileManager.DirectoryEnumerationOptions.skipsHiddenFiles,FileManager.DirectoryEnumerationOptions.skipsSubdirectoryDescendants ])
-//
-//                var listDataCachedHits:[Data] = []
-//                for itemUrl in listElementUrl{
-//
-//                    if let cachedDataHit = FSStorage.retrieve(itemUrl, from: .documents){
-//                        /// Check if this hit is less than 4H
-//                      //  if (cachedHit.isLessThan4Hours()){
-//                            listDataCachedHits.append(cachedDataHit)
-//                     //   }
-//                        /// Remove this item
-//                        try FileManager.default.removeItem(at: itemUrl)
-//                    }
-//                }
-//                return listDataCachedHits
-//            } catch {
-//                FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Failed to read info track from directory"))
-//                return nil
-//            }
-//
-//        }
-//        return nil
-//    }
-//
-//    public func flushHits(visitorId: String) {
-//        if let urlToRemove = createUrlEventURL(visitorId){
-//            do {
-//                try FileManager.default.removeItem(at: urlToRemove)
-//            }catch{
-//                FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay:FSLogMessage.MESSAGE("Failed to flush hits"))
-//            }
-//        }
-//    }
-// }

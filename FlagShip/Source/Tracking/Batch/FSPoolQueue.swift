@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class FSQueue<T> {
-    private var listQueue: [T]
+    public private(set) var listQueue: [T]
     
     init() {
         listQueue = Array()
@@ -74,6 +74,10 @@ class FlagshipPoolQueue {
         for item in listToReInject {
             fsQueue.enqueue(item)
         }
+    }
+    
+    func reInjectElement(_ elemToReInject: FSTrackingProtocol) {
+        fsQueue.enqueue(elemToReInject)
     }
     
     // Dequeue Elements

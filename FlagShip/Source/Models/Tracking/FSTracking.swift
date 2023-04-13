@@ -82,7 +82,7 @@ import Foundation
     func isValid() -> Bool
 }
 
-@objcMembers public class FSTracking: NSObject, FSTrackingProtocol {
+@objcMembers public class FSTracking: NSObject, FSTrackingProtocol, Codable {
     public var queueTimeBis: NSNumber?
 
     public var visitorId: String?
@@ -132,7 +132,7 @@ import Foundation
     public var sessionEventNumber: NSNumber?
 
     // Created time
-    public var createdAt: TimeInterval??
+    public var createdAt: TimeInterval
 
     override init() {
         self.id = ""
@@ -140,7 +140,7 @@ import Foundation
         // Set TimeInterval
         self.currentSessionTimeStamp = Date.timeIntervalSinceReferenceDate
         // Created date
-        self.createdAt = Date.timeIntervalSinceReferenceDate
+        self.createdAt = Date().timeIntervalSinceNow
     }
 
     public var bodyTrack: [String: Any] {
@@ -149,11 +149,12 @@ import Foundation
 
     public var communBodyTrack: [String: Any] {
         var communParams = [String: Any]()
+
         // Set Client Id
-        // communParams.updateValue(self.envId ?? "", forKey: "cid") //// Rename it
-        // Set FlagShip user id Id
+        communParams.updateValue(self.envId ?? "", forKey: "cid") //// Rename it
         // Set Data source
-        // communParams.updateValue(self.dataSource, forKey: "ds")
+        communParams.updateValue(self.dataSource, forKey: "ds")
+
         // Set User ip
         if self.userIp != nil {
             communParams.updateValue(self.userIp ?? "", forKey: "uip")
@@ -180,12 +181,8 @@ import Foundation
 
         /// Add qt entries
         /// Time difference between when the hit was created and when it was sent
-        ///
-        if let aCreatedTime = self.createdAt {
-            let duration = aCreatedTime?.distance(to: Date.timeIntervalSinceReferenceDate)
-            communParams.updateValue(duration ?? 0, forKey: "qt")
-        }
-
+        let qt = Date().timeIntervalSinceNow - self.createdAt
+        communParams.updateValue(qt.rounded(), forKey: "qt")
         return communParams
     }
 
@@ -209,5 +206,38 @@ import Foundation
             tupleId.updateValue(self.visitorId ?? "", forKey: "vid") //// rename it
         }
         return tupleId
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+
+        do { self.id = try values.decode(String.self, forKey: .id) } catch { self.id = "" }
+        do { self.visitorId = try values.decode(String.self, forKey: .visitorId) } catch { self.visitorId = "" }
+        do { self.envId = try values.decode(String.self, forKey: .envId) } catch { self.envId = "" }
+        do { self.createdAt = try values.decode(Double.self, forKey: .createdAt) } catch { self.createdAt = 0 }
+    }
+
+    public func encode(to encoder: Encoder) throws {}
+
+    private enum CodingKeys: String, CodingKey {
+        // VisitorId
+        case visitorId = "vid"
+        // Anonymous Id
+        case anonymousId = "cuid"
+        case id
+        // Client Id
+        case envId = "cid"
+        // Datasource
+        case dataSource = "ds"
+        /// User Ip
+        case userIp = "uip"
+        /// Screen Resolution
+        case screenResolution = "sr"
+        /// User Language
+        case userLanguage = "ul"
+        /// Session Number
+        case sessionNumber = "sn"
+        // Created time
+        case createdAt = "qt"
     }
 }

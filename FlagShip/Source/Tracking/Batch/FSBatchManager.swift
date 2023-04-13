@@ -50,12 +50,37 @@ class FSBatchManager {
         }
     }
 
+    /// Return the list
+    /// - Parameter activatePool: if true, will deal with activate queue
+    /// - Returns: List of tarcking elements
+    func getTrackElement(activatePool: Bool = false) -> [FSTrackingProtocol] {
+        if activatePool {
+            return activateQueue.fsQueue.listQueue
+        } else {
+            return hitQueue.fsQueue.listQueue
+        }
+    }
+
     func removeTrackElement(_ elementToRemove: FSTrackingProtocol) {
         if !elementToRemove.id.isEmpty {
             hitQueue.removeTrackElement(elementToRemove.id)
         }
     }
 
+    func removeTrackElements(listToRemove: [FSTrackingProtocol]) {
+        for elem in listToRemove {
+            switch elem.type {
+            case .ACTIVATE:
+                activateQueue.removeTrackElement(elem.id)
+            default:
+                hitQueue.removeTrackElement(elem.id)
+            }
+        }
+    }
+
+    /// Extract (removing and retruning) all elements
+    /// - Parameter activatePool: if true ==> exttract from the activate pool
+    /// - Returns: all elements
     func extractAllElements(activatePool: Bool = false) -> [FSTrackingProtocol] {
         if activatePool {
             return activateQueue.extrcatAllElements()
@@ -64,21 +89,45 @@ class FSBatchManager {
         }
     }
 
-    func reInjectElements(listToReInject: [FSTrackingProtocol], activatePool: Bool = false) {
+    /// Reinject the tracking element into the queue
+    /// - Parameter listToReInject: list of tracks elements
+    func reInjectElementsBis(listToReInject: [FSTrackingProtocol]) {
+        if !listToReInject.isEmpty {
+            for elem in listToReInject {
+                if elem.type == .ACTIVATE {
+                    activateQueue.reInjectElement(elem)
+                } else {
+                    hitQueue.reInjectElement(elem)
+                }
+            }
+        }
+    }
+
+    /// Flush (Delete) all elements form the queue
+    /// - Parameter activatePool: is true ==> will treat with activate queue, by default is false
+    func flushPool(activatePool: Bool = false) {
         if activatePool {
-            return activateQueue.reInjectElements(listToReInject)
+            hitQueue.flushAllTrackFromQueue()
         } else {
-            return hitQueue.reInjectElements(listToReInject)
+            activateQueue.flushAllTrackFromQueue()
         }
     }
 
     func batchFromQueue() {
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Prcocess Batch Starting : .... 👍"))
-        batchTimer?.suspend()
-        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
-        // Extract the hits from the pool and trigger the delegate
-        delegate?.processBatching(batchToSend: FSBatch(hitQueue.dequeueElements(poolMaxSize)))
-        batchTimer?.resume()
+        DispatchQueue.main.async {
+            self.batchTimer?.suspend()
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
+            // Process the activate pool if is not empty
+            if !self.activateQueue.isEmpty() {
+                self.delegate?.processHitsBatching(batchToSend: FSBatch(self.activateQueue.dequeueElements(self.poolMaxSize)))
+            }
+            // Extract the hits from the pool and trigger the delegate
+            if !self.hitQueue.isEmpty() {
+                self.delegate?.processHitsBatching(batchToSend: FSBatch(self.hitQueue.dequeueElements(self.poolMaxSize)))
+            }
+            self.batchTimer?.resume()
+        }
     }
 
     // Start batch process
@@ -134,5 +183,6 @@ class FSBatchManager {
 }
 
 protocol FSBatchingManagerDelegate {
-    func processBatching(batchToSend: FSBatch)
+    func processHitsBatching(batchToSend: FSBatch)
+    func processActivatesBatching()
 }

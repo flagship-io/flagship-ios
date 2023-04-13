@@ -29,10 +29,6 @@ class FSNoConsentStrategy:FSDefaultStrategy{
     
     
     
-
-    
-    
-    
     
     ///_ Cache Visitor
     override func cacheVisitor() {}
@@ -44,10 +40,10 @@ class FSNoConsentStrategy:FSDefaultStrategy{
     override func lookupHits() {}
     
     /// _ Cache Hits
-    override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {
+   // override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {
         
-        FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay:FSLogMessage.HIT_NO_CONSENT)
+     //   FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay:FSLogMessage.HIT_NO_CONSENT)
 
-    }
+    //}
 
 }

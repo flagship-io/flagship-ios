@@ -52,26 +52,18 @@ class FSDefaultStrategy: FSDelegateStrategy {
     /// Activate
     func activate(_ key: String) {
         /// Add envId to dictionary
-        let shared = Flagship.sharedInstance
+        // let shared = Flagship.sharedInstance
             
         if let aModification = visitor.currentFlags[key] {
-            var infosTrack = ["vaid": aModification.variationId, "caid": aModification.variationGroupId, "vid": visitor.visitorId]
-            
-            if let aId = visitor.anonymousId {
-                infosTrack.updateValue(aId, forKey: "aid")
-            }
-            if let aEnvId = shared.envId {
-                infosTrack.updateValue(aEnvId, forKey: "cid")
-            }
-            
-            if FSTools.isConnexionAvailable() {
-                //  visitor.configManager.decisionManager?.activate(infosTrack)
-                visitor.configManager.trackingManger?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
-                
-            } else {
-                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .STORE_ACTIVATE)
-                saveHit(infosTrack, isActivateTracking: true)
-            }
+//            var infosTrack = ["vaid": aModification.variationId, "caid": aModification.variationGroupId, "vid": visitor.visitorId]
+//
+//            if let aId = visitor.anonymousId {
+//                infosTrack.updateValue(aId, forKey: "aid")
+//            }
+//            if let aEnvId = shared.envId {
+//                infosTrack.updateValue(aEnvId, forKey: "cid")
+//            }
+            visitor.configManager.trackingManger?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
         }
     }
     
@@ -133,9 +125,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func sendHit(_ hit: FSTrackingProtocol) {
-        // TODO: Comment this line , the hit will be sent with trackingManger?.sendHit(hit)
-        //   visitor.configManager.trackingManger?.sendEvent(hit, forTuple: visitor.createTupleId())
-        
         // Set the visitor Id and anonymous id  (See later to better )
         hit.visitorId = visitor.visitorId
         hit.anonymousId = visitor.anonymousId
@@ -206,54 +195,17 @@ class FSDefaultStrategy: FSDelegateStrategy {
         visitor.configManager.flagshipConfig.cacheManger.flushVisitor(visitor.visitorId)
     }
     
-    /// _ Save hits in device or on custome implementation
-    func saveHit(_ hitToSave: [String: Any], isActivateTracking: Bool) {
-        guard let typeOfHit = isActivateTracking ? "CAMPAIGN" : hitToSave["t"] as? String else {
-            return
-        }
-        /// Create Cache hit object
-        let cacheHit = FSCacheHit(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId, type: typeOfHit, bodyTrack: hitToSave)
-        
-        do {
-            /// Encode hit to data
-            let encodedHit = try JSONEncoder().encode(cacheHit)
-            /// Cache hit
-            DispatchQueue(label: "flagShip.CacheHits.queue").async(execute: DispatchWorkItem {
-                self.visitor.configManager.flagshipConfig.cacheManger.cacheHit(visitorId: self.visitor.visitorId, data: encodedHit)
-            })
-        } catch {
-            FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Error to encode hit before saving it"))
-        }
-    }
-    
     /// _ Lookup all hit relative to visitor
     func lookupHits() {
-        // If the connexion is available then try to lookup for hit in order to send them
-        if FSTools.isConnexionAvailable() {
-            visitor.configManager.flagshipConfig.cacheManger.lookupHits(visitor.visitorId) { _, resultArrayhits in
+        visitor.configManager.trackingManger?.cacheManager?.lookupHits(onCompletion: { error, remainedHits in
+            
+            if error == nil {
+                self.visitor.configManager.trackingManger?.addTrackingElementsToBatch(remainedHits ?? [])
                 
-                if let allSavedHits = resultArrayhits,!allSavedHits.isEmpty {
-                    /// Retreive the saved hits
-                    let savedHits = allSavedHits.filter { item in
-                        
-                        if item.data?.type != "CAMPAIGN" {
-                            return true
-                            
-                        } else { /// Otherwise send this activate
-                            if let infosTrack = item.data?.content {
-                                DispatchQueue(label: "flagShip.cachedActivate.queue").async(execute: DispatchWorkItem {
-                                    self.visitor.configManager.decisionManager?.activate(infosTrack)
-                                })
-                            }
-                            return false
-                        }
-                    }
-                    DispatchQueue(label: "flagShip.batchHits.queue").async(execute: DispatchWorkItem {
-                        //  self.visitor.configManager.trackingManger?.sendBatchHits(savedHits)
-                    })
-                }
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to lookup hit"))
             }
-        }
+        })
     }
     
     /// _ Flush all hits relative to visitor
@@ -297,8 +249,6 @@ protocol FSDelegateStrategy {
     /// _ Flush cache
     func flushVisitor()
     
-    /// _ cacheHit
-    func saveHit(_ hitToSave: [String: Any], isActivateTracking: Bool)
     /// _ Lookup hits
     func lookupHits()
     

@@ -9,6 +9,7 @@
 import Foundation
 
 protocol ITrackingManager {
+    
     func sendHit(_ hitToSend: FSTrackingProtocol)
 
     func sendActivate(_ currentActivate: Activate)

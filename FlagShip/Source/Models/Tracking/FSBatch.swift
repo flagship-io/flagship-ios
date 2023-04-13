@@ -28,6 +28,10 @@ class FSBatch: FSTracking {
         self.items.append(contentsOf: listOfHit)
     }
 
+    public required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+
     /// :nodoc:
     override public var bodyTrack: [String: Any] {
         var customParams = [String: Any]()
@@ -126,12 +130,13 @@ class Activate: FSTrackingProtocol {
 }
 
 class ActivateBatch {
-    var listActivate: [FSTrackingProtocol]
+    var listActivate: [FSTrackingProtocol] = []
     var envId: String = ""
+    var currentActivate: FSTrackingProtocol?
 
-    init(pListActivate: [FSTrackingProtocol]) {
-        self.listActivate = Array(pListActivate)
-        self.envId = self.listActivate.first?.envId ?? ""
+    init(pCurrentActivate: FSTrackingProtocol?) {
+        self.currentActivate = pCurrentActivate
+        self.envId = Flagship.sharedInstance.envId ?? ""
     }
 
     func addElement(_ newElement: FSTrackingProtocol) {

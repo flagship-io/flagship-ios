@@ -80,38 +80,37 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
     @IBAction func onClickPageHit() {
         //  if let input = interfaceNameFiled!.text {
         //   if input.count > 2 {
-        for index in 0...2 {
-            let nameScreen = String(format: "screen_%d", index)
-            Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen(nameScreen))
-        }
+//        for index in 0...2 {
+        let nameScreen = String(format: "ios_screen")
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen(nameScreen))
+//        }
         
-        for indexBis in 0...2 {
-            let nameEvent = String(format: "event_%d", indexBis)
-            
-            let event = FSEvent(eventCategory: .Action_Tracking, eventAction: nameEvent)
-            event.label = "label_event"
-            event.userIp = "192.168.1.0"
-            event.userLanguage = "FR"
-            Flagship.sharedInstance.sharedVisitor?.sendHit(event)
-        }
-        let event = FSEvent(eventCategory: .Action_Tracking, eventAction: "ios_event")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(event)
+//        for indexBis in 0...2 {
+//            let nameEvent = String(format: "event_%d", indexBis)
+//
+//            let event = FSEvent(eventCategory: .Action_Tracking, eventAction: nameEvent)
+//            event.label = "label_event"
+//            event.userIp = "192.168.1.0"
+//            event.userLanguage = "FR"
+//            Flagship.sharedInstance.sharedVisitor?.sendHit(event)
+//        }
+        //  let event = FSEvent(eventCategory: .Action_Tracking, eventAction: "ios_event")
+     //   Flagship.sharedInstance.sharedVisitor?.sendHit(event)
 
+//        for indexBis in 0...2 {
+//            let nameTransac = String(format: "transac_%d", indexBis)
+//
+//            let eventTransac = FSTransaction(transactionId: "id_transac", affiliation: nameTransac)
+//            eventTransac.userIp = "192.168.1.0"
+//            eventTransac.userLanguage = "FR"
+//            eventTransac.itemCount = 12
+//            eventTransac.shipping = 50
+//            eventTransac.tax = 0.5
+//            Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
+//        }
         
-        for indexBis in 0...2 {
-            let nameTransac = String(format: "transac_%d", indexBis)
-            
-            let eventTransac = FSTransaction(transactionId: "id_transac", affiliation: nameTransac)
-            eventTransac.userIp = "192.168.1.0"
-            eventTransac.userLanguage = "FR"
-            eventTransac.itemCount = 12
-            eventTransac.shipping = 50
-            eventTransac.tax = 0.5
-            Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
-        }
-        
-        let eventTransac = FSTransaction(transactionId: "id_transac", affiliation: "ios_transaction")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
+//        let eventTransac = FSTransaction(transactionId: "id_transac", affiliation: "ios_transaction")
+//        Flagship.sharedInstance.sharedVisitor?.sendHit(eventTransac)
     }
     
     /// Send Event hit

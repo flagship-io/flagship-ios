@@ -18,16 +18,16 @@ public enum FSCacheStrategy: Int {
     // This strategy will use the pool to batch events at regular intervals.
     // Each time a hit is added or removed from the pool, it will be replicated to the database
     // through the hit cache interface from the cache manager.
-    case CONTINUOUS_CACHING_STRATEGY = 0
+    case CONTINUOUS_CACHING = 0
 
     // This strategy will use the pool to batch events at regular intervals.
     // Each time a batch has been sent the pool must be saved to the the database
     // through the hit cache interface from the cache manager in order to prevent data loss.
-    case PERIODIC_CACHING_STRATEGY
+    case PERIODIC_CACHING
 
     // This strategy will not send batch events except when the hits are loaded from the database.
     // It works like the previous version of the SDK. Api requests are made each time a hits has been emitted by a visitor instance.
-    case NO_BATCHING_CONTINUOUS_CACHING_STRATEGY
+    case NO_CACHING_STRATEGY
 }
 
 public class FSTrackingConfig: NSObject {
@@ -40,7 +40,7 @@ public class FSTrackingConfig: NSObject {
     // Strategy
     var strategy: FSCacheStrategy
 
-    public init(poolMaxSize: Int = POOL_SIZE_MAX, batchIntervalTimer: Double = BATCH_INTERVAL_TIME, strategy: FSCacheStrategy = .CONTINUOUS_CACHING_STRATEGY) {
+    public init(poolMaxSize: Int = POOL_SIZE_MAX, batchIntervalTimer: Double = BATCH_INTERVAL_TIME, strategy: FSCacheStrategy = .CONTINUOUS_CACHING) {
         self.poolMaxSize = poolMaxSize
         self.batchIntervalTimer = batchIntervalTimer
         self.strategy = strategy
