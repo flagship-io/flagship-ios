@@ -105,7 +105,7 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     func onCacheHit(_ itemToBeCached: FSTrackingProtocol) {
         if let aVisitorId = itemToBeCached.visitorId {
             itemToBeCached.id = aVisitorId + ":" + FSTools.generateUuidv4()
-            cacheManager?.cacheHits(hits: [[itemToBeCached.id: itemToBeCached.bodyTrack]])
+            cacheManager?.cacheHits(hits: [itemToBeCached.id: itemToBeCached.bodyTrack])
             // Save the id for this one, to remove it in case no consent , allow only the consent hit
             if itemToBeCached.type != .CONSENT {
                 failedIds.append(itemToBeCached.id)

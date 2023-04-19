@@ -53,7 +53,7 @@ class ContinuousTrackingManager: FSTrackingManager {
 //                }
                 
                 if let aRemainedHits = remainedHits{
-                    self.batchManager.reInjectElementsBis(listToReInject: aRemainedHits)
+                    self.batchManager.reInjectElements(listToReInject: aRemainedHits)
 
                 }
             }
@@ -66,7 +66,7 @@ class ContinuousTrackingManager: FSTrackingManager {
             batchManager.addTrackElement(hitToSend)
 
             // Save hit in Database
-            cacheManager?.cacheHits(hits: [[hitToSend.id: hitToSend.bodyTrack]])
+            cacheManager?.cacheHits(hits: [hitToSend.id: hitToSend.bodyTrack])
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
         }
@@ -131,6 +131,8 @@ class ContinuousTrackingManager: FSTrackingManager {
         }
     }
 
+    
+    
     // ********** HITS ************//
     override
     internal func onSucessToSendHits(_ batchToSend: FSBatch) {
@@ -143,7 +145,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     override
     internal func onFailedToSendHits(_ batchToSend: FSBatch) {
         // Re inject the hits into the pool on failed request
-        self.batchManager.reInjectElementsBis(listToReInject: batchToSend.items)
+        self.batchManager.reInjectElements(listToReInject: batchToSend.items)
     }
 
     // ********** ACTIVATE ********//
@@ -165,11 +167,11 @@ class ContinuousTrackingManager: FSTrackingManager {
     override
     internal func onFailedToSendActivate(_ activateBatch: ActivateBatch) {
         // Add the current activate to batch
-        self.batchManager.reInjectElementsBis(listToReInject: activateBatch.listActivate)
+        self.batchManager.reInjectElements(listToReInject: activateBatch.listActivate)
 
         // Add in cache the current Activate; The current activate is the first on the list activateBatch
         if let currentActivate = activateBatch.currentActivate {
-            self.cacheManager?.cacheHits(hits: [[currentActivate.id: currentActivate.bodyTrack]])
+            self.cacheManager?.cacheHits(hits: [currentActivate.id: currentActivate.bodyTrack])
         }
     }
 

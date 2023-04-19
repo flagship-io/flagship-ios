@@ -100,7 +100,7 @@ import Foundation
     ///                        ///
     //////////////////////////////
     
-    internal func cacheHits(hits: [[String: [String: Any]]]) {
+    internal func cacheHits(hits: [String: [String: Any]]) {
         hitCacheDelegate?.cacheHits(hits: hits)
     }
     

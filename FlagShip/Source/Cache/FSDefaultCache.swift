@@ -31,6 +31,12 @@ public class FSDefaultCacheVisitor: FSVisitorCacheDelegate {
 }
 
 public class FSDefaultCacheHit: FSHitCacheDelegate {
+    let dbMgt: FSDatabaseManagment
+
+    init() {
+        dbMgt = FSDatabaseManagment()
+    }
+
     func createUrlEventURL(_ folderName: String) -> URL? {
         if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
@@ -70,8 +76,20 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
 //    }
 
     // Hits represent an array of dictionary
-    public func cacheHits(hits: [[String: [String: Any]]]) {
+    public func cacheHits(hits: [String: [String: Any]]) {
         print("----------- Cache hits with a new version of Tracking Manager -----------")
+        hits.forEach { (key: String, value: [String: Any]) in
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
+                let stringToStore = String(data: jsonData, encoding: .utf8)
+                if let aStringToStore = stringToStore {
+                    dbMgt.insertHitMap(key, hit_content: aStringToStore)
+                }
+
+            } catch {
+                print("error on saving hit")
+            }
+        }
     }
 
     public func flushHits(visitorId: String) {
@@ -142,7 +160,10 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
 
     /// NEW -----
     public func flushHits(hitIds: [String]) {
-        print(" ------- delete the given list ids from database \(hitIds)------------")
+        hitIds.forEach { hitId in
+            print(" ------- delete the given list ids from database \(hitId)------------")
+            dbMgt.delete(hitId: hitId)
+        }
     }
 
     /// NEW -----

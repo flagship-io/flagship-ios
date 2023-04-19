@@ -91,7 +91,7 @@ class FSBatchManager {
 
     /// Reinject the tracking element into the queue
     /// - Parameter listToReInject: list of tracks elements
-    func reInjectElementsBis(listToReInject: [FSTrackingProtocol]) {
+    func reInjectElements(listToReInject: [FSTrackingProtocol]) {
         if !listToReInject.isEmpty {
             for elem in listToReInject {
                 if elem.type == .ACTIVATE {

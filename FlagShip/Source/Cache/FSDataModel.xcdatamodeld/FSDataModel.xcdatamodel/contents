@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E252" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Data_cache" representedClassName="Data_cache" syncable="YES" codeGenerationType="class">
+        <attribute name="anonymousId" optional="YES" attributeType="String"/>
+        <attribute name="time" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="visitorId" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Hit_cache" representedClassName="Hit_cache" syncable="YES" codeGenerationType="class">
+        <attribute name="version" optional="YES" attributeType="String"/>
+        <relationship name="data" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Data_cache"/>
+    </entity>
+</model>

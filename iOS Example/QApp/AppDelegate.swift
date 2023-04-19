@@ -7,6 +7,7 @@
 //
 
 import AppTrackingTransparency
+import Flagship
 import UIKit
 
 // @main
@@ -22,9 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithResp = false
 
         registerSettingsBundle()
+
+
         return true
     }
-    
+
     fileprivate func registerSettingsBundle() {
         guard let settingsBundle = Bundle.main.url(forResource: "Settings", withExtension: "bundle") else {
             NSLog("Could not find Settings.bundle")

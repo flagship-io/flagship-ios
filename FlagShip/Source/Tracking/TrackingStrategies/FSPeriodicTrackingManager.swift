@@ -35,27 +35,23 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         cacheManager?.flushAllHits()
         // Get the merged hit from pool
         let remainedHitInQueue = batchManager.getTrackElement()
-        if !remainedHitInQueue.isEmpty {
-            cacheManager?.cacheHits(hits: remainedHitInQueue.map { elem in
-                [elem.id: elem.bodyTrack]
-            })
+        if !remainedHitInQueue.isEmpty { // TODO LATER FIXING
+//            cacheManager?.cacheHits(hits: remainedHitInQueue.map { elem in
+//                [elem.id: elem.bodyTrack]
+//            })
         }
     }
 
     override internal func onFailedToSendHits(_ batchToSend: FSBatch) {
         print("---------- On Failed To Send Hit, PeriodicTrackingManager ----------")
         // Reinject the failed hits into the queue
-        batchManager.reInjectElementsBis(listToReInject: batchToSend.items)
+        batchManager.reInjectElements(listToReInject: batchToSend.items)
     }
 
     override internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
         print("---------- On Sucess To Send Activate, PeriodicTrackingManager ----------")
     }
 
-//    override internal func onFailedToSendActivate(_ activateBatch: ActivateBatch) {
-//        print("---------- On Failed To Send Activate, PeriodicTrackingManager ----------")
-//
-//    }
 
     // Remove hits for visitorId and keep the consent hits
     override func flushTrackAndKeepConsent(_ visitorId: String) {

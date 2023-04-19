@@ -213,7 +213,7 @@ public class CustomClientVisitorCache: FSVisitorCacheDelegate {
 }
 
 public class customClientHitCache: FSHitCacheDelegate {
-    public func cacheHits(hits: [[String: [String: Any]]]) {}
+    public func cacheHits(hits: [String: [String: Any]]) {}
 
     public func lookupHits() -> [String: [String: Any]] {
         return [:]

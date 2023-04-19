@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SQLite3
 
 internal class FSStorageManager {
     

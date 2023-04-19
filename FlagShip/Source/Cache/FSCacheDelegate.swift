@@ -20,9 +20,8 @@ import Foundation
 }
 
 @objc public protocol FSHitCacheDelegate: AnyObject {
-    
     // Hits represent an array of dictionary
-    func cacheHits(hits: [[String: [String: Any]]])
+    func cacheHits(hits: [String: [String: Any]])
     
     // Called to return the hits contained in the database
     // This method should timeout and be canceled  if it takes too much time. Configurable, Default 200ms
