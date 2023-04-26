@@ -80,6 +80,10 @@ public class FSDatabaseManagment {
         return r
     }
     
+    /////////////////////
+    /// INSERT HIT //////
+    /////////////////////
+
     // INSERT/CREATE operation prepared statement
     public func insertHitMap(_ id: String, hit_content: String) {
         // ensure statements are created on first usage if nil
@@ -90,16 +94,13 @@ public class FSDatabaseManagment {
             sqlite3_reset(self.insertEntryStmt)
         }
         
-        //  At some places (esp sqlite3_bind_xxx functions), we typecast String to NSString and then convert to char*,
-        // ex: (eventLog as NSString).utf8String. This is a weird bug in swift's sqlite3 bridging. this conversion resolves it.
-        
-        // Inserting name in insertEntryStmt prepared statement
+        // Inserting Id in insertEntryStmt prepared statement
         if sqlite3_bind_text(insertEntryStmt, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
             print("sqlite3_bind_text(insertEntryStmt)")
             return
         }
         
-        // Inserting employeeID in insertEntryStmt prepared statement
+        // Inserting Content in insertEntryStmt prepared statement
         if sqlite3_bind_text(insertEntryStmt, 2, (hit_content as NSString).utf8String, -1, nil) != SQLITE_OK {
             print("sqlite3_bind_text(insertEntryStmt)")
             return
@@ -125,7 +126,10 @@ public class FSDatabaseManagment {
         return r
     }
     
-    // "DELETE FROM Records WHERE EmployeeID = ?"
+    /////////////////////
+    /// DELETE HIT //////
+    /////////////////////
+
     public func delete(hitId: String) {
         // ensure statements are created on first usage if nil
         guard prepareDeleteEntryStmt() == SQLITE_OK else { return }
@@ -134,9 +138,6 @@ public class FSDatabaseManagment {
             // reset the prepared statement on exit.
             sqlite3_reset(self.deleteEntryStmt)
         }
-        
-        //  At some places (esp sqlite3_bind_xxx functions), we typecast String to NSString and then convert to char*,
-        // ex: (eventLog as NSString).utf8String. This is a weird bug in swift's sqlite3 bridging. this conversion resolves it.
         
         // Inserting name in deleteEntryStmt prepared statement
         if sqlite3_bind_text(deleteEntryStmt, 1, (hitId as NSString).utf8String, -1, nil) != SQLITE_OK {

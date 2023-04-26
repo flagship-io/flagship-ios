@@ -51,10 +51,9 @@ class ContinuousTrackingManager: FSTrackingManager {
 //                        print("error on looup convert")
 //                    }
 //                }
-                
-                if let aRemainedHits = remainedHits{
-                    self.batchManager.reInjectElements(listToReInject: aRemainedHits)
 
+                if let aRemainedHits = remainedHits {
+                    self.batchManager.reInjectElements(listToReInject: aRemainedHits)
                 }
             }
         })
@@ -65,8 +64,26 @@ class ContinuousTrackingManager: FSTrackingManager {
         if hitToSend.isValid() {
             batchManager.addTrackElement(hitToSend)
 
+            /// Need a refractoring
             // Save hit in Database
-            cacheManager?.cacheHits(hits: [hitToSend.id: hitToSend.bodyTrack])
+            // Before saving hit in database we should convert to database format
+
+            // Todo refractor the optional
+            let cacheHit: FSCacheHit = .init(visitorId: hitToSend.visitorId ?? "", anonymousId: hitToSend.anonymousId, type: hitToSend.type.typeString, bodyTrack: hitToSend.bodyTrack)
+            do {
+                /// Encode cache to data
+                let encodedHit = try JSONEncoder().encode(cacheHit)
+                // Transform to json
+                let dicoToStore = try JSONSerialization.jsonObject(with: encodedHit, options: []) as? [String: Any]
+                // Save in database
+                if let aDicoToStore = dicoToStore {
+                    cacheManager?.cacheHits(hits: [hitToSend.id: aDicoToStore])
+                }
+
+            } catch {
+                print("error when encoding the cache hit")
+            }
+
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
         }
@@ -131,8 +148,6 @@ class ContinuousTrackingManager: FSTrackingManager {
         }
     }
 
-    
-    
     // ********** HITS ************//
     override
     internal func onSucessToSendHits(_ batchToSend: FSBatch) {
@@ -167,10 +182,13 @@ class ContinuousTrackingManager: FSTrackingManager {
     override
     internal func onFailedToSendActivate(_ activateBatch: ActivateBatch) {
         // Add the current activate to batch
-        self.batchManager.reInjectElements(listToReInject: activateBatch.listActivate)
+        self.batchManager.reInjectElements(listToReInject: activateBatch.listActivate) /// need to check if empty before
 
         // Add in cache the current Activate; The current activate is the first on the list activateBatch
         if let currentActivate = activateBatch.currentActivate {
+            // Before add in cache we should set an Id
+            self.batchManager.addTrackElement(currentActivate, activatePool: true)
+
             self.cacheManager?.cacheHits(hits: [currentActivate.id: currentActivate.bodyTrack])
         }
     }

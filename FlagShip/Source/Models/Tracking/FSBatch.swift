@@ -113,7 +113,7 @@ class Activate: FSTrackingProtocol {
         var customParams = [String: Any]()
 
         // Set client Id
-        customParams.updateValue(self.envId ?? "}", forKey: "cid")
+        customParams.updateValue(self.envId ?? "", forKey: "cid")
         // VariationId
         customParams.updateValue(self.variationId ?? "", forKey: "vaid")
         // Variation GroupId
@@ -124,7 +124,6 @@ class Activate: FSTrackingProtocol {
         if let aId = anonymousId {
             customParams.updateValue(aId, forKey: "aid")
         }
-
         return customParams
     }
 }
@@ -149,6 +148,10 @@ class ActivateBatch {
 
     public var bodyTrack: [String: Any] {
         var ret: [[String: Any]] = []
+
+        if let aCurrentActivate = self.currentActivate {
+            ret.append(aCurrentActivate.bodyTrack)
+        }
 
         for item in self.listActivate {
             var elemToAdd = item.bodyTrack
