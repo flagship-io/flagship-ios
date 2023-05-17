@@ -58,7 +58,9 @@ class FSBatch: FSTracking {
 /////////////////////////////////////
 ///
 
-class Activate: FSTrackingProtocol {
+class Activate: FSTrackingProtocol, Codable {
+    var createdAt: TimeInterval = 0
+
     func isValid() -> Bool {
         return true
     }
@@ -125,6 +127,29 @@ class Activate: FSTrackingProtocol {
             customParams.updateValue(aId, forKey: "aid")
         }
         return customParams
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        // visitorId
+        do { self.visitorId = try values.decode(String.self, forKey: .visitorId) } catch { self.visitorId = "" }
+        // anonymousId
+        do { self.anonymousId = try values.decode(String.self, forKey: .anonymousId) } catch { /* error on decode aid */ }
+        // envid
+        do { self.envId = try values.decode(String.self, forKey: .envId) } catch { /* error on deocde envId*/ }
+        // variationId
+        do { self.variationId = try values.decode(String.self, forKey: .variationId) } catch { /* error on decode variationId*/ }
+        // variationGroupeId
+        do { self.variationGroupeId = try values.decode(String.self, forKey: .variationGroupeId) } catch { /* error on decode variationGroupeId*/ }
+        self.type = .ACTIVATE
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case visitorId = "vid"
+        case anonymousId = "aid"
+        case envId = "cid"
+        case variationId = "vaid"
+        case variationGroupeId = "caid"
     }
 }
 

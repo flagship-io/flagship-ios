@@ -42,11 +42,9 @@ import Foundation
     internal func cacheVisitor(_ visitor: FSVisitor) {
         /// Create visitor cache object
         let cacheVisitorToStore = FSCacheVisitor(visitor)
-        
         /// Try Convert cacheVisitorToStore to data
-        let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(cacheVisitorToStore)
+            let data = try JSONEncoder().encode(cacheVisitorToStore)
             
             /// Tell the delegate to store this visitor cache
             cacheVisitorDelegate?.cacheVisitor(visitorId: visitor.visitorId, data)
@@ -105,7 +103,7 @@ import Foundation
     }
     
     internal func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?)->Void) {
-        /// Create a thread
+        /// Create a Thread
         let fsHitCacheQueue = DispatchQueue(label: "com.flagshipLookupHitCache.queue", attributes: .concurrent)
         /// Init the semaphore
         let semaphore = DispatchSemaphore(value: 0)
@@ -113,9 +111,25 @@ import Foundation
         /// Ask the delegate to lookup the hits
         fsHitCacheQueue.async {
             let remainedTracks = self.hitCacheDelegate?.lookupHits()
-            
-            // TO DO MAKE TRANSFORMATION HERE from cache model --> FSTracking
-            onCompletion(nil, []) // --- TODO ----
+            var cachedHitsFromDb: [FSTrackingProtocol] = []
+            remainedTracks?.forEach { (id: String, value: [String: Any]) in
+                do {
+                    let fsCache = try JSONDecoder().decode(FSCacheHit.self, from: JSONSerialization.data(withJSONObject: value))
+                    if fsCache.isLessThan4Hours() {
+                        // Convert to FStrackingProtocol
+                        if let convertedObject = fsCache.convertToTrackingProtocol(id) {
+                            // Check if the hit still valide
+                            cachedHitsFromDb.append(convertedObject)
+                        }
+                    } else {
+                        // Remove from the DB because the hit is no longer valide
+                        self.hitCacheDelegate?.flushHits(hitIds: [id])
+                    }
+                } catch {
+                    /* Error on decode the cachehit*/
+                }
+            }
+            onCompletion(nil, cachedHitsFromDb)
             semaphore.signal()
         }
         /// complete the job event if the response for lookupHit still not ready

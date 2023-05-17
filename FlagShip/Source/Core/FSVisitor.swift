@@ -87,16 +87,16 @@ import Foundation
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
         
-        if aHasConsented {
-            /// Read the cached visitor
-            self.strategy?.getStrategy().lookupVisitor() /// See later for optimize
-            ///
-            self.strategy?.getStrategy().lookupHits() /// See later for optimize
-
-        } else {
-            /// user not consent then flush the cache related
-            self.strategy?.getStrategy().flushVisitor()
-        }
+//        if aHasConsented {
+//            /// Read the cached visitor
+//            self.strategy?.getStrategy().lookupVisitor() /// See later for optimize
+//            ///
+//            self.strategy?.getStrategy().lookupHits() /// See later for optimize
+//
+//        } else {
+//            /// user not consent then flush the cache related
+//            self.strategy?.getStrategy().flushVisitor()
+//        }
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
@@ -104,6 +104,12 @@ import Foundation
             onFetchCompleted()
             /// After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
+            
+            // If bucketing mode and no consent and no panic mode
+            if Flagship.sharedInstance.currentStatus != .PANIC_ON, self.configManager.flagshipConfig.mode == .BUCKETING {
+                self.sendHit(FSSegment(self.getContext()))
+            }
+           
         })
     }
     

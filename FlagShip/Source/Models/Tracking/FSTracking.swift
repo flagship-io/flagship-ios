@@ -9,18 +9,22 @@ import Foundation
 
 @objc public enum FSTypeTrack: NSInteger {
     case SCREEN = 0
+    case PAGE
     case TRANSACTION
     case ITEM
     case EVENT
     case CONSENT
     case BATCH
     case ACTIVATE
+    case SEGMENT
     case None
 
     public var typeString: String {
         switch self {
         case .SCREEN:
             return "SCREENVIEW"
+        case .PAGE:
+            return "PAGEVIEW"
         case .TRANSACTION:
             return "TRANSACTION"
         case .ITEM:
@@ -31,6 +35,8 @@ import Foundation
             return "BATCH"
         case .ACTIVATE:
             return "ACTIVATE"
+        case .SEGMENT:
+            return "SEGMENT"
         case .None:
             return "None"
         }
@@ -68,22 +74,25 @@ import Foundation
 
     var bodyTrack: [String: Any] { get }
 
-    var fileName: String! { get }
-
     /// Required
     var envId: String? { get }
 
     /// Queue Time
-    var queueTimeBis: NSNumber? { get }
+    //  var queueTimeBis: NSNumber? { get }
 
     /// Get cst
     func getCst() -> NSNumber?
 
     func isValid() -> Bool
+
+    // Created time
+    var createdAt: TimeInterval { get set }
 }
 
 @objcMembers public class FSTracking: NSObject, FSTrackingProtocol, Codable {
-    public var queueTimeBis: NSNumber?
+    public var createdAt: TimeInterval
+
+    // public var queueTimeBis: NSNumber?
 
     public var visitorId: String?
 
@@ -131,16 +140,13 @@ import Foundation
     // Session Event Number
     public var sessionEventNumber: NSNumber?
 
-    // Created time
-    public var createdAt: TimeInterval
-
     override init() {
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
         // Set TimeInterval
-        self.currentSessionTimeStamp = Date.timeIntervalSinceReferenceDate
+        self.currentSessionTimeStamp = Date().timeIntervalSince1970
         // Created date
-        self.createdAt = Date().timeIntervalSinceNow
+        self.createdAt = Date().timeIntervalSince1970
     }
 
     public var bodyTrack: [String: Any] {
@@ -181,7 +187,7 @@ import Foundation
 
         /// Add qt entries
         /// Time difference between when the hit was created and when it was sent
-        let qt = Date().timeIntervalSinceNow - self.createdAt
+        let qt = Date().timeIntervalSince1970 - self.createdAt
         communParams.updateValue(qt.rounded(), forKey: "qt")
         return communParams
     }
@@ -214,7 +220,12 @@ import Foundation
         do { self.id = try values.decode(String.self, forKey: .id) } catch { self.id = "" }
         do { self.visitorId = try values.decode(String.self, forKey: .visitorId) } catch { self.visitorId = "" }
         do { self.envId = try values.decode(String.self, forKey: .envId) } catch { self.envId = "" }
-        do { self.createdAt = try values.decode(Double.self, forKey: .createdAt) } catch { self.createdAt = 0 }
+        do {
+            self.createdAt = try values.decode(Double.self, forKey: .createdAt) // TODO: , Make it optional
+
+        } catch {
+            self.createdAt = 0
+        }
     }
 
     public func encode(to encoder: Encoder) throws {}
@@ -238,6 +249,6 @@ import Foundation
         /// Session Number
         case sessionNumber = "sn"
         // Created time
-        case createdAt = "qt"
+        case createdAt = "qt" // See later the optional
     }
 }

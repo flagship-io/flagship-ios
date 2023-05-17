@@ -120,7 +120,7 @@ class FSBatchManager {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
             // Process the activate pool if is not empty
             if !self.activateQueue.isEmpty() {
-                self.delegate?.processHitsBatching(batchToSend: FSBatch(self.activateQueue.dequeueElements(self.poolMaxSize)))
+                self.delegate?.processActivatesBatching()
             }
             // Extract the hits from the pool and trigger the delegate
             if !self.hitQueue.isEmpty() {

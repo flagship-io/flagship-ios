@@ -16,42 +16,6 @@ class ContinuousTrackingManager: FSTrackingManager {
         // Get the remained hit
         cacheManager?.lookupHits(onCompletion: { error, remainedHits in
             if error == nil {
-//                remainedHits?.forEach { (_: String, value: [String: Any]) in
-//
-//                    do {
-//                        var cachedHits: [FSTrackingProtocol] = []
-//                        let decoder = JSONDecoder()
-//                        let jsonData = try JSONSerialization.data(withJSONObject: value)
-//
-//                        if let type = value["t"] as? String {
-//                            switch type {
-//                            case "SCREENVIEW":
-//                                try cachedHits.append(decoder.decode(FSScreen.self, from: jsonData))
-//                            case "EVENT":
-//                                try cachedHits.append(decoder.decode(FSEvent.self, from: jsonData))
-//                            case "TRANSACTION":
-//                                try cachedHits.append(decoder.decode(FSTransaction.self, from: jsonData))
-//                            case "ITEM":
-//                                try cachedHits.append(decoder.decode(FSItem.self, from: jsonData))
-//                            // case "ACTIVATE":
-//                            // cachedHit = try decoder.decode(Activate.self, from: jsonData)
-//                            default:
-//                                print("unknow data")
-//                            }
-//
-//                            if !cachedHits.isEmpty {
-//                                self.batchManager.reInjectElementsBis(listToReInject: cachedHits)
-//                            }
-//
-//                        } else {
-//                            print("Error on reading type of event")
-//                        }
-//
-//                    } catch {
-//                        print("error on looup convert")
-//                    }
-//                }
-
                 if let aRemainedHits = remainedHits {
                     self.batchManager.reInjectElements(listToReInject: aRemainedHits)
                 }
@@ -63,26 +27,9 @@ class ContinuousTrackingManager: FSTrackingManager {
     override func sendHit(_ hitToSend: FSTrackingProtocol) {
         if hitToSend.isValid() {
             batchManager.addTrackElement(hitToSend)
-
-            /// Need a refractoring
             // Save hit in Database
-            // Before saving hit in database we should convert to database format
-
-            // Todo refractor the optional
-            let cacheHit: FSCacheHit = .init(visitorId: hitToSend.visitorId ?? "", anonymousId: hitToSend.anonymousId, type: hitToSend.type.typeString, bodyTrack: hitToSend.bodyTrack)
-            do {
-                /// Encode cache to data
-                let encodedHit = try JSONEncoder().encode(cacheHit)
-                // Transform to json
-                let dicoToStore = try JSONSerialization.jsonObject(with: encodedHit, options: []) as? [String: Any]
-                // Save in database
-                if let aDicoToStore = dicoToStore {
-                    cacheManager?.cacheHits(hits: [hitToSend.id: aDicoToStore])
-                }
-
-            } catch {
-                print("error when encoding the cache hit")
-            }
+            let cacheHit: FSCacheHit = .init(hitToSend) // Convert to cache format
+            cacheManager?.cacheHits(hits: [hitToSend.id: cacheHit.jsonCacheFormat() ?? [:]])
 
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
@@ -166,17 +113,15 @@ class ContinuousTrackingManager: FSTrackingManager {
     // ********** ACTIVATE ********//
     override
     internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
-        // If the activate Pool is not empty ==> clean the pool and database
-        if !self.batchManager.isQueueEmpty(activatePool: true) {
-            // Create array of ids and use it by the flush database
-            self.cacheManager?.flushHits(activateBatch.listActivate.map { elem in
-                elem.id
-            })
-
-            // Clear all the activate present in the pool
-            // TODO: Check it should be gonne already on extracting the first time
-            self.batchManager.removeTrackElements(listToRemove: activateBatch.listActivate)
-        }
+        
+        // Create array of ids and use it by the flush database
+        self.cacheManager?.flushHits(activateBatch.listActivate.map { elem in
+            elem.id
+        })
+        
+        // Clear all the activate present in the pool
+        // TODO: Check it should be gonne already on extracting the first time
+        self.batchManager.removeTrackElements(listToRemove: activateBatch.listActivate)
     }
 
     override
@@ -189,7 +134,9 @@ class ContinuousTrackingManager: FSTrackingManager {
             // Before add in cache we should set an Id
             self.batchManager.addTrackElement(currentActivate, activatePool: true)
 
-            self.cacheManager?.cacheHits(hits: [currentActivate.id: currentActivate.bodyTrack])
+            // Save hit in Database
+            let cacheHit: FSCacheHit = .init(currentActivate) // Convert to cache format
+            cacheManager?.cacheHits(hits: [currentActivate.id: cacheHit.jsonCacheFormat() ?? [:]])
         }
     }
 

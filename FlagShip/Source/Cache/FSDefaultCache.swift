@@ -15,63 +15,59 @@ import Foundation
 ////////////////////////////||
 
 public class FSDefaultCacheVisitor: FSVisitorCacheDelegate {
-    public func lookupVisitor(visitorId: String) -> Data? {
-        /// The object saved with the encoded FSCacheVisitor
-        return FSStorage.retrieve(String(format: "%@.json", visitorId), from: .documents)
+    let dbMgtVisitor: FSVisitorDatabaseMangment
+    let dbMgtVisitorBis: FSQLiteWrapper
+
+    init() {
+        dbMgtVisitor = FSVisitorDatabaseMangment()
+        dbMgtVisitorBis = FSQLiteWrapper(.DatabaseVisitor)
     }
 
-    public func cacheVisitor(visitorId: String, _ ObjectToStore: Data) {
-        FSStorage.store(ObjectToStore, to: .documents, as: String(format: "%@.json", visitorId))
+    public func lookupVisitor(visitorId: String) -> Data? {
+        /// The object saved with the encoded FSCacheVisitor
+        return dbMgtVisitor.readVisitorData(visitorId)
+    }
+
+    public func cacheVisitor(visitorId: String, _ visitorData: Data) {
+        // Save the data in DB
+        if let visitorDataString = String(data: visitorData, encoding: .utf8) {
+            dbMgtVisitor.insertVisitor(visitorId, data_content: visitorDataString)
+        } else {
+            // Error on converting data to json
+        }
     }
 
     public func flushVisitor(visitorId: String) {
         /// in FSStorage add new function to delete file's visitor
-        FSStorage.deleteFile(String(format: "%@.json", visitorId), from: .documents)
+        dbMgtVisitor.delete(visitorId: visitorId)
     }
 }
 
 public class FSDefaultCacheHit: FSHitCacheDelegate {
     let dbMgt: FSDatabaseManagment
+    let databaseMgtHit: FSQLiteWrapper
 
     init() {
         dbMgt = FSDatabaseManagment()
+        databaseMgtHit = FSQLiteWrapper(.DatabaseTracking)
     }
 
-    func createUrlEventURL(_ folderName: String) -> URL? {
-        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            // Path
-            url.appendPathComponent("FlagshipHit/\(folderName)", isDirectory: true)
-
-            // create directory
-            do {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-                return url
-
-            } catch {
-                return nil
-            }
-
-        } else {
-            return nil
-        }
-    }
-
-//    public func cacheHit(visitorId: String, data: Data) {
-//        /// Create file name
-//        let formatDate = DateFormatter()
-//        formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
-//        let fileName = String(format: "%@.json", formatDate.string(from: Date()))
+//    func createUrlEventURL(_ folderName: String) -> URL? {
+//        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//            // Path
+//            url.appendPathComponent("FlagshipHit/\(folderName)", isDirectory: true)
 //
-//        /// Folder with visitor id name
-//        guard let url: URL = createUrlEventURL(visitorId)?.appendingPathComponent(fileName) else {
-//            return
-//        }
+//            // create directory
+//            do {
+//                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+//                return url
 //
-//        do {
-//            /// write on the disk
-//            try data.write(to: url, options: [])
-//        } catch {
-//            FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to cache hit"))
+//            } catch {
+//                return nil
+//            }
+//
+//        } else {
+//            return nil
 //        }
 //    }
 
@@ -92,76 +88,15 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
         }
     }
 
-    public func flushHits(visitorId: String) {
-        if let urlToRemove = createUrlEventURL(visitorId) {
-            do {
-                try FileManager.default.removeItem(at: urlToRemove)
-            } catch {
-                FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to flush hits"))
-            }
-        }
-    }
-
     /// NEW -----
     public func lookupHits() -> [String: [String: Any]] {
-        print(" ------- LOOKUP HITS ---------------")
-        return ["abcdeefg": ["dl": "ios_screen",
-                             "qt": 3.6893339157104492,
-                             "vid": "alias",
-                             "t": "SCREENVIEW", "ds": "APP",
-                             "cid": "bkk9glocmjcg0vtmdlng",
-                             "id": "123456788888",
-                             "uip": "adresIP",
-                             "cuid": "ano1",
-                             "ur": "fr",
-                             "sr": "200-200"],
-
-                "abcdeefg1": ["dl": "ios_screen",
-                              "qt": 3.6893339157104492,
-                              "vid": "alias",
-                              "t": "SCREENVIEW", "ds": "APP",
-                              "cid": "bkk9glocmjcg0vtmdlng",
-                              "id": "12345677888",
-                              "uip": "adresIP",
-                              "cuid": "ano1",
-                              "ul": "fr",
-                              "sr": "200-200"],
-                "abcdeefg2": ["dl": "ios_screen",
-                              "qt": 3.6893339157104492,
-                              "vid": "alias",
-                              "t": "SCREENVIEW", "ds": "APP",
-                              "cid": "bkk9glocmjcg0vtmdlng", "id": "12345678688",
-                              "uip": "adresIP",
-                              "cuid": "ano1",
-                              "ul": "fr",
-                              "sr": "200-200"],
-                "abcdeefg3": ["dl": "ios_screen",
-                              "qt": 3.6893339157104492,
-                              "vid": "alias",
-                              "t": "SCREENVIEW", "ds": "APP",
-                              "cid": "bkk9glocmjcg0vtmdlng",
-                              "id": "12345678848",
-                              "uip": "adresIP",
-                              "cuid": "ano1",
-                              "ur": "fr",
-                              "sr": "200-200"],
-                "abcdeefg4": ["dl": "ios_screen",
-                              "qt": 3.6893339157104492,
-                              "vid": "alias",
-                              "t": "SCREENVIEW",
-                              "ds": "APP",
-                              "cid": "bkk9glocmjcg0vtmdlng",
-                              "id": "12345678883",
-                              "uip": "adresIP",
-                              "cuid": "ano1",
-                              "ur": "fr",
-                              "sr": "200-200"]]
+        return dbMgt.readHitMap()
     }
 
     /// NEW -----
     public func flushHits(hitIds: [String]) {
         hitIds.forEach { hitId in
-            print(" ------- delete the given list ids from database \(hitId)------------")
+            print(" ------- delete the hit's id from database \(hitId)------------")
             dbMgt.delete(hitId: hitId)
         }
     }

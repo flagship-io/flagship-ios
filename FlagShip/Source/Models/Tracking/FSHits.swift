@@ -8,9 +8,8 @@
 
 import Foundation
 
-@available(*, deprecated, message: "Use FSScreen")
 /**
- This hit should be sent each time a visitor arrives on a new interface.
+ This hit should be sent each time a visitor arrives on a new url page.
  */
 @objcMembers public class FSPage: FSTracking {
     /// Location Name where the event occurs
@@ -26,25 +25,23 @@ import Foundation
 
     public init(_ location: String) {
         super.init()
-        self.type = .SCREEN
+        self.type = .PAGE
         self.location = location
     }
 
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        do {
-            try super.init(from: decoder)
-        }
-        do {
-            self.location = try values.decode(String.self, forKey: .location)
-        } catch { self.location = "" }
+        do { try super.init(from: decoder) }
+        // location
+        do { self.location = try values.decode(String.self, forKey: .location) } catch { self.location = "" }
+        self.type = .PAGE
     }
 
     override public func encode(to encoder: Encoder) throws {}
 
     private enum CodingKeys: String, CodingKey {
-        case location
+        case location = "dl"
     }
 
     /// :nodoc:
@@ -86,13 +83,11 @@ import Foundation
 
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-
-        do {
-            try super.init(from: decoder)
-        }
-        do {
-            self.location = try values.decode(String.self, forKey: .location)
-        } catch { self.location = "" }
+        do { try super.init(from: decoder) }
+        // location
+        do { self.location = try values.decode(String.self, forKey: .location) } catch { self.location = "" }
+        // Set type
+        self.type = .SCREEN
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -104,15 +99,10 @@ import Foundation
     /// :nodoc:
     override public var bodyTrack: [String: Any] {
         var customParams = [String: Any]()
-
         // Set Type
         customParams.updateValue(self.type.typeString, forKey: "t")
-
         // Location name
-        if self.location != nil {
-            customParams.updateValue(self.location ?? "", forKey: "dl")
-        }
-
+        if self.location != nil { customParams.updateValue(self.location ?? "", forKey: "dl") }
         customParams.merge(self.communBodyTrack) { _, new in new }
         return customParams
     }
@@ -133,7 +123,6 @@ import Foundation
     public var revenue: NSNumber?
     /// Specifies the total shipping cost of the transaction.
     public var shipping: NSNumber?
-
     /// Specifies the total taxes of the transaction.
     public var tax: NSNumber?
 
@@ -170,22 +159,44 @@ import Foundation
 
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        // transactionId
+        do { self.transactionId = try values.decode(String.self, forKey: .transactionId) } catch { self.transactionId = "" }
+        // affiliation
+        do { self.affiliation = try values.decode(String.self, forKey: .affiliation) } catch { self.affiliation = "" }
+        // revenue
+        do { self.revenue = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .revenue)) } catch { /* error on decode revenue*/ }
+        // shipping
+        do { self.shipping = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .shipping)) } catch { /* "error on deocde shipping */ }
+        // tax
+        do { self.tax = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .tax)) } catch { /* "error on deocde tax */ }
+        // currency
+        do { self.currency = try values.decode(String.self, forKey: .currency) } catch { /* "error on deocde currency */ }
+        // couponCode
+        do { self.couponCode = try values.decode(String.self, forKey: .couponCode) } catch { /* "error on deocde couponCode */ }
+        // paymentMethod
+        do { self.paymentMethod = try values.decode(String.self, forKey: .paymentMethod) } catch { /* "error on deocde paymentMethod */ }
+        // shippingMethod
+        do { self.shippingMethod = try values.decode(String.self, forKey: .shippingMethod) } catch { /* "error on deocde shippingMethod */ }
+        // itemCount
+        do { self.itemCount = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .itemCount)) } catch { /* "error on deocde itemCount */ }
 
-        do {
-            self.transactionId = try values.decode(String.self, forKey: .transactionId)
-        } catch { self.transactionId = "" }
-
-        do {
-            self.affiliation = try values.decode(String.self, forKey: .affiliation)
-        } catch { self.affiliation = "" }
         do {
             try super.init(from: decoder)
         }
+        self.type = .TRANSACTION
     }
 
     private enum CodingKeys: String, CodingKey {
         case affiliation = "tid"
         case transactionId = "ta"
+        case revenue = "tr"
+        case shipping = "ts"
+        case tax = "tt"
+        case currency = "tc"
+        case couponCode = "tcc"
+        case paymentMethod = "pm"
+        case shippingMethod = "sm"
+        case itemCount = "icn"
     }
 
     /// :nodoc:
@@ -287,20 +298,29 @@ import Foundation
 
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        do {
-            self.name = try values.decode(String.self, forKey: .name)
-        } catch { self.name = "" }
-        do {
-            self.transactionId = try values.decode(String.self, forKey: .transactionId)
-        } catch { self.transactionId = "" }
-        do {
-            try super.init(from: decoder)
-        }
+        // name
+        do { self.name = try values.decode(String.self, forKey: .name) } catch { self.name = "" }
+        // transactionId
+        do { self.transactionId = try values.decode(String.self, forKey: .transactionId) } catch { self.transactionId = "" }
+        // price
+        do { self.price = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .price)) } catch { /* error on deocde price*/ }
+        // quantity
+        do { self.quantity = try NSNumber(floatLiteral: values.decode(Double.self, forKey: .quantity)) } catch { /* error on decode quantity*/ }
+        // code
+        do { self.code = try values.decode(String.self, forKey: .code) } catch { /* error on decode code*/ }
+        // category
+        do { self.category = try values.decode(String.self, forKey: .category) } catch { /* error on decode categoty*/ }
+        do { try super.init(from: decoder) }
+        self.type = .ITEM
     }
 
     private enum CodingKeys: String, CodingKey {
         case name = "tid"
         case transactionId = "in"
+        case price = "ip"
+        case quantity = "iq"
+        case code = "ic"
+        case category = "iv"
     }
 
     /// :nodoc:
@@ -384,15 +404,33 @@ import Foundation
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        do {
-            try super.init(from: decoder)
-        }
+        do { try super.init(from: decoder) }
+        // category
+        do { let catString = try values.decode(String.self, forKey: .category)
+            if catString == FSCategoryEvent.Action_Tracking.categoryString {
+                self.category = .Action_Tracking
+            } else {
+                self.category = .User_Engagement
+            }
+        } catch { self.category = .Action_Tracking }
 
+        // action
+        do { self.action = try values.decode(String.self, forKey: .action) } catch { /* error on decode action*/ }
+        // label
+        do { self.label = try values.decode(String.self, forKey: .label) } catch { /* error on decode label*/ }
+        // event value
+        do { self.eventValue = try values.decode(UInt.self, forKey: .eventValue) } catch { /* error on decode eventValue*/ }
+        // Set event category
         self.category = .Action_Tracking
+        // Set type
+        self.type = .EVENT
     }
 
     private enum CodingKeys: String, CodingKey {
         case category = "ec"
+        case action = "ea"
+        case label = "el"
+        case eventValue = "ev"
     }
 
     /// :nodoc:
