@@ -35,10 +35,12 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         cacheManager?.flushAllHits()
         // Get the merged hit from pool
         let remainedHitInQueue = batchManager.getTrackElement()
-        if !remainedHitInQueue.isEmpty { // TODO LATER FIXING
-//            cacheManager?.cacheHits(hits: remainedHitInQueue.map { elem in
-//                [elem.id: elem.bodyTrack]
-//            })
+        if !remainedHitInQueue.isEmpty { // TODO: LATER FIXING
+            for itemToSave in remainedHitInQueue {
+                // Save hit in Database
+                let cacheHit: FSCacheHit = .init(itemToSave) // Convert to cache format
+                cacheManager?.cacheHits(hits: [itemToSave.id: cacheHit.jsonCacheFormat() ?? [:]])
+            }
         }
     }
 
@@ -46,12 +48,25 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         print("---------- On Failed To Send Hit, PeriodicTrackingManager ----------")
         // Reinject the failed hits into the queue
         batchManager.reInjectElements(listToReInject: batchToSend.items)
+
+        // Save the merged hit pool and activate
+        var remainedHitInQueue = batchManager.getTrackElement(activatePool: true)
+        // add the hit pool
+        remainedHitInQueue.append(contentsOf: batchManager.getTrackElement())
+        // Clear all hits in database
+        cacheManager?.flushAllHits()
+        if !remainedHitInQueue.isEmpty {
+            for itemToSave in remainedHitInQueue {
+                // Save hit in Database
+                let cacheHit: FSCacheHit = .init(itemToSave) // Convert to cache format
+                cacheManager?.cacheHits(hits: [itemToSave.id: cacheHit.jsonCacheFormat() ?? [:]])
+            }
+        }
     }
 
     override internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
         print("---------- On Sucess To Send Activate, PeriodicTrackingManager ----------")
     }
-
 
     // Remove hits for visitorId and keep the consent hits
     override func flushTrackAndKeepConsent(_ visitorId: String) {

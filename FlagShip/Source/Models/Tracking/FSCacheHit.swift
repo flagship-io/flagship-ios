@@ -84,6 +84,8 @@ public class FSCacheHit: Codable {
                         newHit = try decoder.decode(FSTransaction.self, from: jsonData)
                     case "ITEM":
                         newHit = try decoder.decode(FSItem.self, from: jsonData)
+                    case "SEGMENT":
+                        newHit = try decoder.decode(FSSegment.self, from: jsonData)
                     case "ACTIVATE":
                         newHit = try decoder.decode(Activate.self, from: jsonData)
                     default:

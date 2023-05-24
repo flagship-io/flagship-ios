@@ -124,6 +124,8 @@ class FSBatchManager {
             }
             // Extract the hits from the pool and trigger the delegate
             if !self.hitQueue.isEmpty() {
+                
+                print(" la size de la lit queu e")
                 self.delegate?.processHitsBatching(batchToSend: FSBatch(self.hitQueue.dequeueElements(self.poolMaxSize)))
             }
             self.batchTimer?.resume()

@@ -106,7 +106,7 @@ import Foundation
             self.strategy?.getStrategy().cacheVisitor()
             
             // If bucketing mode and no consent and no panic mode
-            if Flagship.sharedInstance.currentStatus != .PANIC_ON, self.configManager.flagshipConfig.mode == .BUCKETING {
+            if  self.configManager.flagshipConfig.mode == .BUCKETING && Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
            

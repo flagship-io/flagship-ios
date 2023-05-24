@@ -14,10 +14,8 @@ class FSGenerator: NSObject {
 
     /// Generate
     internal class func generateFlagShipId() -> String {
-
-        let formatDate = DateFormatter()
-        formatDate.dateFormat = "yyyyMMddHHmmss"
-        return String(format: "%@%d", formatDate.string(from: Date()), Int.random(in: 10000..<99999))
+        
+        FSTools.generateUuidv4()
     }
 
     /// Save UserId in cache user default

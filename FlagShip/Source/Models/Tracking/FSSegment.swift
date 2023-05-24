@@ -48,7 +48,6 @@ internal class FSSegment: FSTracking {
         /// Time difference between when the hit was created and when it was sent
         let qt = Date().timeIntervalSince1970 - self.createdAt
         contextParam.updateValue(qt.rounded(), forKey: "qt")
-
         return contextParam
     }
 }
