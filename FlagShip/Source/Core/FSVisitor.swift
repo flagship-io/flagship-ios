@@ -75,7 +75,7 @@ import Foundation
         /// Set the user context
         self.context = FSContext(aContext)
         
-        /// Set the presetcontext
+        /// Set the presetContext
         self.context.loadPreSetContext()
 
         /// Set config

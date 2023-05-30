@@ -49,7 +49,7 @@ class ContinuousTrackingManager: FSTrackingManager {
         // Send Activate
         service.activate(activateBatch.bodyTrack) { error in
             if error == nil {
-                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_SUCCESS(activateBatch.bodyTrack.description))
                 self.onSucessToSendActivate(activateBatch)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
@@ -113,12 +113,11 @@ class ContinuousTrackingManager: FSTrackingManager {
     // ********** ACTIVATE ********//
     override
     internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
-        
         // Create array of ids and use it by the flush database
         self.cacheManager?.flushHits(activateBatch.listActivate.map { elem in
             elem.id
         })
-        
+
         // Clear all the activate present in the pool
         // TODO: Check it should be gonne already on extracting the first time
         self.batchManager.removeTrackElements(listToRemove: activateBatch.listActivate)

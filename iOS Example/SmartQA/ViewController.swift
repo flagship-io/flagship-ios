@@ -24,32 +24,17 @@ class ViewController: UIViewController {
         let conf: FlagshipConfig = FSConfigBuilder().withTrackingConfig(trackingConfig).withStatusListener { newStatus in
             
             if newStatus == .READY {
-
+                Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+                    let myFlag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag", defaultValue: "dflValue")
+                    myFlag?.userExposed()
+                    Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen1"))
+                }
             }
-        }.build()
+        }.Bucketing().build()
         
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
         
-        let v1 = Flagship.sharedInstance.newVisitor("visitor-A").withContext(context: ["testing_tracking_manager": true]).isAuthenticated(true).build()
-        
-        v1.fetchFlags {
-            print("stop") /// Go OFFLINE
-            let myFlag = v1.getFlag(key: "my_flag", defaultValue: "dflValue")
-            print("stop") /// Go ONLINE
-            myFlag.userExposed()
-     
-           
-            v1.sendHit(FSScreen("screen1"))
-            
-            let v2 = Flagship.sharedInstance.newVisitor("visitor-B").withContext(context: ["testing_tracking_manager": true]).isAuthenticated(true).build()
-            
-            v2.fetchFlags {
-                let myFlagBis = v2.getFlag(key: "my_flag", defaultValue: "dflValue")
-                myFlagBis.userExposed()
-                
-                v2.sendHit(FSScreen("screen2"))
-            }
-        }
+      //  let v1 = Flagship.sharedInstance.newVisitor("visitor3005").withContext(context: ["testing_tracking_manager": true]).build()
     }
     
     /// Add one more activate
