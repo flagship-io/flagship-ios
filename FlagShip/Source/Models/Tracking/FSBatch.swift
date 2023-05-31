@@ -65,7 +65,7 @@ class Activate: FSTrackingProtocol, Codable {
         return true
     }
 
-    var queueTimeBis: NSNumber?
+    // var queueTimeBis: NSNumber?
 
     var id: String = ""
 
@@ -89,7 +89,8 @@ class Activate: FSTrackingProtocol, Codable {
     }
 
     init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
-        self.queueTimeBis = NSNumber(value: Date().timeIntervalSince1970)
+        // Created date
+        self.createdAt = Date().timeIntervalSince1970
         self.type = .ACTIVATE
         self.visitorId = visitorId
         self.anonymousId = anonymousId
@@ -103,6 +104,7 @@ class Activate: FSTrackingProtocol, Codable {
     }
 
     init(_ visitorId: String, _ anonymousId: String?, modification: FSModification) {
+        self.createdAt = Date().timeIntervalSince1970
         self.envId = Flagship.sharedInstance.envId
         self.visitorId = visitorId
         self.anonymousId = anonymousId
@@ -126,6 +128,10 @@ class Activate: FSTrackingProtocol, Codable {
         if let aId = anonymousId {
             customParams.updateValue(aId, forKey: "aid")
         }
+        /// Add qt entries
+        /// Time difference between when the hit was created and when it was sent
+        let qt = Date().timeIntervalSince1970 - self.createdAt
+        customParams.updateValue(qt.rounded(), forKey: "qt")
         return customParams
     }
 
@@ -142,6 +148,13 @@ class Activate: FSTrackingProtocol, Codable {
         // variationGroupeId
         do { self.variationGroupeId = try values.decode(String.self, forKey: .variationGroupeId) } catch { /* error on decode variationGroupeId*/ }
         self.type = .ACTIVATE
+
+        do {
+            self.createdAt = try values.decode(Double.self, forKey: .createdAt) // TODO: , Make it optional
+
+        } catch {
+            self.createdAt = 0
+        }
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -150,6 +163,18 @@ class Activate: FSTrackingProtocol, Codable {
         case envId = "cid"
         case variationId = "vaid"
         case variationGroupeId = "caid"
+        // Created time
+        case createdAt = "qt" // See later the optional
+    }
+
+    internal func description() -> String {
+        do {
+            let stringDescription = try JSONSerialization.data(withJSONObject: self.bodyTrack as Any, options: .prettyPrinted)
+            return "\(stringDescription.prettyPrintedJSONString ?? "")"
+
+        } catch {
+            return ""
+        }
     }
 }
 

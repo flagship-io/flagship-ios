@@ -10,7 +10,6 @@ import Foundation
 let MAX_SIZE_BATCH = 2621440 /// Bytes
 
 internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
-    
     // Create batch manager
     var batchManager: FSBatchManager
     // Create service
@@ -63,6 +62,9 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
                 // Cache the hit on failed sending
                 if error != nil {
                     self.onCacheHit(hitToSend)
+                } else {
+                    FlagshipLogManager.Log(level: .ALL, tag: .TARGETING, messageToDisplay: FSLogMessage.SUCCESS_SEND_HIT)
+                    FlagshipLogManager.Log(level: .ALL, tag: .TARGETING, messageToDisplay: FSLogMessage.MESSAGE("\(dataToSend.prettyPrintedJSONString ?? "")"))
                 }
             }
         } catch {
@@ -72,17 +74,16 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
 
     // Send Activate
     func sendActivate(_ currentActivate: Activate) {
-      //  if let aCurrentActivate = currentActivate {
-            service.activate(currentActivate.bodyTrack) { error in
+        service.activate(currentActivate.bodyTrack) { error in
 
-                if error == nil {
-                    FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
-                } else {
-                    FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
-                    self.onCacheHit(currentActivate)
-                }
+            if error == nil {
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Activate sent with sucess"))
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(currentActivate.description()))
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
+                self.onCacheHit(currentActivate)
             }
-      //  }
+        }
     }
 
     func stopBatchingProcess() {}
@@ -91,7 +92,28 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
 
     func processActivatesBatching() {}
 
-    func processHitsBatching(batchToSend: FSBatch) {}
+    internal func processHitsBatching(batchToSend: FSBatch) {
+        do {
+            let batchData = try JSONSerialization.data(withJSONObject: batchToSend.bodyTrack as Any, options: .prettyPrinted)
+
+            FlagshipLogManager.Log(level: .ALL, tag: FSTag.TRACKING, messageToDisplay: FSLogMessage.MESSAGE(batchData.prettyPrintedJSONString as String?))
+
+            if let urlEvent = URL(string: EVENT_TRACKING) {
+                service.sendRequest(urlEvent, type: .Tracking, data: batchData, onCompleted: { _, error in
+
+                    if error == nil {
+                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SUCCESS_SEND_HIT)
+                        self.onSucessToSendHits(batchToSend)
+                    } else {
+                        self.onFailedToSendHits(batchToSend)
+                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
+                    }
+                })
+            }
+        } catch {
+            FlagshipLogManager.Log(level: .ERROR, tag: .TARGETING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
+        }
+    }
 
     // Remove hits for visitorId and keep the consent hits , Check later ...
     func flushTrackAndKeepConsent(_ visitorId: String) {
@@ -105,7 +127,9 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     func onCacheHit(_ itemToBeCached: FSTrackingProtocol) {
         if let aVisitorId = itemToBeCached.visitorId {
             itemToBeCached.id = aVisitorId + ":" + FSTools.generateUuidv4()
-            cacheManager?.cacheHits(hits: [itemToBeCached.id: itemToBeCached.bodyTrack])
+            // Save hit in Database
+            let cacheHit: FSCacheHit = .init(itemToBeCached) // Convert to cache format
+            cacheManager?.cacheHits(hits: [itemToBeCached.id: cacheHit.jsonCacheFormat() ?? [:]])
             // Save the id for this one, to remove it in case no consent , allow only the consent hit
             if itemToBeCached.type != .CONSENT {
                 failedIds.append(itemToBeCached.id)
@@ -140,6 +164,8 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
             service.activate(batchForCachedActivate.bodyTrack) { error in
                 if error != nil {
                     self.onFailedToSendActivate(batchForCachedActivate)
+                } else {
+                    self.onSucessToSendActivate(batchForCachedActivate)
                 }
             }
         }

@@ -62,7 +62,7 @@ public class Flagship: NSObject {
         currentConfig = config
         
         /// If the mode bucketing we set the mode at NotReady, until the polling get the
-        currentStatus = (config.mode == .DECISION_API) ? .READY : .POLLING
+        Flagship.sharedInstance.currentStatus = (config.mode == .DECISION_API) ? .READY : .POLLING
         
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
@@ -71,7 +71,7 @@ public class Flagship: NSObject {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated)
         
         /// Define strategy
-        newVisitor.strategy = FSStrategy(newVisitor, state: Flagship.sharedInstance.currentStatus)
+        newVisitor.strategy = FSStrategy(newVisitor)
         
         if hasConsented {
             /// Read the cached visitor

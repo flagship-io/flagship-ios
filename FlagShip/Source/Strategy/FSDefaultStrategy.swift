@@ -10,8 +10,6 @@ import Foundation
 class FSStrategy {
     let visitor: FSVisitor
     
-    var status: FStatus
-    
     internal var delegate: FSDelegateStrategy?
     
     internal func getStrategy() -> FSDelegateStrategy {
@@ -31,10 +29,8 @@ class FSStrategy {
         }
     }
     
-    init(_ pVisitor: FSVisitor, state: FStatus) {
+    init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
-        
-        self.status = state
     }
 }
 
