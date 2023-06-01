@@ -66,15 +66,6 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
             if let aScriptBucket = self.scriptBucket {
                 let aCampaigns = self.bucketVariations(self.userId, aScriptBucket)
                 completion(aCampaigns, self.scriptError)
-
-//                /// In separate thread send the context
-//                /// Before send context check if the user is consented
-//                if withConsent {
-//                    /// Send the keys/values context
-//                    DispatchQueue(label: "flagship.contextKey.queue").async {
-//                        self.sendKeyContext(currentContext)
-//                    }
-//                }
             } else {
                 completion(nil, self.scriptError)
             }
@@ -142,11 +133,11 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
                 for variationGroupItem: FSVariationGroup in bucketCampaignItem.variationGroups {
                     if targetManager.isTargetingGroupIsOkay(variationGroupItem.targeting) {
-                        FlagshipLogManager.Log(level: .ALL, tag: .ALLOCATION, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY"))
+                        FlagshipLogManager.Log(level: .ALL, tag: .ALLOCATION, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY ✅ "))
 
                         // select variation here
                         guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem) else {
-                            //    // FSLogger.FSlog("probleme here don 't found the id variation selected", .Campaign)
+                            // FSLogger.FSlog("probleme here don 't found the id variation selected", .Campaign)
 
                             FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Problem here don 't found the id variation selected"))
                             continue
@@ -167,7 +158,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
                         groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationCache))
 
                     } else {
-                        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK"))
+                        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK ❌"))
                     }
                 }
                 groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, groupVar))
@@ -221,14 +212,13 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         return nil
     }
 
-    private func sendKeyContext(_ cuurentContext: [String: Any]) {
-        if let aScriptBucketing = scriptBucket {
-            /// Check if no panic mode
-            if aScriptBucketing.panic == false {
-                
-                // Send the key context
-                networkService.sendkeyValueContext(cuurentContext)
-            }
-        }
-    }
+//    private func sendKeyContext(_ cuurentContext: [String: Any]) {
+//        if let aScriptBucketing = scriptBucket {
+//            /// Check if no panic mode
+//            if aScriptBucketing.panic == false {
+//                // Send the key context
+//                networkService.sendkeyValueContext(cuurentContext)
+//            }
+//        }
+//    }
 }
