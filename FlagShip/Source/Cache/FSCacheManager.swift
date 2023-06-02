@@ -46,6 +46,10 @@ import Foundation
         do {
             let data = try JSONEncoder().encode(cacheVisitorToStore)
             
+            let objRollback = try JSONDecoder().decode(FSCacheVisitor.self, from: data)
+            
+            print(data.debugDescription)
+            
             /// Tell the delegate to store this visitor cache
             cacheVisitorDelegate?.cacheVisitor(visitorId: visitor.visitorId, data)
            

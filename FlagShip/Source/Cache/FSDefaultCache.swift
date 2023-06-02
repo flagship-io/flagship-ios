@@ -30,7 +30,9 @@ public class FSDefaultCacheVisitor: FSVisitorCacheDelegate {
     public func cacheVisitor(visitorId: String, _ visitorData: Data) {
         // Save the data in DB
         if let visitorDataString = String(data: visitorData, encoding: .utf8) {
-            //  dbMgtVisitor.insertVisitor(visitorId, data_content: visitorDataString)
+            // Delete the previous cached visitor data
+            flushVisitor(visitorId: visitorId)
+            // Record a latest one
             dbMgt_visitor.record_data(visitorId, data_content: visitorDataString)
         } else {
             // Error on converting data to json
@@ -38,8 +40,6 @@ public class FSDefaultCacheVisitor: FSVisitorCacheDelegate {
     }
 
     public func flushVisitor(visitorId: String) {
-        /// in FSStorage add new function to delete file's visitor
-        // dbMgtVisitor.delete(visitorId: visitorId)
         dbMgt_visitor.delete(idItemToDelete: visitorId)
     }
 }

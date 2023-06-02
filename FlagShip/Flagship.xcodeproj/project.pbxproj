@@ -275,10 +275,6 @@
 		F53970A529DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970B229E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */; };
-		F53970B329E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */; };
-		F53970B429E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */; };
-		F53970B529E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */; };
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
 		F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */; };
 		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
@@ -408,8 +404,6 @@
 		F52029EE2A136AC500F7FFF7 /* FSVisitorDbMgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSVisitorDbMgt.swift; sourceTree = "<group>"; };
 		F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDefaultCache.swift; sourceTree = "<group>"; };
 		F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSTracking+Codable.swift"; sourceTree = "<group>"; };
-		F53970B129E9A04100D650E4 /* FSDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FSDataModel.xcdatamodel; sourceTree = "<group>"; };
-		F53970B629E9B45C00D650E4 /* FSDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "FSDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BE29ED495B00D650E4 /* libBasebandCommandDriversQMI.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libBasebandCommandDriversQMI.tbd; path = usr/lib/libBasebandCommandDriversQMI.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -547,7 +541,6 @@
 				8B67367227FEBE4C003EC960 /* FSCacheDelegate.swift */,
 				8B67367327FEBE4C003EC960 /* FSCacheManager.swift */,
 				F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */,
-				F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -1069,7 +1062,6 @@
 				8B2D514B2805D43C00866D61 /* FSCampaigns.swift in Sources */,
 				8B2D514C2805D43C00866D61 /* FSModification.swift in Sources */,
 				8B2D514D2805D43C00866D61 /* FSCampaign.swift in Sources */,
-				F53970B329E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */,
 				F5DAF6762A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */,
 				8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */,
@@ -1164,7 +1156,6 @@
 				8B9F2A9A2809B8E600323094 /* FSCampaigns.swift in Sources */,
 				8B9F2A9B2809B8E600323094 /* FSModification.swift in Sources */,
 				8B9F2A9C2809B8E600323094 /* FSCampaign.swift in Sources */,
-				F53970B429E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */,
 				F5DAF6772A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */,
 				8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */,
@@ -1236,7 +1227,6 @@
 				8B9F2AD92809BA8200323094 /* FSCampaigns.swift in Sources */,
 				8B9F2ADA2809BA8200323094 /* FSModification.swift in Sources */,
 				8B9F2ADB2809BA8200323094 /* FSCampaign.swift in Sources */,
-				F53970B529E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */,
 				F5DAF6782A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */,
 				8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */,
@@ -1308,7 +1298,6 @@
 				8B6736B327FED3E5003EC960 /* FSCampaigns.swift in Sources */,
 				8B6736B427FED3E5003EC960 /* FSModification.swift in Sources */,
 				8B6736B527FED3E5003EC960 /* FSCampaign.swift in Sources */,
-				F53970B229E9A04100D650E4 /* FSDataModel.xcdatamodeld in Sources */,
 				F5DAF6752A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B6736B627FED3E5003EC960 /* FSContext.swift in Sources */,
 				8B6736B727FED3E5003EC960 /* FSTargets.swift in Sources */,
@@ -1882,20 +1871,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F53970B029E9A04100D650E4 /* FSDataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F53970B629E9B45C00D650E4 /* FSDataModel 2.xcdatamodel */,
-				F53970B129E9A04100D650E4 /* FSDataModel.xcdatamodel */,
-			);
-			currentVersion = F53970B129E9A04100D650E4 /* FSDataModel.xcdatamodel */;
-			path = FSDataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 8BEF08AF23C3888F00396B78 /* Project object */;
 }

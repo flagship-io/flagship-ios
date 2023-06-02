@@ -24,6 +24,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBOutlet var timeOutFiled: UITextField?
     @IBOutlet var visitorCtxLabel: UILabel?
     @IBOutlet var visitorIdTextField: UITextField?
+    @IBOutlet var createAndFetchBtn: UIButton?
 
     var delegate: FSConfigViewDelegate?
 
@@ -46,6 +47,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         FSCTools.roundButton(modeBtn)
         FSCTools.roundButton(startBtn)
         FSCTools.roundButton(resetBtn)
+        FSCTools.roundButton(createAndFetchBtn)
+        createAndFetchBtn?.isEnabled = false
     }
 
     // Hide KeyBoard
@@ -71,12 +74,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         super.viewWillAppear(animated)
     }
 
-    func createVisitor() -> FSVisitor {
-        let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
-
-        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["isPoc": true, "QA": "ios", "testing_tracking_manager": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
-    }
-
     @IBAction func onClikcStart() {
         // Get the mode
         let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
@@ -94,9 +91,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withStatusListener { newState in
 
             if newState == .READY || newState == .PANIC_ON {
+                
+                DispatchQueue.main.async {
+                    self.createAndFetchBtn?.isEnabled = true
+                }
+                
                 if mode == .BUCKETING {
                     Flagship.sharedInstance.sharedVisitor?.fetchFlags {
                         self.delegate?.onGetSdkReady()
+                      
                     }
                 }
             }
@@ -110,21 +113,48 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         // Start the sdk
         Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
 
+//        let currentVisitor = createVisitor()
+//
+//        currentVisitor.updateContext(.CARRIER_NAME, "SFR")
+//
+//        currentVisitor.synchronize { () in
+//            let st = Flagship.sharedInstance.getStatus()
+//            if st == .READY {
+//                self.delegate?.onGetSdkReady()
+//            } else if st == .PANIC_ON {
+//                self.delegate?.onGetSdkReady()
+//                self.showErrorMessage("Flagship, Panic Mode Activated")
+//            } else {
+//                self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
+//            }
+//        }
+    }
+
+    @IBAction func onClickCreateVisitor() {
         let currentVisitor = createVisitor()
-
-        currentVisitor.updateContext(.CARRIER_NAME, "SFR")
-
         currentVisitor.synchronize { () in
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY {
                 self.delegate?.onGetSdkReady()
+                DispatchQueue.main.async {
+                    self.createAndFetchBtn?.isEnabled = true
+                }
             } else if st == .PANIC_ON {
                 self.delegate?.onGetSdkReady()
+                DispatchQueue.main.async {
+                    self.createAndFetchBtn?.isEnabled = true
+                }
                 self.showErrorMessage("Flagship, Panic Mode Activated")
             } else {
                 self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
         }
+    }
+
+    func createVisitor() -> FSVisitor {
+        let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
+
+        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["isPoc": true, "QA": "ios", "testing_tracking_manager": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {
