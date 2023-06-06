@@ -39,7 +39,7 @@ class FSStrategy {
 class FSDefaultStrategy: FSDelegateStrategy {
     var visitor: FSVisitor
     
-    var assignedHistory: [String: String] = [:]
+   // var assignedHistory: [String: String] = [:]
 
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
@@ -64,7 +64,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
-        visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, completion: { campaigns, error in
+        visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
             /// Create the dictionary for all flags
             if error == nil {
@@ -177,7 +177,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.mergeCachedVisitor(aCachedVisitor)
                     /// Get the oldest assignation history before saving and loose the information
                     self.visitor.assignedVariationHistory.merge(aCachedVisitor.data?.assignationHistory ?? [:]) { _, new in new }
-                }
+                    
+                 }
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
             }

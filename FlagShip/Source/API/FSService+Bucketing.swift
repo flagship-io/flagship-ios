@@ -7,42 +7,36 @@
 
 import Foundation
 
-let FSLastModified        = "Last-Modified"
-let FSLastModified_Key    = "FSLastModifiedScript"
-let FS_If_ModifiedSince   = "If-Modified-Since"
+let FSLastModified = "Last-Modified"
+let FSLastModified_Key = "FSLastModifiedScript"
+let FS_If_ModifiedSince = "If-Modified-Since"
 
-extension FSService{
-    
-    func getFSScript(onGetScript:@escaping(FSBucket?, FSError?) -> Void) {
-
-        if let urlScript = URL(string: String(format: FSGetScript, self.envId)) {
-
-            var request: URLRequest = URLRequest(url: urlScript)
+extension FSService {
+    func getFSScript(onGetScript: @escaping (FSBucket?, FlagshipError?) -> Void) {
+        if let urlScript = URL(string: String(format: FSGetScript, envId)) {
+            var request = URLRequest(url: urlScript)
 
             // Manage id last modified
 
             let dateModified: String? = UserDefaults.standard.value(forKey: FSLastModified_Key) as? String
 
             if dateModified != nil {
-                
                 request.setValue(dateModified, forHTTPHeaderField: FS_If_ModifiedSince)
             }
-            
-            serviceSession.dataTask(with: request) { (data, response, _) in
+
+            serviceSession.dataTask(with: request) { data, response, _ in
 
                 let httpResponse = response as? HTTPURLResponse
 
                 switch httpResponse?.statusCode {
-
                 case 200:
                     /// Manage last modified
                     self.manageLastModified(httpResponse)
 
                     if let responseData = data {
-
                         do {
                             /// Print Json response
-                            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay:FSLogMessage.GET_SCRIPT_RESPONSE("\(responseData.prettyPrintedJSONString ?? "Error on print jsonString")"))
+                            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.GET_SCRIPT_RESPONSE("\(responseData.prettyPrintedJSONString ?? "Error on print jsonString")"))
 
                             let scriptObject = try JSONDecoder().decode(FSBucket.self, from: responseData)
                             onGetScript(scriptObject, nil)
@@ -51,33 +45,27 @@ extension FSService{
                             FSStorageManager.saveBucketScriptInCache(data)
 
                         } catch {
-                            FlagshipLogManager.Log(level: .ERROR, tag: .BUCKETING, messageToDisplay:FSLogMessage.ERROR_ON_DECODE_JSON)
-                            onGetScript(nil, FSError(codeError: 400, kind: .internalError))
+                            FlagshipLogManager.Log(level: .ERROR, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_ON_DECODE_JSON)
+                            onGetScript(nil, FlagshipError(type: .internalError, code: 400))
                         }
                     }
-                    break
 
                 case 304:
                     /// Read the script from the cache
-                    FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay:FSLogMessage.BUCKETING_CODE_304)
-                    onGetScript(nil, FSError(codeError: 304, kind:.notModified))
-                    break
+                    FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.BUCKETING_CODE_304)
+                    onGetScript(nil, FlagshipError(type: .notModified, code: 304))
 
                 default:
-                    FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay:FSLogMessage.ERROR_ON_GET_SCRIPT)
-                    onGetScript(nil, FSError(codeError: 400, kind:.internalError))
-                    break
+                    FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_ON_GET_SCRIPT)
+                    onGetScript(nil, FlagshipError(type: .internalError, code: 400))
                 }
             }.resume()
-
         }
     }
-    
-    private func manageLastModified(_ response: HTTPURLResponse?) {
 
+    private func manageLastModified(_ response: HTTPURLResponse?) {
         guard let lastModified = response?.allHeaderFields[FSLastModified] else {
-            
-            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay:FSLogMessage.ERROR_HEADER)
+            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_HEADER)
             return
         }
 

@@ -29,8 +29,11 @@ public enum FSMode: Int {
     /// Cache Manager
     var cacheManger: FSCacheManager
 
-    internal init(_ mode: FSMode = .DECISION_API, _ timeOut: TimeInterval = FSTimeoutRequestApi, _ logLevel: FSLevel = .ALL,
-                  pollingTime: TimeInterval = FSPollingTime, cacheManager: FSCacheManager,
+    internal init(_ mode: FSMode = .DECISION_API,
+                  _ timeOut: TimeInterval = FSTimeoutRequestApi,
+                  _ logLevel: FSLevel = .ALL,
+                  pollingTime: TimeInterval = FSPollingTime,
+                  cacheManager: FSCacheManager,
                   _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
                   _ trackingConfig: FSTrackingConfig)
     {

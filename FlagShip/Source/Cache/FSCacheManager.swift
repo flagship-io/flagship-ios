@@ -45,11 +45,6 @@ import Foundation
         /// Try Convert cacheVisitorToStore to data
         do {
             let data = try JSONEncoder().encode(cacheVisitorToStore)
-            
-            let objRollback = try JSONDecoder().decode(FSCacheVisitor.self, from: data)
-            
-            print(data.debugDescription)
-            
             /// Tell the delegate to store this visitor cache
             cacheVisitorDelegate?.cacheVisitor(visitorId: visitor.visitorId, data)
            
@@ -79,13 +74,13 @@ import Foundation
                     onCompletion(error, nil)
                 }
             } else {
-                onCompletion(FSError(codeError: 400, kind: .internalError), nil)
+                onCompletion(FlagshipError(type: .internalError, code: 400), nil)
             }
             semaphore.signal()
         }
         /// complete the job event if the response for lookupVisitor still not ready
         if semaphore.wait(timeout: .now() + visitorCacheLookupTimeout) == .timedOut {
-            onCompletion(FSError(codeError: 408, kind: .internalError), nil)
+            onCompletion(FlagshipError(type: .internalError, code:408), nil)
             FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .TIMEOUT_CACHE_VISITOR)
         }
     }
@@ -138,7 +133,7 @@ import Foundation
         }
         /// complete the job event if the response for lookupHit still not ready
         if semaphore.wait(timeout: .now() + hitCacheLookupTimeout) == .timedOut {
-            onCompletion(FSError(codeError: 408, kind: .internalError), nil)
+            onCompletion(FlagshipError(type:.internalError, code:408), nil)
             FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .TIMEOUT_CACHE_HIT)
         }
     }

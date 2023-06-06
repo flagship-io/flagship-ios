@@ -62,7 +62,7 @@ public class FSCacheHit: Codable {
             return try JSONSerialization.jsonObject(with: encodedHit, options: []) as? [String: Any]
            
         } catch {
-            print("error when encoding the cache hit")
+            FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.ERROR_ON_STORE)
         }
         return nil
     }

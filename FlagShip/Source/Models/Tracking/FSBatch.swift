@@ -52,11 +52,10 @@ class FSBatch: FSTracking {
     }
 }
 
-//
-//       Batch for Activate
-//
-/////////////////////////////////////
-///
+
+////////////////////
+// Activate class //
+////////////////////
 
 class Activate: FSTrackingProtocol, Codable {
     var createdAt: TimeInterval = 0
@@ -64,9 +63,7 @@ class Activate: FSTrackingProtocol, Codable {
     func isValid() -> Bool {
         return true
     }
-
-    // var queueTimeBis: NSNumber?
-
+    
     var id: String = ""
 
     var anonymousId: String?
@@ -84,9 +81,9 @@ class Activate: FSTrackingProtocol, Codable {
     // Variation GroupId
     var variationGroupeId: String?
 
-    func getCst() -> NSNumber? {
-        return 0
-    }
+//    func getCst() -> NSNumber? {
+//        return 0
+//    }
 
     init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
         // Created date

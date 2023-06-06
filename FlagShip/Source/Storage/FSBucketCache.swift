@@ -54,12 +54,6 @@ internal class FSBucketCache: Codable {
         }
         return result
     }
-
-    internal func saveMe() {
-
-        FSStorage.store(self, to: .documents, as: String(format: "%@.json", self.visitorId))
-    }
-
 }
 
 //// Campaign contain liste variation groups

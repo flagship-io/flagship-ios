@@ -18,10 +18,10 @@ class FSTrackingDbMgt: FSQLiteWrapper {
 
     // INSERT/CREATE operation prepared statement
     override func prepareInsertEntryStmt() -> Int32 {
-        guard super.insertEntryStmt == nil else { return SQLITE_OK }
+        guard super.recordPointer == nil else { return SQLITE_OK }
         let sql = "INSERT INTO table_hits (id, data_hit) VALUES (?,?)"
         // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &insertEntryStmt, nil)
+        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &recordPointer, nil)
         if r != SQLITE_OK {
             print("sqlite3_prepare insertEntryStmt")
         }
@@ -30,10 +30,10 @@ class FSTrackingDbMgt: FSQLiteWrapper {
 
     // DELETE operation prepared statement
     override func prepareDeleteEntryStmt() -> Int32 {
-        guard deleteEntryStmt == nil else { return SQLITE_OK }
+        guard deletePointer == nil else { return SQLITE_OK }
         let sql = "DELETE FROM table_hits WHERE id = ?"
         // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deleteEntryStmt, nil)
+        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
         if r != SQLITE_OK {
             print("sqlite3_prepare deleteEntryStmt")
         }
@@ -44,12 +44,12 @@ class FSTrackingDbMgt: FSQLiteWrapper {
     public func readTrackingFromDB() -> [String: [String: Any]] {
         var result: [String: [String: Any]] = [:]
         let queryStatementString = "SELECT * FROM table_hits;"
-        if sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &readEntryStmt, nil) == SQLITE_OK {
-            while sqlite3_step(readEntryStmt) == SQLITE_ROW {
+        if sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &readPointer, nil) == SQLITE_OK {
+            while sqlite3_step(readPointer) == SQLITE_ROW {
                 // Get the id for cacheHit
-                if let id = sqlite3_column_text(readEntryStmt, 0) {
+                if let id = sqlite3_column_text(readPointer, 0) {
                     // Get the data of hit
-                    if let dataRawColl = sqlite3_column_text(readEntryStmt, 1) {
+                    if let dataRawColl = sqlite3_column_text(readPointer, 1) {
                         // Convert the json string to dico
                         if let data = String(cString: dataRawColl).data(using: .utf8) {
                             do {
@@ -63,7 +63,7 @@ class FSTrackingDbMgt: FSQLiteWrapper {
                     }
                 }
             }
-            sqlite3_finalize(readEntryStmt)
+            sqlite3_finalize(readPointer)
         }
         return result
     }

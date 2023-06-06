@@ -62,8 +62,6 @@ public class Flagship: NSObject {
         currentConfig = config
         
         /// If the mode bucketing we set the mode at NotReady, until the polling get the
-      //  Flagship.sharedInstance.currentStatus = (config.mode == .DECISION_API) ? .READY : .POLLING
-        
         Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
 
         

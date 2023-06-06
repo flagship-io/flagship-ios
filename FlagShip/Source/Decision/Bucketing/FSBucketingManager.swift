@@ -12,7 +12,7 @@ internal let SemaphoreTimeOut: TimeInterval = 2
 internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     var pollingScript: FSPollingScript?
     var _scriptBucket: FSBucket?
-    var _scriptError: FSError?
+    var _scriptError: FlagshipError?
     var targetManager: FSTargetingManager
     var matchedVariationGroup: [FSVariationGroup] = [] // Init with empty array
     var matchedCampaigns: [FSCampaignCache] = []
@@ -31,7 +31,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
     }
 
-    internal var scriptError: FSError? {
+    internal var scriptError: FlagshipError? {
         get {
             return fsQueue.sync {
                 _scriptError
@@ -57,7 +57,9 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         launchPolling()
     }
 
-    override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, completion: @escaping (FSCampaigns?, Error?) -> Void) {
+    override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
+        
+        self.assignationHistory = pAssignationHistory
         DispatchQueue.main.async {
             /// Set the context before running the bucket algorithm
             self.targetManager.currentContext = currentContext
@@ -78,7 +80,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     }
 
     /// Delegate -- The polling process will trigger this callback
-    func onGetScript(_ newBucketing: FSBucket?, _ error: FSError?) {
+    func onGetScript(_ newBucketing: FSBucket?, _ error: FlagshipError?) {
         /// Update the status
 
         if let aNewBuckting = newBucketing {
@@ -107,9 +109,6 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
         // Match before
         let resultBucketCache = matchTargetingForCustomID(scriptBucket, visitorId)
-
-        // Save My bucketing
-        // resultBucketCache.saveMe()
 
         // Fill Campaign with value to be read by singleton
         return FSCampaigns(resultBucketCache)
@@ -171,23 +170,14 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
     internal func selectVariationWithHashMurMur(_ visitorId: String, _ variationGroup: FSVariationGroup) -> String? {
         // Before selected varaition have to check user id exist
-
-        if FSStorage.fileExists(String(format: "%@.json", visitorId), in: .documents) {
+        if !assignationHistory.isEmpty  {
             FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_FILE)
 
-            guard let cachedObject = FSStorage.retrieve(String(format: "%@.json", visitorId), from: .documents, as: FSCacheVisitor.self) else {
-                FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .ERROR_ON_READ_FILE)
+            for itemKey in assignationHistory.keys {
+                if itemKey == variationGroup.idVariationGroup { /// Variation Group already exist, then return the saved one
+                    FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_VARIATION(itemKey))
 
-                return nil
-            }
-
-            if let cachedData = cachedObject.data {
-                for itemKey in cachedData.assignationHistory.keys {
-                    if itemKey == variationGroup.idVariationGroup { /// Variation Group already exist, then return the saved one
-                        FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_VARIATION(itemKey))
-
-                        return cachedData.assignationHistory[itemKey]
-                    }
+                    return assignationHistory[itemKey]
                 }
             }
         }
@@ -202,6 +192,8 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
         hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 100)
 
+        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: .MESSAGE("--- The hash is :  \(hashAlloc) ----"))
+
         var offsetAlloc = 0
         for item: FSVariation in variationGroup.variations {
             if hashAlloc < item.allocation + offsetAlloc {
@@ -211,14 +203,4 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
         return nil
     }
-
-//    private func sendKeyContext(_ cuurentContext: [String: Any]) {
-//        if let aScriptBucketing = scriptBucket {
-//            /// Check if no panic mode
-//            if aScriptBucketing.panic == false {
-//                // Send the key context
-//                networkService.sendkeyValueContext(cuurentContext)
-//            }
-//        }
-//    }
 }

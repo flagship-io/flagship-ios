@@ -174,7 +174,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .UPDATE_CONTEXT:
             ret = "Update context"
         case .ERROR_ON_STORE:
-            ret = "Error on store the object"
+            ret = "Error on cache"
         case .ERROR_lOOKUP_CACHE:
             ret = "Error on look up visitor cache"
         case .BUCKETING_EXISTING_FILE:

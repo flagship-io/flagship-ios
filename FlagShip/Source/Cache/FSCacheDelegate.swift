@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public protocol FSVisitorCacheDelegate: AnyObject {
+@objc public protocol FSVisitorCacheDelegate {
     /// Called after each synchronization. Must upsert the given visitor json data in the database.
     func cacheVisitor(visitorId: String, _ visitorData: Data)
     
@@ -19,7 +19,7 @@ import Foundation
     func flushVisitor(visitorId: String)
 }
 
-@objc public protocol FSHitCacheDelegate: AnyObject {
+@objc public protocol FSHitCacheDelegate {
     // Hits represent an array of dictionary
     func cacheHits(hits: [String: [String: Any]])
     

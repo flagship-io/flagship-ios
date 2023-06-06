@@ -29,7 +29,7 @@ public enum FSTag:String {
     case UNAUTHENTICATE        = "UNAUTHENTICATE"
     case CONSENT               = "CONSENT"
     case EXCEPTION             = "EXCEPTION"
-    case STORAGE               = "STORAGE"
+    case STORAGE               = "CACHE"
 
 }
 

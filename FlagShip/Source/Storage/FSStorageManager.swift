@@ -9,73 +9,7 @@ import Foundation
 import SQLite3
 
 internal class FSStorageManager {
-    // Get All Event
-//    class func readCampaignFromCache() -> FSCampaigns? {
-//
-//        if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-//            // Path
-//            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
-//            // add file name
-//            url.appendPathComponent("campaigns.json")
-//
-//            if FileManager.default.fileExists(atPath: url.path) == true {
-//
-//                do {
-//                    // FSLogger.FSlog("read campaign from cache", .Campaign)
-//
-//                    let data = try Data(contentsOf: url)
-//
-//                    let object =  try JSONDecoder().decode(FSCampaigns.self, from: data)
-//
-//                    return object
-//                } catch {
-//
-//                    // FSLogger.FSlog("Failed to read campaign from cache", .Campaign)
-//                    return nil
-//                }
-//
-//            } else {
-//
-//                return nil
-//            }
-//        }
-//        return nil
-//    }
-    
-    // Write Campaign on Directory
-//    class func saveCampaignsInCache(_ data: Data?) {
-//
-//        if let dataCampaign = data {
-//
-//            DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
-//
-//                let urlForCache: URL? = self.createUrlForCache()
-//
-//                guard let url = urlForCache?.appendingPathComponent("campaigns.json") else {
-//
-//                    // FSLogger.FSlog("Failed to save campaign", .Network)
-//                    return
-//                }
-//                do {
-//
-//                    try dataCampaign.write(to: url, options: [])
-//
-//                } catch {
-//
-//                    // FSLogger.FSlog("Failed to write campaign in cache", .Network)
-//                }
-//            }
-//
-//        } else {
-//
-//            // FSLogger.FSlog("Failed to save campaign", .Network)
-//
-//            return
-//        }
-//    }
-    
-    /// Write Bucket script on directory
-    
+    // Save the bucket script in the cache
     class func saveBucketScriptInCache(_ data: Data?) {
         if let bucketData = data {
             DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
@@ -94,12 +28,13 @@ internal class FSStorageManager {
             }
             
         } else {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to save Bucket script"))
-            // FSLogger.FSlog("", .Network)
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to save Bucket script file"))
+
             return
         }
     }
     
+    // Read the script of bucketing
     class func readBucketFromCache() -> FSBucket? {
         if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
@@ -117,7 +52,7 @@ internal class FSStorageManager {
                     
                     return object
                 } catch {
-                    // FSLogger.FSlog("Failed to read bucket from cache", .Campaign)
+                    FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to read Bucket script file"))
                     return nil
                 }
                 
@@ -128,7 +63,7 @@ internal class FSStorageManager {
         return nil
     }
     
-    /////////// Tools /////////////////////////////
+    // Tools
     class func createUrlForCache() -> URL? {
         if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
@@ -141,7 +76,8 @@ internal class FSStorageManager {
                     return url
                     
                 } catch {
-                    // FSLogger.FSlog("Failed to create directory", .Network)
+                    FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to create directory"))
+
                     return nil
                 }
                 

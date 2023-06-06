@@ -20,7 +20,7 @@ internal enum FSDatabaseType: String {
 
 class FSQLiteWrapper {
     // Get the URL to db store file
-    let flagship_db_URL: URL
+    var flagship_db_URL: URL
     // The database pointer.
     
     let fs_db_queue = DispatchQueue(label: "com.flagship.db_queue", attributes: .concurrent)
@@ -39,68 +39,59 @@ class FSQLiteWrapper {
     }
     
     var _db_opaquePointer: OpaquePointer?
-    var insertEntryStmt: OpaquePointer?
-    var deleteEntryStmt: OpaquePointer?
-    var readEntryStmt: OpaquePointer?
+    var recordPointer: OpaquePointer?
+    var deletePointer: OpaquePointer?
+    var readPointer: OpaquePointer?
     
     public init(_ dataBaseType: FSDatabaseType) {
-        do {
-            do {
-                flagship_db_URL = try FileManager.default
-                    .url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-                    .appendingPathComponent((dataBaseType == .DatabaseVisitor) ? VISITOR_DATA_BASE : TRACKING_DATA_BASE)
-                print("URL: %s", flagship_db_URL.absoluteString)
-            } catch {
-                print("Some error occurred. Returning empty path.")
-                flagship_db_URL = URL(fileURLWithPath: "")
-                return
-            }
+        if var rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {
+            flagship_db_URL = rootPath.appendingPathComponent((dataBaseType == .DatabaseVisitor) ? VISITOR_DATA_BASE : TRACKING_DATA_BASE)
+            print("URL: %s", flagship_db_URL.absoluteString)
             
-            try openDB()
-            try createTables(dataBaseType)
-        } catch {
+            do { try openDB() } catch { print(" Error when opening database") }
+            do { try createTables(dataBaseType) } catch { print(" Error on creating table") }
+            
+        } else {
+            flagship_db_URL = URL(fileURLWithPath: "")
             print("Some error occurred. Returning.")
             return
         }
     }
     
-    // Command: sqlite3_open(dbURL.path, &db)
     // Open the DB at the given path. If file does not exists, it will create one for you
     private func openDB() throws {
-        if sqlite3_open_v2(flagship_db_URL.path, &db_opaquePointer, SQLITE_OPEN_CREATE|SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, nil) != SQLITE_OK { // error mostly because of corrupt database
-            print("error opening database")
-            throw SqliteError(message: "error opening database \(flagship_db_URL.absoluteString)")
+        if sqlite3_open_v2(flagship_db_URL.path, &db_opaquePointer, SQLITE_OPEN_CREATE|SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, nil) != SQLITE_OK {
+            throw FlagshipError(message: "Error when opening database \(flagship_db_URL.absoluteString)")
         }
     }
     
     private func createTables(_ dataBaseType: FSDatabaseType) throws {
-        // create the tables if they dont exist.
-        // create the table to store the entries.
+        // create the tables
         let sqlRequestString = (dataBaseType == .DatabaseVisitor) ?
             "CREATE TABLE IF NOT EXISTS table_visitors(id TEXT PRIMARY KEY, data_visitor TEXT)" : /// Request to create visitor table
             "CREATE TABLE IF NOT EXISTS table_hits(id TEXT PRIMARY KEY, data_hit TEXT)" /// Request to create hit table
         
         let ret = sqlite3_exec(db_opaquePointer, sqlRequestString, nil, nil, nil)
-        if ret != SQLITE_OK { // corrupt database.
-            print("Error creating db table - \(dataBaseType)")
-            throw SqliteError(message: "unable to create table_visitors")
+        if ret != SQLITE_OK {
+            print("Error on creating db table - \(dataBaseType)")
+            throw FlagshipError(message: "Error on creating table_visitors")
         }
     }
     
     // INSERT/CREATE operation prepared statement
     internal func prepareInsertEntryStmt() -> Int32 {
-        guard insertEntryStmt == nil else { return SQLITE_OK }
+        guard recordPointer == nil else { return SQLITE_OK }
         let sql = "INSERT INTO table_hits (id, data_hit) VALUES (?,?)"
         // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &insertEntryStmt, nil)
+        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &recordPointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare insertEntryStmt")
+            //print("sqlite3_prepare insertEntryStmt")
         }
         return r
     }
     
     /////////////////////
-    /// INSERT ENTITY ///
+    /// INSERT        ///
     /////////////////////
 
     // RECORD
@@ -110,23 +101,23 @@ class FSQLiteWrapper {
         
         defer {
             // reset the prepared statement on exit.
-            sqlite3_reset(self.insertEntryStmt)
+            sqlite3_reset(self.recordPointer)
         }
         
         // Inserting Id in insertEntryStmt prepared statement
-        if sqlite3_bind_text(insertEntryStmt, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
+        if sqlite3_bind_text(recordPointer, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
             print("sqlite3_bind_text(insertEntryStmt)")
             return
         }
         
         // Inserting Content in insertEntryStmt prepared statement
-        if sqlite3_bind_text(insertEntryStmt, 2, (data_content as NSString).utf8String, -1, nil) != SQLITE_OK {
+        if sqlite3_bind_text(recordPointer, 2, (data_content as NSString).utf8String, -1, nil) != SQLITE_OK {
             print("sqlite3_bind_text(insertEntryStmt)")
             return
         }
 
         // executing the query to insert values
-        let r = sqlite3_step(insertEntryStmt)
+        let r = sqlite3_step(recordPointer)
         if r != SQLITE_DONE {
             print("sqlite3_step(insertEntryStmt) \(r)")
             return
@@ -135,13 +126,14 @@ class FSQLiteWrapper {
     
     // DELETE operation prepared statement
     internal func prepareDeleteEntryStmt() -> Int32 {
-        guard deleteEntryStmt == nil else { return SQLITE_OK }
+        guard deletePointer == nil else { return SQLITE_OK }
         let sql = "DELETE FROM table_hits WHERE id = ?"
         // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deleteEntryStmt, nil)
+        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare deleteEntryStmt")
+            // print("sqlite3_prepare deleteEntryStmt")
         }
+        
         return r
     }
     
@@ -151,31 +143,31 @@ class FSQLiteWrapper {
         
         defer {
             // reset the prepared statement on exit.
-            sqlite3_reset(self.deleteEntryStmt)
+            sqlite3_reset(self.deletePointer)
         }
         
         // Inserting name in deleteEntryStmt prepared statement
-        if sqlite3_bind_text(deleteEntryStmt, 1, (idItemToDelete as NSString).utf8String, -1, nil) != SQLITE_OK {
-            print("sqlite3_bind_text(deleteEntryStmt)")
+        if sqlite3_bind_text(deletePointer, 1, (idItemToDelete as NSString).utf8String, -1, nil) != SQLITE_OK {
+            // print("sqlite3_bind_text(deleteEntryStmt)")
             return
         }
         
         // executing the query to delete row
-        let r = sqlite3_step(deleteEntryStmt)
+        let r = sqlite3_step(deletePointer)
         if r != SQLITE_DONE {
-            print("sqlite3_step(deleteEntryStmt) \(r)")
+            // print("sqlite3_step(deleteEntryStmt) \(r)")
             return
         }
     }
     
     // DELETE operation prepared statement
     internal func prepareDeleteAllStmt() -> Int32 {
-        guard deleteEntryStmt == nil else { return SQLITE_OK }
+        guard deletePointer == nil else { return SQLITE_OK }
         let sql = "DELETE FROM table_hits"
         // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deleteEntryStmt, nil)
+        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare deleteEntryStmt")
+            // print("sqlite3_prepare deleteEntryStmt")
         }
         return r
     }
@@ -186,27 +178,41 @@ class FSQLiteWrapper {
         
         defer {
             // reset the prepared statement on exit.
-            sqlite3_reset(self.deleteEntryStmt)
+            sqlite3_reset(self.deletePointer)
         }
         
         // executing the query to delete row
-        let r = sqlite3_step(deleteEntryStmt)
+        let r = sqlite3_step(deletePointer)
         if r != SQLITE_DONE {
-            print("sqlite3_step(deleteEntryStmt) \(r)")
+            // print("sqlite3_step(deleteEntryStmt) \(r)")
             return
         }
     }
     
-    // Indicates an exception during a SQLite Operation.
-    class SqliteError: Error {
-        var message = ""
-        var error = SQLITE_ERROR
-        init(message: String = "") {
-            self.message = message
-        }
-        
-        init(error: Int32) {
-            self.error = error
+    class func createUrlForDatabaseCache() -> URL? {
+        do {
+            var url = try FileManager.default
+                .url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            // Append Flagship directory
+            url.appendPathComponent("Flagship", isDirectory: true)
+            // Check if exist
+            if FileManager.default.fileExists(atPath: url.path) == false {
+                // Create directory
+                do {
+                    try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+                    return url
+                    
+                } catch {
+                    FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to create directory Flagship for database"))
+                    return nil
+                }
+            } else {
+                return url
+            }
+            
+        } catch {
+            print("Error on create url for database")
+            return nil
         }
     }
 }

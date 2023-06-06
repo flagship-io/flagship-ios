@@ -81,7 +81,7 @@ import Foundation
     //  var queueTimeBis: NSNumber? { get }
 
     /// Get cst
-    func getCst() -> NSNumber?
+   // func getCst() -> NSNumber?
 
     func isValid() -> Bool
 
@@ -92,21 +92,13 @@ import Foundation
 @objcMembers public class FSTracking: NSObject, FSTrackingProtocol, Codable {
     public var createdAt: TimeInterval
 
-    // public var queueTimeBis: NSNumber?
-
     public var visitorId: String?
 
     public var id: String
 
     // Anonymous ID
     public var anonymousId: String?
-
-    // public var visitorId: String?
-
-    public func getCst() -> NSNumber? {
-        return NSNumber(floatLiteral: self.currentSessionTimeStamp ?? 0)
-    }
-
+    
     public var fileName: String! {
         let formatDate = DateFormatter()
         formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
@@ -119,8 +111,7 @@ import Foundation
     /// Required
     public var envId: String?
     var fsUserId: String?
-    // var visitorId: String?
-    var dataSource: String = "APP"
+     var dataSource: String = "APP"
 
     /// User Ip
     public var userIp: String?

@@ -36,10 +36,10 @@ internal class FSConfigManager {
             self.decisionManager = APIManager(service: service, userId: visitorId, currentContext: [:])
         default:
             self.decisionManager = FSBucketingManager(service: service, userId: visitorId, currentContext: [:], config.pollingTime)
-            /// Prefere to launch the polling manually
+            // Prefere to launch the polling manually
             // decisionManager?.launchPolling()
         }
-        /// Tracking manager
+        // Tracking manager
         switch config.trackingConfig.strategy {
     
         case .CONTINUOUS_CACHING:
@@ -48,9 +48,7 @@ internal class FSConfigManager {
             self.trackingManger = PeriodicTrackingManager(service, config.trackingConfig, config.cacheManger)
         case .NO_CACHING_STRATEGY:
             self.trackingManger = FSTrackingManager(service, config.trackingConfig, config.cacheManger)
-        }
-        // self.trackingManger = FSTrackingManager(service, config.trackingConfig)
-        
+        }        
         /// Check the connectivity
         FSTools().checkConnectevity()
     }
