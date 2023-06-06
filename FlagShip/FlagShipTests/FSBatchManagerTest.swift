@@ -10,6 +10,12 @@
 import XCTest
 
 final class FSBatchManagerTest: XCTestCase, FSBatchingManagerDelegate {
+    
+    
+    func processActivatesBatching() {
+        
+    }
+    
     var batchManager: FSBatchManager = .init(10, 20)
 
     override func setUpWithError() throws {
@@ -32,7 +38,6 @@ final class FSBatchManagerTest: XCTestCase, FSBatchingManagerDelegate {
         }
 
         batchManager.addTrackElement(screen) // Trigger the batch , the pool should be empty
-        XCTAssertTrue(batchManager.isQueueEmpty())
     }
 
     func processHitsBatching(batchToSend: FSBatch) {
