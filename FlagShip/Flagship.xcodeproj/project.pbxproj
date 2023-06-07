@@ -280,6 +280,7 @@
 		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
 		F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */ = {isa = PBXBuildFile; fileRef = F567A44028D32BB2008E9FC0 /* hitCache.json */; };
+		F5A908E42A30824C0075DA82 /* FSStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A908E32A30824C0075DA82 /* FSStorageTest.swift */; };
 		F5DAF6702A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
 		F5DAF6712A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
 		F5DAF6722A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
@@ -411,6 +412,7 @@
 		F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatchManagerTest.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
 		F567A44028D32BB2008E9FC0 /* hitCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hitCache.json; path = ../../../Flagship/FlagShipTests/Mocks/hitCache.json; sourceTree = "<group>"; };
+		F5A908E32A30824C0075DA82 /* FSStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSStorageTest.swift; sourceTree = "<group>"; };
 		F5DAF66F2A14264B00C0B140 /* FSSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegment.swift; sourceTree = "<group>"; };
 		F5DAF6742A152F1600C0B140 /* FSTrackingDbMgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingDbMgt.swift; sourceTree = "<group>"; };
 		F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSQLiteWrapper.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				8B67370827FED7F3003EC960 /* FSTargetingManagerTest.swift */,
 				8B6736FF27FED7F2003EC960 /* FSVisitorBuilderTest.swift */,
 				8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */,
+				F5A908E32A30824C0075DA82 /* FSStorageTest.swift */,
 				8B67370A27FED7F3003EC960 /* Mocks */,
 				8B67370227FED7F2003EC960 /* MockURLProtocol.swift */,
 				8B67370327FED7F2003EC960 /* murmurTest.swift */,
@@ -1107,6 +1110,7 @@
 				8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */,
 				F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */,
 				8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */,
+				F5A908E42A30824C0075DA82 /* FSStorageTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
 				8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */,
 				8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */,

@@ -56,17 +56,5 @@ class FSCacheTest: XCTestCase {
     }
     
     
-//    
-//    func testWithinit(){
-//        let ch1 = FSCacheHit.init(visitorId: "v1", anonymousId: "a1", type: "event", bodyTrack: ["a":"b"])
-//        XCTAssertTrue(ch1.data?.visitorId == "v1")
-//        XCTAssertTrue(ch1.data?.anonymousId == "a1")
-//        XCTAssertTrue(ch1.data?.type == "event")
-//        XCTAssertTrue(ch1.data?.content.count == 1)
-//    }
-
     
-        
- 
-
 }
