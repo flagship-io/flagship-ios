@@ -104,29 +104,6 @@ class ContinuousTrackingManager: FSTrackingManager {
         self.sendActivate(nil)
     }
 
-//    override internal func processHitsBatching(batchToSend: FSBatch) {
-//        do {
-//            let batchData = try JSONSerialization.data(withJSONObject: batchToSend.bodyTrack as Any, options: .prettyPrinted)
-//
-//            FlagshipLogManager.Log(level: .ALL, tag: FSTag.TRACKING, messageToDisplay: FSLogMessage.MESSAGE(batchData.prettyPrintedJSONString as String?))
-//
-//            if let urlEvent = URL(string: EVENT_TRACKING) {
-//                service.sendRequest(urlEvent, type: .Tracking, data: batchData, onCompleted: { _, error in
-//
-//                    if error == nil {
-//                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SUCCESS_SEND_HIT)
-//                        self.onSucessToSendHits(batchToSend)
-//                    } else {
-//                        self.onFailedToSendHits(batchToSend)
-//                        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
-//                    }
-//                })
-//            }
-//        } catch {
-//            FlagshipLogManager.Log(level: .ERROR, tag: .TARGETING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
-//        }
-//    }
-
     // ********** HITS ************//
     override
     internal func onSucessToSendHits(_ batchToSend: FSBatch) {

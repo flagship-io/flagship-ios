@@ -1,0 +1,66 @@
+[
+    {
+    "data": {
+        "anonymousId": null,
+        "content": {
+            "cid": "bkk9glocmjcg0vtmdlng",
+            "dl": "screen",
+            "ds": "APP",
+            "qt": 0,
+            "t": "SCREENVIEW",
+            "vid": "alias"
+        },
+        "numberOfBytes": 124,
+        "time": 1686239699.886266,
+        "type": "SCREENVIEW",
+        "visitorId": "alias"
+    },
+    "version": 1
+},
+    {
+        "data": {
+            "anonymousId": null,
+            "content": {
+                "cid": "bkk9glocmjcg0vtmdlng",
+                "ds": "APP",
+                "ea": "ios_eeeeee",
+                "ec": "Action Tracking",
+                "qt": 0,
+                "t": "EVENT",
+                "vid": "alias"
+            },
+            "numberOfBytes": 151,
+            "time": 1686240186.881401,
+            "type": "EVENT",
+            "visitorId": "alias"
+        },
+        "version": 1
+    },
+    {
+        "data": {
+            "anonymousId": null,
+            "content": {
+                "cid": "bkk9glocmjcg0vtmdlng",
+                "ds": "APP",
+                "icn": false,
+                "pm": "pay",
+                "qt": 0,
+                "sm": "aaa",
+                "t": "TRANSACTION",
+                "ta": "ios_transaction",
+                "tc": "euro",
+                "tcc": "zez",
+                "tid": "ios_transaction",
+                "tr": 12,
+                "ts": 121,
+                "tt": 1111,
+                "vid": "alias"
+            },
+            "numberOfBytes": 284,
+            "time": 1686240237.316502,
+            "type": "TRANSACTION",
+            "visitorId": "alias"
+        },
+        "version": 1
+    }
+]

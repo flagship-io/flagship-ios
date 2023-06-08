@@ -58,7 +58,6 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
             let dataToSend = try JSONSerialization.data(withJSONObject: hitToSend.bodyTrack as Any, options: .prettyPrinted)
             // Send Data
             sendDataForHit(dataToSend) { error in
-
                 // Cache the hit on failed sending
                 if error != nil {
                     self.onCacheHit(hitToSend)
@@ -118,9 +117,7 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     // Remove hits for visitorId and keep the consent hits , Check later ...
     func flushTrackAndKeepConsent(_ visitorId: String) {
         // Remove in database all the cached hits which is the failed ones
-        cacheManager?.flushHits(failedIds)
-        // Clear the failedIds
-        failedIds.removeAll()
+        cacheManager?.flushHits([visitorId])
     }
 
     // cache the hits when the send failed

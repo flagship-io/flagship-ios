@@ -24,12 +24,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         }
     }
 
-//    override func sendActivate(_ currentActivate: Activate?) {
-//        print("---------- Send Activate, PeriodicTrackingManager ----------")
-//    }
-
     override internal func onSucessToSendHits(_ batchToSend: FSBatch) {
-        print("---------- On Sucess To Send Hit, PeriodicTrackingManager ----------")
 
         // Clear all hits in database
         cacheManager?.flushAllHits()
@@ -45,7 +40,6 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
     }
 
     override internal func onFailedToSendHits(_ batchToSend: FSBatch) {
-        print("---------- On Failed To Send Hit, PeriodicTrackingManager ----------")
         // Reinject the failed hits into the queue
         batchManager.reInjectElements(listToReInject: batchToSend.items)
 

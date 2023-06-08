@@ -96,7 +96,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .ERROR_INIT_SDK:
             ret = "Flagship SDK NOT READY"
         case .ID_NULL_OR_EMPTY:
-            ret = "Identifier must not be null or empty. A UUID has been generated."
+            ret = "Identifier is nil an UUID has been generated."
         case .UPDATE_PRE_CONTEXT_FAILED(let key):
             ret = "Skip updating the context with pre configured key \(key) ..... the value is not valid"
         case .UPDATE_PRE_CONTEXT_SUCCESS(let key):

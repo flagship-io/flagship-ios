@@ -81,7 +81,7 @@ import Foundation
     //  var queueTimeBis: NSNumber? { get }
 
     /// Get cst
-   // func getCst() -> NSNumber?
+    // func getCst() -> NSNumber?
 
     func isValid() -> Bool
 
@@ -98,7 +98,7 @@ import Foundation
 
     // Anonymous ID
     public var anonymousId: String?
-    
+
     public var fileName: String! {
         let formatDate = DateFormatter()
         formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
@@ -111,7 +111,7 @@ import Foundation
     /// Required
     public var envId: String?
     var fsUserId: String?
-     var dataSource: String = "APP"
+    var dataSource: String = "APP"
 
     /// User Ip
     public var userIp: String?
@@ -121,8 +121,6 @@ import Foundation
     public var screenColorDepth: String?
     /// User Language
     public var userLanguage: String?
-    /// Queue Time
-    // public var queueTime: Int64?
     /// Current Session Time Stamp
     public var currentSessionTimeStamp: TimeInterval?
     /// Session Number
