@@ -151,7 +151,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     // Remove hits for visitorId and keep the consent hits
     override func flushTrackAndKeepConsent(_ visitorId: String) {
         // Remove from the pool and get the ids for the deleted ones
-        var listIdsToRemove = batchManager.flushTrackAndKeepConsent(visitorId)
+        let listIdsToRemove = batchManager.flushTrackAndKeepConsent(visitorId)
         if !listIdsToRemove.isEmpty {
             // Remove them fom the database
             cacheManager?.flushHits(listIdsToRemove)

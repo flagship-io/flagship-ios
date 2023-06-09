@@ -34,10 +34,4 @@ class FSNoConsentStrategy: FSDefaultStrategy {
     /// _ Lookup Hits
     override func lookupHits() {}
     
-    /// _ Cache Hits
-    // override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {
-        
-    //   FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay:FSLogMessage.HIT_NO_CONSENT)
-
-    // }
 }

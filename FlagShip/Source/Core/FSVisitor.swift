@@ -71,7 +71,7 @@ import Foundation
         }
         
         // If the sdk is on the buckting mode ==> we are on polling mode
-        Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
+       // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
         
         /// Set the user context
         self.context = FSContext(aContext)
@@ -180,27 +180,14 @@ import Foundation
     /// - Parameter key: Modification identifier, represent flag's name
     @available(*, deprecated, message: "Use getFlag(\"my_flag\").userExposed()")
     public func activate(_ key: String) {
-        if FSTools.isConnexionAvailable() {
-            self.strategy?.getStrategy().activate(key) /// Refracto later
-        } else {
-            if let infoTosave = self.getActivateInformation(key) {
-                // self.strategy?.getStrategy().saveHit(infoTosave, isActivateTracking: true)
-            }
-        }
+        
+        self.strategy?.getStrategy().activate(key)
     }
     
     /// Send Hits
     /// - Parameter T: Hit object
     public func sendHit<T: FSTrackingProtocol>(_ event: T) {
-        //  if FSTools.isConnexionAvailable() {
         self.strategy?.getStrategy().sendHit(event)
-          
-//        } else {
-//            /// Before save the body, save also the cst, will use it later on send
-//            var bodyToSave = event.bodyTrack
-//            bodyToSave.updateValue(event.getCst() ?? 0, forKey: "cst")
-//            // self.strategy?.getStrategy().saveHit(bodyToSave, isActivateTracking: false)
-//        }
     }
     
     /// Set consent
@@ -237,20 +224,20 @@ import Foundation
     ///            //
     /////////////////
     
-    /// Check this part when test XPC
-    internal func createTupleId() -> [String: String] {
-        var tupleId = [String: String]()
-
-        if self.anonymousId != nil /* && self.visitorId != nil */ {
-            // envoyer: cuid = visitorId, et vid=anonymousId
-            tupleId.updateValue(self.visitorId, forKey: "cuid") //// rename it
-            tupleId.updateValue(self.anonymousId ?? "", forKey: "vid") //// rename it
-        } else /* if self.visitorId != nil*/ {
-            // Si visitorid défini mais pas anonymousId, cuid pas envoyé, vid = visitorId
-            tupleId.updateValue(self.visitorId, forKey: "vid") //// rename it
-        }
-        return tupleId
-    }
+//    /// Check this part when test XPC
+//    internal func createTupleId() -> [String: String] {
+//        var tupleId = [String: String]()
+//
+//        if self.anonymousId != nil /* && self.visitorId != nil */ {
+//            // envoyer: cuid = visitorId, et vid=anonymousId
+//            tupleId.updateValue(self.visitorId, forKey: "cuid") //// rename it
+//            tupleId.updateValue(self.anonymousId ?? "", forKey: "vid") //// rename it
+//        } else /* if self.visitorId != nil*/ {
+//            // Si visitorid défini mais pas anonymousId, cuid pas envoyé, vid = visitorId
+//            tupleId.updateValue(self.visitorId, forKey: "vid") //// rename it
+//        }
+//        return tupleId
+//    }
     
     /// Send Hit consent
     internal func sendHitConsent(_ hasConsented: Bool) {

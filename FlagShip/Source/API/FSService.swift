@@ -98,38 +98,38 @@ internal class FSService {
     /// Send All keys/values for the context
     /// - Parameter currentContext: dictionary that contain this infos
 
-    func sendkeyValueContext(_ currentContext: [String: Any]) {
-        do {
-            var aCuurrentContext: [String: Any] = currentContext
-            /// Remove the ALL_USERS
-            aCuurrentContext.removeValue(forKey: ALL_USERS)
-
-            let params: NSMutableDictionary = ["visitor_id": visitorId, "data": aCuurrentContext, "type": "CONTEXT"]
-
-            let data = try JSONSerialization.data(withJSONObject: params, options: [])
-
-            if let urlKeyCtx = URL(string: String(format: FSSendKeyValueContext, envId)) {
-                var uploadKeyValueCtxRqst = URLRequest(url: urlKeyCtx)
-
-                /// Add headers client and version
-                uploadKeyValueCtxRqst.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
-                uploadKeyValueCtxRqst.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
-                uploadKeyValueCtxRqst.httpMethod = "POST"
-                uploadKeyValueCtxRqst.httpBody = data
-                uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
-                
-                /// Send the request
-                sendRequest(urlKeyCtx, type: .KeyContext, data: data) { _, error in
-                    
-                    if error == nil {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.SUCCESS_ON_SEND_KEYS)
-                    } else {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.FAILED_ON_SEND_KEYS)
-                    }
-                }
-            }
-        } catch {
-            FlagshipLogManager.Log(level: .DEBUG, tag: .PARSING, messageToDisplay: FSLogMessage.ERROR_ON_SERIALIZE)
-        }
-    }
+//    func sendkeyValueContext(_ currentContext: [String: Any]) {
+//        do {
+//            var aCuurrentContext: [String: Any] = currentContext
+//            /// Remove the ALL_USERS
+//            aCuurrentContext.removeValue(forKey: ALL_USERS)
+//
+//            let params: NSMutableDictionary = ["visitor_id": visitorId, "data": aCuurrentContext, "type": "CONTEXT"]
+//
+//            let data = try JSONSerialization.data(withJSONObject: params, options: [])
+//
+//            if let urlKeyCtx = URL(string: String(format: FSSendKeyValueContext, envId)) {
+//                var uploadKeyValueCtxRqst = URLRequest(url: urlKeyCtx)
+//
+//                /// Add headers client and version
+//                uploadKeyValueCtxRqst.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
+//                uploadKeyValueCtxRqst.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
+//                uploadKeyValueCtxRqst.httpMethod = "POST"
+//                uploadKeyValueCtxRqst.httpBody = data
+//                uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
+//                
+//                /// Send the request
+//                sendRequest(urlKeyCtx, type: .KeyContext, data: data) { _, error in
+//                    
+//                    if error == nil {
+//                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.SUCCESS_ON_SEND_KEYS)
+//                    } else {
+//                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.FAILED_ON_SEND_KEYS)
+//                    }
+//                }
+//            }
+//        } catch {
+//            FlagshipLogManager.Log(level: .DEBUG, tag: .PARSING, messageToDisplay: FSLogMessage.ERROR_ON_SERIALIZE)
+//        }
+//    }
 }

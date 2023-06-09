@@ -52,13 +52,7 @@ class FlagshipPoolQueue {
     // Queue for tracking
     var fsQueue: FSQueue<FSTrackingProtocol> = FSQueue()
     
-    // Size limitation
-    // var sizeLimitation: Int
-    
-    init( /* _ sizeLimitation: Int */ ) {
-        print("init FlagshipPoolQueue")
-        // self.sizeLimitation = sizeLimitation
-    }
+    init() {}
     
     // Add new elment into the queue
     func addNewTrackElement(_ newElement: FSTrackingProtocol) {

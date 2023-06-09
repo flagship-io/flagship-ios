@@ -50,7 +50,7 @@ public class Flagship: NSObject {
             self.envId = envId
             
         } else {
-            currentStatus = .NOT_INITIALIZED
+            Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.ERROR_INIT_SDK)
             return
         }
@@ -64,7 +64,6 @@ public class Flagship: NSObject {
         /// If the mode bucketing we set the mode at NotReady, until the polling get the
         Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
 
-        
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     

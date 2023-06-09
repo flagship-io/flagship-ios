@@ -44,13 +44,13 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         if sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &readPointer, nil) == SQLITE_OK {
             if sqlite3_step(readPointer) == SQLITE_ROW {
                 // Get the visitorId for visitor
-                if let id = sqlite3_column_text(readPointer, 0) { // Clean later
-                    // Get the data of visitor
-                    if let visitor_data_unSafePointer = sqlite3_column_text(readPointer, 1) {
-                        // Convert unsafe -> text ->  data
-                        return String(cString: visitor_data_unSafePointer).data(using: .utf8)
-                    }
+                // if let id = sqlite3_column_text(readPointer, 0) { // Clean later
+                // Get the data of visitor
+                if let visitor_data_unSafePointer = sqlite3_column_text(readPointer, 1) {
+                    // Convert unsafe -> text ->  data
+                    return String(cString: visitor_data_unSafePointer).data(using: .utf8)
                 }
+                //  }
             }
             sqlite3_finalize(readPointer)
         }
