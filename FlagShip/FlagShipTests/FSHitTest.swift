@@ -11,6 +11,8 @@ import XCTest
 
 final class FSHitTest: XCTestCase {
     var listOfContent: [[String: Any]] = []
+    var listOfActivate: [[String: Any]] = []
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -21,9 +23,15 @@ final class FSHitTest: XCTestCase {
                 return
             }
 
+            guard let pathActivate = testBundle.url(forResource: "content_activate", withExtension: "json") else {
+                return
+            }
+
             let data = try Data(contentsOf: path, options: .alwaysMapped)
+            let dataActivate = try Data(contentsOf: pathActivate, options: .alwaysMapped)
 
             listOfContent = try JSONSerialization.jsonObject(with: data) as? [[String: Any]] ?? []
+            listOfActivate = try JSONSerialization.jsonObject(with: dataActivate) as? [[String: Any]] ?? []
 
         } catch {
             print("---------------- Failed to load the buckeMock file ----------")
@@ -83,6 +91,9 @@ final class FSHitTest: XCTestCase {
                         case "SCREENVIEW":
                             newHit = try decoder.decode(FSScreen.self, from: jsonData)
                             XCTAssertTrue(newHit.bodyTrack["dl"] as? String == "screen")
+                        case "PAGEVIEW":
+                            newHit = try decoder.decode(FSPage.self, from: jsonData)
+                            XCTAssertTrue(newHit.bodyTrack["dl"] as? String == "pageView")
                         case "EVENT":
                             newHit = try decoder.decode(FSEvent.self, from: jsonData)
                         case "TRANSACTION":
@@ -90,13 +101,32 @@ final class FSHitTest: XCTestCase {
                             XCTAssertTrue(newHit.bodyTrack["tc"] as? String == "euro")
                         case "ITEM":
                             newHit = try decoder.decode(FSItem.self, from: jsonData)
-                        case "SEGMENT":
-                            newHit = try decoder.decode(FSSegment.self, from: jsonData)
+                            XCTAssertTrue(newHit.bodyTrack["ic"] as? String == "codeItem")
                         case "ACTIVATE":
                             newHit = try decoder.decode(Activate.self, from: jsonData)
+                            XCTAssertTrue(newHit.bodyTrack["caid"] as? String == "chsrcv6e4nsic4ug2p0g")
+
                         default:
                             break
                         }
+                    } catch {}
+                }
+            }
+        }
+    }
+
+    func testWithActivate() {
+        for itemContent in listOfActivate {
+            if let data = itemContent["data"] as? [String: Any] {
+                if let content = data["content"] as? [String: Any] {
+                    do {
+                        let newHit: FSTrackingProtocol
+                        let decoder = JSONDecoder()
+                        let jsonData = try JSONSerialization.data(withJSONObject: content)
+
+                        newHit = try decoder.decode(Activate.self, from: jsonData)
+                        XCTAssertTrue(newHit.bodyTrack["caid"] as? String == "chsrcv6e4nsic4ug2p0g")
+
                     } catch {}
                 }
             }

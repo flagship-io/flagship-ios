@@ -63,8 +63,8 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         
         /// Disable the buttons
         //  pageHitBtn.isEnabled = false
-        //eventHitBtn.isEnabled = false
-        //transactiontHitBtn.isEnabled = false
+        // eventHitBtn.isEnabled = false
+        // transactiontHitBtn.isEnabled = false
         
         FSCTools.roundButton(pageHitBtn)
         FSCTools.roundButton(eventHitBtn)
@@ -140,6 +140,16 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
                 showPopUpMessage("Transaction name: \(inputName)")
             }
         }
+        
+        // add item
+        
+        let t = FSItem(transactionId: "testId", name: "itemName", code: "codeItme")
+        
+        t.price = 12
+        t.quantity = 2
+        
+        Flagship.sharedInstance.sharedVisitor?.sendHit(t)
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage("pageView"))
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

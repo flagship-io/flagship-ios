@@ -276,6 +276,8 @@
 		F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
+		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
+		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
 		F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */; };
 		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
@@ -411,6 +413,8 @@
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BE29ED495B00D650E4 /* libBasebandCommandDriversQMI.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libBasebandCommandDriversQMI.tbd; path = usr/lib/libBasebandCommandDriversQMI.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
+		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
 		F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipPoolQueueTest.swift; sourceTree = "<group>"; };
 		F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatchManagerTest.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
@@ -691,6 +695,7 @@
 				F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */,
 				F5A908E72A3095070075DA82 /* FSTrackingManagerTest.swift */,
 				F5B2F6412A320CC80021C0C3 /* FSHitTest.swift */,
+				F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -698,6 +703,7 @@
 		8B67370A27FED7F3003EC960 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				F55751382A3332150082D83E /* content_activate.json */,
 				F5B2F6432A32322F0021C0C3 /* content_hit.json */,
 				8B67370C27FED7F3003EC960 /* visitorCache.json */,
 				F567A44028D32BB2008E9FC0 /* hitCache.json */,
@@ -974,6 +980,7 @@
 				8B5438B327FF989100299654 /* decisionApiPanic.json in Resources */,
 				F5B2F6442A32322F0021C0C3 /* content_hit.json in Resources */,
 				F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */,
+				F55751392A3332150082D83E /* content_activate.json in Resources */,
 				8B5438B427FF98A500299654 /* visitorCache.json in Resources */,
 				8B5438B227FF988F00299654 /* bucketMock.json in Resources */,
 				8B5438B127FF988B00299654 /* decisionApi.json in Resources */,
@@ -1126,6 +1133,7 @@
 				8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */,
 				8B67371527FEDA3E003EC960 /* FSConsentStrategyTest.swift in Sources */,
 				8B67371627FEDA3E003EC960 /* FSFlagTest.swift in Sources */,
+				F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */,
 				F5A908E82A3095070075DA82 /* FSTrackingManagerTest.swift in Sources */,
 				8B5438B527FF98D800299654 /* MockURLProtocol.swift in Sources */,
 				F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */,

@@ -81,10 +81,6 @@ class Activate: FSTrackingProtocol, Codable {
     // Variation GroupId
     var variationGroupeId: String?
 
-//    func getCst() -> NSNumber? {
-//        return 0
-//    }
-
     init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
         // Created date
         self.createdAt = Date().timeIntervalSince1970
