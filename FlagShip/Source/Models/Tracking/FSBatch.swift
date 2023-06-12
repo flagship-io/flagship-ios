@@ -52,7 +52,6 @@ class FSBatch: FSTracking {
     }
 }
 
-
 ////////////////////
 // Activate class //
 ////////////////////
@@ -63,7 +62,7 @@ class Activate: FSTrackingProtocol, Codable {
     func isValid() -> Bool {
         return true
     }
-    
+
     var id: String = ""
 
     var anonymousId: String?
@@ -81,20 +80,20 @@ class Activate: FSTrackingProtocol, Codable {
     // Variation GroupId
     var variationGroupeId: String?
 
-    init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
-        // Created date
-        self.createdAt = Date().timeIntervalSince1970
-        self.type = .ACTIVATE
-        self.visitorId = visitorId
-        self.anonymousId = anonymousId
-        self.variationId = variationId
-        self.variationGroupeId = variationGroupeId
-
-        let shared = Flagship.sharedInstance
-        if let aEnvId = shared.envId {
-            self.envId = aEnvId
-        }
-    }
+//    init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
+//        // Created date
+//        self.createdAt = Date().timeIntervalSince1970
+//        self.type = .ACTIVATE
+//        self.visitorId = visitorId
+//        self.anonymousId = anonymousId
+//        self.variationId = variationId
+//        self.variationGroupeId = variationGroupeId
+//
+//        let shared = Flagship.sharedInstance
+//        if let aEnvId = shared.envId {
+//            self.envId = aEnvId
+//        }
+//    }
 
     init(_ visitorId: String, _ anonymousId: String?, modification: FSModification) {
         self.createdAt = Date().timeIntervalSince1970
@@ -181,9 +180,9 @@ class ActivateBatch {
         self.envId = Flagship.sharedInstance.envId ?? ""
     }
 
-    func addElement(_ newElement: FSTrackingProtocol) {
-        self.listActivate.append(newElement)
-    }
+//    func addElement(_ newElement: FSTrackingProtocol) {
+//        self.listActivate.append(newElement)
+//    }
 
     func addListOfElement(_ list: [FSTrackingProtocol]) {
         self.listActivate.append(contentsOf: list)

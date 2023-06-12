@@ -60,10 +60,14 @@ final class FSTrackingManagerTest: XCTestCase {
     }
 
     func testAddTrackingElementsToBatch() {
+        // Test the activate
+        let activateTest = Activate("vid", nil, modification: FSModification(campId: "campId", varGroupId: "groupId", varId: "varId", typeOfTest: "AB", aSlug: "slug", val: 12))
+        XCTAssertTrue(activateTest.description().count > 0)
+
         trackingManager?.addTrackingElementsToBatch([
             FSEvent(eventCategory: .Action_Tracking, eventAction: "test"),
-            FSEvent(eventCategory: .User_Engagement, eventAction: "test"),
-            Activate("vid", nil, modification: FSModification(campId: "campId", varGroupId: "groupId", varId: "varId", typeOfTest: "AB", aSlug: "slug", val: 12)),
+            FSEvent(eventCategory: .User_Engagement, eventAction: "test"), activateTest
+
         ])
     }
 
@@ -88,10 +92,9 @@ final class FSTrackingManagerTest: XCTestCase {
         perdiodicTrackingManager?.onFailedToSendHits(batchTest)
         XCTAssertTrue(fsTestCacheManager.isCacheHitsCalled == true)
     }
-    
-    func testFlushTrackAndKeepConsent(){
+
+    func testFlushTrackAndKeepConsent() {
         perdiodicTrackingManager?.flushTrackAndKeepConsent("testUser")
         XCTAssertTrue(fsTestCacheManager.isFlushHitsCalled == true)
-
     }
 }
