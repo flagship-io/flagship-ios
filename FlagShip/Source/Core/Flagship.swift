@@ -127,7 +127,7 @@ public class Flagship: NSObject {
     }
     
     // When close is called will trigger all hits present in batch
-    public func close() {
+    @objc public func close() {
         Flagship.sharedInstance.sharedVisitor?.configManager.trackingManger?.batchManager.batchFromQueue()
     }
 }
