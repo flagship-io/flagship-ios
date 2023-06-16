@@ -44,9 +44,9 @@ class FSQLiteWrapper {
     var readPointer: OpaquePointer?
     
     public init(_ dataBaseType: FSDatabaseType) {
-        if var rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {
+        if let rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {
             flagship_db_URL = rootPath.appendingPathComponent((dataBaseType == .DatabaseVisitor) ? VISITOR_DATA_BASE : TRACKING_DATA_BASE)
-            print("URL: %s", flagship_db_URL.absoluteString)
+            //print("URL: %s", flagship_db_URL.absoluteString)
             
             do { try openDB() } catch { print(" Error when opening database") }
             do { try createTables(dataBaseType) } catch { print(" Error on creating table") }

@@ -11,7 +11,7 @@ import Foundation
 class PeriodicTrackingManager: ContinuousTrackingManager {
     // Create batch manager
 
-    override init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig, _ pCacheManager: FSCacheManager) {
+    override init(_ pService: FSService, _ pTrackingConfig: FSTrackingManagerConfig, _ pCacheManager: FSCacheManager) {
         super.init(pService, pTrackingConfig, pCacheManager)
     }
 

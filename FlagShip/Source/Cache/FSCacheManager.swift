@@ -26,12 +26,12 @@ import Foundation
     ///   - visitorCacheImp : Implementation for cache visitor can be the default or the custom
     ///   - hitCacheImpl    : implementation for hit visitor can be the default or the custom
     ///   - visitorLookupTimeOut:Timeout when trying to get visitor
-    @objc public init(_ visitorCacheImp: FSVisitorCacheDelegate? = nil, _ hitCacheImpl: FSHitCacheDelegate? = nil, visitorLookupTimeOut: TimeInterval = 0.2, hitCacheLookupTimeout: TimeInterval = 0.2) {
+    @objc public init(_ visitorCacheImp: FSVisitorCacheDelegate? = nil, _ hitCacheImp: FSHitCacheDelegate? = nil, visitorLookupTimeOut: TimeInterval = 0.2, hitCacheLookupTimeout: TimeInterval = 0.2) {
         /// Delegate for the cache visitor
         cacheVisitorDelegate = visitorCacheImp
         
         /// Delegate for the hit visitor
-        hitCacheDelegate = hitCacheImpl
+        hitCacheDelegate = hitCacheImp
         
         /// Timeout for cache visitor look up
         visitorCacheLookupTimeout = visitorLookupTimeOut

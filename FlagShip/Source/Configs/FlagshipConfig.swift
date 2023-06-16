@@ -24,7 +24,7 @@ public enum FSMode: Int {
     var logLevel: FSLevel = .ALL
     var pollingTime: TimeInterval = FSPollingTime
     var onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
-    var trackingConfig: FSTrackingConfig
+    var trackingConfig: FSTrackingManagerConfig
     
     /// Cache Manager
     var cacheManger: FSCacheManager
@@ -35,7 +35,7 @@ public enum FSMode: Int {
                   pollingTime: TimeInterval = FSPollingTime,
                   cacheManager: FSCacheManager,
                   _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
-                  _ trackingConfig: FSTrackingConfig)
+                  _ trackingConfig: FSTrackingManagerConfig)
     {
         self.mode = mode
         self.timeout = timeOut
@@ -51,7 +51,7 @@ public enum FSMode: Int {
     override public init() {
         self._cacheManager = FSCacheManager(FSDefaultCacheVisitor(), FSDefaultCacheHit())
         // Init with a default value
-        self._trackingConfig = FSTrackingConfig()
+        self._trackingConfig = FSTrackingManagerConfig()
     }
     
     /// _ Mode
@@ -73,7 +73,7 @@ public enum FSMode: Int {
     public private(set) var _onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
     
     /// Tracking Config
-    public private(set) var _trackingConfig: FSTrackingConfig
+    public private(set) var _trackingConfig: FSTrackingManagerConfig
     
     /// _ With
     
@@ -121,8 +121,8 @@ public enum FSMode: Int {
     }
     
     /// Tracking Configuration
-    @objc public func withTrackingConfig(_ trackingConfig: FSTrackingConfig)->FSConfigBuilder {
-        _trackingConfig = trackingConfig
+    @objc public func withTrackingManagerConfig(_ trackingMgrConfig: FSTrackingManagerConfig)->FSConfigBuilder {
+        _trackingConfig = trackingMgrConfig
         return self
     }
     

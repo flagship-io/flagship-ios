@@ -81,6 +81,9 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         if let input = interfaceNameFiled!.text {
             Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen(input))
         }
+        
+        // Send Pageview
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage("https://nextjs-abtasty.vercel.app/"))
     }
     
     /// Send Event hit

@@ -19,22 +19,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startQA() {
-        let trackingConfig = FSTrackingConfig(poolMaxSize: 5, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)
         
-        let conf: FlagshipConfig = FSConfigBuilder().withTrackingConfig(trackingConfig).withStatusListener { _ in
-            
-//            if newStatus == .READY {
-//                Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-//                    let myFlag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag", defaultValue: "dflValue")
-//
-//                    print("The value for the flag si \(myFlag?.value())")
-//                    myFlag?.userExposed()
-//                    // Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen1"))
-//                    // Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "KPI2"))
-//                }
-//            }
-        }.build()
+        // Create FSTrackingManagerConfig
+        // - Time Intreval : 20
+        // - Maximum size pool : 20
+        // - Strategy : BATCH_CONTINUOUS_CACHING
         
+        let trackingConfig = FSTrackingManagerConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING)
+        
+        // Create FlagshipConfig
+        
+       
+        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager( FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
+        
+        // Start the SDK Flagship
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
         
         let v1 = Flagship.sharedInstance.newVisitor("visitor3105-abcdfer").withContext(context: ["testing_tracking_manager": true]).build()

@@ -71,7 +71,7 @@ import Foundation
         }
         
         // If the sdk is on the buckting mode ==> we are on polling mode
-       // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
+        // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
         
         /// Set the user context
         self.context = FSContext(aContext)
@@ -89,8 +89,6 @@ import Foundation
         self.isAuthenticated = aIsAuthenticated
     }
     
-    
-    
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
             onFetchCompleted()
@@ -98,7 +96,7 @@ import Foundation
             self.strategy?.getStrategy().cacheVisitor()
             
             // If bucketing mode and no consent and no panic mode
-            if  self.configManager.flagshipConfig.mode == .BUCKETING && Flagship.sharedInstance.currentStatus != .PANIC_ON {
+            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
            
@@ -180,7 +178,6 @@ import Foundation
     /// - Parameter key: Modification identifier, represent flag's name
     @available(*, deprecated, message: "Use getFlag(\"my_flag\").userExposed()")
     public func activate(_ key: String) {
-        
         self.strategy?.getStrategy().activate(key)
     }
     

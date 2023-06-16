@@ -12,7 +12,7 @@ import UIKit
 public var POOL_SIZE_MAX: Int = 10
 
 // Batch Interval Time
-public var BATCH_INTERVAL_TIME: Double = 10
+public var BATCH_INTERVAL_TIME: Double = 5
 
 public enum FSCacheStrategy: Int {
     // This strategy will use the pool to batch events at regular intervals.
@@ -30,7 +30,7 @@ public enum FSCacheStrategy: Int {
     case NO_CACHING_STRATEGY
 }
 
-public class FSTrackingConfig: NSObject {
+public class FSTrackingManagerConfig: NSObject {
     // Pool Size Maximum
     var poolMaxSize: Int
 

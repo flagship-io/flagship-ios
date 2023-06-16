@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         registerSettingsBundle()
 
+        do {
+            var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            print(" -- The url path : \(url.absoluteString)")
+        } catch {}
 
         return true
     }

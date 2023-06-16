@@ -247,10 +247,10 @@
 		8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
 		8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
 		8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
-		F50E958F29CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
-		F50E959029CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
-		F50E959129CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
-		F50E959229CDD977000B333F /* FSTrackingConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingConfig.swift */; };
+		F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
+		F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
+		F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
+		F50E959229CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
 		F50E959929D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
 		F50E959A29D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
 		F50E959B29D19EEB000B333F /* FSITrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E959829D19EEB000B333F /* FSITrackingManager.swift */; };
@@ -403,7 +403,7 @@
 		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BBCAD3F23FAD0E200126600 /* FlagShip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FlagShip-Info.plist"; path = "/Users/aliasadel/Documents/githubProject/flagship-ios/FlagShip/FlagShip-Info.plist"; sourceTree = "<absolute>"; };
-		F50E958E29CDD977000B333F /* FSTrackingConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingConfig.swift; sourceTree = "<group>"; };
+		F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingManagerConfig.swift; sourceTree = "<group>"; };
 		F50E959829D19EEB000B333F /* FSITrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSITrackingManager.swift; sourceTree = "<group>"; };
 		F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContinuousTrackingManager.swift; sourceTree = "<group>"; };
 		F50E95A729D19FEC000B333F /* FSPeriodicTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPeriodicTrackingManager.swift; sourceTree = "<group>"; };
@@ -604,7 +604,7 @@
 			children = (
 				8B67368627FEBE4C003EC960 /* FlagshipConfig.swift */,
 				8B67368727FEBE4C003EC960 /* FSConfigManager.swift */,
-				F50E958E29CDD977000B333F /* FSTrackingConfig.swift */,
+				F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -1067,7 +1067,7 @@
 				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
 				8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */,
 				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
-				F50E959029CDD977000B333F /* FSTrackingConfig.swift in Sources */,
+				F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
@@ -1165,7 +1165,7 @@
 				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
-				F50E959129CDD977000B333F /* FSTrackingConfig.swift in Sources */,
+				F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
@@ -1236,7 +1236,7 @@
 				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
-				F50E959229CDD977000B333F /* FSTrackingConfig.swift in Sources */,
+				F50E959229CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
@@ -1307,7 +1307,7 @@
 				8B6736A827FED3E5003EC960 /* FSVisitorBuilder.swift in Sources */,
 				8B6736A927FED3E5003EC960 /* FSVisitor+Campaigns.swift in Sources */,
 				8B6736AA27FED3E5003EC960 /* FSVisitor+objc.swift in Sources */,
-				F50E958F29CDD977000B333F /* FSTrackingConfig.swift in Sources */,
+				F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B6736AB27FED3E5003EC960 /* FSVisitor.swift in Sources */,
 				8B6736AC27FED3E5003EC960 /* FlagshipLogManager.swift in Sources */,
 				8B6736AD27FED3E5003EC960 /* FSError.swift in Sources */,

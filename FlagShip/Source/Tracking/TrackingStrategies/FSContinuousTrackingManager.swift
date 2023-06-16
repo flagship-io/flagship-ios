@@ -10,7 +10,7 @@ import Foundation
 
 class ContinuousTrackingManager: FSTrackingManager {
     // Create batch manager
-    override init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig, _ pCacheManager: FSCacheManager) {
+    override init(_ pService: FSService, _ pTrackingConfig: FSTrackingManagerConfig, _ pCacheManager: FSCacheManager) {
         super.init(pService, pTrackingConfig, pCacheManager)
 
         // Get the remained hit

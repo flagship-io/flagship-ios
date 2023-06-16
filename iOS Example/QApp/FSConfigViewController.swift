@@ -101,7 +101,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingConfig(FSTrackingConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING))
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40))
+
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
         } else {
@@ -136,7 +137,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
 
-        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["qa_report": true, "QA": "ios", "testing_tracking_manager": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor(nil).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {
@@ -201,6 +202,19 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             }
         }
     }
+
+    func doc() {
+        // Instanciate Custom cache manager
+        let customCacheManager = FSCacheManager(CustomVisitorCache(), CustomHitCache())
+
+        // Start the Flagship sdk
+        Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: FSConfigBuilder()
+            .DecisionApi()
+            .withCacheManager(customCacheManager)
+            .build())
+        
+        Flagship.sharedInstance.close()
+    }
 }
 
 // Delegate
@@ -209,42 +223,34 @@ protocol FSConfigViewDelegate {
     func onResetSdk()
 }
 
-public class CustomClientVisitorCache: FSVisitorCacheDelegate {
+//
+public class CustomVisitorCache: FSVisitorCacheDelegate {
     public func cacheVisitor(visitorId: String, _ visitorData: Data) {
-        // Upsert in your database
+        // Save the Data that represent the information for visitorId
     }
 
     public func lookupVisitor(visitorId: String) -> Data? {
-        // Load & delete from your database
+        // Return the saved data of visitorId
         return Data()
     }
 
     public func flushVisitor(visitorId: String) {
-        // Clear from your database
+        // Remove the data for visitorId
     }
 }
 
-public class customClientHitCache: FSHitCacheDelegate {
+public class CustomHitCache: FSHitCacheDelegate {
+    // Save the dictionary that represent hits
     public func cacheHits(hits: [String: [String: Any]]) {}
 
+    // Return the saved hit in your database
     public func lookupHits() -> [String: [String: Any]] {
         return [:]
     }
 
+    // Remove the hit's id given with List
     public func flushHits(hitIds: [String]) {}
 
+    // Remove all hits in database
     public func flushAllHits() {}
-
-    public func cacheHit(visitorId: String, data: Data) {
-        // Insert in your database
-    }
-
-    public func lookupHits(visitorId: String) -> [Data]? {
-        // Delete and load from your database
-        return []
-    }
-
-    public func flushHits(visitorId: String) {
-        // Clear from your database
-    }
 }

@@ -16,7 +16,7 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     var service: FSService
 
     // Tracking config
-    var trackingConfig: FSTrackingConfig
+    var trackingConfig: FSTrackingManagerConfig
 
     // Interface cache hits
     var cacheManager: FSCacheManager?
@@ -24,7 +24,7 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     // List of the failed ids
     var failedIds: [String] = []
 
-    init(_ pService: FSService, _ pTrackingConfig: FSTrackingConfig, _ pCacheManager: FSCacheManager) {
+    init(_ pService: FSService, _ pTrackingConfig: FSTrackingManagerConfig, _ pCacheManager: FSCacheManager) {
         service = pService
         // Set config tracking
         trackingConfig = pTrackingConfig // Revoir cette partie

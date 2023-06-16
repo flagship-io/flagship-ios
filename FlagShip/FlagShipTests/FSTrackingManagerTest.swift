@@ -26,7 +26,7 @@ final class FSTrackingManagerTest: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let service = FSService("envID", "apiKey", "vid")
         service.serviceSession = urlFakeSession
-        let configTracking = FSTrackingConfig()
+        let configTracking = FSTrackingManagerConfig()
         trackingManager = FSTrackingManager(service, configTracking, FSCacheManager())
 
         let fsCacheManager = FSCacheManager(nil, fsTestCacheManager, visitorLookupTimeOut: 0.2, hitCacheLookupTimeout: 0.2)
