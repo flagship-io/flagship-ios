@@ -35,8 +35,8 @@ extension FSService {
 
                     if let responseData = data {
                         do {
-                            /// Print Json response
-                            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.GET_SCRIPT_RESPONSE("\(responseData.prettyPrintedJSONString ?? "Error on print jsonString")"))
+                            /// Display Json response
+                            FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.GET_SCRIPT_RESPONSE("\(responseData.prettyPrintedJSONString ?? "Error on display jsonString")"))
 
                             let scriptObject = try JSONDecoder().decode(FSBucket.self, from: responseData)
                             onGetScript(scriptObject, nil)

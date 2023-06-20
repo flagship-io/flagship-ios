@@ -21,7 +21,7 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         // preparing the query
         let r = sqlite3_prepare(db_opaquePointer, sql, -1, &recordPointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare insertEntryStmt")
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 insert error"))
         }
         return r
     }
@@ -33,7 +33,7 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         // preparing the query
         let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare deleteEntryStmt")
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 delete error"))
         }
         return r
     }
@@ -44,13 +44,11 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         if sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &readPointer, nil) == SQLITE_OK {
             if sqlite3_step(readPointer) == SQLITE_ROW {
                 // Get the visitorId for visitor
-                // if let id = sqlite3_column_text(readPointer, 0) { // Clean later
                 // Get the data of visitor
                 if let visitor_data_unSafePointer = sqlite3_column_text(readPointer, 1) {
                     // Convert unsafe -> text ->  data
                     return String(cString: visitor_data_unSafePointer).data(using: .utf8)
                 }
-                //  }
             }
             sqlite3_finalize(readPointer)
         }

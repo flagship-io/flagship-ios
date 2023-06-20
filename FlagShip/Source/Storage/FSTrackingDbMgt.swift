@@ -23,7 +23,7 @@ class FSTrackingDbMgt: FSQLiteWrapper {
         // preparing the query
         let r = sqlite3_prepare(db_opaquePointer, sql, -1, &recordPointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare insertEntryStmt")
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 insert error"))
         }
         return r
     }
@@ -35,7 +35,7 @@ class FSTrackingDbMgt: FSQLiteWrapper {
         // preparing the query
         let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
         if r != SQLITE_OK {
-            print("sqlite3_prepare deleteEntryStmt")
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 delete error"))
         }
         return r
     }
@@ -57,7 +57,8 @@ class FSTrackingDbMgt: FSQLiteWrapper {
                                     result.updateValue(dico, forKey: String(cString: id))
                                 }
                             } catch {
-                                // Error on decode dataRawColl
+                                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Error on decode dataRawColl"))
+
                             }
                         }
                     }

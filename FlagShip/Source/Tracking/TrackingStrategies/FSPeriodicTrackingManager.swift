@@ -59,7 +59,6 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
     }
 
     override internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
-        print("---------- On Sucess To Send Activate, PeriodicTrackingManager ----------")
     }
 
     // Remove hits for visitorId and keep the consent hits

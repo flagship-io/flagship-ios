@@ -61,8 +61,8 @@ internal class FSService {
                 } else {
                     let decode = JSONDecoder()
                     do {
-                        /// Print response json before for debug
-                        FlagshipLogManager.Log(level: .INFO, tag: .CAMPAIGNS, messageToDisplay: FSLogMessage.GET_CAMPAIGN_RESPONSE("\(responseData?.prettyPrintedJSONString ?? "Error on print jsonString")"))
+                        /// Display response json before for debug
+                        FlagshipLogManager.Log(level: .INFO, tag: .CAMPAIGNS, messageToDisplay: FSLogMessage.GET_CAMPAIGN_RESPONSE("\(responseData?.prettyPrintedJSONString ?? "Error on display jsonString")"))
                         let deocodedObject = try decode.decode(FSCampaigns.self, from: responseData ?? Data())
                         onGetCampaign(deocodedObject, nil)
                     } catch { onGetCampaign(nil, error) }
