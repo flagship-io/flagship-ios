@@ -6,7 +6,7 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 // Default value for Pool Size Max
 public var POOL_SIZE_MAX: Int = 10
@@ -30,7 +30,7 @@ public enum FSCacheStrategy: Int {
     case NO_CACHING_STRATEGY
 }
 
-public class FSTrackingManagerConfig: NSObject {
+public class FSTrackingManagerConfig : NSObject {
     // Pool Size Maximum
     var poolMaxSize: Int
 

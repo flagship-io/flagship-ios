@@ -6,7 +6,7 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class FSBatchManager {
     // Define the maximum number of tracking hit that each batch can contain.

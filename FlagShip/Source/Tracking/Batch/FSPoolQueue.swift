@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 class FSQueue<T> {
     public private(set) var listQueue: [T]
