@@ -102,7 +102,7 @@ public class Flagship: NSObject {
     }
     
     /// Create new visitor
-    @objc public func newVisitor(_ visitorId: String?, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder {
+    @objc public func newVisitor(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder {
         return FSVisitorBuilder(visitorId, instanceType: instanceType)
     }
     

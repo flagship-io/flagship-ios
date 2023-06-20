@@ -20,14 +20,15 @@ import Foundation
     /// instance
     private var _instanceType: Instance = .SHARED_INSTANCE
     
-    public init(_ visitorId: String?, instanceType: Instance = .SHARED_INSTANCE) {
-        if let aVisitorId = visitorId {
-            _visitorId = aVisitorId
-            
-        } else {
+    public init(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) {
+        if visitorId.isEmpty {
             _visitorId = FSGenerator.generateFlagShipId()
             FlagshipLogManager.Log(level: .WARNING, tag: .VISITOR, messageToDisplay: FSLogMessage.ID_NULL_OR_EMPTY)
+            
+        } else {
+            _visitorId = visitorId
         }
+        
         _instanceType = instanceType
     }
     

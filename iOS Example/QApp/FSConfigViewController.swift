@@ -137,7 +137,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
 
-        return Flagship.sharedInstance.newVisitor(nil).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {
