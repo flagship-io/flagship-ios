@@ -142,7 +142,6 @@
 		8B67371A27FEDA3E003EC960 /* FSVisitorBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FF27FED7F2003EC960 /* FSVisitorBuilderTest.swift */; };
 		8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FB27FED7F2003EC960 /* FSVisitorTests.swift */; };
 		8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370327FED7F2003EC960 /* murmurTest.swift */; };
-		8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370427FED7F3003EC960 /* QAReportTest.swift */; };
 		8B9F2A822809B8B300323094 /* Flagship_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9F2A812809B8B300323094 /* Flagship_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B9F2A862809B8E600323094 /* murmurhash3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365E27FEBE4C003EC960 /* murmurhash3.swift */; };
 		8B9F2A872809B8E600323094 /* Data+PrettyPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67365F27FEBE4C003EC960 /* Data+PrettyPrint.swift */; };
@@ -1126,7 +1125,6 @@
 			files = (
 				8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */,
 				F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */,
-				8B67372227FEDA50003EC960 /* QAReportTest.swift in Sources */,
 				F5A908E42A30824C0075DA82 /* FSStorageTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
 				8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */,
