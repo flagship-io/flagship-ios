@@ -1,15 +1,30 @@
 name: Swift
 on: [push, pull_request]
 jobs:
-  build:
-
+  Build_SDK:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        run-config:
+          - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone 14', label: 'iOS'}
+          - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS Simulator,name=Apple TV', label: 'tvOS' }
+          #- { scheme: 'Flagship-macOS', destination: 'platform=macOS', label: 'macOS'}
+          - { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)', label: 'watchOS'}
+
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 12"
-    - name: Update Code Coverage
-      run: |
+    - name: Checkout Project
+      uses: actions/checkout@v2
+    - name: Building SDK for ${{ matrix.run-config['label'] }}
+      run: xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme '${{ matrix.run-config['scheme'] }}'  -destination '${{ matrix.run-config['destination'] }}'
+  Testing:
+     needs: Build_SDK
+     runs-on: macos-latest
+     steps:
+     - name: Checkout Project
+       uses: actions/checkout@v2
+     - name: Test SDK Flagship
+       run: xcodebuild test -project Flagship/Flagship.xcodeproj -scheme 'Flagship'  -destination 'platform=iOS Simulator,name=iPhone 14'
+     - name: Update Code Coverage
+       run: |
         bash <(curl -s https://codecov.io/bash)
-
