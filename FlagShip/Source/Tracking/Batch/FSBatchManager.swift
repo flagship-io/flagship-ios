@@ -114,10 +114,9 @@ class FSBatchManager {
     }
 
     func batchFromQueue() {
-        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Prcocess Batch Starting : .... 👍"))
+        // Batch Queue Start
         DispatchQueue.main.async {
             self.batchTimer?.suspend()
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE(" New Cycle Batch Procee Begin"))
             // Process the activate pool if is not empty
             if !self.activateQueue.isEmpty() {
                 self.delegate?.processActivatesBatching()
@@ -135,7 +134,7 @@ class FSBatchManager {
         FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Batching Process"))
         batchTimer?.eventHandler = {
             if !self.hitQueue.isEmpty() {
-                FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Duration of the periodic Batching is reached , process batching immediately"))
+                // The Duration of the Batching is reached, launch batch immediately
                 self.batchFromQueue()
             }
         }
@@ -144,13 +143,13 @@ class FSBatchManager {
 
     // Resume batch process
     func resumeBatchProcess() {
-        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Resume Batching Process"))
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Batching Process for Tracking"))
         batchTimer?.resume()
     }
 
     // Pause batch process
     func pauseBatchProcess() {
-        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Stop Batching Process"))
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Stop Batching Process for Tracking"))
         batchTimer?.suspend()
     }
 

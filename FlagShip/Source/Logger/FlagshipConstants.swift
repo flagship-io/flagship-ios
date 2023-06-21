@@ -136,7 +136,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .HIT_NOT_READY:
             ret = "SDK not ready to send hit"
         case .ACTIVATE_SUCCESS(let key):
-            ret = "Activate sent with success.\(key)"
+            ret = "Exposure sent with success ==> \(key)"
         case .ACTIVATE_FAILED:
             ret = "Error on send activate"
         case .ERROR_ON_READ_FLAG(let key):
@@ -154,7 +154,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .GET_CAMPAIGN_URL(let key):
             ret = "The url for the get campaign is \(key)"
         case .GET_CAMPAIGN_RESPONSE(let key):
-            ret = "The reponse for the get campaign is \(key)"
+            ret = "Response for fetch flags is \(key)"
         case .GET_SCRIPT_RESPONSE(let key):
             ret = "The script bucketing is \(key)"
         case .ERROR_ON_DECODE_JSON:
@@ -180,7 +180,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .BUCKETING_EXISTING_FILE:
             ret = "The Buketing already exist Will Re check targeting for the selected variation"
         case .ERROR_ON_READ_FILE:
-            ret = "Error on retreive cached object"
+            ret = "No data visitor cached"
         case .BUCKETING_EXISTING_VARIATION(let key):
             ret = "Variation Group already exist, then return the saved variation \(key)"
         case .TIMEOUT_SEMEAPHORE_WAIT_POLLING:
