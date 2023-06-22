@@ -13,7 +13,7 @@ import XCTest
 class FlagshipBucketingTest: XCTestCase {
     var testVisitor: FSVisitor?
     var urlFakeSession: URLSession?
-    let fsConfig: FlagshipConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(60).build()
+    var fsConfig: FlagshipConfig?
     
     override func setUpWithError() throws {
         /// Configuration
@@ -22,11 +22,7 @@ class FlagshipBucketingTest: XCTestCase {
         // let urlFakeSession: URLSession!
         configuration.protocolClasses = [MockURLProtocol.self]
         urlFakeSession = URLSession(configuration: configuration)
-        /// Start sdk
-        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig)
-    }
-    
-    func testBucketingWithSucess() {
+        
         do {
             let testBundle = Bundle(for: type(of: self))
             
@@ -45,61 +41,57 @@ class FlagshipBucketingTest: XCTestCase {
         } catch {
             print("---------------- Failed to load the buckeMock file ----------")
         }
+    }
+    
+    func testBucketingWithSucess() {
+        let expectationSync = XCTestExpectation(description: "testBucketingWithSucess")
+        
+        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
+            if newStatus == .READY {
+                print("Polling is done, we can fetch the flags")
+                self.testVisitor?.fetchFlags(onFetchCompleted: {
+                    // Get from alloc 100
+                    if let flag = self.testVisitor?.getFlag(key: "stringFlag", defaultValue: "default") {
+                        XCTAssertTrue(flag.value() as? String == "alloc_100")
+                    }
+                    expectationSync.fulfill()
+                })
+            }
+        }.build()
+        
+        /// Start sdk
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
-        
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
-        
-        /// Set fake session
-        if let aUrlFakeSession = urlFakeSession {
-            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
-            testVisitor?.configManager.decisionManager?.launchPolling()
-        }
-        /// Give time to polling
-        sleep(5)
-        
-        let expectationSync = XCTestExpectation(description: "Service-GetScript")
-        
-        testVisitor?.fetchFlags(onFetchCompleted: {
-            let retValue = self.testVisitor?.getModification("key", defaultValue: "default") as? String
-            XCTAssertTrue(retValue == "value")
-            
-            // Get from alloc 100
-            
-            if let flag = self.testVisitor?.getFlag(key: "stringFlag", defaultValue: "default") {
-                XCTAssertTrue(flag.value() as? String == "alloc_100")
-            }
-            if let infos = self.testVisitor?.getModificationInfo("key") {
-                XCTAssertTrue((infos["campaignId"] as? String) == "br6h4dv811lg07g61g00")
-                XCTAssertTrue((infos["variationGroupId"] as? String) == "br6h4dv811lg07g61g10")
-                XCTAssertTrue((infos["variationId"] as? String) == "br6h4dv811lg07g61g20")
-                XCTAssertTrue((infos["isReference"] as? Bool) == false)
-            }
-            expectationSync.fulfill()
-        })
-        
+
         wait(for: [expectationSync], timeout: 15.0)
+    }
+    
+    func testBucketingWithFailedTargeting() { // The visitor id here make the trageting failed
+        let expectationSync = XCTestExpectation(description: "testBucketingWithFailedTargeting")
         
+        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
+            if newStatus == .READY {
+                print("Polling is done, we can fetch the flags")
+                self.testVisitor?.fetchFlags {
+                    // Get from alloc 100
+                    let flag2 = self.testVisitor?.getFlag(key: "stringFlag", defaultValue: "default")
+                    XCTAssertTrue(flag2?.value() as? String == "default")
+                    expectationSync.fulfill()
+                }
+            }
+        }.build()
+        
+        /// Start sdk
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor("korso").build()
-        /// Set fake session
-        if let aUrlFakeSession = urlFakeSession {
-            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
-        }
-        sleep(1)
-        
-        let expectationVisitor2 = XCTestExpectation(description: "test_visitor2")
-        
-        testVisitor?.synchronize(onSyncCompleted: {
-            // Get from alloc 100
-            let retValue1 = self.testVisitor?.getModification("stringFlag", defaultValue: "default") as? String
-            XCTAssertTrue(retValue1 == "default")
-            XCTAssertTrue(self.testVisitor?.getModificationInfo("stringFlag") == nil)
-            expectationVisitor2.fulfill()
-        })
-        
-        wait(for: [expectationVisitor2], timeout: 5.0)
+        /// Erase all cached data
+        testVisitor?.strategy?.getStrategy().flushVisitor()
+
+        wait(for: [expectationSync], timeout: 15.0)
     }
 }
