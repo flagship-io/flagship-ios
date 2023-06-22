@@ -29,5 +29,6 @@ jobs:
        uses: actions/checkout@v2
      - name: Test SDK Flagship
        run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14" -enableCodeCoverage YES
-     - name: Upload coverage to codecov
-       uses: codecov/codecov-action@v2
+     - name: Update Code Coverage
+       run: |
+        bash <(curl -s https://codecov.io/bash)
