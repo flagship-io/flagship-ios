@@ -9,26 +9,26 @@ import Foundation
 
 /// Represent the object saved for each user
 
-internal class FSBucketCache: Codable {
+internal class FSBucketCache /*: Codable*/ {
 
     var visitorId: String
 
     var campaigns: [FSCampaignCache]!
 
-    required public  init(from decoder: Decoder) throws {
-
-        let values     = try decoder.container(keyedBy: CodingKeys.self)
-
-        do { self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch { self.visitorId = "error"}
-        do { self.campaigns              = try values.decode([FSCampaignCache].self, forKey: .campaigns)} catch { self.campaigns = []}
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case visitorId
-        case campaigns
-     }
+//    required public  init(from decoder: Decoder) throws {
+//
+//        let values     = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        do { self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch { self.visitorId = "error"}
+//        do { self.campaigns              = try values.decode([FSCampaignCache].self, forKey: .campaigns)} catch { self.campaigns = []}
+//
+//    }
+//
+//    private enum CodingKeys: String, CodingKey {
+//
+//        case visitorId
+//        case campaigns
+//     }
 
     internal init(_ visitorId: String) {
 
@@ -54,16 +54,10 @@ internal class FSBucketCache: Codable {
         }
         return result
     }
-
-    internal func saveMe() {
-
-        FSStorage.store(self, to: .documents, as: String(format: "%@.json", self.visitorId))
-    }
-
 }
 
 //// Campaign contain liste variation groups
-internal class FSCampaignCache: Codable {
+internal class FSCampaignCache /*: Codable*/ {
 
     var campaignId: String!
 
@@ -85,24 +79,24 @@ internal class FSCampaignCache: Codable {
         return campaign
     }
 
-    required public  init(from decoder: Decoder) throws {
-
-        let values     = try decoder.container(keyedBy: CodingKeys.self)
-
-        do { self.campaignId              = try values.decode(String.self, forKey: .campaignId)} catch { self.campaignId = ""}
-        do { self.variationGroups             = try values.decode([FSVariationGroupCache].self, forKey: .variationGroups)} catch { self.variationGroups = []}
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case campaignId
-        case variationGroups
-     }
+//    required public  init(from decoder: Decoder) throws {
+//
+//        let values     = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        do { self.campaignId              = try values.decode(String.self, forKey: .campaignId)} catch { self.campaignId = ""}
+//        do { self.variationGroups             = try values.decode([FSVariationGroupCache].self, forKey: .variationGroups)} catch { self.variationGroups = []}
+//    }
+//
+//    private enum CodingKeys: String, CodingKey {
+//
+//        case campaignId
+//        case variationGroups
+//     }
 
 }
 
 /// Variation Groupe contain variation
-internal class FSVariationGroupCache: Codable {
+internal class FSVariationGroupCache /*: Codable*/ {
 
     var variationGroupId: String!
 
@@ -121,25 +115,25 @@ internal class FSVariationGroupCache: Codable {
         return FSVariation(idVariation: variation.variationId, variation.modification, isReference: variation.reference)
 
      }
-
-    required public  init(from decoder: Decoder) throws {
-
-        let values     = try decoder.container(keyedBy: CodingKeys.self)
-
-        do { self.variationGroupId            = try values.decode(String.self, forKey: .variationGroupId)} catch { self.variationGroupId = ""}
-        do { self.variation                   = try values.decode(FSVariationCache.self, forKey: .variation)} catch { self.variation = nil}
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case variationGroupId
-        case variation
-     }
+//
+//    required public  init(from decoder: Decoder) throws {
+//
+//        let values     = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        do { self.variationGroupId            = try values.decode(String.self, forKey: .variationGroupId)} catch { self.variationGroupId = ""}
+//        do { self.variation                   = try values.decode(FSVariationCache.self, forKey: .variation)} catch { self.variation = nil}
+//    }
+//
+//    private enum CodingKeys: String, CodingKey {
+//
+//        case variationGroupId
+//        case variation
+//     }
 
 }
 
 /// Variation
-internal class FSVariationCache: Codable {
+internal class FSVariationCache /*: Codable */{
 
     var variationId: String = ""
 
@@ -152,21 +146,21 @@ internal class FSVariationCache: Codable {
 
     var reference: Bool = false
 
-    required public  init(from decoder: Decoder) throws {
-
-        let values     = try decoder.container(keyedBy: CodingKeys.self)
-
-        do { self.variationId            = try values.decode(String.self, forKey: .variationId)} catch { self.variationId = ""}
-        do { self.modification           = try values.decode(FSModifications.self, forKey: .modification)} catch { self.modification = nil}
-        do { self.reference              = try values.decode(Bool.self, forKey: .reference)} catch { self.reference = false}
-
-    }
-
-    private enum CodingKeys: String, CodingKey {
-
-        case variationId
-        case modification
-        case reference
-     }
+//    required public  init(from decoder: Decoder) throws {
+//
+//        let values     = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        do { self.variationId            = try values.decode(String.self, forKey: .variationId)} catch { self.variationId = ""}
+//        do { self.modification           = try values.decode(FSModifications.self, forKey: .modification)} catch { self.modification = nil}
+//        do { self.reference              = try values.decode(Bool.self, forKey: .reference)} catch { self.reference = false}
+//
+//    }
+//
+//    private enum CodingKeys: String, CodingKey {
+//
+//        case variationId
+//        case modification
+//        case reference
+//     }
 
 }

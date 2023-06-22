@@ -162,4 +162,7 @@ class FSVisitorTests: XCTestCase {
         XCTAssertTrue(Flagship.sharedInstance.sharedVisitor?.getContext()["color"] as? String == "red")
 
     }
+    
+  
+    
 }

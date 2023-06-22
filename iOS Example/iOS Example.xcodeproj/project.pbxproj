@@ -77,6 +77,12 @@
 		8BF2DE07256C0B7E005FF664 /* FSUserViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */; };
 		8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */; };
 		8BF2DE42256F996A005FF664 /* FSContextViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */; };
+		F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6842A176BA500C0B140 /* AppDelegate.swift */; };
+		F5DAF6872A176BA500C0B140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */; };
+		F5DAF6892A176BA500C0B140 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6882A176BA500C0B140 /* ViewController.swift */; };
+		F5DAF68C2A176BA500C0B140 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68A2A176BA500C0B140 /* Main.storyboard */; };
+		F5DAF68E2A176BA600C0B140 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68D2A176BA600C0B140 /* Assets.xcassets */; };
+		F5DAF6912A176BA600C0B140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -172,6 +178,17 @@
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModificationsViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
+		F5DAF6822A176BA500C0B140 /* SmartQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5DAF6842A176BA500C0B140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F5DAF6882A176BA500C0B140 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F5DAF68B2A176BA500C0B140 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F5DAF68D2A176BA600C0B140 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F5DAF6902A176BA600C0B140 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F5DAF6922A176BA600C0B140 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5DAF69B2A176BA700C0B140 /* SmartQATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQATests.swift; sourceTree = "<group>"; };
+		F5DAF6A52A176BA700C0B140 /* SmartQAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQAUITests.swift; sourceTree = "<group>"; };
+		F5DAF6A72A176BA700C0B140 /* SmartQAUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQAUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +197,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BF2DE03256BEDD9005FF664 /* Flagship.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5DAF67F2A176BA500C0B140 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +395,9 @@
 			isa = PBXGroup;
 			children = (
 				8BF2DDDF25681A97005FF664 /* QApp */,
+				F5DAF6832A176BA500C0B140 /* SmartQA */,
+				F5DAF69A2A176BA700C0B140 /* SmartQATests */,
+				F5DAF6A42A176BA700C0B140 /* SmartQAUITests */,
 				8BEF092B23C3902700396B78 /* Products */,
 				8BF02D6423C39520006D154E /* Frameworks */,
 			);
@@ -380,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				8BF2DDDE25681A97005FF664 /* QApp.app */,
+				F5DAF6822A176BA500C0B140 /* SmartQA.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -422,6 +450,37 @@
 			path = QApp;
 			sourceTree = "<group>";
 		};
+		F5DAF6832A176BA500C0B140 /* SmartQA */ = {
+			isa = PBXGroup;
+			children = (
+				F5DAF6842A176BA500C0B140 /* AppDelegate.swift */,
+				F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */,
+				F5DAF6882A176BA500C0B140 /* ViewController.swift */,
+				F5DAF68A2A176BA500C0B140 /* Main.storyboard */,
+				F5DAF68D2A176BA600C0B140 /* Assets.xcassets */,
+				F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */,
+				F5DAF6922A176BA600C0B140 /* Info.plist */,
+			);
+			path = SmartQA;
+			sourceTree = "<group>";
+		};
+		F5DAF69A2A176BA700C0B140 /* SmartQATests */ = {
+			isa = PBXGroup;
+			children = (
+				F5DAF69B2A176BA700C0B140 /* SmartQATests.swift */,
+			);
+			path = SmartQATests;
+			sourceTree = "<group>";
+		};
+		F5DAF6A42A176BA700C0B140 /* SmartQAUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F5DAF6A52A176BA700C0B140 /* SmartQAUITests.swift */,
+				F5DAF6A72A176BA700C0B140 /* SmartQAUITestsLaunchTests.swift */,
+			);
+			path = SmartQAUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -443,18 +502,38 @@
 			productReference = 8BF2DDDE25681A97005FF664 /* QApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F5DAF6812A176BA500C0B140 /* SmartQA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5DAF6AF2A176BA700C0B140 /* Build configuration list for PBXNativeTarget "SmartQA" */;
+			buildPhases = (
+				F5DAF67E2A176BA500C0B140 /* Sources */,
+				F5DAF67F2A176BA500C0B140 /* Frameworks */,
+				F5DAF6802A176BA500C0B140 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartQA;
+			productName = SmartQA;
+			productReference = F5DAF6822A176BA500C0B140 /* SmartQA.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		8BEF092223C3902700396B78 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1300;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = FlagShip;
 				TargetAttributes = {
 					8BF2DDDD25681A97005FF664 = {
 						CreatedOnToolsVersion = 12.2;
+					};
+					F5DAF6812A176BA500C0B140 = {
+						CreatedOnToolsVersion = 14.3;
 					};
 				};
 			};
@@ -474,6 +553,7 @@
 			projectRoot = "";
 			targets = (
 				8BF2DDDD25681A97005FF664 /* QApp */,
+				F5DAF6812A176BA500C0B140 /* SmartQA */,
 			);
 		};
 /* End PBXProject section */
@@ -496,6 +576,16 @@
 				8B493A4627FF35B600DDAAB5 /* XNUILogListTableViewCell.xib in Resources */,
 				8BF2DDE825681A97005FF664 /* Main.storyboard in Resources */,
 				8B493A4927FF35B600DDAAB5 /* XNUISettingsCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5DAF6802A176BA500C0B140 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5DAF6912A176BA600C0B140 /* LaunchScreen.storyboard in Resources */,
+				F5DAF68E2A176BA600C0B140 /* Assets.xcassets in Resources */,
+				F5DAF68C2A176BA500C0B140 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +654,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F5DAF67E2A176BA500C0B140 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5DAF6892A176BA500C0B140 /* ViewController.swift in Sources */,
+				F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */,
+				F5DAF6872A176BA500C0B140 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -579,6 +679,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				8BF2DDEC25681A9C005FF664 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F5DAF68A2A176BA500C0B140 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5DAF68B2A176BA500C0B140 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5DAF6902A176BA600C0B140 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -709,9 +825,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = QApp/QApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development: apple@abtasty.com (NAFM8N8J2U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5RY8QCBAEP;
 				INFOPLIST_FILE = QApp/Info.plist;
@@ -723,7 +838,7 @@
 				MARKETING_VERSION = 3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.topChef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = TopChef;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -759,6 +874,68 @@
 			};
 			name = Release;
 		};
+		F5DAF6A92A176BA700C0B140 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartQA/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = smartQA.SmartQA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F5DAF6AA2A176BA700C0B140 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmartQA/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = smartQA.SmartQA;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -776,6 +953,15 @@
 			buildConfigurations = (
 				8BF2DDEF25681A9C005FF664 /* Debug */,
 				8BF2DDF025681A9C005FF664 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F5DAF6AF2A176BA700C0B140 /* Build configuration list for PBXNativeTarget "SmartQA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5DAF6A92A176BA700C0B140 /* Debug */,
+				F5DAF6AA2A176BA700C0B140 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

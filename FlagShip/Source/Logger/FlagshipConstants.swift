@@ -7,15 +7,14 @@
 
 import Foundation
 
-enum FSLogMessage:CustomStringConvertible {
-    
+enum FSLogMessage: CustomStringConvertible {
     /// INIT
-    case INIT_SDK(_ key :String)
+    case INIT_SDK(_ key: String)
     case ERROR_INIT_SDK
     case ID_NULL_OR_EMPTY
     
     /// Get Modification
-    case GET_MODIFICATION(_ key1 :String, _ key2: String)
+    case GET_MODIFICATION(_ key1: String, _ key2: String)
     case GET_MODIFICATION_PANIC
     case GET_MODIFICATION_NOT_READY
     
@@ -24,21 +23,19 @@ enum FSLogMessage:CustomStringConvertible {
     case GET_MODIFICATION_INFO_NOT_READY
     
     /// Update context
-    case UPDATE_CONTEXT_FAILED(_ key:String)
-    case UPDATE_PRE_CONTEXT_SUCCESS(_ key:String)
-    case UPDATE_PRE_CONTEXT_FAILED(_ key:String)
+    case UPDATE_CONTEXT_FAILED(_ key: String)
+    case UPDATE_PRE_CONTEXT_SUCCESS(_ key: String)
+    case UPDATE_PRE_CONTEXT_FAILED(_ key: String)
     case UPDATE_CONTEXT_PANIC
     case UPDATE_CONTEXT_NOT_READY
     case UPDATE_CONTEXT
-    
     
     /// Activate
     case ACTIVATE_NO_CONSENT
     case ACTIVATE_PANIC
     case ACTIVATE_NOT_READY
-    case ACTIVATE_SUCCESS(_ key:String)
+    case ACTIVATE_SUCCESS(_ key: String)
     case ACTIVATE_FAILED
-    
     
     /// Synchronize
     case SYNCHRONIZE_NOT_READY
@@ -50,20 +47,19 @@ enum FSLogMessage:CustomStringConvertible {
     case HIT_PANIC
     case HIT_NOT_READY
     
-    
     /// Authenticate
     case AUTHENTICATE_PANIC
     case UNAUTHENTICATE_PANIC
     
     /// Others
-    case ERROR_ON_READ_FLAG(_key : String)
+    case ERROR_ON_READ_FLAG(_key: String)
     case NOCACHE_SCRIPT
     case IGNORE_AUTHENTICATE
     case IGNORE_UNAUTHENTICATE
-    case GET_CAMPAIGN(_ key :String)
-    case GET_CAMPAIGN_URL(_ key :String)
-    case GET_CAMPAIGN_RESPONSE(_ key :String)
-    case GET_SCRIPT_RESPONSE(_ key:String)
+    case GET_CAMPAIGN(_ key: String)
+    case GET_CAMPAIGN_URL(_ key: String)
+    case GET_CAMPAIGN_RESPONSE(_ key: String)
+    case GET_SCRIPT_RESPONSE(_ key: String)
     case ERROR_ON_DECODE_JSON
     case BUCKETING_CODE_304
     case ERROR_ON_GET_SCRIPT
@@ -75,25 +71,19 @@ enum FSLogMessage:CustomStringConvertible {
     case TIMEOUT_CACHE_HIT
     case TIMEOUT_CACHE_VISITOR
 
-    
     /// Cache
     case ERROR_ON_STORE
     case ERROR_lOOKUP_CACHE
     case BUCKETING_EXISTING_FILE
-    case BUCKETING_EXISTING_VARIATION(_ key:String)
+    case BUCKETING_EXISTING_VARIATION(_ key: String)
     case ERROR_ON_READ_FILE
     case STORE_ACTIVATE
     case STORE_HIT
     
     /// Universal
-    case MESSAGE(_ key:String?)
-    
-    
-    
-
+    case MESSAGE(_ key: String?)
     
     var description: String {
-        
         var ret: String
         
         switch self {
@@ -106,14 +96,14 @@ enum FSLogMessage:CustomStringConvertible {
         case .ERROR_INIT_SDK:
             ret = "Flagship SDK NOT READY"
         case .ID_NULL_OR_EMPTY:
-            ret = "Identifier must not be null or empty. A UUID has been generated."
-        case .UPDATE_PRE_CONTEXT_FAILED( let key):
+            ret = "Identifier is empty an UUID has been generated."
+        case .UPDATE_PRE_CONTEXT_FAILED(let key):
             ret = "Skip updating the context with pre configured key \(key) ..... the value is not valid"
         case .UPDATE_PRE_CONTEXT_SUCCESS(let key):
             ret = "Update context with pre configured key: \(key)"
         case .ACTIVATE_NO_CONSENT:
             ret = "Flagship, the user is not consented to send the actiavte hit"
-        case.HIT_NO_CONSENT:
+        case .HIT_NO_CONSENT:
             ret = "Flagship, the user is not consented to send hit"
         case .UPDATE_CONTEXT_PANIC:
             ret = "Panic mode, the context is not updated"
@@ -146,7 +136,7 @@ enum FSLogMessage:CustomStringConvertible {
         case .HIT_NOT_READY:
             ret = "SDK not ready to send hit"
         case .ACTIVATE_SUCCESS(let key):
-            ret = "Activate sent with success.\(key)"
+            ret = "Exposure sent with success ==> \(key)"
         case .ACTIVATE_FAILED:
             ret = "Error on send activate"
         case .ERROR_ON_READ_FLAG(let key):
@@ -164,7 +154,7 @@ enum FSLogMessage:CustomStringConvertible {
         case .GET_CAMPAIGN_URL(let key):
             ret = "The url for the get campaign is \(key)"
         case .GET_CAMPAIGN_RESPONSE(let key):
-            ret = "The reponse for the get campaign is \(key)"
+            ret = "Response for fetch flags is \(key)"
         case .GET_SCRIPT_RESPONSE(let key):
             ret = "The script bucketing is \(key)"
         case .ERROR_ON_DECODE_JSON:
@@ -184,13 +174,13 @@ enum FSLogMessage:CustomStringConvertible {
         case .UPDATE_CONTEXT:
             ret = "Update context"
         case .ERROR_ON_STORE:
-            ret = "Error on store the object"
+            ret = "Error on cache"
         case .ERROR_lOOKUP_CACHE:
             ret = "Error on look up visitor cache"
         case .BUCKETING_EXISTING_FILE:
             ret = "The Buketing already exist Will Re check targeting for the selected variation"
         case .ERROR_ON_READ_FILE:
-            ret = "Error on retreive cached object"
+            ret = "No data visitor cached"
         case .BUCKETING_EXISTING_VARIATION(let key):
             ret = "Variation Group already exist, then return the saved variation \(key)"
         case .TIMEOUT_SEMEAPHORE_WAIT_POLLING:
@@ -206,5 +196,4 @@ enum FSLogMessage:CustomStringConvertible {
         }
         return ret
     }
-    
 }

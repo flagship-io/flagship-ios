@@ -6,168 +6,132 @@
 //  Copyright © 2020 FlagShip. All rights reserved.
 //
 
-import UIKit
 import Flagship
+import UIKit
 
-class FSHitViewController: UIViewController,UITextFieldDelegate {
-    
+class FSHitViewController: UIViewController, UITextFieldDelegate {
     /// Page
-    @IBOutlet weak var interfaceNameFiled: UITextField!
+    @IBOutlet var interfaceNameFiled: UITextField!
     
-    @IBOutlet weak var pageHitBtn: UIButton!
+    @IBOutlet var pageHitBtn: UIButton!
 
-    
     /// Event
-    @IBOutlet weak var eventAction: UITextField!
+    @IBOutlet var eventAction: UITextField!
     
-    @IBOutlet weak var typeEventSwitch: UISwitch!
+    @IBOutlet var typeEventSwitch: UISwitch!
     
-    @IBOutlet weak var eventHitBtn: UIButton!
+    @IBOutlet var eventHitBtn: UIButton!
     
-    @IBOutlet weak var labelSwitch: UILabel!
+    @IBOutlet var labelSwitch: UILabel!
     
-    @IBOutlet weak var eventValueField: UITextField!
+    @IBOutlet var eventValueField: UITextField!
 
-    
-    
     /// Transaction
     
-    @IBOutlet weak var transactiontHitBtn: UIButton!
+    @IBOutlet var transactiontHitBtn: UIButton!
     
-    @IBOutlet weak var idTransacField: UITextField!
+    @IBOutlet var idTransacField: UITextField!
     
-    @IBOutlet weak var affiliationField: UITextField!
+    @IBOutlet var affiliationField: UITextField!
     
-    @IBOutlet weak var revenueField: UITextField!
+    @IBOutlet var revenueField: UITextField!
     
-    @IBOutlet weak var shippingField: UITextField!
+    @IBOutlet var shippingField: UITextField!
     
-    @IBOutlet weak var taxField: UITextField!
+    @IBOutlet var taxField: UITextField!
     
-    @IBOutlet weak var currencyField: UITextField!
+    @IBOutlet var currencyField: UITextField!
     
-    @IBOutlet weak var couponCodeField: UITextField!
+    @IBOutlet var couponCodeField: UITextField!
     
-    @IBOutlet weak var paymentMethodField: UITextField!
+    @IBOutlet var paymentMethodField: UITextField!
     
-    @IBOutlet weak var shippingMethodField: UITextField!
+    @IBOutlet var shippingMethodField: UITextField!
     
-    @IBOutlet weak var itemCountField: UITextField!
+    @IBOutlet var itemCountField: UITextField!
     
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    
-     
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         // Do any additional setup after loading the view.
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
         
         /// Disable the buttons
-        pageHitBtn.isEnabled = false
-        eventHitBtn.isEnabled = false
-        transactiontHitBtn.isEnabled = false
+        //  pageHitBtn.isEnabled = false
+        // eventHitBtn.isEnabled = false
+        // transactiontHitBtn.isEnabled = false
         
         FSCTools.roundButton(pageHitBtn)
         FSCTools.roundButton(eventHitBtn)
         FSCTools.roundButton(transactiontHitBtn)
-
-
-        
     }
     
     // Hide KeyBoard
-    @objc func hideKeyBoard(){
-        
-        self.view.endEditing(true)
+    @objc func hideKeyBoard() {
+        view.endEditing(true)
     }
-    
     
     //// Send The hit page
-    @IBAction func onClickPageHit(){
-        
-        if let input = interfaceNameFiled!.text{
-            
-            if input.count > 2{
-                
-                Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage(input))
-                showPopUpMessage("Page name: \(input)")
-
-            }
+    @IBAction func onClickPageHit() {
+        if let input = interfaceNameFiled!.text {
+            Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen(input))
         }
+        
+        // Send Pageview
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage("https://nextjs-abtasty.vercel.app/"))
     }
     
-    
-    
     /// Send Event hit
-    
-    @IBAction func onClickEventHit(){
-        
-        if let input = eventAction!.text{
-            
-            if input.count > 2{
-                
-                let type:FSCategoryEvent = typeEventSwitch.isOn ? .Action_Tracking : .User_Engagement
-                let eventToSend = FSEvent(eventCategory:type, eventAction: input)
-                eventToSend.eventValue = UInt(eventValueField.text ?? "0")
-                Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
-                showPopUpMessage("Event name: \(input)")
-            }
+    @IBAction func onClickEventHit() {
+        if let input = eventAction!.text {
+            //  if input.count > 2 {
+            let type: FSCategoryEvent = typeEventSwitch.isOn ? .Action_Tracking : .User_Engagement
+            let eventToSend = FSEvent(eventCategory: type, eventAction: input)
+            eventToSend.eventValue = UInt(eventValueField.text ?? "0")
+            Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
+            showPopUpMessage("Event name: \(input)")
+            // }
         }
     }
     
     /// Send Transaction
     
-    @IBAction func onClickTransactionHit(){
-        
-        if let input = idTransacField!.text  {
-            
-            if let inputName = affiliationField!.text{
-                
-                let hitTransac = FSTransaction(transactionId:input, affiliation:inputName)
+    @IBAction func onClickTransactionHit() {
+        if let input = idTransacField!.text {
+            if let inputName = affiliationField!.text {
+                let hitTransac = FSTransaction(transactionId: input, affiliation: inputName)
                 
                 /// revenue
-                if let inputRevenue = revenueField!.text{
-                    
+                if let inputRevenue = revenueField!.text {
                     hitTransac.revenue = NSNumber(value: Int(String(format: "%@", inputRevenue)) ?? 0)
-
                 }
                 /// shipping
-                if let inputShipping = shippingField.text{
-                    
+                if let inputShipping = shippingField.text {
                     hitTransac.shipping = NSNumber(value: Int(String(format: "%@", inputShipping)) ?? 0)
-
                 }
                 /// tax
-                if let inputTax = taxField.text{
-                    
+                if let inputTax = taxField.text {
                     hitTransac.tax = NSNumber(value: Int(String(format: "%@", inputTax)) ?? 0)
                 }
                 /// currency
-                if let inputCurrency = currencyField.text{
-                    
+                if let inputCurrency = currencyField.text {
                     hitTransac.currency = inputCurrency
                 }
                 /// couponCode
-                if let inputCoupon = couponCodeField.text{
-                    
+                if let inputCoupon = couponCodeField.text {
                     hitTransac.couponCode = inputCoupon
                 }
                 /// paymentMethod
-                if let inputPay = paymentMethodField.text{
-                    
+                if let inputPay = paymentMethodField.text {
                     hitTransac.paymentMethod = inputPay
                 }
                 /// shippingMethod
-                if let inputShipMethode = shippingMethodField.text{
-                    
+                if let inputShipMethode = shippingMethodField.text {
                     hitTransac.shippingMethod = inputShipMethode
                 }
                 //// items
@@ -177,16 +141,21 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
                 /// Send hit transaction
                 Flagship.sharedInstance.sharedVisitor?.sendHit(hitTransac)
                 showPopUpMessage("Transaction name: \(inputName)")
-
             }
-            
-
         }
-
+        
+        // add item
+        
+        let t = FSItem(transactionId: "testId", name: "itemName", code: "codeItme")
+        
+        t.price = 12
+        t.quantity = 2
+        
+        Flagship.sharedInstance.sharedVisitor?.sendHit(t)
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage("pageView"))
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
         let currentText = textField.text ?? ""
 
         // attempt to read the range they are trying to change, or exit if we can't
@@ -195,63 +164,48 @@ class FSHitViewController: UIViewController,UITextFieldDelegate {
         // add their new text to the existing text
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-        
         if textField.tag == 111 {
-            
             if updatedText.count > 2 {
-                
                 pageHitBtn.isEnabled = true
-            }else{
+            } else {
                 pageHitBtn.isEnabled = false
             }
-        }else if textField.tag == 222{
-            
+        } else if textField.tag == 222 {
             if updatedText.count > 2 {
-                
                 eventHitBtn.isEnabled = true
-            }else{
+            } else {
                 eventHitBtn.isEnabled = false
             }
-        }else if (textField.tag == 333 ){
-            
+        } else if textField.tag == 333 {
             if updatedText.count > 2 {
-                
                 transactiontHitBtn.isEnabled = true
-            }else{
+            } else {
                 transactiontHitBtn.isEnabled = false
             }
         }
         
         /// if the tag is over 400 ===> only number field
         if textField.tag > 400 {
-            
             let allowedChar = CharacterSet(charactersIn: "0123456789").inverted
             
             return (string.rangeOfCharacter(from: allowedChar) == nil)
-                
         }
         
         return true
     }
     
-    
-    @IBAction func onChangeSwitch(){
-        
-    let typeString = typeEventSwitch.isOn ? FSCategoryEvent.Action_Tracking.categoryString :  FSCategoryEvent.User_Engagement.categoryString
+    @IBAction func onChangeSwitch() {
+        let typeString = typeEventSwitch.isOn ? FSCategoryEvent.Action_Tracking.categoryString : FSCategoryEvent.User_Engagement.categoryString
         
         DispatchQueue.main.async {
-            
             self.labelSwitch.text = typeString
         }
     }
     
-    
-    
-    private func showPopUpMessage(_ message:String){
-        let msg = String(format: "%@",message )
-        let alertCtrl = UIAlertController(title: "HIT", message:msg, preferredStyle: .alert)
-        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
-        self.present(alertCtrl, animated: true, completion: nil)
+    private func showPopUpMessage(_ message: String) {
+        let msg = String(format: "%@", message)
+        let alertCtrl = UIAlertController(title: "HIT", message: msg, preferredStyle: .alert)
+        alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertCtrl, animated: true, completion: nil)
     }
-
 }

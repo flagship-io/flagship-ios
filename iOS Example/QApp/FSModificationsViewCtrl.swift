@@ -87,7 +87,7 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
         FSCTools.roundButton(activateBtn)
         activateBtn?.isEnabled = false
         FSCTools.roundButton(getBtn)
-        getBtn?.isEnabled = false
+       // getBtn?.isEnabled = false
         FSCTools.roundButton(jsonViewBtn)
 
 

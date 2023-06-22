@@ -5,62 +5,43 @@
 //  Created by Adel on 02/09/2021.
 //
 
-
 internal class FSDecisionManager {
-    var userId:String
-    var networkService:FSService
-
+    var userId: String
+    var networkService: FSService
     
-    init(service:FSService, userId:String,currentContext:[String:Any]){
-        
+    // Assignation history - used for the bucketing mode
+    var assignationHistory: [String: String] = [:]
+    
+    init(service: FSService, userId: String, currentContext: [String: Any]) {
         self.userId = userId
-        networkService = service
+        self.networkService = service
     }
     
-    func getCampaigns(_ currentContext:[String:Any], withConsent:Bool,completion: @escaping (FSCampaigns?, Error?) -> Void){
-        
-    }
+    func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {}
     
-    
-    
-    /// Send activate via /activate
-    /// - Parameter activateInfos: Information relative to activate
-    func activate(_ activateInfos:[String:Any]){
-        
-        self.networkService.activate(activateInfos) { error in
-            
-            if(error != nil){
-                FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay:FSLogMessage.ACTIVATE_FAILED)
-            }else{
-                FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay:FSLogMessage.ACTIVATE_SUCCESS("\(activateInfos)"))
-            }
-            
-        }
-    }
+//    /// Send activate via /activate
+//    /// - Parameter activateInfos: Information relative to activate
+//    func activate(_ currentActivate: [String: Any]) {
+//        self.networkService.activate(currentActivate) { error in
+//            
+//            if error == nil {}
+//        }
+//    }
     
     /// private
-    internal func launchPolling(){
-        
-        
-    }
+    internal func launchPolling() {}
     
-    internal func stopPolling(){
-        
-        
-    }
+    internal func stopPolling() {}
 }
 
-
-class APIManager: FSDecisionManager  {
-    
-    override func getCampaigns(_ currentContext:[String:Any],withConsent:Bool, completion: @escaping (FSCampaigns?, Error?) -> Void){
-        
+class APIManager: FSDecisionManager {
+    override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
         /// Service get camapign
-        networkService.getCampaigns(currentContext,hasConsented:withConsent) { campaigns, error in
+        networkService.getCampaigns(currentContext, hasConsented: withConsent) { campaigns, error in
             
-            if (error == nil){
+            if error == nil {
                 completion(campaigns, nil)
-            }else{
+            } else {
                 completion(nil, error)
             }
         }

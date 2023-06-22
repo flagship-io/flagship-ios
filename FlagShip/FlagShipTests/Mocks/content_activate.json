@@ -1,0 +1,19 @@
+[
+   {
+        "data": {
+            "anonymousId": null,
+            "content": {
+                "caid": "chsrcv6e4nsic4ug2p0g",
+                "cid": "bkk9glocmjcg0vtmdlng",
+                "qt": 2,
+                "vaid": "chsrcv6e4nsic4ug2p10",
+                "vid": "alias"
+            },
+            "numberOfBytes": 137,
+            "time": 1686305187.4595509,
+            "type": "ACTIVATE",
+            "visitorId": "alias"
+        },
+        "version": 1
+    }
+]

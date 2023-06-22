@@ -10,7 +10,7 @@ import Foundation
 
 protocol FSPollingScriptDelegate{
     
-    func onGetScript(_ newBucketing:FSBucket?, _ error:FSError?)
+    func onGetScript(_ newBucketing:FSBucket?, _ error:FlagshipError?)
 }
 
 

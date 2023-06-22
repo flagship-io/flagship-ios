@@ -39,24 +39,24 @@ extension FSVisitor{
     }
     
     
-    /// _ Get relative information about the activation
-    /// if the key don't exist then will return nil
-    internal func getActivateInformation(_ key:String)-> [String:Any]?{
-        
-        if let aModification = self.currentFlags[key]{
-            
-            var infosTrack = ["vaid": aModification.variationId, "caid": aModification.variationGroupId,"vid":self.visitorId ]
-            
-            if let aId = self.anonymousId{
-                
-                infosTrack.updateValue(aId, forKey: "aid")
-            }
-            if let aEnvId = Flagship.sharedInstance.envId {
-                
-                infosTrack.updateValue(aEnvId, forKey: "cid")
-            }
-            return infosTrack
-        }
-        return nil
-    }
+//    /// _ Get relative information about the activation
+//    /// if the key don't exist then will return nil
+//    internal func getActivateInformation(_ key:String)-> [String:Any]?{
+//        
+//        if let aModification = self.currentFlags[key]{
+//            
+//            var infosTrack = ["vaid": aModification.variationId, "caid": aModification.variationGroupId,"vid":self.visitorId ]
+//            
+//            if let aId = self.anonymousId{
+//                
+//                infosTrack.updateValue(aId, forKey: "aid")
+//            }
+//            if let aEnvId = Flagship.sharedInstance.envId {
+//                
+//                infosTrack.updateValue(aEnvId, forKey: "cid")
+//            }
+//            return infosTrack
+//        }
+//        return nil
+//    }
 }
