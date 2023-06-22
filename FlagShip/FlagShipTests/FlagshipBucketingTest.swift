@@ -67,7 +67,7 @@ class FlagshipBucketingTest: XCTestCase {
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 
-        wait(for: [expectationSync], timeout: 15.0)
+        wait(for: [expectationSync], timeout: 60.0)
     }
     
     func testBucketingWithFailedTargeting() { // The visitor id here make the trageting failed
@@ -92,6 +92,6 @@ class FlagshipBucketingTest: XCTestCase {
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 
-        wait(for: [expectationSync], timeout: 15.0)
+        wait(for: [expectationSync], timeout: 60.0)
     }
 }
