@@ -18,18 +18,18 @@ jobs:
 
     steps:
     - name: Checkout Project
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
     - name: Building SDK for ${{ matrix.run-config['label'] }}
       run: xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme '${{ matrix.run-config['scheme'] }}'  -destination '${{ matrix.run-config['destination'] }}'
   Testing:
-     #needs: Build_SDK
+     needs: Build_SDK
      runs-on: macos-latest
      steps:
      - name: Checkout Project
-       uses: actions/checkout@v3
+       uses: actions/checkout@v2
      - name: Test SDK Flagship
        run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14" -enableCodeCoverage YES
-    - name: Upload coverage to codecov
-      uses: codecov/codecov-action@v2
-      with:
-       token: ${{secrets.CODECOV_TOKEN}}
+     - name: Upload coverage to codecov
+       uses: codecov/codecov-action@v2
+       with:
+        token: ${{secrets.CODECOV_TOKEN}}
