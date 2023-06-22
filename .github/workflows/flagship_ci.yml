@@ -22,7 +22,7 @@ jobs:
     - name: Building SDK for ${{ matrix.run-config['label'] }}
       run: xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme '${{ matrix.run-config['scheme'] }}'  -destination '${{ matrix.run-config['destination'] }}'
   Testing:
-     #needs: Build_SDK
+     needs: Build_SDK
      runs-on: macos-latest
      steps:
      - name: Checkout Project
