@@ -28,7 +28,7 @@ jobs:
      - name: Checkout Project
        uses: actions/checkout@v2
      - name: Test SDK Flagship
-       run: xcodebuild test -project Flagship/Flagship.xcodeproj -scheme 'Flagship'  -destination 'platform=iOS Simulator,name=iPhone 14'
+       run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14"
      - name: Update Code Coverage
        run: |
         bash <(curl -s https://codecov.io/bash)
