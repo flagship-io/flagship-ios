@@ -29,7 +29,6 @@ jobs:
        uses: actions/checkout@v3
      - name: Test SDK Flagship
        run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14" -enableCodeCoverage YES
-    steps:
     - uses: actions/checkout@master
     - uses: codecov/codecov-action@v3
       with:
