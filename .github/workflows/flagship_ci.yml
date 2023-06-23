@@ -26,10 +26,8 @@ jobs:
      runs-on: macos-latest
      steps:
      - name: Checkout Project
-       uses: actions/checkout@v2
+       uses: actions/checkout@v1
      - name: Test SDK Flagship
-       run: xcodebuild clean test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14" -enableCodeCoverage YES
-     - name: Upload coverage to codecov
-       uses: codecov/codecov-action@v2
-       with:
-        token: ${{secrets.CODECOV_TOKEN}}
+       run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "name=iPhone 14" -enableCodeCoverage YES
+     - name: Upload coverage to Codecov
+       uses: codecov/codecov-action@v1.2.1
