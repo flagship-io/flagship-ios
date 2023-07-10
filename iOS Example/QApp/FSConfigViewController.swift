@@ -43,6 +43,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         // Config mode button
         modeBtn?.setTitle("API", for: .normal)
         modeBtn?.setTitle(" BUCKETING ", for: .selected)
+        modeBtn?.isSelected = true
 
         FSCTools.roundButton(modeBtn)
         FSCTools.roundButton(startBtn)
@@ -101,7 +102,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40))
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withBucketingPollingIntervals(10)
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
@@ -137,7 +138,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
 
-        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true, "country": "FR", "condition1": "val1", "semKey1": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {
@@ -212,7 +213,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             .DecisionApi()
             .withCacheManager(customCacheManager)
             .build())
-        
+
         Flagship.sharedInstance.close()
     }
 }

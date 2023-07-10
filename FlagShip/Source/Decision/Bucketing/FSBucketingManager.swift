@@ -26,6 +26,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
         set {
             fsQueue.async(flags: .barrier) {
+                print(" la taille du targeting est \(newValue?.campaigns.last?.variationGroups.last?.targeting?.targetingGroups.last?.targetings.count)")
                 self._scriptBucket = newValue
             }
         }
@@ -58,8 +59,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     }
 
     override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
-        
-        self.assignationHistory = pAssignationHistory
+        assignationHistory = pAssignationHistory
         DispatchQueue.main.async {
             /// Set the context before running the bucket algorithm
             self.targetManager.currentContext = currentContext
@@ -170,7 +170,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
     internal func selectVariationWithHashMurMur(_ visitorId: String, _ variationGroup: FSVariationGroup) -> String? {
         // Before selected varaition have to check user id exist
-        if !assignationHistory.isEmpty  {
+        if !assignationHistory.isEmpty {
             FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_FILE)
 
             for itemKey in assignationHistory.keys {

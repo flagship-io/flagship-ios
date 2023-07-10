@@ -77,6 +77,7 @@
 		8BF2DE07256C0B7E005FF664 /* FSUserViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */; };
 		8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */; };
 		8BF2DE42256F996A005FF664 /* FSContextViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */; };
+		F5584EC72A53216A005828E5 /* fake_response.json in Resources */ = {isa = PBXBuildFile; fileRef = F5584EC62A53216A005828E5 /* fake_response.json */; };
 		F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6842A176BA500C0B140 /* AppDelegate.swift */; };
 		F5DAF6872A176BA500C0B140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */; };
 		F5DAF6892A176BA500C0B140 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6882A176BA500C0B140 /* ViewController.swift */; };
@@ -178,6 +179,7 @@
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModificationsViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
+		F5584EC62A53216A005828E5 /* fake_response.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fake_response.json; sourceTree = "<group>"; };
 		F5DAF6822A176BA500C0B140 /* SmartQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DAF6842A176BA500C0B140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 		8BEF092123C3902700396B78 = {
 			isa = PBXGroup;
 			children = (
+				F5584EC62A53216A005828E5 /* fake_response.json */,
 				8BF2DDDF25681A97005FF664 /* QApp */,
 				F5DAF6832A176BA500C0B140 /* SmartQA */,
 				F5DAF69A2A176BA700C0B140 /* SmartQATests */,
@@ -566,6 +569,7 @@
 				8B493A3627FF35B600DDAAB5 /* XNUIResponseFullScreenVC.xib in Resources */,
 				8B493A4327FF35B600DDAAB5 /* XNUIMain.storyboard in Resources */,
 				8B493A4227FF35B600DDAAB5 /* XNUILogDetailHeaderCell.xib in Resources */,
+				F5584EC72A53216A005828E5 /* fake_response.json in Resources */,
 				8B493A3D27FF35B600DDAAB5 /* XNUILogDetailCell.xib in Resources */,
 				8B493A3F27FF35B600DDAAB5 /* XNUILogDetailView.xib in Resources */,
 				8B493A4427FF35B600DDAAB5 /* Media.xcassets in Resources */,
@@ -828,7 +832,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = QApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

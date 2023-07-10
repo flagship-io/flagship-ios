@@ -40,11 +40,11 @@ class FSTargetingManagerTest: XCTestCase {
 
     func testCheckCondition() {
 
-        XCTAssertTrue(targetingManager.checkCondition(12, .EQUAL, 12))
-        XCTAssertFalse(targetingManager.checkCondition(12, .EQUAL, 121))
+        XCTAssertTrue(targetingManager.checkCondition(12, .EQUALS, 12))
+        XCTAssertFalse(targetingManager.checkCondition(12, .EQUALS, 121))
 
-        XCTAssertTrue(targetingManager.checkCondition("aaaa", .EQUAL, "aaaa"))
-        XCTAssertFalse(targetingManager.checkCondition("aaaa", .EQUAL, "aaaav"))
+        XCTAssertTrue(targetingManager.checkCondition("aaaa", .EQUALS, "aaaa"))
+        XCTAssertFalse(targetingManager.checkCondition("aaaa", .EQUALS, "aaaav"))
 
         XCTAssertTrue(targetingManager.isGreatherThan(type: Int.self, a: 13, b: 12))
         XCTAssertFalse(targetingManager.isGreatherThan(type: Int.self, a: 10, b: 12))
@@ -92,7 +92,7 @@ class FSTargetingManagerTest: XCTestCase {
             let retObjbis = targetingManager.checkCondition(NSData(), itemOperator, NSDate())
 
             switch itemOperator {
-            case .EQUAL:
+            case .EQUALS:
                 XCTAssertTrue(ret)
                 XCTAssertTrue(retBis)
                 XCTAssertFalse(retTer)
@@ -122,7 +122,7 @@ class FSTargetingManagerTest: XCTestCase {
                 XCTAssertTrue(retDoubleBis)
 
                 break
-            case .NOT_EQUAL:
+            case .NOT_EQUALS:
                 XCTAssertFalse(ret)
                 XCTAssertFalse(retBis)
                 XCTAssertTrue(retTer)

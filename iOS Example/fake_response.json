@@ -1,0 +1,70 @@
+{
+  "campaigns": [
+    {
+      "id": "cicqtrvo093iea8sr4eg",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cicqtrvo093iea8sr4fg",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "EQUALS",
+                    "key": "condition1",
+                    "value": "val1"
+                  },
+                  {
+                    "operator": "EQUALS",
+                    "key": "country",
+                    "value": "FR"
+                  },
+                  {
+                      "operator": "SEMVER_EQUALS",
+                      "key"     : "semKey1",
+                      "value"   : "1.2.0"
+                  },
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cicqtrvo093iea8sr4g0",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagKey1": "original"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cicqtrvo093iea8sr4gg",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagKey1": "semVer"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    }
+  ],
+  "accountSettings": {
+    "enabledXPC": true
+  }
+}

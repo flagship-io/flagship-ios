@@ -277,6 +277,14 @@
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
 		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
 		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
+		F5584EC92A54179E005828E5 /* FSTargeting+semVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */; };
+		F5584ECA2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */; };
+		F5584ECB2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */; };
+		F5584ECC2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */; };
+		F5584ECE2A54E730005828E5 /* Semver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584ECD2A54E730005828E5 /* Semver.swift */; };
+		F5584ECF2A54E730005828E5 /* Semver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584ECD2A54E730005828E5 /* Semver.swift */; };
+		F5584ED02A54E730005828E5 /* Semver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584ECD2A54E730005828E5 /* Semver.swift */; };
+		F5584ED12A54E730005828E5 /* Semver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5584ECD2A54E730005828E5 /* Semver.swift */; };
 		F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */; };
 		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
@@ -414,6 +422,8 @@
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
+		F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSTargeting+semVer.swift"; sourceTree = "<group>"; };
+		F5584ECD2A54E730005828E5 /* Semver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semver.swift; sourceTree = "<group>"; };
 		F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipPoolQueueTest.swift; sourceTree = "<group>"; };
 		F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatchManagerTest.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
@@ -642,9 +652,11 @@
 		8B67369127FEBE4C003EC960 /* Bucketing */ = {
 			isa = PBXGroup;
 			children = (
+				F5584ECD2A54E730005828E5 /* Semver.swift */,
 				8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */,
 				8B67369327FEBE4C003EC960 /* FSPollingScript.swift */,
 				8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */,
+				F5584EC82A54179E005828E5 /* FSTargeting+semVer.swift */,
 			);
 			path = Bucketing;
 			sourceTree = "<group>";
@@ -1061,6 +1073,7 @@
 				8B2D513C2805D43C00866D61 /* FlagShipVersion.swift in Sources */,
 				8B2D513D2805D43C00866D61 /* Flagship.swift in Sources */,
 				8B2D513E2805D43C00866D61 /* FSVisitor+Reconcilliation.swift in Sources */,
+				F5584ECF2A54E730005828E5 /* Semver.swift in Sources */,
 				F5DAF67B2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */,
 				8B2D513F2805D43C00866D61 /* FSFlag.swift in Sources */,
 				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
@@ -1082,6 +1095,7 @@
 				8B2D514C2805D43C00866D61 /* FSModification.swift in Sources */,
 				8B2D514D2805D43C00866D61 /* FSCampaign.swift in Sources */,
 				F5DAF6762A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
+				F5584ECA2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */,
 				8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */,
 				8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */,
 				8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */,
@@ -1158,6 +1172,7 @@
 				8B9F2A8B2809B8E600323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2A8C2809B8E600323094 /* Flagship.swift in Sources */,
 				8B9F2A8D2809B8E600323094 /* FSVisitor+Reconcilliation.swift in Sources */,
+				F5584ED02A54E730005828E5 /* Semver.swift in Sources */,
 				F5DAF67C2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */,
 				8B9F2A8E2809B8E600323094 /* FSFlag.swift in Sources */,
 				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
@@ -1179,6 +1194,7 @@
 				8B9F2A9B2809B8E600323094 /* FSModification.swift in Sources */,
 				8B9F2A9C2809B8E600323094 /* FSCampaign.swift in Sources */,
 				F5DAF6772A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
+				F5584ECB2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */,
 				8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */,
 				8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */,
 				8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */,
@@ -1229,6 +1245,7 @@
 				8B9F2ACA2809BA8200323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2ACB2809BA8200323094 /* Flagship.swift in Sources */,
 				8B9F2ACC2809BA8200323094 /* FSVisitor+Reconcilliation.swift in Sources */,
+				F5584ED12A54E730005828E5 /* Semver.swift in Sources */,
 				F5DAF67D2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */,
 				8B9F2ACD2809BA8200323094 /* FSFlag.swift in Sources */,
 				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
@@ -1250,6 +1267,7 @@
 				8B9F2ADA2809BA8200323094 /* FSModification.swift in Sources */,
 				8B9F2ADB2809BA8200323094 /* FSCampaign.swift in Sources */,
 				F5DAF6782A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
+				F5584ECC2A54179E005828E5 /* FSTargeting+semVer.swift in Sources */,
 				8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */,
 				8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */,
 				8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */,
@@ -1300,6 +1318,7 @@
 				8B6736A427FED3E5003EC960 /* FlagShipVersion.swift in Sources */,
 				8B6736A527FED3E5003EC960 /* Flagship.swift in Sources */,
 				8B6736A627FED3E5003EC960 /* FSVisitor+Reconcilliation.swift in Sources */,
+				F5584ECE2A54E730005828E5 /* Semver.swift in Sources */,
 				F5DAF67A2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */,
 				8B6736A727FED3E5003EC960 /* FSFlag.swift in Sources */,
 				8B6736A827FED3E5003EC960 /* FSVisitorBuilder.swift in Sources */,
@@ -1321,6 +1340,7 @@
 				8B6736B427FED3E5003EC960 /* FSModification.swift in Sources */,
 				8B6736B527FED3E5003EC960 /* FSCampaign.swift in Sources */,
 				F5DAF6752A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
+				F5584EC92A54179E005828E5 /* FSTargeting+semVer.swift in Sources */,
 				8B6736B627FED3E5003EC960 /* FSContext.swift in Sources */,
 				8B6736B727FED3E5003EC960 /* FSTargets.swift in Sources */,
 				8B6736B827FED3E5003EC960 /* FSTracking.swift in Sources */,
