@@ -27,7 +27,7 @@ public enum FSMode: Int {
     var trackingConfig: FSTrackingManagerConfig
     
     /// Cache Manager
-    var cacheManger: FSCacheManager
+    var cacheManager: FSCacheManager
 
     internal init(_ mode: FSMode = .DECISION_API,
                   _ timeOut: TimeInterval = FSTimeoutRequestApi,
@@ -41,7 +41,7 @@ public enum FSMode: Int {
         self.timeout = timeOut
         self.logLevel = logLevel
         self.pollingTime = pollingTime
-        self.cacheManger = cacheManager
+        self.cacheManager = cacheManager
         self.onStatusChanged = onStatusChanged
         self.trackingConfig = trackingConfig
     }
