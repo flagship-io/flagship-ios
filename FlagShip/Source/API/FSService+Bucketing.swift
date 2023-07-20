@@ -14,8 +14,8 @@ let FS_If_ModifiedSince = "If-Modified-Since"
 extension FSService {
     func getFSScript(onGetScript: @escaping (FSBucket?, FlagshipError?) -> Void) {
         print("============  FAKE DATA LOADED FOR BUCKET MODE - SEMVER ===================")
-        do {
-            guard let path = Bundle.main.url(forResource: "fake_response", withExtension: "json") else {
+        do { // QASemver
+            guard let path = Bundle.main.url(forResource: "QASemver", withExtension: "json") else {
                 onGetScript(nil, FlagshipError(message: "Error to load fake data", type: .internalError, code: 400))
                 return
             }

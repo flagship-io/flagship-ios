@@ -1,0 +1,439 @@
+{
+  "campaigns": [
+    {
+      "id": "ciqmih0pf6126ln0iocg",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "ciqmih0pf6126ln0iodg",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_EQUALS",
+                    "key": "semkey",
+                    "value":
+                    [
+                      "1.2.0",
+                      "1.2.1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "ciqmih0pf6126ln0ioe0",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagEqual": "EQUAL1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "ciqmih0pf6126ln0ioeg",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagEqual": "EQUAL2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_NOT_EQUALS",
+                    "key": "semkey",
+                        "value":
+                    [
+                      "0.2.0",
+                      "0.2.1"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagNotEqual": "NOT_EQUALS1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagNotEqual": "NOT_EQUALS2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+       {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_GREATER_THAN",
+                    "key": "semkey",
+                    "value": "5.9.0"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagGT": "GREATER_THAN1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagGT": "GREATER_THAN2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+{
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_LOWER_THAN",
+                    "key": "semkey",
+                    "value": "0.0.5"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagLT": "LOWER_THAN1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagLT": "LOWER_THAN2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_GREATER_THAN_OR_EQUALS",
+                    "key": "semkey",
+                    "value": "6.0.0"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagGTOE": "GREATER_THAN_OR_EQUALS1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagGTOE": "GREATER_THAN_OR_EQUALS2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "SEMVER_LOWER_THAN_OR_EQUALS",
+                    "key": "semkey",
+                    "value": "1.0.0"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagLTOE": "LOWER_THAN_OR_EQUALS1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagLTOE": "LOWER_THAN_OR_EQUALS1"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "CONTAINS",
+                    "key": "semkey",
+                    "value": "4.2.0"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagContain": "CONTAIN1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagContain": "CONTAIN2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cio1mqbf44p04orm365g",
+      "type": "ab",
+      "variationGroups": [
+        {
+          "id": "cio1mqbf44p04orm366g",
+          "targeting": {
+            "targetingGroups": [
+              {
+                "targetings": [
+                  {
+                    "operator": "NOT_CONTAINS",
+                    "key": "semkey",
+                    "value": "8.2.0"
+                  }
+                ]
+              }
+            ]
+          },
+          "variations": [
+            {
+              "id": "cio1mqbf44p04orm3670",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagNotContain": "NOT_CONTAIN1"
+                }
+              },
+              "allocation": 50,
+              "reference": true
+            },
+            {
+              "id": "cio1mqbf44p04orm367g",
+              "modifications": {
+                "type": "FLAG",
+                "value": {
+                  "flagNotContain": "NOT_CONTAIN2"
+                }
+              },
+              "allocation": 50
+            }
+          ]
+        }
+      ],
+      "bucketRanges": [
+        {
+          "r": [
+            0,
+            100
+          ]
+        }
+      ]
+    }
+    
+    
+]
+}
+

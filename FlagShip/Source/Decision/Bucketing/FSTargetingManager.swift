@@ -1,5 +1,5 @@
 //
-//  FSTargetingManager.swift
+//
 //  FlagShip-framework
 //
 //  Created by Adel on 21/11/2019.

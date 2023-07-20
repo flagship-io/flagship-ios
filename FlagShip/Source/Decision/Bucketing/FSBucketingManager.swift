@@ -26,7 +26,6 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
         set {
             fsQueue.async(flags: .barrier) {
-                print(" la taille du targeting est \(newValue?.campaigns.last?.variationGroups.last?.targeting?.targetingGroups.last?.targetings.count)")
                 self._scriptBucket = newValue
             }
         }

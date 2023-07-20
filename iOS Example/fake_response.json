@@ -1,37 +1,73 @@
 {
   "campaigns": [
     {
-      "id": "cicqtrvo093iea8sr4eg",
+      "id": "cije6amfpat1qpo6v3f0",
       "type": "ab",
       "variationGroups": [
         {
-          "id": "cicqtrvo093iea8sr4fg",
+          "id": "cije6amfpat1qpo6v3g0",
           "targeting": {
             "targetingGroups": [
               {
                 "targetings": [
                   {
                     "operator": "EQUALS",
-                    "key": "condition1",
-                    "value": "val1"
+                    "key": "semkey1",
+                    "value": "1.2.0"
+                  },
+                  {
+                    "operator": "SEMVER_NOT_EQUALS",
+                    "key": "semkey2",
+                    "value": "5.3.0"
+                  },
+                  {
+                    "operator": "SEMVER_GREATER_THAN",
+                    "key": "semkey3",
+                    "value": "1.1.0"
+                  },
+                  {
+                    "operator": "SEMVER_LOWER_THAN",
+                    "key": "semkey4",
+                    "value": "4.0.0"
+                  },
+                  {
+                    "operator": "SEMVER_GREATER_THAN_OR_EQUALS",
+                    "key": "semkey5",
+                    "value": "1.2.0"
+                  },
+                  {
+                    "operator": "SEMVER_LOWER_THAN_OR_EQUALS",
+                    "key": "semkey6",
+                    "value": "1.5.0"
+                  },
+                  {
+                    "operator": "EQUALS",
+                    "key": "semkey7",
+                    "value": [
+                      "1.2.0",
+                      "1.2.1"
+                    ]
+                  },
+                  {
+                    "operator": "NOT_EQUALS",
+                    "key": "semkey8",
+                    "value": [
+                      "5.3.0",
+                      "6.0.0"
+                    ]
                   },
                   {
                     "operator": "EQUALS",
                     "key": "country",
                     "value": "FR"
-                  },
-                  {
-                      "operator": "SEMVER_EQUALS",
-                      "key"     : "semKey1",
-                      "value"   : "1.2.0"
-                  },
+                  }
                 ]
               }
             ]
           },
           "variations": [
             {
-              "id": "cicqtrvo093iea8sr4g0",
+              "id": "cije6amfpat1qpo6v3gg",
               "modifications": {
                 "type": "FLAG",
                 "value": {
@@ -42,11 +78,11 @@
               "reference": true
             },
             {
-              "id": "cicqtrvo093iea8sr4gg",
+              "id": "cije6amfpat1qpo6v3h0",
               "modifications": {
                 "type": "FLAG",
                 "value": {
-                  "flagKey1": "semVer"
+                  "flagKey1": "semantic"
                 }
               },
               "allocation": 50
