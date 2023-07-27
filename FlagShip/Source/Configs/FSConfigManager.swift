@@ -13,7 +13,7 @@ internal class FSConfigManager {
     
     var flagshipConfig: FlagshipConfig
     
-    var trackingManger: FSTrackingManager?
+    var trackingManager: FSTrackingManager?
     
     var decisionManager: FSDecisionManager?
     
@@ -43,11 +43,11 @@ internal class FSConfigManager {
         switch config.trackingConfig.strategy {
     
         case .CONTINUOUS_CACHING:
-            self.trackingManger = ContinuousTrackingManager(service, config.trackingConfig, config.cacheManger)
+            self.trackingManager = ContinuousTrackingManager(service, config.trackingConfig, config.cacheManager)
         case .PERIODIC_CACHING:
-            self.trackingManger = PeriodicTrackingManager(service, config.trackingConfig, config.cacheManger)
+            self.trackingManager = PeriodicTrackingManager(service, config.trackingConfig, config.cacheManager)
         case .NO_CACHING_STRATEGY:
-            self.trackingManger = FSTrackingManager(service, config.trackingConfig, config.cacheManger)
+            self.trackingManager = FSTrackingManager(service, config.trackingConfig, config.cacheManager)
         }        
         /// Check the connectivity
         FSTools().checkConnectevity()

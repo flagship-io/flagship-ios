@@ -19,7 +19,7 @@ class FSNoConsentStrategy: FSDefaultStrategy {
         case .CONSENT:
             hit.visitorId = visitor.visitorId
             hit.anonymousId = visitor.anonymousId
-            visitor.configManager.trackingManger?.sendHit(hit)
+            visitor.configManager.trackingManager?.sendHit(hit)
         default:
             FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
         }

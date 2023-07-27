@@ -59,7 +59,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
 //            if let aEnvId = shared.envId {
 //                infosTrack.updateValue(aEnvId, forKey: "cid")
 //            }
-            visitor.configManager.trackingManger?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
+            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
         }
     }
     
@@ -72,7 +72,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     Flagship.sharedInstance.currentStatus = .PANIC_ON
                     self.visitor.currentFlags.removeAll()
                     // Stop the process batching when the panic mode is ON
-                    self.visitor.configManager.trackingManger?.stopBatchingProcess()
+                    self.visitor.configManager.trackingManager?.stopBatchingProcess()
                     onSyncCompleted(.PANIC_ON)
                     
                 } else {
@@ -80,7 +80,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.updateFlags(campaigns?.getAllModification())
                     Flagship.sharedInstance.currentStatus = .READY
                     // Resume the process batching when the panic mode is OFF
-                    self.visitor.configManager.trackingManger?.resumeBatchingProcess()
+                    self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     onSyncCompleted(.READY)
                 }
             } else {
@@ -123,7 +123,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         // Set the visitor Id and anonymous id  (See later to better )
         hit.visitorId = visitor.visitorId
         hit.anonymousId = visitor.anonymousId
-        visitor.configManager.trackingManger?.sendHit(hit)
+        visitor.configManager.trackingManager?.sendHit(hit)
     }
     
     /// _ Set Consent
@@ -163,14 +163,14 @@ class FSDefaultStrategy: FSDelegateStrategy {
     func cacheVisitor() {
         DispatchQueue.main.async {
             /// Before replacing the oldest visitor cache we should keep the oldest variation
-            self.visitor.configManager.flagshipConfig.cacheManger.cacheVisitor(self.visitor)
+            self.visitor.configManager.flagshipConfig.cacheManager.cacheVisitor(self.visitor)
         }
     }
     
     /// _ Lookup visitor
     func lookupVisitor() {
         /// Read the visitor cache from storage
-        visitor.configManager.flagshipConfig.cacheManger.lookupVisitorCache(visitoId: visitor.visitorId) { error, cachedVisitor in
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitor.visitorId) { error, cachedVisitor in
             
             if error == nil {
                 if let aCachedVisitor = cachedVisitor {
@@ -188,15 +188,15 @@ class FSDefaultStrategy: FSDelegateStrategy {
     /// _ Flush visitor
     func flushVisitor() {
         /// Flush the visitor
-        visitor.configManager.flagshipConfig.cacheManger.flushVisitor(visitor.visitorId)
+        visitor.configManager.flagshipConfig.cacheManager.flushVisitor(visitor.visitorId)
     }
     
     /// _ Lookup all hit relative to visitor
     func lookupHits() {
-        visitor.configManager.trackingManger?.cacheManager?.lookupHits(onCompletion: { error, remainedHits in
+        visitor.configManager.trackingManager?.cacheManager?.lookupHits(onCompletion: { error, remainedHits in
             
             if error == nil {
-                self.visitor.configManager.trackingManger?.addTrackingElementsToBatch(remainedHits ?? [])
+                self.visitor.configManager.trackingManager?.addTrackingElementsToBatch(remainedHits ?? [])
                 
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to lookup hit"))
@@ -208,7 +208,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     func flushHits() {
         // Purge data event
         DispatchQueue(label: "flagShip.FlushStoredEvents.queue").async(execute: DispatchWorkItem {
-            self.visitor.configManager.trackingManger?.flushTrackAndKeepConsent(self.visitor.visitorId)
+            self.visitor.configManager.trackingManager?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
 }
