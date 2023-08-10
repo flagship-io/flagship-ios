@@ -53,9 +53,8 @@ public class FSFlag:NSObject {
             
             /// The activate can be activated event whatever the type if the flag's value is nil
             if (flagModification.value is NSNull || self.isSameType(flagModification.value)){
-                
                 /// Activate the flag
-                strategy?.getStrategy().activate(self.key)
+                strategy?.getStrategy().activateFlag(self)
             }else{
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .ACTIVATE_FAILED)
             }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 public let FSTimeoutRequestApi = 2.0
 
 public let FSPollingTime = 60.0 /// 60 seconds
@@ -25,7 +26,8 @@ public enum FSMode: Int {
     var pollingTime: TimeInterval = FSPollingTime
     var onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
     var trackingConfig: FSTrackingManagerConfig
-    
+    var onVisitorExposed:((VisitorExposed, ExposedFlag)-> Void)? = nil
+
     /// Cache Manager
     var cacheManager: FSCacheManager
 
@@ -35,7 +37,7 @@ public enum FSMode: Int {
                   pollingTime: TimeInterval = FSPollingTime,
                   cacheManager: FSCacheManager,
                   _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
-                  _ trackingConfig: FSTrackingManagerConfig)
+                  _ trackingConfig: FSTrackingManagerConfig, _ onVisitorExposed: ((VisitorExposed, ExposedFlag)-> Void)? = nil)
     {
         self.mode = mode
         self.timeout = timeOut
@@ -44,6 +46,7 @@ public enum FSMode: Int {
         self.cacheManager = cacheManager
         self.onStatusChanged = onStatusChanged
         self.trackingConfig = trackingConfig
+        self.onVisitorExposed = onVisitorExposed
     }
 }
 
@@ -75,6 +78,9 @@ public enum FSMode: Int {
     /// Tracking Config
     public private(set) var _trackingConfig: FSTrackingManagerConfig
     
+    /// On visitor Exposure
+    public private(set) var _onVisitorExposure: ((VisitorExposed, ExposedFlag)-> Void)? = nil
+
     /// _ With
     
     /// Decision Mode
@@ -126,7 +132,13 @@ public enum FSMode: Int {
         return self
     }
     
+    /// Visitor Exposed
+    @objc public func withOnVisitorExposed(_ onVisitorExposed: ((VisitorExposed, ExposedFlag)-> Void)?)->FSConfigBuilder {
+        _onVisitorExposure = onVisitorExposed
+        return self
+    }
+    
     @objc public func build()->FlagshipConfig {
-        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged, _trackingConfig)
+        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged, _trackingConfig, _onVisitorExposure)
     }
 }
