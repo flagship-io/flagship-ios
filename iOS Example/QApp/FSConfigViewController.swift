@@ -102,8 +102,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 }
             }
         }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withOnVisitorExposed { v, e in
-            
-            print("----------I am inside the callback for onVisitor exposed --------")
+
+            print("----------- onVisitor Exposed----------")
+            do {
+                print( try JSONSerialization.data(withJSONObject: v.toJson() as Any, options: .prettyPrinted).prettyPrintedJSONString)
+                print( try JSONSerialization.data(withJSONObject: e.toJson() as Any, options: .prettyPrinted).prettyPrintedJSONString)
+                print("----------- onVisitor Exposed----------")
+            }catch{
+                
+            }
         }
 
         if mode == .DECISION_API {

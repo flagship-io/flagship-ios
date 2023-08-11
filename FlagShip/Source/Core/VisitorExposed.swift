@@ -9,15 +9,25 @@
 import UIKit
 
 public class VisitorExposed: NSObject {
-    public var id: String
-    public var anonymousId: String?
-    public var context: [String: Any] = [:]
-    
-    
-    
-    init(id: String, anonymousId: String? = nil, context: [String : Any]) {
+    public private(set) var id: String
+    public private(set) var anonymousId: String?
+    public private(set) var context: [String: Any] = [:]
+
+    init(id: String, anonymousId: String? = nil, context: [String: Any]) {
         self.id = id
         self.anonymousId = anonymousId
         self.context = context
+    }
+
+    public func toJson() -> [String: Any] {
+        var result: [String: Any] = [
+            "id": id,
+            "context": context
+        ]
+
+        if let aAnonymousId = anonymousId {
+            result.updateValue(aAnonymousId, forKey: "anonymousId")
+        }
+        return result
     }
 }
