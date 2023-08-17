@@ -101,16 +101,10 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withOnVisitorExposed { v, e in
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withOnVisitorExposed { fromFlag, visitorExposed in
 
-            print("----------- onVisitor Exposed----------")
-            do {
-                print( try JSONSerialization.data(withJSONObject: v.toJson() as Any, options: .prettyPrinted).prettyPrintedJSONString)
-                print( try JSONSerialization.data(withJSONObject: e.toJson() as Any, options: .prettyPrinted).prettyPrintedJSONString)
-                print("----------- onVisitor Exposed----------")
-            }catch{
-                
-            }
+            print(fromFlag.toJson() ?? "")
+            print(visitorExposed.toJson() ?? "")
         }
 
         if mode == .DECISION_API {

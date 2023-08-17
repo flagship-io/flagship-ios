@@ -176,7 +176,7 @@ import Foundation
     
     /// Activate tell to report that a visitor has seen a campaign
     /// - Parameter key: Modification identifier, represent flag's name
-    @available(*, deprecated, message: "Use getFlag(\"my_flag\").userExposed()")
+    @available(*, deprecated, message: "Use getFlag(\"my_flag\").visitorExposed()")
     public func activate(_ key: String) {
         self.strategy?.getStrategy().activate(key)
     }
@@ -221,20 +221,6 @@ import Foundation
     ///            //
     /////////////////
     
-//    /// Check this part when test XPC
-//    internal func createTupleId() -> [String: String] {
-//        var tupleId = [String: String]()
-//
-//        if self.anonymousId != nil /* && self.visitorId != nil */ {
-//            // envoyer: cuid = visitorId, et vid=anonymousId
-//            tupleId.updateValue(self.visitorId, forKey: "cuid") //// rename it
-//            tupleId.updateValue(self.anonymousId ?? "", forKey: "vid") //// rename it
-//        } else /* if self.visitorId != nil*/ {
-//            // Si visitorid défini mais pas anonymousId, cuid pas envoyé, vid = visitorId
-//            tupleId.updateValue(self.visitorId, forKey: "vid") //// rename it
-//        }
-//        return tupleId
-//    }
     
     /// Send Hit consent
     internal func sendHitConsent(_ hasConsented: Bool) {

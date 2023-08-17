@@ -19,7 +19,7 @@ protocol IFlag {
     var metadata: FSFlagMetadata { get set }
 }
 
-public class ExposedFlag: NSObject, IFlag {
+public class FSExposedFlag: NSObject, IFlag {
     // Key for flag
     public internal(set) var key: String
 
@@ -39,7 +39,10 @@ public class ExposedFlag: NSObject, IFlag {
         self.value = value
     }
 
-    public func toJson() -> [String: Any] {
+    
+    /// Dictionary that represent the Exposed Flag
+    /// - Returns: [String: Any]
+    public func toDicotionary() -> [String: Any] {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -54,5 +57,28 @@ public class ExposedFlag: NSObject, IFlag {
         }
 
         return result
+    }
+
+    
+    /// String that represent a json for the Exposed Flag
+    /// - Returns: NSString ?
+    public func toJson() -> NSString? {
+        var result: [String: Any] = [
+            "key": key,
+            "metadata": metadata.toJson()
+        ]
+
+        if let aDefaultValue = defaultValue {
+            result.updateValue(aDefaultValue, forKey: "defaultValue")
+        }
+
+        if let aValue = value {
+            result.updateValue(aValue, forKey: "value")
+        }
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
+            return nil
+        }
+        return jsonData.prettyPrintedJSONString
     }
 }

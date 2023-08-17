@@ -1070,7 +1070,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="931"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l3M-FZ-hue">
-                                        <rect key="frame" x="4" y="1" width="375" height="931"/>
+                                        <rect key="frame" x="4" y="1" width="375" height="1257"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configuration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rc-b6-3tZ">
                                                 <rect key="frame" x="20" y="0.0" width="220" height="57.5"/>
@@ -1330,7 +1330,7 @@
                                     <constraint firstItem="l3M-FZ-hue" firstAttribute="trailing" secondItem="pO0-8e-l4c" secondAttribute="trailing" constant="243" id="Foo-u8-eTx"/>
                                     <constraint firstItem="l3M-FZ-hue" firstAttribute="width" secondItem="pO0-8e-l4c" secondAttribute="width" id="S50-Iy-3ig"/>
                                     <constraint firstItem="l3M-FZ-hue" firstAttribute="leading" secondItem="pO0-8e-l4c" secondAttribute="leading" constant="4" id="XlL-7N-BTX"/>
-                                    <constraint firstItem="l3M-FZ-hue" firstAttribute="height" secondItem="pO0-8e-l4c" secondAttribute="height" priority="250" id="q28-vR-dX9"/>
+                                    <constraint firstItem="l3M-FZ-hue" firstAttribute="height" secondItem="pO0-8e-l4c" secondAttribute="height" multiplier="1.35" priority="250" id="q28-vR-dX9"/>
                                     <constraint firstItem="l3M-FZ-hue" firstAttribute="bottom" secondItem="pO0-8e-l4c" secondAttribute="bottom" constant="129" id="sDd-3B-o4o"/>
                                 </constraints>
                             </scrollView>
