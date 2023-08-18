@@ -13,8 +13,6 @@ protocol ITrackingManager {
 
     func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?) -> Void)
 
-   /// func sendActivate(_ currentActivate: Activate, onCompletion: (Error?) -> Void)
-
     func stopBatchingProcess()
 
     func resumeBatchingProcess()

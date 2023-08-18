@@ -38,9 +38,6 @@ class FSStrategy {
 
 class FSDefaultStrategy: FSDelegateStrategy {
     var visitor: FSVisitor
-    
-    // var assignedHistory: [String: String] = [:]
-
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
     }

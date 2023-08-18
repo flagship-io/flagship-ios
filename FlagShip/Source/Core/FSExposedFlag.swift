@@ -40,8 +40,8 @@ protocol IFlag {
     }
 
     /// Dictionary that represent the Exposed Flag
-    /// - Returns: [String: Any]
-    public func toDicotionary() -> [String: Any] {
+    /// - Return: [String: Any]
+    public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -59,7 +59,7 @@ protocol IFlag {
     }
 
     /// String that represent a json for the Exposed Flag
-    /// - Returns: NSString ?
+    /// - Return: NSString ?
     public func toJson() -> NSString? {
         var result: [String: Any] = [
             "key": key,

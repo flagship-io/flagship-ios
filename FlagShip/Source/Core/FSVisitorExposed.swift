@@ -24,7 +24,7 @@ import Foundation
     }
 
     /// Dictionary that represent the Visitor Exposed
-    /// - Returns: [String: Any]
+    /// - Return: [String: Any]
     public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "id": id,
@@ -38,7 +38,7 @@ import Foundation
     }
 
     /// String that represent a json for the Visitor Exposed
-    /// - Returns: NSString ?
+    /// - Return: NSString ?
     public func toJson() -> NSString? {
         var result: [String: Any] = [
             "id": id,

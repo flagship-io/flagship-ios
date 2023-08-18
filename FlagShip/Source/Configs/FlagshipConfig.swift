@@ -27,7 +27,6 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     var pollingTime: TimeInterval = FSPollingTime
     var onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
     var trackingConfig: FSTrackingManagerConfig
-    // var onVisitorExposed: ((VisitorExposed, ExposedFlag)-> Void)? = nil
     var onVisitorExposed: OnVisitorExposed = nil
 
     /// Cache Manager
@@ -48,7 +47,6 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
         self.cacheManager = cacheManager
         self.onStatusChanged = onStatusChanged
         self.trackingConfig = trackingConfig
-        // self.onVisitorExposed = onVisitorExposed
         self.onVisitorExposed = onVisitorExposed
     }
 }
