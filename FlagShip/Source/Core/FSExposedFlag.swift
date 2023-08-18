@@ -6,7 +6,7 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 protocol IFlag {
     // Key for flag
@@ -19,7 +19,7 @@ protocol IFlag {
     var metadata: FSFlagMetadata { get set }
 }
 
-public class FSExposedFlag: NSObject, IFlag {
+@objc public class FSExposedFlag:NSObject, IFlag {
     // Key for flag
     public internal(set) var key: String
 
@@ -39,7 +39,6 @@ public class FSExposedFlag: NSObject, IFlag {
         self.value = value
     }
 
-    
     /// Dictionary that represent the Exposed Flag
     /// - Returns: [String: Any]
     public func toDicotionary() -> [String: Any] {
@@ -59,7 +58,6 @@ public class FSExposedFlag: NSObject, IFlag {
         return result
     }
 
-    
     /// String that represent a json for the Exposed Flag
     /// - Returns: NSString ?
     public func toJson() -> NSString? {

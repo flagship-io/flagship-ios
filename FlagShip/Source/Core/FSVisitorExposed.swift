@@ -6,9 +6,9 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-public class FSVisitorExposed: NSObject {
+@objc public class FSVisitorExposed :NSObject{
     // visitorId
     public private(set) var id: String
     // Anonymous Id
