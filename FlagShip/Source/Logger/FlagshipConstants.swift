@@ -82,7 +82,7 @@ enum FSLogMessage: CustomStringConvertible {
     
     /// Universal
     case MESSAGE(_ key: String?)
-    
+
     var description: String {
         var ret: String
         

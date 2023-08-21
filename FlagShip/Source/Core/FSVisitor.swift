@@ -24,6 +24,35 @@ import Foundation
     case NEW_INSTANCE
 }
 
+/**
+ * This status represent the flag status depend on visitor actions
+ */
+@objc public enum FlagSynchStatus: Int {
+    case CREATED
+    case CONTEXT_UPDATED
+    case FLAGS_FETCHED
+    case AUTHENTICATED
+    case UNAUTHENTICATED
+    
+    func warningMessage(_ flagKey: String, _ visitorId: String) -> String {
+        var ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        switch self {
+        case .CREATED:
+            break
+        case .CONTEXT_UPDATED:
+            ret = "Visitor context for visitor `\(visitorId)` has been updated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .AUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been authenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .UNAUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been unauthenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        default:
+            break
+        }
+        
+        return ret
+    }
+}
+
 /// Visitor class
 @objc public class FSVisitor: NSObject {
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
@@ -55,6 +84,8 @@ import Foundation
     
     /// Assigned hsitory
     internal var assignedVariationHistory: [String: String] = [:]
+    
+    public internal(set) var flagSyncStatus: FlagSynchStatus = .CREATED
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
         /// Set authenticated
@@ -99,6 +130,9 @@ import Foundation
             if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
+            
+            // Update the flagSyncStatus
+            self.flagSyncStatus = .FLAGS_FETCHED
            
         })
     }
@@ -116,6 +150,8 @@ import Foundation
     /// - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
         self.strategy?.getStrategy().updateContext(context)
+        // Update the flagSyncStatus
+        self.flagSyncStatus = .CONTEXT_UPDATED
     }
     
     /// Update context with one
@@ -207,6 +243,10 @@ import Foundation
     /// - Parameter defaultValue:flag default value
     /// - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
     public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
+        // We dispaly a warning when the flag status is not fetched
+        if self.flagSyncStatus != .FLAGS_FETCHED {
+            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
+        }
         /// Check the key if exist
         guard let modification = self.currentFlags[key] else {
             return FSFlag(key, nil, defaultValue, self.strategy)
@@ -220,7 +260,6 @@ import Foundation
     /// internal   //
     ///            //
     /////////////////
-    
     
     /// Send Hit consent
     internal func sendHitConsent(_ hasConsented: Bool) {
