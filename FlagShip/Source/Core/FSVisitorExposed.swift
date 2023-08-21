@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class FSVisitorExposed :NSObject{
+@objc public class FSVisitorExposed: NSObject {
     // visitorId
     public private(set) var id: String
     // Anonymous Id
@@ -25,7 +25,7 @@ import Foundation
 
     /// Dictionary that represent the Visitor Exposed
     /// - Return: [String: Any]
-    public func toDictionary() -> [String: Any] {
+    @objc public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "id": id,
             "context": context
@@ -39,7 +39,7 @@ import Foundation
 
     /// String that represent a json for the Visitor Exposed
     /// - Return: NSString ?
-    public func toJson() -> NSString? {
+    @objc public func toJson() -> NSString? {
         var result: [String: Any] = [
             "id": id,
             "context": context

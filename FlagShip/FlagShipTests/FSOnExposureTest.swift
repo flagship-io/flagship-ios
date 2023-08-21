@@ -76,8 +76,8 @@ final class FSOnExposureTest: XCTestCase {
     func testFlagObject() {
         let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata: FSFlagMetadata(FSModification(campId: "campId", varGroupId: "grpId", varId: "varId", typeOfTest: "AB", aSlug: "slugg", val: "flagVlaue")), value: "flagVlaue")
 
-        XCTAssertTrue(flagTest.toDicotionary()["value"] as? String == "flagVlaue")
-        XCTAssertTrue(flagTest.toDicotionary()["key"] as? String == "keyFlag")
+        XCTAssertTrue(flagTest.toDictionary()["value"] as? String == "flagVlaue")
+        XCTAssertTrue(flagTest.toDictionary()["key"] as? String == "keyFlag")
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
         XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
     }

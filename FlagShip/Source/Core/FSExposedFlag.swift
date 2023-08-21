@@ -19,7 +19,7 @@ protocol IFlag {
     var metadata: FSFlagMetadata { get set }
 }
 
-@objc public class FSExposedFlag:NSObject, IFlag {
+@objc public class FSExposedFlag: NSObject, IFlag {
     // Key for flag
     public internal(set) var key: String
 
@@ -41,7 +41,7 @@ protocol IFlag {
 
     /// Dictionary that represent the Exposed Flag
     /// - Return: [String: Any]
-    public func toDictionary() -> [String: Any] {
+    @objc public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -60,7 +60,7 @@ protocol IFlag {
 
     /// String that represent a json for the Exposed Flag
     /// - Return: NSString ?
-    public func toJson() -> NSString? {
+    @objc public func toJson() -> NSString? {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
