@@ -69,7 +69,8 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     // SEND ACTIVATE --------------//
-    override func sendActivate(_ currentActivate: Activate?) {
+    override func sendActivate(_ currentActivate: Activate?, onCompletion: @escaping (Error?) -> Void)
+    {
         // Create activate batch
         let activateBatch = ActivateBatch(pCurrentActivate: currentActivate)
 
@@ -87,6 +88,7 @@ class ContinuousTrackingManager: FSTrackingManager {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
                 self.onFailedToSendActivate(activateBatch)
             }
+            onCompletion(error)
         }
     }
 
@@ -101,7 +103,9 @@ class ContinuousTrackingManager: FSTrackingManager {
     // ************** BATCH PROCESS ***********//
     override internal func processActivatesBatching() {
         // We pass nil here because will batch the activate pool without a current one
-        self.sendActivate(nil)
+        self.sendActivate(nil) { error in
+            /// refractor later 
+        }
     }
 
     // ********** HITS ************//

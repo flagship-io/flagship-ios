@@ -101,7 +101,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40))
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withOnVisitorExposed { fromFlag, visitorExposed in
+
+            print(fromFlag.toJson() ?? "")
+            print(visitorExposed.toJson() ?? "")
+        }
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
@@ -212,7 +216,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             .DecisionApi()
             .withCacheManager(customCacheManager)
             .build())
-        
+
         Flagship.sharedInstance.close()
     }
 }

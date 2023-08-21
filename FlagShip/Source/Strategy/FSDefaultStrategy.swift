@@ -38,9 +38,6 @@ class FSStrategy {
 
 class FSDefaultStrategy: FSDelegateStrategy {
     var visitor: FSVisitor
-    
-   // var assignedHistory: [String: String] = [:]
-
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
     }
@@ -51,15 +48,26 @@ class FSDefaultStrategy: FSDelegateStrategy {
         // let shared = Flagship.sharedInstance
             
         if let aModification = visitor.currentFlags[key] {
-//            var infosTrack = ["vaid": aModification.variationId, "caid": aModification.variationGroupId, "vid": visitor.visitorId]
-//
-//            if let aId = visitor.anonymousId {
-//                infosTrack.updateValue(aId, forKey: "aid")
-//            }
-//            if let aEnvId = shared.envId {
-//                infosTrack.updateValue(aEnvId, forKey: "cid")
-//            }
-            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification))
+            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification), onCompletion: { error in
+                
+                if error == nil {}
+            })
+        }
+    }
+    
+    /// Activate Flag
+    func activateFlag(_ flag: FSFlag) {
+        if let aModification = visitor.currentFlags[flag.key] {
+            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification), onCompletion: { error in
+                
+                if error == nil {
+                    /// if the callback defined then trigger
+                    if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
+                        aOnVisitorExposed(FSVisitorExposed(id: self.visitor.visitorId, anonymousId: self.visitor.anonymousId, context: self.visitor.context.getCurrentContext()),
+                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(visitorExposed: false)))
+                    }
+                }
+            })
         }
     }
     
@@ -177,8 +185,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.mergeCachedVisitor(aCachedVisitor)
                     /// Get the oldest assignation history before saving and loose the information
                     self.visitor.assignedVariationHistory.merge(aCachedVisitor.data?.assignationHistory ?? [:]) { _, new in new }
-                    
-                 }
+                }
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
             }
@@ -225,6 +232,8 @@ protocol FSDelegateStrategy {
     func synchronize(onSyncCompleted: @escaping (FStatus) -> Void)
     /// Activate
     func activate(_ key: String)
+    /// Activate flag
+    func activateFlag(_ flag: FSFlag)
     /// Get Modification infos
     func getModificationInfo(_ key: String) -> [String: Any]?
     /// Send Hits

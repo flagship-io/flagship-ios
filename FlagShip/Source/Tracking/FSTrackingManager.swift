@@ -72,16 +72,20 @@ internal class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     }
 
     // Send Activate
-    func sendActivate(_ currentActivate: Activate) {
+
+    func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?) -> Void) {
         service.activate(currentActivate.bodyTrack) { error in
 
             if error == nil {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Exposure sent with sucess"))
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(currentActivate.description()))
+
             } else {
-                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Exposure Flag"))
                 self.onCacheHit(currentActivate)
             }
+
+            onCompletion(error)
         }
     }
 
