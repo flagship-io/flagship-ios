@@ -44,6 +44,8 @@ class FSFlagTest: XCTestCase {
         
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        // Check if the flagsync is Created
+        XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
         /// Set fake session
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
@@ -54,6 +56,8 @@ class FSFlagTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "Service-GetScript")
 
         testVisitor?.fetchFlags(onFetchCompleted: {
+            /// Check if flagSync is fetched
+            XCTAssertTrue(self.testVisitor?.flagSyncStatus == .FLAGS_FETCHED)
             if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "dfl") {
                 XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
                 XCTAssertTrue(flag.exists())
@@ -92,6 +96,20 @@ class FSFlagTest: XCTestCase {
         XCTAssertTrue(FSFlagMetadata(nil).campaignId == "")
         XCTAssertTrue(FSFlagMetadata(nil).campaignType == "")
         XCTAssertTrue(FSFlagMetadata(nil).slug == "")
+    }
+    
+    func testFlagSyncStatus() {
+        let syncUser = Flagship.sharedInstance.newVisitor("userSync", instanceType: .NEW_INSTANCE).build()
+        XCTAssertTrue(syncUser.flagSyncStatus == .CREATED)
+        // Update context
+        syncUser.updateContext(["keySync": "valSync"])
+        XCTAssertTrue(syncUser.flagSyncStatus == .CONTEXT_UPDATED)
+        // Autenticate
+        syncUser.authenticate(visitorId: "syncUser")
+        XCTAssertTrue(syncUser.flagSyncStatus == .AUTHENTICATED)
+        // Unauthenticate
+        syncUser.unauthenticate()
+        XCTAssertTrue(syncUser.flagSyncStatus == .UNAUTHENTICATED)
     }
     
     func testGetFlagOnPanic() {

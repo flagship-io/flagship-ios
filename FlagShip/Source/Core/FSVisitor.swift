@@ -130,10 +130,6 @@ import Foundation
             if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
-            
-            // Update the flagSyncStatus
-            self.flagSyncStatus = .FLAGS_FETCHED
-           
         })
     }
     
@@ -243,7 +239,7 @@ import Foundation
     /// - Parameter defaultValue:flag default value
     /// - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
     public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
-        // We dispaly a warning when the flag status is not fetched
+        // We dispaly a warning if the flag's status is not fetched
         if self.flagSyncStatus != .FLAGS_FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
         }
