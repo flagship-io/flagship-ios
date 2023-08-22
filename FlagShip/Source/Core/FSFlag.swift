@@ -128,3 +128,37 @@ public class FSFlag: NSObject {
                 "slug": slug]
     }
 }
+
+/**
+ * This status represent the flag status depend on visitor actions
+ */
+@objc public enum FlagSynchStatus: Int {
+    // When visitor is created
+    case CREATED
+    // When visitor context is updated
+    case CONTEXT_UPDATED
+    // When visitor Fetched flags
+    case FLAGS_FETCHED
+    // When visitor is authenticated
+    case AUTHENTICATED
+    // When visitor is unauthorised
+    case UNAUTHENTICATED
+    
+    func warningMessage(_ flagKey: String, _ visitorId: String)->String {
+        var ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        switch self {
+        case .CREATED:
+            break
+        case .CONTEXT_UPDATED:
+            ret = "Visitor context for visitor `\(visitorId)` has been updated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .AUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been authenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .UNAUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been unauthenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        default:
+            break
+        }
+        
+        return ret
+    }
+}
