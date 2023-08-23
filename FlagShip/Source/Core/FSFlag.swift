@@ -24,7 +24,7 @@ public class FSFlag: NSObject {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType(flagModification.value) { /// _ have type same with default value
                 ///
-                FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("Return the value for flag  \(flagModification.value)"))
+                FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The value of the flag `\(key)` is `\(flagModification.value)"))
                 
                 result = flagModification.value
             } else {
