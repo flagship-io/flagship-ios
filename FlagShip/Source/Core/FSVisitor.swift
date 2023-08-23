@@ -56,6 +56,7 @@ import Foundation
     /// Assigned hsitory
     internal var assignedVariationHistory: [String: String] = [:]
     
+    // Initial value for the status .CREATED 
     internal var flagSyncStatus: FlagSynchStatus = .CREATED
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {

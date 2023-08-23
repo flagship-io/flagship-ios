@@ -132,7 +132,7 @@ public class FSFlag: NSObject {
 /**
  * This status represent the flag status depend on visitor actions
  */
-@objc public enum FlagSynchStatus: Int {
+@objc internal enum FlagSynchStatus: Int {
     // When visitor is created
     case CREATED
     // When visitor context is updated
@@ -144,11 +144,15 @@ public class FSFlag: NSObject {
     // When visitor is unauthorised
     case UNAUTHENTICATED
     
+    /**
+      Return the string for the flag warning message.
+      Note: No message for FLAGS_FETCHED state
+     */
     func warningMessage(_ flagKey: String, _ visitorId: String)->String {
-        var ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        var ret = ""
         switch self {
         case .CREATED:
-            break
+            ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
         case .CONTEXT_UPDATED:
             ret = "Visitor context for visitor `\(visitorId)` has been updated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
         case .AUTHENTICATED:
