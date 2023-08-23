@@ -24,7 +24,7 @@ public class FSFlag: NSObject {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType(flagModification.value) { /// _ have type same with default value
                 ///
-                FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("Return the value for flag  \(flagModification.value)"))
+                FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The value of the flag `\(key)` is `\(flagModification.value)"))
                 
                 result = flagModification.value
             } else {
@@ -126,5 +126,43 @@ public class FSFlag: NSObject {
                 "isReference": isReference,
                 "campaignType": campaignType,
                 "slug": slug]
+    }
+}
+
+/**
+ * This status represent the flag status depend on visitor actions
+ */
+@objc internal enum FlagSynchStatus: Int {
+    // When visitor is created
+    case CREATED
+    // When visitor context is updated
+    case CONTEXT_UPDATED
+    // When visitor Fetched flags
+    case FLAGS_FETCHED
+    // When visitor is authenticated
+    case AUTHENTICATED
+    // When visitor is unauthorised
+    case UNAUTHENTICATED
+    
+    /**
+      Return the string for the flag warning message.
+      Note: No message for FLAGS_FETCHED state
+     */
+    func warningMessage(_ flagKey: String, _ visitorId: String)->String {
+        var ret = ""
+        switch self {
+        case .CREATED:
+            ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .CONTEXT_UPDATED:
+            ret = "Visitor context for visitor `\(visitorId)` has been updated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .AUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been authenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .UNAUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been unauthenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        default:
+            break
+        }
+        
+        return ret
     }
 }

@@ -82,7 +82,7 @@ enum FSLogMessage: CustomStringConvertible {
     
     /// Universal
     case MESSAGE(_ key: String?)
-    
+
     var description: String {
         var ret: String
         
@@ -150,9 +150,9 @@ enum FSLogMessage: CustomStringConvertible {
         case .IGNORE_UNAUTHENTICATE:
             ret = "UnAuthenticateVisitor method will be ignored in Bucketing configuration"
         case .GET_CAMPAIGN(let key):
-            ret = "Get campaign, the context used for is \(key)"
+            ret = "Fetching flags, the user context used for is:\(key)"
         case .GET_CAMPAIGN_URL(let key):
-            ret = "The url for the get campaign is \(key)"
+            ret = "Fetch flags request: \(key)"
         case .GET_CAMPAIGN_RESPONSE(let key):
             ret = "Response for fetch flags is \(key)"
         case .GET_SCRIPT_RESPONSE(let key):

@@ -55,6 +55,9 @@ import Foundation
     
     /// Assigned hsitory
     internal var assignedVariationHistory: [String: String] = [:]
+    
+    // Initial value for the status .CREATED 
+    internal var flagSyncStatus: FlagSynchStatus = .CREATED
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
         /// Set authenticated
@@ -99,7 +102,6 @@ import Foundation
             if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
-           
         })
     }
     
@@ -116,6 +118,8 @@ import Foundation
     /// - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
         self.strategy?.getStrategy().updateContext(context)
+        // Update the flagSyncStatus
+        self.flagSyncStatus = .CONTEXT_UPDATED
     }
     
     /// Update context with one
@@ -207,6 +211,10 @@ import Foundation
     /// - Parameter defaultValue:flag default value
     /// - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
     public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
+        // We dispaly a warning if the flag's status is not fetched
+        if self.flagSyncStatus != .FLAGS_FETCHED {
+            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
+        }
         /// Check the key if exist
         guard let modification = self.currentFlags[key] else {
             return FSFlag(key, nil, defaultValue, self.strategy)
@@ -220,7 +228,6 @@ import Foundation
     /// internal   //
     ///            //
     /////////////////
-    
     
     /// Send Hit consent
     internal func sendHitConsent(_ hasConsented: Bool) {
