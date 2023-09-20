@@ -14,6 +14,7 @@ internal class FSCampaigns:Decodable {
     public var panic: Bool
     /// list of campaign
     public var campaigns: [FSCampaign] = []
+    
     /// initialize
     internal init(_ customId: String, panic:Bool = false) {
         
@@ -22,7 +23,7 @@ internal class FSCampaigns:Decodable {
     }
     
     
-    //// this init from bucket cache model
+    // ********* This init from bucket cache model
     internal init(_ cacheCampaign: FSBucketCache) {
 
         self.visitorId = cacheCampaign.visitorId
@@ -60,11 +61,13 @@ internal class FSCampaigns:Decodable {
                     if let aValue = aVariation.modifications?.value{
                         
                         for keyFlag in aValue.keys{
-                            /// Protection check
+                            // Protection check
                             if let retValue = aValue[keyFlag]{
-                                /// Create Modification object
-                                let modifObject = FSModification(campId:itemCamp.idCampaign, varGroupId: itemCamp.variationGroupId, varId:aVariation.idVariation, isRef: aVariation.reference, typeOfTest: itemCamp.type,aSlug:itemCamp.slug, val:retValue)
-                                    ret.updateValue(modifObject, forKey: keyFlag)
+                                // Create Modification object
+//                                let modifObject = FSModification(campId:itemCamp.idCampaign, varGroupId: itemCamp.variationGroupId, varId:aVariation.idVariation, isRef: aVariation.reference, typeOfTest: itemCamp.type,aSlug:itemCamp.slug, val:retValue)
+//                                    ret.updateValue(modifObject, forKey: keyFlag)
+                                let modifObject = FSModification(aCampaign: itemCamp, aVariation: aVariation, valueForFlag: retValue)
+                                ret.updateValue(modifObject, forKey: keyFlag)
                                
                             }else{
                                 

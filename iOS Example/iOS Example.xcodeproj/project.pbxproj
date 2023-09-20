@@ -77,6 +77,8 @@
 		8BF2DE07256C0B7E005FF664 /* FSUserViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */; };
 		8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */; };
 		8BF2DE42256F996A005FF664 /* FSContextViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */; };
+		F5AA7D182AB999BA00584D0E /* FSFlagViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */; };
+		F5AA7D1A2AB9A36500584D0E /* FlagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */; };
 		F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6842A176BA500C0B140 /* AppDelegate.swift */; };
 		F5DAF6872A176BA500C0B140 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */; };
 		F5DAF6892A176BA500C0B140 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6882A176BA500C0B140 /* ViewController.swift */; };
@@ -178,6 +180,8 @@
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModificationsViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
+		F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagViewCtrl.swift; sourceTree = "<group>"; };
+		F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagViewCell.swift; sourceTree = "<group>"; };
 		F5DAF6822A176BA500C0B140 /* SmartQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5DAF6842A176BA500C0B140 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -446,6 +450,8 @@
 				8B90007D257015A800703DDB /* FSHitViewController.swift */,
 				8B90008B2575298600703DDB /* FSCustomTools.swift */,
 				8B9001692580D25800703DDB /* Settings.bundle */,
+				F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */,
+				F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */,
 			);
 			path = QApp;
 			sourceTree = "<group>";
@@ -630,6 +636,7 @@
 				8B493A6827FF35B600DDAAB5 /* XNJSONUtils.swift in Sources */,
 				8B493A6627FF35B600DDAAB5 /* XNAppUtils.swift in Sources */,
 				8B493A4F27FF35B600DDAAB5 /* XNUIWindow.swift in Sources */,
+				F5AA7D182AB999BA00584D0E /* FSFlagViewCtrl.swift in Sources */,
 				8B493A3E27FF35B600DDAAB5 /* XNUILogDetailHeaderCell.swift in Sources */,
 				8B493A5427FF35B600DDAAB5 /* XNUILogHandler.swift in Sources */,
 				8B493A4527FF35B600DDAAB5 /* XNUILogListTableViewCell.swift in Sources */,
@@ -637,6 +644,7 @@
 				8BF2DDF9256BCF77005FF664 /* FSTabBarViewCtrl.swift in Sources */,
 				8B493A6027FF35B600DDAAB5 /* XNInterceptor.swift in Sources */,
 				8B493A6727FF35B600DDAAB5 /* XNAppConstants.swift in Sources */,
+				F5AA7D1A2AB9A36500584D0E /* FlagViewCell.swift in Sources */,
 				8B493A5327FF35B600DDAAB5 /* XNUIBaseViewController.swift in Sources */,
 				8B493A5827FF35B600DDAAB5 /* XNFileLogHandler.swift in Sources */,
 				8B493A6D27FF365000DDAAB5 /* FSLoggerCtrl.swift in Sources */,

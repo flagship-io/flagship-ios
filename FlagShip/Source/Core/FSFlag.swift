@@ -109,6 +109,10 @@ public class FSFlag: NSObject {
     public private(set) var isReference: Bool = false
     public private(set) var campaignType: String = ""
     public private(set) var slug: String = ""
+    public private(set) var campaignName: String = ""
+    public private(set) var variationGroupName: String = ""
+    public private(set) var variationName: String = ""
+
     
     internal init(_ modification: FSModification?) {
         campaignId = modification?.campaignId ?? ""
@@ -117,12 +121,19 @@ public class FSFlag: NSObject {
         isReference = modification?.isReference ?? false
         campaignType = modification?.type ?? ""
         slug = modification?.slug ?? ""
+        campaignName = modification?.campaignName ?? ""
+        variationGroupName = modification?.variationGroupName ?? ""
+        variationName = modification?.variationName ?? ""
+        
     }
     
     @objc public func toJson()->[String: Any] {
         return ["campaignId": campaignId,
+                "campaignName":campaignName,
                 "variationGroupId": variationGroupId,
+                "variationGroupName":variationGroupName,
                 "variationId": variationId,
+                "variationName": variationName,
                 "isReference": isReference,
                 "campaignType": campaignType,
                 "slug": slug]

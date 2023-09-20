@@ -6,30 +6,13 @@
 //
 
 import Foundation
+// Represent the object saved for each user
 
-/// Represent the object saved for each user
-
-internal class FSBucketCache /*: Codable*/ {
+internal class FSBucketCache {
 
     var visitorId: String
-
-    var campaigns: [FSCampaignCache]!
-
-//    required public  init(from decoder: Decoder) throws {
-//
-//        let values     = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        do { self.visitorId              = try values.decode(String.self, forKey: .visitorId)} catch { self.visitorId = "error"}
-//        do { self.campaigns              = try values.decode([FSCampaignCache].self, forKey: .campaigns)} catch { self.campaigns = []}
-//
-//    }
-//
-//    private enum CodingKeys: String, CodingKey {
-//
-//        case visitorId
-//        case campaigns
-//     }
-
+    var campaigns: [FSCampaignCache]!  // Refractor
+    
     internal init(_ visitorId: String) {
 
         self.visitorId = visitorId
@@ -56,111 +39,75 @@ internal class FSBucketCache /*: Codable*/ {
     }
 }
 
-//// Campaign contain liste variation groups
-internal class FSCampaignCache /*: Codable*/ {
+// Campaign contain liste variation groups
+internal class FSCampaignCache {
 
     var campaignId: String!
+    
+    var nameCampaign:String = ""
 
     var variationGroups: [FSVariationGroupCache]
 
-    init(_ campaignId: String!, _ variationGroups: [FSVariationGroupCache]) {
+    init(_ campaignId: String!, _ campaignName:String, _ variationGroups: [FSVariationGroupCache]) {
 
         self.campaignId = campaignId
 
         self.variationGroups = variationGroups
+        
+        self.nameCampaign = campaignName
     }
 
     internal func convertFSCampaignCachetoFSCampaign() -> FSCampaign {
 
-        let campaign: FSCampaign = FSCampaign(campaignId, self.variationGroups.first?.variationGroupId ?? "", "") /// See later the type in bucketing mode 
+    let campaign: FSCampaign = FSCampaign(campaignId,nameCampaign,  self.variationGroups.first?.variationGroupId ?? "" , self.variationGroups.first?.name ?? "", "") 
+        
+        /// See later the type in bucketing mode
 
         campaign.variation =  variationGroups.first?.getFSVariation()
 
         return campaign
     }
-
-//    required public  init(from decoder: Decoder) throws {
-//
-//        let values     = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        do { self.campaignId              = try values.decode(String.self, forKey: .campaignId)} catch { self.campaignId = ""}
-//        do { self.variationGroups             = try values.decode([FSVariationGroupCache].self, forKey: .variationGroups)} catch { self.variationGroups = []}
-//    }
-//
-//    private enum CodingKeys: String, CodingKey {
-//
-//        case campaignId
-//        case variationGroups
-//     }
-
 }
 
-/// Variation Groupe contain variation
-internal class FSVariationGroupCache /*: Codable*/ {
+// Variation Groupe contain variation
+internal class FSVariationGroupCache{
 
     var variationGroupId: String!
-
+    
+    var name:String = ""
+    
     var variation: FSVariationCache!
 
-    init (_ variationGroupId: String, _ variationCache: FSVariationCache ) {
+    init (_ variationGroupId: String, _ nameVarGroup:String, _ variationCache: FSVariationCache ) {
 
         self.variationGroupId = variationGroupId
 
         self.variation = variationCache
-
+        
+        self.name = nameVarGroup
     }
-
+    
+    
     internal func getFSVariation() -> FSVariation {
 
-        return FSVariation(idVariation: variation.variationId, variation.modification, isReference: variation.reference)
+        return FSVariation(idVariation: variation.variationId, variationName: variation.variationName, variation.modification, isReference: variation.reference)
 
      }
-//
-//    required public  init(from decoder: Decoder) throws {
-//
-//        let values     = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        do { self.variationGroupId            = try values.decode(String.self, forKey: .variationGroupId)} catch { self.variationGroupId = ""}
-//        do { self.variation                   = try values.decode(FSVariationCache.self, forKey: .variation)} catch { self.variation = nil}
-//    }
-//
-//    private enum CodingKeys: String, CodingKey {
-//
-//        case variationGroupId
-//        case variation
-//     }
-
 }
 
-/// Variation
+// Variation
 internal class FSVariationCache /*: Codable */{
 
     var variationId: String = ""
+    
+    var variationName: String = ""
 
     var modification: FSModifications?
+    
+    var reference: Bool = false
 
     init (_ variationId: String) {
 
         self.variationId = variationId
     }
-
-    var reference: Bool = false
-
-//    required public  init(from decoder: Decoder) throws {
-//
-//        let values     = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        do { self.variationId            = try values.decode(String.self, forKey: .variationId)} catch { self.variationId = ""}
-//        do { self.modification           = try values.decode(FSModifications.self, forKey: .modification)} catch { self.modification = nil}
-//        do { self.reference              = try values.decode(Bool.self, forKey: .reference)} catch { self.reference = false}
-//
-//    }
-//
-//    private enum CodingKeys: String, CodingKey {
-//
-//        case variationId
-//        case modification
-//        case reference
-//     }
-
 }

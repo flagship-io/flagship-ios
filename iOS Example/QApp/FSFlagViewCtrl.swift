@@ -1,0 +1,214 @@
+//
+//  FSFlagViewCtrl.swift
+//  QApp
+//
+//  Created by Adel Ferguen on 19/09/2023.
+//  Copyright © 2023 FlagShip. All rights reserved.
+//
+
+import UIKit
+import Flagship
+
+class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var currentFlag:FSFlag?
+    @IBOutlet var flagView:FlagView?
+    @IBOutlet var tableViewFlag:UITableView?
+    @IBOutlet var activateBtn:UIButton?
+    @IBOutlet var getValueFlagBtn:UIButton?
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        flagView?.layer.cornerRadius = 5
+        flagView?.layer.masksToBounds =  true
+        
+        tableViewFlag?.layer.cornerRadius = 5
+        tableViewFlag?.layer.masksToBounds =  true
+        
+        FSCTools.roundButton(activateBtn)
+        FSCTools.roundButton(getValueFlagBtn)
+        
+        // Do any additional setup after loading the view.
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyBoard)))
+    }
+    
+    // Hide KeyBoard
+    @objc func hideKeyBoard() {
+        view.endEditing(true)
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "flagCell") as? FlagViewCell
+        
+        cell?.configCell(currentFlag)
+        
+        return cell ?? UITableViewCell()
+    }
+    
+    
+    @IBAction func getFlag(){
+        currentFlag =  flagView?.prepareAndGetGetFlag()
+        tableViewFlag?.reloadData()
+    }
+    
+    @IBAction func exposeFlag(){
+        
+        if let aCurrentFlag = currentFlag{
+            
+            aCurrentFlag.visitorExposed()
+        }
+    }
+    
+    
+    
+}
+
+
+class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
+    
+    let sourcePicker: [String] = ["String", "Integer", "Double", "Boolean"]
+    
+    // Picker view
+    @IBOutlet var pickerView:UIPickerView?
+    // Key for flag
+    @IBOutlet var keyForFlagField:UITextField?
+    // default value
+    @IBOutlet var defaultValueField:UITextField?
+    
+    @IBOutlet var defaultValueSwitch:UISwitch?
+    
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return sourcePicker.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return sourcePicker[row]
+    }
+    
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(sourcePicker[row] as String)
+    
+        if sourcePicker[row] == "Boolean" {
+            /// change textfiled to switch
+            DispatchQueue.main.async {
+                self.defaultValueSwitch?.isHidden = false
+                self.defaultValueField?.isHidden = true
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.defaultValueSwitch?.isHidden = true
+                self.defaultValueField?.isHidden = false
+            }
+        }
+    }
+    
+    
+    func prepareAndGetGetFlag()->FSFlag?{
+        
+        var flagObject: FSFlag?
+        
+        if let defaultValueInput = defaultValueField?.text {
+            
+            if let keyValueInput = keyForFlagField?.text {
+                /// Get the current selected
+                let typeValue = getTypeValue()
+                
+                switch typeValue {
+                case .BooleanType:
+                    
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueSwitch?.isOn ?? false)
+                    
+                case .StringType:
+                    
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueInput)
+                    
+                case .IntegerType:
+                    
+                    let inputInt = Int(String(format: "%@", defaultValueInput)) ?? 0
+                    
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: inputInt)
+                    
+                case .DoubleType:
+                    
+                    let inputDbl = Double(String(format: "%@", defaultValueInput)) ?? 0
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: inputDbl)
+                }
+                
+                let dicoInfo = flagObject?.metadata().toJson()
+            }
+        }
+        
+        return flagObject
+    }
+    
+    
+    private func getTypeValue() -> FSValueType {
+        switch pickerView?.selectedRow(inComponent: 0) {
+        case 0:
+            return .StringType
+        case 1:
+            return .IntegerType
+        case 2:
+            return .DoubleType
+        case 3:
+            return .BooleanType
+        
+        default:
+            return .StringType
+        }
+    }
+    
+    
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField.tag == 100 {
+            let currentText = textField.text ?? ""
+
+            // attempt to read the range they are trying to change, or exit if we can't
+            guard let stringRange = Range(range, in: currentText) else { return false }
+
+            // add their new text to the existing text
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+            if updatedText.count > 0 {
+               // activateBtn?.isEnabled = true
+                //getBtn?.isEnabled = true
+
+            } else {
+               // activateBtn?.isEnabled = false
+                //getBtn?.isEnabled = false
+            }
+        } else if pickerView?.selectedRow(inComponent: 0) == 2 || pickerView?.selectedRow(inComponent: 0) == 1 {
+            let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
+        
+            return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+        }
+        return true
+    }
+    
+}

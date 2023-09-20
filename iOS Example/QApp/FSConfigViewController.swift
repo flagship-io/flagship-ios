@@ -101,7 +101,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).withOnVisitorExposed { fromFlag, visitorExposed in
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { fromFlag, visitorExposed in
 
             print(fromFlag.toJson() ?? "")
             print(visitorExposed.toJson() ?? "")
@@ -119,7 +119,10 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
     @IBAction func onClickCreateVisitor() {
         let currentVisitor = createVisitor()
-        currentVisitor.synchronize { () in
+    }
+    
+    @IBAction func fetchFlags(){
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags { () in
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY {
                 self.delegate?.onGetSdkReady()
@@ -139,9 +142,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     func createVisitor() -> FSVisitor {
-        let userIdToSet: String = visitorIdTextField?.text ?? "UnknowVisitor"
+        let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {

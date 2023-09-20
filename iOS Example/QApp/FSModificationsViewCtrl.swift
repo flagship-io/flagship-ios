@@ -78,6 +78,7 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBAction func onClikcGetValue() {
         let result: Any?
         
+        
         // get default value
         if let defaultValueInput = defaultValueField?.text {
             if let keyValueInput = keyTextField?.text {
@@ -119,6 +120,9 @@ class FSModificationsViewCtrl: UIViewController, UIPickerViewDelegate, UIPickerV
                     self.campaigIdLabel?.text = "\(dicoInfo?["campaignId"] ?? "unknown")"
                     
                     self.isReferenceLabel?.text = (dicoInfo?["isReference"] as? Bool ?? false) ? "YES" : "NO"
+                    
+                    // Tempo
+                    print(" @@@@@@@@@@@ Metadata : \(dicoInfo?.description) @@@@@@@@@@@@@@@@@@@@")
                 }
             }
         }

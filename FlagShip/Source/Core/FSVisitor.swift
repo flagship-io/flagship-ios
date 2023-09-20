@@ -95,7 +95,7 @@ import Foundation
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
             onFetchCompleted()
-            /// After the synchronize completion we cache the visitor
+            // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
             
             // If bucketing mode and no consent and no panic mode
@@ -109,31 +109,31 @@ import Foundation
     public func synchronize(onSyncCompleted: @escaping () -> Void) {
         self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
             onSyncCompleted()
-            /// After the synchronize completion we cache the visitor
+            // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
         })
     }
     
-    /// Update Context
-    /// - Parameter newContext: user's context
+    // Update Context
+    // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
         self.strategy?.getStrategy().updateContext(context)
         // Update the flagSyncStatus
         self.flagSyncStatus = .CONTEXT_UPDATED
     }
     
-    /// Update context with one
-    /// - Parameters:
-    ///   - key: key for the given value
-    ///   - newValue: value for teh given key
+    // Update context with one
+    // - Parameters:
+    //   - key: key for the given value
+    //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
         self.strategy?.getStrategy().updateContext([key: newValue])
     }
     
-    /// Update presetContext
-    /// - Parameters:
-    ///   - presetKey: name of the preset context, see PresetContext
-    ///   - newValue: the value for the given key
+    // Update presetContext
+    // - Parameters:
+    //   - presetKey: name of the preset context, see PresetContext
+    //   - newValue: the value for the given key
     public func updateContext(_ flagshipContext: FlagshipContext, _ value: Any) {
         /// Check the validity value
         if !flagshipContext.chekcValidity(value) {
@@ -145,30 +145,30 @@ import Foundation
         self.strategy?.getStrategy().updateContext([flagshipContext.rawValue: value])
     }
     
-    /// Get the current context
-    /// - Returns: Dictionary that represent a user context
+    // Get the current context
+    // - Returns: Dictionary that represent a user context
     @objc public func getContext() -> [String: Any] {
         return self.context.getCurrentContext()
     }
     
-    /// Clear the current context
+    // Clear the current context
     @objc public func clearContext() {
         self.context.clearContext()
     }
     
-    /// Get Modification infos
-    /// - Parameter key: key that represent the flag's name
-    /// - Returns: the informations relative to this flag, if the key does not exist then return nil instead
+    // Get Modification infos
+    // - Parameter key: key that represent the flag's name
+    // - Returns: the informations relative to this flag, if the key does not exist then return nil instead
     @available(*, deprecated, message: "Use getFlag(\"my_flag\").metadata")
     public func getModificationInfo(_ key: String) -> [String: Any]? {
         return self.strategy?.getStrategy().getModificationInfo(key)
     }
     
-    /// Get the flag's value
-    /// - Parameter key : key that represent the flag's name
-    /// - parameter defaultValue : the value to return if the key does not exist
-    /// - Parameter activate: if activate is true then send activate hit , no otherwise
-    /// - Returns: The value for flag, if the key don't exist or the flag's type is different than default value then return default value
+    // Get the flag's value
+    // - Parameter key : key that represent the flag's name
+    // - parameter defaultValue : the value to return if the key does not exist
+    // - Parameter activate: if activate is true then send activate hit , no otherwise
+    // - Returns: The value for flag, if the key don't exist or the flag's type is different than default value then return default value
     @available(*, deprecated, message: "Use getFlag(\"my_flag\").value")
     public func getModification<T>(_ key: String, defaultValue: T, activate: Bool = false) -> T {
         if activate {
@@ -178,23 +178,23 @@ import Foundation
         return self.strategy?.getStrategy().getModification(key, defaultValue: defaultValue) ?? defaultValue
     }
     
-    /// Activate tell to report that a visitor has seen a campaign
-    /// - Parameter key: Modification identifier, represent flag's name
+    // Activate tell to report that a visitor has seen a campaign
+    // - Parameter key: Modification identifier, represent flag's name
     @available(*, deprecated, message: "Use getFlag(\"my_flag\").visitorExposed()")
     public func activate(_ key: String) {
         self.strategy?.getStrategy().activate(key)
     }
     
-    /// Send Hits
-    /// - Parameter T: Hit object
+    // Send Hits
+    // - Parameter T: Hit object
     public func sendHit<T: FSTrackingProtocol>(_ event: T) {
         self.strategy?.getStrategy().sendHit(event)
     }
     
-    /// Set consent
+    //  Set consent
     
-    /// Set the conssent
-    /// - Parameter newValue: if true, then flush all stored visitor data
+    // Set the conssent
+    // - Parameter newValue: if true, then flush all stored visitor data
     @objc public func setConsent(hasConsented: Bool) {
         self.hasConsented = hasConsented
         self.strategy?.getStrategy().setConsent(newValue: hasConsented)
@@ -206,16 +206,16 @@ import Foundation
         }
     }
     
-    /// Retrieve Flag by its key.
-    /// - Parameter key:key associated to the flag
-    /// - Parameter defaultValue:flag default value
-    /// - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
+    //  Retrieve Flag by its key.
+    //  - Parameter key:key associated to the flag
+    //  - Parameter defaultValue:flag default value
+    //  - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
     public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
         // We dispaly a warning if the flag's status is not fetched
         if self.flagSyncStatus != .FLAGS_FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
         }
-        /// Check the key if exist
+        // Check the key if exist
         guard let modification = self.currentFlags[key] else {
             return FSFlag(key, nil, defaultValue, self.strategy)
         }
@@ -223,13 +223,13 @@ import Foundation
         return FSFlag(key, modification, defaultValue, self.strategy)
     }
     
-    /////////////////
-    ///            //
-    /// internal   //
-    ///            //
-    /////////////////
+    // ///////////////
+    // /            //
+    // / internal   //
+    // /            //
+    // ///////////////
     
-    /// Send Hit consent
+    // Send Hit consent
     internal func sendHitConsent(_ hasConsented: Bool) {
         // create the hit consent
         let consentHit = FSConsent(eventCategory: .User_Engagement, eventAction: FSConsentAction)
