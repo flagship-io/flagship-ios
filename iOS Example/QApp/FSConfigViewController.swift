@@ -24,7 +24,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBOutlet var timeOutFiled: UITextField?
     @IBOutlet var visitorCtxLabel: UILabel?
     @IBOutlet var visitorIdTextField: UITextField?
-    @IBOutlet var createAndFetchBtn: UIButton?
+    @IBOutlet var createBtn: UIButton?
+    @IBOutlet var fetchBtn: UIButton?
+
 
     var delegate: FSConfigViewDelegate?
 
@@ -47,8 +49,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         FSCTools.roundButton(modeBtn)
         FSCTools.roundButton(startBtn)
         FSCTools.roundButton(resetBtn)
-        FSCTools.roundButton(createAndFetchBtn)
-        createAndFetchBtn?.isEnabled = false
+        FSCTools.roundButton(createBtn)
+        createBtn?.isEnabled = false
     }
 
     // Hide KeyBoard
@@ -92,7 +94,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
             if newState == .READY || newState == .PANIC_ON || newState == .POLLING {
                 DispatchQueue.main.async {
-                    self.createAndFetchBtn?.isEnabled = true
+                    self.createBtn?.isEnabled = true
                 }
 
                 if mode == .BUCKETING {
@@ -118,7 +120,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     @IBAction func onClickCreateVisitor() {
-        let currentVisitor = createVisitor()
+        
+        fetchBtn?.isEnabled = true
+        _ = createVisitor()
     }
     
     @IBAction func fetchFlags(){
@@ -127,12 +131,12 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             if st == .READY {
                 self.delegate?.onGetSdkReady()
                 DispatchQueue.main.async {
-                    self.createAndFetchBtn?.isEnabled = true
+                    self.createBtn?.isEnabled = true
                 }
             } else if st == .PANIC_ON {
                 self.delegate?.onGetSdkReady()
                 DispatchQueue.main.async {
-                    self.createAndFetchBtn?.isEnabled = true
+                    self.createBtn?.isEnabled = true
                 }
                 self.showErrorMessage("Flagship, Panic Mode Activated")
             } else {

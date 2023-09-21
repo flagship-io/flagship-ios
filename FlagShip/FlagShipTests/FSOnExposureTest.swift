@@ -74,15 +74,20 @@ final class FSOnExposureTest: XCTestCase {
 
     /// Test Flag object
     func testFlagObject() {
-        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata: FSFlagMetadata(FSModification(campId: "campId", varGroupId: "grpId", varId: "varId", typeOfTest: "AB", aSlug: "slugg", val: "flagVlaue")), value: "flagVlaue")
-
+        
+        let camp =  FSCampaign("campId", "campName", "grpId", "groupName", "AB", "slugg")
+        let variation = FSVariation(idVariation: "varId", variationName: "varName", nil, isReference: false)
+        let modif = FSModification(aCampaign: camp, aVariation: variation, valueForFlag: "flagVlaue")
+        let mettdata = FSFlagMetadata(modif)
+        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata:mettdata , value: "flagVlaue")
+        
         XCTAssertTrue(flagTest.toDictionary()["value"] as? String == "flagVlaue")
         XCTAssertTrue(flagTest.toDictionary()["key"] as? String == "keyFlag")
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
         XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
     }
 
-    /// Test Visitor Object
+    // Test Visitor Object
     func testVisitorObject() {
         let visitorObject = FSVisitorExposed(id: "testId", anonymousId: "ano1", context: ["key1": "val1"])
         XCTAssertTrue(visitorObject.toDictionary()["id"] as? String == "testId")

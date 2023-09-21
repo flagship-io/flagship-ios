@@ -3,10 +3,13 @@
     "campaigns": [
         {
             "id": "bvcdqksmicqghldq9agg",
+            "name":"campaign_name",
+            "variationGroupName":"varGroup_name",
             "slug" : "cmapForTest",
             "variationGroupId": "bvcdqksmicqghldq9ahg",
             "variation": {
                 "id": "bvcdqksmicqghldq9aig",
+                "name":"variation_name",
                 "modifications": {
                     "type": "FLAG",
                     "value": {

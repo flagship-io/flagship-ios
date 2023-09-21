@@ -161,7 +161,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
                         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK ❌"))
                     }
                 }
-                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name ?? "", groupVar))
+                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name , groupVar, bucketCampaignItem.type, bucketCampaignItem.slug))
             }
         }
         fsCampaignBucketCache.campaigns = groupCampaigns

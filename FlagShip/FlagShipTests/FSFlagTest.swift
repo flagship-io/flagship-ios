@@ -66,6 +66,9 @@ class FSFlagTest: XCTestCase {
                 XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
                 XCTAssertTrue(flag.metadata().isReference == false)
                 XCTAssertTrue(flag.metadata().slug == "cmapForTest")
+                XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+                XCTAssertTrue(flag.metadata().variationName == "variation_name")
             }
             
             if let flagBis = self.testVisitor?.getFlag(key: "---", defaultValue: "dfl") {

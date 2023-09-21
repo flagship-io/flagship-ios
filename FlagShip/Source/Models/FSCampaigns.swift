@@ -8,14 +8,13 @@
 import Foundation
 
 internal class FSCampaigns:Decodable {
-    /// visitorId
+    // visitorId
     public var visitorId: String = ""
-    /// panic (sdk disabled if true)
+    // panic (sdk disabled if true)
     public var panic: Bool
-    /// list of campaign
+    // list of campaign
     public var campaigns: [FSCampaign] = []
-    
-    /// initialize
+    // initialize
     internal init(_ customId: String, panic:Bool = false) {
         
         self.visitorId = customId
@@ -64,8 +63,6 @@ internal class FSCampaigns:Decodable {
                             // Protection check
                             if let retValue = aValue[keyFlag]{
                                 // Create Modification object
-//                                let modifObject = FSModification(campId:itemCamp.idCampaign, varGroupId: itemCamp.variationGroupId, varId:aVariation.idVariation, isRef: aVariation.reference, typeOfTest: itemCamp.type,aSlug:itemCamp.slug, val:retValue)
-//                                    ret.updateValue(modifObject, forKey: keyFlag)
                                 let modifObject = FSModification(aCampaign: itemCamp, aVariation: aVariation, valueForFlag: retValue)
                                 ret.updateValue(modifObject, forKey: keyFlag)
                                

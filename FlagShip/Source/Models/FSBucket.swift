@@ -45,10 +45,11 @@ internal class FSBucket: Decodable {
 // Campaigns
 class FSBucketCampaign: Decodable {
 
-    let idCampaign: String!
-    let type: String!
-    let variationGroups: [FSVariationGroup]
-    let name:String?
+    var idCampaign: String = ""
+    var type: String = ""
+    var variationGroups: [FSVariationGroup]
+    var name:String = ""
+    var slug:String = ""
 
     required public  init(from decoder: Decoder) throws {
 
@@ -58,7 +59,7 @@ class FSBucketCampaign: Decodable {
         do { self.type                    = try values.decode(String.self, forKey: .type)} catch { self.type = ""}
         do { self.variationGroups         = try values.decode([FSVariationGroup].self, forKey: .variationGroups)} catch { self.variationGroups = []}
         do { self.name                    = try values.decode(String.self, forKey: .name)} catch { self.name = ""}
-
+        do { self.slug                    = try values.decode(String.self, forKey: .slug)} catch { self.slug = ""}
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -67,16 +68,17 @@ class FSBucketCampaign: Decodable {
         case type
         case variationGroups
         case name
+        case slug
     }
 
 }
 
 class FSVariationGroup: Decodable {
 
-    let idVariationGroup: String!
+    var idVariationGroup: String = ""
     let targeting: FSTargeting?
     let variations: [FSVariation]
-    let name:String?
+    var name:String = ""
 
     required public  init(from decoder: Decoder) throws {
 

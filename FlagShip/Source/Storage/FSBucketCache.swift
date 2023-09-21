@@ -42,27 +42,34 @@ internal class FSBucketCache {
 // Campaign contain liste variation groups
 internal class FSCampaignCache {
 
-    var campaignId: String!
+    var campaignId: String = ""
     
     var nameCampaign:String = ""
+    
+    var type:String = ""
+    
+    var slug:String = ""
 
     var variationGroups: [FSVariationGroupCache]
 
-    init(_ campaignId: String!, _ campaignName:String, _ variationGroups: [FSVariationGroupCache]) {
+    init(_ campaignId: String!, _ campaignName:String, _ variationGroups: [FSVariationGroupCache], _ aType:String, _ aSlug:String) {
 
         self.campaignId = campaignId
 
         self.variationGroups = variationGroups
         
         self.nameCampaign = campaignName
+        
+        self.type = aType
+        
+        self.slug = aSlug
     }
 
     internal func convertFSCampaignCachetoFSCampaign() -> FSCampaign {
 
-    let campaign: FSCampaign = FSCampaign(campaignId,nameCampaign,  self.variationGroups.first?.variationGroupId ?? "" , self.variationGroups.first?.name ?? "", "") 
+        let campaign: FSCampaign = FSCampaign(campaignId,nameCampaign,  self.variationGroups.first?.variationGroupId ?? "" , self.variationGroups.first?.name ?? "", self.type , self.slug)
         
-        /// See later the type in bucketing mode
-
+        // See later the type in bucketing mode
         campaign.variation =  variationGroups.first?.getFSVariation()
 
         return campaign

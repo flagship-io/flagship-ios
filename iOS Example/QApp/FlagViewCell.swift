@@ -27,6 +27,9 @@ class FlagViewCell: UITableViewCell {
     
     @IBOutlet var isReferenceSwitch:UISwitch?
     @IBOutlet var flagValue:UITextField?
+    
+    @IBOutlet var typeCampaign:UITextField?
+    @IBOutlet var slug:UITextField?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,8 +53,9 @@ class FlagViewCell: UITableViewCell {
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
             flagValue?.text = String(format: "\( aFlag.value(visitorExposed: false) ?? "None")")
-            
             isReferenceSwitch?.isOn = metedata.isReference
+            slug?.text = metedata.slug
+            typeCampaign?.text = metedata.campaignType
         }
     }
     
@@ -66,14 +70,6 @@ class FlagViewCell: UITableViewCell {
             // add their new text to the existing text
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
         
-            if updatedText.count > 0 {
-                //activateBtn?.isEnabled = true
-                //getBtn?.isEnabled = true
-
-            } else {
-              //  activateBtn?.isEnabled = false
-                //getBtn?.isEnabled = false
-            }
         } else if typePicker?.selectedRow(inComponent: 0) == 2 || typePicker?.selectedRow(inComponent: 0) == 1 {
             let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
         

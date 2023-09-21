@@ -26,7 +26,6 @@ internal class FSCampaign :Decodable {
 
         let values     = try decoder.container(keyedBy: CodingKeys.self)
 
-        // should create by default ... See later
         do { self.idCampaign              = try values.decode(String.self, forKey: .idCampaign)} catch { self.idCampaign = ""}
         do { self.variationGroupId              = try values.decode(String.self, forKey: .variationGroupId)} catch { self.variationGroupId = ""}
         do { self.variation        = try values.decode(FSVariation.self, forKey: .variation)} catch { self.variation = nil}
@@ -39,13 +38,14 @@ internal class FSCampaign :Decodable {
 
     }
 
-    internal init(_ idCampaign: String, _ nameCampaign:String, _ variationGroupId: String, _ nameVariationGroup:String, _ type:String) {
+    internal init(_ idCampaign: String, _ nameCampaign:String, _ variationGroupId: String, _ nameVariationGroup:String, _ aType:String, _ aSlug:String) {
 
         self.idCampaign = idCampaign
         self.variationGroupId = variationGroupId
-        self.type = type
+        self.type = aType
         self.name = nameCampaign
         self.variationGroupName = nameVariationGroup
+        self.slug = aSlug
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -86,7 +86,6 @@ internal class FSVariation: Decodable {
 
         let values     = try decoder.container(keyedBy: CodingKeys.self)
 
-        // should create by default ... See later
         do { self.idVariation             = try values.decode(String.self, forKey: .idVariation)} catch { self.idVariation = ""}
         do { self.modifications           = try values.decode(FSModifications.self, forKey: .modifications)} catch { self.modifications = nil}
         do { self.allocation              = try values.decode(Int.self, forKey: .allocation)} catch { self.allocation = 0}

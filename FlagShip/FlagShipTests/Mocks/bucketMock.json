@@ -2,6 +2,7 @@
   "campaigns": [
     {
       "id": "bqso7p5tl9jg05d80320",
+      "name":"campaign_name",
       "type": "ab",
       "variationGroups": [
         {
@@ -49,10 +50,13 @@
     },
     {
       "id": "br6h35n811lg0788np8g",
+      "name":"campaign_name",
+      "slug": "slug_description",
       "type": "flag",
       "variationGroups": [
         {
           "id": "br6h35n811lg0788np9g",
+          "name":"varGroup_name",
           "targeting": {
             "targetingGroups": [
               {
@@ -74,6 +78,7 @@
           "variations": [
             {
               "id": "br6h35n811lg0788npa0",
+              "name":"variation_name",
               "modifications": {
                 "type": "FLAG",
                 "value": {
@@ -117,6 +122,7 @@
     },
     {
       "id": "br6h4dv811lg07g61g00",
+      "name":"campaign_name",
       "type": "ab",
       "variationGroups": [
         {
@@ -162,6 +168,7 @@
     },
     {
       "id": "br8dca47pe0g1648p34g",
+      "name":"campaign_name",
       "type": "ab",
       "variationGroups": [
         {

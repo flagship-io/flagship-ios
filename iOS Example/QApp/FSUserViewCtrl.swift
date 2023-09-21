@@ -30,13 +30,6 @@ class FSUserViewCtrl: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
-       // self.visitorTextField?.text =  Flagship.sharedInstance.visitorId
-        
-      //  self.anonymousIdField?.text = Flagship.sharedInstance.anonymousId
-        
-        
         let redPlaceholderText = NSAttributedString(string: "New authenticated id",
                                                             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
                 

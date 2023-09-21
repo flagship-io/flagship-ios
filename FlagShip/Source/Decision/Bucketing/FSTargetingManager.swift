@@ -38,7 +38,7 @@ internal enum FSoperator: String, CaseIterable {
     case Unknown
 }
 
-/// :nodoc:
+// :nodoc:
 class FSTargetingManager {
     
     var userId:String = ""

@@ -60,8 +60,18 @@ final class FSTrackingManagerTest: XCTestCase {
     }
 
     func testAddTrackingElementsToBatch() {
+        
+        
+        // Create FSModification
+        
+       let camp =  FSCampaign("campId", "campName", "groupId", "groupName", "A/B", "slugg")
+        
+        let variation = FSVariation(idVariation: "varId", variationName: "varName", nil, isReference: false)
+        
+        let modif = FSModification(aCampaign: camp, aVariation: variation, valueForFlag: 12)
+        
         // Test the activate
-        let activateTest = Activate("vid", nil, modification: FSModification(campId: "campId", varGroupId: "groupId", varId: "varId", typeOfTest: "AB", aSlug: "slug", val: 12))
+        let activateTest = Activate("vid", nil, modification: modif)
         XCTAssertTrue(activateTest.description().count > 0)
 
         trackingManager?.addTrackingElementsToBatch([
