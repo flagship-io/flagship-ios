@@ -63,6 +63,7 @@ class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func getFlag(){
         currentFlag =  flagView?.prepareAndGetGetFlag()
+        currentFlag?.value()
         tableViewFlag?.reloadData()
     }
     
