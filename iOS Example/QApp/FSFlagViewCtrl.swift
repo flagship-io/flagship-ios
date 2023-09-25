@@ -196,15 +196,6 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
 
             // add their new text to the existing text
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        
-            if updatedText.count > 0 {
-               // activateBtn?.isEnabled = true
-                //getBtn?.isEnabled = true
-
-            } else {
-               // activateBtn?.isEnabled = false
-                //getBtn?.isEnabled = false
-            }
         } else if pickerView?.selectedRow(inComponent: 0) == 2 || pickerView?.selectedRow(inComponent: 0) == 1 {
             let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
         
