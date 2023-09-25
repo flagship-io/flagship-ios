@@ -75,7 +75,6 @@
 		8BF2DE03256BEDD9005FF664 /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF2DE02256BEDD9005FF664 /* Flagship.framework */; };
 		8BF2DE04256BEDD9005FF664 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF2DE02256BEDD9005FF664 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BF2DE07256C0B7E005FF664 /* FSUserViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */; };
-		8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */; };
 		8BF2DE42256F996A005FF664 /* FSContextViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */; };
 		F5AA7D182AB999BA00584D0E /* FSFlagViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */; };
 		F5AA7D1A2AB9A36500584D0E /* FlagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */; };
@@ -178,7 +177,6 @@
 		8BF2DDFB256BD2B5005FF664 /* FSConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSConfigViewController.swift; sourceTree = "<group>"; };
 		8BF2DE02256BEDD9005FF664 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
-		8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSModificationsViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
 		F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagViewCtrl.swift; sourceTree = "<group>"; };
 		F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagViewCell.swift; sourceTree = "<group>"; };
@@ -445,7 +443,6 @@
 				8BF2DDF8256BCF77005FF664 /* FSTabBarViewCtrl.swift */,
 				8BF2DDFB256BD2B5005FF664 /* FSConfigViewController.swift */,
 				8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */,
-				8BF2DE0B256D115B005FF664 /* FSModificationsViewCtrl.swift */,
 				8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */,
 				8B90007D257015A800703DDB /* FSHitViewController.swift */,
 				8B90008B2575298600703DDB /* FSCustomTools.swift */,
@@ -649,7 +646,6 @@
 				8B493A5827FF35B600DDAAB5 /* XNFileLogHandler.swift in Sources */,
 				8B493A6D27FF365000DDAAB5 /* FSLoggerCtrl.swift in Sources */,
 				8B493A6927FF35B600DDAAB5 /* XNLogData.swift in Sources */,
-				8BF2DE0C256D115B005FF664 /* FSModificationsViewCtrl.swift in Sources */,
 				8B493A4027FF35B600DDAAB5 /* XNUILogDetailCell.swift in Sources */,
 				8B493A3827FF35B600DDAAB5 /* XNUIHeaderView.swift in Sources */,
 				8B493A4A27FF35B600DDAAB5 /* XNUISettingsVC.swift in Sources */,
