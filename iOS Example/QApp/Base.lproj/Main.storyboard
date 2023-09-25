@@ -308,7 +308,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Key for Flag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdR-xs-kJS">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="btnColor" borderStyle="roundedRect" placeholder="Key for Flag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hdR-xs-kJS">
                                         <rect key="frame" x="10" y="5" width="150" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="fH6-R2-5it"/>
@@ -1353,7 +1353,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="fetchFlags" destination="rjy-GE-W2V" eventType="touchUpInside" id="5Rw-Gj-4b0"/>
-                                                    <action selector="onClickCreateVisitor" destination="rjy-GE-W2V" eventType="touchUpInside" id="Lfl-2s-mC9"/>
                                                 </connections>
                                             </button>
                                         </subviews>

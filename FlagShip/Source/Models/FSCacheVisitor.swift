@@ -296,7 +296,6 @@ internal class FSCacheCampaign:Codable{
         var result:[String:FSModification] = [:]
         for item in self.flags.keys {
             if let value = self.flags[item]{
-               // result[item] =  FSModification(campId: self.campaignId, varGroupId:self.variationGroupId, varId: self.variationId, isRef: self.isReference, typeOfTest: self.type,aSlug:self.slug, val:value)
                 result[item]  = FSModification(cacheCamp: self, valueForFlag: value)
             }
         }

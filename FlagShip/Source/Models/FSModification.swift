@@ -80,9 +80,10 @@ public class FSModification {
         slug = cacheCamp.slug
         
         // Set variation group id
-        variationGroupId = cacheCamp.variationId
-        // Set variation name
+        variationGroupId = cacheCamp.variationGroupId
+        // Set variation group name
         variationGroupName = cacheCamp.variationGroupName
+        
         
         // Set variation id
         variationId = cacheCamp.variationId

@@ -126,7 +126,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
     
     @IBAction func fetchFlags(){
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags { () in
+        
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags(onFetchCompleted: {
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY {
                 self.delegate?.onGetSdkReady()
@@ -142,13 +143,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             } else {
                 self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
-        }
+        })
     }
 
+    
+    
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {
