@@ -23,7 +23,7 @@ class FSFlagTest: XCTestCase {
         /// Start sdk
         let fsConfig = FSConfigBuilder().DecisionApi().build()
 
-        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6srez", apiKey: "apiKey", config: fsConfig)
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdov", apiKey: "apiKey", config: fsConfig)
         
         do {
             guard let path =  Bundle(for: type(of: self)).url(forResource: "decisionApi", withExtension: "json") else { return }
