@@ -132,7 +132,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
                 for variationGroupItem: FSVariationGroup in bucketCampaignItem.variationGroups {
                     if targetManager.isTargetingGroupIsOkay(variationGroupItem.targeting) {
-                        FlagshipLogManager.Log(level: .ALL, tag: .ALLOCATION, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is OKAY ✅ "))
+                        FlagshipLogManager.Log(level: .ALL, tag: .ALLOCATION, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup) is OKAY ✅ "))
 
                         // select variation here
                         guard let variationIdSelected = selectVariationWithHashMurMur(visitorId, variationGroupItem) else {
@@ -155,10 +155,10 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
                             }
                         }
 
-                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationGroupItem.name ?? "", variationCache))
+                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationGroupItem.name , variationCache))
 
                     } else {
-                        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK ❌"))
+                        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup) is NOK ❌"))
                     }
                 }
                 groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name , groupVar, bucketCampaignItem.type, bucketCampaignItem.slug))
