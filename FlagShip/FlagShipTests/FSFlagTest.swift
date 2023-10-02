@@ -23,18 +23,16 @@ class FSFlagTest: XCTestCase {
         /// Start sdk
         let fsConfig = FSConfigBuilder().DecisionApi().build()
 
-        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig)
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdov", apiKey: "apiKey", config: fsConfig)
         
         do {
-            let testBundle = Bundle(for: type(of: self))
-            
-            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return }
+            guard let path =  Bundle(for: type(of: self)).url(forResource: "decisionApi", withExtension: "json") else { return }
             
             let data = try Data(contentsOf: path, options: .alwaysMapped)
             
             MockURLProtocol.requestHandler = { _ in
                 
-                let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+                let response = HTTPURLResponse(url: URL(string: "ok")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
                 return (response, data)
             }
             
@@ -42,11 +40,11 @@ class FSFlagTest: XCTestCase {
             print("---------------- Failed to load the mock api file ----------")
         }
         
-        /// Create new visitor
+        // Create Visitor
         testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
         // Check if the flagsync is Created
         XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
-        /// Set fake session
+        // Set fake session
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
         }
@@ -66,6 +64,9 @@ class FSFlagTest: XCTestCase {
                 XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
                 XCTAssertTrue(flag.metadata().isReference == false)
                 XCTAssertTrue(flag.metadata().slug == "cmapForTest")
+                XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+                XCTAssertTrue(flag.metadata().variationName == "variation_name")
             }
             
             if let flagBis = self.testVisitor?.getFlag(key: "---", defaultValue: "dfl") {

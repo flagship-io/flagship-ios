@@ -218,6 +218,10 @@ internal class FSCacheCampaign:Codable{
     var activated: Bool
     var flags:[String:Any] = [:]
     
+    var campaignName:String
+    var variationGroupName:String
+    var variationName:String
+    
     
     required init(from decoder: Decoder) throws {
         
@@ -231,6 +235,10 @@ internal class FSCacheCampaign:Codable{
         do {self.type             = try values.decode(String.self,      forKey: .type)}             catch {self.type             = ""   }
         do {self.slug             = try values.decode(String.self,      forKey: .slug)}             catch {self.slug             = ""   }
         do {self.flags            = try values.decode([String:Any].self,forKey: .flags)}            catch {self.flags            = [:]  }
+        
+        do {self.campaignName       = try values.decode(String.self,      forKey: .campaignName)}       catch {self.campaignName       = ""   }
+        do {self.variationGroupName = try values.decode(String.self,      forKey: .variationGroupName)} catch {self.variationGroupName = ""   }
+        do {self.variationName      = try values.decode(String.self,      forKey: .variationName)}      catch {self.variationName      = ""   }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -245,6 +253,11 @@ internal class FSCacheCampaign:Codable{
 
         /// Encode flags
         try container.encode(self.flags, forKey: .flags)
+        
+        
+        try container.encode(self.campaignName, forKey: .campaignName)
+        try container.encode(self.variationGroupName, forKey: .variationGroupName)
+        try container.encode(self.variationName, forKey: .variationName)
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -256,6 +269,10 @@ internal class FSCacheCampaign:Codable{
         case slug
         case activated
         case flags
+        
+        case campaignName
+        case variationGroupName
+        case variationName
      }
     
     /// Wrapper for FSModification ----> to FSCacheCampaign
@@ -269,13 +286,17 @@ internal class FSCacheCampaign:Codable{
         self.activated        = false /// later refractor
         self.flags[key]       = modifObject.value
         self.slug             = modifObject.slug
+        
+        self.campaignName      = modifObject.campaignName
+        self.variationGroupName = modifObject.variationGroupName
+        self.variationName      = modifObject.variationName
     }
     
     internal func getFlagsFromCachedCampaign()->[String:FSModification]{
         var result:[String:FSModification] = [:]
         for item in self.flags.keys {
             if let value = self.flags[item]{
-                result[item] =  FSModification(campId: self.campaignId, varGroupId:self.variationGroupId, varId: self.variationId, isRef: self.isReference, typeOfTest: self.type,aSlug:self.slug, val:value)
+                result[item]  = FSModification(cacheCamp: self, valueForFlag: value)
             }
         }
         return result

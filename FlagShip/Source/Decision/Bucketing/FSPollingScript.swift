@@ -16,7 +16,7 @@ protocol FSPollingScriptDelegate{
 
 class FSPollingScript{
     
-    /// This class responsible for fetching the script
+    // This class responsible for fetching the script
     
     var pollingIntervalTime:TimeInterval
     
@@ -41,10 +41,10 @@ class FSPollingScript{
             self.pollingTimer?.suspend()
             self.service.getFSScript { (bucketingScript, error) in
                 
-                /// Error occured when trying to get script
+                // Error occured when trying to get script
                 if error != nil {
 
-                    /// Read from cache the bucket script
+                    // Read from cache the bucket script
                     guard let storedBucket: FSBucket =  FSStorageManager.readBucketFromCache() else {
 
                         // Exit the start with not ready status
@@ -53,7 +53,7 @@ class FSPollingScript{
 
                         return
                     }
-                    /// Transmit data to delegate
+                    // Transmit data to delegate
                     self.delegate?.onGetScript(storedBucket, nil)
                     
                 } else {
@@ -77,7 +77,7 @@ class FSPollingScript{
     }
 }
 
-/// Inspsired from : https://medium.com/over-engineering/a-background-repeating-timer-in-swift-412cecfd2ef9
+// Inspsired from : https://medium.com/over-engineering/a-background-repeating-timer-in-swift-412cecfd2ef9
 class FSRepeatingTimer {
 
     let timeInterval: TimeInterval

@@ -9,7 +9,7 @@ internal class FSContext {
     private var _currentContext: [String: Any] = [:]
     
     init(_ contextValues: [String: Any]) {
-        /// Clean context with none valide type
+        // Clean context with none valide type
         self._currentContext = contextValues.filter { $0.value is Int || $0.value is Double || $0.value is String || $0.value is Bool }
         self._currentContext = contextValues
         // Set all_users key
@@ -35,7 +35,7 @@ internal class FSContext {
         _currentContext.updateValue(newValue, forKey: key)
     }
 
-    /// Load preSet Context
+    // Load preSet Context
     func loadPreSetContext() {
         _currentContext.merge(FlagshipContextManager.getPresetContextForApp()) { _, new in new }
     }
@@ -49,6 +49,6 @@ internal class FSContext {
     }
     
     func mergeContext(_ ctxValue: [String: Any]) {
-        /// To do later
+        // To do later
     }
 }

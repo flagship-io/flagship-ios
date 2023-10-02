@@ -53,6 +53,17 @@ class FlagshipBucketingTest: XCTestCase {
                     // Get from alloc 100
                     if let flag = self.testVisitor?.getFlag(key: "stringFlag", defaultValue: "default") {
                         XCTAssertTrue(flag.value() as? String == "alloc_100")
+                        
+                        // Test Flag metadata already with bucketing file
+                        XCTAssertTrue(flag.exists())
+                        XCTAssertTrue(flag.metadata().campaignId == "br6h35n811lg0788np8g")
+                        XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                        XCTAssertTrue(flag.metadata().variationId == "br6h35n811lg0788npa0")
+                        XCTAssertTrue(flag.metadata().variationName == "variation_name")
+                        XCTAssertTrue(flag.metadata().variationGroupId == "br6h35n811lg0788np9g")
+                        XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+                        XCTAssertTrue(flag.metadata().isReference == false)
+                        XCTAssertTrue(flag.metadata().slug == "slug_description")
                     }
                     expectationSync.fulfill()
                 })

@@ -44,16 +44,16 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
     }
 
-    /// init Manager
+    // init Manager
     init(service: FSService, userId: String, currentContext: [String: Any], _ pollingTime: TimeInterval) {
         self.targetManager = FSTargetingManager()
 
         super.init(service: service, userId: userId, currentContext: currentContext)
 
-        /// Create polling script
+        // Create polling script
         self.pollingScript = FSPollingScript(service: super.networkService, pollingTime: pollingTime, delegate: self)
 
-        /// Launch the script
+        // Launch the script
         launchPolling()
     }
 
@@ -61,7 +61,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         
         self.assignationHistory = pAssignationHistory
         DispatchQueue.main.async {
-            /// Set the context before running the bucket algorithm
+            // Set the context before running the bucket algorithm
             self.targetManager.currentContext = currentContext
             self.targetManager.userId = self.userId
 
@@ -142,25 +142,26 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
                             continue
                         }
 
-                        /// Get all modification according to id variation
+                        // Get all modification according to id variation
 
                         let variationCache: FSVariationCache = .init(variationIdSelected)
 
                         for itemVariation in variationGroupItem.variations {
                             if itemVariation.idVariation == variationIdSelected {
-                                /// the variationIdSelected is found , populate the attributes
+                                // the variationIdSelected is found , populate the attributes
                                 variationCache.modification = itemVariation.modifications
                                 variationCache.reference = itemVariation.reference
+                                variationCache.variationName = itemVariation.name
                             }
                         }
 
-                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationCache))
+                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationGroupItem.name ?? "", variationCache))
 
                     } else {
                         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup ?? "") is NOK ❌"))
                     }
                 }
-                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, groupVar))
+                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name , groupVar, bucketCampaignItem.type, bucketCampaignItem.slug))
             }
         }
         fsCampaignBucketCache.campaigns = groupCampaigns
@@ -174,7 +175,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
             FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_FILE)
 
             for itemKey in assignationHistory.keys {
-                if itemKey == variationGroup.idVariationGroup { /// Variation Group already exist, then return the saved one
+                if itemKey == variationGroup.idVariationGroup { // Variation Group already exist, then return the saved one
                     FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_VARIATION(itemKey))
 
                     return assignationHistory[itemKey]
@@ -186,7 +187,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: .MESSAGE("Apply MurMurHash Algo on customId"))
 
-        /// We calculate the Hash allocation by the combonation of : visitorId + idVariationGroup
+        //  We calculate the Hash allocation by the combonation of : visitorId + idVariationGroup
         let combinedId = variationGroup.idVariationGroup + visitorId
         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: .MESSAGE("The combined id for MurMurHash is :  \(combinedId)"))
 

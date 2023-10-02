@@ -21,7 +21,7 @@ extension FSVisitor{
     
     internal func mergeCachedVisitor(_ cachedVisitor:FSCacheVisitor){
         
-        /// Retreive cached flags and Merge in the visitor instance
+        // Retreive cached flags and Merge in the visitor instance
         var cachedFlgs:[String:FSModification] = [:]
         for item in cachedVisitor.data?.campaigns ?? []{
             
