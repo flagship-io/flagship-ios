@@ -24,7 +24,7 @@
 			<key>IsSecure</key>
 			<false/>
 			<key>DefaultValue</key>
-			<string>bkk9glocmjcg0vtmdlng</string>
+			<string></string>
 			<key>Title</key>
 			<string>EnvId</string>
 			<key>Key</key>
@@ -42,7 +42,7 @@
 			<key>IsSecure</key>
 			<false/>
 			<key>DefaultValue</key>
-			<string>DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23</string>
+			<string></string>
 			<key>Title</key>
 			<string>Api Key</string>
 			<key>Key</key>

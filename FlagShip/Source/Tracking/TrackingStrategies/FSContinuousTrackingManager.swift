@@ -132,7 +132,6 @@ class ContinuousTrackingManager: FSTrackingManager {
         })
 
         // Clear all the activate present in the pool
-        // TODO: Check it should be gonne already on extracting the first time
         self.batchManager.removeTrackElements(listToRemove: activateBatch.listActivate)
     }
 

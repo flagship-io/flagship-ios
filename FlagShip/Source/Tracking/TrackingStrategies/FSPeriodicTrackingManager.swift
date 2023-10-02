@@ -30,7 +30,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         cacheManager?.flushAllHits()
         // Get the merged hit from pool
         let remainedHitInQueue = batchManager.getTrackElement()
-        if !remainedHitInQueue.isEmpty { // TODO: LATER FIXING
+        if !remainedHitInQueue.isEmpty {
             for itemToSave in remainedHitInQueue {
                 // Save hit in Database
                 let cacheHit: FSCacheHit = .init(itemToSave) // Convert to cache format

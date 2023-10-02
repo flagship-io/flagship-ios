@@ -210,7 +210,7 @@ import Foundation
         do { self.visitorId = try values.decode(String.self, forKey: .visitorId) } catch { self.visitorId = "" }
         do { self.envId = try values.decode(String.self, forKey: .envId) } catch { self.envId = "" }
         do {
-            self.createdAt = try values.decode(Double.self, forKey: .createdAt) // TODO: , Make it optional
+            self.createdAt = try values.decode(Double.self, forKey: .createdAt) 
 
         } catch {
             self.createdAt = 0

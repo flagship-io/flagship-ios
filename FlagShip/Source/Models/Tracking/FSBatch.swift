@@ -142,7 +142,7 @@ class Activate: FSTrackingProtocol, Codable {
         self.type = .ACTIVATE
 
         do {
-            self.createdAt = try values.decode(Double.self, forKey: .createdAt) // TODO: , Make it optional
+            self.createdAt = try values.decode(Double.self, forKey: .createdAt)
 
         } catch {
             self.createdAt = 0
