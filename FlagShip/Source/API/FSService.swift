@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal class FSService {
+class FSService {
     /// clientId
     var envId: String
     /// apiKey
@@ -17,9 +17,9 @@ internal class FSService {
     /// anonymousId
     var anonymousId: String?
     
-    internal var timeOutServiceForRequestApi = FSTimeoutRequestApi
+    var timeOutServiceForRequestApi = FSTimeoutRequestApi
     
-    internal var serviceSession: URLSession = .init(configuration: URLSessionConfiguration.default)
+    var serviceSession: URLSession = .init(configuration: URLSessionConfiguration.default)
     
     /// Init service
     init(_ envId: String, _ apiKey: String, _ visitorId: String, _ anonymousId: String? = nil) {
@@ -117,10 +117,10 @@ internal class FSService {
 //                uploadKeyValueCtxRqst.httpMethod = "POST"
 //                uploadKeyValueCtxRqst.httpBody = data
 //                uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
-//                
+//
 //                /// Send the request
 //                sendRequest(urlKeyCtx, type: .KeyContext, data: data) { _, error in
-//                    
+//
 //                    if error == nil {
 //                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.SUCCESS_ON_SEND_KEYS)
 //                    } else {

@@ -17,6 +17,8 @@ import Foundation
     case BATCH
     case ACTIVATE
     case SEGMENT
+    case TROUBLESHOOTING
+    case USAGE
     case None
 
     public var typeString: String {
@@ -37,6 +39,10 @@ import Foundation
             return "ACTIVATE"
         case .SEGMENT:
             return "SEGMENT"
+        case .TROUBLESHOOTING:
+            return "TROUBLESHOOTING"
+        case .USAGE:
+            return "USAGE"
         case .None:
             return "None"
         }
@@ -183,13 +189,13 @@ import Foundation
 
     public func isValid() -> Bool {
         if let aVisitorId = self.visitorId, let aClientId = self.envId {
-            return (!aVisitorId.isEmpty && !aClientId.isEmpty && self.type != .None)
+            return !aVisitorId.isEmpty && !aClientId.isEmpty && self.type != .None
         }
 
         return false
     }
 
-    internal func createTupleId() -> [String: String] {
+    func createTupleId() -> [String: String] {
         var tupleId = [String: String]()
 
         if self.anonymousId != nil /* && self.visitorId != nil */ {
@@ -210,7 +216,7 @@ import Foundation
         do { self.visitorId = try values.decode(String.self, forKey: .visitorId) } catch { self.visitorId = "" }
         do { self.envId = try values.decode(String.self, forKey: .envId) } catch { self.envId = "" }
         do {
-            self.createdAt = try values.decode(Double.self, forKey: .createdAt) 
+            self.createdAt = try values.decode(Double.self, forKey: .createdAt)
 
         } catch {
             self.createdAt = 0

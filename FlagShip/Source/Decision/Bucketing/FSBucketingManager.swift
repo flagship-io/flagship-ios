@@ -7,9 +7,9 @@
 
 import Foundation
 
-internal let SemaphoreTimeOut: TimeInterval = 2
+let SemaphoreTimeOut: TimeInterval = 2
 
-internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
+class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     var pollingScript: FSPollingScript?
     var _scriptBucket: FSBucket?
     var _scriptError: FlagshipError?
@@ -18,7 +18,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     var matchedCampaigns: [FSCampaignCache] = []
     let fsQueue = DispatchQueue(label: "com.flagship.queue", attributes: .concurrent)
 
-    internal var scriptBucket: FSBucket? {
+    var scriptBucket: FSBucket? {
         get {
             return fsQueue.sync {
                 _scriptBucket
@@ -31,7 +31,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         }
     }
 
-    internal var scriptError: FlagshipError? {
+    var scriptError: FlagshipError? {
         get {
             return fsQueue.sync {
                 _scriptError
@@ -58,8 +58,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     }
 
     override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
-        
-        self.assignationHistory = pAssignationHistory
+        assignationHistory = pAssignationHistory
         DispatchQueue.main.async {
             // Set the context before running the bucket algorithm
             self.targetManager.currentContext = currentContext
@@ -94,7 +93,7 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     }
 
     /// This is the entry for bucketing , that give the campaign infos as we do in api decesion
-    internal func bucketVariations(_ visitorId: String, _ scriptBucket: FSBucket) -> FSCampaigns? {
+    func bucketVariations(_ visitorId: String, _ scriptBucket: FSBucket) -> FSCampaigns? {
         /// Check the panic mode
 
         if scriptBucket.panic == true {
@@ -110,13 +109,16 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         // Match before
         let resultBucketCache = matchTargetingForCustomID(scriptBucket, visitorId)
 
+        // Set Extras information
+        resultBucketCache.extras = FSExtras(scriptBucket.accountSettings)
+
         // Fill Campaign with value to be read by singleton
         return FSCampaigns(resultBucketCache)
     }
 
     /// Extract the variations where the user is allowed to seee
 
-    internal func matchTargetingForCustomID(_ scriptBucket: FSBucket?, _ visitorId: String) -> FSBucketCache {
+    func matchTargetingForCustomID(_ scriptBucket: FSBucket?, _ visitorId: String) -> FSBucketCache {
         let fsCampaignBucketCache = FSBucketCache(visitorId)
 
         matchedVariationGroup.removeAll()
@@ -155,13 +157,13 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
                             }
                         }
 
-                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationGroupItem.name , variationCache))
+                        groupVar.append(FSVariationGroupCache(variationGroupItem.idVariationGroup, variationGroupItem.name, variationCache))
 
                     } else {
                         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.MESSAGE("Target for \(variationGroupItem.idVariationGroup) is NOK ❌"))
                     }
                 }
-                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name , groupVar, bucketCampaignItem.type, bucketCampaignItem.slug))
+                groupCampaigns.append(FSCampaignCache(bucketCampaignItem.idCampaign, bucketCampaignItem.name, groupVar, bucketCampaignItem.type, bucketCampaignItem.slug))
             }
         }
         fsCampaignBucketCache.campaigns = groupCampaigns
@@ -169,9 +171,9 @@ internal class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         return fsCampaignBucketCache
     }
 
-    internal func selectVariationWithHashMurMur(_ visitorId: String, _ variationGroup: FSVariationGroup) -> String? {
+    func selectVariationWithHashMurMur(_ visitorId: String, _ variationGroup: FSVariationGroup) -> String? {
         // Before selected varaition have to check user id exist
-        if !assignationHistory.isEmpty  {
+        if !assignationHistory.isEmpty {
             FlagshipLogManager.Log(level: .INFO, tag: .BUCKETING, messageToDisplay: .BUCKETING_EXISTING_FILE)
 
             for itemKey in assignationHistory.keys {

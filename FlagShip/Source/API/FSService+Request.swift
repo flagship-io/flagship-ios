@@ -7,15 +7,15 @@
 
 import Foundation
 
-internal extension FSService {
-    //////// private
-    enum FSRequestType: Int {
-        case Campaign = 1
-        case Activate
-        case Tracking
-        case KeyContext
-    }
-    
+//////// private
+enum FSRequestType: Int {
+    case Campaign = 1
+    case Activate
+    case Tracking
+    case KeyContext
+}
+
+extension FSService {
     func sendRequest(_ pUrl: URL, type: FSRequestType, data: Data? = nil, onCompleted: @escaping (Data?, Error?) -> Void) {
         var request = URLRequest(url: pUrl, timeoutInterval: timeOutServiceForRequestApi)
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -48,7 +48,7 @@ internal extension FSService {
                         onCompleted(nil, FlagshipError(type: .sendRequest, code: httpResponse.statusCode))
                     }
                 } else {
-                    onCompleted(nil, FlagshipError(type: .sendRequest,  code:400))
+                    onCompleted(nil, FlagshipError(type: .sendRequest, code: 400))
                 }
             }
         }.resume()

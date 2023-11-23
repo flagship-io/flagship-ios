@@ -8,24 +8,24 @@
 import Foundation
 
 /// Universaal End Point
-internal let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
+let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 
 // internal let FlagshipUniversalEndPoint =  "https://decision-staging.flagship.io/v2/"
 
 /// XApi key
-internal let FSX_Api_Key = "x-api-key"
+let FSX_Api_Key = "x-api-key"
 
 /// Sdk name platforme ex : iOS
-internal let FSX_SDK_Client = "x-sdk-client"
+let FSX_SDK_Client = "x-sdk-client"
 
 /// Sdk version ex: 2.0.1
-internal let FSX_SDK_Version = "x-sdk-version"
+let FSX_SDK_Version = "x-sdk-version"
 
 /// platforme name
 
-internal let FS_iOS = "iOS"
+let FS_iOS = "iOS"
 
-internal var FlagShipEndPoint: String {
+var FlagShipEndPoint: String {
     return FlagshipUniversalEndPoint
 }
 
@@ -35,25 +35,32 @@ internal var FlagShipEndPoint: String {
 /// internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&sendContextEvent=false"
 
 /// remove "sendContextEvent=false" with in refractoring
-internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
+let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
 
 /// Add this part when the user don't consent
-internal let VISITOR_CONSENT = "visitor_consent"
+let VISITOR_CONSENT = "visitor_consent"
 
 ///// ACTIVATE ///////////////
-internal let FSActivate = FlagShipEndPoint + "activate"
+let FSActivate = FlagShipEndPoint + "activate"
 
 ///////////// ARIANE ////////////////////////////////
 // internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
 
-internal let EVENT_TRACKING = "https://events.flagship.io"
+let EVENT_TRACKING = "https://events.flagship.io"
 
 /////////////// GET SCRIPT ////////////////////////
 
-internal let FSGetScript = "https://cdn.flagship.io/%@/bucketing.json"
+let FSGetScript = "https://cdn.flagship.io/%@/bucketing.json"
 
 /////// Upload all keys/values //////////////////
 
-internal let FSSendKeyValueContext = FlagShipEndPoint + "%@/events"
+let FSSendKeyValueContext = FlagShipEndPoint + "%@/events"
 
-internal let FSConsentAction = "fs_consent"
+let FSConsentAction = "fs_consent"
+
+// Troubleshooting
+
+let FSTroubleshootingUrlString = EVENT_TRACKING + "/troubleshooting"
+
+// Developer usage
+let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"

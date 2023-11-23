@@ -28,9 +28,19 @@ public enum FSCacheStrategy: Int {
     // This strategy will not send batch events except when the hits are loaded from the database.
     // It works like the previous version of the SDK. Api requests are made each time a hits has been emitted by a visitor instance.
     case NO_CACHING_STRATEGY
+
+    var name: String {
+        switch self { case .CONTINUOUS_CACHING:
+            return "CONTINUOUS_CACHING"
+        case .PERIODIC_CACHING:
+            return "PERIODIC_CACHING"
+        case .NO_CACHING_STRATEGY:
+            return "NO_CACHING_STRATEGY"
+        }
+    }
 }
 
-public class FSTrackingManagerConfig : NSObject {
+public class FSTrackingManagerConfig: NSObject {
     // Pool Size Maximum
     var poolMaxSize: Int
 

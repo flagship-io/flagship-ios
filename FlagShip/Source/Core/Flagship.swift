@@ -7,42 +7,58 @@
 import Foundation
 
 @objc public enum FStatus: NSInteger {
-    /// Flagship SDK has not been started or initialized successfully.
+    // Flagship SDK has not been started or initialized successfully.
     case NOT_INITIALIZED = 0x0
     
-    /// Flagship SDK has been started successfully but is still polling campaigns.
+    // Flagship SDK has been started successfully but is still polling campaigns.
     case POLLING = 0x10
     
-    /// Flagship SDK is ready but is running in Panic mode: All features are disabled except the one which refresh this status.
+    // Flagship SDK is ready but is running in Panic mode: All features are disabled except the one which refresh this status.
     case PANIC_ON = 0x20
     
-    /// Flagship SDK is ready to use.
+    // Flagship SDK is ready to use.
     case READY = 0x100
+    
+    var name: String {
+        switch self { case .NOT_INITIALIZED:
+            return "NOT_INITIALIZED"
+        case .POLLING:
+            return "POLLING"
+        case .PANIC_ON:
+            return "PANIC_ON"
+        case .READY:
+            return "READY"
+        }
+    }
 }
 
 public class Flagship: NSObject {
-    /// envId
+    // envId
     var envId: String?
-    /// apiKey
+    // apiKey
     var apiKey: String?
-    /// Configuration
+    // Configuration
     var currentConfig: FlagshipConfig = FSConfigBuilder().build()
-    /// Current visitor
+    // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
-    /// Current status
-    internal var currentStatus: FStatus = .NOT_INITIALIZED
+    // Current status
+    var currentStatus: FStatus = .NOT_INITIALIZED
     
-    /// Enabale Log
+    // Enabale Log
     var enableLogs: Bool = true
     
-    /// Shared instace
+    var lastInitializationTimestamp: TimeInterval
+
+    // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
         // setup code
         return instance
     }()
     
-    override private init() {}
+    override private init() {
+        lastInitializationTimestamp = Date().timeIntervalSince1970
+    }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
         // Check the environmentId
@@ -55,72 +71,75 @@ public class Flagship: NSObject {
             return
         }
         
-        /// Set the apiKey
+        // Set the apiKey
         self.apiKey = apiKey
         
-        /// Set configuration
+        // Set configuration
         currentConfig = config
         
-        /// If the mode bucketing we set the mode at NotReady, until the polling get the
+        // If the mode bucketing we set the mode at NotReady, until the polling get the
         Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
 
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    internal func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool) -> FSVisitor {
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated)
         
-        /// Define strategy
+        // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
         
         if hasConsented {
-            /// Read the cached visitor
+            // Read the cached visitor
             newVisitor.strategy?.getStrategy().lookupVisitor() /// See later for optimize
-            ///
+            //
             newVisitor.strategy?.getStrategy().lookupHits() /// See later for optimize
 
         } else {
-            /// user not consent then flush the cache related
+            // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()
         }
         
-        /// Send consent hit
+        // Send consent hit
         newVisitor.sendHitConsent(hasConsented)
+        
+        // Config data usage tracking
+        FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: newVisitor)
         
         return newVisitor
     }
     
-    /// Set the shared visitor
+    // Set the shared visitor
     public func setSharedVisitor(_ visitor: FSVisitor) {
         Flagship.sharedInstance.sharedVisitor = visitor
     }
     
-    /// Reset the sdk
-    internal func reset() {
+    // Reset the sdk
+    func reset() {
         sharedVisitor = nil
         currentStatus = .NOT_INITIALIZED
     }
     
-    /// Create new visitor
+    // Create new visitor
     @objc public func newVisitor(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder {
         return FSVisitorBuilder(visitorId, instanceType: instanceType)
     }
     
-    /// Get status
+    // Get status
     public func getStatus() -> FStatus {
         return currentStatus
     }
     
-    /// Update status
-    internal func updateStatus(_ newStatus: FStatus) {
-        /// _ if the staus has not changed then no need to trigger the callback
+    // Update status
+    func updateStatus(_ newStatus: FStatus) {
+        // _ if the staus has not changed then no need to trigger the callback
         if newStatus == currentStatus {
             return
         }
         
-        /// Update the status
+        // Update the status
         currentStatus = newStatus
-        /// Trigger the callback
+        // Trigger the callback
         if let callbackListener = currentConfig.onStatusChanged {
             callbackListener(newStatus)
         }
