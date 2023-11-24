@@ -31,14 +31,17 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
 
     /// Cache Manager
     var cacheManager: FSCacheManager
+    
+    // Data Usage
+    var disableDeveloperUsageTracking: Bool
 
-    internal init(_ mode: FSMode = .DECISION_API,
-                  _ timeOut: TimeInterval = FSTimeoutRequestApi,
-                  _ logLevel: FSLevel = .ALL,
-                  pollingTime: TimeInterval = FSPollingTime,
-                  cacheManager: FSCacheManager,
-                  _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
-                  _ trackingConfig: FSTrackingManagerConfig, _ onVisitorExposed: OnVisitorExposed = nil)
+    init(_ mode: FSMode = .DECISION_API,
+         _ timeOut: TimeInterval = FSTimeoutRequestApi,
+         _ logLevel: FSLevel = .ALL,
+         pollingTime: TimeInterval = FSPollingTime,
+         cacheManager: FSCacheManager,
+         _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
+         _ trackingConfig: FSTrackingManagerConfig, _ onVisitorExposed: OnVisitorExposed = nil, _ disableDeveloperUsageTracking: Bool = true)
     {
         self.mode = mode
         self.timeout = timeOut
@@ -48,6 +51,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
         self.onStatusChanged = onStatusChanged
         self.trackingConfig = trackingConfig
         self.onVisitorExposed = onVisitorExposed
+        self.disableDeveloperUsageTracking = disableDeveloperUsageTracking
     }
 }
 
@@ -81,6 +85,9 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     
     /// On visitor Exposure
     public private(set) var _onVisitorExposure: OnVisitorExposed = nil
+    
+    /// Developer usage tracking
+    public private(set) var _disableDeveloperUsageTracking: Bool = false
 
     /// _ With
     
@@ -139,7 +146,14 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
         return self
     }
     
+    /// With disableDeveloperUsageTracking
+    
+    @objc public func withDisableDeveloperUsageTracking(_ disableDeveloperUsageTracking: Bool)->FSConfigBuilder {
+        _disableDeveloperUsageTracking = disableDeveloperUsageTracking
+        return self
+    }
+    
     @objc public func build()->FlagshipConfig {
-        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged, _trackingConfig, _onVisitorExposure)
+        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusChanged, _trackingConfig, _onVisitorExposure, _disableDeveloperUsageTracking)
     }
 }

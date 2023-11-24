@@ -47,10 +47,10 @@ class FSService {
                 onGetCampaign(nil, FlagshipError(type: .badRequest, code: 400))
                 return
             }
-            
             FlagshipLogManager.Log(level: .DEBUG, tag: .CAMPAIGNS, messageToDisplay: FSLogMessage.GET_CAMPAIGN_URL("\(getUrl)"))
            
             let dataToPost = try JSONSerialization.data(withJSONObject: params, options: [])
+            
             FlagshipLogManager.Log(level: .DEBUG, tag: .CAMPAIGNS, messageToDisplay: FSLogMessage.GET_CAMPAIGN((dataToPost.prettyPrintedJSONString ?? "Error to get pretty json") as String))
 
             sendRequest(getUrl, type: .Campaign, data: dataToPost) { responseData, error in
@@ -65,7 +65,9 @@ class FSService {
                         FlagshipLogManager.Log(level: .INFO, tag: .CAMPAIGNS, messageToDisplay: FSLogMessage.GET_CAMPAIGN_RESPONSE("\(responseData?.prettyPrintedJSONString ?? "Error on display jsonString")"))
                         let deocodedObject = try decode.decode(FSCampaigns.self, from: responseData ?? Data())
                         onGetCampaign(deocodedObject, nil)
-                    } catch { onGetCampaign(nil, error) }
+                    } catch {
+                        onGetCampaign(nil, error)
+                    }
                 }
             }
         } catch {
@@ -92,44 +94,7 @@ class FSService {
             
         } catch {
             FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ERROR_ON_DECODE_JSON)
+            FSDataUsageTracking.sharedInstance.processTSCatchedError(v: nil, error: FlagshipError(message: "Error on Activate"))
         }
     }
-    
-    /// Send All keys/values for the context
-    /// - Parameter currentContext: dictionary that contain this infos
-
-//    func sendkeyValueContext(_ currentContext: [String: Any]) {
-//        do {
-//            var aCuurrentContext: [String: Any] = currentContext
-//            /// Remove the ALL_USERS
-//            aCuurrentContext.removeValue(forKey: ALL_USERS)
-//
-//            let params: NSMutableDictionary = ["visitor_id": visitorId, "data": aCuurrentContext, "type": "CONTEXT"]
-//
-//            let data = try JSONSerialization.data(withJSONObject: params, options: [])
-//
-//            if let urlKeyCtx = URL(string: String(format: FSSendKeyValueContext, envId)) {
-//                var uploadKeyValueCtxRqst = URLRequest(url: urlKeyCtx)
-//
-//                /// Add headers client and version
-//                uploadKeyValueCtxRqst.addValue(FS_iOS, forHTTPHeaderField: FSX_SDK_Client)
-//                uploadKeyValueCtxRqst.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
-//                uploadKeyValueCtxRqst.httpMethod = "POST"
-//                uploadKeyValueCtxRqst.httpBody = data
-//                uploadKeyValueCtxRqst.addValue("application/json", forHTTPHeaderField: "Accept")
-//
-//                /// Send the request
-//                sendRequest(urlKeyCtx, type: .KeyContext, data: data) { _, error in
-//
-//                    if error == nil {
-//                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.SUCCESS_ON_SEND_KEYS)
-//                    } else {
-//                        FlagshipLogManager.Log(level: .DEBUG, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.FAILED_ON_SEND_KEYS)
-//                    }
-//                }
-//            }
-//        } catch {
-//            FlagshipLogManager.Log(level: .DEBUG, tag: .PARSING, messageToDisplay: FSLogMessage.ERROR_ON_SERIALIZE)
-//        }
-//    }
 }

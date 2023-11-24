@@ -8,6 +8,9 @@
 
 import Foundation
 
+// Allocation threshold for data usage tracking
+let FSDataUsageAllocationThreshold = 10
+
 class FSDataUsageTracking {
     var visitorSessionId: String = FSTools.generateUuidv4()
     
@@ -21,6 +24,8 @@ class FSDataUsageTracking {
     var _service: FSService?
     
     var troubleShootingReportAllowed: Bool = false
+    
+    var dataUsageTrackingReportAllowed: Bool = true
 
     // Shared instace
     static let sharedInstance: FSDataUsageTracking = {
@@ -40,6 +45,7 @@ class FSDataUsageTracking {
         _sdkConfig = config
         _troubleshooting = troubleshooting
         _service?.visitorId = visitorId
+        evaluateDataUsageTrackingAllocated()
     }
     
     func configureWithVisitor(pVisitor: FSVisitor) {
@@ -47,6 +53,7 @@ class FSDataUsageTracking {
         _hasConsented = pVisitor.hasConsented
         _sdkConfig = pVisitor.configManager.flagshipConfig
         _service?.visitorId = pVisitor.visitorId
+        evaluateDataUsageTrackingAllocated()
     }
     
     func updateTroubleshooting(trblShooting: FSTroubleshooting?) {
@@ -114,8 +121,25 @@ class FSDataUsageTracking {
     // Developer data usage
     
     // Evaluate data usage to allow reporting
-    func evaluateDataUsageTrackingAllocated()->Bool {
-        return true
+    func evaluateDataUsageTrackingAllocated() {
+        let formatDate = DateFormatter()
+        formatDate.dateFormat = "yyyyMMdd"
+        let combinedId: String = _visitorId + formatDate.string(from: Date())
+        
+        let hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 100)
+        
+        print(" -------- The hashalloc for \(combinedId) is \(hashAlloc) ----------")
+        
+        // Get the developer usage tracking
+        let ret = _sdkConfig?.disableDeveloperUsageTracking ?? false
+        
+        dataUsageTrackingReportAllowed = hashAlloc <= FSDataUsageAllocationThreshold && !ret
+        
+        if dataUsageTrackingReportAllowed {
+            print("-------------- Developer Usage  Allowed ✅✅✅✅✅ ---------------")
+        } else {
+            print("-------------- Developer Usage not Allowed ❌❌❌❌❌ ---------------")
+        }
     }
     
     // Send Troubleshooting Report

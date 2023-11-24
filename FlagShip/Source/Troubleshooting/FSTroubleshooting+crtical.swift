@@ -9,10 +9,40 @@
 import Foundation
 
 extension FSDataUsageTracking {
-    // TS Bucketing file
+    // TS Error catched
+    func processTSCatchedError(v: FSVisitor?, error: FlagshipError) {
+        var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
+                                              "visitor.visitorId": _visitorId,
+                                              "error.message": error.message]
+
+        // Add context
+        if let aV = v {
+            criticalJson.merge(_createTRContext(aV)) { _, new in new }
+        }
+
+        // Send TS on Flag warinig
+        sendTroubleshootingReport(_trHit:
+            TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.ERROR_CATCHED.rawValue, pSpeceficCustomFields: criticalJson))
+    }
+
+    // TS Flag
+    func proceesTSFlag(crticalPointLabel: CriticalPoints, f: FSFlag, v: FSVisitor?) {
+        var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
+                                              "visitor.visitorId": _visitorId,
+                                              "flag.key": f.key,
+                                              "flag.defaultValue": "\(f.defaultValue ?? "nil")"]
+
+        // Add context
+        if let aV = v {
+            criticalJson.merge(_createTRContext(aV)) { _, new in new }
+        }
+
+        // Send TS on Flag warinig
+        sendTroubleshootingReport(_trHit:
+            TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
+    }
 
     // FSRequestType
-
     func processTSHttpError(requestType: FSRequestType, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
