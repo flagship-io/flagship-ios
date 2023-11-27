@@ -76,6 +76,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
+        FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
             /// Create the dictionary for all flags

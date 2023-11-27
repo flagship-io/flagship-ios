@@ -8,6 +8,8 @@
 
 import Foundation
 
+let DataUsageLabel = "SDK_CONFIG"
+
 extension FSDataUsageTracking {
     // TS Error catched
     func processTSCatchedError(v: FSVisitor?, error: FlagshipError) {
@@ -270,5 +272,19 @@ extension FSDataUsageTracking {
             ]
         }
         return configFields
+    }
+
+    // Data Usage Developer
+
+    // Create data usage information
+    func processDataUsageTracking(v: FSVisitor) {
+        var dataUsageJson: [String: String] = [:]
+
+        // Add config infos
+        dataUsageJson.merge(createConfigFields()) { _, new in new }
+
+        // Send Data usage report
+        sendDataUsageReport(_duHit: FSDataUsageHit(
+            pVisitorId: _visitorSessionId, pLabel: DataUsageLabel, pSpeceficCustomFields: dataUsageJson))
     }
 }

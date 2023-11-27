@@ -66,6 +66,17 @@ class TroubleshootingHit: FSTracking {
     }
 }
 
+class FSDataUsageHit: TroubleshootingHit {
+    override init(pVisitorId: String, pLabel: String, pSpeceficCustomFields: [String: String]) {
+        super.init(pVisitorId: pVisitorId, pLabel: pLabel, pSpeceficCustomFields: pSpeceficCustomFields)
+        type = .USAGE
+    }
+
+    public required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+}
+
 enum CriticalPoints: String {
     // Trigger on fetch flags
     case VISITOR_FETCH_CAMPAIGNS

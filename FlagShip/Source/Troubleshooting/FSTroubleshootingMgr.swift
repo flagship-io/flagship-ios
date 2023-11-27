@@ -9,7 +9,7 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
-let FSDataUsageAllocationThreshold = 10
+let FSDataUsageAllocationThreshold = 100
 
 class FSDataUsageTracking {
     var visitorSessionId: String = FSTools.generateUuidv4()
@@ -171,4 +171,32 @@ class FSDataUsageTracking {
             }
         }
     }
+    
+    func sendDataUsageReport(_duHit: FSDataUsageHit) {
+        if dataUsageTrackingReportAllowed {
+            do {
+                let dataToSend = try JSONSerialization.data(withJSONObject: _duHit.bodyTrack as Any, options: .prettyPrinted)
+                print("##############@ Report DataUsage tracking #######################")
+                print(dataToSend.prettyPrintedJSONString)
+                print("##############@ Report DataUsage tracking  #######################")
+                
+                if let urlReport = URL(string: FSDeveloperUsageUrlString) {
+                    _service?.sendRequest(urlReport, type: .Tracking, data: dataToSend) { _, error in
+                        if error != nil {
+                            FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send troubleshoting report : \(error.debugDescription)"))
+                        } else {
+                            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Sucess to send troubleshoting report"))
+                        }
+                    }
+                }
+
+            } catch {
+                print(error.localizedDescription)
+            }
+        } else {
+            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Sending developer data usage not allowed"))
+        }
+    }
+    
+    /// TO DO Refarctor sends functions
 }
