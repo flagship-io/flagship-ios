@@ -11,10 +11,10 @@ import Foundation
 let DataUsageLabel = "SDK_CONFIG"
 
 extension FSDataUsageTracking {
-    // TS Error catched
+    // Troubleshooting Error Catched
     func processTSCatchedError(v: FSVisitor?, error: FlagshipError) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
-                                              "visitor.visitorId": _visitorId,
+                                              "visitor.visitorId": v?.visitorId ?? "",
                                               "error.message": error.message]
 
         // Add context
@@ -22,15 +22,15 @@ extension FSDataUsageTracking {
             criticalJson.merge(_createTRContext(aV)) { _, new in new }
         }
 
-        // Send TS on Flag warinig
+        // Send TS on Flag warninig
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.ERROR_CATCHED.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    // TS Flag
+    // Troubleshooting Flag
     func proceesTSFlag(crticalPointLabel: CriticalPoints, f: FSFlag, v: FSVisitor?) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
-                                              "visitor.visitorId": _visitorId,
+                                              "visitor.visitorId": v?.visitorId ?? "",
                                               "flag.key": f.key,
                                               "flag.defaultValue": "\(f.defaultValue ?? "nil")"]
 
@@ -39,12 +39,12 @@ extension FSDataUsageTracking {
             criticalJson.merge(_createTRContext(aV)) { _, new in new }
         }
 
-        // Send TS on Flag warinig
+        // Send TS on Flag warninig
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    // FSRequestType
+    // Troubleshooting on request
     func processTSHttpError(requestType: FSRequestType, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
@@ -54,7 +54,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": "\(response?.statusCode)"
+            "http.response.code": String(describing: response?.statusCode)
         ]
         criticalJson.merge(httpFields) { _, new in new }
 
@@ -83,7 +83,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": "\(response?.statusCode)"
+            "http.response.code": String(describing: response?.statusCode)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
@@ -100,7 +100,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": "\(response?.statusCode)"
+            "http.response.code": String(describing: response?.statusCode)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
@@ -110,32 +110,30 @@ extension FSDataUsageTracking {
 
     // TS Send Hit
     func processTSHits(label: String, visitor: FSVisitor, hit: FSTrackingProtocol) {
-        var criticalJson: [String: String] = [:]
-        // Create trio ids
-        let visitorIds = ["visitor.sessionId": _visitorSessionId,
-                          "visitor.visitorId": visitor.visitorId,
-                          "visitor.anonymousId": visitor.anonymousId ?? "null"]
-        // Add Trio ids
-        criticalJson.merge(visitorIds) { _, new in new }
+        var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
+                                              "visitor.visitorId": visitor.visitorId,
+                                              "visitor.anonymousId": visitor.anonymousId ?? "null"]
 
         // Add hits fields
         criticalJson.merge(createCriticalFieldsHits(hit: hit)) { _, new in new }
 
-        // Send TS report
+        // Send Troubleshooting
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: visitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
     }
 
     // TS on Fetching
-    func processTSFetching(pVisitor: FSVisitor) {
-        var criticalJson: [String: String] = [:]
+    func processTSFetching(v: FSVisitor) {
+        var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
+                                              "visitor.visitorId": v.visitorId,
+                                              "visitor.anonymousId": v.anonymousId ?? "null"]
 
         // Add visitor fields
-        criticalJson.merge(createCriticalFieldsForVisitor(pVisitor)) { _, new in new }
+        criticalJson.merge(createCriticalFieldsForVisitor(v)) { _, new in new }
 
-        // Send TS report
+        // Send TS Report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
-            pVisitorId: pVisitor.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
+            pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     func processTSXPC(label: String, pVisitor: FSVisitor) {
@@ -150,7 +148,7 @@ extension FSDataUsageTracking {
         criticalJson.merge(visitorIds) { _, new in new }
 
         // Add visitor fields
-        criticalJson.merge(createCrticalXpc(pVisitor)) { _, new in new }
+        criticalJson.merge(_createTRContext(pVisitor)) { _, new in new }
 
         // Send TS report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
@@ -162,7 +160,7 @@ extension FSDataUsageTracking {
     /// //////////////////////////////
 
     // HITS
-    private func createCriticalFieldsHits(hit: FSTrackingProtocol) -> [String: String] {
+     func createCriticalFieldsHits(hit: FSTrackingProtocol) -> [String: String] {
         var hitFields: [String: String] = [:]
 
         for (hitKey, hitValue) in hit.bodyTrack {
@@ -171,15 +169,6 @@ extension FSDataUsageTracking {
             hitFields.merge(itemFieldHit) { _, new in new }
         }
         return hitFields
-    }
-
-    // VISITOR-AUTHENTICATE
-    private func createCrticalXpc(_ pVisitor: FSVisitor) -> [String: String] {
-        var ret: [String: String] = [:]
-
-        ret = _createTRContext(pVisitor)
-
-        return ret
     }
 
     private func _createTRContext(_ pVisitor: FSVisitor) -> [String: String] {
@@ -197,16 +186,8 @@ extension FSDataUsageTracking {
         return ctxFields
     }
 
-    private func createCriticalFieldsForVisitor(_ visitor: FSVisitor) -> [String: String] {
+    func createCriticalFieldsForVisitor(_ visitor: FSVisitor) -> [String: String] {
         var ret: [String: String] = [:]
-
-        // Create trio ids
-        let visitorIds = ["visitor.sessionId": _visitorSessionId,
-                          "visitor.visitorId": visitor.visitorId,
-                          "visitor.anonymousId": visitor.anonymousId ?? "null"]
-
-        // Add ids visitor
-        ret.merge(visitorIds) { _, new in new }
 
         // Create flags fields
         var flagFields: [String: String] = [:]
@@ -274,7 +255,9 @@ extension FSDataUsageTracking {
         return configFields
     }
 
-    // Data Usage Developer
+    //////////////////////////
+    // Data Usage Developer //
+    //////////////////////////
 
     // Create data usage information
     func processDataUsageTracking(v: FSVisitor) {

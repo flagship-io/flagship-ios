@@ -101,7 +101,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
                 // Send TR
-                FSDataUsageTracking.sharedInstance.processTSFetching(pVisitor: self.visitor)
+                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
                 onSyncCompleted(.READY) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
