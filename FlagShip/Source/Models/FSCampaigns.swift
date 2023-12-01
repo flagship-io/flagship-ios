@@ -80,4 +80,8 @@ class FSCampaigns: Decodable {
         }
         return ret
     }
+    
+    func description() -> String {
+        self.campaigns.description
+    }
 }

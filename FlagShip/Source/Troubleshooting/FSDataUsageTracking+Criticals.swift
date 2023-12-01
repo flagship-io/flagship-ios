@@ -123,13 +123,16 @@ extension FSDataUsageTracking {
     }
 
     // TS on Fetching
-    func processTSFetching(v: FSVisitor) {
+    func processTSFetching(v: FSVisitor, campaigns: FSCampaigns?) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v.visitorId,
                                               "visitor.anonymousId": v.anonymousId ?? "null"]
 
         // Add visitor fields
         criticalJson.merge(createCriticalFieldsForVisitor(v)) { _, new in new }
+
+        // Json array
+        campaigns?.description()
 
         // Send TS Report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
@@ -160,7 +163,7 @@ extension FSDataUsageTracking {
     /// //////////////////////////////
 
     // HITS
-     func createCriticalFieldsHits(hit: FSTrackingProtocol) -> [String: String] {
+    func createCriticalFieldsHits(hit: FSTrackingProtocol) -> [String: String] {
         var hitFields: [String: String] = [:]
 
         for (hitKey, hitValue) in hit.bodyTrack {
@@ -212,6 +215,8 @@ extension FSDataUsageTracking {
         ret.merge(flagFields) { _, new in new }
 
         // Create campaigns // TODO
+
+        visitor.strategy
 
         // Create assignement
         var assignmentsFields: [String: String] = [:]

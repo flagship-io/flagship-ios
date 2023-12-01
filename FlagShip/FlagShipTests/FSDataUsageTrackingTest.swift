@@ -96,7 +96,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
         for i in 1 ... 100 {
             let testVisitor: FSVisitor = FSVisitorBuilder("userXpcTest\(i)").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
             testVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
-            FSDataUsageTracking.sharedInstance.processTSFetching(v: testVisitor)
+            FSDataUsageTracking.sharedInstance.processTSFetching(v: testVisitor, campaigns: nil)
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: testVisitor)
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: nil)
             FSDataUsageTracking.sharedInstance.processTSHits(label: "label", visitor: testVisitor, hit: FSScreen("TRScreen\(i)"))

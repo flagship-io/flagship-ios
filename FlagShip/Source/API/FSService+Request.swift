@@ -39,6 +39,8 @@ extension FSService {
             
             if error != nil {
                 onCompleted(nil, error)
+                
+                FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
             } else {
                 if let httpResponse = response as? HTTPURLResponse {
                     if (200 ... 299).contains(httpResponse.statusCode) {

@@ -97,7 +97,6 @@ internal class FSVariation: Decodable {
 
     }
     private enum CodingKeys: String, CodingKey {
-
         case idVariation = "id"
         case modifications
         case allocation
