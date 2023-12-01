@@ -131,8 +131,15 @@ extension FSDataUsageTracking {
         // Add visitor fields
         criticalJson.merge(createCriticalFieldsForVisitor(v)) { _, new in new }
 
-        // Json array
-        campaigns?.description()
+        // Add campaigns
+        do {
+            let restult = try JSONEncoder().encode(campaigns)
+            if let outPutString = String(data: restult, encoding: .utf8) {
+                criticalJson.merge(["visitor.campaigns": outPutString]) { _, new in new }
+            }
+        } catch {
+            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Error on decode campaigns"))
+        }
 
         // Send TS Report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(

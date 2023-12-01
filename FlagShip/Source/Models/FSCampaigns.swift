@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FSCampaigns: Decodable {
+class FSCampaigns: Codable {
     // visitorId
     public var visitorId: String = ""
     // panic (sdk disabled if true)
@@ -81,7 +81,15 @@ class FSCampaigns: Decodable {
         return ret
     }
     
-    func description() -> String {
-        self.campaigns.description
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.visitorId, forKey: .visitorId)
+        try container.encode(self.panic, forKey: .panic)
+        
+  
+        do { try container.encode(self.campaigns, forKey: .campaigns) } catch {
+            print(error)
+            self.campaigns = []
+        }
     }
 }
