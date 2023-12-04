@@ -6,7 +6,7 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class FSExtras: Decodable {
     var accountSettings: FSAccountSettings?

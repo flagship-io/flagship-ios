@@ -313,6 +313,24 @@
 		F5F1AD522B1631ED0052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
 		F5F1AD532B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
 		F5F1AD552B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */; };
+		F5F1AD562B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453952B02928400FFCC2F /* FSAccountSettings.swift */; };
+		F5F1AD572B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453952B02928400FFCC2F /* FSAccountSettings.swift */; };
+		F5F1AD582B1E1D9E0052E6E3 /* FSAccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453952B02928400FFCC2F /* FSAccountSettings.swift */; };
+		F5F1AD592B1E1DB40052E6E3 /* FSDataReportUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59840B52B052C9B0062F0C7 /* FSDataReportUsage.swift */; };
+		F5F1AD5A2B1E1DB50052E6E3 /* FSDataReportUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59840B52B052C9B0062F0C7 /* FSDataReportUsage.swift */; };
+		F5F1AD5B2B1E1DB60052E6E3 /* FSDataReportUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59840B52B052C9B0062F0C7 /* FSDataReportUsage.swift */; };
+		F5F1AD5C2B1E1DB80052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
+		F5F1AD5D2B1E1DB90052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
+		F5F1AD5E2B1E1DBA0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
+		F5F1AD5F2B1E1DBD0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */; };
+		F5F1AD602B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */; };
+		F5F1AD612B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */; };
+		F5F1AD622B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
+		F5F1AD632B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
+		F5F1AD652B1E1DC40052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
+		F5F1AD662B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
+		F5F1AD672B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
+		F5F1AD682B1E1E890052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
 		F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951D29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951E29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
@@ -1115,6 +1133,7 @@
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
 				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
+				F5F1AD652B1E1DC40052E6E3 /* FSDataUsageTracking.swift in Sources */,
 				8B2D51472805D43C00866D61 /* FlagshipConstants.swift in Sources */,
 				8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */,
 				F5BC97C62A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
@@ -1126,9 +1145,11 @@
 				8B2D514B2805D43C00866D61 /* FSCampaigns.swift in Sources */,
 				8B2D514C2805D43C00866D61 /* FSModification.swift in Sources */,
 				8B2D514D2805D43C00866D61 /* FSCampaign.swift in Sources */,
+				F5F1AD5B2B1E1DB60052E6E3 /* FSDataReportUsage.swift in Sources */,
 				F5DAF6762A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */,
 				8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */,
+				F5F1AD682B1E1E890052E6E3 /* FSTroubleshooting.swift in Sources */,
 				8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */,
 				8B2D51512805D43C00866D61 /* FSCacheHit.swift in Sources */,
 				8B2D51522805D43C00866D61 /* FSHits.swift in Sources */,
@@ -1146,10 +1167,12 @@
 				8B2D515A2805D43C00866D61 /* FSConstant.swift in Sources */,
 				F5BC97C22A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B2D515B2805D43C00866D61 /* FSService+Request.swift in Sources */,
+				F5F1AD562B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */,
 				8B2D515C2805D43C00866D61 /* FSService+Bucketing.swift in Sources */,
 				8B2D515D2805D43C00866D61 /* FSService.swift in Sources */,
 				8B2D515E2805D43C00866D61 /* FSTrackingManager.swift in Sources */,
 				8B2D515F2805D43C00866D61 /* FSDecisionManager.swift in Sources */,
+				F5F1AD612B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B2D51602805D43C00866D61 /* FSBucketingManager.swift in Sources */,
 				8B2D51612805D43C00866D61 /* FSPollingScript.swift in Sources */,
 				8B2D51622805D43C00866D61 /* FSTargetingManager.swift in Sources */,
@@ -1159,6 +1182,7 @@
 				8B2D51662805D43C00866D61 /* FSPanicStrategy.swift in Sources */,
 				8B2D51672805D43C00866D61 /* FSDefaultStrategy.swift in Sources */,
 				F52029F02A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
+				F5F1AD5E2B1E1DBA0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952629C4BADD00686BC6 /* FSBatch.swift in Sources */,
 				8B2D51682805D43C00866D61 /* FSNotReadyStrategy.swift in Sources */,
 				8B2D51692805D43C00866D61 /* FSNoConsentStrategy.swift in Sources */,
@@ -1216,6 +1240,7 @@
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
 				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
+				F5F1AD632B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
 				8B9F2A962809B8E600323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */,
 				F5BC97C72A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
@@ -1227,9 +1252,11 @@
 				8B9F2A9A2809B8E600323094 /* FSCampaigns.swift in Sources */,
 				8B9F2A9B2809B8E600323094 /* FSModification.swift in Sources */,
 				8B9F2A9C2809B8E600323094 /* FSCampaign.swift in Sources */,
+				F5F1AD5A2B1E1DB50052E6E3 /* FSDataReportUsage.swift in Sources */,
 				F5DAF6772A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */,
 				8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */,
+				F5F1AD672B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */,
 				8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */,
 				8B9F2AA02809B8E600323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AA12809B8E600323094 /* FSHits.swift in Sources */,
@@ -1247,10 +1274,12 @@
 				8B9F2AA92809B8E600323094 /* FSConstant.swift in Sources */,
 				F5BC97C32A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B9F2AAA2809B8E600323094 /* FSService+Request.swift in Sources */,
+				F5F1AD572B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */,
 				8B9F2AAB2809B8E600323094 /* FSService+Bucketing.swift in Sources */,
 				8B9F2AAC2809B8E600323094 /* FSService.swift in Sources */,
 				8B9F2AAD2809B8E600323094 /* FSTrackingManager.swift in Sources */,
 				8B9F2AAE2809B8E600323094 /* FSDecisionManager.swift in Sources */,
+				F5F1AD602B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B9F2AAF2809B8E600323094 /* FSBucketingManager.swift in Sources */,
 				8B9F2AB02809B8E600323094 /* FSPollingScript.swift in Sources */,
 				8B9F2AB12809B8E600323094 /* FSTargetingManager.swift in Sources */,
@@ -1260,6 +1289,7 @@
 				8B9F2AB52809B8E600323094 /* FSPanicStrategy.swift in Sources */,
 				8B9F2AB62809B8E700323094 /* FSDefaultStrategy.swift in Sources */,
 				F52029F12A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
+				F5F1AD5D2B1E1DB90052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952729C4BADD00686BC6 /* FSBatch.swift in Sources */,
 				8B9F2AB72809B8E700323094 /* FSNotReadyStrategy.swift in Sources */,
 				8B9F2AB82809B8E700323094 /* FSNoConsentStrategy.swift in Sources */,
@@ -1289,6 +1319,7 @@
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
 				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
+				F5F1AD622B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
 				8B9F2AD52809BA8200323094 /* FlagshipConstants.swift in Sources */,
 				8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */,
 				F5BC97C82A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
@@ -1300,9 +1331,11 @@
 				8B9F2AD92809BA8200323094 /* FSCampaigns.swift in Sources */,
 				8B9F2ADA2809BA8200323094 /* FSModification.swift in Sources */,
 				8B9F2ADB2809BA8200323094 /* FSCampaign.swift in Sources */,
+				F5F1AD592B1E1DB40052E6E3 /* FSDataReportUsage.swift in Sources */,
 				F5DAF6782A152F1600C0B140 /* FSTrackingDbMgt.swift in Sources */,
 				8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */,
 				8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */,
+				F5F1AD662B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */,
 				8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */,
 				8B9F2ADF2809BA8200323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AE02809BA8200323094 /* FSHits.swift in Sources */,
@@ -1320,10 +1353,12 @@
 				8B9F2AE82809BA8200323094 /* FSConstant.swift in Sources */,
 				F5BC97C42A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B9F2AE92809BA8200323094 /* FSService+Request.swift in Sources */,
+				F5F1AD582B1E1D9E0052E6E3 /* FSAccountSettings.swift in Sources */,
 				8B9F2AEA2809BA8200323094 /* FSService+Bucketing.swift in Sources */,
 				8B9F2AEB2809BA8200323094 /* FSService.swift in Sources */,
 				8B9F2AEC2809BA8200323094 /* FSTrackingManager.swift in Sources */,
 				8B9F2AED2809BA8200323094 /* FSDecisionManager.swift in Sources */,
+				F5F1AD5F2B1E1DBD0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B9F2AEE2809BA8200323094 /* FSBucketingManager.swift in Sources */,
 				8B9F2AEF2809BA8200323094 /* FSPollingScript.swift in Sources */,
 				8B9F2AF02809BA8200323094 /* FSTargetingManager.swift in Sources */,
@@ -1333,6 +1368,7 @@
 				8B9F2AF42809BA8300323094 /* FSPanicStrategy.swift in Sources */,
 				8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */,
 				F52029F22A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
+				F5F1AD5C2B1E1DB80052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952829C4BADD00686BC6 /* FSBatch.swift in Sources */,
 				8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */,
 				8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */,
