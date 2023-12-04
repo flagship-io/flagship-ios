@@ -38,14 +38,17 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     /// Test Processing
     func testTimeSlotTr() {
-        FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(-100)
-        FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
-        XCTAssertFalse(FSDataUsageTracking.sharedInstance.troubleShootingReportAllowed)
         
         FSDataUsageTracking.sharedInstance._troubleshooting?.startDate = Date()
         FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(1000)
         FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
         XCTAssertTrue(FSDataUsageTracking.sharedInstance.troubleShootingReportAllowed)
+        
+        FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(-100)
+        FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
+        XCTAssertFalse(FSDataUsageTracking.sharedInstance.troubleShootingReportAllowed)
+        
+      
     }
     
     func testConsent() {
