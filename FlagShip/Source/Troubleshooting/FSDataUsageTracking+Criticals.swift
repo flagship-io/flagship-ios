@@ -184,12 +184,9 @@ extension FSDataUsageTracking {
     private func _createTRContext(_ pVisitor: FSVisitor) -> [String: String] {
         // Create flags fields
         var ctxFields: [String: String] = [:]
-
         for (ctxKey, ctxValue) in pVisitor.getContext() {
-            let itemCtxFileds = [
-                "visitor.context.\(ctxKey)": "\(ctxValue)"
-            ]
-
+            let itemCtxFileds =
+                ["visitor.context.\(ctxKey)": "\(ctxValue)"]
             ctxFields.merge(itemCtxFileds) { _, new in new }
         }
 
@@ -220,10 +217,6 @@ extension FSDataUsageTracking {
         }
         // Add flags
         ret.merge(flagFields) { _, new in new }
-
-        // Create campaigns // TODO
-
-        visitor.strategy
 
         // Create assignement
         var assignmentsFields: [String: String] = [:]

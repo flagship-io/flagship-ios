@@ -83,12 +83,6 @@ extension FSDataUsageTracking {
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: reportHit.bodyTrack as Any, options: .prettyPrinted)
             
-            print("##############@ Report Troubleshooting #######################")
-            
-            print(dataToSend.prettyPrintedJSONString ?? "") // TODO: remove later
-            
-            print("##############@ Report Troubleshooting #######################")
-            
             var urlString = FSTroubleshootingUrlString
             
             if reportHit.type == .USAGE {

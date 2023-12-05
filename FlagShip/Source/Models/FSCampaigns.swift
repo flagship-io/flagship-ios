@@ -21,7 +21,7 @@ class FSCampaigns: Codable {
     init(_ customId: String, panic: Bool = false) {
         self.visitorId = customId
         self.panic = panic
-        self.extras = nil // TODO: check later
+        self.extras = nil 
     }
     
     // ********* This init from bucket cache model

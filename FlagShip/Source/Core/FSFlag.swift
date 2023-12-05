@@ -29,7 +29,8 @@ public class FSFlag: NSObject {
                 result = flagModification.value
             } else {
                 result = defaultValue
-                // TODO: Add a log here
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
+                
                 // Send TR on not the same type flag
                 FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
                 return defaultValue
@@ -65,7 +66,7 @@ public class FSFlag: NSObject {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .ACTIVATE_FAILED)
             }
         } else {
-            // Todo add warning
+            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
             // Send TRon vistor expose and not found
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NO_FOUND, f: self, v: strategy?.visitor)
         }
