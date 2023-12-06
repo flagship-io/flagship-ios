@@ -79,6 +79,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBAction func onClikcStart() {
         // Get the mode
         let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
+        
 
         // Retreive the timeout value
         var timeOut = 2.0 /// Default value is 2 seconds
@@ -151,7 +152,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "qa_report": true]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
     internal func showErrorMessage(_ msg: String) {

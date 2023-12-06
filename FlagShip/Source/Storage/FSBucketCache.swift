@@ -8,29 +8,24 @@
 import Foundation
 // Represent the object saved for each user
 
-internal class FSBucketCache {
-
+class FSBucketCache {
     var visitorId: String
-    var campaigns: [FSCampaignCache]!  // Refractor
-    
-    internal init(_ visitorId: String) {
+    var campaigns: [FSCampaignCache]! // Refractor
+    var extras: FSExtras?
 
+    init(_ visitorId: String) {
         self.visitorId = visitorId
         self.campaigns = []
     }
 
-    internal func getCampaignArray() -> [FSCampaign] {
-
+    func getCampaignArray() -> [FSCampaign] {
         var result: [FSCampaign] = []
 
         if self.campaigns != nil {
-
             for item: FSCampaignCache in self.campaigns {
-
                 let campaignResult = item.convertFSCampaignCachetoFSCampaign()
 
                 if campaignResult.variation != nil {
-
                     result.append(campaignResult)
                 }
             }
@@ -40,79 +35,69 @@ internal class FSBucketCache {
 }
 
 // Campaign contain liste variation groups
-internal class FSCampaignCache {
-
+class FSCampaignCache {
     var campaignId: String = ""
-    
-    var nameCampaign:String = ""
-    
-    var type:String = ""
-    
-    var slug:String = ""
+
+    var nameCampaign: String = ""
+
+    var type: String = ""
+
+    var slug: String = ""
 
     var variationGroups: [FSVariationGroupCache]
 
-    init(_ campaignId: String , _ campaignName:String, _ variationGroups: [FSVariationGroupCache], _ aType:String, _ aSlug:String) {
-
+    init(_ campaignId: String, _ campaignName: String, _ variationGroups: [FSVariationGroupCache], _ aType: String, _ aSlug: String) {
         self.campaignId = campaignId
 
         self.variationGroups = variationGroups
-        
+
         self.nameCampaign = campaignName
-        
+
         self.type = aType
-        
+
         self.slug = aSlug
     }
 
-    internal func convertFSCampaignCachetoFSCampaign() -> FSCampaign {
-
-        let campaign: FSCampaign = FSCampaign(campaignId,nameCampaign,  self.variationGroups.first?.variationGroupId ?? "" , self.variationGroups.first?.name ?? "", self.type , self.slug)
-        campaign.variation =  variationGroups.first?.getFSVariation()
+    func convertFSCampaignCachetoFSCampaign() -> FSCampaign {
+        let campaign = FSCampaign(campaignId, nameCampaign, self.variationGroups.first?.variationGroupId ?? "", self.variationGroups.first?.name ?? "", self.type, self.slug)
+        campaign.variation = self.variationGroups.first?.getFSVariation()
 
         return campaign
     }
 }
 
 // Variation Groupe contain variation
-internal class FSVariationGroupCache{
-
+class FSVariationGroupCache {
     var variationGroupId: String!
-    
-    var name:String = ""
-    
+
+    var name: String = ""
+
     var variation: FSVariationCache!
 
-    init (_ variationGroupId: String, _ nameVarGroup:String, _ variationCache: FSVariationCache ) {
-
+    init(_ variationGroupId: String, _ nameVarGroup: String, _ variationCache: FSVariationCache) {
         self.variationGroupId = variationGroupId
 
         self.variation = variationCache
-        
+
         self.name = nameVarGroup
     }
-    
-    
-    internal func getFSVariation() -> FSVariation {
 
-        return FSVariation(idVariation: variation.variationId, variationName: variation.variationName, variation.modification, isReference: variation.reference)
-
-     }
+    func getFSVariation() -> FSVariation {
+        return FSVariation(idVariation: self.variation.variationId, variationName: self.variation.variationName, self.variation.modification, isReference: self.variation.reference)
+    }
 }
 
 // Variation
-internal class FSVariationCache /*: Codable */{
-
+class FSVariationCache /*: Codable */ {
     var variationId: String = ""
-    
+
     var variationName: String = ""
 
     var modification: FSModifications?
-    
+
     var reference: Bool = false
 
-    init (_ variationId: String) {
-
+    init(_ variationId: String) {
         self.variationId = variationId
     }
 }

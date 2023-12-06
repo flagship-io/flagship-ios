@@ -9,36 +9,31 @@ import Foundation
 
 /**
 
-`FlagshipContextManager` class that manage the predefined keys of context FlagshipContext (PresetContext)
+ `FlagshipContextManager` class that manage the predefined keys of context FlagshipContext (PresetContext)
 
-*/
+ */
 
-internal class FlagshipContextManager: NSObject {
-
+class FlagshipContextManager: NSObject {
     /**
      Gets all audiences values set in App
-     
+
      @return key(Pre defined target)/Value
      */
     public class func getPresetContextForApp() -> [String: Any] {
-
         var result: [String: Any] = [:]
 
         /// Parse all keys
         for itemContext in FlagshipContext.allCases {
-
             do {
-
                 let val = try itemContext.getValue()
-                if val != nil {
 
-                    result.updateValue(val as Any, forKey: itemContext.rawValue)
-                    
+                if let aVal = val {
+                    result.updateValue(aVal /* as Any */, forKey: itemContext.rawValue)
+
                     FlagshipLogManager.Log(level: .INFO, tag: .TARGETING, messageToDisplay: .MESSAGE("---- \(itemContext.rawValue) =  \(val ?? "Not defined") ----"))
-                                    }
+                }
 
             } catch {
-                
                 FlagshipLogManager.Log(level: .INFO, tag: .TARGETING, messageToDisplay: .MESSAGE("Error on scane audience ---- \(itemContext.rawValue) Not defined ----"))
             }
         }
@@ -46,7 +41,7 @@ internal class FlagshipContextManager: NSObject {
     }
 
     /// Get value from PreDefined context
-    internal class func readValueFromPreDefinedContext(_ keyPreConfigured: FlagshipContext)->Any? {
+    class func readValueFromPreDefinedContext(_ keyPreConfigured: FlagshipContext) -> Any? {
         /// Return nil, because this value will be set by the dev
         return nil
     }

@@ -44,6 +44,9 @@ extension FSService {
                             /// Save bucket script
                             FSStorageManager.saveBucketScriptInCache(data)
 
+                            // TR the bucketing file
+                            FSDataUsageTracking.sharedInstance.processTSBucketingFile(httpResponse, request, responseData)
+
                         } catch {
                             FlagshipLogManager.Log(level: .ERROR, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_ON_DECODE_JSON)
                             onGetScript(nil, FlagshipError(type: .internalError, code: 400))
@@ -58,6 +61,10 @@ extension FSService {
                 default:
                     FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_ON_GET_SCRIPT)
                     onGetScript(nil, FlagshipError(type: .internalError, code: 400))
+
+                    // TS for bucketing error
+                    FSDataUsageTracking.sharedInstance.processTSHttp(crticalPointLabel: .SDK_BUCKETING_FILE_ERROR,
+                                                                     httpResponse, request, nil)
                 }
             }.resume()
         }

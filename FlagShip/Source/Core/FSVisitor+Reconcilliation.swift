@@ -19,6 +19,9 @@ public extension FSVisitor {
 
         // Update the flagSyncStatus
         self.flagSyncStatus = .AUTHENTICATED
+
+        // Troubleshooting xpc
+        FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, visitor: self)
     }
 
     /// Use authenticate methode to go from Logged in  session to logged out session
@@ -26,5 +29,8 @@ public extension FSVisitor {
         self.strategy?.getStrategy().unAuthenticateVisitor()
         // Update the flagSyncStatus
         self.flagSyncStatus = .UNAUTHENTICATED
+
+        // Troubleshooting xpc
+        FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_UNAUTHENTICATE.rawValue, visitor: self)
     }
 }

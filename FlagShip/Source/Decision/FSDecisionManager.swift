@@ -19,14 +19,6 @@ internal class FSDecisionManager {
     
     func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {}
     
-//    /// Send activate via /activate
-//    /// - Parameter activateInfos: Information relative to activate
-//    func activate(_ currentActivate: [String: Any]) {
-//        self.networkService.activate(currentActivate) { error in
-//            
-//            if error == nil {}
-//        }
-//    }
     
     /// private
     internal func launchPolling() {}
@@ -42,6 +34,8 @@ class APIManager: FSDecisionManager {
             if error == nil {
                 completion(campaigns, nil)
             } else {
+                
+                
                 completion(nil, error)
             }
         }

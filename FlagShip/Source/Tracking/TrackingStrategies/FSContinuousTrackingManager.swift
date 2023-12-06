@@ -83,7 +83,7 @@ class ContinuousTrackingManager: FSTrackingManager {
         service.activate(activateBatch.bodyTrack) { error in
             if error == nil {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_SUCCESS(activateBatch.bodyTrack.description))
-                self.onSucessToSendActivate(activateBatch)
+                self.onSuccessToSendActivate(activateBatch)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
                 self.onFailedToSendActivate(activateBatch)
@@ -110,7 +110,7 @@ class ContinuousTrackingManager: FSTrackingManager {
 
     // ********** HITS ************//
     override
-    internal func onSucessToSendHits(_ batchToSend: FSBatch) {
+    internal func onSuccessToSendHits(_ batchToSend: FSBatch) {
         // Create a list of hits id to remove for database
         self.cacheManager?.hitCacheDelegate?.flushHits(hitIds: batchToSend.items.map { elem in
             elem.id
@@ -125,7 +125,7 @@ class ContinuousTrackingManager: FSTrackingManager {
 
     // ********** ACTIVATE ********//
     override
-    internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
+    internal func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
         // Create array of ids and use it by the flush database
         self.cacheManager?.flushHits(activateBatch.listActivate.map { elem in
             elem.id
