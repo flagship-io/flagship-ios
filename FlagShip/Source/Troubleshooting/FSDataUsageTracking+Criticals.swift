@@ -146,23 +146,23 @@ extension FSDataUsageTracking {
             pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    func processTSXPC(label: String, pVisitor: FSVisitor) {
+    func processTSXPC(label: String, visitor: FSVisitor) {
         var criticalJson: [String: String] = [:]
 
         // Create trio ids
         let visitorIds = ["visitor.sessionId": _visitorSessionId,
-                          "visitor.visitorId": pVisitor.visitorId,
-                          "visitor.anonymousId": pVisitor.anonymousId ?? "null"]
+                          "visitor.visitorId": visitor.visitorId,
+                          "visitor.anonymousId": visitor.anonymousId ?? "null"]
 
         // Add ids visitor
         criticalJson.merge(visitorIds) { _, new in new }
 
         // Add visitor fields
-        criticalJson.merge(_createTRContext(pVisitor)) { _, new in new }
+        criticalJson.merge(_createTRContext(visitor)) { _, new in new }
 
         // Send TS report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
-            pVisitorId: pVisitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
+            pVisitorId: visitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
     }
 
     //////////////////////////////////

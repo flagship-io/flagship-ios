@@ -86,7 +86,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
         xpcVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
         xpcVisitor.authenticate(visitorId: "loggedId")
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: xpcVisitor)
-        FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, pVisitor: xpcVisitor)
+        FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, visitor: xpcVisitor)
         XCTAssertTrue(FSDataUsageTracking.sharedInstance._visitorId == "loggedId")
     }
     
@@ -103,7 +103,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: testVisitor)
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: nil)
             FSDataUsageTracking.sharedInstance.processTSHits(label: "label", visitor: testVisitor, hit: FSScreen("TRScreen\(i)"))
-            FSDataUsageTracking.sharedInstance.processTSXPC(label: "label", pVisitor: testVisitor)
+            FSDataUsageTracking.sharedInstance.processTSXPC(label: "label", visitor: testVisitor)
             FSDataUsageTracking.sharedInstance.processTSBucketingFile(HTTPURLResponse(url: URL(string: "testUrl")!, statusCode: 200, httpVersion: nil, headerFields: nil), URLRequest(url: URL(string: "testUrl")!), Data())
             FSDataUsageTracking.sharedInstance.processTSHttp(crticalPointLabel: CriticalPoints.HTTP_CALL, nil, URLRequest(url: URL(string: "testUrl")!), nil)
             FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: .Campaign, nil, URLRequest(url: URL(string: "testUrl")!), nil)
@@ -113,14 +113,15 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     func testDeveloperUsage() {
         let config: FlagshipConfig = FSConfigBuilder().withDisableDeveloperUsageTracking(true).build()
-        let devUsageVisitor: FSVisitor = FSVisitorBuilder("userDevUsage").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
+        let devUsageVisitor: FSVisitor = FSVisitorBuilder("user23").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
         devUsageVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
         devUsageVisitor.configManager.flagshipConfig = config
+        
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: devUsageVisitor)
         XCTAssertFalse(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
 
-        config.disableDeveloperUsageTracking = false
-        FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: devUsageVisitor)
+        config.disableDeveloperUsageTracking = false        
+        FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed = true
         XCTAssertTrue(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
     }
     
