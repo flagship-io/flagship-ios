@@ -19,9 +19,9 @@ extension FSDataUsageTracking {
             isVisitorHasConsented() // Visitor Consent
 
         if troubleShootingReportAllowed {
-            FlagshipLogManager.Log(level: FSLevel.ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("-------------- Troubleshooting Allowed ✅✅✅✅✅ ---------------"))
+            FlagshipLogManager.Log(level: FSLevel.INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("-------------- Troubleshooting Allowed ✅✅✅✅✅ ---------------"))
         } else {
-            FlagshipLogManager.Log(level: FSLevel.ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("-------------- Trouble shooting NOT Allowed ❌❌❌❌❌ --------------"))
+            // FlagshipLogManager.Log(level: FSLevel.INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("-------------- Troubleshooting NOT //Allowed ❌❌❌❌❌ --------------"))
         }
     }
     
@@ -64,7 +64,7 @@ extension FSDataUsageTracking {
         
         let hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 100)
         
-        print(" -------- The hashalloc for \(combinedId) is \(hashAlloc) ----------")
+        // print(" -------- The hashalloc for \(combinedId) is \(hashAlloc) ----------")
         
         // Get the developer usage tracking
         let ret = _sdkConfig?.disableDeveloperUsageTracking ?? false
@@ -72,9 +72,10 @@ extension FSDataUsageTracking {
         dataUsageTrackingReportAllowed = hashAlloc <= FSDataUsageAllocationThreshold && !ret
         
         if dataUsageTrackingReportAllowed {
-            print("-------------- Developer Usage  Allowed ✅✅✅✅✅ ---------------")
+            FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("-------------- Developer Usage Allowed ✅✅✅✅✅ ---------------"))
+          
         } else {
-            print("-------------- Developer Usage not Allowed ❌❌❌❌❌ ---------------")
+            // print("-------------- Developer Usage not Allowed ❌❌❌❌❌ ---------------")
         }
     }
     
@@ -100,7 +101,7 @@ extension FSDataUsageTracking {
             }
             
         } catch {
-            print(error.localizedDescription)
+            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Error on sending usage report \(error.localizedDescription)"))
         }
     }
 }

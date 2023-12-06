@@ -40,7 +40,6 @@ class FSAccountSettings: Decodable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        print(container.allKeys.description)
         do { self.enabledXPC = try container.decode(Bool.self, forKey: .enabledXPC) } catch { self.enabledXPC = false }
         do { self.enabled1V1T = try container.decode(Bool.self, forKey: .enabled1V1T) } catch { self.enabled1V1T = false }
         do { self.troubleshooting = try container.decode(FSTroubleshooting.self, forKey: .troubleshooting) } catch {
