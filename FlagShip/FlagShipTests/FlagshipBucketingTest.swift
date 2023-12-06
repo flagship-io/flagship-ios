@@ -43,8 +43,8 @@ class FlagshipBucketingTest: XCTestCase {
         }
     }
     
-    func testBucketingWithSucess() {
-        let expectationSync = XCTestExpectation(description: "testBucketingWithSucess")
+    func testBucketingWithSuccess() {
+        let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
         fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
             if newStatus == .READY {

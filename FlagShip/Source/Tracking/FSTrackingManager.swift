@@ -77,7 +77,7 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
         service.activate(currentActivate.bodyTrack) { error in
 
             if error == nil {
-                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Exposure sent with sucess"))
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Exposure sent with success"))
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(currentActivate.description()))
 
             } else {
@@ -106,7 +106,7 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
 
                     if error == nil {
                         FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SUCCESS_SEND_HIT)
-                        self.onSucessToSendHits(batchToSend)
+                        self.onSuccessToSendHits(batchToSend)
                     } else {
                         self.onFailedToSendHits(batchToSend)
                         FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.SEND_EVENT_FAILED)
@@ -167,14 +167,14 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
                 if error != nil {
                     self.onFailedToSendActivate(batchForCachedActivate)
                 } else {
-                    self.onSucessToSendActivate(batchForCachedActivate)
+                    self.onSuccessToSendActivate(batchForCachedActivate)
                 }
             }
         }
     }
 
     // ********** HITS ************//
-    func onSucessToSendHits(_ batchToSend: FSBatch) {
+    func onSuccessToSendHits(_ batchToSend: FSBatch) {
         // Create a list of hits id to remove for database
         cacheManager?.hitCacheDelegate?.flushHits(hitIds: batchToSend.items.map { elem in
             elem.id
@@ -186,7 +186,7 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
     }
 
     // ********** ACTIVATES ************//
-    func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
+    func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
         cacheManager?.flushHits(activateBatch.listActivate.map { elem in
             elem.id
         })

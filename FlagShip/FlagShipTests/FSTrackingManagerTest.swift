@@ -37,7 +37,7 @@ final class FSTrackingManagerTest: XCTestCase {
         testEvent.envId = "envId"
     }
 
-    func testSendHitWithSucess() {
+    func testSendHitWithSuccess() {
         MockURLProtocol.requestHandler = { _ in
             let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, nil)
@@ -88,11 +88,11 @@ final class FSTrackingManagerTest: XCTestCase {
         XCTAssert(perdiodicTrackingManager?.batchManager.isQueueEmpty() == false)
     }
 
-    func testOnSucessToSendHits() {
+    func testOnSuccessToSendHits() {
         let batchTest = FSBatch([testEvent, testEvent, testEvent])
 
         perdiodicTrackingManager?.batchManager.reInjectElements(listToReInject: [testEvent, testEvent, testEvent])
-        perdiodicTrackingManager?.onSucessToSendHits(batchTest)
+        perdiodicTrackingManager?.onSuccessToSendHits(batchTest)
         XCTAssertTrue(fsTestCacheManager.isCacheHitsCalled == true)
     }
 

@@ -44,12 +44,6 @@ extension FSDataUsageTracking {
             
             let hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 100)
             
-            FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("The hash allocation for TR bucket is \(hashAlloc) ------------"))
-
-            let traf: Int = (_troubleshooting?.traffic ?? 0)
-            
-            FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("The range allocation for TR bucket is \(traf) ------------"))
-            
             return hashAlloc <= (_troubleshooting?.traffic ?? 0)
         } else {
             return false
@@ -95,7 +89,7 @@ extension FSDataUsageTracking {
                     if error != nil {
                         FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send troubleshoting report : \(error.debugDescription)"))
                     } else {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Sucess to send troubleshoting report"))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Success to send troubleshoting report"))
                     }
                 }
             }

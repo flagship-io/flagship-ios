@@ -43,6 +43,7 @@ class FSDataUsageTracking {
         _visitorSessionId = FSTools.generateUuidv4()
     }
 
+    // Configure with params
     func configure(visitorId: String, hasConsented: Bool, config: FlagshipConfig, troubleshooting: FSTroubleshooting) {
         _visitorId = visitorId
         _hasConsented = hasConsented
@@ -52,6 +53,7 @@ class FSDataUsageTracking {
         evaluateDataUsageTrackingAllocated()
     }
 
+    // Configure with visitor instance
     func configureWithVisitor(pVisitor: FSVisitor) {
         _visitorId = pVisitor.visitorId
         _hasConsented = pVisitor.hasConsented
@@ -60,10 +62,10 @@ class FSDataUsageTracking {
         evaluateDataUsageTrackingAllocated()
     }
 
-    // Update TR settings
+    // Update Troubleshootings settings
     func updateTroubleshooting(trblShooting: FSTroubleshooting?) {
         _troubleshooting = trblShooting
-        // Re evaluate the conditions of datausagetracking
+        // Re evaluate the conditions of data usage tracking
         evaluateTroubleShootingConditions()
     }
 
@@ -71,6 +73,7 @@ class FSDataUsageTracking {
         return _hasConsented
     }
 
+    // Update the consent
     func updateConsent(newValue: Bool) {
         _hasConsented = newValue
         evaluateTroubleShootingConditions()
@@ -83,6 +86,7 @@ class FSDataUsageTracking {
         }
     }
 
+    // Send the data usage tracking
     func sendDataUsageReport(_duHit: FSDataUsageHit) {
         if dataUsageTrackingReportAllowed {
             sendDataReport(_duHit)

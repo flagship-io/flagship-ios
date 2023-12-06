@@ -11,7 +11,7 @@ import Foundation
 let DataUsageLabel = "SDK_CONFIG"
 
 extension FSDataUsageTracking {
-    // Troubleshooting Error Catched
+    // Troubleshooting on error catched
     func processTSCatchedError(v: FSVisitor?, error: FlagshipError) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v?.visitorId ?? "",
@@ -22,12 +22,12 @@ extension FSDataUsageTracking {
             criticalJson.merge(_createTRContext(aV)) { _, new in new }
         }
 
-        // Send TS on Flag warninig
+        // Send TS on error catched
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.ERROR_CATCHED.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    // Troubleshooting Flag
+    // Troubleshooting for Flag
     func proceesTSFlag(crticalPointLabel: CriticalPoints, f: FSFlag, v: FSVisitor?) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v?.visitorId ?? "",
@@ -44,7 +44,7 @@ extension FSDataUsageTracking {
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    // Troubleshooting on request
+    // Troubleshooting on any request error
     func processTSHttpError(requestType: FSRequestType, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
@@ -69,11 +69,12 @@ extension FSDataUsageTracking {
             return
         }
 
-        // Send TS report on http error
+        // Send Troubleshooting report on http error
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: criticalLabel, pSpeceficCustomFields: criticalJson))
     }
-
+    
+    // Process http on bucketing error
     func processTSHttp(crticalPointLabel: CriticalPoints, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
@@ -90,7 +91,8 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
-
+    
+    // Process on download bucketing file
     func processTSBucketingFile(_ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
@@ -108,7 +110,7 @@ extension FSDataUsageTracking {
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.SDK_BUCKETING_FILE.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
-    // TS Send Hit
+    // Troubleshooting on send hits
     func processTSHits(label: String, visitor: FSVisitor, hit: FSTrackingProtocol) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": visitor.visitorId,
@@ -122,7 +124,7 @@ extension FSDataUsageTracking {
             TroubleshootingHit(pVisitorId: visitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
     }
 
-    // TS on Fetching
+    // Troubleshooting on Fetching
     func processTSFetching(v: FSVisitor, campaigns: FSCampaigns?) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v.visitorId,
@@ -145,11 +147,12 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
             pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
-
+    
+    // Process on authenticate
     func processTSXPC(label: String, visitor: FSVisitor) {
         var criticalJson: [String: String] = [:]
 
-        // Create trio ids
+        // Create ids
         let visitorIds = ["visitor.sessionId": _visitorSessionId,
                           "visitor.visitorId": visitor.visitorId,
                           "visitor.anonymousId": visitor.anonymousId ?? "null"]
