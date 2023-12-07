@@ -43,23 +43,24 @@ import Foundation
     /// Modifications
     public var currentFlags: [String: FSModification] = [:] /// Empty
     /// Context
-    internal var context: FSContext
+    var context: FSContext
     /// Configuration manager
-    internal var configManager: FSConfigManager
+    var configManager: FSConfigManager
     /// Strategy
-    internal var strategy: FSStrategy?
+    var strategy: FSStrategy?
     /// Has consented
     public internal(set) var hasConsented: Bool = true
     /// Is Authenticated
     public internal(set) var isAuthenticated: Bool = false
     
     /// Assigned hsitory
-    internal var assignedVariationHistory: [String: String] = [:]
+    var assignedVariationHistory: [String: String] = [:]
     
-    // Initial value for the status .CREATED 
-    internal var flagSyncStatus: FlagSynchStatus = .CREATED
+    // Initial value for the status .CREATED
+    var flagSyncStatus: FlagSynchStatus = .CREATED
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
+        // super.init()
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
         /// Before calling service manage the tuple (vid,aid)
@@ -199,11 +200,14 @@ import Foundation
         self.hasConsented = hasConsented
         self.strategy?.getStrategy().setConsent(newValue: hasConsented)
         
-        /// the user don't consent then will flush the visitor
+        // the user don't consent then will flush the visitor
         if !hasConsented {
             self.strategy?.getStrategy().flushVisitor()
             self.strategy?.getStrategy().flushHits()
         }
+        
+        // Update the value for the data usage tracking
+        FSDataUsageTracking.sharedInstance.updateConsent(newValue: hasConsented)
     }
     
     //  Retrieve Flag by its key.
@@ -230,7 +234,7 @@ import Foundation
     // ///////////////
     
     // Send Hit consent
-    internal func sendHitConsent(_ hasConsented: Bool) {
+    func sendHitConsent(_ hasConsented: Bool) {
         // create the hit consent
         let consentHit = FSConsent(eventCategory: .User_Engagement, eventAction: FSConsentAction)
         consentHit.visitorId = self.visitorId

@@ -11,9 +11,9 @@ import Network
 public class FSFlag: NSObject {
     var key: String
     var defaultValue: Any?
-    internal var strategy: FSStrategy?
+    var strategy: FSStrategy?
     
-    internal init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
+    init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
         key = aKey
         defaultValue = aDefaultValue
         strategy = aStrategy
@@ -29,6 +29,11 @@ public class FSFlag: NSObject {
                 result = flagModification.value
             } else {
                 result = defaultValue
+                FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
+                
+                // Send TR on not the same type flag
+                FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
+                return defaultValue
             }
             
             /// Activate
@@ -38,6 +43,9 @@ public class FSFlag: NSObject {
             return result
         }
         FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The key doon't exist ===> return the default value \(defaultValue ?? "")"))
+        
+        // Send TR on not found flag
+        FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
         return defaultValue
     }
     
@@ -53,8 +61,14 @@ public class FSFlag: NSObject {
                 /// Activate the flag
                 strategy?.getStrategy().activateFlag(self)
             } else {
+                // Send TR on not the same type flag
+                FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: .ACTIVATE_FAILED)
             }
+        } else {
+            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
+            // Send TRon vistor expose and not found
+            FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NO_FOUND, f: self, v: strategy?.visitor)
         }
     }
     
@@ -113,8 +127,7 @@ public class FSFlag: NSObject {
     public private(set) var variationGroupName: String = ""
     public private(set) var variationName: String = ""
 
-    
-    internal init(_ modification: FSModification?) {
+    init(_ modification: FSModification?) {
         campaignId = modification?.campaignId ?? ""
         variationGroupId = modification?.variationGroupId ?? ""
         variationId = modification?.variationId ?? ""
@@ -124,14 +137,13 @@ public class FSFlag: NSObject {
         campaignName = modification?.campaignName ?? ""
         variationGroupName = modification?.variationGroupName ?? ""
         variationName = modification?.variationName ?? ""
-        
     }
     
     @objc public func toJson()->[String: Any] {
         return ["campaignId": campaignId,
-                "campaignName":campaignName,
+                "campaignName": campaignName,
                 "variationGroupId": variationGroupId,
-                "variationGroupName":variationGroupName,
+                "variationGroupName": variationGroupName,
                 "variationId": variationId,
                 "variationName": variationName,
                 "isReference": isReference,
@@ -143,7 +155,7 @@ public class FSFlag: NSObject {
 /**
  * This status represent the flag status depend on visitor actions
  */
-@objc internal enum FlagSynchStatus: Int {
+@objc enum FlagSynchStatus: Int {
     // When visitor is created
     case CREATED
     // When visitor context is updated

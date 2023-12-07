@@ -24,7 +24,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         }
     }
 
-    override internal func onSucessToSendHits(_ batchToSend: FSBatch) {
+    override internal func onSuccessToSendHits(_ batchToSend: FSBatch) {
 
         // Clear all hits in database
         cacheManager?.flushAllHits()
@@ -58,7 +58,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         }
     }
 
-    override internal func onSucessToSendActivate(_ activateBatch: ActivateBatch) {
+    override internal func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
     }
 
     // Remove hits for visitorId and keep the consent hits

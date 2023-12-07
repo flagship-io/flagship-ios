@@ -10,9 +10,9 @@ import Foundation
 class FSStrategy {
     let visitor: FSVisitor
     
-    internal var delegate: FSDelegateStrategy?
+    var delegate: FSDelegateStrategy?
     
-    internal func getStrategy() -> FSDelegateStrategy {
+    func getStrategy() -> FSDelegateStrategy {
         switch Flagship.sharedInstance.currentStatus {
         case .READY:
             if visitor.hasConsented == true {
@@ -44,21 +44,23 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// Activate
     func activate(_ key: String) {
-        /// Add envId to dictionary
-        // let shared = Flagship.sharedInstance
-            
         if let aModification = visitor.currentFlags[key] {
-            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification), onCompletion: { error in
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
                 
                 if error == nil {}
             })
+            
+            // Troubleshooitng activate
+            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
         }
     }
     
     /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
         if let aModification = visitor.currentFlags[flag.key] {
-            visitor.configManager.trackingManager?.sendActivate(Activate(visitor.visitorId, visitor.anonymousId, modification: aModification), onCompletion: { error in
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
                 
                 if error == nil {
                     /// if the callback defined then trigger
@@ -68,10 +70,13 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     }
                 }
             })
+            // Troubleshooitng activate
+            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
         }
     }
     
     func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
+        FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
             /// Create the dictionary for all flags
@@ -93,6 +98,10 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
                     onSyncCompleted(.READY)
                 }
+                // Update Data usage
+                FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
+                // Send TR
+                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
                 onSyncCompleted(.READY) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
@@ -134,6 +143,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
         hit.visitorId = visitor.visitorId
         hit.anonymousId = visitor.anonymousId
         visitor.configManager.trackingManager?.sendHit(hit)
+        // Troubleshooting hits
+        FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_HIT.rawValue, visitor: visitor, hit: hit)
     }
     
     /// _ Set Consent

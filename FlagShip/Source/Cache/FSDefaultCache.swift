@@ -68,6 +68,7 @@ public class FSDefaultCacheHit: FSHitCacheDelegate {
 
             } catch {
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.ERROR_ON_STORE)
+                FSDataUsageTracking.sharedInstance.processTSCatchedError(v: nil, error: FlagshipError(message: "Error on Cache Hits"))
             }
         }
     }

@@ -39,7 +39,7 @@ import Foundation
     
     /// Cache the visitor
     /// - Parameter visitor: visitor instance
-    internal func cacheVisitor(_ visitor: FSVisitor) {
+    func cacheVisitor(_ visitor: FSVisitor) {
         /// Create visitor cache object
         let cacheVisitorToStore = FSCacheVisitor(visitor)
         /// Try Convert cacheVisitorToStore to data
@@ -50,6 +50,7 @@ import Foundation
            
         } catch {
             FlagshipLogManager.Log(level: .ALL, tag: .EXCEPTION, messageToDisplay: FSLogMessage.ERROR_ON_STORE)
+            FSDataUsageTracking.sharedInstance.processTSCatchedError(v: visitor, error: FlagshipError(message: "Error on Caching Visitor"))
         }
     }
     
@@ -80,7 +81,7 @@ import Foundation
         }
         /// complete the job event if the response for lookupVisitor still not ready
         if semaphore.wait(timeout: .now() + visitorCacheLookupTimeout) == .timedOut {
-            onCompletion(FlagshipError(type: .internalError, code:408), nil)
+            onCompletion(FlagshipError(type: .internalError, code: 408), nil)
             FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .TIMEOUT_CACHE_VISITOR)
         }
     }
@@ -97,11 +98,11 @@ import Foundation
     ///                        ///
     //////////////////////////////
     
-    internal func cacheHits(hits: [String: [String: Any]]) {
+    func cacheHits(hits: [String: [String: Any]]) {
         hitCacheDelegate?.cacheHits(hits: hits)
     }
     
-    internal func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?)->Void) {
+    func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?)->Void) {
         /// Create a Thread
         let fsHitCacheQueue = DispatchQueue(label: "com.flagshipLookupHitCache.queue", attributes: .concurrent)
         /// Init the semaphore
@@ -126,6 +127,7 @@ import Foundation
                     }
                 } catch {
                     /* Error on decode the cachehit*/
+                    FSDataUsageTracking.sharedInstance.processTSCatchedError(v: nil, error: FlagshipError(message: "Error on Lookup Hits"))
                 }
             }
             onCompletion(nil, cachedHitsFromDb)
@@ -133,18 +135,18 @@ import Foundation
         }
         /// complete the job event if the response for lookupHit still not ready
         if semaphore.wait(timeout: .now() + hitCacheLookupTimeout) == .timedOut {
-            onCompletion(FlagshipError(type:.internalError, code:408), nil)
+            onCompletion(FlagshipError(type: .internalError, code: 408), nil)
             FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .TIMEOUT_CACHE_HIT)
         }
     }
     
     // Flush the given list of ids
-    internal func flushHits(_ listIds: [String]) {
+    func flushHits(_ listIds: [String]) {
         hitCacheDelegate?.flushHits(hitIds: listIds)
     }
 
     // Flush all hits
-    internal func flushAllHits() {
+    func flushAllHits() {
         hitCacheDelegate?.flushAllHits()
     }
 }
