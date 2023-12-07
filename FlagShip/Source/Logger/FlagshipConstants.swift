@@ -122,7 +122,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .SEND_EVENT_FAILED:
             ret = "Failed to send event"
         case .SUCCESS_SEND_HIT:
-            ret = "Success to send hit"
+            ret = "Hit successfully sent"
         case .UPDATE_CONTEXT_NOT_READY:
             ret = "SDK not ready to update context"
         case .SYNCHRONIZE_NOT_READY:
@@ -150,7 +150,7 @@ enum FSLogMessage: CustomStringConvertible {
         case .IGNORE_UNAUTHENTICATE:
             ret = "UnAuthenticateVisitor method will be ignored in Bucketing configuration"
         case .GET_CAMPAIGN(let key):
-            ret = "Fetching flags, the user context used for is:\(key)"
+            ret = "Fetching flags, the user context used is:\(key)"
         case .GET_CAMPAIGN_URL(let key):
             ret = "Fetch flags request: \(key)"
         case .GET_CAMPAIGN_RESPONSE(let key):

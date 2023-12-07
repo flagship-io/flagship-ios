@@ -79,23 +79,25 @@ extension FSDataUsageTracking {
             let dataToSend = try JSONSerialization.data(withJSONObject: reportHit.bodyTrack as Any, options: .prettyPrinted)
             
             var urlString = FSTroubleshootingUrlString
+            var subMsg = "Troubleshooting"
             
             if reportHit.type == .USAGE {
                 urlString = FSDeveloperUsageUrlString
+                subMsg = "Developer Data usage"
             }
 
             if let urlReport = URL(string: urlString) {
                 _service?.sendRequest(urlReport, type: .Tracking, data: dataToSend) { _, error in
                     if error != nil {
-                        FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send troubleshoting report : \(error.debugDescription)"))
+                        FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send \(subMsg) report : \(error.debugDescription)"))
                     } else {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Success to send troubleshoting report"))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("\(subMsg) report sent successfully."))
                     }
                 }
             }
             
         } catch {
-            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Error on sending usage report \(error.localizedDescription)"))
+            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Error on sending report \(error.localizedDescription)"))
         }
     }
 }
