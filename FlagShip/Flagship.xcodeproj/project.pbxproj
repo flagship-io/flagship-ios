@@ -309,6 +309,10 @@
 		F5DAF67B2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */; };
 		F5DAF67C2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */; };
 		F5DAF67D2A152F6500C0B140 /* FSQLiteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */; };
+		F5E44CC62B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
+		F5E44CC72B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
+		F5E44CC82B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
+		F5E44CC92B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
 		F5F1AD512B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */; };
 		F5F1AD522B1631ED0052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
 		F5F1AD532B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
@@ -465,6 +469,7 @@
 		F5DAF66F2A14264B00C0B140 /* FSSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegment.swift; sourceTree = "<group>"; };
 		F5DAF6742A152F1600C0B140 /* FSTrackingDbMgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingDbMgt.swift; sourceTree = "<group>"; };
 		F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSQLiteWrapper.swift; sourceTree = "<group>"; };
+		F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSStatus.swift; sourceTree = "<group>"; };
 		F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+Criticals.swift"; sourceTree = "<group>"; };
 		F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDataUsageTracking.swift; sourceTree = "<group>"; };
 		F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+Tools.swift"; sourceTree = "<group>"; };
@@ -578,6 +583,7 @@
 				8B67366927FEBE4C003EC960 /* FSVisitor+Campaigns.swift */,
 				8B67366A27FEBE4C003EC960 /* FSVisitor+objc.swift */,
 				8B67366B27FEBE4C003EC960 /* FSVisitor.swift */,
+				F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1150,6 +1156,7 @@
 				8B2D514E2805D43C00866D61 /* FSContext.swift in Sources */,
 				8B2D514F2805D43C00866D61 /* FSTargets.swift in Sources */,
 				F5F1AD682B1E1E890052E6E3 /* FSTroubleshooting.swift in Sources */,
+				F5E44CC72B2769A900A8C8F1 /* FSStatus.swift in Sources */,
 				8B2D51502805D43C00866D61 /* FSTracking.swift in Sources */,
 				8B2D51512805D43C00866D61 /* FSCacheHit.swift in Sources */,
 				8B2D51522805D43C00866D61 /* FSHits.swift in Sources */,
@@ -1257,6 +1264,7 @@
 				8B9F2A9D2809B8E600323094 /* FSContext.swift in Sources */,
 				8B9F2A9E2809B8E600323094 /* FSTargets.swift in Sources */,
 				F5F1AD672B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */,
+				F5E44CC82B2769A900A8C8F1 /* FSStatus.swift in Sources */,
 				8B9F2A9F2809B8E600323094 /* FSTracking.swift in Sources */,
 				8B9F2AA02809B8E600323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AA12809B8E600323094 /* FSHits.swift in Sources */,
@@ -1336,6 +1344,7 @@
 				8B9F2ADC2809BA8200323094 /* FSContext.swift in Sources */,
 				8B9F2ADD2809BA8200323094 /* FSTargets.swift in Sources */,
 				F5F1AD662B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */,
+				F5E44CC92B2769A900A8C8F1 /* FSStatus.swift in Sources */,
 				8B9F2ADE2809BA8200323094 /* FSTracking.swift in Sources */,
 				8B9F2ADF2809BA8200323094 /* FSCacheHit.swift in Sources */,
 				8B9F2AE02809BA8200323094 /* FSHits.swift in Sources */,
@@ -1415,6 +1424,7 @@
 				8B6736B627FED3E5003EC960 /* FSContext.swift in Sources */,
 				8B6736B727FED3E5003EC960 /* FSTargets.swift in Sources */,
 				8B6736B827FED3E5003EC960 /* FSTracking.swift in Sources */,
+				F5E44CC62B2769A900A8C8F1 /* FSStatus.swift in Sources */,
 				F5C453962B02928400FFCC2F /* FSAccountSettings.swift in Sources */,
 				8B6736B927FED3E5003EC960 /* FSCacheHit.swift in Sources */,
 				8B6736BA27FED3E5003EC960 /* FSHits.swift in Sources */,
