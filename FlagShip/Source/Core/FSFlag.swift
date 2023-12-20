@@ -12,6 +12,13 @@ public class FSFlag: NSObject {
     var key: String
     var defaultValue: Any?
     var strategy: FSStrategy?
+    private var _status: FSFlagStatus {
+        return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
+    }
+    
+    public var status: FSFlagStatus {
+        return _status
+    } // TODO: check later if okay
     
     init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
         key = aKey
@@ -84,6 +91,10 @@ public class FSFlag: NSObject {
         }
         return FSFlagMetadata(nil)
     }
+    
+//    func getStatus(_ key: String)->FSFlagStatus {
+//        return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
+//    }
     
     /// _ Check the type of flag's value with the default value
     /// _ This check return true when the default value is nil

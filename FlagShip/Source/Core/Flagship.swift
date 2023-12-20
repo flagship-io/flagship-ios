@@ -51,7 +51,11 @@ public class Flagship: NSObject {
     var enableLogs: Bool = true
     
     var lastInitializationTimestamp: TimeInterval
-
+    
+    /// In context of refonte
+    
+    var pollingScript: FSPollingScriptBis?
+   
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
@@ -69,8 +73,8 @@ public class Flagship: NSObject {
             self.envId = envId
             
         } else {
-            Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
-            // Refonte
+            // Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
+            // Refonte update
             Flagship.sharedInstance.updateStatusBis(.SDK_NOT_INITIALIZED)
 
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.ERROR_INIT_SDK)
@@ -84,14 +88,19 @@ public class Flagship: NSObject {
         currentConfig = config
         
         // If the mode bucketing we set the mode at NotReady, until the polling get the
-        Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
+        // Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
         
         // Refonte
         Flagship.sharedInstance.updateStatusBis((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
 
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
+        
+        ///  Bucketing service
+        if config.mode == .BUCKETING {
+            pollingScript = FSPollingScriptBis(pollingTime: config.pollingTime)
+            // pollingScript?.launchPolling()
+        }
     }
-    
     
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated)
@@ -136,24 +145,24 @@ public class Flagship: NSObject {
     }
     
     // Get status
-    public func getStatus() -> FStatus {
-        return currentStatus
+    public func getStatus() -> FSSdkStatus {
+        return currentStatusBis
     }
     
-    // Update status
-    func updateStatus(_ newStatus: FStatus) {
-        // _ if the staus has not changed then no need to trigger the callback
-        if newStatus == currentStatus {
-            return
-        }
-        
-        // Update the status
-        currentStatus = newStatus
-        // Trigger the callback
-        if let callbackListener = currentConfig.onStatusChanged {
-            callbackListener(newStatus)
-        }
-    }
+//    // Update status
+//    func updateStatus(_ newStatus: FStatus) {
+//        // _ if the staus has not changed then no need to trigger the callback
+//        if newStatus == currentStatus {
+//            return
+//        }
+//
+//        // Update the status
+//        currentStatus = newStatus
+//        // Trigger the callback
+//        if let callbackListener = currentConfig.onStatusChanged {
+//          //  callbackListener(newStatus)
+//        }
+//    }
     
     // Update status
     func updateStatusBis(_ newStatus: FSSdkStatus) {
@@ -161,6 +170,7 @@ public class Flagship: NSObject {
         if newStatus == currentStatusBis {
             return
         }
+        print("--------------------------------- \(newStatus.name) ----------------------------------")
         
         // Update the status
         currentStatusBis = newStatus

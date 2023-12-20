@@ -22,6 +22,9 @@ public extension FSVisitor {
 
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, visitor: self)
+
+        // Refonte
+        self.flagsStatus = .FETCH_NEEDED
     }
 
     /// Use authenticate methode to go from Logged in  session to logged out session
@@ -32,5 +35,7 @@ public extension FSVisitor {
 
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_UNAUTHENTICATE.rawValue, visitor: self)
+
+        self.flagsStatus = .FETCH_NEEDED
     }
 }

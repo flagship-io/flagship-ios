@@ -49,12 +49,14 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         self.targetManager = FSTargetingManager()
 
         super.init(service: service, userId: userId, currentContext: currentContext)
+        
+        /// Get the initial stored script ... before the to start listen 
+        if let storedBucket = FSStorageManager.readBucketFromCache() {
+            self.scriptBucket = storedBucket
+        }
 
-        // Create polling script
-        self.pollingScript = FSPollingScript(service: super.networkService, pollingTime: pollingTime, delegate: self)
-
-        // Launch the script
-        launchPolling()
+        /// Add observer to listen "onGetScriptNotification"
+        NotificationCenter.default.addObserver(self, selector: #selector(onGetNotification), name: NSNotification.Name("onGetScriptNotification"), object: nil)
     }
 
     override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
@@ -83,13 +85,31 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         /// Update the status
 
         if let aNewBuckting = newBucketing {
-            Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .PANIC_ON : .READY)
+           // Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .PANIC_ON : .READY)
+
+            // Refonte bis
+            Flagship.sharedInstance.updateStatusBis(aNewBuckting.panic ? .SDK_NOT_INITIALIZED : .SDK_INITIALIZED)
         }
 
         /// Update bucketing
         scriptBucket = newBucketing
         /// Update script error
         scriptError = error
+    }
+
+    @objc private func onGetNotification(_ notification: Notification) {
+        // get the object
+
+        if let aScriptBucket = notification.object as? FSBucket {
+            Flagship.sharedInstance.updateStatusBis(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+
+            /// Update bucketing
+            scriptBucket = aScriptBucket
+
+            /// Update script error
+            ///  scriptError = error  why we did it ????
+        }
+        print(" ----------- On script bucketing  notification is called ---------- ")
     }
 
     /// This is the entry for bucketing , that give the campaign infos as we do in api decesion
