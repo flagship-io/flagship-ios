@@ -57,7 +57,17 @@ import Foundation
     var assignedVariationHistory: [String: String] = [:]
     
     // Initial value for the status .CREATED
-    var flagSyncStatus: FlagSynchStatus = .CREATED
+    var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
+    
+    // Refonte status
+    public internal(set) var flagsStatus: FSFlagsStatus = .FETCH_NEEDED {
+        didSet {
+            if self.flagsStatus == .PANIC {
+                print("----------- update the panic from visitor to FS core ------------")
+                Flagship.sharedInstance.updateStatusBis(.SDK_PANIC)
+            }
+        }
+    }
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
         // super.init()
@@ -94,7 +104,9 @@ import Foundation
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
-        self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
+        // Go to ING state while the fetch is ongoing
+        self.flagsStatus = .FETCHING
+        self.strategy?.getStrategy().synchronize(onSyncCompleted: { state in
             onFetchCompleted()
             // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
@@ -103,6 +115,9 @@ import Foundation
             if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
                 self.sendHit(FSSegment(self.getContext()))
             }
+            // Update status
+            self.flagsStatus = state == .SDK_PANIC ? .PANIC : .FETCHED
+
         })
     }
     
@@ -121,6 +136,7 @@ import Foundation
         self.strategy?.getStrategy().updateContext(context)
         // Update the flagSyncStatus
         self.flagSyncStatus = .CONTEXT_UPDATED
+        self.flagsStatus = .FETCH_NEEDED
     }
     
     // Update context with one
@@ -129,6 +145,7 @@ import Foundation
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
         self.strategy?.getStrategy().updateContext([key: newValue])
+        self.flagsStatus = .FETCH_NEEDED
     }
     
     // Update presetContext
@@ -144,6 +161,7 @@ import Foundation
         FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_SUCCESS(flagshipContext.rawValue))
         
         self.strategy?.getStrategy().updateContext([flagshipContext.rawValue: value])
+        self.flagsStatus = .FETCH_NEEDED
     }
     
     // Get the current context

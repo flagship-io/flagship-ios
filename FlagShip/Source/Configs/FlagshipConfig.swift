@@ -18,17 +18,19 @@ public enum FSMode: Int {
 
 public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ fromFlag: FSExposedFlag)-> Void)?
 
-@objc public class FlagshipConfig: NSObject {
+@objc public class FlagshipConfig: NSObject, FSPollingScriptDelegate {
+    func onGetScript(_ newBucketing: FSBucket?, _ error: FlagshipError?) {}
+    
     let fsQueue = DispatchQueue(label: "com.flagshipConfig.queue", attributes: .concurrent)
 
     var mode: FSMode = .DECISION_API
     var timeout: TimeInterval
     var logLevel: FSLevel = .ALL
     var pollingTime: TimeInterval = FSPollingTime
-    var onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
+    var onStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil
     var trackingConfig: FSTrackingManagerConfig
     var onVisitorExposed: OnVisitorExposed = nil
-
+    
     /// Cache Manager
     var cacheManager: FSCacheManager
     
@@ -40,7 +42,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
          _ logLevel: FSLevel = .ALL,
          pollingTime: TimeInterval = FSPollingTime,
          cacheManager: FSCacheManager,
-         _ onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil,
+         _ onStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil,
          _ trackingConfig: FSTrackingManagerConfig, _ onVisitorExposed: OnVisitorExposed = nil, _ disableDeveloperUsageTracking: Bool = true)
     {
         self.mode = mode
@@ -78,7 +80,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     public private(set) var _cacheManager: FSCacheManager
     
     /// Status listener
-    public private(set) var _onStatusChanged: ((_ newStatus: FStatus)->Void)? = nil
+    public private(set) var _onStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil
     
     /// Tracking Config
     public private(set) var _trackingConfig: FSTrackingManagerConfig
@@ -129,7 +131,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     }
     
     /// listener status
-    @objc public func withStatusListener(_ onStatusChanged: @escaping (_ newStatus: FStatus)->Void)->FSConfigBuilder {
+    @objc public func withStatusListener(_ onStatusChanged: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder {
         _onStatusChanged = onStatusChanged
         return self
     }

@@ -33,21 +33,18 @@ import Foundation
     }
 }
 
-
 /// This instance shoud be on the visitor instance
-public enum FlagsStatus {
+public enum FSFlagsStatus: String {
     case FETCHED
     case FETCHING
     case FETCH_NEEDED
     case PANIC
 }
 
-
 /// This state represent the flag entity  (without S)
-enum FlagStatus {
-case FETCHED            // Flags up to date
-case FETCH_NEEDED       //  - à la création mais sans cache , ou le context a changé , xpc
-case NOT_FOUND
-case PANIC
-
+public enum FSFlagStatus: String {
+    case FETCHED // Flags up to date
+    case FETCH_NEEDED //  - à la création mais sans cache , ou le context a changé , xpc
+    case NOT_FOUND
+    case PANIC
 }

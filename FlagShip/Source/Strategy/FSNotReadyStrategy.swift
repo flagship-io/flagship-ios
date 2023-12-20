@@ -12,9 +12,9 @@ class FSNotReadyStrategy: FSDefaultStrategy {
         FlagshipLogManager.Log(level: .INFO, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_CONTEXT_NOT_READY)
     }
     
-    override func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
+    override func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void) {
         FlagshipLogManager.Log(level: .INFO, tag: .SYNCHRONIZE, messageToDisplay: FSLogMessage.SYNCHRONIZE_NOT_READY)
-        onSyncCompleted(.NOT_INITIALIZED)
+        onSyncCompleted(.SDK_NOT_INITIALIZED)
     }
     
     override func getModification<T>(_ key: String, defaultValue: T) -> T {
