@@ -8,8 +8,10 @@
 import Flagship
 import UIKit
 
-class FSJsonEditorCtrl: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class FSJsonEditorCtrl: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, FSContextViewEditorDelegate {
+    @IBOutlet var tableView: UITableView!
     var keysContext: [String] = []
+    var editorView: FSContextCtrlViewEditor?
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let jsonDico = Flagship.sharedInstance.sharedVisitor?.getContext() {
@@ -35,14 +37,19 @@ class FSJsonEditorCtrl: UIViewController, UITextViewDelegate, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let jsonDico = Flagship.sharedInstance.sharedVisitor?.getContext() {
             DispatchQueue.main.async {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                let editorView = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ctxStoryId", creator: { coder -> FSContextCtrlViewEditor? in
+                self.editorView = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: "ctxStoryId", creator: { coder -> FSContextCtrlViewEditor? in
                     
                     let key = self.keysContext[indexPath.row]
-                    //FSContextCtrlViewEditor(coder: coder, dico: [key: jsonDico[key] ?? ""])
+                    return FSContextCtrlViewEditor(coder: coder, key, jsonDico[key] ?? "")
                 })
-                self.present(editorView, animated: true) {}
+                
+                if let aEditorView = self.editorView {
+                    aEditorView.delegate = self
+                    // center the view relative to it's superview coordinates
+                    aEditorView.view.center = self.view.center
+                    self.view.addSubview(aEditorView.view)
+                    // UIView.transition(from: self.view, to: aEditorView.view, duration: 0.2)
+                }
             }
         }
     }
@@ -57,7 +64,6 @@ class FSJsonEditorCtrl: UIViewController, UITextViewDelegate, UITableViewDelegat
         super.viewDidLoad()
         
         if let jsonDico = Flagship.sharedInstance.sharedVisitor?.getContext() { /// refractor later
-            ///
             keysContext.append(contentsOf: jsonDico.keys)
         }
         
@@ -84,6 +90,11 @@ class FSJsonEditorCtrl: UIViewController, UITextViewDelegate, UITableViewDelegat
     @IBAction func onValidateJson() {
         dismiss(animated: true, completion: nil)
     }
+    
+    func onEditContext(_ key: String, _ newVal: Any) {
+        Flagship.sharedInstance.sharedVisitor?.updateContext(key, newVal)
+        tableView.reloadData()
+    }
 }
 
 protocol FSJsonEditorDelegate {
@@ -104,11 +115,14 @@ class FSContextCtrlViewEditor: UIViewController, UITextFieldDelegate {
     var delegate: FSContextViewEditorDelegate?
     @IBOutlet var keyLabel: UILabel?
     @IBOutlet var valueField: UITextField?
+    @IBOutlet var switchValue: UISwitch?
     
-    var dicoItem: [String: Any]?
+    var key: String
+    var value: Any
     
-    init?(coder: NSCoder, dico: [String: Any]) {
-        self.dicoItem = dico
+    init?(coder: NSCoder, _ key: String, _ value: Any) {
+        self.key = key
+        self.value = value
         super.init(coder: coder)
     }
     
@@ -116,23 +130,61 @@ class FSContextCtrlViewEditor: UIViewController, UITextFieldDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func config(_ dicoItem: [String: Any]?) {
-        self.dicoItem = dicoItem
-        keyLabel?.text = dicoItem?.keys.first
-        valueField?.text = "\(dicoItem?.values.first ?? "")"
-    }
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        keyLabel?.text = dicoItem?.keys.first
+        view.layer.cornerRadius = 20
+        view.layer.masksToBounds = true
+        keyLabel?.text = key
+        if value is Bool {
+            switchValue?.isHidden = false
+            valueField?.isHidden = true
+            switchValue?.isOn = value as? Bool ?? false
+        } else if value is String {
+            switchValue?.isHidden = true
+            valueField?.isHidden = false
+            valueField?.text = value as? String ?? ""
+            valueField?.keyboardType = .default
+        } else if value is Int || value is Double {
+            switchValue?.isHidden = true
+            valueField?.isHidden = false
+            valueField?.text = "\(value)"
+            valueField?.keyboardType = .decimalPad
+        }
     }
     
     @IBAction func onValidate() {
-        dismiss(animated: true)
+        if let currentText = valueField?.text {
+            let newVal: Any
+            if value is Int {
+                newVal = Int(currentText) ?? 0
+            } else if value is Double {
+                newVal = Double(currentText) ?? 0.0
+            } else if value is Bool {
+                newVal = switchValue?.isOn ?? false
+            } else {
+                newVal = currentText
+            }
+            delegate?.onEditContext(key, newVal)
+        }
+        view.removeFromSuperview()
     }
+    
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        // get the current text, or use an empty string if that failed
+//        let currentText = textField.text ?? ""
+//
+//        // attempt to read the range they are trying to change, or exit if we can't
+//        guard let stringRange = Range(range, in: currentText) else { return false }
+//
+//        // add their new text to the existing text
+//        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+//
+//        // make sure the result is under 16 characters
+//        return true
+//    }
 }
 
 protocol FSContextViewEditorDelegate {
-    func onEditContext()
+    func onEditContext(_ key: String, _ newVal: Any)
 }

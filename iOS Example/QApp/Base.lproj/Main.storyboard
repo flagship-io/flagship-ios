@@ -1189,7 +1189,7 @@
                                                     <constraint firstAttribute="height" constant="45" id="oBR-cA-vRO"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
-                                                <state key="normal" title="START SDK">
+                                                <state key="normal" title="Start Sdk">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -1316,19 +1316,16 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYp-Ru-aRf">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYp-Ru-aRf">
                                                 <rect key="frame" x="10" y="757" width="345" height="40"/>
                                                 <color key="backgroundColor" red="0.87450980389999999" green="0.2666666667" blue="0.43137254899999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="WbU-Z9-RYN"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Create Visitor">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <state key="disabled">
-                                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="onClickCreateVisitor" destination="rjy-GE-W2V" eventType="touchUpInside" id="9xZ-Tc-RdR"/>
@@ -1337,19 +1334,16 @@
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xoE-gn-RGj">
                                                 <rect key="frame" x="156" y="313" width="51" height="31"/>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUU-9a-pxr">
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUU-9a-pxr">
                                                 <rect key="frame" x="10" y="807" width="345" height="40"/>
                                                 <color key="backgroundColor" red="0.87450980389999999" green="0.2666666667" blue="0.43137254899999999" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="WSV-a6-Jhc"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="18"/>
+                                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="15"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Fetch Flags">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <state key="disabled">
-                                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="fetchFlags" destination="rjy-GE-W2V" eventType="touchUpInside" id="5Rw-Gj-4b0"/>
@@ -1477,11 +1471,11 @@
                                     <action selector="onValidateJson" destination="9C5-IE-WeJ" eventType="touchUpInside" id="rAe-dp-ypU"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IEc-9d-nRv">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="50" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IEc-9d-nRv">
                                 <rect key="frame" x="25" y="53" width="364" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ctxCell" rowHeight="88" id="8Iu-sa-tGL" customClass="FSContextUserCell" customModule="QApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ctxCell" rowHeight="88" id="8Iu-sa-tGL" customClass="FSContextUserCell" customModule="QApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="364" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Iu-sa-tGL" id="sda-eh-6gj">
@@ -1489,20 +1483,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu7-j7-2ni" userLabel="Label - value">
-                                                    <rect key="frame" x="192" y="37.5" width="150" height="13.5"/>
+                                                    <rect key="frame" x="192" y="37" width="150" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="squ-uG-2lB"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="12"/>
-                                                    <color key="textColor" systemColor="systemPurpleColor"/>
+                                                    <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="14"/>
+                                                    <color key="textColor" systemColor="systemOrangeColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UJ7-8P-Vzm" userLabel="Label - key">
-                                                    <rect key="frame" x="22" y="37.5" width="150" height="13.5"/>
+                                                    <rect key="frame" x="22" y="37" width="150" height="14.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="Z7N-Sw-OVa"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="12"/>
+                                                    <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1537,6 +1531,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="tableView" destination="IEc-9d-nRv" id="dMk-dc-r3T"/>
                         <outlet property="validateJson" destination="Bag-Dj-ayL" id="Pfh-Ad-Axe"/>
                     </connections>
                 </viewController>
@@ -1547,17 +1542,17 @@
         <!--Context Ctrl View Editor-->
         <scene sceneID="83e-fe-fBl">
             <objects>
-                <viewController storyboardIdentifier="ctxStoryId" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mfs-OJ-RTR" customClass="FSContextCtrlViewEditor" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ctxStoryId" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mfs-OJ-RTR" customClass="FSContextCtrlViewEditor" customModule="QApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aQS-sq-XXJ"/>
                         <viewControllerLayoutGuide type="bottom" id="4sq-fQ-Mek"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nh5-yi-oYf">
-                        <rect key="frame" x="0.0" y="0.0" width="400" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cz5-JM-UJY">
-                                <rect key="frame" x="30" y="133" width="340" height="45"/>
+                                <rect key="frame" x="26" y="133" width="248" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="6yE-Sb-bbv"/>
                                 </constraints>
@@ -1568,7 +1563,7 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xu-l2-z0L">
-                                <rect key="frame" x="40" y="58" width="320" height="45"/>
+                                <rect key="frame" x="36" y="58" width="228" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="u98-0I-3WG"/>
                                 </constraints>
@@ -1577,20 +1572,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVS-xo-9Rw">
-                                <rect key="frame" x="150" y="306" width="100" height="50"/>
+                                <rect key="frame" x="100" y="260" width="100" height="35"/>
                                 <color key="backgroundColor" red="0.94328010080000002" green="0.47053597229999999" blue="0.54915434760000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Spi-vo-Fai"/>
+                                    <constraint firstAttribute="height" constant="35" id="Spi-vo-Fai"/>
                                     <constraint firstAttribute="width" constant="100" id="fA3-Fy-zPO"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Validate"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Validate">
+                                    <fontDescription key="titleFontDescription" name="Palatino-Roman" family="Palatino" pointSize="12"/>
+                                </buttonConfiguration>
                                 <connections>
-                                    <action selector="onValidate" destination="Mfs-OJ-RTR" eventType="touchUpInside" id="eRE-wS-mog"/>
+                                    <action selector="onValidate" destination="Mfs-OJ-RTR" eventType="touchUpInside" id="FsQ-nJ-18c"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zzz-Bb-cz0">
+                                <rect key="frame" x="125.5" y="134.5" width="51" height="31"/>
+                            </switch>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" red="0.94328010080000002" green="0.83203842939999995" blue="0.62447199019999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="cz5-JM-UJY" secondAttribute="trailing" constant="10" id="9L8-IJ-yzl"/>
                             <constraint firstItem="tVS-xo-9Rw" firstAttribute="centerX" secondItem="Nh5-yi-oYf" secondAttribute="centerX" id="DKe-Yh-3TU"/>
@@ -1598,15 +1598,18 @@
                             <constraint firstItem="0xu-l2-z0L" firstAttribute="top" secondItem="aQS-sq-XXJ" secondAttribute="bottom" constant="10" id="Nwf-Ej-n4k"/>
                             <constraint firstItem="0xu-l2-z0L" firstAttribute="leading" secondItem="Nh5-yi-oYf" secondAttribute="leadingMargin" constant="20" id="YQn-wh-t1j"/>
                             <constraint firstItem="cz5-JM-UJY" firstAttribute="top" secondItem="0xu-l2-z0L" secondAttribute="bottom" constant="30" id="Yyn-av-ElG"/>
+                            <constraint firstAttribute="bottom" secondItem="tVS-xo-9Rw" secondAttribute="bottom" constant="5" id="bam-bn-Z09"/>
+                            <constraint firstItem="Zzz-Bb-cz0" firstAttribute="centerY" secondItem="Nh5-yi-oYf" secondAttribute="centerY" id="eZ2-nh-rga"/>
                             <constraint firstItem="cz5-JM-UJY" firstAttribute="centerX" secondItem="Nh5-yi-oYf" secondAttribute="centerX" id="ldz-lr-iLd"/>
+                            <constraint firstItem="Zzz-Bb-cz0" firstAttribute="centerX" secondItem="Nh5-yi-oYf" secondAttribute="centerX" id="nn0-q0-2Hb"/>
                             <constraint firstItem="0xu-l2-z0L" firstAttribute="centerX" secondItem="Nh5-yi-oYf" secondAttribute="centerX" id="rAG-yp-kCT"/>
-                            <constraint firstItem="4sq-fQ-Mek" firstAttribute="top" secondItem="tVS-xo-9Rw" secondAttribute="bottom" constant="10" id="rEa-hS-A28"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0xu-l2-z0L" secondAttribute="trailing" constant="20" id="sT1-xf-EVX"/>
                         </constraints>
                     </view>
-                    <size key="freeformSize" width="400" height="400"/>
+                    <size key="freeformSize" width="300" height="300"/>
                     <connections>
                         <outlet property="keyLabel" destination="0xu-l2-z0L" id="OOy-I4-2Iv"/>
+                        <outlet property="switchValue" destination="Zzz-Bb-cz0" id="iM5-pi-WYX"/>
                         <outlet property="valueField" destination="cz5-JM-UJY" id="h7C-vV-TIQ"/>
                     </connections>
                 </viewController>
@@ -1665,8 +1668,8 @@
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
