@@ -88,6 +88,10 @@ public class FSFlag: NSObject {
     /// _ Check the type of flag's value with the default value
     private func isSameType<T>(_ value: T)->Bool {
         var matchedType = false
+
+        if defaultValue == nil {
+            return true
+        }
         
         switch defaultValue {
         case _ as String:
