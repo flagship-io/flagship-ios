@@ -56,6 +56,7 @@ class FSFlagTest: XCTestCase {
         testVisitor?.fetchFlags(onFetchCompleted: {
             /// Check if flagSync is fetched
             XCTAssertTrue(self.testVisitor?.flagSyncStatus == .FLAGS_FETCHED)
+            
             if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "dfl") {
                 XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
                 XCTAssertTrue(flag.exists())
@@ -90,14 +91,14 @@ class FSFlagTest: XCTestCase {
             if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: nilValue) {
                 XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
                 XCTAssertTrue(flag.exists())
-                XCTAssertTrue(flag.metadata().campaignId == "bvcdqksmicqghldq9agg")
-                XCTAssertTrue(flag.metadata().variationId == "bvcdqksmicqghldq9aig")
-                XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
+                XCTAssertTrue(flag.metadata().variationName == "variation_name")
                 XCTAssertTrue(flag.metadata().isReference == false)
                 XCTAssertTrue(flag.metadata().slug == "cmapForTest")
                 XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                XCTAssertTrue(flag.metadata().campaignId == "bvcdqksmicqghldq9agg")
+                XCTAssertTrue(flag.metadata().variationId == "bvcdqksmicqghldq9aig")
+                XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
                 XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
-                XCTAssertTrue(flag.metadata().variationName == "variation_name")
             }
             
             expectationSync.fulfill()
