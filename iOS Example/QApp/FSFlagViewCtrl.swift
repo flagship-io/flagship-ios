@@ -6,11 +6,10 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
 import Flagship
+import UIKit
 
-
-internal enum FSValueType {
+enum FSValueType {
     case DoubleType
     case IntegerType
     case StringType
@@ -18,22 +17,20 @@ internal enum FSValueType {
 }
 
 class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    var currentFlag:FSFlag?
-    @IBOutlet var flagView:FlagView?
-    @IBOutlet var tableViewFlag:UITableView?
-    @IBOutlet var activateBtn:UIButton?
-    @IBOutlet var getValueFlagBtn:UIButton?
-    
+    var currentFlag: FSFlag?
+    @IBOutlet var flagView: FlagView?
+    @IBOutlet var tableViewFlag: UITableView?
+    @IBOutlet var activateBtn: UIButton?
+    @IBOutlet var getValueFlagBtn: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         flagView?.layer.cornerRadius = 5
-        flagView?.layer.masksToBounds =  true
+        flagView?.layer.masksToBounds = true
         
         tableViewFlag?.layer.cornerRadius = 5
-        tableViewFlag?.layer.masksToBounds =  true
+        tableViewFlag?.layer.masksToBounds = true
         
         FSCTools.roundButton(activateBtn)
         FSCTools.roundButton(getValueFlagBtn)
@@ -47,20 +44,15 @@ class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.endEditing(true)
     }
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 450
-        
     }
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "flagCell") as? FlagViewCell
         
         cell?.configCell(currentFlag)
@@ -68,39 +60,30 @@ class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell ?? UITableViewCell()
     }
     
-    
-    @IBAction func getFlag(){
-        currentFlag =  flagView?.prepareAndGetGetFlag()
+    @IBAction func getFlag() {
+        currentFlag = flagView?.prepareAndGetGetFlag()
         currentFlag?.value()
         tableViewFlag?.reloadData()
     }
     
-    @IBAction func exposeFlag(){
-        
-        if let aCurrentFlag = currentFlag{
-            
+    @IBAction func exposeFlag() {
+        if let aCurrentFlag = currentFlag {
             aCurrentFlag.visitorExposed()
         }
     }
-    
-    
-    
 }
 
-
-class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
-    
+class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     let sourcePicker: [String] = ["String", "Integer", "Double", "Boolean"]
     
     // Picker view
-    @IBOutlet var pickerView:UIPickerView?
+    @IBOutlet var pickerView: UIPickerView?
     // Key for flag
-    @IBOutlet var keyForFlagField:UITextField?
+    @IBOutlet var keyForFlagField: UITextField?
     // default value
-    @IBOutlet var defaultValueField:UITextField?
+    @IBOutlet var defaultValueField: UITextField?
     
-    @IBOutlet var defaultValueSwitch:UISwitch?
-    
+    @IBOutlet var defaultValueSwitch: UISwitch?
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
@@ -113,7 +96,6 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return sourcePicker[row]
     }
-    
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(sourcePicker[row] as String)
@@ -132,13 +114,10 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
         }
     }
     
-    
-    func prepareAndGetGetFlag()->FSFlag?{
-        
+    func prepareAndGetGetFlag() -> FSFlag? {
         var flagObject: FSFlag?
         
         if let defaultValueInput = defaultValueField?.text {
-            
             if let keyValueInput = keyForFlagField?.text {
                 /// Get the current selected
                 let typeValue = getTypeValue()
@@ -171,7 +150,6 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
         return flagObject
     }
     
-    
     private func getTypeValue() -> FSValueType {
         switch pickerView?.selectedRow(inComponent: 0) {
         case 0:
@@ -187,9 +165,6 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
             return .StringType
         }
     }
-    
-    
-    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         endEditing(true)
@@ -207,13 +182,11 @@ class FlagView:UIView, UIPickerViewDelegate, UIPickerViewDataSource{
         } else if pickerView?.selectedRow(inComponent: 0) == 2 || pickerView?.selectedRow(inComponent: 0) == 1 {
             let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
         
-            return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+            return string.rangeOfCharacter(from: invalidCharacters) == nil
         }
         return true
     }
-    
 }
-
 
 extension Data {
     var prettyPrintedJSONString: NSString? { // NSString gives us a nice sanitized debugDescription

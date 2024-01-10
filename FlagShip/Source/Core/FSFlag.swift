@@ -22,7 +22,7 @@ public class FSFlag: NSObject {
     @objc public func value(visitorExposed: Bool = true)->Any? {
         var result: Any?
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            if isSameType(flagModification.value) { /// _ have type same with default value
+            if isSameType_or_DefaultValue_Nil(flagModification.value){ /// _ have same type with default value OR the default value is nil
                 ///
                 FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The value of the flag `\(key)` is `\(flagModification.value)"))
                 
@@ -57,7 +57,7 @@ public class FSFlag: NSObject {
     @objc public func visitorExposed() {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             /// The activate can be activated event whatever the type if the flag's value is nil
-            if flagModification.value is NSNull || isSameType(flagModification.value) {
+            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value){
                 /// Activate the flag
                 strategy?.getStrategy().activateFlag(self)
             } else {
@@ -78,7 +78,7 @@ public class FSFlag: NSObject {
     
     @objc public func metadata()->FSFlagMetadata {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            if flagModification.value is NSNull || isSameType(flagModification.value) {
+            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value){
                 return FSFlagMetadata(flagModification)
             }
         }
@@ -86,9 +86,13 @@ public class FSFlag: NSObject {
     }
     
     /// _ Check the type of flag's value with the default value
-    private func isSameType<T>(_ value: T)->Bool {
+    /// _ This check return true when the default value is nil
+    private func isSameType_or_DefaultValue_Nil<T>(_ value: T)->Bool {
         var matchedType = false
-        
+        /// If the default value given in the getFalg() is nil then the check return true
+        if defaultValue == nil {
+            return true
+        }
         switch defaultValue {
         case _ as String:
             /// Compare with String
