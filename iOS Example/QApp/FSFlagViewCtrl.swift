@@ -129,12 +129,8 @@ class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                     
                 case .StringType:
                     
-                    //   flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueInput)
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueInput)
                     
-                    var dfl: String? = nil
-                    
-                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: dfl)
-
                 case .IntegerType:
                     
                     let inputInt = Int(String(format: "%@", defaultValueInput)) ?? 0
