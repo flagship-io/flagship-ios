@@ -26,7 +26,7 @@ class FSFlagTest: XCTestCase {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdov", apiKey: "apiKey", config: fsConfig)
         
         do {
-            guard let path =  Bundle(for: type(of: self)).url(forResource: "decisionApi", withExtension: "json") else { return }
+            guard let path = Bundle(for: type(of: self)).url(forResource: "decisionApi", withExtension: "json") else { return }
             
             let data = try Data(contentsOf: path, options: .alwaysMapped)
             
@@ -83,6 +83,21 @@ class FSFlagTest: XCTestCase {
                 XCTAssertTrue(flag.metadata().variationGroupId == "")
                 XCTAssertTrue(flag.metadata().isReference == false)
                 XCTAssertTrue(flag.metadata().slug == "")
+            }
+            
+            /// Test with nil default value
+            var nilValue: String?
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: nilValue) {
+                XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
+                XCTAssertTrue(flag.exists())
+                XCTAssertTrue(flag.metadata().campaignId == "bvcdqksmicqghldq9agg")
+                XCTAssertTrue(flag.metadata().variationId == "bvcdqksmicqghldq9aig")
+                XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
+                XCTAssertTrue(flag.metadata().isReference == false)
+                XCTAssertTrue(flag.metadata().slug == "cmapForTest")
+                XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+                XCTAssertTrue(flag.metadata().variationName == "variation_name")
             }
             
             expectationSync.fulfill()
