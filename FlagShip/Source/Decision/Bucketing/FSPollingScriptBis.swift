@@ -37,13 +37,13 @@ class FSPollingScriptBis {
                     }
                     // Transmit stored script via notification
                     NotificationCenter.default.post(name: NSNotification.Name("onGetScriptNotification"), object: storedBucket, userInfo: nil)
-                    Flagship.sharedInstance.updateStatusBis(storedBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+                    Flagship.sharedInstance.updateStatus(storedBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
 
                 } else {
                     // Transmit new script via notification
                     NotificationCenter.default.post(name: NSNotification.Name("onGetScriptNotification"), object: bucketingScript, userInfo: nil)
                     if let aBucketingScript = bucketingScript {
-                        Flagship.sharedInstance.updateStatusBis(aBucketingScript.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+                        Flagship.sharedInstance.updateStatus(aBucketingScript.panic ? .SDK_PANIC : .SDK_INITIALIZED)
                     }
                 }
                 if self.pollingIntervalTime > 0.0 { /// only once when timer is 0

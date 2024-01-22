@@ -88,7 +88,7 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
            // Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .PANIC_ON : .READY)
 
             // Refonte bis
-            Flagship.sharedInstance.updateStatusBis(aNewBuckting.panic ? .SDK_NOT_INITIALIZED : .SDK_INITIALIZED)
+            Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .SDK_NOT_INITIALIZED : .SDK_INITIALIZED)
         }
 
         /// Update bucketing
@@ -101,7 +101,7 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         // get the object
 
         if let aScriptBucket = notification.object as? FSBucket {
-            Flagship.sharedInstance.updateStatusBis(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+            Flagship.sharedInstance.updateStatus(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
 
             /// Update bucketing
             scriptBucket = aScriptBucket

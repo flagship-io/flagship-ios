@@ -245,7 +245,7 @@ extension FSDataUsageTracking {
         var configFields: [String: String] = [:]
         if let aSdkConfig = _sdkConfig {
             configFields = [
-                "sdk.status": Flagship.sharedInstance.currentStatusBis.name,
+                "sdk.status": Flagship.sharedInstance.currentStatus.name,
                 "sdk.config.mode": (aSdkConfig.mode == .DECISION_API) ? "DECISION_API" : "BUCKETING",
                 "sdk.config.timeout": String(aSdkConfig.timeout * 1000),
                 "sdk.config.pollingTime": String(aSdkConfig.pollingTime * 1000),

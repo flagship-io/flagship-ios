@@ -45,7 +45,7 @@ public class Flagship: NSObject {
    // var currentStatus: FStatus = .NOT_INITIALIZED
     
     // New refonte status
-    var currentStatusBis: FSSdkStatus = .SDK_NOT_INITIALIZED
+    var currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
     
     // Enabale Log
     var enableLogs: Bool = true
@@ -75,7 +75,7 @@ public class Flagship: NSObject {
         } else {
             // Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
             // Refonte update
-            Flagship.sharedInstance.updateStatusBis(.SDK_NOT_INITIALIZED)
+            Flagship.sharedInstance.updateStatus(.SDK_NOT_INITIALIZED)
 
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.ERROR_INIT_SDK)
             return
@@ -91,7 +91,7 @@ public class Flagship: NSObject {
         // Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
         
         // Refonte
-        Flagship.sharedInstance.updateStatusBis((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
+        Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
 
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
         
@@ -146,7 +146,7 @@ public class Flagship: NSObject {
     
     // Get status
     public func getStatus() -> FSSdkStatus {
-        return currentStatusBis
+        return currentStatus
     }
     
 //    // Update status
@@ -165,15 +165,15 @@ public class Flagship: NSObject {
 //    }
     
     // Update status
-    func updateStatusBis(_ newStatus: FSSdkStatus) {
+    func updateStatus(_ newStatus: FSSdkStatus) {
         // _ if the staus has not changed then no need to trigger the callback
-        if newStatus == currentStatusBis {
+        if newStatus == currentStatus {
             return
         }
         print("--------------------------------- \(newStatus.name) ----------------------------------")
         
         // Update the status
-        currentStatusBis = newStatus
+        currentStatus = newStatus
         // Trigger the callback
         if let callbackListener = currentConfig.onStatusChanged {
             callbackListener(newStatus)

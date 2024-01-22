@@ -30,7 +30,7 @@ class FSStrategy {
 //    }
     
     func getStrategy() -> FSDelegateStrategy {
-        switch Flagship.sharedInstance.currentStatusBis {
+        switch Flagship.sharedInstance.currentStatus {
         case .SDK_INITIALIZED:
             if visitor.hasConsented == true {
                 return FSDefaultStrategy(visitor)
@@ -100,7 +100,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             if error == nil {
                 if campaigns?.panic == true {
                     // Flagship.sharedInstance.currentStatus = .PANIC_ON
-                    Flagship.sharedInstance.currentStatusBis = .SDK_PANIC
+                    Flagship.sharedInstance.currentStatus = .SDK_PANIC
 
                     self.visitor.currentFlags.removeAll()
                     // Stop the process batching when the panic mode is ON
@@ -111,7 +111,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     /// Update new flags
                     self.visitor.updateFlags(campaigns?.getAllModification())
                     // Flagship.sharedInstance.currentStatus = .READY
-                    Flagship.sharedInstance.currentStatusBis = .SDK_INITIALIZED
+                    Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
 
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
