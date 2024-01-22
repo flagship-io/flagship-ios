@@ -6,31 +6,31 @@
 
 import Foundation
 
-@objc public enum FStatus: NSInteger {
-    // Flagship SDK has not been started or initialized successfully.
-    case NOT_INITIALIZED = 0x0
-    
-    // Flagship SDK has been started successfully but is still polling campaigns.
-    case POLLING = 0x10
-    
-    // Flagship SDK is ready but is running in Panic mode: All features are disabled except the one which refresh this status.
-    case PANIC_ON = 0x20
-    
-    // Flagship SDK is ready to use.
-    case READY = 0x100
-    
-    var name: String {
-        switch self { case .NOT_INITIALIZED:
-            return "NOT_INITIALIZED"
-        case .POLLING:
-            return "POLLING"
-        case .PANIC_ON:
-            return "PANIC_ON"
-        case .READY:
-            return "READY"
-        }
-    }
-}
+//@objc public enum FStatus: NSInteger {
+//    // Flagship SDK has not been started or initialized successfully.
+//    case NOT_INITIALIZED = 0x0
+//    
+//    // Flagship SDK has been started successfully but is still polling campaigns.
+//    case POLLING = 0x10
+//    
+//    // Flagship SDK is ready but is running in Panic mode: All features are disabled except the one which refresh this status.
+//    case PANIC_ON = 0x20
+//    
+//    // Flagship SDK is ready to use.
+//    case READY = 0x100
+//    
+//    var name: String {
+//        switch self { case .NOT_INITIALIZED:
+//            return "NOT_INITIALIZED"
+//        case .POLLING:
+//            return "POLLING"
+//        case .PANIC_ON:
+//            return "PANIC_ON"
+//        case .READY:
+//            return "READY"
+//        }
+//    }
+//}
 
 public class Flagship: NSObject {
     // envId
@@ -42,7 +42,7 @@ public class Flagship: NSObject {
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Current status
-    var currentStatus: FStatus = .NOT_INITIALIZED
+   // var currentStatus: FStatus = .NOT_INITIALIZED
     
     // New refonte status
     var currentStatusBis: FSSdkStatus = .SDK_NOT_INITIALIZED
@@ -136,7 +136,7 @@ public class Flagship: NSObject {
     // Reset the sdk
     func reset() {
         sharedVisitor = nil
-        currentStatus = .NOT_INITIALIZED
+      //  currentStatus = .NOT_INITIALIZED
     }
     
     // Create new visitor

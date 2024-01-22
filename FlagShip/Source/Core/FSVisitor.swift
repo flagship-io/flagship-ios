@@ -83,7 +83,7 @@ import Foundation
             self.visitorId = FSTools.manageVisitorId(aVisitorId)
             self.anonymousId = nil
         }
-        
+        // TODO check this commented line 
         // If the sdk is on the buckting mode ==> we are on polling mode
         // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
         
@@ -112,7 +112,7 @@ import Foundation
             self.strategy?.getStrategy().cacheVisitor()
             
             // If bucketing mode and no consent and no panic mode
-            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
+            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatusBis != .SDK_PANIC {
                 self.sendHit(FSSegment(self.getContext()))
             }
             // Update status
