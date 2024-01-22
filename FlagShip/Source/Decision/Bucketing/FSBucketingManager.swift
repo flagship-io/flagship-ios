@@ -10,7 +10,7 @@ import Foundation
 let SemaphoreTimeOut: TimeInterval = 2
 
 class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
-    var pollingScript: FSPollingScript?
+   // var pollingScript: FSPollingScript?
     var _scriptBucket: FSBucket?
     var _scriptError: FlagshipError?
     var targetManager: FSTargetingManager
@@ -54,7 +54,8 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         if let storedBucket = FSStorageManager.readBucketFromCache() {
             self.scriptBucket = storedBucket
         }
-
+        
+        /// TODO remove it when no need 
         /// Add observer to listen "onGetScriptNotification"
         NotificationCenter.default.addObserver(self, selector: #selector(onGetNotification), name: NSNotification.Name("onGetScriptNotification"), object: nil)
     }
@@ -77,7 +78,7 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
     /// Launch polling
     override func launchPolling() {
-        pollingScript?.launchPolling()
+        //pollingScript?.launchPolling()
     }
 
     /// Delegate -- The polling process will trigger this callback

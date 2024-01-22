@@ -54,7 +54,7 @@ public class Flagship: NSObject {
     
     /// In context of refonte
     
-    var pollingScript: FSPollingScriptBis?
+    var pollingScript: FSPollingScript?
    
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
@@ -97,7 +97,7 @@ public class Flagship: NSObject {
         
         ///  Bucketing service
         if config.mode == .BUCKETING {
-            pollingScript = FSPollingScriptBis(pollingTime: config.pollingTime)
+            pollingScript = FSPollingScript(pollingTime: config.pollingTime)
             // pollingScript?.launchPolling()
         }
     }

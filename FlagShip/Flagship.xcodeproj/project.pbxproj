@@ -65,7 +65,6 @@
 		8B2D515E2805D43C00866D61 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
 		8B2D515F2805D43C00866D61 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
 		8B2D51602805D43C00866D61 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
-		8B2D51612805D43C00866D61 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		8B2D51622805D43C00866D61 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
 		8B2D51632805D43C00866D61 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
 		8B2D51642805D43C00866D61 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
@@ -122,7 +121,6 @@
 		8B6736C627FED3E5003EC960 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
 		8B6736C727FED3E5003EC960 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
 		8B6736C827FED3E5003EC960 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
-		8B6736C927FED3E5003EC960 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		8B6736CA27FED3E5003EC960 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
 		8B6736CC27FED3E5003EC960 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
 		8B6736CD27FED3E5003EC960 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
@@ -185,7 +183,6 @@
 		8B9F2AAD2809B8E600323094 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
 		8B9F2AAE2809B8E600323094 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
 		8B9F2AAF2809B8E600323094 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
-		8B9F2AB02809B8E600323094 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		8B9F2AB12809B8E600323094 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
 		8B9F2AB22809B8E600323094 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
 		8B9F2AB32809B8E600323094 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
@@ -237,7 +234,6 @@
 		8B9F2AEC2809BA8200323094 /* FSTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67368E27FEBE4C003EC960 /* FSTrackingManager.swift */; };
 		8B9F2AED2809BA8200323094 /* FSDecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369027FEBE4C003EC960 /* FSDecisionManager.swift */; };
 		8B9F2AEE2809BA8200323094 /* FSBucketingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */; };
-		8B9F2AEF2809BA8200323094 /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		8B9F2AF02809BA8200323094 /* FSTargetingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */; };
 		8B9F2AF12809BA8300323094 /* FlagshipContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369727FEBE4C003EC960 /* FlagshipContext.swift */; };
 		8B9F2AF22809BA8300323094 /* FlagshipContextManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369827FEBE4C003EC960 /* FlagshipContextManager.swift */; };
@@ -275,6 +271,10 @@
 		F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
+		F53A689C2B5ECB0D00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F53A689E2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F53A689F2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
 		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
 		F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D429D71368009BFA11 /* FlagshipPoolQueueTest.swift */; };
@@ -335,10 +335,6 @@
 		F5F1AD662B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
 		F5F1AD672B1E1E870052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
 		F5F1AD682B1E1E890052E6E3 /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
-		F5F84ABF2B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */; };
-		F5F84AC02B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */; };
-		F5F84AC12B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */; };
-		F5F84AC22B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */; };
 		F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951D29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951E29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
@@ -478,7 +474,6 @@
 		F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDataUsageTracking.swift; sourceTree = "<group>"; };
 		F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+Tools.swift"; sourceTree = "<group>"; };
 		F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDataUsageTrackingTest.swift; sourceTree = "<group>"; };
-		F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPollingScriptBis.swift; sourceTree = "<group>"; };
 		F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPoolQueue.swift; sourceTree = "<group>"; };
 		F5FC951B29C4B87D00686BC6 /* FSBatchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBatchManager.swift; sourceTree = "<group>"; };
 		F5FC952429C4BADD00686BC6 /* FSBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatch.swift; sourceTree = "<group>"; };
@@ -705,7 +700,6 @@
 				8B67369227FEBE4C003EC960 /* FSBucketingManager.swift */,
 				8B67369327FEBE4C003EC960 /* FSPollingScript.swift */,
 				8B67369427FEBE4C003EC960 /* FSTargetingManager.swift */,
-				F5F84ABE2B28C2CE001D21FE /* FSPollingScriptBis.swift */,
 			);
 			path = Bucketing;
 			sourceTree = "<group>";
@@ -1171,6 +1165,7 @@
 				8B2D51542805D43C00866D61 /* FSModifications.swift in Sources */,
 				8B2D51552805D43C00866D61 /* FSStorageManager.swift in Sources */,
 				8B2D51562805D43C00866D61 /* FSBucketCache.swift in Sources */,
+				F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */,
 				F5FC951D29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B2D51572805D43C00866D61 /* FSStorage.swift in Sources */,
 				8B2D51582805D43C00866D61 /* FlagshipConfig.swift in Sources */,
@@ -1178,7 +1173,6 @@
 				8B2D51592805D43C00866D61 /* FSConfigManager.swift in Sources */,
 				F5FC952129C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B2D515A2805D43C00866D61 /* FSConstant.swift in Sources */,
-				F5F84AC02B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */,
 				F5BC97C22A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B2D515B2805D43C00866D61 /* FSService+Request.swift in Sources */,
 				F5F1AD562B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */,
@@ -1188,7 +1182,6 @@
 				8B2D515F2805D43C00866D61 /* FSDecisionManager.swift in Sources */,
 				F5F1AD612B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B2D51602805D43C00866D61 /* FSBucketingManager.swift in Sources */,
-				8B2D51612805D43C00866D61 /* FSPollingScript.swift in Sources */,
 				8B2D51622805D43C00866D61 /* FSTargetingManager.swift in Sources */,
 				8B2D51632805D43C00866D61 /* FlagshipContext.swift in Sources */,
 				8B2D51642805D43C00866D61 /* FlagshipContextManager.swift in Sources */,
@@ -1280,6 +1273,7 @@
 				8B9F2AA32809B8E600323094 /* FSModifications.swift in Sources */,
 				8B9F2AA42809B8E600323094 /* FSStorageManager.swift in Sources */,
 				8B9F2AA52809B8E600323094 /* FSBucketCache.swift in Sources */,
+				F53A689E2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */,
 				F5FC951E29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B9F2AA62809B8E600323094 /* FSStorage.swift in Sources */,
 				8B9F2AA72809B8E600323094 /* FlagshipConfig.swift in Sources */,
@@ -1287,7 +1281,6 @@
 				8B9F2AA82809B8E600323094 /* FSConfigManager.swift in Sources */,
 				F5FC952229C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B9F2AA92809B8E600323094 /* FSConstant.swift in Sources */,
-				F5F84AC12B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */,
 				F5BC97C32A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B9F2AAA2809B8E600323094 /* FSService+Request.swift in Sources */,
 				F5F1AD572B1E1D9D0052E6E3 /* FSAccountSettings.swift in Sources */,
@@ -1297,7 +1290,6 @@
 				8B9F2AAE2809B8E600323094 /* FSDecisionManager.swift in Sources */,
 				F5F1AD602B1E1DBE0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B9F2AAF2809B8E600323094 /* FSBucketingManager.swift in Sources */,
-				8B9F2AB02809B8E600323094 /* FSPollingScript.swift in Sources */,
 				8B9F2AB12809B8E600323094 /* FSTargetingManager.swift in Sources */,
 				8B9F2AB22809B8E600323094 /* FlagshipContext.swift in Sources */,
 				8B9F2AB32809B8E600323094 /* FlagshipContextManager.swift in Sources */,
@@ -1361,6 +1353,7 @@
 				8B9F2AE22809BA8200323094 /* FSModifications.swift in Sources */,
 				8B9F2AE32809BA8200323094 /* FSStorageManager.swift in Sources */,
 				8B9F2AE42809BA8200323094 /* FSBucketCache.swift in Sources */,
+				F53A689F2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */,
 				F5FC951F29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B9F2AE52809BA8200323094 /* FSStorage.swift in Sources */,
 				8B9F2AE62809BA8200323094 /* FlagshipConfig.swift in Sources */,
@@ -1368,7 +1361,6 @@
 				8B9F2AE72809BA8200323094 /* FSConfigManager.swift in Sources */,
 				F5FC952329C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B9F2AE82809BA8200323094 /* FSConstant.swift in Sources */,
-				F5F84AC22B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */,
 				F5BC97C42A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				8B9F2AE92809BA8200323094 /* FSService+Request.swift in Sources */,
 				F5F1AD582B1E1D9E0052E6E3 /* FSAccountSettings.swift in Sources */,
@@ -1378,7 +1370,6 @@
 				8B9F2AED2809BA8200323094 /* FSDecisionManager.swift in Sources */,
 				F5F1AD5F2B1E1DBD0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B9F2AEE2809BA8200323094 /* FSBucketingManager.swift in Sources */,
-				8B9F2AEF2809BA8200323094 /* FSPollingScript.swift in Sources */,
 				8B9F2AF02809BA8200323094 /* FSTargetingManager.swift in Sources */,
 				8B9F2AF12809BA8300323094 /* FlagshipContext.swift in Sources */,
 				8B9F2AF22809BA8300323094 /* FlagshipContextManager.swift in Sources */,
@@ -1442,6 +1433,7 @@
 				8B6736BC27FED3E5003EC960 /* FSModifications.swift in Sources */,
 				8B6736BD27FED3E5003EC960 /* FSStorageManager.swift in Sources */,
 				8B6736BE27FED3E5003EC960 /* FSBucketCache.swift in Sources */,
+				F53A689C2B5ECB0D00D80ACD /* FSPollingScript.swift in Sources */,
 				F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */,
 				8B6736BF27FED3E5003EC960 /* FSStorage.swift in Sources */,
 				8B6736C027FED3E5003EC960 /* FlagshipConfig.swift in Sources */,
@@ -1449,7 +1441,6 @@
 				8B6736C127FED3E5003EC960 /* FSConfigManager.swift in Sources */,
 				F5FC952029C4B87D00686BC6 /* FSBatchManager.swift in Sources */,
 				8B6736C227FED3E5003EC960 /* FSConstant.swift in Sources */,
-				F5F84ABF2B28C2CE001D21FE /* FSPollingScriptBis.swift in Sources */,
 				F5BC97C12A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */,
 				F59840B62B052C9B0062F0C7 /* FSDataReportUsage.swift in Sources */,
 				8B6736C327FED3E5003EC960 /* FSService+Request.swift in Sources */,
@@ -1459,7 +1450,6 @@
 				F5F1AD512B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */,
 				8B6736C727FED3E5003EC960 /* FSDecisionManager.swift in Sources */,
 				8B6736C827FED3E5003EC960 /* FSBucketingManager.swift in Sources */,
-				8B6736C927FED3E5003EC960 /* FSPollingScript.swift in Sources */,
 				8B6736CA27FED3E5003EC960 /* FSTargetingManager.swift in Sources */,
 				8B6736CC27FED3E5003EC960 /* FlagshipContext.swift in Sources */,
 				8B6736CD27FED3E5003EC960 /* FlagshipContextManager.swift in Sources */,
@@ -1773,7 +1763,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 3.3.2;
+=======
+				MARKETING_VERSION = 4.0.0;
+>>>>>>> 9b02911 (update versin)
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1806,7 +1800,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 3.3.2;
+=======
+				MARKETING_VERSION = 4.0.0;
+>>>>>>> 9b02911 (update versin)
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
