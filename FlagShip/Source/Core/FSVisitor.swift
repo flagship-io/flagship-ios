@@ -62,6 +62,12 @@ import Foundation
     // Refonte status
     public internal(set) var flagsStatus: FSFlagsStatus = .FETCH_NEEDED {
         didSet {
+            // Solution ONE with callback status
+            // Trigger the callback
+            self._onFlagStatusChanged?(self.flagsStatus)
+            
+            /// Autre solutions 
+            NotificationCenter.default.post(name: NSNotification.Name(FlagsStatusNotification), object: self.flagsStatus, userInfo: nil)
             if self.flagsStatus == .PANIC {
                 print("----------- update the panic from visitor to FS core ------------")
                 Flagship.sharedInstance.updateStatus(.SDK_PANIC)
@@ -69,7 +75,9 @@ import Foundation
         }
     }
 
-    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
+    var _onFlagStatusChanged: onFlagStatusChanged = nil
+
+    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: onFlagStatusChanged) {
         // super.init()
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
@@ -83,7 +91,7 @@ import Foundation
             self.visitorId = FSTools.manageVisitorId(aVisitorId)
             self.anonymousId = nil
         }
-        // TODO check this commented line
+        // TODO: check this commented line
         // If the sdk is on the buckting mode ==> we are on polling mode
         // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
         
@@ -101,6 +109,9 @@ import Foundation
         
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
+        
+        /// Set Callback
+        self._onFlagStatusChanged = pOnFlagStatusChanged
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {

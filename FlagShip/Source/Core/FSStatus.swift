@@ -48,3 +48,8 @@ public enum FSFlagStatus: String {
     case NOT_FOUND
     case PANIC
 }
+
+/// Notification center for status
+///
+
+public let FlagsStatusNotification = "FlagStatusNotification"

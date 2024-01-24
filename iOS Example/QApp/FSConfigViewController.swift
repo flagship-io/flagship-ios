@@ -102,13 +102,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { fromFlag, visitorExposed in
+        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { _, _ in
 
+ 
  
             //print(fromFlag.toJson() ?? "")
             //print(visitorExposed.toJson() ?? "")
  
         }.withLogLevel(.ALL)
+ 
 
  
         if mode == .DECISION_API {
@@ -152,7 +154,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
  
-        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFlagStatus { newState in
+            print("=============== Change Flags status \(newState.rawValue) =================")
+        }.build()
  
     }
 
