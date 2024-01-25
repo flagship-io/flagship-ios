@@ -118,7 +118,7 @@ import Foundation
         // Go to ING state while the fetch is ongoing
         self.flagsStatus = .FETCHING
         self.strategy?.getStrategy().synchronize(onSyncCompleted: { state in
-            onFetchCompleted()
+           
             // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
             
@@ -128,6 +128,8 @@ import Foundation
             }
             // Update status
             self.flagsStatus = state == .PANIC ? .PANIC : .FETCHED
+            
+            onFetchCompleted()
 
         })
     }
