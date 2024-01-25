@@ -54,6 +54,11 @@ class FSStrategy {
 /////////// DEFAULT /////////////////////
 
 class FSDefaultStrategy: FSDelegateStrategy {
+    
+    
+    
+ 
+    
     var visitor: FSVisitor
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
@@ -92,7 +97,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
-    func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void) {
+    func synchronize(onSyncCompleted: @escaping (FSFlagsStatus) -> Void) {
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
@@ -105,7 +110,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.currentFlags.removeAll()
                     // Stop the process batching when the panic mode is ON
                     self.visitor.configManager.trackingManager?.stopBatchingProcess()
-                    onSyncCompleted(.SDK_PANIC)
+                    onSyncCompleted(.PANIC)
                     
                 } else {
                     /// Update new flags
@@ -117,7 +122,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
-                    onSyncCompleted(.SDK_INITIALIZED)
+                    onSyncCompleted(.FETCHED)
                 }
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
@@ -125,7 +130,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
-                onSyncCompleted(.SDK_INITIALIZED) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+                onSyncCompleted(.FETCH_NEEDED ) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })
     }
@@ -284,7 +289,11 @@ protocol FSDelegateStrategy {
     // func synchronize(onSyncCompleted: @escaping (FStatus) -> Void)
     
     /// Synchronize Bis
-    func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void)
+    //func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void)
+    
+    
+    func synchronize(onSyncCompleted: @escaping (FSFlagsStatus) -> Void)
+
 
     /// Activate
     func activate(_ key: String)

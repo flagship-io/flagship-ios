@@ -66,7 +66,7 @@ import Foundation
             // Trigger the callback
             self._onFlagStatusChanged?(self.flagsStatus)
             
-            /// Autre solutions 
+            /// Autre solutions
             NotificationCenter.default.post(name: NSNotification.Name(FlagsStatusNotification), object: self.flagsStatus, userInfo: nil)
             if self.flagsStatus == .PANIC {
                 print("----------- update the panic from visitor to FS core ------------")
@@ -127,7 +127,7 @@ import Foundation
                 self.sendHit(FSSegment(self.getContext()))
             }
             // Update status
-            self.flagsStatus = state == .SDK_PANIC ? .PANIC : .FETCHED
+            self.flagsStatus = state == .PANIC ? .PANIC : .FETCHED
 
         })
     }
