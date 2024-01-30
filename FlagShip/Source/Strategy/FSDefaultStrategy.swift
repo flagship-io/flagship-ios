@@ -129,7 +129,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Send TR
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
             } else {
-                FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
+//                FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
                 onSyncCompleted(.FETCH_NEEDED ) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })

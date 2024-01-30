@@ -41,7 +41,7 @@ let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[
 let VISITOR_CONSENT = "visitor_consent"
 
 ///// ACTIVATE ///////////////
-let FSActivate = FlagShipEndPoint + "activate"
+let FSActivate = FlagShipEndPoint + "activateRRR"
 
 ///////////// ARIANE ////////////////////////////////
 // internal let FSDATA_ARIANE = "https://ariane.abtasty.com"

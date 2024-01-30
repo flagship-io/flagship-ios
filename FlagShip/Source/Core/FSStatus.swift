@@ -41,6 +41,31 @@ public enum FSFlagsStatus: String {
     case PANIC
 }
 
+// TODO:
+public enum FSFetchReasons: String {
+    case UPDATE_CONTEXT
+    case AUTHENTICATE
+    case UNAUTHENTICATE
+    case FETCH_ERROR
+    case READ_FROM_CACHE
+    case FAILED_ON_LAST_FETCHING
+
+    var moreInformations: String {
+        switch self {
+        case .UPDATE_CONTEXT:
+            ""
+        case .AUTHENTICATE:
+            ""
+        case .UNAUTHENTICATE:
+            ""
+        case .FETCH_ERROR:
+            ""
+        case .READ_FROM_CACHE:
+            ""
+        }
+    }
+}
+
 /// This state represent the flag entity  (without S)
 public enum FSFlagStatus: String {
     case FETCHED // Flags up to date

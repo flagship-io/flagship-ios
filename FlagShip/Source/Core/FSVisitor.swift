@@ -64,7 +64,7 @@ import Foundation
         didSet {
             // Solution ONE with callback status
             // Trigger the callback
-            self._onFlagStatusChanged?(self.flagsStatus)
+            self._onFlagStatusChanged?(self.flagsStatus, .FETCH_ERROR)
             
             /// Autre solutions
             NotificationCenter.default.post(name: NSNotification.Name(FlagsStatusNotification), object: self.flagsStatus, userInfo: nil)

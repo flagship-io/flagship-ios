@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias onFlagStatusChanged = ((_ newStatus: FSFlagsStatus)-> Void)?
+public typealias onFlagStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: FSFetchReasons)-> Void)?
 
 /// Visitor builder
 @objc public class FSVisitorBuilder: NSObject {
