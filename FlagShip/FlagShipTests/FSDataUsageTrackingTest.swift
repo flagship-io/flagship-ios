@@ -38,7 +38,6 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     /// Test Processing
     func testTimeSlotTr() {
-        
         FSDataUsageTracking.sharedInstance._troubleshooting?.startDate = Date()
         FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(1000)
         FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
@@ -47,12 +46,10 @@ final class FSDataUsageTrackingTest: XCTestCase {
         FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(-100)
         FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
         XCTAssertFalse(FSDataUsageTracking.sharedInstance.troubleShootingReportAllowed)
-        
-      
     }
     
     func testConsent() {
-        let consentVisitor: FSVisitor = FSVisitorBuilder("consentUSer").hasConsented(hasConsented: false).build()
+        let consentVisitor: FSVisitor = FSVisitorBuilder("consentUSer", false).build()
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: consentVisitor)
         XCTAssertFalse(FSDataUsageTracking.sharedInstance._hasConsented)
         consentVisitor.setConsent(hasConsented: true)
@@ -62,7 +59,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     func testCreateCriticalFieldsForVisitor() {
         let config: FlagshipConfig = FSConfigBuilder().withTimeout(12345).withLogLevel(.ERROR).Bucketing().build()
         
-        let consentVisitor: FSVisitor = FSVisitorBuilder("userTest").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
+        let consentVisitor: FSVisitor = FSVisitorBuilder("userTest", true).withContext(context: ["trCtx": "valCtx"]).build()
         
         consentVisitor.configManager.flagshipConfig = config
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: consentVisitor)
@@ -82,7 +79,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     }
     
     func testCreateCrticalXpc() {
-        let xpcVisitor: FSVisitor = FSVisitorBuilder("userXpcTest").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
+        let xpcVisitor: FSVisitor = FSVisitorBuilder("userXpcTest", true).withContext(context: ["trCtx": "valCtx"]).build()
         xpcVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
         xpcVisitor.authenticate(visitorId: "loggedId")
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: xpcVisitor)
@@ -97,7 +94,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     func testStressTroubleshooting() {
         for i in 1 ... 100 {
-            let testVisitor: FSVisitor = FSVisitorBuilder("userXpcTest\(i)").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
+            let testVisitor: FSVisitor = FSVisitorBuilder("userXpcTest\(i)", true).withContext(context: ["trCtx": "valCtx"]).build()
             testVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
             FSDataUsageTracking.sharedInstance.processTSFetching(v: testVisitor, campaigns: nil)
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: testVisitor)
@@ -113,21 +110,21 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     func testDeveloperUsage() {
         let config: FlagshipConfig = FSConfigBuilder().withDisableDeveloperUsageTracking(true).build()
-        let devUsageVisitor: FSVisitor = FSVisitorBuilder("user23").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
+        let devUsageVisitor: FSVisitor = FSVisitorBuilder("user23", true).withContext(context: ["trCtx": "valCtx"]).build()
         devUsageVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
         devUsageVisitor.configManager.flagshipConfig = config
         
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: devUsageVisitor)
         XCTAssertFalse(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
 
-        config.disableDeveloperUsageTracking = false        
+        config.disableDeveloperUsageTracking = false
         FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed = true
         XCTAssertTrue(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
     }
     
     func testTroubleshootingHit() {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "trApiKey")
-        Flagship.sharedInstance.newVisitor("truser").build()
+        Flagship.sharedInstance.newVisitor(visitorId: "truser", hasConsented: true).build()
         let trHit = TroubleshootingHit(pVisitorId: "trId", pLabel: "trLabel", pSpeceficCustomFields: ["key1": "val1"])
         let bodyTr: [String: Any] = trHit.bodyTrack
         XCTAssertTrue(bodyTr["vid"] as? String == "trId")
