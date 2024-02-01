@@ -73,7 +73,7 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: criticalLabel, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process http on bucketing error
     func processTSHttp(crticalPointLabel: CriticalPoints, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
@@ -91,7 +91,7 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process on download bucketing file
     func processTSBucketingFile(_ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
@@ -147,7 +147,7 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
             pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process on authenticate
     func processTSXPC(label: String, visitor: FSVisitor) {
         var criticalJson: [String: String] = [:]
@@ -250,8 +250,8 @@ extension FSDataUsageTracking {
                 "sdk.config.timeout": String(aSdkConfig.timeout),
                 "sdk.config.pollingTime": String(aSdkConfig.pollingTime),
                 "sdk.config.usingCustomLogManager": "false",
-                "sdk.config.usingCustomHitCache": String(aSdkConfig.cacheManager.hitCacheDelegate is FSDefaultCacheHit),
-                "sdk.config.usingCustomVisitorCache": String(aSdkConfig.cacheManager.cacheVisitorDelegate is FSDefaultCacheVisitor),
+                "sdk.config.usingCustomHitCache": String(!(aSdkConfig.cacheManager.hitCacheDelegate is FSDefaultCacheHit)),
+                "sdk.config.usingCustomVisitorCache": String(!(aSdkConfig.cacheManager.cacheVisitorDelegate is FSDefaultCacheVisitor)),
                 "sdk.config.usingOnVisitorExposed": String(aSdkConfig.onVisitorExposed != nil),
                 "sdk.config.decisionApiUrl": FlagShipEndPoint,
                 "sdk.config.trackingManager.strategy": aSdkConfig.trackingConfig.strategy.name,

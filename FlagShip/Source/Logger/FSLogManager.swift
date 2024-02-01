@@ -7,7 +7,7 @@
 
 import Foundation
 
-@objc public enum FSLevel:Int{
+@objc public enum FSLevel: Int {
     /**
      * NONE = 0: Logging will be disabled.
      */
@@ -36,38 +36,54 @@ import Foundation
      * ALL = 6: All logs will be logged.
      */
     case ALL
+    
+    var name: String {
+        var ret = ""
+        switch self {
+        case .NONE:
+            ret = "NONE"
+        case .EXCEPTIONS:
+            ret = "EXCEPTIONS"
+        case .ERROR:
+            ret = "ERROR"
+        case .WARNING:
+            ret = "WARNING"
+        case .DEBUG:
+            ret = "DEBUG"
+        case .INFO:
+            ret = "INFO"
+        case .ALL:
+            ret = "ALL"
+        }
+        return ret
+    }
 }
 
 public class FSLogManager {
-    
-    
-    init(){
-        
+    init() {
         _level = .ALL
     }
     
-    internal var _level:FSLevel
+    var _level: FSLevel
     
-    internal var level:FSLevel{
-        
-        get{
+    var level: FSLevel {
+        get {
             return _level
         }
-        set{
+        set {
             _level = newValue
         }
     }
+
     /**
-      * Called when the SDK produce a log.
-      * @param level log level.
-      * @param tag location where the log come from.
-      * @param message log message.
-      */
-    func onLog(level:FSLevel, tag:String, message:String){
-        
-    }
+     * Called when the SDK produce a log.
+     * @param level log level.
+     * @param tag location where the log come from.
+     * @param message log message.
+     */
+    func onLog(level: FSLevel, tag: String, message: String) {}
     
-    func getLevel()->FSLevel{
+    func getLevel() -> FSLevel {
         return _level
     }
 }

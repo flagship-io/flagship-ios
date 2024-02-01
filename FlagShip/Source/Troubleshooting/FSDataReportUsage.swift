@@ -60,7 +60,8 @@ class TroubleshootingHit: FSTracking {
             "stack.name": stackName,
             "stack.version": FlagShipVersion,
             "flagshipInstanceId":
-                FSTools.generateUuidv4()
+                FSTools.generateUuidv4(),
+            "logLevel": Flagship.sharedInstance.currentConfig.logLevel.name
         ]
         _communCustomFields.merge(speceficCustomFields) { _, new in new }
     }
