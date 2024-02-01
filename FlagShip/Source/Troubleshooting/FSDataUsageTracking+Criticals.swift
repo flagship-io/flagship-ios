@@ -247,15 +247,15 @@ extension FSDataUsageTracking {
             configFields = [
                 "sdk.status": Flagship.sharedInstance.currentStatus.name,
                 "sdk.config.mode": (aSdkConfig.mode == .DECISION_API) ? "DECISION_API" : "BUCKETING",
-                "sdk.config.timeout": String(aSdkConfig.timeout),
-                "sdk.config.pollingTime": String(aSdkConfig.pollingTime),
+                "sdk.config.timeout": String(aSdkConfig.timeout * 1000),
+                "sdk.config.pollingTime": String(aSdkConfig.pollingTime * 1000),
                 "sdk.config.usingCustomLogManager": "false",
                 "sdk.config.usingCustomHitCache": String(!(aSdkConfig.cacheManager.hitCacheDelegate is FSDefaultCacheHit)),
                 "sdk.config.usingCustomVisitorCache": String(!(aSdkConfig.cacheManager.cacheVisitorDelegate is FSDefaultCacheVisitor)),
                 "sdk.config.usingOnVisitorExposed": String(aSdkConfig.onVisitorExposed != nil),
                 "sdk.config.decisionApiUrl": FlagShipEndPoint,
                 "sdk.config.trackingManager.strategy": aSdkConfig.trackingConfig.strategy.name,
-                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer),
+                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer *  1000),
                 "sdk.config.trackingManager.poolMaxSize": String(aSdkConfig.trackingConfig.poolMaxSize),
                 "sdk.lastInitializationTimestamp": String(Flagship.sharedInstance.lastInitializationTimestamp)
             ]
