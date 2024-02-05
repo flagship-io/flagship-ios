@@ -54,7 +54,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
 
@@ -84,7 +84,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
@@ -102,7 +102,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
@@ -255,9 +255,10 @@ extension FSDataUsageTracking {
                 "sdk.config.usingOnVisitorExposed": String(aSdkConfig.onVisitorExposed != nil),
                 "sdk.config.decisionApiUrl": FlagShipEndPoint,
                 "sdk.config.trackingManager.strategy": aSdkConfig.trackingConfig.strategy.name,
-                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer *  1000),
+                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer * 1000),
                 "sdk.config.trackingManager.poolMaxSize": String(aSdkConfig.trackingConfig.poolMaxSize),
-                "sdk.lastInitializationTimestamp": String(Flagship.sharedInstance.lastInitializationTimestamp)
+                "sdk.lastInitializationTimestamp": String(Flagship.sharedInstance.lastInitializationTimestamp),
+                "sdk.config.logLevel": aSdkConfig.logLevel.name
             ]
         }
         return configFields

@@ -106,7 +106,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
             print(fromFlag.toJson() ?? "")
             print(visitorExposed.toJson() ?? "")
-        }.withCacheManager(FSCacheManager(CustomVisitorCache(), CustomHitCache())).withLogLevel(FSLevel.ERROR)
+        }.withCacheManager(FSCacheManager(CustomVisitorCache(), CustomHitCache())).withLogLevel(FSLevel.ALL)
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
