@@ -22,7 +22,7 @@ public class FSFlag: NSObject {
     @objc public func value(visitorExposed: Bool = true)->Any? {
         var result: Any?
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            if isSameType_or_DefaultValue_Nil(flagModification.value){ /// _ have same type with default value OR the default value is nil
+            if isSameType_or_DefaultValue_Nil(flagModification.value) { /// _ have same type with default value OR the default value is nil
                 ///
                 FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The value of the flag `\(key)` is `\(flagModification.value)"))
                 
@@ -57,7 +57,7 @@ public class FSFlag: NSObject {
     @objc public func visitorExposed() {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             /// The activate can be activated event whatever the type if the flag's value is nil
-            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value){
+            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value) {
                 /// Activate the flag
                 strategy?.getStrategy().activateFlag(self)
             } else {
@@ -67,7 +67,7 @@ public class FSFlag: NSObject {
             }
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
-            // Send TRon vistor expose and not found
+            // Send TR on flag not found
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
         }
     }
@@ -78,7 +78,7 @@ public class FSFlag: NSObject {
     
     @objc public func metadata()->FSFlagMetadata {
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value){
+            if flagModification.value is NSNull || isSameType_or_DefaultValue_Nil(flagModification.value) {
                 return FSFlagMetadata(flagModification)
             }
         }
