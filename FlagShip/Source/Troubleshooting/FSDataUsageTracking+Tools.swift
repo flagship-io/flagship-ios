@@ -56,7 +56,7 @@ extension FSDataUsageTracking {
         formatDate.dateFormat = "yyyyMMdd"
         let combinedId: String = _visitorId + formatDate.string(from: Date())
         
-        let hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 100)
+        let hashAlloc = Int(MurmurHash3.hash32(key: combinedId) % 1000)
         
         // print(" -------- The hashalloc for \(combinedId) is \(hashAlloc) ----------")
         

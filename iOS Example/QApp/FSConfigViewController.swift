@@ -27,7 +27,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBOutlet var createBtn: UIButton?
     @IBOutlet var fetchBtn: UIButton?
 
-
     var delegate: FSConfigViewDelegate?
 
     override func viewDidLoad() {
@@ -79,7 +78,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBAction func onClikcStart() {
         // Get the mode
         let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
-        
 
         // Retreive the timeout value
         var timeOut = 2.0 /// Default value is 2 seconds
@@ -108,7 +106,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
             print(fromFlag.toJson() ?? "")
             print(visitorExposed.toJson() ?? "")
-        }
+        }.withCacheManager(FSCacheManager(CustomVisitorCache(), CustomHitCache())).withLogLevel(FSLevel.ALL)
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
@@ -121,13 +119,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     @IBAction func onClickCreateVisitor() {
-        
         fetchBtn?.isEnabled = true
         _ = createVisitor()
     }
-    
-    @IBAction func fetchFlags(){
-        
+
+    @IBAction func fetchFlags() {
         Flagship.sharedInstance.sharedVisitor?.fetchFlags(onFetchCompleted: {
             let st = Flagship.sharedInstance.getStatus()
             if st == .READY {
@@ -147,15 +143,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         })
     }
 
-    
-    
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor("").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
     }
 
-    internal func showErrorMessage(_ msg: String) {
+    func showErrorMessage(_ msg: String) {
         DispatchQueue.main.async {
             let alertCtrl = UIAlertController(title: "Start", message: msg, preferredStyle: .alert)
             alertCtrl.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -269,3 +263,5 @@ public class CustomHitCache: FSHitCacheDelegate {
     // Remove all hits in database
     public func flushAllHits() {}
 }
+
+ 

@@ -47,6 +47,7 @@ extension FSService {
                         onCompleted(data, nil)
                         
                     } else {
+                        FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
                         onCompleted(nil, FlagshipError(type: .sendRequest, code: httpResponse.statusCode))
                     }
                 } else {

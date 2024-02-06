@@ -38,7 +38,6 @@ final class FSDataUsageTrackingTest: XCTestCase {
     
     /// Test Processing
     func testTimeSlotTr() {
-        
         FSDataUsageTracking.sharedInstance._troubleshooting?.startDate = Date()
         FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(1000)
         FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
@@ -47,8 +46,6 @@ final class FSDataUsageTrackingTest: XCTestCase {
         FSDataUsageTracking.sharedInstance._troubleshooting?.endDate = Date().addingTimeInterval(-100)
         FSDataUsageTracking.sharedInstance.evaluateTroubleShootingConditions()
         XCTAssertFalse(FSDataUsageTracking.sharedInstance.troubleShootingReportAllowed)
-        
-      
     }
     
     func testConsent() {
@@ -60,7 +57,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     }
     
     func testCreateCriticalFieldsForVisitor() {
-        let config: FlagshipConfig = FSConfigBuilder().withTimeout(12345).withLogLevel(.ERROR).Bucketing().build()
+        let config: FlagshipConfig = FSConfigBuilder().withTimeout(3).withLogLevel(.ERROR).Bucketing().build()
         
         let consentVisitor: FSVisitor = FSVisitorBuilder("userTest").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
         
@@ -78,7 +75,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
         XCTAssertTrue((ret["sdk.config.mode"] ?? "") == "BUCKETING")
         XCTAssertTrue((ret["sdk.config.trackingManager.strategy"] ?? "") == "CONTINUOUS_CACHING")
         XCTAssertTrue((ret["visitor.context.trCtx"] ?? "") == "valCtx")
-        XCTAssertTrue((ret["sdk.config.timeout"] ?? "") == "12.345")
+        XCTAssertTrue((ret["sdk.config.timeout"] ?? "") == "3.0")
     }
     
     func testCreateCrticalXpc() {
@@ -120,7 +117,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: devUsageVisitor)
         XCTAssertFalse(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
 
-        config.disableDeveloperUsageTracking = false        
+        config.disableDeveloperUsageTracking = false
         FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed = true
         XCTAssertTrue(FSDataUsageTracking.sharedInstance.dataUsageTrackingReportAllowed)
     }

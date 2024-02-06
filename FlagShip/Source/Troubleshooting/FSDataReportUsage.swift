@@ -12,6 +12,13 @@ let troubleShootingVersion = "1"
 let stackType = "SDK"
 let stackName = "iOS"
 
+// This enum describe the level gievn to hits Troubleshooting or DeveloperUsage
+enum HitUsageLevel: String {
+    case INFO
+    case ERROR
+    case WARNING
+}
+
 class TroubleshootingHit: FSTracking {
     // Commun Fields
     var _communCustomFields: [String: String] = [:]
@@ -23,12 +30,33 @@ class TroubleshootingHit: FSTracking {
     // Label for the critical point
     var label: String = ""
 
+    // Level by default is INFO
+    var hitLevelUsage: HitUsageLevel = .INFO
+
     init(pVisitorId: String, pLabel: String, pSpeceficCustomFields: [String: String]) {
         super.init()
+        // Set the vid
         visitorId = pVisitorId
+
+        // Set the Type
         type = .TROUBLESHOOTING
-        self.label = pLabel
+
+        // Set The Label
+        label = pLabel
+
+        // Set Level according to the type
+        if label.contains("ERROR") {
+            hitLevelUsage = .ERROR
+        } else if label.contains("WARNING") || label.contains("FLAG_NOT_FOUND") {
+            hitLevelUsage = .WARNING
+        } else {
+            hitLevelUsage = .INFO
+        }
+
+        // Fill with a specefic values
         speceficCustomFields.merge(pSpeceficCustomFields) { _, new in new }
+
+        // Fill the commun CV dico
         fillTheCommunFieldsAndCompleteWithCustom()
     }
 
@@ -60,7 +88,8 @@ class TroubleshootingHit: FSTracking {
             "stack.name": stackName,
             "stack.version": FlagShipVersion,
             "flagshipInstanceId":
-                FSTools.generateUuidv4()
+                FSTools.generateUuidv4(),
+            "logLevel": hitLevelUsage.rawValue
         ]
         _communCustomFields.merge(speceficCustomFields) { _, new in new }
     }
@@ -103,7 +132,7 @@ enum CriticalPoints: String {
     // Trigger when the Flag.getValue method is called and no flag is found
     case GET_FLAG_VALUE_FLAG_NOT_FOUND
     // Trigger when the Flag.visitorExposed method is called and no flag is found
-    case VISITOR_EXPOSED_FLAG_NO_FOUND
+    case VISITOR_EXPOSED_FLAG_NOT_FOUND
     // Trigger when the Flag.visitorExposed method is called and the flag value has a different type with default value
     case GET_FLAG_VALUE_TYPE_WARNING
     // Trigger when the SDK catches any other error but those listed here.

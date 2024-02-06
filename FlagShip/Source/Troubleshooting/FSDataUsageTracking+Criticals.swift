@@ -54,7 +54,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
 
@@ -73,7 +73,7 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: criticalLabel, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process http on bucketing error
     func processTSHttp(crticalPointLabel: CriticalPoints, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
@@ -84,14 +84,14 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process on download bucketing file
     func processTSBucketingFile(_ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
@@ -102,7 +102,7 @@ extension FSDataUsageTracking {
             "http.request.url": request.url?.absoluteString ?? "",
             "http.response.body": String(data.prettyPrintedJSONString ?? ""),
             "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode)
+            "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
@@ -147,7 +147,7 @@ extension FSDataUsageTracking {
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
             pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
-    
+
     // Process on authenticate
     func processTSXPC(label: String, visitor: FSVisitor) {
         var criticalJson: [String: String] = [:]
@@ -247,17 +247,18 @@ extension FSDataUsageTracking {
             configFields = [
                 "sdk.status": Flagship.sharedInstance.currentStatus.name,
                 "sdk.config.mode": (aSdkConfig.mode == .DECISION_API) ? "DECISION_API" : "BUCKETING",
-                "sdk.config.timeout": String(aSdkConfig.timeout),
-                "sdk.config.pollingTime": String(aSdkConfig.pollingTime),
+                "sdk.config.timeout": String(aSdkConfig.timeout * 1000),
+                "sdk.config.pollingTime": String(aSdkConfig.pollingTime * 1000),
                 "sdk.config.usingCustomLogManager": "false",
-                "sdk.config.usingCustomHitCache": String(aSdkConfig.cacheManager.hitCacheDelegate is FSDefaultCacheHit),
-                "sdk.config.usingCustomVisitorCache": String(aSdkConfig.cacheManager.cacheVisitorDelegate is FSDefaultCacheVisitor),
+                "sdk.config.usingCustomHitCache": String(!(aSdkConfig.cacheManager.hitCacheDelegate is FSDefaultCacheHit)),
+                "sdk.config.usingCustomVisitorCache": String(!(aSdkConfig.cacheManager.cacheVisitorDelegate is FSDefaultCacheVisitor)),
                 "sdk.config.usingOnVisitorExposed": String(aSdkConfig.onVisitorExposed != nil),
                 "sdk.config.decisionApiUrl": FlagShipEndPoint,
                 "sdk.config.trackingManager.strategy": aSdkConfig.trackingConfig.strategy.name,
-                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer),
+                "sdk.config.trackingManager.batchIntervals": String(aSdkConfig.trackingConfig.batchIntervalTimer * 1000),
                 "sdk.config.trackingManager.poolMaxSize": String(aSdkConfig.trackingConfig.poolMaxSize),
-                "sdk.lastInitializationTimestamp": String(Flagship.sharedInstance.lastInitializationTimestamp)
+                "sdk.lastInitializationTimestamp": String(Flagship.sharedInstance.lastInitializationTimestamp),
+                "sdk.config.logLevel": aSdkConfig.logLevel.name
             ]
         }
         return configFields
