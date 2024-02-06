@@ -62,6 +62,8 @@ public enum FSFetchReasons: String {
             ""
         case .READ_FROM_CACHE:
             ""
+        case .FAILED_ON_LAST_FETCHING:
+            ""
         }
     }
 }
