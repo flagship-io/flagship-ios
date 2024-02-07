@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias onFlagStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: FSFetchReasons)-> Void)?
+public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: FSFetchReasons)-> Void)?
 
 /// Visitor builder
 @objc public class FSVisitorBuilder: NSObject {
@@ -23,7 +23,7 @@ public typealias onFlagStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: F
     private var _instanceType: Instance = .SHARED_INSTANCE
     
     // Callbak for status
-    private var _onFlagStatusChanged: onFlagStatusChanged = nil
+    private var _onFetchFlagsStatusChanged: OnFetchFlagsStatusChanged = nil
     
     public init(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) {
         if visitorId.isEmpty {
@@ -52,13 +52,13 @@ public typealias onFlagStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: F
         return self
     }
     
-    public func withFlagStatus(_ pCallback: onFlagStatusChanged)->FSVisitorBuilder {
-        _onFlagStatusChanged = pCallback
+    public func withFlagStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
+        _onFetchFlagsStatusChanged = pCallback
         return self
     }
     
     @objc public func build()->FSVisitor {
-        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFlagStatusChanged: _onFlagStatusChanged)
+        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFetchFlagsStatusChanged: _onFetchFlagsStatusChanged)
         
         if _instanceType == .SHARED_INSTANCE {
             /// Set this visitor as shared instance

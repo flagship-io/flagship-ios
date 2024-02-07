@@ -155,9 +155,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
  
  
-        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFlagStatus { newState in
-            print("=============== Change Flags status \(newState.rawValue) =================")
-        }.build()
+        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
  
  
     }

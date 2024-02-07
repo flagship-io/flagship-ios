@@ -102,7 +102,7 @@ public class Flagship: NSObject {
         }
     }
     
-    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFlagStatusChanged: onFlagStatusChanged) -> FSVisitor {
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: onFlagStatusChanged) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFlagStatusChanged)
         
         // Define strategy
