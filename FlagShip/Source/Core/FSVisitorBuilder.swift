@@ -58,7 +58,7 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagsStatus, _ rea
     }
     
     @objc public func build()->FSVisitor {
-        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFetchFlagsStatusChanged: _onFetchFlagsStatusChanged)
+        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFetchFlagStatusChanged: _onFetchFlagsStatusChanged)
         
         if _instanceType == .SHARED_INSTANCE {
             /// Set this visitor as shared instance

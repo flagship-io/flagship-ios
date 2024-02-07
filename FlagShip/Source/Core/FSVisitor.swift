@@ -75,9 +75,9 @@ import Foundation
         }
     }
 
-    var _onFlagStatusChanged: onFlagStatusChanged = nil
+    var _onFlagStatusChanged: OnFetchFlagsStatusChanged = nil
 
-    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: onFlagStatusChanged) {
+    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFetchFlagsStatusChanged) {
         // super.init()
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
@@ -93,7 +93,7 @@ import Foundation
         }
         // TODO: check this commented line
         // If the sdk is on the buckting mode ==> we are on polling mode
-        // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
+        Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING
         
         /// Set the user context
         self.context = FSContext(aContext)
