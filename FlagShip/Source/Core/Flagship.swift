@@ -47,7 +47,7 @@ public class Flagship: NSObject {
     // Enabale Log
     var enableLogs: Bool = true
     
-    var lastInitializationTimestamp: TimeInterval
+    var lastInitializationTimestamp: String
 
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
@@ -57,7 +57,7 @@ public class Flagship: NSObject {
     }()
     
     override private init() {
-        lastInitializationTimestamp = Date().timeIntervalSince1970
+        lastInitializationTimestamp = FSTools.getUtcTimestamp()
     }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
