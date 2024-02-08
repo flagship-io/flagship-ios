@@ -81,7 +81,7 @@ class TroubleshootingHit: FSTracking {
         _communCustomFields = [
             "version": troubleShootingVersion,
             "envId": Flagship.sharedInstance.envId ?? "",
-            "timestamp": "\(Date().timeIntervalSince1970)",
+            "timestamp": getTimestampForReport(),
             "timeZone": TimeZone.current.abbreviation() ?? "",
             "label": label,
             "stack.type": stackType,
@@ -92,6 +92,13 @@ class TroubleshootingHit: FSTracking {
             "logLevel": hitLevelUsage.rawValue
         ]
         _communCustomFields.merge(speceficCustomFields) { _, new in new }
+    }
+
+    func getTimestampForReport() -> String {
+        let formatDate = DateFormatter()
+        formatDate.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        formatDate.timeZone = TimeZone(abbreviation: "UTC")
+        return formatDate.string(from: Date())
     }
 }
 
