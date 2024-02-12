@@ -106,7 +106,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
             print(fromFlag.toJson() ?? "")
             print(visitorExposed.toJson() ?? "")
-        }.withCacheManager(FSCacheManager(CustomVisitorCache(), CustomHitCache())).withLogLevel(FSLevel.ALL)
+        }.withLogLevel(FSLevel.ALL)
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
@@ -263,5 +263,3 @@ public class CustomHitCache: FSHitCacheDelegate {
     // Remove all hits in database
     public func flushAllHits() {}
 }
-
- 

@@ -125,7 +125,7 @@ extension FSDataUsageTracking {
     }
 
     // Troubleshooting on Fetching
-    func processTSFetching(v: FSVisitor, campaigns: FSCampaigns?) {
+    func processTSFetching(v: FSVisitor, campaigns: FSCampaigns?, fetchingDate: Date) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v.visitorId,
                                               "visitor.anonymousId": v.anonymousId ?? "null"]
@@ -142,6 +142,11 @@ extension FSDataUsageTracking {
         } catch {
             FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Error on decode campaigns"))
         }
+
+        // Add Time duration for get campaign
+        // - data time in ms
+        let deltaTime = Int(fabs(fetchingDate.timeIntervalSinceNow * 1000))
+        criticalJson.merge(["http.response.time": String(deltaTime)]) { _, new in new }
 
         // Send TS Report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
@@ -189,7 +194,7 @@ extension FSDataUsageTracking {
         var ctxFields: [String: String] = [:]
         for (ctxKey, ctxValue) in pVisitor.getContext() {
             let itemCtxFileds =
-                ["visitor.context.\(ctxKey)": "\(ctxValue)"]
+                ["visitor.context.[\(ctxKey)]": "\(ctxValue)"]
             ctxFields.merge(itemCtxFileds) { _, new in new }
         }
 
@@ -203,18 +208,24 @@ extension FSDataUsageTracking {
         var flagFields: [String: String] = [:]
 
         for (flagKey, flagModification) in visitor.currentFlags {
-            let itemFlagFileds: [String: String] = ["visitor.flags.\(flagKey).key": flagKey,
-                                                    "visitor.flags.\(flagKey).value": "\(flagModification.value)",
-                                                    "visitor.flags.\(flagKey).metadata.campaignId": flagModification.campaignId,
-                                                    "visitor.flags.\(flagKey).metadata.variationGroupId":
+            let itemFlagFileds: [String: String] = ["visitor.flags.[\(flagKey)].key": flagKey,
+                                                    "visitor.flags.[\(flagKey)].value": "\(flagModification.value)",
+                                                    "visitor.flags.[\(flagKey)].metadata.campaignId": flagModification.campaignId,
+                                                    "visitor.flags.[\(flagKey)].metadata.variationGroupId":
                                                         flagModification.variationGroupId,
-                                                    "visitor.flags.\(flagKey).metadata.variationId":
+                                                    "visitor.flags.[\(flagKey)].metadata.variationGroupName":
+                                                        flagModification.variationGroupName,
+                                                    "visitor.flags.[\(flagKey)].metadata.variationName":
+                                                        flagModification.variationName,
+                                                    "visitor.flags.[\(flagKey)].metadata.campaignName":
+                                                        flagModification.campaignName,
+                                                    "visitor.flags.[\(flagKey)].metadata.variationId":
                                                         flagModification.variationId,
-                                                    "visitor.flags.\(flagKey).metadata.isReference":
+                                                    "visitor.flags.[\(flagKey)].metadata.isReference":
                                                         String(flagModification.isReference),
-                                                    "visitor.flags.\(flagKey).metadata.campaignType":
+                                                    "visitor.flags.[\(flagKey)].metadata.campaignType":
                                                         String(flagModification.type),
-                                                    "visitor.flags.\(flagKey).metadata.slug": flagModification.slug]
+                                                    "visitor.flags.[\(flagKey)].metadata.slug": flagModification.slug]
 
             flagFields.merge(itemFlagFileds) { _, new in new }
         }
@@ -225,18 +236,19 @@ extension FSDataUsageTracking {
         var assignmentsFields: [String: String] = [:]
 
         for (key, value) in visitor.assignedVariationHistory {
-            assignmentsFields.updateValue(value, forKey: "visitor.assignments.\(key)")
+            assignmentsFields.updateValue(value, forKey: "visitor.assignments.[\(key)]")
         }
-        if !assignmentsFields.isEmpty {
-            // Add assignement
-            ret.merge(assignmentsFields) { _, new in new }
-        }
+        ret.merge(assignmentsFields) { _, new in new }
 
         // Add configs fields
         ret.merge(createConfigFields()) { _, new in new }
 
         // Add Context fields
         ret.merge(_createTRContext(visitor)) { _, new in new }
+
+        // Add Consent and Authenticate
+        ret.merge(["visitor.consent": String(visitor.hasConsented),
+                   "visitor.isAuthenticated": String(visitor.isAuthenticated)]) { _, new in new }
 
         return ret
     }

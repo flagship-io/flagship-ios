@@ -76,6 +76,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
+        let startFetchingDate = Date() // To comunicate for TR
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
@@ -90,18 +91,19 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     
                 } else {
                     /// Update new flags
-                    self.visitor.updateFlags(campaigns?.getAllModification())
+                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
                     Flagship.sharedInstance.currentStatus = .READY
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
+          
                     onSyncCompleted(.READY)
                 }
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
                 // Send TR
-                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
+                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
                 onSyncCompleted(.READY) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
