@@ -47,7 +47,7 @@ class FlagshipBucketingTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
         fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
-            if newStatus == .READY {
+            if newStatus == .SDK_INITIALIZED {
                 print("Polling is done, we can fetch the flags")
                 self.testVisitor?.fetchFlags(onFetchCompleted: {
                     // Get from alloc 100
@@ -85,7 +85,7 @@ class FlagshipBucketingTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "testBucketingWithFailedTargeting")
         
         fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
-            if newStatus == .READY {
+            if newStatus == .SDK_INITIALIZED {
                 print("Polling is done, we can fetch the flags")
                 self.testVisitor?.fetchFlags {
                     // Get from alloc 100

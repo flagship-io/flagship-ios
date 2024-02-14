@@ -57,7 +57,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     }
     
     func testCreateCriticalFieldsForVisitor() {
-        let config: FlagshipConfig = FSConfigBuilder().withTimeout(3).withLogLevel(.ERROR).Bucketing().build()
+        let config: FlagshipConfig = FSConfigBuilder().withTimeout(3000).withLogLevel(.ERROR).Bucketing().build()
         
         let consentVisitor: FSVisitor = FSVisitorBuilder("userTest").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
         
@@ -68,14 +68,14 @@ final class FSDataUsageTrackingTest: XCTestCase {
         consentVisitor.currentFlags = ["flagTR": FSModification(aCampaign: camp, aVariation: variation, valueForFlag: 12)]
         let ret: [String: String] = FSDataUsageTracking.sharedInstance.createCriticalFieldsForVisitor(consentVisitor)
         
-        XCTAssertTrue(ret.keys.contains("visitor.flags.flagTR.key"))
-        XCTAssertTrue(ret.keys.contains("visitor.flags.flagTR.value"))
-        XCTAssertTrue((ret["visitor.flags.flagTR.key"] ?? "") == "flagTR")
-        XCTAssertTrue((ret["visitor.flags.flagTR.value"] ?? "") == "12")
+        XCTAssertTrue(ret.keys.contains("visitor.flags.[flagTR].key"))
+        XCTAssertTrue(ret.keys.contains("visitor.flags.[flagTR].value"))
+        XCTAssertTrue((ret["visitor.flags.[flagTR].key"] ?? "") == "flagTR")
+        XCTAssertTrue((ret["visitor.flags.[flagTR].value"] ?? "") == "12")
         XCTAssertTrue((ret["sdk.config.mode"] ?? "") == "BUCKETING")
         XCTAssertTrue((ret["sdk.config.trackingManager.strategy"] ?? "") == "CONTINUOUS_CACHING")
-        XCTAssertTrue((ret["visitor.context.trCtx"] ?? "") == "valCtx")
-        XCTAssertTrue((ret["sdk.config.timeout"] ?? "") == "3.0")
+        XCTAssertTrue((ret["visitor.context.[trCtx]"] ?? "") == "valCtx")
+        XCTAssertTrue((ret["sdk.config.timeout"] ?? "") == "3000")
     }
     
     func testCreateCrticalXpc() {
@@ -96,7 +96,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
         for i in 1 ... 100 {
             let testVisitor: FSVisitor = FSVisitorBuilder("userXpcTest\(i)").hasConsented(hasConsented: true).withContext(context: ["trCtx": "valCtx"]).build()
             testVisitor.configManager.flagshipConfig = FSConfigBuilder().build()
-            FSDataUsageTracking.sharedInstance.processTSFetching(v: testVisitor, campaigns: nil)
+            FSDataUsageTracking.sharedInstance.processTSFetching(v: testVisitor, campaigns: nil, fetchingDate: Date())
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: testVisitor)
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: CriticalPoints.GET_FLAG_VALUE_FLAG_NOT_FOUND, f: FSFlag("key", nil, "defaultValue", nil), v: nil)
             FSDataUsageTracking.sharedInstance.processTSHits(label: "label", visitor: testVisitor, hit: FSScreen("TRScreen\(i)"))

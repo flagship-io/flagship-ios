@@ -182,11 +182,9 @@ import Foundation
 
         /// Add qt entries
         /// Time difference between when the hit was created and when it was sent
-        // let qt = Date().timeIntervalSince1970 - self.createdAt
-      
-        // communParams.updateValue(qt.rounded(), forKey: "qt")
+         let qt = Date().timeIntervalSince1970 - self.createdAt      
+         communParams.updateValue(qt.rounded(), forKey: "qt")
 
-        communParams.updateValue(1643039397, forKey: "qt")
 
         return communParams
     }
