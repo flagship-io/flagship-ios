@@ -81,7 +81,7 @@ class TroubleshootingHit: FSTracking {
         _communCustomFields = [
             "version": troubleShootingVersion,
             "envId": Flagship.sharedInstance.envId ?? "",
-            "timestamp": "\(Date().timeIntervalSince1970)",
+            "timestamp": FSTools.getUtcTimestamp(),
             "timeZone": TimeZone.current.abbreviation() ?? "",
             "label": label,
             "stack.type": stackType,

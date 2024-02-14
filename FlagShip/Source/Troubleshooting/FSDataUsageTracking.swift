@@ -9,8 +9,8 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
- 
 let FSDataUsageAllocationThreshold = 1
+ 
  
 
 class FSDataUsageTracking {

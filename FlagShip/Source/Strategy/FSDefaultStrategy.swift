@@ -95,7 +95,12 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
  
+ 
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+ 
+ 
+    
+        let startFetchingDate = Date() // To comunicate for TR
  
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
@@ -116,23 +121,30 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     
                 } else {
                     /// Update new flags
-                    self.visitor.updateFlags(campaigns?.getAllModification())
+ 
+                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
  
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
  
 
+ 
+                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
+                
+ 
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
  
+ 
                     onSyncCompleted(.FETCHED, .NONE)
+ 
  
                 }
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
                 // Send TR
-                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
+                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
  
                 onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue

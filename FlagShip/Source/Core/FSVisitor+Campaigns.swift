@@ -8,14 +8,30 @@
 import Foundation
 
 extension FSVisitor {
-    func updateFlags(_ newFlags: [String: FSModification]?) {
+ 
+    func updateFlagsAndAssignedHistory(_ newFlags: [String: FSModification]?) {
+ 
         if let aNewFlag = newFlags {
             /// Clean the current flag
             currentFlags.removeAll()
             currentFlags = aNewFlag
+            
+            // update the assignation history
+            self.updateAssignedHistory(aNewFlag)
         }
     }
-
+ 
+    
+    func updateAssignedHistory(_ newFlags: [String: FSModification]) {
+        let groupIdkeys = assignedVariationHistory.keys
+        newFlags.forEach { (_: String, value: FSModification) in
+            if !groupIdkeys.contains(value.variationGroupId) {
+                assignedVariationHistory.merge([value.variationGroupId: value.variationId]) { _, new in new }
+            }
+        }
+    }
+    
+ 
     func mergeCachedVisitor(_ cachedVisitor: FSCacheVisitor) {
         // Retreive cached flags and Merge in the visitor instance
         var cachedFlgs: [String: FSModification] = [:]
