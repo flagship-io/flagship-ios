@@ -34,6 +34,7 @@ import Foundation
 }
 
 /// This instance shoud be on the visitor instance
+ 
 public enum FSFetchStatus: String {
     case FETCHED
     case FETCHING
@@ -63,3 +64,4 @@ public enum FSFlagStatus: String {
 ///
 
 public let FlagsStatusNotification = "FlagStatusNotification"
+ 

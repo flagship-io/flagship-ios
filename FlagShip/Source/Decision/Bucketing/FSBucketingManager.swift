@@ -54,8 +54,10 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         if let storedBucket = FSStorageManager.readBucketFromCache() {
             self.scriptBucket = storedBucket
         }
+ 
         
         /// TODO remove it when no need 
+ 
         /// Add observer to listen "onGetScriptNotification"
         NotificationCenter.default.addObserver(self, selector: #selector(onGetNotification), name: NSNotification.Name("onGetScriptNotification"), object: nil)
     }
@@ -89,7 +91,9 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
            // Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .PANIC_ON : .READY)
 
             // Refonte bis
+ 
             Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .SDK_NOT_INITIALIZED : .SDK_INITIALIZED)
+ 
         }
 
         /// Update bucketing
@@ -102,7 +106,9 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         // get the object
 
         if let aScriptBucket = notification.object as? FSBucket {
+ 
             Flagship.sharedInstance.updateStatus(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+ 
 
             /// Update bucketing
             scriptBucket = aScriptBucket

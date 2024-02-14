@@ -21,14 +21,17 @@ public class Flagship: NSObject {
     // New refonte status
     var currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
     
+    // New refonte status
+    var currentStatusBis: FSSdkStatus = .SDK_NOT_INITIALIZED
+    
     // Enabale Log
     var enableLogs: Bool = true
     
     var lastInitializationTimestamp: TimeInterval
     
     /// In context of refonte
-    
     var pollingScript: FSPollingScript?
+ 
    
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
@@ -50,6 +53,7 @@ public class Flagship: NSObject {
             // Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
             // Refonte update
             Flagship.sharedInstance.updateStatus(.SDK_NOT_INITIALIZED)
+ 
 
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.ERROR_INIT_SDK)
             return
@@ -65,13 +69,15 @@ public class Flagship: NSObject {
         // Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
         
         // Refonte
-        Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
+         Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
+ 
 
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
         
         ///  Bucketing service
         if config.mode == .BUCKETING {
             pollingScript = FSPollingScript(pollingTime: config.pollingTime)
+ 
             // pollingScript?.launchPolling()
         }
     }
@@ -121,6 +127,7 @@ public class Flagship: NSObject {
     // Get status
     public func getStatus() -> FSSdkStatus {
         return currentStatus
+ 
     }
     
 //    // Update status
@@ -139,15 +146,17 @@ public class Flagship: NSObject {
 //    }
     
     // Update status
+ 
     func updateStatus(_ newStatus: FSSdkStatus) {
+ 
         // _ if the staus has not changed then no need to trigger the callback
-        if newStatus == currentStatus {
+        if newStatus == currentStatusBis {
             return
         }
         print("--------------------------------- \(newStatus.name) ----------------------------------")
         
         // Update the status
-        currentStatus = newStatus
+        currentStatusBis = newStatus
         // Trigger the callback
         if let callbackListener = currentConfig.onStatusChanged {
             callbackListener(newStatus)

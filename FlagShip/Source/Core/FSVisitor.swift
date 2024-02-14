@@ -59,6 +59,7 @@ import Foundation
     // Initial value for the status .CREATED
     var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
     
+ 
     // The fetch reason
     var requiredFetchReason: FSFetchReasons = .NONE
     
@@ -67,6 +68,7 @@ import Foundation
         didSet {
             // Trigger the callback
             self._onFetchStatusChanged?(self.fetchStatus, self.requiredFetchReason)
+ 
         }
     }
 
@@ -111,9 +113,11 @@ import Foundation
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         // Go to ING state while the fetch is ongoing
+ 
         self.fetchStatus = .FETCHING
         self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
            
+ 
             // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
             
@@ -122,10 +126,12 @@ import Foundation
                 self.sendHit(FSSegment(self.getContext()))
             }
             // Update status
+ 
             self.requiredFetchReason = reason
             self.fetchStatus = state == .PANIC ? .PANIC : .FETCHED
 
             onFetchCompleted()
+ 
         })
     }
     
@@ -145,12 +151,14 @@ import Foundation
     // Update Context
     // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
+ 
         // self.strategy?.getStrategy().updateContext(context)
         self._updateContext(context)
         
 //        // Update the flagSyncStatus
 //        self.flagSyncStatus = .CONTEXT_UPDATED
 //        self.fetchStatus = .FETCH_REQUIRED
+ 
     }
     
     // Update context with one
@@ -158,9 +166,11 @@ import Foundation
     //   - key: key for the given value
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
+ 
         // self.strategy?.getStrategy().updateContext([key: newValue])
         self._updateContext([key: newValue])
         // self.fetchStatus = .FETCH_REQUIRED
+ 
     }
     
     // Update presetContext
@@ -175,6 +185,7 @@ import Foundation
         
         FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_SUCCESS(flagshipContext.rawValue))
         
+ 
         // self.strategy?.getStrategy().updateContext([flagshipContext.rawValue: value])
         self._updateContext([flagshipContext.rawValue: value])
         // self.fetchStatus = .FETCH_REQUIRED
@@ -191,6 +202,7 @@ import Foundation
 //        if let aCallback = self._onFetchStatusChanged {
 //            aCallback(self.fetchStatus, .UPDATE_CONTEXT)
 //        }
+ 
     }
     
     // Get the current context

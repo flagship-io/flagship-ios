@@ -30,7 +30,9 @@ class FSStrategy {
 //    }
     
     func getStrategy() -> FSDelegateStrategy {
+ 
         switch Flagship.sharedInstance.currentStatus {
+ 
         case .SDK_INITIALIZED:
             if visitor.hasConsented == true {
                 return FSDefaultStrategy(visitor)
@@ -92,37 +94,49 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
+ 
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+ 
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
             /// Create the dictionary for all flags
             if error == nil {
                 if campaigns?.panic == true {
+ 
                     Flagship.sharedInstance.currentStatus = .SDK_PANIC
+ 
 
                     self.visitor.currentFlags.removeAll()
                     // Stop the process batching when the panic mode is ON
                     self.visitor.configManager.trackingManager?.stopBatchingProcess()
+ 
                     onSyncCompleted(.PANIC, .NONE)
+ 
                     
                 } else {
                     /// Update new flags
                     self.visitor.updateFlags(campaigns?.getAllModification())
+ 
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
+ 
 
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
+ 
                     onSyncCompleted(.FETCHED, .NONE)
+ 
                 }
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
                 // Send TR
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
             } else {
+ 
                 onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+ 
             }
         })
     }
@@ -157,6 +171,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func getFlagStatus(_ key: String) -> FSFlagStatus {
+ 
         switch visitor.fetchStatus {
         case .FETCHED:
             if visitor.currentFlags.keys.contains(key) {
@@ -166,6 +181,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         case .FETCHING, .FETCH_REQUIRED:
             if visitor.currentFlags.keys.contains(key) {
                 return .FETCH_REQUIRED
+ 
             }
         case .PANIC:
             return .PANIC
@@ -280,9 +296,11 @@ protocol FSDelegateStrategy {
     // func synchronize(onSyncCompleted: @escaping (FStatus) -> Void)
     
     /// Synchronize Bis
+ 
     // func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void)
     
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
+ 
 
     /// Activate
     func activate(_ key: String)

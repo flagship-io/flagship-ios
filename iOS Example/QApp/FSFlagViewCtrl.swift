@@ -145,7 +145,9 @@ class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                 
                 let dicoInfo = flagObject?.metadata().toJson()
                 
+ 
                 print(" ----------- Status fo visitor is \(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue ?? "") --------------")
+ 
                 
                 print(" ----------- Status for flag : \(keyValueInput) is \(flagObject?.status.rawValue ?? "") --------------")
             }
