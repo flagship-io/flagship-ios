@@ -25,7 +25,7 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ rea
     // Callbak for status
     private var _onFetchFlagsStatusChanged: OnFetchFlagsStatusChanged = nil
     
-    public init(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) {
+    public init(_ visitorId: String, _ hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) {
         if visitorId.isEmpty {
             _visitorId = FSGenerator.generateFlagShipId()
             FlagshipLogManager.Log(level: .WARNING, tag: .VISITOR, messageToDisplay: FSLogMessage.ID_NULL_OR_EMPTY)
@@ -35,12 +35,13 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ rea
         }
         
         _instanceType = instanceType
+        _hasConsented = hasConsented
     }
     
-    @objc public func hasConsented(hasConsented: Bool)->FSVisitorBuilder {
-        _hasConsented = hasConsented
-        return self
-    }
+//    @objc public func hasConsented(hasConsented: Bool)->FSVisitorBuilder {
+//        _hasConsented = hasConsented
+//        return self
+//    }
     
     @objc public func withContext(context: [String: Any])->FSVisitorBuilder {
         _context = context

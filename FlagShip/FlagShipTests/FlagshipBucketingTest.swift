@@ -74,7 +74,7 @@ class FlagshipBucketingTest: XCTestCase {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).build()
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 
@@ -99,7 +99,7 @@ class FlagshipBucketingTest: XCTestCase {
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("korso").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).build()
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 

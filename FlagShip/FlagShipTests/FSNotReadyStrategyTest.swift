@@ -21,7 +21,7 @@ final class FSNotReadyStrategyTest: XCTestCase {
     func testNotReadySdk() {
         Flagship.sharedInstance.start(envId: "notReady", apiKey: "apikey")
 
-        let userNR = Flagship.sharedInstance.newVisitor("userNR").build()
+        let userNR = Flagship.sharedInstance.newVisitor(visitorId: "userNR", hasConsented: true).build()
 
         userNR.updateContext(["a": "b"])
         userNR.fetchFlags {}
