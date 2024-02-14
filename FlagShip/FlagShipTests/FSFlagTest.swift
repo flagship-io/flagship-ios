@@ -149,7 +149,7 @@ class FSFlagTest: XCTestCase {
         }
         
         testVisitor?.fetchFlags {
-            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .PANIC_ON)
+            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .SDK_PANIC)
             
             if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "defaultValue") {
                 XCTAssertTrue(flag.value() as? String == "defaultValue")

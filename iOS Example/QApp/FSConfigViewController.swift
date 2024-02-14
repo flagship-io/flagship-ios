@@ -104,15 +104,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             }
         }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { _, _ in
 
- 
- 
-            //print(fromFlag.toJson() ?? "")
-            //print(visitorExposed.toJson() ?? "")
- 
-        }.withLogLevel(.ALL)
- 
+            // print(fromFlag.toJson() ?? "")
+            // print(visitorExposed.toJson() ?? "")
 
- 
+        }.withLogLevel(.ALL)
+
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
         } else {
@@ -153,11 +149,14 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
- 
- 
-        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
- 
- 
+        return Flagship.sharedInstance.newVisitor("user1912").hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
+
+            print("######### ON CALLBACK FETCH STATE IS CALLED ###############")
+
+            print("-------------- \(newStatus)------------------")
+
+            print("-------------- \(reason)---------------------")
+        }.build()
     }
 
     func showErrorMessage(_ msg: String) {
@@ -274,5 +273,3 @@ public class CustomHitCache: FSHitCacheDelegate {
     // Remove all hits in database
     public func flushAllHits() {}
 }
-
- 

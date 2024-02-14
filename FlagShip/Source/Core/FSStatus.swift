@@ -34,10 +34,10 @@ import Foundation
 }
 
 /// This instance shoud be on the visitor instance
-public enum FSFlagsStatus: String {
+public enum FSFetchStatus: String {
     case FETCHED
     case FETCHING
-    case FETCH_NEEDED
+    case FETCH_REQUIRED
     case PANIC
 }
 
@@ -48,8 +48,7 @@ public enum FSFetchReasons: String {
     case UNAUTHENTICATE
     case FETCH_ERROR
     case READ_FROM_CACHE
-    case FAILED_ON_LAST_FETCHING
-
+    case NONE
 }
 
 /// This state represent the flag entity  (without S)

@@ -18,24 +18,42 @@ public extension FSVisitor {
         self.strategy?.getStrategy().authenticateVisitor(visitorId: visitorId)
 
         // Update the flagSyncStatus
-        self.flagSyncStatus = .AUTHENTICATED
+        //  self.flagSyncStatus = .AUTHENTICATED
+
+        self.updateStateAndTriggerCallback(true)
 
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, visitor: self)
 
         // Refonte
-        self.flagsStatus = .FETCH_NEEDED
+        // self.fetchStatus = .FETCH_REQUIRED
     }
 
     /// Use authenticate methode to go from Logged in  session to logged out session
     @objc func unauthenticate() {
         self.strategy?.getStrategy().unAuthenticateVisitor()
         // Update the flagSyncStatus
-        self.flagSyncStatus = .UNAUTHENTICATED
+        // self.flagSyncStatus = .UNAUTHENTICATED
+        self.updateStateAndTriggerCallback(false)
 
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_UNAUTHENTICATE.rawValue, visitor: self)
 
-        self.flagsStatus = .FETCH_NEEDED
+        // self.fetchStatus = .FETCH_REQUIRED
+    }
+
+    private func updateStateAndTriggerCallback(_ isAuthenticate: Bool) {
+        // Update flagSyncStatus
+        self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
+
+        // Set the reason
+        self.requiredFetchReason = isAuthenticate ? .AUTHENTICATE : .UNAUTHENTICATE
+        // Set the fetch state to required state
+        self.fetchStatus = .FETCH_REQUIRED
+
+//        // Trigger the callback
+//        if let aCallBack = self._onFetchStatusChanged {
+//            aCallBack(self.fetchStatus, isAuthenticate ? .AUTHENTICATE : .UNAUTHENTICATE)
+//        }
     }
 }

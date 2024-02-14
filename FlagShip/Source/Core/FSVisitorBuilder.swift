@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagsStatus, _ reason: FSFetchReasons)-> Void)?
+public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?
 
 /// Visitor builder
 @objc public class FSVisitorBuilder: NSObject {
@@ -52,7 +52,7 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagsStatus, _ rea
         return self
     }
     
-    public func withFlagStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
+    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
         _onFetchFlagsStatusChanged = pCallback
         return self
     }
