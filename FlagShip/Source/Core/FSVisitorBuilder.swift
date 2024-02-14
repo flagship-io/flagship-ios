@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?
+
 /// Visitor builder
 @objc public class FSVisitorBuilder: NSObject {
     /// Visitor
@@ -20,7 +22,10 @@ import Foundation
     /// instance
     private var _instanceType: Instance = .SHARED_INSTANCE
     
-    public init(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) {
+    // Callbak for status
+    private var _onFetchFlagsStatusChanged: OnFetchFlagsStatusChanged = nil
+    
+    public init(_ visitorId: String, _ hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) {
         if visitorId.isEmpty {
             _visitorId = FSGenerator.generateFlagShipId()
             FlagshipLogManager.Log(level: .WARNING, tag: .VISITOR, messageToDisplay: FSLogMessage.ID_NULL_OR_EMPTY)
@@ -30,12 +35,13 @@ import Foundation
         }
         
         _instanceType = instanceType
+        _hasConsented = hasConsented
     }
     
-    @objc public func hasConsented(hasConsented: Bool)->FSVisitorBuilder {
-        _hasConsented = hasConsented
-        return self
-    }
+//    @objc public func hasConsented(hasConsented: Bool)->FSVisitorBuilder {
+//        _hasConsented = hasConsented
+//        return self
+//    }
     
     @objc public func withContext(context: [String: Any])->FSVisitorBuilder {
         _context = context
@@ -47,8 +53,13 @@ import Foundation
         return self
     }
     
+    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
+        _onFetchFlagsStatusChanged = pCallback
+        return self
+    }
+    
     @objc public func build()->FSVisitor {
-        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated)
+        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFetchFlagStatusChanged: _onFetchFlagsStatusChanged)
         
         if _instanceType == .SHARED_INSTANCE {
             /// Set this visitor as shared instance

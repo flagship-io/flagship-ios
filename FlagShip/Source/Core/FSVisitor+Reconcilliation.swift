@@ -16,21 +16,27 @@ public extension FSVisitor {
     /// - Requires: Make sure that the experience continuity option is enabled on the flagship platform before using this method
     @objc func authenticate(visitorId: String) {
         self.strategy?.getStrategy().authenticateVisitor(visitorId: visitorId)
-
-        // Update the flagSyncStatus
-        self.flagSyncStatus = .AUTHENTICATED
-
+        self.updateStateAndTriggerCallback(true)
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_AUTHENTICATE.rawValue, visitor: self)
+
     }
 
     /// Use authenticate methode to go from Logged in  session to logged out session
     @objc func unauthenticate() {
         self.strategy?.getStrategy().unAuthenticateVisitor()
-        // Update the flagSyncStatus
-        self.flagSyncStatus = .UNAUTHENTICATED
-
+        self.updateStateAndTriggerCallback(false)
         // Troubleshooting xpc
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_UNAUTHENTICATE.rawValue, visitor: self)
+    }
+
+    private func updateStateAndTriggerCallback(_ isAuthenticate: Bool) {
+        // Update flagSyncStatus
+        self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
+
+        // Set the reason
+        self.requiredFetchReason = isAuthenticate ? .AUTHENTICATE : .UNAUTHENTICATE
+        // Set the fetch state to required state
+        self.fetchStatus = .FETCH_REQUIRED
     }
 }

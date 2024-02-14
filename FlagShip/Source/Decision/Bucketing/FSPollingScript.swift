@@ -7,85 +7,69 @@
 
 import Foundation
 
-
-protocol FSPollingScriptDelegate{
-    
-    func onGetScript(_ newBucketing:FSBucket?, _ error:FlagshipError?)
+protocol FSPollingScriptDelegate {
+    func onGetScript(_ newBucketing: FSBucket?, _ error: FlagshipError?)
 }
 
-
-class FSPollingScript{
+/// This class responsible for fetching the script
+class FSPollingScript {
+    var pollingIntervalTime: TimeInterval
     
-    // This class responsible for fetching the script
+    var pollingTimer: FSRepeatingTimer?
     
-    var pollingIntervalTime:TimeInterval
+    var service: FSService
     
-    var pollingTimer:FSRepeatingTimer?
-    
-    var delegate:FSPollingScriptDelegate?
-    
-    var service:FSService
-    
-    init(service:FSService, pollingTime:TimeInterval, delegate:FSBucketingManager){
-        
+    init(pollingTime: TimeInterval) {
         pollingIntervalTime = pollingTime
-        self.service = service
-        self.delegate = delegate
+        service = FSService(Flagship.sharedInstance.envId ?? "", Flagship.sharedInstance.apiKey ?? "", "")
         pollingTimer = FSRepeatingTimer(timeInterval: pollingTime)
+        launchPolling()
     }
     
-    
-    public func launchPolling(){
-        
+    public func launchPolling() {
         pollingTimer?.eventHandler = {
             self.pollingTimer?.suspend()
-            self.service.getFSScript { (bucketingScript, error) in
+            self.service.getFSScript { bucketingScript, error in
                 
                 // Error occured when trying to get script
                 if error != nil {
-
                     // Read from cache the bucket script
-                    guard let storedBucket: FSBucket =  FSStorageManager.readBucketFromCache() else {
-
+                    guard let storedBucket: FSBucket = FSStorageManager.readBucketFromCache() else {
                         // Exit the start with not ready status
-                        FlagshipLogManager.Log(level:.ALL, tag:.BUCKETING, messageToDisplay:FSLogMessage.NOCACHE_SCRIPT)
-                        self.delegate?.onGetScript(nil, error)
-
+                        FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.NOCACHE_SCRIPT)
                         return
                     }
-                    // Transmit data to delegate
-                    self.delegate?.onGetScript(storedBucket, nil)
-                    
+                    // Transmit stored script via notification
+                    NotificationCenter.default.post(name: NSNotification.Name("onGetScriptNotification"), object: storedBucket, userInfo: nil)
+                    Flagship.sharedInstance.updateStatus(storedBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+
                 } else {
-                    
-                    self.delegate?.onGetScript(bucketingScript, nil)
+                    // Transmit new script via notification
+                    NotificationCenter.default.post(name: NSNotification.Name("onGetScriptNotification"), object: bucketingScript, userInfo: nil)
+                    if let aBucketingScript = bucketingScript {
+                        Flagship.sharedInstance.updateStatus(aBucketingScript.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+                    }
                 }
-                if (self.pollingIntervalTime > 0.0){ /// only once when timer is 0
-                   
+                if self.pollingIntervalTime > 0.0 { /// only once when timer is 0
                     self.pollingTimer?.resume()
                 }
             }
         }
-        self.pollingTimer?.resume()
+        pollingTimer?.resume()
     }
     
-    
-    
-    public func cancelPolling(){
-        
+    public func cancelPolling() {
         pollingTimer?.suspend()
     }
 }
-
 // Inspsired from : https://medium.com/over-engineering/a-background-repeating-timer-in-swift-412cecfd2ef9
 class FSRepeatingTimer {
-
     let timeInterval: TimeInterval
-    
+
     init(timeInterval: TimeInterval) {
         self.timeInterval = timeInterval
     }
-    
+
     private lazy var timer: DispatchSourceTimer = {
         let t = DispatchSource.makeTimerSource()
         t.schedule(deadline: .now(), repeating: self.timeInterval)
@@ -130,5 +114,4 @@ class FSRepeatingTimer {
         state = .suspended
         timer.suspend()
     }
-
 }
