@@ -54,7 +54,7 @@ public enum FSFetchReasons: String {
 /// This state represent the flag entity  (without S)
 public enum FSFlagStatus: String {
     case FETCHED // Flags up to date
-    case FETCH_NEEDED //  - à la création mais sans cache , ou le context a changé , xpc
+    case FETCH_REQUIRED //  - à la création mais sans cache , ou le context a changé , xpc
     case NOT_FOUND
     case PANIC
 }

@@ -18,7 +18,7 @@ public class FSFlag: NSObject {
     
     public var status: FSFlagStatus {
         return _status
-    } // TODO: check later if okay
+    } 
     
     init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
         key = aKey

@@ -159,14 +159,13 @@ class FSDefaultStrategy: FSDelegateStrategy {
     func getFlagStatus(_ key: String) -> FSFlagStatus {
         switch visitor.fetchStatus {
         case .FETCHED:
-            if let flagObject = visitor.currentFlags[key] {
-                if visitor.currentFlags.keys.contains(key) {
-                    return .FETCHED
-                }
+            if visitor.currentFlags.keys.contains(key) {
+                return .FETCHED
             }
+  
         case .FETCHING, .FETCH_REQUIRED:
             if visitor.currentFlags.keys.contains(key) {
-                return .FETCH_NEEDED
+                return .FETCH_REQUIRED
             }
         case .PANIC:
             return .PANIC

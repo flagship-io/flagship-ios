@@ -126,11 +126,6 @@ import Foundation
             self.fetchStatus = state == .PANIC ? .PANIC : .FETCHED
 
             onFetchCompleted()
-            
-            // Trigger the callback
-//            if let aCallback = self._onFetchStatusChanged {
-//                aCallback(self.fetchStatus, self.requiredFetchReason)
-//            }
         })
     }
     
