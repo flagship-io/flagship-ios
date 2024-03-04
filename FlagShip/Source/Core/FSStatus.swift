@@ -20,7 +20,7 @@ import Foundation
     // -----
     case SDK_PANIC
 
-    var name: String {
+    public var name: String {
         switch self { case .SDK_NOT_INITIALIZED:
             return "SDK_NOT_INITIALIZED"
         case .SDK_INITIALIZING:
@@ -34,7 +34,7 @@ import Foundation
 }
 
 /// This instance shoud be on the visitor instance
- 
+
 public enum FSFetchStatus: String {
     case FETCHED
     case FETCHING
@@ -64,4 +64,3 @@ public enum FSFlagStatus: String {
 ///
 
 public let FlagsStatusNotification = "FlagStatusNotification"
- 

@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startQA() {
-        
         // Create FSTrackingManagerConfig
         // - Time Intreval : 20
         // - Maximum size pool : 20
@@ -28,28 +27,41 @@ class ViewController: UIViewController {
         let trackingConfig = FSTrackingManagerConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING)
         
         // Create FlagshipConfig
-        
        
-        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager( FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
+        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
         
-        // Start the SDK Flagship
+        print(Flagship.sharedInstance.getStatus())
+        
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
         
-        let v1 = Flagship.sharedInstance.newVisitor("visitor3105-abcdfer").withContext(context: ["testing_tracking_manager": true]).build()
-        let myFalg = v1.getFlag(key: "my_flag", defaultValue: "dflt")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-        print("stop")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-        myFalg.userExposed()
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "v1", hasConsented: true).withContext(context: ["isQA": true]).build()
+        
+        print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+        
+        v1.fetchFlags {
+            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+            
+            v1.updateContext(["aa": 1])
+            
+            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+        }
+        
+        print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+
+        print(Flagship.sharedInstance.getStatus())
     }
     
     /// Add one more activate
     @IBAction func activate() {
-        let myFalg = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag", defaultValue: "dflt")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-        print("stop")
-        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-        myFalg?.userExposed()
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+            
+            let flg = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "dfl")
+            
+            Flagship.sharedInstance.sharedVisitor?.fetchFlags(onFetchCompleted: {
+                print(flg?.status.rawValue)
+            })
+        }
     }
     
     @IBAction func sendHits() {
