@@ -90,7 +90,9 @@ class FSRepeatingTimer {
         let t = DispatchSource.makeTimerSource()
         t.schedule(deadline: .now(), repeating: self.timeInterval)
         t.setEventHandler(handler: { [weak self] in
-            self?.eventHandler?()
+            DispatchQueue.main.async {
+                self?.eventHandler?()
+            }
         })
         return t
     }()
