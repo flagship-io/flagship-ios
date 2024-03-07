@@ -9,10 +9,25 @@
 import Foundation
 
 class FSQueue<T> {
-    public private(set) var listQueue: [T]
+    let fsTrackingQueue = DispatchQueue(label: "com.flagship.traking.queue", attributes: .concurrent)
+
+    private(set) var _listQueue: [T] = []
     
+    var listQueue: [T] {
+        get {
+            return fsTrackingQueue.sync {
+                _listQueue
+            }
+        }
+        set {
+            fsTrackingQueue.async(flags: .barrier) {
+                self._listQueue = newValue
+            }
+        }
+    }
+
     init() {
-        listQueue = Array()
+        // _listQueue = []
     }
     
     func enqueue(_ value: T) {
@@ -111,6 +126,6 @@ class FlagshipPoolQueue {
     }
     
     func isEmpty() -> Bool {
-        return (fsQueue.count() == 0)
+        return fsQueue.count() == 0
     }
 }

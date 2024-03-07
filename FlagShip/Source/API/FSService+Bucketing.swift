@@ -21,7 +21,8 @@ extension FSService {
             let dateModified: String? = UserDefaults.standard.value(forKey: FSLastModified_Key) as? String
 
             if dateModified != nil {
-                request.setValue(dateModified, forHTTPHeaderField: FS_If_ModifiedSince)
+                #warning("uncomment this line later")
+                // request.setValue(dateModified, forHTTPHeaderField: FS_If_ModifiedSince)
             }
 
             serviceSession.dataTask(with: request) { data, response, _ in

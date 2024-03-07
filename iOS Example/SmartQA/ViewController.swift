@@ -28,50 +28,34 @@ class ViewController: UIViewController {
         
         // Create FlagshipConfig
        
-        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
+        let conf: FlagshipConfig = FSConfigBuilder().build()
         
         print(Flagship.sharedInstance.getStatus())
         
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
         
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "v1", hasConsented: true).withContext(context: ["isQA": true]).build()
-        
-        print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
-        
-        v1.fetchFlags {
-            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "v1", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { st, reason in
             
-            v1.updateContext(["aa": 1])
+            print(reason.rawValue)
             
-            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
-        }
-        
-        print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
-
-        print(Flagship.sharedInstance.getStatus())
+            print(st.rawValue)
+            
+        }.build()
     }
     
     /// Add one more activate
     @IBAction func activate() {
+        // Print state for the flag
+ 
+        
         Flagship.sharedInstance.sharedVisitor?.fetchFlags {
             print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
             
-            let flg = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "dfl")
-            
-            Flagship.sharedInstance.sharedVisitor?.fetchFlags(onFetchCompleted: {
-                print(flg?.status.rawValue)
-            })
+           
         }
     }
     
     @IBAction func sendHits() {
-//        let v2 = Flagship.sharedInstance.newVisitor("visitor-B").withContext(context: ["testing_tracking_manager": true]).build()
-//        // Send Hits
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA1"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA1"))
-        
-        Flagship.sharedInstance.close()
+        Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
     }
 }

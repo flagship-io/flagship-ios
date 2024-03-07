@@ -16,29 +16,20 @@ public class Flagship: NSObject {
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Current status
-    // var currentStatus: FStatus = .NOT_INITIALIZED
-    
-    // New refonte status
-    // var currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
-    
-    // New refonte status
     var currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
-    
     // Enabale Log
     var enableLogs: Bool = true
- 
-    /// In context of refonte
+    // Polling script
     var pollingScript: FSPollingScript? // TODO: CHECK ....
- 
+    // Last init timestamps
     var lastInitializationTimestamp: String
-
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
         // setup code
         return instance
     }()
-    
+
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
     }
@@ -61,20 +52,15 @@ public class Flagship: NSObject {
         // Set configuration
         currentConfig = config
         
-        // If the mode bucketing we set the mode at NotReady, until the polling get the
-        // Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
-        
-        // Refonte
+        // Update status
         Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
- 
-        FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
         
-        ///  Bucketing service
+        ///  Launch Bucketing Service when needed
         if config.mode == .BUCKETING {
             pollingScript = FSPollingScript(pollingTime: config.pollingTime)
- 
-            // pollingScript?.launchPolling()
         }
+        
+        FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
@@ -86,7 +72,7 @@ public class Flagship: NSObject {
         if hasConsented {
             // Read the cached visitor
             newVisitor.strategy?.getStrategy().lookupVisitor() /// See later for optimize
-            //
+            // Lookup hits
             newVisitor.strategy?.getStrategy().lookupHits() /// See later for optimize
 
         } else {
@@ -124,23 +110,7 @@ public class Flagship: NSObject {
         return currentStatus
     }
     
-//    // Update status
-//    func updateStatus(_ newStatus: FStatus) {
-//        // _ if the staus has not changed then no need to trigger the callback
-//        if newStatus == currentStatus {
-//            return
-//        }
-//
-//        // Update the status
-//        currentStatus = newStatus
-//        // Trigger the callback
-//        if let callbackListener = currentConfig.onStatusChanged {
-//          //  callbackListener(newStatus)
-//        }
-//    }
-    
     // Update status
- 
     func updateStatus(_ newStatus: FSSdkStatus) {
         // _ if the staus has not changed then no need to trigger the callback
         if newStatus == currentStatus {

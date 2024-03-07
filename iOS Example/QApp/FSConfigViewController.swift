@@ -50,6 +50,10 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         FSCTools.roundButton(resetBtn)
         FSCTools.roundButton(createBtn)
         createBtn?.isEnabled = false
+
+        for i in 0 ... 3 {
+          //  _ = FlagshipManager.shared.visitor?.getFlag(key: "non-existant-\(i)", defaultValue: false)
+        }
     }
 
     // Hide KeyBoard
@@ -149,7 +153,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor(visitorId: "user1912", hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
+        return Flagship.sharedInstance.newVisitor(visitorId: "user1912", hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
 
             print("######### ON CALLBACK FETCH STATE IS CALLED ###############")
 
