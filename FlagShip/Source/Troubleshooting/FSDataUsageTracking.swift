@@ -9,7 +9,8 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
-let FSDataUsageAllocationThreshold = 1
+#warning("redo 1 value instead 1000")
+let FSDataUsageAllocationThreshold = 1000
  
  
 

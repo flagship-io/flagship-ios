@@ -14,23 +14,23 @@ protocol FSPollingScriptDelegate {
 /// This class responsible for fetching the script
 class FSPollingScript {
     var pollingIntervalTime: TimeInterval
-    
+
     var pollingTimer: FSRepeatingTimer?
-    
+
     var service: FSService
-    
+
     init(pollingTime: TimeInterval) {
         pollingIntervalTime = pollingTime
         service = FSService(Flagship.sharedInstance.envId ?? "", Flagship.sharedInstance.apiKey ?? "", "")
         pollingTimer = FSRepeatingTimer(timeInterval: pollingTime)
         launchPolling()
     }
-    
+
     public func launchPolling() {
         pollingTimer?.eventHandler = {
             self.pollingTimer?.suspend()
             self.service.getFSScript { bucketingScript, error in
-                
+
                 // Error occured when trying to get script
                 if error != nil {
                     // Read from cache the bucket script
@@ -57,11 +57,15 @@ class FSPollingScript {
         }
         pollingTimer?.resume()
     }
-    
+
     public func cancelPolling() {
         pollingTimer?.suspend()
     }
+    
+    
+    
 }
+
 // Inspsired from : https://medium.com/over-engineering/a-background-repeating-timer-in-swift-412cecfd2ef9
 class FSRepeatingTimer {
     let timeInterval: TimeInterval
@@ -71,10 +75,13 @@ class FSRepeatingTimer {
     }
 
     private lazy var timer: DispatchSourceTimer = {
-        let t = DispatchSource.makeTimerSource()
+        let t = DispatchSource.makeTimerSource(queue: .main)
         t.schedule(deadline: .now(), repeating: self.timeInterval)
         t.setEventHandler(handler: { [weak self] in
-            self?.eventHandler?()
+            DispatchQueue.main.async {
+                self?.eventHandler?()
+            }
+
         })
         return t
     }()

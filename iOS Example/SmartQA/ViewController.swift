@@ -19,39 +19,49 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startQA() {
+        for i in 0 ... 3 {
+            _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "false").visitorExposed()
+            
+            _ = FlagshipManager.shared.visitor?.sendHit(FSScreen("location"))
+
+        }
+        
         // Create FSTrackingManagerConfig
         // - Time Intreval : 20
         // - Maximum size pool : 20
         // - Strategy : BATCH_CONTINUOUS_CACHING
         
-        let trackingConfig = FSTrackingManagerConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING)
-        
-        // Create FlagshipConfig
-       
-        let conf: FlagshipConfig = FSConfigBuilder().build()
-        
-        print(Flagship.sharedInstance.getStatus())
-        
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
-        
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "v1", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { st, reason in
-            
-            print(reason.rawValue)
-            
-            print(st.rawValue)
-            
-        }.build()
+//        for _ in 1 ... 10 {
+//            let trackingConfig = FSTrackingManagerConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING)
+//
+//            // Create FlagshipConfig
+//
+//            let conf: FlagshipConfig = FSConfigBuilder().build()
+//
+//            print(Flagship.sharedInstance.getStatus())
+//
+//            Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)
+//
+//            let v1 = Flagship.sharedInstance.newVisitor(visitorId: "v1", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { st, reason in
+//
+//                print(reason.rawValue)
+//
+//                print(st.rawValue)
+//
+//            }.build()
+//
+//            v1.fetchFlags {
+//                v1.getFlag(key: "btnTilte", defaultValue: "ee").visitorExposed()
+//            }
+//        }
     }
     
     /// Add one more activate
     @IBAction func activate() {
         // Print state for the flag
  
-        
         Flagship.sharedInstance.sharedVisitor?.fetchFlags {
             print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
-            
-           
         }
     }
     

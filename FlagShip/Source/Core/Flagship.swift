@@ -7,6 +7,8 @@
 import Foundation
 
 public class Flagship: NSObject {
+    let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
+    
     // envId
     var envId: String?
     // apiKey
@@ -15,14 +17,28 @@ public class Flagship: NSObject {
     var currentConfig: FlagshipConfig = FSConfigBuilder().build()
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
-    // Current status
-    var currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
     // Enabale Log
     var enableLogs: Bool = true
     // Polling script
     var pollingScript: FSPollingScript? // TODO: CHECK ....
     // Last init timestamps
     var lastInitializationTimestamp: String
+    
+    var currentStatus: FSSdkStatus {
+        get {
+            return fsQueue.sync {
+                _currentStatus
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                self._currentStatus = newValue
+            }
+        }
+    }
+    
+    private var _currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
+    
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
@@ -37,7 +53,7 @@ public class Flagship: NSObject {
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
-            self.envId = envId
+            Flagship.sharedInstance.envId = envId
             
         } else {
             Flagship.sharedInstance.updateStatus(.SDK_NOT_INITIALIZED)
@@ -50,14 +66,15 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        currentConfig = config
+        Flagship.sharedInstance.currentConfig = config
         
-        // Update status
-        Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .SDK_INITIALIZED : .SDK_INITIALIZING)
-        
-        ///  Launch Bucketing Service when needed
-        if config.mode == .BUCKETING {
+        switch config.mode { case .DECISION_API:
+            Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
+        case .BUCKETING:
+            
             pollingScript = FSPollingScript(pollingTime: config.pollingTime)
+            
+            Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
         }
         
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))

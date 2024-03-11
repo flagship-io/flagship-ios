@@ -9,30 +9,6 @@
 import AppTrackingTransparency
 import Flagship
 import UIKit
-class FlagshipManager {
-    static let shared = FlagshipManager()
-    var visitor: FSVisitor?
-
-    func start() {
-        Flagship.sharedInstance.start(
-            envId: "bkk9glocmjcg0vtmdlng",
-            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
-            config: FSConfigBuilder()
-                .DecisionApi()
-                .withLogLevel(.ALL)
-                .build()
-        )
-
-        visitor = Flagship.sharedInstance.newVisitor(visitorId: "userThread", hasConsented: true)
-            .isAuthenticated(true)
-
-            .build()
-
-        visitor?.fetchFlags {
-            print("xox fetch finished")
-        }
-    }
-}
 
 // @main
 @UIApplicationMain
@@ -45,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XNLogger.shared.startLogging()
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithReqst = false
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithResp = false
-
-     //   FlagshipManager.shared.start()
         registerSettingsBundle()
 
         do {

@@ -103,13 +103,10 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
     }
 
     @objc private func onGetNotification(_ notification: Notification) {
-        // get the object
-
+        // Get the object
         if let aScriptBucket = notification.object as? FSBucket {
- 
             Flagship.sharedInstance.updateStatus(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
- 
-
+            
             /// Update bucketing
             scriptBucket = aScriptBucket
 

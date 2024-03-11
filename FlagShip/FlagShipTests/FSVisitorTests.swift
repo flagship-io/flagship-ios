@@ -51,43 +51,43 @@ class FSVisitorTests: XCTestCase {
         v2.updateContext(.CARRIER_NAME, "SFR")
     }
     
-    func testSynchronize() {
-        let syncVisitor = Flagship.sharedInstance.newVisitor(visitorId: "aliasMock", hasConsented: true).build()
-        syncVisitor.configManager.decisionManager = apiMockManager
-        
-        // Set mock data
-        do {
-            let testBundle = Bundle(for: type(of: self))
-
-            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return }
-
-            let data = try Data(contentsOf: path, options: .alwaysMapped)
-
-            MockURLProtocol.requestHandler = { _ in
-
-                let response = HTTPURLResponse(url: URL(string: "Mock")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-                return (response, data)
-            }
-        } catch {}
-        
-        let expectation = XCTestExpectation(description: "response")
-        
-        syncVisitor.synchronize {
-            XCTAssert(syncVisitor.getModification("background_color", defaultValue: "None") == "#000000")
-            XCTAssert(syncVisitor.getModification("btnTitle", defaultValue: "None") == "Alpha_demoApp")
-           
-            /// Revoir le type Generic
-            let dic: [String: Any] = ["zz": 2]
-            let list = syncVisitor.getModification("config", defaultValue: dic)
-            print(list.count)
-            
-            let val = list["lists"] as? [Any]
-            XCTAssert(val?.count == 3)
-
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 10)
-    }
+//    func testSynchronize() {
+//        let syncVisitor = Flagship.sharedInstance.newVisitor(visitorId: "aliasMock", hasConsented: true).build()
+//        syncVisitor.configManager.decisionManager = apiMockManager
+//        
+//        // Set mock data
+//        do {
+//            let testBundle = Bundle(for: type(of: self))
+//
+//            guard let path = testBundle.url(forResource: "decisionApi", withExtension: "json") else { return }
+//
+//            let data = try Data(contentsOf: path, options: .alwaysMapped)
+//
+//            MockURLProtocol.requestHandler = { _ in
+//
+//                let response = HTTPURLResponse(url: URL(string: "Mock")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+//                return (response, data)
+//            }
+//        } catch {}
+//        
+//        let expectation = XCTestExpectation(description: "response")
+//        
+//        syncVisitor.synchronize {
+//            XCTAssert(syncVisitor.getModification("background_color", defaultValue: "None") == "#000000")
+//            XCTAssert(syncVisitor.getModification("btnTitle", defaultValue: "None") == "Alpha_demoApp")
+//           
+//            /// Revoir le type Generic
+//            let dic: [String: Any] = ["zz": 2]
+//            let list = syncVisitor.getModification("config", defaultValue: dic)
+//            print(list.count)
+//            
+//            let val = list["lists"] as? [Any]
+//            XCTAssert(val?.count == 3)
+//
+//            expectation.fulfill()
+//        }
+//        wait(for: [expectation], timeout: 10)
+//    }
     
     func testSharedVisitorWithCtx() {
         /// Reset

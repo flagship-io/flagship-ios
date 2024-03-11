@@ -14,7 +14,7 @@ let FS_If_ModifiedSince = "If-Modified-Since"
 extension FSService {
     func getFSScript(onGetScript: @escaping (FSBucket?, FlagshipError?) -> Void) {
         if let urlScript = URL(string: String(format: FSGetScript, envId)) {
-            var request = URLRequest(url: urlScript)
+            let request = URLRequest(url: urlScript)
 
             // Manage id last modified
 

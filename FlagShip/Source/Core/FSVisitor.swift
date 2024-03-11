@@ -28,7 +28,7 @@ import Foundation
 @objc public class FSVisitor: NSObject {
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
     /// visitor id
-    public internal(set) var visitorId: String {
+    public internal(set) var visitorId: String  {
         willSet(newValue) {
             self.configManager.updateVisitorId(newValue)
         }
@@ -44,8 +44,6 @@ import Foundation
     public var currentFlags: [String: FSModification] = [:] /// Empty
     /// Context
     var context: FSContext
-    /// Configuration manager
-    var configManager: FSConfigManager
     /// Strategy
     var strategy: FSStrategy?
     /// Has consented
@@ -59,16 +57,17 @@ import Foundation
     // Initial value for the status .CREATED
     var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
     
- 
     // The fetch reason
     var requiredFetchReason: FSFetchReasons = .NONE
     
+    /// Configuration manager
+    var configManager: FSConfigManager
+ 
     // Refonte status
     public internal(set) var fetchStatus: FSFetchStatus = .FETCH_REQUIRED {
         didSet {
             // Trigger the callback
             self._onFetchStatusChanged?(self.fetchStatus, self.requiredFetchReason)
- 
         }
     }
 
@@ -137,7 +136,7 @@ import Foundation
     // Update Context
     // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
-         self._updateContext(context)
+        self._updateContext(context)
     }
     
     // Update context with one
@@ -145,11 +144,9 @@ import Foundation
     //   - key: key for the given value
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
- 
         // self.strategy?.getStrategy().updateContext([key: newValue])
         self._updateContext([key: newValue])
         // self.fetchStatus = .FETCH_REQUIRED
- 
     }
     
     // Update presetContext
@@ -164,7 +161,6 @@ import Foundation
         
         FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_SUCCESS(flagshipContext.rawValue))
         
- 
         // self.strategy?.getStrategy().updateContext([flagshipContext.rawValue: value])
         self._updateContext([flagshipContext.rawValue: value])
         // self.fetchStatus = .FETCH_REQUIRED
@@ -189,7 +185,6 @@ import Foundation
     @objc public func clearContext() {
         self.context.clearContext()
     }
-    
     
     // Send Hits
     // - Parameter T: Hit object

@@ -50,10 +50,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         FSCTools.roundButton(resetBtn)
         FSCTools.roundButton(createBtn)
         createBtn?.isEnabled = false
-
-        for i in 0 ... 3 {
-          //  _ = FlagshipManager.shared.visitor?.getFlag(key: "non-existant-\(i)", defaultValue: false)
-        }
     }
 
     // Hide KeyBoard
@@ -101,6 +97,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 }
 
                 if mode == .BUCKETING {
+                    
                     Flagship.sharedInstance.sharedVisitor?.fetchFlags {
                         self.delegate?.onGetSdkReady()
                     }
