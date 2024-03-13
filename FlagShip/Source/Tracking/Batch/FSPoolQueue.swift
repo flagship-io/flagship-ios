@@ -11,25 +11,35 @@ import Foundation
 class FSQueue<T> {
     private let queuePool = DispatchQueue(label: "batch.queue", attributes: .concurrent)
     
-    public private(set) var listQueue: [T]
+    private var _listQueue: [T]
+    
+    public var listQueue: [T] {
+        get {
+            return queuePool.sync {
+                _listQueue
+            }
+        }
+        set {
+            queuePool.async(flags: .barrier) {
+                self._listQueue = newValue
+            }
+        }
+    }
     
     init() {
-        listQueue = Array()
+        _listQueue = Array()
     }
     
     func enqueue(_ value: T) {
-        queuePool.async(flags: .barrier) {
-            self.listQueue.append(value)
-        }
+        listQueue.append(value)
     }
 
     func dequeue() -> T? {
         guard !listQueue.isEmpty else {
             return nil
         }
-        return queuePool.sync {
-            self.listQueue.removeFirst()
-        }
+   
+        return listQueue.removeFirst()
     }
     
     func removeElement(where shouldBeRemoved: (T) throws -> Bool) rethrows {
@@ -37,16 +47,12 @@ class FSQueue<T> {
     }
     
     func clear() {
-        queuePool.async(flags: .barrier) {
-            self.listQueue.removeAll()
-        }
+        listQueue.removeAll()
     }
     
     /// The number of elements in the array.
     public func count() -> Int {
-        queuePool.sync {
-            listQueue.count
-        }
+        listQueue.count
     }
     
     // Return all elements
