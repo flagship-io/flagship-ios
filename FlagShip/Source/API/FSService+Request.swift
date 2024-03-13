@@ -36,24 +36,26 @@ extension FSService {
         }
         
         serviceSession.dataTask(with: request) { data, response, error in
-            
-            if error != nil {
-                onCompleted(nil, error)
-                
-                FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
-            } else {
-                if let httpResponse = response as? HTTPURLResponse {
-                    if (200 ... 299).contains(httpResponse.statusCode) {
-                        onCompleted(data, nil)
-                        
-                    } else {
-                        FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
-                        onCompleted(nil, FlagshipError(type: .sendRequest, code: httpResponse.statusCode))
-                    }
+            DispatchQueue.main.async {
+                if error != nil {
+                    onCompleted(nil, error)
+                    
+                    FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
                 } else {
-                    onCompleted(nil, FlagshipError(type: .sendRequest, code: 400))
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if (200 ... 299).contains(httpResponse.statusCode) {
+                            onCompleted(data, nil)
+                            
+                        } else {
+                            FSDataUsageTracking.sharedInstance.processTSHttpError(requestType: type, response as? HTTPURLResponse, request, data)
+                            onCompleted(nil, FlagshipError(type: .sendRequest, code: httpResponse.statusCode))
+                        }
+                    } else {
+                        onCompleted(nil, FlagshipError(type: .sendRequest, code: 400))
+                    }
                 }
             }
+            
         }.resume()
     }
 }

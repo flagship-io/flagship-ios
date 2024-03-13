@@ -9,6 +9,8 @@
 import Foundation
 
 class FSQueue<T> {
+    private let queuePool = DispatchQueue(label: "batch.queue", attributes: .concurrent)
+    
     public private(set) var listQueue: [T]
     
     init() {
@@ -16,14 +18,18 @@ class FSQueue<T> {
     }
     
     func enqueue(_ value: T) {
-        listQueue.append(value)
+        queuePool.async(flags: .barrier) {
+            self.listQueue.append(value)
+        }
     }
 
     func dequeue() -> T? {
         guard !listQueue.isEmpty else {
             return nil
         }
-        return listQueue.removeFirst()
+        return queuePool.sync {
+            self.listQueue.removeFirst()
+        }
     }
     
     func removeElement(where shouldBeRemoved: (T) throws -> Bool) rethrows {
@@ -31,12 +37,16 @@ class FSQueue<T> {
     }
     
     func clear() {
-        listQueue.removeAll()
+        queuePool.async(flags: .barrier) {
+            self.listQueue.removeAll()
+        }
     }
     
     /// The number of elements in the array.
     public func count() -> Int {
-        return listQueue.count
+        queuePool.sync {
+            listQueue.count
+        }
     }
     
     // Return all elements
@@ -111,6 +121,6 @@ class FlagshipPoolQueue {
     }
     
     func isEmpty() -> Bool {
-        return (fsQueue.count() == 0)
+        return fsQueue.count() == 0
     }
 }
