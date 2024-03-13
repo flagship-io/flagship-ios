@@ -52,7 +52,7 @@ class FSQueue<T> {
     
     /// The number of elements in the array.
     public func count() -> Int {
-        listQueue.count
+        return listQueue.count
     }
     
     // Return all elements
