@@ -38,13 +38,19 @@ final class FSTrackingManagerTest: XCTestCase {
     }
 
     func testSendHitWithSuccess() {
+        let expectationSync = XCTestExpectation(description: "testSendHitWithSuccess")
+
         MockURLProtocol.requestHandler = { _ in
             let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, nil)
         }
         trackingManager?.sendHit(testEvent)
-        sleep(1)
-        XCTAssertTrue(trackingManager?.failedIds.isEmpty == true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssertTrue(self.trackingManager?.failedIds.isEmpty == true)
+            expectationSync.fulfill()
+        }
+        wait(for: [expectationSync], timeout: 6.0)
+        
     }
 
     func testSendHitWithFailed() {
@@ -53,7 +59,7 @@ final class FSTrackingManagerTest: XCTestCase {
             return (response, nil)
         }
 
-        let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
+        let expectationSync = XCTestExpectation(description: "testSendHitWithFailed")
 
         trackingManager?.sendHit(testEvent)
 
