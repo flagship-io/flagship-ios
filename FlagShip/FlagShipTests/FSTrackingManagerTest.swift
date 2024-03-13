@@ -38,13 +38,19 @@ final class FSTrackingManagerTest: XCTestCase {
     }
 
     func testSendHitWithSuccess() {
+        let expectationSync = XCTestExpectation(description: "testSendHitWithSuccess")
+
         MockURLProtocol.requestHandler = { _ in
             let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
             return (response, nil)
         }
         trackingManager?.sendHit(testEvent)
-        sleep(1)
-        XCTAssertTrue(trackingManager?.failedIds.isEmpty == true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssertTrue(self.trackingManager?.failedIds.isEmpty == true)
+            expectationSync.fulfill()
+        }
+        wait(for: [expectationSync], timeout: 6.0)
+        
     }
 
     func testSendHitWithFailed() {
@@ -52,24 +58,27 @@ final class FSTrackingManagerTest: XCTestCase {
             let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 400, httpVersion: nil, headerFields: nil)!
             return (response, nil)
         }
+
+        let expectationSync = XCTestExpectation(description: "testSendHitWithFailed")
+
         trackingManager?.sendHit(testEvent)
 
-        sleep(1)
-
-        XCTAssertTrue(trackingManager?.failedIds.isEmpty == false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssertTrue(self.trackingManager?.failedIds.isEmpty == false)
+            expectationSync.fulfill()
+        }
+        wait(for: [expectationSync], timeout: 6.0)
     }
 
     func testAddTrackingElementsToBatch() {
-        
-        
         // Create FSModification
-        
-       let camp =  FSCampaign("campId", "campName", "groupId", "groupName", "A/B", "slugg")
-        
+
+        let camp = FSCampaign("campId", "campName", "groupId", "groupName", "A/B", "slugg")
+
         let variation = FSVariation(idVariation: "varId", variationName: "varName", nil, isReference: false)
-        
+
         let modif = FSModification(aCampaign: camp, aVariation: variation, valueForFlag: 12)
-        
+
         // Test the activate
         let activateTest = Activate("vid", nil, modification: modif)
         XCTAssertTrue(activateTest.description().count > 0)

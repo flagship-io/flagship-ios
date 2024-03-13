@@ -16,10 +16,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        for i in 0 ... 3 {
+            _ = FlagshipManager.shared.visitor?.getFlag(key: "btnColor", defaultValue: "dfl")
+        }
     }
     
     @IBAction func startQA() {
-        
         // Create FSTrackingManagerConfig
         // - Time Intreval : 20
         // - Maximum size pool : 20
@@ -29,8 +31,7 @@ class ViewController: UIViewController {
         
         // Create FlagshipConfig
         
-       
-        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager( FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
+        let conf: FlagshipConfig = FSConfigBuilder().withTrackingManagerConfig(trackingConfig).withCacheManager(FSCacheManager(visitorLookupTimeOut: 30, hitCacheLookupTimeout: 40)).build()
         
         // Start the SDK Flagship
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: conf)

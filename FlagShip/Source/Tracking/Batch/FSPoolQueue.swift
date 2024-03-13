@@ -9,10 +9,25 @@
 import Foundation
 
 class FSQueue<T> {
-    public private(set) var listQueue: [T]
+    private let queuePool = DispatchQueue(label: "batch.queue", attributes: .concurrent)
+    
+    private var _listQueue: [T]
+    
+    public var listQueue: [T] {
+        get {
+            return queuePool.sync {
+                _listQueue
+            }
+        }
+        set {
+            queuePool.async(flags: .barrier) {
+                self._listQueue = newValue
+            }
+        }
+    }
     
     init() {
-        listQueue = Array()
+        _listQueue = Array()
     }
     
     func enqueue(_ value: T) {
@@ -23,6 +38,7 @@ class FSQueue<T> {
         guard !listQueue.isEmpty else {
             return nil
         }
+   
         return listQueue.removeFirst()
     }
     
@@ -111,6 +127,6 @@ class FlagshipPoolQueue {
     }
     
     func isEmpty() -> Bool {
-        return (fsQueue.count() == 0)
+        return fsQueue.count() == 0
     }
 }
