@@ -8,6 +8,9 @@
 import Foundation
 import SQLite3
 
+// Bucketing josn file reprsenting all the campaigns
+let BucketScript = "bucket_%@.json"
+
 class FSStorageManager {
     // Save the bucket script in the cache
     class func saveBucketScriptInCache(_ data: Data?) {
@@ -15,7 +18,10 @@ class FSStorageManager {
             DispatchQueue(label: "flagShip.saveCampaign.queue", qos: .background, attributes: .concurrent, autoreleaseFrequency: .inherit, target: nil).async {
                 let urlForCache: URL? = self.createUrlForCache()
 
-                guard let url = urlForCache?.appendingPathComponent("bucket.json") else {
+                // Format the name for the jsonFile
+                let nmaeBucketingFile = String(format: BucketScript, Flagship.sharedInstance.envId ?? "")
+
+                guard let url = urlForCache?.appendingPathComponent(nmaeBucketingFile) else {
                     FlagshipLogManager.Log(level: .ERROR, tag: .EXCEPTION, messageToDisplay: FSLogMessage.MESSAGE("Failed to save Bucket script"))
                     return
                 }
@@ -39,8 +45,10 @@ class FSStorageManager {
         if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
             url.appendPathComponent("FlagShipCampaign", isDirectory: true)
+
             // add file name
-            url.appendPathComponent("bucket.json")
+            let nmaeBucketingFile = String(format: BucketScript, Flagship.sharedInstance.envId ?? "")
+            url.appendPathComponent(nmaeBucketingFile)
 
             if FileManager.default.fileExists(atPath: url.path) == true {
                 do {

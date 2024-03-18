@@ -42,7 +42,7 @@ class FlagshipManager {
             envId: "bkk9glocmjcg0vtmdlng",
             apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
             config: FSConfigBuilder()
-                .DecisionApi()
+                .Bucketing()
                 .withLogLevel(.ALL)
                 .build()
         )
