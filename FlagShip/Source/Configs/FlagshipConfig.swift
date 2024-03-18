@@ -9,7 +9,8 @@ import Foundation
 
 public let FSTimeoutRequestApi = 2.0
 
-public let FSPollingTime = 60.0 /// 60 seconds
+/// TODO redo the value
+public let FSPollingTime = 6.0 /// 60 seconds
 
 public enum FSMode: Int {
     case DECISION_API = 1

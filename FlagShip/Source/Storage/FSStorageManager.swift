@@ -10,6 +10,8 @@ import SQLite3
 
 // Bucketing josn file reprsenting all the campaigns
 let BucketScript = "bucket_%@.json"
+// Flagship directiry to save script of bucketing
+let FlagShipCampaignDirectory = "FlagShipCampaign"
 
 class FSStorageManager {
     // Save the bucket script in the cache
@@ -99,10 +101,11 @@ class FSStorageManager {
     class func bucketingScriptAlreadyAvailable() -> Bool {
         if var url: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             // Path
-            url.appendPathComponent("FlagShipCampaign", isDirectory: true)
-            // add file name
-            url.appendPathComponent("bucket.json")
-
+            url.appendPathComponent(FlagShipCampaignDirectory, isDirectory: true)
+            // Add file name
+            // Format the name for the jsonFile
+            let bucketingFileName = String(format: BucketScript, Flagship.sharedInstance.envId ?? "")
+            url.appendPathComponent(bucketingFileName)
             return FileManager.default.fileExists(atPath: url.path)
         }
         return false

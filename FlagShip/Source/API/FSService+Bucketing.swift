@@ -8,7 +8,7 @@
 import Foundation
 
 let FSLastModified = "Last-Modified"
-let FSLastModified_Key = "FSLastModifiedScript"
+let FSLastModified_Key = "fs_lastModifiedScript_%@"
 let FS_If_ModifiedSince = "If-Modified-Since"
 
 extension FSService {
@@ -17,8 +17,9 @@ extension FSService {
             var request = URLRequest(url: urlScript)
 
             // Manage id last modified
-
-            let dateModified: String? = UserDefaults.standard.value(forKey: FSLastModified_Key) as? String
+            // Format key
+            let lastModifiedKey = String(format: FSLastModified_Key, Flagship.sharedInstance.envId ?? "")
+            let dateModified: String? = UserDefaults.standard.value(forKey: lastModifiedKey) as? String
 
             if dateModified != nil {
                 #warning("uncomment this line later")
@@ -76,8 +77,9 @@ extension FSService {
             FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.ERROR_HEADER)
             return
         }
+        let lastModifiedKey = String(format: FSLastModified_Key, Flagship.sharedInstance.envId ?? "")
 
         // Save this date into userDefault
-        UserDefaults.standard.set(lastModified, forKey: FSLastModified_Key)
+        UserDefaults.standard.set(lastModified, forKey: lastModifiedKey)
     }
 }
