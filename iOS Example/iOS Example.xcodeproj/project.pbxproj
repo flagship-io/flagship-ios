@@ -84,6 +84,8 @@
 		F5DAF68C2A176BA500C0B140 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68A2A176BA500C0B140 /* Main.storyboard */; };
 		F5DAF68E2A176BA600C0B140 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68D2A176BA600C0B140 /* Assets.xcassets */; };
 		F5DAF6912A176BA600C0B140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */; };
+		F5E5539B2BA99B26004ED340 /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; };
+		F5E5539C2BA99B26004ED340 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -94,6 +96,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8BF2DE04256BEDD9005FF664 /* Flagship.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5E5539D2BA99B26004ED340 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5E5539C2BA99B26004ED340 /* Flagship.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +219,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E5539B2BA99B26004ED340 /* Flagship.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,12 +526,15 @@
 				F5DAF67E2A176BA500C0B140 /* Sources */,
 				F5DAF67F2A176BA500C0B140 /* Frameworks */,
 				F5DAF6802A176BA500C0B140 /* Resources */,
+				F5E5539D2BA99B26004ED340 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SmartQA;
+			packageProductDependencies = (
+			);
 			productName = SmartQA;
 			productReference = F5DAF6822A176BA500C0B140 /* SmartQA.app */;
 			productType = "com.apple.product-type.application";
@@ -832,7 +849,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				INFOPLIST_FILE = QApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -840,7 +857,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.2;
-				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.topChef;
+				PRODUCT_BUNDLE_IDENTIFIER = fs.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -859,7 +876,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				INFOPLIST_FILE = QApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -867,7 +884,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 3.2;
-				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.topChef;
+				PRODUCT_BUNDLE_IDENTIFIER = fs.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
@@ -885,7 +902,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartQA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -916,7 +933,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5RY8QCBAEP;
+				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SmartQA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -24,6 +24,7 @@ class FSQLiteWrapper {
     // The database pointer.
     
     let fs_db_queue = DispatchQueue(label: "com.flagship.db_queue", attributes: .concurrent)
+    
 
     internal var db_opaquePointer: OpaquePointer? {
         get {
@@ -38,10 +39,26 @@ class FSQLiteWrapper {
         }
     }
     
+    
+    internal var readPointer: OpaquePointer? {
+        get {
+            return fs_db_queue.sync {
+                _readPointer
+            }
+        }
+        set {
+            fs_db_queue.async(flags: .barrier) {
+                self._readPointer = newValue
+            }
+        }
+    }
+    
+    
+    
     var _db_opaquePointer: OpaquePointer?
     var recordPointer: OpaquePointer?
     var deletePointer: OpaquePointer?
-    var readPointer: OpaquePointer?
+    var _readPointer: OpaquePointer?
     
     public init(_ dataBaseType: FSDatabaseType) {
         if let rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {

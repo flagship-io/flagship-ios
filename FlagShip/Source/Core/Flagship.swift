@@ -91,9 +91,9 @@ public class Flagship: NSObject {
         
         if hasConsented {
             // Read the cached visitor
-            newVisitor.strategy?.getStrategy().lookupVisitor() /// See later for optimize
-            //
-            newVisitor.strategy?.getStrategy().lookupHits() /// See later for optimize
+            newVisitor.strategy?.getStrategy().lookupVisitor()
+            // Read the cacheed hits from data base
+            newVisitor.strategy?.getStrategy().lookupHits() 
 
         } else {
             // user not consent then flush the cache related
