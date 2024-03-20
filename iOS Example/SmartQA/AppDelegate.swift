@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        FlagshipManager.shared.start()
+         
         return true
     }
 
@@ -33,26 +33,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-class FlagshipManager {
-    static let shared = FlagshipManager()
-    var visitor: FSVisitor?
-
-    func start() {
-        Flagship.sharedInstance.start(
-            envId: "bkk9glocmjcg0vtmdlng",
-            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
-            config: FSConfigBuilder()
-                .Bucketing()
-                .withLogLevel(.ALL)
-                .build()
-        )
-
-        visitor = Flagship.sharedInstance.newVisitor(visitorId: "user", hasConsented: true)
-            .isAuthenticated(true)
-            .build()
-
-        visitor?.fetchFlags {
-            print("xox fetch finished")
-        }
-    }
-}
+ 

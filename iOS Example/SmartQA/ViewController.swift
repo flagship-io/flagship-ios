@@ -19,12 +19,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func startQA() {
-        for i in 0 ... 3 {
-            _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "false").visitorExposed()
-            
-            _ = FlagshipManager.shared.visitor?.sendHit(FSScreen("location"))
-
-        }
+ 
         
         // Create FSTrackingManagerConfig
         // - Time Intreval : 20
@@ -59,10 +54,6 @@ class ViewController: UIViewController {
     /// Add one more activate
     @IBAction func activate() {
         // Print state for the flag
- 
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            print(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue)
-        }
     }
     
     @IBAction func sendHits() {

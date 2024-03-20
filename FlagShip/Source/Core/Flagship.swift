@@ -138,7 +138,7 @@ public class Flagship: NSObject {
         // Update the status
         currentStatus = newStatus
         // Trigger the callback
-        if let callbackListener = currentConfig.onStatusChanged {
+        if let callbackListener = currentConfig.onSdkStatusChanged {
             callbackListener(newStatus)
         }
     }

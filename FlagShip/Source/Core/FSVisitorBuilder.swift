@@ -38,11 +38,6 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ rea
         _hasConsented = hasConsented
     }
     
-//    @objc public func hasConsented(hasConsented: Bool)->FSVisitorBuilder {
-//        _hasConsented = hasConsented
-//        return self
-//    }
-    
     @objc public func withContext(context: [String: Any])->FSVisitorBuilder {
         _context = context
         return self

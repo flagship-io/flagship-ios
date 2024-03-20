@@ -28,7 +28,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     var timeout: TimeInterval
     var logLevel: FSLevel = .ALL
     var pollingTime: TimeInterval = FSPollingTime
-    var onStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil
+    var onSdkStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil
     var trackingConfig: FSTrackingManagerConfig
     var onVisitorExposed: OnVisitorExposed = nil
     
@@ -51,7 +51,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
         self.logLevel = logLevel
         self.pollingTime = pollingTime
         self.cacheManager = cacheManager
-        self.onStatusChanged = onStatusChanged
+        self.onSdkStatusChanged = onStatusChanged
         self.trackingConfig = trackingConfig
         self.onVisitorExposed = onVisitorExposed
         self.disableDeveloperUsageTracking = disableDeveloperUsageTracking
