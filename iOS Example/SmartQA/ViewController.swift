@@ -65,14 +65,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1000
+        return 100
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_bannerA", defaultValue: false).value()
         // Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
         
-        for i in 0 ... 1000 {
+        for i in 0 ... 3 {
             Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
         }
     }

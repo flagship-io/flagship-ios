@@ -9,9 +9,7 @@
 import Foundation
 import SQLite3
 
-
 class FSTrackingDbMgt: FSQLiteWrapper {
-    
     public init() {
         super.init(.DatabaseTracking)
     }
@@ -58,7 +56,6 @@ class FSTrackingDbMgt: FSQLiteWrapper {
                                 }
                             } catch {
                                 FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Error on decode dataRawColl"))
-
                             }
                         }
                     }
@@ -66,6 +63,7 @@ class FSTrackingDbMgt: FSQLiteWrapper {
             }
             sqlite3_finalize(readPointer)
         }
+
         return result
     }
 }

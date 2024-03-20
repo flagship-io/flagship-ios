@@ -12,15 +12,6 @@ class ContinuousTrackingManager: FSTrackingManager {
     // Create batch manager
     override init(_ pService: FSService, _ pTrackingConfig: FSTrackingManagerConfig, _ pCacheManager: FSCacheManager) {
         super.init(pService, pTrackingConfig, pCacheManager)
-
-//        // Get the remained hit
-//        cacheManager?.lookupHits(onCompletion: { error, remainedHits in
-//            if error == nil {
-//                if let aRemainedHits = remainedHits {
-//                    self.batchManager.reInjectElements(listToReInject: aRemainedHits)
-//                }
-//            }
-//        })
     }
 
     // SEND HIT ---------------------//
