@@ -12,6 +12,15 @@ public class FSFlag: NSObject {
     var key: String
     var defaultValue: Any?
     var strategy: FSStrategy?
+    private var _status: FSFlagStatus {
+        return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
+    }
+    
+    public var status: FSFlagStatus {
+        return _status
+ 
+    } 
+ 
     
     init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
         key = aKey

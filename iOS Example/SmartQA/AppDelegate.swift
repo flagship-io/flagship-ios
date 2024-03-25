@@ -14,8 +14,11 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
-        FlagshipManager.shared.start()
+        
+        do {
+            var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            print(" -- The url path : \(url.absoluteString)")
+        } catch {}
 
         return true
     }
@@ -32,33 +35,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-}
-
-class FlagshipManager {
-    static let shared = FlagshipManager()
-    var visitor: FSVisitor?
-
-    func start() {
-        Flagship.sharedInstance.start(
-            envId: "bkk9glocmjcg0vtmdlng",
-            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
-            config: FSConfigBuilder()
-                .DecisionApi()
-                .withLogLevel(.ALL)
-                .build()
-        )
-
-        visitor = Flagship.sharedInstance.newVisitor("foo")
-            .isAuthenticated(true)
-            .hasConsented(hasConsented: true)
-            .build()
-
-        visitor?.fetchFlags {
-            print("xox fetch finished")
-            for i in 0 ... 3 {
-                _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "dfl").visitorExposed()
-            }
-        }
     }
 }

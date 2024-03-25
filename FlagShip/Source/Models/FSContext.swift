@@ -5,7 +5,7 @@
 //  Created by Adel on 07/09/2021.
 //
 
-internal class FSContext {
+class FSContext {
     private var _currentContext: [String: Any] = [:]
     
     init(_ contextValues: [String: Any]) {

@@ -22,14 +22,14 @@ class FSVisitorBuilderTest: XCTestCase {
     func testBuilder(){
         
         Flagship.sharedInstance.reset()
-        let visitorToTest = Flagship.sharedInstance.newVisitor("vistorTest").build()
+        let visitorToTest = Flagship.sharedInstance.newVisitor(visitorId: "vistorTest", hasConsented: true).build()
         /// Check the consent if true by default
         XCTAssertTrue(visitorToTest.hasConsented == true)
         XCTAssertTrue(visitorToTest.visitorId == "vistorTest")
         
         /// create another visitor
         Flagship.sharedInstance.reset()
-        let visitorToTestBis = Flagship.sharedInstance.newVisitor("vistorTestBis", instanceType: .NEW_INSTANCE).hasConsented(hasConsented: false).build()
+        let visitorToTestBis = Flagship.sharedInstance.newVisitor(visitorId: "vistorTestBis",hasConsented: false, instanceType: .NEW_INSTANCE).build()
         XCTAssertTrue(visitorToTestBis.hasConsented == false)
         XCTAssertTrue(visitorToTestBis.visitorId == "vistorTestBis")
         XCTAssertNil(Flagship.sharedInstance.sharedVisitor)
