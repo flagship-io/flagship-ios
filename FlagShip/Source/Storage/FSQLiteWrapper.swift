@@ -13,7 +13,7 @@ import SQLite3
 let VISITOR_DATA_BASE = "visitor_database.db"
 let TRACKING_DATA_BASE = "tracking_database.db"
 
-internal enum FSDatabaseType: String {
+enum FSDatabaseType: String {
     case DatabaseTracking = "table_visitors"
     case DatabaseVisitor = "table_tracking"
 }
@@ -22,10 +22,14 @@ class FSQLiteWrapper {
     // Get the URL to db store file
     var flagship_db_URL: URL
     // The database pointer.
+    var _db_opaquePointer: OpaquePointer?
+    var _readPointer: OpaquePointer?
+    var recordPointer: OpaquePointer?
+    var deletePointer: OpaquePointer?
     
     let fs_db_queue = DispatchQueue(label: "com.flagship.db_queue", attributes: .concurrent)
-
-    internal var db_opaquePointer: OpaquePointer? {
+    
+    var db_opaquePointer: OpaquePointer? {
         get {
             return fs_db_queue.sync {
                 _db_opaquePointer
@@ -38,10 +42,18 @@ class FSQLiteWrapper {
         }
     }
     
-    var _db_opaquePointer: OpaquePointer?
-    var recordPointer: OpaquePointer?
-    var deletePointer: OpaquePointer?
-    var readPointer: OpaquePointer?
+    var readPointer: OpaquePointer? {
+        get {
+            return fs_db_queue.sync {
+                _readPointer
+            }
+        }
+        set {
+            fs_db_queue.async(flags: .barrier) {
+                self._readPointer = newValue
+            }
+        }
+    }
     
     public init(_ dataBaseType: FSDatabaseType) {
         if let rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {
@@ -80,7 +92,7 @@ class FSQLiteWrapper {
     }
     
     // INSERT/CREATE operation prepared statement
-    internal func prepareInsertEntryStmt() -> Int32 {
+    func prepareInsertEntryStmt() -> Int32 {
         guard recordPointer == nil else { return SQLITE_OK }
         let sql = "INSERT INTO table_hits (id, data_hit) VALUES (?,?)"
         // preparing the query
@@ -125,7 +137,7 @@ class FSQLiteWrapper {
     }
     
     // DELETE operation
-    internal func prepareDeleteEntryStmt() -> Int32 {
+    func prepareDeleteEntryStmt() -> Int32 {
         guard deletePointer == nil else { return SQLITE_OK }
         let sql = "DELETE FROM table_hits WHERE id = ?"
         // preparing the query
@@ -160,7 +172,7 @@ class FSQLiteWrapper {
     }
     
     // DELETE operation prepared statement
-    internal func prepareDeleteAllStmt() -> Int32 {
+    func prepareDeleteAllStmt() -> Int32 {
         guard deletePointer == nil else { return SQLITE_OK }
         let sql = "DELETE FROM table_hits"
         // preparing the query

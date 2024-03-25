@@ -38,7 +38,7 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         return r
     }
 
-    // Read hits from database
+    // Read visitor from database
     public func readVisitorFromDB(_ visitorId: String) -> Data? {
         let queryStatementString = "SELECT * FROM table_visitors WHERE id = '\(visitorId)';"
         if sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &readPointer, nil) == SQLITE_OK {

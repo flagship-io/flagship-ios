@@ -15,8 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
-        FlagshipManager.shared.start()
-
+        do {
+            var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            print(" -- The url path : \(url.absoluteString)")
+        } catch {}
         return true
     }
 
@@ -35,30 +37,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-class FlagshipManager {
-    static let shared = FlagshipManager()
-    var visitor: FSVisitor?
-
-    func start() {
-        Flagship.sharedInstance.start(
-            envId: "bkk9glocmjcg0vtmdlng",
-            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
-            config: FSConfigBuilder()
-                .DecisionApi()
-                .withLogLevel(.ALL)
-                .build()
-        )
-
-        visitor = Flagship.sharedInstance.newVisitor("foo")
-            .isAuthenticated(true)
-            .hasConsented(hasConsented: true)
-            .build()
-
-        visitor?.fetchFlags {
-            print("xox fetch finished")
-            for i in 0 ... 3 {
-                _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "dfl").visitorExposed()
-            }
-        }
-    }
-}
+//class FlagshipManager {
+//    static let shared = FlagshipManager()
+//    var visitor: FSVisitor?
+//
+//    func start() {
+//        Flagship.sharedInstance.start(
+//            envId: "bkk9glocmjcg0vtmdlng",
+//            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
+//            config: FSConfigBuilder()
+//                .DecisionApi()
+//                .withLogLevel(.ALL)
+//                .build()
+//        )
+//
+//        visitor = Flagship.sharedInstance.newVisitor("foo")
+//            .isAuthenticated(true)
+//            .hasConsented(hasConsented: true)
+//            .build()
+//
+//        visitor?.fetchFlags {
+//            print("xox fetch finished")
+//            for i in 0 ... 3 {
+//                _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "dfl").visitorExposed()
+//            }
+//        }
+//    }
+//}

@@ -12,48 +12,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     // Create batch manager
     override init(_ pService: FSService, _ pTrackingConfig: FSTrackingManagerConfig, _ pCacheManager: FSCacheManager) {
         super.init(pService, pTrackingConfig, pCacheManager)
-
-        // Get the remained hit
-        cacheManager?.lookupHits(onCompletion: { error, remainedHits in
-            if error == nil {
-                if let aRemainedHits = remainedHits {
-                    self.batchManager.reInjectElements(listToReInject: aRemainedHits)
-                }
-            }
-        })
     }
-
-//    /// Add Tracking element to batch - from the lookup hits
-//    override func addTrackingElementsToBatch(_ listOfTracking: [FSTrackingProtocol]) {
-//        // Retreive the hits
-//        var cachedHits: [FSTrackingProtocol] = []
-//        var cachedActivate: [FSTrackingProtocol] = []
-//
-//        listOfTracking.forEach { item in
-//
-//            if item.type == .ACTIVATE {
-//                cachedActivate.append(item)
-//            } else {
-//                cachedHits.append(item)
-//            }
-//        }
-//
-//        if !cachedHits.isEmpty {
-//            // Send batch
-//            let batchForCached = FSBatch(cachedHits)
-//            self.processHitsBatching(batchToSend: batchForCached)
-//        }
-//
-//        if !cachedActivate.isEmpty {
-//            let batchForCachedActivate = ActivateBatch(pCurrentActivate: nil)
-//            batchForCachedActivate.addListOfElement(cachedActivate)
-//            service.activate(batchForCachedActivate.bodyTrack) { error in
-//                if error != nil {
-//                    self.onFailedToSendActivate(batchForCachedActivate)
-//                }
-//            }
-//        }
-//    }
 
     // SEND HIT ---------------------//
     override func sendHit(_ hitToSend: FSTrackingProtocol) {
