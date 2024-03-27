@@ -46,8 +46,8 @@ class FlagshipBucketingTest: XCTestCase {
     func testBucketingWithSuccess() {
         let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
-        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
-            if newStatus == .READY {
+        fsConfig = FSConfigBuilder().Bucketing().withStatusListener { newStatus in
+            if newStatus == .SDK_INITIALIZED {
                 print("Polling is done, we can fetch the flags")
                 self.testVisitor?.fetchFlags(onFetchCompleted: {
                     // Get from alloc 100
@@ -74,7 +74,7 @@ class FlagshipBucketingTest: XCTestCase {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).build()
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 
@@ -85,7 +85,7 @@ class FlagshipBucketingTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "testBucketingWithFailedTargeting")
         
         fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).withStatusListener { newStatus in
-            if newStatus == .READY {
+            if newStatus == .SDK_INITIALIZED {
                 print("Polling is done, we can fetch the flags")
                 self.testVisitor?.fetchFlags {
                     // Get from alloc 100
@@ -99,7 +99,7 @@ class FlagshipBucketingTest: XCTestCase {
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("korso").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).build()
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 

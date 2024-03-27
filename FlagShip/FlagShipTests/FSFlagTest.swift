@@ -41,7 +41,7 @@ class FSFlagTest: XCTestCase {
         }
         
         // Create Visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias",hasConsented: true).build()
         // Check if the flagsync is Created
         XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
         // Set fake session
@@ -116,7 +116,7 @@ class FSFlagTest: XCTestCase {
     }
     
     func testFlagSyncStatus() {
-        let syncUser = Flagship.sharedInstance.newVisitor("userSync", instanceType: .NEW_INSTANCE).build()
+        let syncUser = Flagship.sharedInstance.newVisitor(visitorId: "userSync",hasConsented: true, instanceType: .NEW_INSTANCE).build()
         XCTAssertTrue(syncUser.flagSyncStatus == .CREATED)
         // Update context
         syncUser.updateContext(["keySync": "valSync"])
@@ -149,7 +149,7 @@ class FSFlagTest: XCTestCase {
         }
         
         testVisitor?.fetchFlags {
-            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .PANIC_ON)
+            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .SDK_PANIC)
             
             if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "defaultValue") {
                 XCTAssertTrue(flag.value() as? String == "defaultValue")

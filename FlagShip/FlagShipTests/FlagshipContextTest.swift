@@ -22,7 +22,7 @@ class FlagshipContextTest: XCTestCase {
         
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
         
-        let visitorCtx = Flagship.sharedInstance.newVisitor("aliasCtx").build()
+        let visitorCtx = Flagship.sharedInstance.newVisitor(visitorId: "aliasCtx", hasConsented: true).build()
         
         
          

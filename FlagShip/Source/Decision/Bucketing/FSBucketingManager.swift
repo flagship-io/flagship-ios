@@ -10,7 +10,7 @@ import Foundation
 let SemaphoreTimeOut: TimeInterval = 2
 
 class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
-    var pollingScript: FSPollingScript?
+   // var pollingScript: FSPollingScript?
     var _scriptBucket: FSBucket?
     var _scriptError: FlagshipError?
     var targetManager: FSTargetingManager
@@ -49,12 +49,14 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         self.targetManager = FSTargetingManager()
 
         super.init(service: service, userId: userId, currentContext: currentContext)
-
-        // Create polling script
-        self.pollingScript = FSPollingScript(service: super.networkService, pollingTime: pollingTime, delegate: self)
-
-        // Launch the script
-        launchPolling()
+        
+        /// Get the initial stored script ... before the to start listen 
+        if let storedBucket = FSStorageManager.readBucketFromCache() {
+            self.scriptBucket = storedBucket
+        }
+ 
+        /// Add observer to listen "onGetScriptNotification"
+        NotificationCenter.default.addObserver(self, selector: #selector(onGetNotification), name: NSNotification.Name(FSBucketingScriptNotification), object: nil)
     }
 
     override func getCampaigns(_ currentContext: [String: Any], withConsent: Bool, _ pAssignationHistory: [String: String] = [:], completion: @escaping (FSCampaigns?, Error?) -> Void) {
@@ -75,7 +77,7 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
 
     /// Launch polling
     override func launchPolling() {
-        pollingScript?.launchPolling()
+        //pollingScript?.launchPolling()
     }
 
     /// Delegate -- The polling process will trigger this callback
@@ -83,13 +85,24 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
         /// Update the status
 
         if let aNewBuckting = newBucketing {
-            Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .PANIC_ON : .READY)
+            // Refonte status
+            Flagship.sharedInstance.updateStatus(aNewBuckting.panic ? .SDK_NOT_INITIALIZED : .SDK_INITIALIZED)
+ 
         }
-
         /// Update bucketing
         scriptBucket = newBucketing
         /// Update script error
         scriptError = error
+    }
+
+    @objc private func onGetNotification(_ notification: Notification) {
+        // Get the object
+        if let aScriptBucket = notification.object as? FSBucket {
+            Flagship.sharedInstance.updateStatus(aScriptBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+            
+            /// Update bucketing
+            scriptBucket = aScriptBucket
+        }
     }
 
     /// This is the entry for bucketing , that give the campaign infos as we do in api decesion
