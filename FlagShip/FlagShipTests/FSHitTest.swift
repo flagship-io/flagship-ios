@@ -44,7 +44,7 @@ final class FSHitTest: XCTestCase {
 
     func testModelHit() {
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdhdf", apiKey: "apikey")
-        let testVisiteur = Flagship.sharedInstance.newVisitor("userTest").build()
+        let testVisiteur = Flagship.sharedInstance.newVisitor(visitorId: "userTest", hasConsented: true).build()
 
         let pageTest = FSPage("testLocation")
         let screenTest = FSScreen("screenLocationTest")

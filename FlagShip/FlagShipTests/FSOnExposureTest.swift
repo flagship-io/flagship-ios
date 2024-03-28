@@ -52,7 +52,7 @@ final class FSOnExposureTest: XCTestCase {
         }
 
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("onVisitorCallBackTest").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "onVisitorCallBackTest", hasConsented: true).build()
         /// Set fake session
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession

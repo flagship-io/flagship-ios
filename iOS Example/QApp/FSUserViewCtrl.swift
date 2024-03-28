@@ -110,10 +110,7 @@ class FSUserViewCtrl: UIViewController {
     /// Synchronize
     @IBAction func synchronize(){
         
-        Flagship.sharedInstance.sharedVisitor?.synchronize(onSyncCompleted: {()  in
-            
-            
-        })
+    
     }
     
     

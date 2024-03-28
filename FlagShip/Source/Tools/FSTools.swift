@@ -15,7 +15,7 @@ import SystemConfiguration
 
 let FSLengthId = 20
 
-internal class FSTools: NSObject {
+class FSTools: NSObject {
 #if os(watchOS)
     static var available = false
     static let monitor = NWPathMonitor(requiredInterfaceType: .wifi)
@@ -82,5 +82,13 @@ internal class FSTools: NSObject {
 
     class func generateUuidv4() -> String {
         return UUID().uuidString
+    }
+
+    // Get UTC timestamp
+    class func getUtcTimestamp() -> String {
+        let formatDate = DateFormatter()
+        formatDate.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        formatDate.timeZone = TimeZone(abbreviation: "UTC")
+        return formatDate.string(from: Date())
     }
 }

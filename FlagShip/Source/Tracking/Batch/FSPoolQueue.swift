@@ -9,10 +9,11 @@
 import Foundation
 
 class FSQueue<T> {
+
     private let queuePool = DispatchQueue(label: "batch.queue", attributes: .concurrent)
     
     private var _listQueue: [T]
-    
+
     public var listQueue: [T] {
         get {
             return queuePool.sync {
@@ -25,8 +26,8 @@ class FSQueue<T> {
             }
         }
     }
-    
     init() {
+ 
         _listQueue = Array()
     }
     

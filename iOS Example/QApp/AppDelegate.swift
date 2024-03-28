@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XNLogger.shared.startLogging()
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithReqst = false
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithResp = false
-
         registerSettingsBundle()
 
         do {

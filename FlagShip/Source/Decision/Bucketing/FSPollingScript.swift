@@ -11,22 +11,19 @@ protocol FSPollingScriptDelegate {
     func onGetScript(_ newBucketing: FSBucket?, _ error: FlagshipError?)
 }
 
+// This class responsible of fetching the bucketing file
 class FSPollingScript {
-    // This class responsible for fetching the script
-
     var pollingIntervalTime: TimeInterval
 
     var pollingTimer: FSRepeatingTimer?
 
-    var delegate: FSPollingScriptDelegate?
-
     var service: FSService
 
-    init(service: FSService, pollingTime: TimeInterval, delegate: FSBucketingManager) {
+    init(pollingTime: TimeInterval) {
         pollingIntervalTime = pollingTime
-        self.service = service
-        self.delegate = delegate
+        service = FSService(Flagship.sharedInstance.envId ?? "", Flagship.sharedInstance.apiKey ?? "", "")
         pollingTimer = FSRepeatingTimer(timeInterval: pollingTime)
+        launchPolling()
     }
 
     public func launchPolling() {
@@ -40,15 +37,19 @@ class FSPollingScript {
                     guard let storedBucket: FSBucket = FSStorageManager.readBucketFromCache() else {
                         // Exit the start with not ready status
                         FlagshipLogManager.Log(level: .ALL, tag: .BUCKETING, messageToDisplay: FSLogMessage.NOCACHE_SCRIPT)
-                        self.delegate?.onGetScript(nil, error)
 
                         return
                     }
-                    // Transmit data to delegate
-                    self.delegate?.onGetScript(storedBucket, nil)
+                    // Transmit stored script via notification
+                    NotificationCenter.default.post(name: NSNotification.Name(FSBucketingScriptNotification), object: storedBucket, userInfo: nil)
+                    Flagship.sharedInstance.updateStatus(storedBucket.panic ? .SDK_PANIC : .SDK_INITIALIZED)
 
                 } else {
-                    self.delegate?.onGetScript(bucketingScript, nil)
+                    // Transmit new script via notification
+                    NotificationCenter.default.post(name: NSNotification.Name(FSBucketingScriptNotification), object: bucketingScript, userInfo: nil)
+                    if let aBucketingScript = bucketingScript {
+                        Flagship.sharedInstance.updateStatus(aBucketingScript.panic ? .SDK_PANIC : .SDK_INITIALIZED)
+                    }
                 }
                 if self.pollingIntervalTime > 0.0 { /// only once when timer is 0
                     self.pollingTimer?.resume()
