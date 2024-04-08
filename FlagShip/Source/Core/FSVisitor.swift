@@ -28,7 +28,7 @@ import Foundation
 @objc public class FSVisitor: NSObject {
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
     /// visitor id
-    public internal(set) var visitorId: String  {
+    public internal(set) var visitorId: String {
         willSet(newValue) {
             self.configManager.updateVisitorId(newValue)
         }
@@ -41,7 +41,7 @@ import Foundation
     }
 
     /// Modifications
-    public var currentFlags: [String: FSModification] = [:] /// Empty
+    public internal(set) var currentFlags: [String: FSModification] = [:] /// Empty
     /// Context
     var context: FSContext
     /// Strategy
@@ -58,7 +58,7 @@ import Foundation
     var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
     
     // The fetch reason
-    var requiredFetchReason: FSFetchReasons = .NONE
+    public internal(set) var requiredFetchReason: FSFetchReasons = .VISITOR_CREATE
     
     /// Configuration manager
     var configManager: FSConfigManager
@@ -156,8 +156,8 @@ import Foundation
         
         FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_SUCCESS(flagshipContext.rawValue))
         
-         self._updateContext([flagshipContext.rawValue: value])
-     }
+        self._updateContext([flagshipContext.rawValue: value])
+    }
     
     private func _updateContext(_ newContext: [String: Any]) {
         self.strategy?.getStrategy().updateContext(newContext)

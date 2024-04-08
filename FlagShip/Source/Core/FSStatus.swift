@@ -41,6 +41,7 @@ public enum FSFetchStatus: String {
 
 // The reason to fetch
 public enum FSFetchReasons: String {
+    case VISITOR_CREATE
     case UPDATE_CONTEXT
     case AUTHENTICATE
     case UNAUTHENTICATE
@@ -60,5 +61,3 @@ public enum FSFlagStatus: String {
 /// Notification center for status
 
 public let FlagsStatusNotification = "FlagStatusNotification"
-
- 
