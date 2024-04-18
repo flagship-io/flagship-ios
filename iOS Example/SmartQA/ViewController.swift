@@ -23,7 +23,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func startQA() {
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
         
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["testing_tracking_manager": true]).build()
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["testing_tracking_manager": true]).withFetchFlagsStatus { newStatus, reason in
+            
+            print(newStatus.rawValue)
+            print(reason.rawValue)
+        }.build()
         
         v1.fetchFlags {
             self.tableView?.reloadData()
@@ -31,7 +35,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     /// Add one more activate
-    @IBAction func activate() {}
+    @IBAction func activate() {
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
+            
+         }
+    }
 
     @IBAction func sendHits() {
         Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
@@ -48,9 +57,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell.textLabel?.text = "cell"
         
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
-        }
+//        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+//            let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
+//        }
         
         let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "dfl")
         

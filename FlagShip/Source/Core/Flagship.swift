@@ -90,9 +90,8 @@ public class Flagship: NSObject {
             // Read the cached visitor
             newVisitor.strategy?.getStrategy().lookupVisitor()
             // Read the cacheed hits from data base
-            newVisitor.strategy?.getStrategy().lookupHits() 
+            newVisitor.strategy?.getStrategy().lookupHits()
  
-
         } else {
             // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()
@@ -133,7 +132,7 @@ public class Flagship: NSObject {
         // _ if the staus has not changed then no need to trigger the callback
         if newStatus == currentStatus {
             return
-        }        
+        }
         // Update the status
         currentStatus = newStatus
         // Trigger the callback
