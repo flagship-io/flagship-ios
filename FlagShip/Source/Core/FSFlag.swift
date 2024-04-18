@@ -18,17 +18,21 @@ public class FSFlag: NSObject {
     
     public var status: FSFlagStatus {
         return _status
+    }
  
-    } 
- 
-    
     init<T>(_ aKey: String, _ aModification: FSModification?, _ aDefaultValue: T? = nil, _ aStrategy: FSStrategy?) {
         key = aKey
         defaultValue = aDefaultValue
         strategy = aStrategy
     }
     
-    @objc public func value(visitorExposed: Bool = true)->Any? {
+    init<T>(_ falgVariant:FlagVariant, _ aDefaultValue: T? = nil) {
+        
+    }
+    
+    
+    
+    @objc public func value<T>(visitorExposed: Bool = true)->Any? {
         var result: Any?
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType_or_DefaultValue_Nil(flagModification.value) { /// _ have same type with default value OR the default value is nil
@@ -80,6 +84,19 @@ public class FSFlag: NSObject {
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
         }
     }
+    
+//    /// Used only by the getAll fals
+//    func visitorExposed(_ flagVariant: FlagVariant) {
+//        if let flagModification = strategy?.getStrategy().getFlagModification(flagVariant.key) {
+//            /// Activate the flag
+//            strategy?.getStrategy().activateFlag(self)
+//    
+//        } else {
+//            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
+//            // Send TR on flag not found
+//            FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
+//        }
+//    }
     
     @objc public func exists()->Bool {
         return (strategy?.getStrategy().getModificationInfo(key) != nil)
