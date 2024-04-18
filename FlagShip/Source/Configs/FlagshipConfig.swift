@@ -133,7 +133,7 @@ public typealias StatusListener = (_ newStatus: FSSdkStatus)->Void
     }
     
     /// listener status
-    @objc public func withStatusListener(_ statusListener: @escaping StatusListener)->FSConfigBuilder {
+    @objc public func withStatusListener(_ statusListener: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder {
         _onStatusListener = statusListener
         return self
     }
