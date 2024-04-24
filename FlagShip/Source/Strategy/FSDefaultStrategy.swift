@@ -91,6 +91,27 @@ class FSDefaultStrategy: FSDelegateStrategy {
             FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
         }
     }
+
+    #warning("FLagV4 need to review the exposed flag , because w'll not have a default value ")
+
+    /// Activate Flag V4
+    func activateFlagV4(_ flag: FSFlagV4) {
+        if let aModification = visitor.currentFlags[flag.key] {
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
+                
+                if error == nil {
+                    /// if the callback defined then trigger
+                    if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
+                        aOnVisitorExposed(FSVisitorExposed(id: self.visitor.visitorId, anonymousId: self.visitor.anonymousId, context: self.visitor.context.getCurrentContext()),
+                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(visitorExposed: false)))
+                    }
+                }
+            })
+            // Troubleshooitng activate
+            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
+        }
+    }
     
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
         let startFetchingDate = Date() // To comunicate for TR
@@ -297,6 +318,9 @@ protocol FSDelegateStrategy {
     func activate(_ key: String)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
+    
+    func activateFlagV4(_ flag: FSFlagV4)
+
     /// Get Modification infos
     func getModificationInfo(_ key: String) -> [String: Any]?
     /// Send Hits

@@ -220,6 +220,17 @@ import Foundation
         return FSFlag(key, modification, defaultValue, self.strategy)
     }
     
+    public func getFlagBis(key: [String]) -> FlagMap {
+        var ret: [String: FSFlagV4] = [:]
+        self.currentFlags.forEach { (key: String, _: FSModification) in
+
+            ret.updateValue(FSFlagV4(key, self.strategy), forKey: key)
+        }
+        return FlagMap(flags: ret)
+    }
+    
+    
+    
     // ///////////////
     // /            //
     // / internal   //

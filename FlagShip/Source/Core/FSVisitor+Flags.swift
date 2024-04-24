@@ -50,11 +50,12 @@ extension FSVisitor: FlagVisitorDelegate {
 
     // Get flagMap
     public func getFlagMap() -> FlagMap {
-        var ret: [String: FlagVariant] = [:]
-        self.currentFlags.forEach { (key: String, modif: FSModification) in
-            ret.updateValue(FlagVariant(key: key, value: modif.value, metadata: FSFlagMetadata(modif)), forKey: key)
+        var ret: [String: FSFlagV4] = [:]
+        self.currentFlags.forEach { (key: String, _: FSModification) in
+
+            ret.updateValue(FSFlagV4(key, self.strategy), forKey: key)
         }
-        return FlagMap(flagVariants: ret, pDelegate: self)
+        return FlagMap(flags: ret)
     }
 }
 
@@ -83,13 +84,13 @@ public class FSMagikFlag {
     }
 }
 
-protocol FlagVisitorDelegate {
-    // Get flag
-    func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag
-
-    // Activate all
-    func exposeAll(_ Keys: [String]?)
-}
+//protocol FlagVisitorDelegate {
+//    // Get flag
+//    func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag
+//
+//    // Activate all
+//    func exposeAll(_ Keys: [String]?)
+//}
 
 // Flag without operations
 // without a default value to operate -
@@ -101,58 +102,48 @@ public class FlagVariant {
     // metadata
     public let metadata: FSFlagMetadata
 
-    init(key: String, metadata: FSFlagMetadata) {
+    init(key: String, value: Any?, metadata: FSFlagMetadata) {
         self.key = key
-        self.value = value
         self.metadata = metadata
+        self.value = value
     }
-    
-    
-    
-   
 }
 
 
 
-
+// We keep FlagMap instead using FSFlagV4 wich is also possible
 public class FlagMap: Sequence {
-    private var flags: [String: FSFlag] = [:]
+    private var flags: [String: FSFlagV4] = [:]
 
-    public private(set) var flagVariants: [String: FlagVariant] = [:]
-
-    private var delegate: FlagVisitorDelegate
+    // private var delegate: FlagVisitorDelegate
 
     // Init from the visitor
-    init(flagVariants: [String: FlagVariant], pDelegate: FlagVisitorDelegate) {
-        self.flagVariants = flagVariants
-        self.delegate = pDelegate
+    init(flags: [String: FSFlagV4]) {
+        self.flags = flags
     }
 
-    public func makeIterator() -> DictionaryIterator<String, FlagVariant> { /// Iterate on the Flagvariant object
-        return self.flagVariants.makeIterator()
+    public func makeIterator() -> DictionaryIterator<String, FSFlagV4> { /// Iterate on the Flagvariant object
+        return self.flags.makeIterator()
     }
 
-    public subscript<T>(key: String, defaultValue: T) -> FSFlag? {
+    public subscript(key: String) -> FSFlagV4? {
         get {
-            return self.delegate.getFlag(key, defaultValue) // Return the flag from the delegate
-            // return self.flags[key]
+            return self.flags[key]
         }
         set(newValue) {
             self.flags[key] = newValue
         }
     }
 
- 
-
     // Filtering on the flagvariant object
-    func filter(_ isIncluded: (String, FlagVariant) throws -> Bool) rethrows -> FlagMap {
-        let filteredFlags = try flagVariants.filter(isIncluded)
-        return FlagMap(flagVariants: filteredFlags, pDelegate: self.delegate)
+    func filter(_ isIncluded: (String, FSFlagV4) throws -> Bool) rethrows -> FlagMap {
+        let filteredFlags = try flags.filter(isIncluded)
+        return FlagMap(flags: filteredFlags)
     }
 
     public func exposeAll() {
-        self.delegate.exposeAll(self.flagVariants.map { (key: String, _: FlagVariant) in
-            key
-        })
+        self.flags.forEach { (_: String, value: FSFlagV4) in
+            value.visitorExposed()
+        }
     }
 }

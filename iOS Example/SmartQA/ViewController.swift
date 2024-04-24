@@ -12,7 +12,7 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
     @IBOutlet var startQABtn: UIButton?
 
     @IBOutlet var activateQABtn: UIButton?
-    
+
     @IBOutlet var tableView: UITableView?
 
     override func viewDidLoad() {
@@ -22,76 +22,71 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
 
     @IBAction func startQA() {
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
-        
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["testing_tracking_manager": true]).build()
-        
-        v1.fetchFlags {
-            // Solution 1 - not relevant if fetch is done after
-            let allFlags = v1.allFlags()
-            ///////
-            
-            // Solution 2 -  not relevant if fetch is done after
-            let allFlag2 = v1.getFlagList()
-            for flagV: FlagVariant in allFlag2 {
-                print(flagV.metadata ?? [])
-            }
-            
-            // Filter
-            let ret = allFlag2.filter { $0.key.contains("ads_banner") }
-            ///////
 
-            // Solutions 3 -
-            let magikFlag = v1.getAllFlag()
-            
-            print(magikFlag.keys)
-            // Get flag object
-            
-            let btnFlag = magikFlag.getFlag("btnTitle", "dflt")
-            
-            // Get value and expose
-            print(" ########### The value for btnTitle is \(btnFlag.value() ?? "") ###############")
-            ///////
-        
-            /// 17/04/24 -
-            
-            let allFlag = v1.getFlagMap()
-            
-            let flagOld = allFlag["ads_banner", true]
-            
-            let fv = allFlag["ads_banner"].getFlag()
-            
-           
-            
-            flagOld?.exists()
-            flagOld?.metadata()
-            flagOld?.value()
-            flagOld?.status
-            
-            let filtredFlag = allFlag.filter { (_: String, value: FlagVariant) in
-                value.metadata.campaignId == "co2pap7g4r6584ojn3d0"
-            }
-        
-            myFlag?.value(,)
+        let user = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["isVipClient": true]).build()
 
-            allFlag.exposeAll()
+        user.fetchFlags {
             
-            print("zzz")
+            // User get all flag
+            let allFlag = user.getFlagMap()
+
+            // Get Value "x_paiement_enabled" : true
+            let f1 = allFlag["x_paiement_enabled"] // New flag object V4
+            // Activate
+            f1?.visitorExposed()
+            // Exist
+            print("The flag \(String(describing: f1?.exists()))")
+            // metadata
+            print(f1?.metadata().toJson() ?? "")
+            
+            
+            f1?.visitorExposed() /// ça passe
+            /// Never called vlaue before ==> warnign ?, ====> should actiavte ?, ====> si oui exposeCallback with defaulValue = null
+
+            
+            // Get Value
+            let wrongValue = f1?.value(defaultValue: "oups") // should return "oups",
+            // Should we actiavte the flag event the type is wrong ??? , on est plus tenté de dire NON  , c'est le meme comportement de la prod
+            // Expose callBack n'est pas triggger
+            
+            print(" The wrong valus is \(String(describing: wrongValue))")
+            
+            f1?.visitorExposed() // es qu'on active ou pas ?
+            /// - Si on active ===> on met un warning ? on se basant sur le dflt value stocké, dans ce cas String
+            /// aussi trigger exposeCallback avec le default value : "oups" ou Null ??? , plus tenté de dire "oups"
+            /// OU
+            /// - On n active pas, car la dernière defaultValue n'est pas identique à la value du flag, dans ce cas Bool / String
+            /// ExposeCallback n'est pas trigger
+            ///
+            /// Passer un boolean param dans la fct expose
+            /// si on passe true ==> 55
+            /// si on passse false ==> 58
+            
+            
+        
+
+            let correctValue = f1?.value(defaultValue: false) // should return boolean
+            print(" The wrong valus is \(String(describing: correctValue))")
+            // Activate comportement normal avec exposeCallback normal comme la prod
+            
+            ///
+            
         }
     }
 
     /// Add one more activate
     @IBAction func activate() {
-        if let magikFlag = Flagship.sharedInstance.sharedVisitor?.getAllFlag() {
-            print(magikFlag.getFlag("btnTitle", "zerer").value())
+        if let allFlag = Flagship.sharedInstance.sharedVisitor?.getFlagMap() {
             
-            magikFlag.activateAll()
+            allFlag.exposeAll()
+                // Attention ici il faudra check le process des expose evoqué à la ligne 55
         }
     }
 
     @IBAction func sendHits() {
         Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
     }
- 
+
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 100
 //    }
@@ -122,13 +117,13 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
 //            Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
 //        }
 //    }
-    
+
     func todoc() {
         let visitor1r = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented: true)
             .withContext(context: ["age": 32, "isVip": true])
             .isAuthenticated(true)
             .build()
-        
+
         let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented: true)
             .withContext(context: ["age": 32, "isVip": true])
             .isAuthenticated(true)

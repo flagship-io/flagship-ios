@@ -242,6 +242,10 @@
 		8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369C27FEBE4C003EC960 /* FSDefaultStrategy.swift */; };
 		8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369D27FEBE4C003EC960 /* FSNotReadyStrategy.swift */; };
 		8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
+		F50117442BD7A697000830A1 /* FlagBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50117432BD7A697000830A1 /* FlagBis.swift */; };
+		F50117452BD7A697000830A1 /* FlagBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50117432BD7A697000830A1 /* FlagBis.swift */; };
+		F50117462BD7A697000830A1 /* FlagBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50117432BD7A697000830A1 /* FlagBis.swift */; };
+		F50117472BD7A697000830A1 /* FlagBis.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50117432BD7A697000830A1 /* FlagBis.swift */; };
 		F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
 		F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
 		F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */; };
@@ -443,6 +447,7 @@
 		8B9F2ABE2809BA6100323094 /* Flagship_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9F2AC02809BA6100323094 /* Flagship_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Flagship_watchOS.h; sourceTree = "<group>"; };
 		8BBCAD3E23FAD0E200126600 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F50117432BD7A697000830A1 /* FlagBis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagBis.swift; sourceTree = "<group>"; };
 		F50E958E29CDD977000B333F /* FSTrackingManagerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingManagerConfig.swift; sourceTree = "<group>"; };
 		F50E959829D19EEB000B333F /* FSITrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSITrackingManager.swift; sourceTree = "<group>"; };
 		F50E95A229D19FBB000B333F /* FSContinuousTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContinuousTrackingManager.swift; sourceTree = "<group>"; };
@@ -589,6 +594,7 @@
 				8B67366B27FEBE4C003EC960 /* FSVisitor.swift */,
 				F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */,
 				F5ABFF962BC58E3F000B34A4 /* FSVisitor+Flags.swift */,
+				F50117432BD7A697000830A1 /* FlagBis.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -1125,6 +1131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B2D51372805D43C00866D61 /* murmurhash3.swift in Sources */,
+				F50117452BD7A697000830A1 /* FlagBis.swift in Sources */,
 				8B2D51382805D43C00866D61 /* Data+PrettyPrint.swift in Sources */,
 				8B2D51392805D43C00866D61 /* FSTools.swift in Sources */,
 				8B2D513A2805D43C00866D61 /* decode-json-swift.swift in Sources */,
@@ -1234,6 +1241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B9F2A862809B8E600323094 /* murmurhash3.swift in Sources */,
+				F50117462BD7A697000830A1 /* FlagBis.swift in Sources */,
 				8B9F2A872809B8E600323094 /* Data+PrettyPrint.swift in Sources */,
 				8B9F2A882809B8E600323094 /* FSTools.swift in Sources */,
 				8B9F2A892809B8E600323094 /* decode-json-swift.swift in Sources */,
@@ -1315,6 +1323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B9F2AC52809BA8200323094 /* murmurhash3.swift in Sources */,
+				F50117472BD7A697000830A1 /* FlagBis.swift in Sources */,
 				8B9F2AC62809BA8200323094 /* Data+PrettyPrint.swift in Sources */,
 				8B9F2AC72809BA8200323094 /* FSTools.swift in Sources */,
 				8B9F2AC82809BA8200323094 /* decode-json-swift.swift in Sources */,
@@ -1396,6 +1405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B67369F27FED3E5003EC960 /* murmurhash3.swift in Sources */,
+				F50117442BD7A697000830A1 /* FlagBis.swift in Sources */,
 				8B6736A027FED3E5003EC960 /* Data+PrettyPrint.swift in Sources */,
 				8B6736A127FED3E5003EC960 /* FSTools.swift in Sources */,
 				8B6736A227FED3E5003EC960 /* decode-json-swift.swift in Sources */,

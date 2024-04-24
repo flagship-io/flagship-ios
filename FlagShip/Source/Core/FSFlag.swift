@@ -26,13 +26,7 @@ public class FSFlag: NSObject {
         strategy = aStrategy
     }
     
-    init<T>(_ falgVariant:FlagVariant, _ aDefaultValue: T? = nil) {
-        
-    }
-    
-    
-    
-    @objc public func value<T>(visitorExposed: Bool = true)->Any? {
+    @objc public func value(visitorExposed: Bool = true)->Any? {
         var result: Any?
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType_or_DefaultValue_Nil(flagModification.value) { /// _ have same type with default value OR the default value is nil
@@ -90,7 +84,7 @@ public class FSFlag: NSObject {
 //        if let flagModification = strategy?.getStrategy().getFlagModification(flagVariant.key) {
 //            /// Activate the flag
 //            strategy?.getStrategy().activateFlag(self)
-//    
+//
 //        } else {
 //            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
 //            // Send TR on flag not found
