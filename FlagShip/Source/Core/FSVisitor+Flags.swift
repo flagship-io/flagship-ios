@@ -59,38 +59,32 @@ extension FSVisitor: FlagVisitorDelegate {
     }
 }
 
-// Solution 3
-public class FSMagikFlag {
-    private var delegate: FlagVisitorDelegate
-
-    public var keys: [String] /// List keys
-
-    init(aKey: [String], _ aDelegate: FlagVisitorDelegate) {
-        self.delegate = aDelegate
-        self.keys = aKey
-    }
-
-    public func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag {
-        return self.delegate.getFlag(key, defaultValue)
-    }
-
-    public func activateAll(pKeys: [String]? = nil) {
-        if pKeys == nil {
-            self.delegate.exposeAll(self.keys)
-        } else {
-            // Check the existing keys before of filter
-            self.delegate.exposeAll(pKeys)
-        }
-    }
-}
-
-//protocol FlagVisitorDelegate {
-//    // Get flag
-//    func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag
+//// Solution 3
+//public class FSMagikFlag {
+//    private var delegate: FlagVisitorDelegate
 //
-//    // Activate all
-//    func exposeAll(_ Keys: [String]?)
+//    public var keys: [String] /// List keys
+//
+//    init(aKey: [String], _ aDelegate: FlagVisitorDelegate) {
+//        self.delegate = aDelegate
+//        self.keys = aKey
+//    }
+//
+//    public func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag {
+//        return self.delegate.getFlag(key, defaultValue)
+//    }
+//
+//    public func activateAll(pKeys: [String]? = nil) {
+//        if pKeys == nil {
+//            self.delegate.exposeAll(self.keys)
+//        } else {
+//            // Check the existing keys before of filter
+//            self.delegate.exposeAll(pKeys)
+//        }
+//    }
 //}
+
+ 
 
 // Flag without operations
 // without a default value to operate -
@@ -114,8 +108,6 @@ public class FlagVariant {
 // We keep FlagMap instead using FSFlagV4 wich is also possible
 public class FlagMap: Sequence {
     private var flags: [String: FSFlagV4] = [:]
-
-    // private var delegate: FlagVisitorDelegate
 
     // Init from the visitor
     init(flags: [String: FSFlagV4]) {

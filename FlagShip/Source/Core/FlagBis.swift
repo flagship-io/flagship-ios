@@ -10,8 +10,12 @@ import Foundation
 
 public class FSFlagV4: NSObject {
     var key: String
-    // var defaultValue: Any?
+
     var strategy: FSStrategy?
+    
+    var timestmap: TimeInterval
+    var defaultValue: Any? /// Change on the fly
+    
     private var _status: FSFlagStatus {
         return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
     }
@@ -51,7 +55,8 @@ public class FSFlagV4: NSObject {
 
     #warning("Impact with TRoubleshooting, Need to adapt ")
     @objc public func visitorExposed(_ forceExposure: Bool = false) {
-        if let flagModification = forceExposure && strategy?.getStrategy().getFlagModification(key) {
+        if !forceExposure { return }
+        if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             /// The activate can be activated event whatever the type if the flag's value is nil
             /// Activate the flag
             strategy?.getStrategy().activateFlagV4(self)
