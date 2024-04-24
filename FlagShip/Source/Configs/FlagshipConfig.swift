@@ -18,8 +18,6 @@ public enum FSMode: Int {
 
 public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ fromFlag: FSExposedFlag)-> Void)?
 
-public typealias StatusListener = (_ newStatus: FSSdkStatus)->Void
-
 @objc public class FlagshipConfig: NSObject, FSPollingScriptDelegate {
     func onGetScript(_ newBucketing: FSBucket?, _ error: FlagshipError?) {}
     
@@ -82,7 +80,7 @@ public typealias StatusListener = (_ newStatus: FSSdkStatus)->Void
     public private(set) var _cacheManager: FSCacheManager
     
     /// Status listener
-    public private(set) var _onStatusListener: ((_ newStatus: FSSdkStatus)->Void)? = nil
+    public private(set) var _onSdkStatusChanged: ((_ newStatus: FSSdkStatus)->Void)? = nil
     
     /// Tracking Config
     public private(set) var _trackingConfig: FSTrackingManagerConfig
@@ -132,9 +130,9 @@ public typealias StatusListener = (_ newStatus: FSSdkStatus)->Void
         return self
     }
     
-    /// listener status
-    @objc public func withStatusListener(_ statusListener: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder {
-        _onStatusListener = statusListener
+    ///OnSdkStatusChanged
+    @objc public func withOnSdkStatusChanged(_ onSdkStatusChanged: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder {
+        _onSdkStatusChanged = onSdkStatusChanged
         return self
     }
     
@@ -158,6 +156,6 @@ public typealias StatusListener = (_ newStatus: FSSdkStatus)->Void
     }
     
     @objc public func build()->FlagshipConfig {
-        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onStatusListener, _trackingConfig, _onVisitorExposure, _disableDeveloperUsageTracking)
+        return FlagshipConfig(_mode, _timeOut, _logLevel, pollingTime: _pollingTime, cacheManager: _cacheManager, _onSdkStatusChanged, _trackingConfig, _onVisitorExposure, _disableDeveloperUsageTracking)
     }
 }

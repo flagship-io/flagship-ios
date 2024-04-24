@@ -21,6 +21,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func startQA() {
+        // Create visitor
+        let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "visitor_1", hasConsented: true).build()
+       
+        visitor1.setConsent(hasConsented: false)
+        
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
         
         let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["testing_tracking_manager": true]).withFetchFlagsStatus { newStatus, reason in
@@ -38,8 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func activate() {
         Flagship.sharedInstance.sharedVisitor?.fetchFlags {
             let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
-            
-         }
+        }
     }
 
     @IBAction func sendHits() {
