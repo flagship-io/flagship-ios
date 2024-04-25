@@ -13,7 +13,8 @@ public class FSFlagV4: NSObject {
 
     var strategy: FSStrategy?
     
-    var timestmap: TimeInterval
+    var date: Date?
+    
     var defaultValue: Any? /// Change on the fly
     
     private var _status: FSFlagStatus {
@@ -31,6 +32,10 @@ public class FSFlagV4: NSObject {
     
     @objc public func value(defaultValue: Any?, visitorExposed: Bool = true)->Any? {
         var result: Any?
+        // Update the default value
+        self.defaultValue = defaultValue
+        // Update the timestamp
+        if date == nil { date = Date() } else { /* The timer is already stored */ }
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType_or_DefaultValue_Nil(defaultValue, flagModification.value) { /// _ have same type with default value OR the default value is nil
                 ///
