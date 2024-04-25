@@ -9,7 +9,7 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
-let FSDataUsageAllocationThreshold = 1
+let FSDataUsageAllocationThreshold = 10000  /// Todo redo to 1 after the fix
 
 class FSDataUsageTracking {
     var visitorSessionId: String = FSTools.generateUuidv4()
