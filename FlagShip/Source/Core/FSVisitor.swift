@@ -220,6 +220,19 @@ import Foundation
         return FSFlag(key, modification, defaultValue, self.strategy)
     }
     
+    /// - FLAG V4 ----------//
+    public func getFlagV4(key: String) -> FSFlagV4? {
+        // We dispaly a warning if the flag's status is not fetched
+        if self.flagSyncStatus != .FLAGS_FETCHED {
+            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
+        }
+        // Check the key if exist
+        guard let modification = self.currentFlags[key] else {
+            return FSFlagV4(key, self.strategy)
+        }
+        return nil
+    }
+    
     public func getFlagBis(key: [String]) -> FlagMap {
         var ret: [String: FSFlagV4] = [:]
         self.currentFlags.forEach { (key: String, _: FSModification) in
@@ -228,6 +241,8 @@ import Foundation
         }
         return FlagMap(flags: ret)
     }
+    
+    /// - FLAG V4 ----------//
     
     // ///////////////
     // /            //
