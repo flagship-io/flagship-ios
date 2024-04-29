@@ -104,7 +104,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     /// if the callback defined then trigger
                     if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
                         aOnVisitorExposed(FSVisitorExposed(id: self.visitor.visitorId, anonymousId: self.visitor.anonymousId, context: self.visitor.context.getCurrentContext()),
-                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(visitorExposed: false)))
+                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)))
                     }
                 }
             })

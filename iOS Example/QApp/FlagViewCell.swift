@@ -40,7 +40,24 @@ class FlagViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configCell(_ flag: FSFlag?) {
+//    func configCell(_ flag: FSFlag?) {
+//        if let aFlag = flag {
+//            let metedata = aFlag.metadata()
+//            campName?.text = metedata.campaignName
+//            campId?.text = metedata.campaignId
+//            varGName?.text = metedata.variationGroupName
+//            varGId?.text = metedata.variationGroupId
+//            varName?.text = metedata.variationName
+//            varId?.text = metedata.variationId
+//            flagValue?.text = String(format: "\(aFlag.value(visitorExposed: false) ?? "None")")
+//            isReferenceSwitch?.isOn = metedata.isReference
+//            slug?.text = metedata.slug
+//            typeCampaign?.text = metedata.campaignType
+//            statusFlag?.text = flag?.status.rawValue
+//        }
+//    }
+    
+    func configCell(_ flag: FSFlagV4?) {
         if let aFlag = flag {
             let metedata = aFlag.metadata()
             campName?.text = metedata.campaignName
@@ -49,7 +66,7 @@ class FlagViewCell: UITableViewCell {
             varGId?.text = metedata.variationGroupId
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
-            flagValue?.text = String(format: "\(aFlag.value(visitorExposed: false) ?? "None")")
+            flagValue?.text = String(format: "\(aFlag.value(defaultValue: flag?.defaultValue, visitorExposed: false) ?? "None")")
             isReferenceSwitch?.isOn = metedata.isReference
             slug?.text = metedata.slug
             typeCampaign?.text = metedata.campaignType

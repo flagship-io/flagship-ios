@@ -69,8 +69,6 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
             print(" The wrong valus is \(String(describing: correctValue))")
             // Activate comportement normal avec exposeCallback normal comme la prod
             
-            ///
-            
         }
     }
 

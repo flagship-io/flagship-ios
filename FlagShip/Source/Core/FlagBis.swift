@@ -13,9 +13,11 @@ public class FSFlagV4: NSObject {
 
     var strategy: FSStrategy?
     
-    var date: Date?
+    var timestamps: TimeInterval?
     
-    var defaultValue: Any? /// Change on the fly
+    private var isSafeToExpose: Bool = false
+    
+    public var defaultValue: Any? /// Change on the fly
     
     private var _status: FSFlagStatus {
         return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
@@ -34,8 +36,6 @@ public class FSFlagV4: NSObject {
         var result: Any?
         // Update the default value
         self.defaultValue = defaultValue
-        // Update the timestamp
-        if date == nil { date = Date() } else { /* The timer is already stored */ }
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
             if isSameType_or_DefaultValue_Nil(defaultValue, flagModification.value) { /// _ have same type with default value OR the default value is nil
                 ///
@@ -60,14 +60,30 @@ public class FSFlagV4: NSObject {
 
     #warning("Impact with TRoubleshooting, Need to adapt ")
     @objc public func visitorExposed(_ forceExposure: Bool = false) {
-        if !forceExposure { return }
+        /// check if the value function is called before
+        
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            /// The activate can be activated event whatever the type if the flag's value is nil
-            /// Activate the flag
-            strategy?.getStrategy().activateFlagV4(self)
+            // Before activate we should
+            // - Check if the value() is called
+            
+            if forceExposure {
+                print(" ### Even if it seemed like there was a problem with the flag's defaultValue, you forced to send the exposure event.###")
+            }
+            
+            let okayToExpose: Bool = isSaferExposure() || forceExposure
+            
+            if okayToExpose {
+                strategy?.getStrategy().activateFlagV4(self)
+            }
+            
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
         }
+    }
+    
+    private func isSaferExposure()->Bool {
+        isSafeToExpose ? print("It okat to expose all conditions seems to be correct ") : print("Is not recommended to expose this flag since the default value provided conflict with the value, or not provided ")
+        return isSafeToExpose
     }
  
     @objc public func exists()->Bool {
@@ -112,6 +128,8 @@ public class FSFlagV4: NSObject {
             matchedType = false
         }
         
+        // update is safer exposure
+        isSafeToExpose = matchedType
         return matchedType
     }
 }

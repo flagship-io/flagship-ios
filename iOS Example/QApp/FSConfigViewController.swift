@@ -97,7 +97,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 }
 
                 if mode == .BUCKETING {
-                    
                     Flagship.sharedInstance.sharedVisitor?.fetchFlags {
                         self.delegate?.onGetSdkReady()
                     }
@@ -108,7 +107,16 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             // print(fromFlag.toJson() ?? "")
             // print(visitorExposed.toJson() ?? "")
 
-        }.withLogLevel(.ALL)
+        }.withLogLevel(.ALL).withOnVisitorExposed { _, fromFlag in
+
+            /// Visitor Exposed FlagV4
+            print("@ Flagv4 --------- withOnVisitorExposed ------------ @")
+            print(" Value for flag is \(fromFlag.value)")
+
+            print(" Value for flag is \(fromFlag.defaultValue)")
+
+            print("@ Flagv4 --------- withOnVisitorExposed ------------ @")
+        }
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()

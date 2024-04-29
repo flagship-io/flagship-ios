@@ -9,7 +9,7 @@
 import Foundation
 
 /// Solution 1 -
-extension FSVisitor: FlagVisitorDelegate {
+extension FSVisitor {
     // Delegate for the visitor
     func exposeAll(_ Keys: [String]?) {
         Keys?.forEach { keyFlag in
@@ -40,13 +40,13 @@ extension FSVisitor: FlagVisitorDelegate {
     }
 
     /// Solution 3 -
-    ///
-    public func getAllFlag() -> FSMagikFlag {
-        let listofKeyself = currentFlags.map { (key: String, _: FSModification) in
-            key
-        }
-        return FSMagikFlag(aKey: listofKeyself, self)
-    }
+//    ///
+//    public func getAllFlag() -> FSMagikFlag {
+//        let listofKeyself = currentFlags.map { (key: String, _: FSModification) in
+//            key
+//        }
+//        return FSMagikFlag(aKey: listofKeyself, self)
+//    }
 
     // Get flagMap
     public func getFlagMap() -> FlagMap {
