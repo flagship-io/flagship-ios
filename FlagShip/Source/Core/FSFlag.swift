@@ -8,7 +8,7 @@
 import Foundation
 import Network
 
-public class FSFlag: NSObject {
+class FSFlag: NSObject {
     var key: String
     var defaultValue: Any?
     var strategy: FSStrategy?
@@ -39,7 +39,7 @@ public class FSFlag: NSObject {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Return the default value due to the Type error"))
                 
                 // Send TR on not the same type flag
-                FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
+                //  FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
                 return defaultValue
             }
             

@@ -207,7 +207,7 @@ import Foundation
     //  - Parameter key:key associated to the flag
     //  - Parameter defaultValue:flag default value
     //  - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
-    public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
+    func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
         // We dispaly a warning if the flag's status is not fetched
         if self.flagSyncStatus != .FLAGS_FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
@@ -228,8 +228,6 @@ import Foundation
         }
         return FlagMap(flags: ret)
     }
-    
-    
     
     // ///////////////
     // /            //

@@ -18,9 +18,9 @@ extension FSVisitor {
         }
     }
 
-    public func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag {
-        return self.getFlag(key: key, defaultValue: defaultValue)
-    }
+//    public func getFlag<T>(_ key: String, _ defaultValue: T) -> FSFlag {
+//        return self.getFlag(key: key, defaultValue: defaultValue)
+//    }
 
     public func allFlags() -> [String: Any] {
         self.currentFlags.mapValues { modif in
