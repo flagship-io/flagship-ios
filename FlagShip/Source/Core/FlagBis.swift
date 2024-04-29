@@ -82,7 +82,7 @@ public class FSFlagV4: NSObject {
     }
     
     private func isSaferExposure()->Bool {
-        isSafeToExpose ? print("It okat to expose all conditions seems to be correct ") : print("Is not recommended to expose this flag since the default value provided conflict with the value, or not provided ")
+        isSafeToExpose ? print("It okay to expose the \(self.key) flag, all conditions seems to be correct ") : print("Is not recommended to expose  \(self.key) flag since the defaultValue provided conflict with the value, or not provided ")
         return isSafeToExpose
     }
  
