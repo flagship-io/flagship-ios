@@ -228,9 +228,9 @@ import Foundation
         }
         // Check the key if exist
         guard let modification = self.currentFlags[key] else {
-            return FSFlagV4(key, self.strategy)
+            return nil
         }
-        return nil
+        return FSFlagV4(key, self.strategy)
     }
     
     public func getFlagBis(key: [String]) -> FlagMap {
