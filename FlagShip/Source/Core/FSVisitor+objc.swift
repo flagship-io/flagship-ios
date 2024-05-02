@@ -14,14 +14,9 @@ public extension FSVisitor {
     
     /// Get Flag only visible for objective C, use func getFlag<T>(key:String, defaultValue : T?)->FSFlag with generic
     @available(swift, obsoleted: 1.0)
-    @objc internal func getFlag(key: String, defaultValue: Any?) -> FSFlag {
-        /// Check the key if exist
-        guard let modification = self.currentFlags[key] else {
-            return FSFlag(key, nil, defaultValue, self.strategy)
-        }
-        
-        return FSFlag(key, modification, defaultValue, self.strategy)
-    }
+//    @objc internal func getFlag(key: String) -> FSFlag {
+//        return FSFlag(key, self.strategy)
+//    }
     
     /**
      Send Transaction event

@@ -8,16 +8,11 @@
 
 import Foundation
 
-public class FSFlagV4: NSObject {
+public class FSFlag: NSObject {
     var key: String
-
     var strategy: FSStrategy?
-    
-    var timestamps: TimeInterval?
-    
     private var isSafeToExpose: Bool = false
-    
-    public var defaultValue: Any? /// Change on the fly
+    public private(set) var defaultValue: Any? /// Change on the fly
     
     private var _status: FSFlagStatus {
         return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
@@ -73,7 +68,7 @@ public class FSFlagV4: NSObject {
             let okayToExpose: Bool = isSaferExposure() || forceExposure
             
             if okayToExpose {
-                strategy?.getStrategy().activateFlagV4(self)
+                strategy?.getStrategy().activateFlag(self)
             }
             
         } else {
@@ -82,7 +77,16 @@ public class FSFlagV4: NSObject {
     }
     
     private func isSaferExposure()->Bool {
-        isSafeToExpose ? print("It okay to expose the \(self.key) flag, all conditions seems to be correct ") : print("Is not recommended to expose  \(self.key) flag since the defaultValue provided conflict with the value, or not provided ")
+        if isSafeToExpose {
+            print("It okay to expose the \(key) flag, all conditions seems to be correct ")
+        } else {
+            if defaultValue == nil {
+                print("Is not recommended to expose  \(key) flag since the defaultValue is not provided ")
+            } else {
+                print("Is not recommended to expose  \(key) flag since the defaultValue provided conflict with the value")
+            }
+        }
+
         return isSafeToExpose
     }
  

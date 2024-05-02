@@ -26,7 +26,14 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
         let user = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["isVipClient": true]).build()
 
         user.fetchFlags {
-            
+            let nf = user.getFlag(key: "notFound")
+
+            let v = nf.value(defaultValue: "toto")
+
+            nf.exists()
+
+            let md = nf.metadata()
+
             // User get all flag
             let allFlag = user.getFlagMap()
 
@@ -38,19 +45,17 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
             print("The flag \(String(describing: f1?.exists()))")
             // metadata
             print(f1?.metadata().toJson() ?? "")
-            
-            
+
             f1?.visitorExposed() /// ça passe
             /// Never called vlaue before ==> warnign ?, ====> should actiavte ?, ====> si oui exposeCallback with defaulValue = null
 
-            
             // Get Value
             let wrongValue = f1?.value(defaultValue: "oups") // should return "oups",
             // Should we actiavte the flag event the type is wrong ??? , on est plus tenté de dire NON  , c'est le meme comportement de la prod
             // Expose callBack n'est pas triggger
-            
+
             print(" The wrong valus is \(String(describing: wrongValue))")
-            
+
             f1?.visitorExposed() // es qu'on active ou pas ?
             /// - Si on active ===> on met un warning ? on se basant sur le dflt value stocké, dans ce cas String
             /// aussi trigger exposeCallback avec le default value : "oups" ou Null ??? , plus tenté de dire "oups"
@@ -61,23 +66,18 @@ class ViewController: UIViewController /* , UITableViewDelegate, UITableViewData
             /// Passer un boolean param dans la fct expose
             /// si on passe true ==> 55
             /// si on passse false ==> 58
-            
-            
-        
 
             let correctValue = f1?.value(defaultValue: false) // should return boolean
             print(" The wrong valus is \(String(describing: correctValue))")
             // Activate comportement normal avec exposeCallback normal comme la prod
-            
         }
     }
 
     /// Add one more activate
     @IBAction func activate() {
         if let allFlag = Flagship.sharedInstance.sharedVisitor?.getFlagMap() {
-            
             allFlag.exposeAll()
-                // Attention ici il faudra check le process des expose evoqué à la ligne 55
+            // Attention ici il faudra check le process des expose evoqué à la ligne 55
         }
     }
 

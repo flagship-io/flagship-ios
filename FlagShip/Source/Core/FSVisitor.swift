@@ -207,37 +207,26 @@ import Foundation
     //  - Parameter key:key associated to the flag
     //  - Parameter defaultValue:flag default value
     //  - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
-    func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
-        // We dispaly a warning if the flag's status is not fetched
-        if self.flagSyncStatus != .FLAGS_FETCHED {
-            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
-        }
-        // Check the key if exist
-        guard let modification = self.currentFlags[key] else {
-            return FSFlag(key, nil, defaultValue, self.strategy)
-        }
 
-        return FSFlag(key, modification, defaultValue, self.strategy)
-    }
-    
     /// - FLAG V4 ----------//
-    public func getFlagV4(key: String) -> FSFlagV4? {
+    public func getFlag(key: String) -> FSFlag {
         // We dispaly a warning if the flag's status is not fetched
         if self.flagSyncStatus != .FLAGS_FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
         }
         // Check the key if exist
-        guard let modification = self.currentFlags[key] else {
-            return nil
+        if let modification = self.currentFlags[key] {
+            // return nil
+            // The flag not exist will return an empty object
         }
-        return FSFlagV4(key, self.strategy)
+        return FSFlag(key, self.strategy)
     }
     
     public func getFlagBis(key: [String]) -> FlagMap {
-        var ret: [String: FSFlagV4] = [:]
+        var ret: [String: FSFlag] = [:]
         self.currentFlags.forEach { (key: String, _: FSModification) in
 
-            ret.updateValue(FSFlagV4(key, self.strategy), forKey: key)
+            ret.updateValue(FSFlag(key, self.strategy), forKey: key)
         }
         return FlagMap(flags: ret)
     }

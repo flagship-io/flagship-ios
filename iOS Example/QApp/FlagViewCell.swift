@@ -57,7 +57,7 @@ class FlagViewCell: UITableViewCell {
 //        }
 //    }
     
-    func configCell(_ flag: FSFlagV4?) {
+    func configCell(_ flag: FSFlag?) {
         if let aFlag = flag {
             let metedata = aFlag.metadata()
             campName?.text = metedata.campaignName
@@ -66,11 +66,11 @@ class FlagViewCell: UITableViewCell {
             varGId?.text = metedata.variationGroupId
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
-            flagValue?.text = String(format: "\(aFlag.value(defaultValue: flag?.defaultValue, visitorExposed: false) ?? "None")")
+            flagValue?.text = String(format: "\(aFlag.value(defaultValue: aFlag.defaultValue, visitorExposed: false) ?? "None")")
             isReferenceSwitch?.isOn = metedata.isReference
             slug?.text = metedata.slug
             typeCampaign?.text = metedata.campaignType
-            statusFlag?.text = flag?.status.rawValue
+            statusFlag?.text = aFlag.status.rawValue
         }
     }
     

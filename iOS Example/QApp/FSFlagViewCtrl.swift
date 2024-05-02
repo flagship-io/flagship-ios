@@ -19,7 +19,7 @@ enum FSValueType {
 class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // var currentFlag: FSFlag?
     
-    var currentFlag: FSFlagV4?
+    var currentFlag: FSFlag?
 
     @IBOutlet var flagView: FlagView?
     @IBOutlet var tableViewFlag: UITableView?
@@ -69,13 +69,13 @@ class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func exposeFlag() {
-        currentFlag = flagView?.prepareAndGetGetFlag()
+        if currentFlag == nil {
+            currentFlag = flagView?.prepareAndGetGetFlag()
+        }
         if let aCurrentFlag = currentFlag {
-            
-            
-            //aCurrentFlag.visitorExposed()
-            //---  With forced exposure ---
-            aCurrentFlag.visitorExposed(true)
+            aCurrentFlag.visitorExposed()
+            // ---  With forced exposure ---
+            // aCurrentFlag.visitorExposed(true)
         }
     }
 }
@@ -121,8 +121,8 @@ class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
-    func prepareAndGetGetFlag() -> FSFlagV4? {
-        var flagObject: FSFlagV4?
+    func prepareAndGetGetFlag() -> FSFlag? {
+        var flagObject: FSFlag?
         
         // Get All Flags
         var allFlags = Flagship.sharedInstance.sharedVisitor?.getFlagMap()
