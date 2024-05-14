@@ -8,16 +8,16 @@
 import Foundation
 
 class FSContext {
-    private let queuectx = DispatchQueue(label: "ctx.queue", attributes: .concurrent)
+    private let queueCtx = DispatchQueue(label: "ctx.queue", attributes: .concurrent)
     
     public var currentContext: [String: Any] {
         get {
-            return queuectx.sync {
+            return queueCtx.sync {
                 _currentContext
             }
         }
         set {
-            queuectx.async(flags: .barrier) {
+            queueCtx.async(flags: .barrier) {
                 self._currentContext = newValue
             }
         }
