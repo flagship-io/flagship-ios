@@ -9,7 +9,7 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
-let FSDataUsageAllocationThreshold = 10000 /// Todo redo to 1 after the fix
+let FSDataUsageAllocationThreshold = 1
 
 class FSDataUsageTracking {
     let serialDataReportQueue = DispatchQueue(label: "datareport.serial.queue")

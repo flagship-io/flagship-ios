@@ -88,7 +88,7 @@ class FSCampaigns: Codable {
         
   
         do { try container.encode(self.campaigns, forKey: .campaigns) } catch {
-            print(error)
+           // print(error)
             self.campaigns = []
         }
     }
