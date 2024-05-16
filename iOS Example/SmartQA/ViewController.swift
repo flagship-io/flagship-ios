@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func startQA() {
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: FSConfigBuilder().withLogLevel(.ALL).build())
         
         let v1 = Flagship.sharedInstance.newVisitor("user19MarsBIs").withContext(context: ["testing_tracking_manager": true]).build()
         
@@ -32,19 +32,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    /// Add one more activate
+
+    
     @IBAction func activate() {
-        
-
-
-      }
+        for i in 1 ... 1 {
+            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "aa").value()
+        }
+    }
     
     @IBAction func sendHits() {
-        
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
         
         let v1 = Flagship.sharedInstance.newVisitor("user19MarsBIs").withContext(context: ["testing_tracking_manager": true]).build()
-
 
         // Start the SDK Flagship
         Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn", defaultValue: "dfl").value()

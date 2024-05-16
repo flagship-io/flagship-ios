@@ -17,7 +17,7 @@ class FSService {
     /// anonymousId
     var anonymousId: String?
     
-    var timeOutServiceForRequestApi = FSTimeoutRequestApi
+    var timeOutServiceForRequestApi = FSTimeoutDecisionApi
     
     var serviceSession: URLSession = .init(configuration: URLSessionConfiguration.default)
     

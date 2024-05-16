@@ -87,11 +87,11 @@ extension FSDataUsageTracking {
             }
 
             if let urlReport = URL(string: urlString) {
-                _service?.sendRequest(urlReport, type: .Tracking, data: dataToSend) { _, error in
+                _service?.sendRequest(urlReport, type: .DataUsage, data: dataToSend) { _, error in
                     if error != nil {
-                        FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send \(subMsg) report : \(error.debugDescription)"))
+                        FlagshipLogManager.Log(level: .ERROR, tag: .DATA_TR_USAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send \(subMsg) report : \(error.debugDescription)"))
                     } else {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("\(subMsg) report sent successfully."))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .DATA_TR_USAGE, messageToDisplay: FSLogMessage.MESSAGE("\(subMsg) report sent successfully."))
                     }
                 }
             }

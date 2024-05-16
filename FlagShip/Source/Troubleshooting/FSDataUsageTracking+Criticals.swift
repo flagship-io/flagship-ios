@@ -46,6 +46,19 @@ extension FSDataUsageTracking {
 
     // Troubleshooting on any request error
     func processTSHttpError(requestType: FSRequestType, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
+        var criticalLabel = ""
+        switch requestType { case .Campaign:
+            criticalLabel = CriticalPoints.GET_CAMPAIGNS_ROUTE_RESPONSE_ERROR.rawValue
+        case .Activate:
+            criticalLabel = CriticalPoints.SEND_ACTIVATE_HIT_ROUTE_ERROR.rawValue
+        case .Tracking:
+            criticalLabel = CriticalPoints.SEND_BATCH_HIT_ROUTE_RESPONSE_ERROR.rawValue
+        case .KeyContext:
+            return
+        case .DataUsage:
+            return
+        }
+
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": _visitorId]
         let httpFields: [String: String] = [
@@ -57,17 +70,6 @@ extension FSDataUsageTracking {
             "http.response.code": String(describing: response?.statusCode ?? 0)
         ]
         criticalJson.merge(httpFields) { _, new in new }
-
-        var criticalLabel = ""
-        switch requestType { case .Campaign:
-            criticalLabel = CriticalPoints.GET_CAMPAIGNS_ROUTE_RESPONSE_ERROR.rawValue
-        case .Activate:
-            criticalLabel = CriticalPoints.SEND_ACTIVATE_HIT_ROUTE_ERROR.rawValue
-        case .Tracking:
-            criticalLabel = CriticalPoints.SEND_BATCH_HIT_ROUTE_RESPONSE_ERROR.rawValue
-        case .KeyContext:
-            return
-        }
 
         // Send Troubleshooting report on http error
         sendTroubleshootingReport(_trHit:
