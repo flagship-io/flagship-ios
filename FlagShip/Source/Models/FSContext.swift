@@ -5,15 +5,33 @@
 //  Created by Adel on 07/09/2021.
 //
 
-internal class FSContext {
+import Foundation
+
+class FSContext {
+    private let queueCtx = DispatchQueue(label: "ctx.queue", attributes: .concurrent)
+    
+    public var currentContext: [String: Any] {
+        get {
+            return queueCtx.sync {
+                _currentContext
+            }
+        }
+        set {
+            queueCtx.async(flags: .barrier) {
+                self._currentContext = newValue
+            }
+        }
+    }
+    
+    //
     private var _currentContext: [String: Any] = [:]
     
     init(_ contextValues: [String: Any]) {
         // Clean context with none valide type
-        self._currentContext = contextValues.filter { $0.value is Int || $0.value is Double || $0.value is String || $0.value is Bool }
-        self._currentContext = contextValues
+        self.currentContext = contextValues.filter { $0.value is Int || $0.value is Double || $0.value is String || $0.value is Bool }
+        self.currentContext = contextValues
         // Set all_users key
-        _currentContext.updateValue("", forKey: ALL_USERS)
+        currentContext.updateValue("", forKey: ALL_USERS)
     }
     
     public func updateContext(_ newValues: [String: Any]) {
@@ -32,20 +50,20 @@ internal class FSContext {
     }
     
     public func updateContext(_ key: String, _ newValue: Any) {
-        _currentContext.updateValue(newValue, forKey: key)
+        currentContext.updateValue(newValue, forKey: key)
     }
 
     // Load preSet Context
     func loadPreSetContext() {
-        _currentContext.merge(FlagshipContextManager.getPresetContextForApp()) { _, new in new }
+        currentContext.merge(FlagshipContextManager.getPresetContextForApp()) { _, new in new }
     }
     
     func getCurrentContext() -> [String: Any] {
-        return _currentContext
+        return currentContext
     }
     
     func clearContext() {
-        _currentContext.removeAll()
+        currentContext.removeAll()
     }
     
     func mergeContext(_ ctxValue: [String: Any]) {

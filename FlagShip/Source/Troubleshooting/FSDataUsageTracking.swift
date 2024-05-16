@@ -12,6 +12,8 @@ import Foundation
 let FSDataUsageAllocationThreshold = 1
 
 class FSDataUsageTracking {
+    let serialDataReportQueue = DispatchQueue(label: "datareport.serial.queue")
+
     var visitorSessionId: String = FSTools.generateUuidv4()
 
     // Trouble shooting
@@ -82,14 +84,19 @@ class FSDataUsageTracking {
     // Send Troubleshooting Report
     func sendTroubleshootingReport(_trHit: TroubleshootingHit) {
         if troubleShootingReportAllowed {
-            sendDataReport(_trHit)
+            serialDataReportQueue.async {
+                self.sendDataReport(_trHit)
+            }
         }
     }
 
     // Send the data usage tracking
     func sendDataUsageReport(_duHit: FSDataUsageHit) {
         if dataUsageTrackingReportAllowed {
-            sendDataReport(_duHit)
+            serialDataReportQueue.async {
+                self.sendDataReport(_duHit)
+            }
+
         } else {
             FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Sending developer data usage not allowed"))
         }

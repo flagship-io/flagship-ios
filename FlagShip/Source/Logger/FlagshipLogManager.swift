@@ -30,22 +30,23 @@ public enum FSTag: String {
     case EXCEPTION
     case STORAGE = "CACHE"
     case FLAG
+    case DATA_TR_USAGE
 }
 
 class FlagshipLogManager: FSLogManager {
     override init() {
         super.init()
     }
-    
+
     static func Log(level: FSLevel, tag: FSTag, messageToDisplay: FSLogMessage) {
         if isAllowed(level) {
             print("Flagship - \(tag.rawValue) - \(messageToDisplay.description)") /// Do not delete this print
         }
     }
-    
+
     private static func isAllowed(_ newLevel: FSLevel) -> Bool {
         let currentLevel = Flagship.sharedInstance.currentConfig.logLevel
-        
-        return ((newLevel.rawValue < currentLevel.rawValue) || (newLevel.rawValue == currentLevel.rawValue))
+
+        return (newLevel.rawValue < currentLevel.rawValue) || (newLevel.rawValue == currentLevel.rawValue)
     }
 }

@@ -28,8 +28,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     // SEND ACTIVATE --------------//
-    override func sendActivate(_ currentActivate: Activate?, onCompletion: @escaping (Error?) -> Void)
-    {
+    override func sendActivate(_ currentActivate: Activate?, onCompletion: @escaping (Error?) -> Void) {
         // Create activate batch
         let activateBatch = ActivateBatch(pCurrentActivate: currentActivate)
 
@@ -60,16 +59,16 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     // ************** BATCH PROCESS ***********//
-    override internal func processActivatesBatching() {
+    override func processActivatesBatching() {
         // We pass nil here because will batch the activate pool without a current one
-        self.sendActivate(nil) { error in
-            /// refractor later 
+        self.sendActivate(nil) { _ in
+            /// refractor later
         }
     }
 
     // ********** HITS ************//
     override
-    internal func onSuccessToSendHits(_ batchToSend: FSBatch) {
+    func onSuccessToSendHits(_ batchToSend: FSBatch) {
         // Create a list of hits id to remove for database
         self.cacheManager?.hitCacheDelegate?.flushHits(hitIds: batchToSend.items.map { elem in
             elem.id
@@ -77,14 +76,14 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     override
-    internal func onFailedToSendHits(_ batchToSend: FSBatch) {
+    func onFailedToSendHits(_ batchToSend: FSBatch) {
         // Re inject the hits into the pool on failed request
         self.batchManager.reInjectElements(listToReInject: batchToSend.items)
     }
 
     // ********** ACTIVATE ********//
     override
-    internal func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
+    func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
         // Create array of ids and use it by the flush database
         self.cacheManager?.flushHits(activateBatch.listActivate.map { elem in
             elem.id
@@ -95,7 +94,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     override
-    internal func onFailedToSendActivate(_ activateBatch: ActivateBatch) {
+    func onFailedToSendActivate(_ activateBatch: ActivateBatch) {
         // Add the current activate to batch
         self.batchManager.reInjectElements(listToReInject: activateBatch.listActivate) /// need to check if empty before
 

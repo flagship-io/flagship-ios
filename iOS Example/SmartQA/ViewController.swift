@@ -21,29 +21,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func startQA() {
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: FSConfigBuilder().withLogLevel(.ALL).build())
         
         let v1 = Flagship.sharedInstance.newVisitor("user19MarsBIs").withContext(context: ["testing_tracking_manager": true]).build()
         
         v1.fetchFlags {
             self.tableView?.reloadData()
+            
+            v1.getFlag(key: "add_payment_btn", defaultValue: "dfl").value()
         }
     }
     
-    /// Add one more activate
+
+    
     @IBAction func activate() {
-        // Start the SDK Flagship
+        for i in 1 ... 1 {
+            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "aa").value()
+        }
     }
     
     @IBAction func sendHits() {
-//        let v2 = Flagship.sharedInstance.newVisitor("visitor-B").withContext(context: ["testing_tracking_manager": true]).build()
-//        // Send Hits
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA1"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA"))
-//        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "smartQA1"))
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
         
-        Flagship.sharedInstance.close()
+        let v1 = Flagship.sharedInstance.newVisitor("user19MarsBIs").withContext(context: ["testing_tracking_manager": true]).build()
+
+        // Start the SDK Flagship
+        Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn", defaultValue: "dfl").value()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,7 +63,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "dfl")
         
         cell.detailTextLabel?.text = flag?.value() as? String ?? ""
-        
+        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn", defaultValue: "dfl") {
+            Flagship.sharedInstance.sharedVisitor?.clearContext()
+            Flagship.sharedInstance.sharedVisitor?.updateContext("test", "stress")
+            flag.visitorExposed()
+        }
+
         return cell
     }
     

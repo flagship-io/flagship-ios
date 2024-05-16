@@ -7,7 +7,9 @@
 
 import Foundation
 
-public let FSTimeoutRequestApi = 2.0
+public let FSTimeoutDecisionApi = 2.0
+
+public let FSTimeoutRequest = 60.0 // Timeout for other request
 
 public let FSPollingTime = 60.0 /// 60 seconds
 
@@ -36,7 +38,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     var disableDeveloperUsageTracking: Bool
 
     init(_ mode: FSMode = .DECISION_API,
-         _ timeOut: TimeInterval = FSTimeoutRequestApi,
+         _ timeOut: TimeInterval = FSTimeoutDecisionApi,
          _ logLevel: FSLevel = .ALL,
          pollingTime: TimeInterval = FSPollingTime,
          cacheManager: FSCacheManager,
@@ -66,7 +68,7 @@ public typealias OnVisitorExposed = ((_ visitorExposed: FSVisitorExposed, _ from
     public private(set) var _mode: FSMode = .DECISION_API
     
     /// _timeOut
-    public private(set) var _timeOut: TimeInterval = FSTimeoutRequestApi
+    public private(set) var _timeOut: TimeInterval = FSTimeoutDecisionApi
     
     /// _logLevel
     public private(set) var _logLevel: FSLevel = .ALL
