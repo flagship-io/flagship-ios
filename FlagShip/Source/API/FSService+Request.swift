@@ -13,7 +13,7 @@ enum FSRequestType: Int {
     case Activate
     case Tracking
     case KeyContext
-    case DataUsage // For DataReport or troubleShooting
+    case DataUsage // used for DataReport or Troubleshooting
 }
 
 extension FSService {

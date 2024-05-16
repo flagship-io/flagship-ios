@@ -75,6 +75,10 @@ class FlagshipBucketingTest: XCTestCase {
         
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        
+        if let aUrlFakeSession = urlFakeSession {
+            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+        }
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 
@@ -100,6 +104,10 @@ class FlagshipBucketingTest: XCTestCase {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor("korso").build()
+        
+        if let aUrlFakeSession = urlFakeSession {
+            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+        }
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
 

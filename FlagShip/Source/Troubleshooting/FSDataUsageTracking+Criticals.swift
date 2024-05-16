@@ -53,9 +53,7 @@ extension FSDataUsageTracking {
             criticalLabel = CriticalPoints.SEND_ACTIVATE_HIT_ROUTE_ERROR.rawValue
         case .Tracking:
             criticalLabel = CriticalPoints.SEND_BATCH_HIT_ROUTE_RESPONSE_ERROR.rawValue
-        case .KeyContext:
-            return
-        case .DataUsage:
+        case .KeyContext, .DataUsage: // Skip the process with thoses type of request
             return
         }
 
