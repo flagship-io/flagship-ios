@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             print(" -- The url path : \(url.absoluteString)")
         } catch {}
+ 
         return true
     }
 
@@ -36,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
+ 
 
 //class FlagshipManager {
 //    static let shared = FlagshipManager()
@@ -64,3 +66,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
 //    }
 //}
+ 

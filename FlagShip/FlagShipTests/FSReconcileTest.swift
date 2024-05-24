@@ -25,7 +25,7 @@ class ReconcileTest: XCTestCase {
 
     func testTupleAuthentication() {
         
-        let v1 = Flagship.sharedInstance.newVisitor("ABCD-EFGH").build()
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "ABCD-EFGH",hasConsented: true).build()
         
         XCTAssert(v1.visitorId == "ABCD-EFGH")
         XCTAssert(v1.anonymousId == nil)
@@ -60,7 +60,7 @@ class ReconcileTest: XCTestCase {
         /// Save the generated on in cache to use in test
         FSGenerator.saveFlagShipIdInCache(userId: "id123")
         /// Create visitor
-        let v2 = Flagship.sharedInstance.newVisitor("Alex").isAuthenticated(true).build()
+        let v2 = Flagship.sharedInstance.newVisitor(visitorId: "Alex",hasConsented: true).isAuthenticated(true).build()
         
         XCTAssert(v2.visitorId == "Alex")
         XCTAssert(v2.anonymousId == "id123" )

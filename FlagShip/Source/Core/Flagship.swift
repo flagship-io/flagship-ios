@@ -6,33 +6,9 @@
 
 import Foundation
 
-@objc public enum FStatus: NSInteger {
-    // Flagship SDK has not been started or initialized successfully.
-    case NOT_INITIALIZED = 0x0
-    
-    // Flagship SDK has been started successfully but is still polling campaigns.
-    case POLLING = 0x10
-    
-    // Flagship SDK is ready but is running in Panic mode: All features are disabled except the one which refresh this status.
-    case PANIC_ON = 0x20
-    
-    // Flagship SDK is ready to use.
-    case READY = 0x100
-    
-    var name: String {
-        switch self { case .NOT_INITIALIZED:
-            return "NOT_INITIALIZED"
-        case .POLLING:
-            return "POLLING"
-        case .PANIC_ON:
-            return "PANIC_ON"
-        case .READY:
-            return "READY"
-        }
-    }
-}
-
 public class Flagship: NSObject {
+    let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
+    
     // envId
     var envId: String?
     // apiKey
@@ -41,32 +17,47 @@ public class Flagship: NSObject {
     var currentConfig: FlagshipConfig = FSConfigBuilder().build()
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
-    // Current status
-    var currentStatus: FStatus = .NOT_INITIALIZED
-    
     // Enabale Log
     var enableLogs: Bool = true
+    // Polling script
+    var pollingScript: FSPollingScript?
+    // Last init timestamps
+    var lastInitializationTimestamp: String
     
-    var lastInitializationTimestamp: TimeInterval
-
+    var currentStatus: FSSdkStatus {
+        get {
+            return fsQueue.sync {
+                _currentStatus
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                self._currentStatus = newValue
+            }
+        }
+    }
+    
+    private var _currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
+    
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
         // setup code
         return instance
     }()
-    
+
     override private init() {
-        lastInitializationTimestamp = Date().timeIntervalSince1970
+        lastInitializationTimestamp = FSTools.getUtcTimestamp()
     }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
-            self.envId = envId
+            Flagship.sharedInstance.envId = envId
             
         } else {
-            Flagship.sharedInstance.updateStatus(.NOT_INITIALIZED)
+            Flagship.sharedInstance.updateStatus(.SDK_NOT_INITIALIZED)
+ 
             FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.ERROR_INIT_SDK)
             return
         }
@@ -75,16 +66,22 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        currentConfig = config
+        Flagship.sharedInstance.currentConfig = config
         
-        // If the mode bucketing we set the mode at NotReady, until the polling get the
-        Flagship.sharedInstance.updateStatus((config.mode == .DECISION_API) ? .READY : .POLLING)
-
+        switch config.mode { case .DECISION_API:
+            Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
+        case .BUCKETING:
+            // Init the polling script
+            pollingScript = FSPollingScript(pollingTime: config.pollingTime)
+            // Update status depend on the buckeitng file
+            Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
+        }
+        
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool) -> FSVisitor {
-        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated)
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
+        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
@@ -93,8 +90,8 @@ public class Flagship: NSObject {
             // Read the cached visitor
             newVisitor.strategy?.getStrategy().lookupVisitor()
             // Read the cacheed hits from data base
-            newVisitor.strategy?.getStrategy().lookupHits() 
-
+            newVisitor.strategy?.getStrategy().lookupHits()
+ 
         } else {
             // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()
@@ -117,30 +114,29 @@ public class Flagship: NSObject {
     // Reset the sdk
     func reset() {
         sharedVisitor = nil
-        currentStatus = .NOT_INITIALIZED
+        currentStatus = .SDK_NOT_INITIALIZED
     }
     
     // Create new visitor
-    @objc public func newVisitor(_ visitorId: String, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder {
-        return FSVisitorBuilder(visitorId, instanceType: instanceType)
+    @objc public func newVisitor(visitorId: String, hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder {
+        return FSVisitorBuilder(visitorId, hasConsented, instanceType: instanceType)
     }
     
     // Get status
-    public func getStatus() -> FStatus {
+    public func getStatus() -> FSSdkStatus {
         return currentStatus
     }
     
     // Update status
-    func updateStatus(_ newStatus: FStatus) {
+    func updateStatus(_ newStatus: FSSdkStatus) {
         // _ if the staus has not changed then no need to trigger the callback
         if newStatus == currentStatus {
             return
         }
-        
         // Update the status
         currentStatus = newStatus
         // Trigger the callback
-        if let callbackListener = currentConfig.onStatusChanged {
+        if let callbackListener = currentConfig.onSdkStatusChanged {
             callbackListener(newStatus)
         }
     }

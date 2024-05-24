@@ -139,7 +139,7 @@ import Foundation
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
         // Set TimeInterval
-        self.currentSessionTimeStamp = Date().timeIntervalSince1970
+        self.currentSessionTimeStamp = 1674575397 // Date().timeIntervalSince1970
         // Created date
         self.createdAt = Date().timeIntervalSince1970
     }
@@ -182,8 +182,10 @@ import Foundation
 
         /// Add qt entries
         /// Time difference between when the hit was created and when it was sent
-        let qt = Date().timeIntervalSince1970 - self.createdAt
-        communParams.updateValue(qt.rounded(), forKey: "qt")
+         let qt = Date().timeIntervalSince1970 - self.createdAt      
+         communParams.updateValue(qt.rounded(), forKey: "qt")
+
+
         return communParams
     }
 
