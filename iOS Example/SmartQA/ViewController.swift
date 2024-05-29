@@ -35,11 +35,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }.build()
         
         v1.fetchFlags {
-            let flag = v1.getFlag(key: "intValue")
-            let floatFlag = v1.getFlag(key: "floatValue")
+            
+            
+            let flag = v1.getFlag(key: "btnColor")
+            
+            flag.visitorExposed()
+            
+            flag.valueBis(defaultValue: "defaultValue", visitorExposed: false)
 
-            // let val = flag.valueBis(defaultValue: 120)
-            let valBis = floatFlag.valueBis(defaultValue: 1.40 as Float)
+            
+            print("aa")
             
         }
     }
