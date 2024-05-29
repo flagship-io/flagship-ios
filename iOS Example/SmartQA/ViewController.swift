@@ -21,7 +21,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func startQA() {
- 
         // Create visitor
         let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "visitor_1", hasConsented: true).build()
        
@@ -29,61 +28,49 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
  
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user19MarsBIs", hasConsented: true).withContext(context: ["testing_tracking_manager": true]).withFetchFlagsStatus { newStatus, reason in
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user2705", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { newStatus, reason in
             
             print(newStatus.rawValue)
             print(reason.rawValue)
         }.build()
         
         v1.fetchFlags {
-            self.tableView?.reloadData()
+            let flag = v1.getFlag(key: "intValue")
+            let floatFlag = v1.getFlag(key: "floatValue")
+
+            // let val = flag.valueBis(defaultValue: 120)
+            let valBis = floatFlag.valueBis(defaultValue: 1.40 as Float)
             
-            v1.getFlag(key: "add_payment_btn", defaultValue: "dfl").value()
         }
     }
  
-
     /// Add one more activate
-    @IBAction func activate() {
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
-        }
-    }
+    @IBAction func activate() {}
 
     @IBAction func sendHits() {
- 
         Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
     }
  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // let cell = tableView.dequeueReusableCell(withIdentifier: "idCell")
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
-        
         cell.textLabel?.text = "cell"
+        let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor")
         
-//        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-//            let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_banner", defaultValue: false).value()
-//        }
-        
-        let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor", defaultValue: "dfl")
-        
-        cell.detailTextLabel?.text = flag?.value() as? String ?? ""
-        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn", defaultValue: "dfl") {
+        cell.detailTextLabel?.text = flag?.value(defaultValue: "dflt") as? String ?? ""
+        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn") {
             Flagship.sharedInstance.sharedVisitor?.clearContext()
             Flagship.sharedInstance.sharedVisitor?.updateContext("test", "stress")
             flag.visitorExposed()
         }
-
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_bannerA", defaultValue: false).value()
+        let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_bannerA").value(defaultValue: false)
         // Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
         
         for i in 0 ... 3 {

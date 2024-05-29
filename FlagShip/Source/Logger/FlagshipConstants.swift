@@ -36,7 +36,7 @@ enum FSLogMessage: CustomStringConvertible {
     case ACTIVATE_NOT_READY
     case ACTIVATE_SUCCESS(_ key: String)
     case ACTIVATE_FAILED
-    
+ 
     /// Synchronize
     case SYNCHRONIZE_NOT_READY
     
