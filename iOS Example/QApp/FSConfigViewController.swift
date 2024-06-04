@@ -89,7 +89,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         // Create config object
         let fsConfig: FlagshipConfig
 
-        let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withStatusListener { newState in
+        let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withOnSdkStatusChanged { newState in
 
             if newState == .SDK_INITIALIZED || newState == .SDK_PANIC || newState == .SDK_INITIALIZING {
                 DispatchQueue.main.async {
@@ -97,17 +97,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 }
 
                 if mode == .BUCKETING {
-                    
                     Flagship.sharedInstance.sharedVisitor?.fetchFlags {
                         self.delegate?.onGetSdkReady()
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { _, _ in
-
-            // print(fromFlag.toJson() ?? "")
-            // print(visitorExposed.toJson() ?? "")
-
         }.withLogLevel(.ALL)
 
         if mode == .DECISION_API {

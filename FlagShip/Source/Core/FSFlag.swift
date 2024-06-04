@@ -21,7 +21,7 @@ public class FSFlag: NSObject {
     private var _status: FSFlagStatus {
         return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
     }
-
+    
     // Status value
     public var status: FSFlagStatus {
         return _status
@@ -38,7 +38,7 @@ public class FSFlag: NSObject {
     ///   - defaultValue: input given by the developer
     ///   - visitorExposed: optional input to expose flag
     /// - Returns: Return a flag value. See the documentation for more details
- 
+    
     public func value<T>(defaultValue: T?, visitorExposed: Bool = true)->T? {
         var result: T?
         // Update the default value
@@ -54,7 +54,7 @@ public class FSFlag: NSObject {
                 let msg = "For the visitor \(strategy?.visitor.visitorId), no flags were found with the key \(key). Therefore, the default value \(defaultValue) has been returned"
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(msg))
             }
-
+            
             /// Activate
             if visitorExposed {
                 self.visitorExposed()
@@ -65,21 +65,17 @@ public class FSFlag: NSObject {
         
         return defaultValue
     }
-    
     #warning("Impact with TRoubleshooting, Need to adapt ")
     @objc public func visitorExposed() {
         /// check if the value function is called before
         
         if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            // Before activate we should
-            // - Check if the value() is called
-            // To display message warning
+            // Before activate we should check if the value() is called to display message warning
             isSaferExposure()
-            
             strategy?.getStrategy().activateFlag(self)
             
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("For the visitor \(strategy?.visitor.visitorId ?? ""), no flags were found with the key \(key). As a result, user exposure will not be sent."))
+        } else { // The key flag not found
+            FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("For the visitor \"\(strategy?.visitor.visitorId ?? "")\", no flags were found with the key \"\(key)\". As a result, user exposure will not be sent."))
             // Send TR on flag not found
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
         }
@@ -90,15 +86,13 @@ public class FSFlag: NSObject {
             print("It okay to expose the \(key) flag, all conditions seems to be correct ")
         } else {
             if defaultValue == nil {
-                print("Is not recommended to expose  \(key) flag since the defaultValue is not provided ")
+                print("Visitor \"\(strategy?.visitor.visitorId ?? "")\", the flag with the key \"\(key)\" has been exposed without calling the `getValue` method first")
             } else {
-                print("Is not recommended to expose  \(key) flag since the defaultValue provided conflict with the value")
+                print("For the visitor \"\(strategy?.visitor.visitorId ?? "")\", the flag with key \"\(key)\" has a different type compared to the default value. Therefore, the default value \"\(defaultValue)\" has been returned.")
             }
         }
-
-        // return isSafeToExpose
     }
- 
+    
     @objc public func exists()->Bool {
         return (strategy?.getStrategy().getModificationInfo(key) != nil)
     }
@@ -119,37 +113,6 @@ public class FSFlag: NSObject {
             return true
         }
         matchedType = value is T; isSafeToExpose = matchedType
-        
         return matchedType
-        
-//        switch defaultValue {
-//        case _ as String:
-//            /// Compare with String
-//            matchedType = value is String
-//        case _ as Int:
-//            /// Compare with Int
-//            matchedType = value is Int
-//        case _ as Bool:
-//            /// Compare with Boolean
-//            matchedType = value is Bool
-//        case _ as Float:
-//            /// Compare with Float
-//            matchedType = value is Float
-//        case _ as Double:
-//            /// Compare with Double
-//            matchedType = value is Double
-//        case _ as [Any]:
-//            /// Compare with Array
-//            matchedType = value is [Any]
-//        case _ as [String: Any]:
-//            /// Compare with Dictionary
-//            matchedType = value is [String: Any]
-//        default:
-//            matchedType = false
-//        }
-        
-        // update is safer exposure
-//        isSafeToExpose = matchedType
-//        return matchedType
     }
 }

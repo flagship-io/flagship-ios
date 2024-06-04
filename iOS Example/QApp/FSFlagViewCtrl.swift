@@ -62,7 +62,7 @@ class FSFlagViewCtrl: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBAction func getFlag() {
         currentFlag = flagView?.prepareAndGetGetFlag()
-        currentFlag?.value()
+        currentFlag
         tableViewFlag?.reloadData()
     }
     
@@ -125,30 +125,34 @@ class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                 switch typeValue {
                 case .BooleanType:
                     
-                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueSwitch?.isOn ?? false)
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: defaultValueSwitch?.isOn ?? false */ )
+
+                    flagObject?.value(defaultValue: defaultValueSwitch?.isOn ?? false, visitorExposed: false)
                     
                 case .StringType:
                     
-                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: defaultValueInput)
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: defaultValueInput */ )
+                    
+                    flagObject?.value(defaultValue: defaultValueInput, visitorExposed: false)
                     
                 case .IntegerType:
                     
-                    let inputInt = Int(String(format: "%@", defaultValueInput)) ?? 0
+                    let inputInt = Int(String(format: "%@" /* , defaultValueInput */ )) ?? 0
                     
-                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: inputInt)
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: inputInt */ )
+                    flagObject?.value(defaultValue: inputInt, visitorExposed: false)
                     
                 case .DoubleType:
                     
                     let inputDbl = Double(String(format: "%@", defaultValueInput)) ?? 0
-                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput, defaultValue: inputDbl)
+                    flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: inputDbl */ )
+                    flagObject?.value(defaultValue: inputDbl)
                 }
                 
                 let dicoInfo = flagObject?.metadata().toJson()
                 
- 
                 print(" ----------- Status fo visitor is \(Flagship.sharedInstance.sharedVisitor?.fetchStatus.rawValue ?? "") --------------")
  
-                
                 print(" ----------- Status for flag : \(keyValueInput) is \(flagObject?.status.rawValue ?? "") --------------")
             }
         }

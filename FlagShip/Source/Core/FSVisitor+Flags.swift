@@ -71,7 +71,7 @@ public class FSFlagCollection: Sequence {
         }
     }
 
-    public func toJson() -> NSString {
+    public func toJson() -> String {
         var arrayOfjson: [[String: Any]] = []
         self.flags.forEach { (_: String, value: FSFlag) in
             var hexString = ""
@@ -87,7 +87,7 @@ public class FSFlagCollection: Sequence {
         }
         if !arrayOfjson.isEmpty {
             if let globalDico = try? JSONSerialization.data(withJSONObject: arrayOfjson) {
-                return NSString(data: globalDico, encoding: String.Encoding.utf8.rawValue) ?? ""
+                return String(data: globalDico, encoding: .utf8) ?? ""
             }
         }
         return ""

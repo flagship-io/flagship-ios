@@ -35,17 +35,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }.build()
         
         v1.fetchFlags {
+            let flag = v1.getFlag(key: "babab")
             
-            
-            let flag = v1.getFlag(key: "btnColor")
-            
+            flag.value(defaultValue: 12)
             flag.visitorExposed()
-            
-            flag.valueBis(defaultValue: "defaultValue", visitorExposed: false)
 
-            
             print("aa")
-            
         }
     }
  
