@@ -11,13 +11,13 @@ import Foundation
 public class FSFlag: NSObject {
     // Key for flag modification
     var key: String
-    // Strategy to stand for in any action
+    // Strategy to adopt depending the scenario
     var strategy: FSStrategy?
-    // Safer exposure to display warning
-    private var isSafeToExpose: Bool = false
+    // Safer exposure to display warning - by default the value is false
+    var isSafeToExpose: Bool = false
     // Default value changing on the fly
     public private(set) var defaultValue: Any? /// Change on the fly
-    // Current status
+    // Current status - by default the value is not found
     private var _status: FSFlagStatus {
         return strategy?.getStrategy().getFlagStatus(key) ?? .NOT_FOUND
     }
@@ -38,7 +38,6 @@ public class FSFlag: NSObject {
     ///   - defaultValue: input given by the developer
     ///   - visitorExposed: optional input to expose flag
     /// - Returns: Return a flag value. See the documentation for more details
-    
     public func value<T>(defaultValue: T?, visitorExposed: Bool = true)->T? {
         var result: T?
         // Update the default value
@@ -51,7 +50,7 @@ public class FSFlag: NSObject {
                 result = flagModification.value as? T
             } else {
                 result = defaultValue
-                let msg = "For the visitor \(strategy?.visitor.visitorId), no flags were found with the key \(key). Therefore, the default value \(defaultValue) has been returned"
+                let msg = "For the visitor \(strategy?.visitor.visitorId ?? ""), no flags were found with the key \(key). Therefore, the default value \(String(describing: defaultValue)) has been returned"
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(msg))
             }
             
@@ -65,31 +64,20 @@ public class FSFlag: NSObject {
         
         return defaultValue
     }
+
     #warning("Impact with TRoubleshooting, Need to adapt ")
     @objc public func visitorExposed() {
         /// check if the value function is called before
-        
-        if let flagModification = strategy?.getStrategy().getFlagModification(key) {
-            // Before activate we should check if the value() is called to display message warning
+        if strategy?.getStrategy().getFlagModification(key) != nil {
+            // Before activate we should check if the last call of value() function to display the appropriate warning message.
             isSaferExposure()
+            // Send activate
             strategy?.getStrategy().activateFlag(self)
             
-        } else { // The key flag not found
+        } else { // The key was not found
             FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("For the visitor \"\(strategy?.visitor.visitorId ?? "")\", no flags were found with the key \"\(key)\". As a result, user exposure will not be sent."))
             // Send TR on flag not found
             FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .VISITOR_EXPOSED_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
-        }
-    }
-    
-    private func isSaferExposure() {
-        if isSafeToExpose {
-            print("It okay to expose the \(key) flag, all conditions seems to be correct ")
-        } else {
-            if defaultValue == nil {
-                print("Visitor \"\(strategy?.visitor.visitorId ?? "")\", the flag with the key \"\(key)\" has been exposed without calling the `getValue` method first")
-            } else {
-                print("For the visitor \"\(strategy?.visitor.visitorId ?? "")\", the flag with key \"\(key)\" has a different type compared to the default value. Therefore, the default value \"\(defaultValue)\" has been returned.")
-            }
         }
     }
     
@@ -110,6 +98,7 @@ public class FSFlag: NSObject {
         var matchedType = false
         /// If the default value given in the getFalg() is nil then the check return true
         if defaultValue == nil {
+            isSafeToExpose = true
             return true
         }
         matchedType = value is T; isSafeToExpose = matchedType

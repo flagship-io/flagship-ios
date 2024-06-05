@@ -35,12 +35,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }.build()
         
         v1.fetchFlags {
-            let flag = v1.getFlag(key: "babab")
+            let flag = v1.getFlag(key: "btnColor")
             
-            flag.value(defaultValue: 12)
+            let nilString: String? = nil
+            
             flag.visitorExposed()
-
-            print("aa")
+            
+            let result = flag.value(defaultValue: nilString)
+            
+            print(result)
         }
     }
  
