@@ -22,10 +22,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBAction func startQA() {
         // Create visitor
-        let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "visitor_1", hasConsented: true).build()
-       
-        visitor1.setConsent(hasConsented: false)
-        
+ 
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
  
         let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user2705", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { newStatus, reason in
@@ -37,13 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         v1.fetchFlags {
             let flag = v1.getFlag(key: "btnColor")
             
-            let nilString: String? = nil
+            let r: String? = flag.value(defaultValue: "ezez", visitorExposed: false)
             
-            flag.visitorExposed()
             
-            let result = flag.value(defaultValue: nilString)
-            
-            print(result)
         }
     }
  
