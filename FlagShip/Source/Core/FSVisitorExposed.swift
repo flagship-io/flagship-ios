@@ -23,6 +23,14 @@ import Foundation
         self.context = context
     }
 
+    // Init with dico
+
+    init(dico: [String: Any]) {
+        self.id = dico["id"] as? String ?? ""
+        self.anonymousId = dico["anonymousId"] as? String ?? ""
+        self.context = dico["context"] as? [String: Any] ?? [:]
+    }
+
     /// Dictionary that represent the Visitor Exposed
     /// - Return: [String: Any]
     @objc public func toDictionary() -> [String: Any] {
@@ -39,7 +47,7 @@ import Foundation
 
     /// String that represent a json for the Visitor Exposed
     /// - Return: NSString ?
-    @objc public func toJson() -> NSString? {
+    @objc public func toJson() -> String? {
         var result: [String: Any] = [
             "id": id,
             "context": context
@@ -52,6 +60,18 @@ import Foundation
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
             return nil
         }
-        return jsonData.prettyPrintedJSONString
+        return jsonData.jsonString
+    }
+}
+
+/// Used by TRManager to forward infos through closure
+
+class FSExposedInfo {
+    let exposedFlag: FSExposedFlag
+    let visitorExposed: FSVisitorExposed
+
+    init(exposedFlag: FSExposedFlag, visitorExposed: FSVisitorExposed) {
+        self.exposedFlag = exposedFlag
+        self.visitorExposed = visitorExposed
     }
 }

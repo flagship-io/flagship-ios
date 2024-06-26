@@ -80,6 +80,10 @@ class Activate: FSTrackingProtocol, Codable {
     // Variation GroupId
     var variationGroupeId: String?
 
+    // Exposed flag information
+    var exposedFlagInfoString: String?
+    var exposedVisitorInfoString: String?
+
 //    init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
 //        // Created date
 //        self.createdAt = Date().timeIntervalSince1970
@@ -95,7 +99,7 @@ class Activate: FSTrackingProtocol, Codable {
 //        }
 //    }
 
-    init(_ visitorId: String, _ anonymousId: String?, modification: FSModification) {
+    init(_ visitorId: String, _ anonymousId: String?, modification: FSModification, _ pExposedFlagInfoString: String? = nil, _ pExposedVisitorInfoString: String? = nil) {
         self.createdAt = Date().timeIntervalSince1970
         self.envId = Flagship.sharedInstance.envId
         self.visitorId = visitorId
@@ -103,6 +107,8 @@ class Activate: FSTrackingProtocol, Codable {
         self.variationId = modification.variationId
         self.variationGroupeId = modification.variationGroupId
         self.type = .ACTIVATE
+        self.exposedFlagInfoString = pExposedFlagInfoString
+        self.exposedVisitorInfoString = pExposedVisitorInfoString
     }
 
     public var bodyTrack: [String: Any] {
@@ -124,6 +130,16 @@ class Activate: FSTrackingProtocol, Codable {
         /// Time difference between when the hit was created and when it was sent
         let qt = Date().timeIntervalSince1970 - self.createdAt
         customParams.updateValue(qt.rounded(), forKey: "qt")
+
+        // Set exposed flag info
+        if let aExposedFlagInfoString = exposedFlagInfoString {
+            customParams.updateValue(aExposedFlagInfoString, forKey: "expoFlagString")
+        }
+
+        // Set exposed visitor info
+        if let aExposedVisitorInfoString = exposedVisitorInfoString {
+            customParams.updateValue(aExposedVisitorInfoString, forKey: "expoVisitorString")
+        }
         return customParams
     }
 
@@ -139,6 +155,12 @@ class Activate: FSTrackingProtocol, Codable {
         do { self.variationId = try values.decode(String.self, forKey: .variationId) } catch { /* error on decode variationId*/ }
         // variationGroupeId
         do { self.variationGroupeId = try values.decode(String.self, forKey: .variationGroupeId) } catch { /* error on decode variationGroupeId*/ }
+
+        // Exposed flag info
+        do { self.exposedFlagInfoString = try values.decode(String.self, forKey: .exposedFlagInfoString) } catch {}
+        // Exposed Visitor info
+        do { self.exposedVisitorInfoString = try values.decode(String.self, forKey: .exposedFlagInfoString) } catch {}
+
         self.type = .ACTIVATE
 
         do {
@@ -157,9 +179,27 @@ class Activate: FSTrackingProtocol, Codable {
         case variationGroupeId = "caid"
         // Created time
         case createdAt = "qt" // See later the optional
+        case exposedFlagInfoString = "expoFlagString"
+        case exposedVisitorInfoString = "expoVisitorString"
     }
 
-    internal func description() -> String {
+    func getExposedInfo() -> FSExposedInfo? {
+        if let dataExposedFalg = self.exposedFlagInfoString?.data(using: .utf8), let dataExposedVisitor = self.exposedVisitorInfoString?.data(using: .utf8) {
+            do {
+                if let dicoExposedFalg = (try? JSONSerialization.jsonObject(with: dataExposedFalg, options: [])) as? [String: Any] {
+                    let expoFlag = FSExposedFlag(dico: dicoExposedFalg)
+
+                    if let dicoExposedVisitor = (try? JSONSerialization.jsonObject(with: dataExposedVisitor, options: [])) as? [String: Any] {
+                        let expoVisitor = FSVisitorExposed(dico: dicoExposedVisitor)
+                        return FSExposedInfo(exposedFlag: expoFlag, visitorExposed: expoVisitor)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
+    func description() -> String {
         do {
             let stringDescription = try JSONSerialization.data(withJSONObject: self.bodyTrack as Any, options: .prettyPrinted)
             return "\(stringDescription.prettyPrintedJSONString ?? "")"
@@ -180,10 +220,6 @@ class ActivateBatch {
         self.envId = Flagship.sharedInstance.envId ?? ""
     }
 
-//    func addElement(_ newElement: FSTrackingProtocol) {
-//        self.listActivate.append(newElement)
-//    }
-
     func addListOfElement(_ list: [FSTrackingProtocol]) {
         self.listActivate.append(contentsOf: list)
     }
@@ -192,14 +228,33 @@ class ActivateBatch {
         var ret: [[String: Any]] = []
 
         if let aCurrentActivate = self.currentActivate {
-            ret.append(aCurrentActivate.bodyTrack)
+            var currentElemToAdd = aCurrentActivate.bodyTrack
+            currentElemToAdd.removeValue(forKey: "expoFlagString")
+            currentElemToAdd.removeValue(forKey: "expoVisitorString")
+            ret.append(currentElemToAdd)
         }
 
         for item in self.listActivate {
             var elemToAdd = item.bodyTrack
             elemToAdd.removeValue(forKey: "cid")
+            elemToAdd.removeValue(forKey: "expoFlagString")
+            elemToAdd.removeValue(forKey: "expoVisitorString")
+
             ret.append(elemToAdd)
         }
         return ["cid": self.envId, "batch": ret]
+    }
+
+    func getExposureInfos() -> [FSExposedInfo]? {
+        var result: [FSExposedInfo] = []
+
+        if let aCurrentActivate = self.currentActivate as? Activate {
+            if let newElem = aCurrentActivate.getExposedInfo() {
+                result.append(newElem)
+            }
+        }
+
+        // Add the activate info in the loop
+        return result
     }
 }

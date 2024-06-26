@@ -31,6 +31,18 @@ import Foundation
         variationName = modification?.variationName ?? ""
     }
 
+    public init(dico: [String: Any]) {
+        campaignId = dico["campaignId"] as? String ?? ""
+        variationGroupId = dico["variationGroupId"] as? String ?? ""
+        variationId = dico["variationId"] as? String ?? ""
+        isReference = false
+        campaignType = dico["campaignType"] as? String ?? ""
+        slug = dico["slug"] as? String ?? ""
+        campaignName = dico["campaignName"] as? String ?? ""
+        variationGroupName = dico["variationGroupName"] as? String ?? ""
+        variationName = dico["variationName"] as? String ?? ""
+    }
+
     @objc public func toJson()->[String: Any] {
         return ["campaignId": campaignId,
                 "campaignName": campaignName,

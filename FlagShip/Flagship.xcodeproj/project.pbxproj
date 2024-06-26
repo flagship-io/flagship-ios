@@ -262,10 +262,6 @@
 		F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
 		F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
 		F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
-		F53970A429DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A529DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
 		F53A689C2B5ECB0D00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
@@ -1153,7 +1149,6 @@
 				F55CC59F2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B2D513A2805D43C00866D61 /* decode-json-swift.swift in Sources */,
 				8B2D513B2805D43C00866D61 /* FSGenerator.swift in Sources */,
-				F53970A529DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B2D513C2805D43C00866D61 /* FlagShipVersion.swift in Sources */,
 				8B2D513D2805D43C00866D61 /* Flagship.swift in Sources */,
 				8B2D513E2805D43C00866D61 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1265,7 +1260,6 @@
 				F55CC5A02C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B9F2A892809B8E600323094 /* decode-json-swift.swift in Sources */,
 				8B9F2A8A2809B8E600323094 /* FSGenerator.swift in Sources */,
-				F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B9F2A8B2809B8E600323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2A8C2809B8E600323094 /* Flagship.swift in Sources */,
 				8B9F2A8D2809B8E600323094 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1348,7 +1342,6 @@
 				F55CC5A12C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B9F2AC82809BA8200323094 /* decode-json-swift.swift in Sources */,
 				8B9F2AC92809BA8200323094 /* FSGenerator.swift in Sources */,
-				F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B9F2ACA2809BA8200323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2ACB2809BA8200323094 /* Flagship.swift in Sources */,
 				8B9F2ACC2809BA8200323094 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1431,7 +1424,6 @@
 				F55CC59E2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B6736A227FED3E5003EC960 /* decode-json-swift.swift in Sources */,
 				8B6736A327FED3E5003EC960 /* FSGenerator.swift in Sources */,
-				F53970A429DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B6736A427FED3E5003EC960 /* FlagShipVersion.swift in Sources */,
 				8B6736A527FED3E5003EC960 /* Flagship.swift in Sources */,
 				8B6736A627FED3E5003EC960 /* FSVisitor+Reconcilliation.swift in Sources */,

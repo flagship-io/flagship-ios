@@ -32,11 +32,18 @@ protocol IFlag {
     // Value for flag
     public private(set) var value: Any?
 
-    internal init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?) {
+    init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?) {
         self.key = key
         self.defaultValue = defaultValue
         self.metadata = metadata
         self.value = value
+    }
+
+    init(dico: [String: Any]) {
+        self.key = dico["key"] as? String ?? ""
+        self.value = dico["value"]
+        self.defaultValue = dico["defaultValue"]
+        self.metadata = FSFlagMetadata(dico: dico["metadata"] as? [String: Any] ?? [:])
     }
 
     /// Dictionary that represent the Exposed Flag
@@ -60,7 +67,7 @@ protocol IFlag {
 
     /// String that represent a json for the Exposed Flag
     /// - Return: NSString ?
-    @objc public func toJson() -> NSString? {
+    @objc public func toJson() -> String? {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -77,6 +84,17 @@ protocol IFlag {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
             return nil
         }
-        return jsonData.prettyPrintedJSONString
+        return jsonData.jsonString
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.key, forKey: .key)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case key
+        case metadata
+        case value
     }
 }

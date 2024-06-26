@@ -28,12 +28,13 @@ class ContinuousTrackingManager: FSTrackingManager {
     }
 
     // SEND ACTIVATE --------------//
-    override func sendActivate(_ currentActivate: Activate?, onCompletion: @escaping (Error?) -> Void) {
+    override func sendActivate(_ currentActivate: Activate?, onCompletion: @escaping (Error?, [FSExposedInfo]?) -> Void) {
         // Create activate batch
         let activateBatch = ActivateBatch(pCurrentActivate: currentActivate)
 
         // Get the old activate if exisit
         if !batchManager.isQueueEmpty(activatePool: true) {
+            #warning("Set a maximum number of activate to retreive")
             activateBatch.addListOfElement(batchManager.extractAllElements(activatePool: true))
         }
 
@@ -41,12 +42,16 @@ class ContinuousTrackingManager: FSTrackingManager {
         service.activate(activateBatch.bodyTrack) { error in
             if error == nil {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_SUCCESS(activateBatch.bodyTrack.description))
+
                 self.onSuccessToSendActivate(activateBatch)
+
+                onCompletion(nil, activateBatch.getExposureInfos())
             } else {
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send Activate"))
                 self.onFailedToSendActivate(activateBatch)
+
+                onCompletion(error, nil)
             }
-            onCompletion(error)
         }
     }
 
@@ -61,7 +66,7 @@ class ContinuousTrackingManager: FSTrackingManager {
     // ************** BATCH PROCESS ***********//
     override func processActivatesBatching() {
         // We pass nil here because will batch the activate pool without a current one
-        self.sendActivate(nil) { _ in
+        self.sendActivate(nil) { _, _ in
             /// refractor later
         }
     }

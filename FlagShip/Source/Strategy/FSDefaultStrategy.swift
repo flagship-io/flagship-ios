@@ -63,7 +63,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     func activate(_ key: String) {
         if let aModification = visitor.currentFlags[key] {
             let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, _ in
                 
                 if error == nil {}
             })
@@ -76,16 +76,28 @@ class FSDefaultStrategy: FSDelegateStrategy {
     /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
         if let aModification = visitor.currentFlags[flag.key] {
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
+            // Define Exposed flag and exposed visitor
+            var exposedFlag, exposedVisitor: String?
+            if visitor.configManager.flagshipConfig.onVisitorExposed != nil {
+                // Create flag exposed object
+                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)).toJson()
+                // Create visitor expose object
+                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()).toJson()
+            }
+            
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag, exposedVisitor)
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
                 
                 if error == nil {
-                    /// if the callback defined then trigger
+                    /// if the callback is defined ===> Trigger it
                     if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
-                        aOnVisitorExposed(FSVisitorExposed(id: self.visitor.visitorId, anonymousId: self.visitor.anonymousId, context: self.visitor.context.getCurrentContext()),
-                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)))
-                        #warning("TODO REVIEW THIS PART WHEN FORWARDING THE FLAG4S VALUE")
+                        exposedInfosArray?.forEach { item in
+
+                            aOnVisitorExposed(item.visitorExposed, item.exposedFlag)
+                        }
                     }
+                } else {
+                    // The flag error
                 }
             })
             // Troubleshooitng activate
