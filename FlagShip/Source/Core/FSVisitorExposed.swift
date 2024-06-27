@@ -27,7 +27,7 @@ import Foundation
 
     init(dico: [String: Any]) {
         self.id = dico["id"] as? String ?? ""
-        self.anonymousId = dico["anonymousId"] as? String ?? ""
+        self.anonymousId = dico["anonymousId"] as? String
         self.context = dico["context"] as? [String: Any] ?? [:]
     }
 

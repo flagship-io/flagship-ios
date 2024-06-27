@@ -18,11 +18,6 @@ final class FSTrackingManagerTest: XCTestCase {
     let testEvent = FSEvent(eventCategory: .Action_Tracking, eventAction: "testEvent")
 
     override func setUpWithError() throws {
-        MockURLProtocol.requestHandler = { _ in
-            let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
-            return (response, nil)
-        }
-
         /// Fake session
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
