@@ -89,10 +89,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
             visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
                 
                 if error == nil {
-                    /// if the callback is defined ===> Trigger it
+                    /// Is callback is defined ===> Trigger it
                     if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
                         exposedInfosArray?.forEach { item in
-
                             aOnVisitorExposed(item.visitorExposed, item.exposedFlag)
                         }
                     }

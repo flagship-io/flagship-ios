@@ -12,11 +12,9 @@ class FSNotReadyStrategy: FSDefaultStrategy {
         FlagshipLogManager.Log(level: .INFO, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_CONTEXT_NOT_READY)
     }
     
- 
     override func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
         FlagshipLogManager.Log(level: .INFO, tag: .SYNCHRONIZE, messageToDisplay: FSLogMessage.SYNCHRONIZE_NOT_READY)
         onSyncCompleted(.FETCH_REQUIRED, .NONE)
- 
     }
     
     override func getModification<T>(_ key: String, defaultValue: T) -> T {
@@ -36,6 +34,10 @@ class FSNotReadyStrategy: FSDefaultStrategy {
     }
     
     override func activate(_ key: String) {
+        FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_NOT_READY)
+    }
+    
+    override func activateFlag(_ flag: FSFlag) {
         FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_NOT_READY)
     }
     

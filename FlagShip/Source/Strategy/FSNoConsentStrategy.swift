@@ -13,6 +13,10 @@ class FSNoConsentStrategy: FSDefaultStrategy {
         FlagshipLogManager.Log(level: .ALL, tag: .CONSENT, messageToDisplay: FSLogMessage.ACTIVATE_NO_CONSENT)
     }
     
+    override func activateFlag(_ flag: FSFlag) {
+        FlagshipLogManager.Log(level: .ALL, tag: .CONSENT, messageToDisplay: FSLogMessage.ACTIVATE_NO_CONSENT)
+    }
+    
     /// The send hits in not allowed, excpet the consent event
     override func sendHit(_ hit: FSTrackingProtocol) {
         switch hit.type {
@@ -33,5 +37,4 @@ class FSNoConsentStrategy: FSDefaultStrategy {
     
     /// _ Lookup Hits
     override func lookupHits() {}
-    
 }
