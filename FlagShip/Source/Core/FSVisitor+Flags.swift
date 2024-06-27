@@ -117,13 +117,8 @@ class FSExtraMetadata: FSFlagMetadata {
         super.init(modification)
     }
 
-    public required init(from decoder: any Decoder) throws {
-        fatalError("init(from:) has not been implemented")
-    }
-
     override func toJson() -> [String: Any] {
         var ret = super.toJson()
-
         // Add key
         ret.merge(["key": self.key]) { _, new in new }
         // Add hex value

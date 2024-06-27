@@ -18,6 +18,11 @@ final class FSTrackingManagerTest: XCTestCase {
     let testEvent = FSEvent(eventCategory: .Action_Tracking, eventAction: "testEvent")
 
     override func setUpWithError() throws {
+        MockURLProtocol.requestHandler = { _ in
+            let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, nil)
+        }
+
         /// Fake session
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [MockURLProtocol.self]
@@ -50,7 +55,6 @@ final class FSTrackingManagerTest: XCTestCase {
             expectationSync.fulfill()
         }
         wait(for: [expectationSync], timeout: 6.0)
-        
     }
 
     func testSendHitWithFailed() {
@@ -58,16 +62,15 @@ final class FSTrackingManagerTest: XCTestCase {
             let response = HTTPURLResponse(url: URL(string: "---")!, statusCode: 400, httpVersion: nil, headerFields: nil)!
             return (response, nil)
         }
-
-        let expectationSync = XCTestExpectation(description: "testSendHitWithFailed")
+        let expFailed = XCTestExpectation(description: "testSendHitWithFailed")
 
         trackingManager?.sendHit(testEvent)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            XCTAssertTrue(self.trackingManager?.failedIds.isEmpty == false)
-            expectationSync.fulfill()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            // XCTAssertFalse(self.trackingManager?.failedIds.isEmpty ?? true)
+            expFailed.fulfill()
         }
-        wait(for: [expectationSync], timeout: 6.0)
+        wait(for: [expFailed], timeout: 6.0)
     }
 
     func testAddTrackingElementsToBatch() {

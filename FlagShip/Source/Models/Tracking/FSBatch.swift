@@ -56,6 +56,9 @@ class FSBatch: FSTracking {
 // Activate class //
 ////////////////////
 
+let internal_exposure_flag = "internal_exposure_flag"
+let internal_exposure_visitor = "internal_exposure_visitor"
+
 class Activate: FSTrackingProtocol, Codable {
     var createdAt: TimeInterval = 0
 
@@ -81,23 +84,8 @@ class Activate: FSTrackingProtocol, Codable {
     var variationGroupeId: String?
 
     // Exposed flag information
-    var exposedFlagInfoString: String?
-    var exposedVisitorInfoString: String?
-
-//    init(_ visitorId: String, _ anonymousId: String?, variationId: String, variationGroupeId: String) {
-//        // Created date
-//        self.createdAt = Date().timeIntervalSince1970
-//        self.type = .ACTIVATE
-//        self.visitorId = visitorId
-//        self.anonymousId = anonymousId
-//        self.variationId = variationId
-//        self.variationGroupeId = variationGroupeId
-//
-//        let shared = Flagship.sharedInstance
-//        if let aEnvId = shared.envId {
-//            self.envId = aEnvId
-//        }
-//    }
+    var exposure_flag: String?
+    var exposure_visitor: String?
 
     init(_ visitorId: String, _ anonymousId: String?, modification: FSModification, _ pExposedFlagInfoString: String? = nil, _ pExposedVisitorInfoString: String? = nil) {
         self.createdAt = Date().timeIntervalSince1970
@@ -107,8 +95,8 @@ class Activate: FSTrackingProtocol, Codable {
         self.variationId = modification.variationId
         self.variationGroupeId = modification.variationGroupId
         self.type = .ACTIVATE
-        self.exposedFlagInfoString = pExposedFlagInfoString
-        self.exposedVisitorInfoString = pExposedVisitorInfoString
+        self.exposure_flag = pExposedFlagInfoString
+        self.exposure_visitor = pExposedVisitorInfoString
     }
 
     public var bodyTrack: [String: Any] {
@@ -132,13 +120,13 @@ class Activate: FSTrackingProtocol, Codable {
         customParams.updateValue(qt.rounded(), forKey: "qt")
 
         // Set exposed flag info
-        if let aExposedFlagInfoString = exposedFlagInfoString {
-            customParams.updateValue(aExposedFlagInfoString, forKey: "expoFlagString")
+        if let aExposedFlagInfoString = exposure_flag {
+            customParams.updateValue(aExposedFlagInfoString, forKey: internal_exposure_flag)
         }
 
         // Set exposed visitor info
-        if let aExposedVisitorInfoString = exposedVisitorInfoString {
-            customParams.updateValue(aExposedVisitorInfoString, forKey: "expoVisitorString")
+        if let aExposedVisitorInfoString = exposure_visitor {
+            customParams.updateValue(aExposedVisitorInfoString, forKey: internal_exposure_visitor)
         }
         return customParams
     }
@@ -157,9 +145,9 @@ class Activate: FSTrackingProtocol, Codable {
         do { self.variationGroupeId = try values.decode(String.self, forKey: .variationGroupeId) } catch { /* error on decode variationGroupeId*/ }
 
         // Exposed flag info
-        do { self.exposedFlagInfoString = try values.decode(String.self, forKey: .exposedFlagInfoString) } catch {}
+        do { self.exposure_flag = try values.decode(String.self, forKey: .exposure_flag) } catch {}
         // Exposed Visitor info
-        do { self.exposedVisitorInfoString = try values.decode(String.self, forKey: .exposedFlagInfoString) } catch {}
+        do { self.exposure_visitor = try values.decode(String.self, forKey: .exposure_visitor) } catch {}
 
         self.type = .ACTIVATE
 
@@ -179,15 +167,16 @@ class Activate: FSTrackingProtocol, Codable {
         case variationGroupeId = "caid"
         // Created time
         case createdAt = "qt" // See later the optional
-        case exposedFlagInfoString = "expoFlagString"
-        case exposedVisitorInfoString = "expoVisitorString"
+        // Those keys for internal use only not forwarded to activate tracking
+        case exposure_flag = "internal_exposure_flag"
+        case exposure_visitor = "internal_exposure_visitor"
     }
 
     func getExposedInfo() -> FSExposedInfo? {
-        if let dataExposedFalg = self.exposedFlagInfoString?.data(using: .utf8), let dataExposedVisitor = self.exposedVisitorInfoString?.data(using: .utf8) {
+        if let dataExposedFalg = self.exposure_flag?.data(using: .utf8), let dataExposedVisitor = self.exposure_visitor?.data(using: .utf8) {
             do {
                 if let dicoExposedFalg = (try? JSONSerialization.jsonObject(with: dataExposedFalg, options: [])) as? [String: Any] {
-                    let expoFlag = FSExposedFlag(dico: dicoExposedFalg)
+                    let expoFlag = FSExposedFlag(expoedInfo: dicoExposedFalg)
 
                     if let dicoExposedVisitor = (try? JSONSerialization.jsonObject(with: dataExposedVisitor, options: [])) as? [String: Any] {
                         let expoVisitor = FSVisitorExposed(dico: dicoExposedVisitor)
@@ -229,16 +218,16 @@ class ActivateBatch {
 
         if let aCurrentActivate = self.currentActivate {
             var currentElemToAdd = aCurrentActivate.bodyTrack
-            currentElemToAdd.removeValue(forKey: "expoFlagString")
-            currentElemToAdd.removeValue(forKey: "expoVisitorString")
+            currentElemToAdd.removeValue(forKey: internal_exposure_flag)
+            currentElemToAdd.removeValue(forKey: internal_exposure_visitor)
             ret.append(currentElemToAdd)
         }
 
         for item in self.listActivate {
             var elemToAdd = item.bodyTrack
             elemToAdd.removeValue(forKey: "cid")
-            elemToAdd.removeValue(forKey: "expoFlagString")
-            elemToAdd.removeValue(forKey: "expoVisitorString")
+            elemToAdd.removeValue(forKey: internal_exposure_flag)
+            elemToAdd.removeValue(forKey: internal_exposure_visitor)
 
             ret.append(elemToAdd)
         }

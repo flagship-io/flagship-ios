@@ -39,15 +39,15 @@ protocol IFlag {
         self.value = value
     }
 
-    init(dico: [String: Any]) {
-        self.key = dico["key"] as? String ?? ""
-        self.value = dico["value"]
-        self.defaultValue = dico["defaultValue"]
-        self.metadata = FSFlagMetadata(dico: dico["metadata"] as? [String: Any] ?? [:])
+    init(expoedInfo: [String: Any]) {
+        self.key = expoedInfo["key"] as? String ?? ""
+        self.value = expoedInfo["value"]
+        self.defaultValue = expoedInfo["defaultValue"]
+        self.metadata = FSFlagMetadata(metadataDico: expoedInfo["metadata"] as? [String: Any] ?? [:])
     }
 
-    /// Dictionary that represent the Exposed Flag
-    /// - Return: [String: Any]
+    ///   Dictionary that represent the Exposed Flag
+    /// - return: [String: Any]
     @objc public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "key": key,
@@ -65,8 +65,8 @@ protocol IFlag {
         return result
     }
 
-    /// String that represent a json for the Exposed Flag
-    /// - Return: NSString ?
+    ///   String that represent a json for the Exposed Flag
+    /// - Return: String?
     @objc public func toJson() -> String? {
         var result: [String: Any] = [
             "key": key,
@@ -85,16 +85,5 @@ protocol IFlag {
             return nil
         }
         return jsonData.jsonString
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.key, forKey: .key)
-    }
-
-    private enum CodingKeys: String, CodingKey {
-        case key
-        case metadata
-        case value
     }
 }

@@ -125,6 +125,24 @@ final class FSHitTest: XCTestCase {
                         let jsonData = try JSONSerialization.data(withJSONObject: content)
 
                         newHit = try decoder.decode(Activate.self, from: jsonData)
+
+                        // Decode the exposed flag and check the value
+                        if let aActivate = newHit as? Activate {
+                            if let exposedInfo = aActivate.getExposedInfo() {
+                                // Test Flag info
+                                XCTAssertTrue(exposedInfo.exposedFlag.key == "my_flag")
+                                XCTAssertTrue(exposedInfo.exposedFlag.metadata.campaignName == "onExposureTest")
+                                // Test Visitor info
+                                XCTAssertTrue(exposedInfo.visitorExposed.id == "user1912")
+                                // Compare with context infos
+                                XCTAssert(exposedInfo.visitorExposed.context["sdk_fsVersion"] as? String == "4.0.0")
+                            } else {
+                                XCTAssertTrue(false)
+                            }
+                        } else {
+                            XCTAssertTrue(false)
+                        }
+
                         XCTAssertTrue(newHit.bodyTrack["caid"] as? String == "chsrcv6e4nsic4ug2p0g")
 
                     } catch {}

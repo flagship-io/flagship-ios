@@ -41,7 +41,7 @@ let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[
 let VISITOR_CONSENT = "visitor_consent"
 
 ///// ACTIVATE ///////////////
-let FSActivate = FlagShipEndPoint + "activate" // TODO Change 
+let FSActivate = FlagShipEndPoint + "activate"
 
 ///////////// ARIANE ////////////////////////////////
 // internal let FSDATA_ARIANE = "https://ariane.abtasty.com"
@@ -67,4 +67,4 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 
 // Local Notification
 
-let FSBucketingScriptNotification =  "onGettingBucketScript"
+let FSBucketingScriptNotification = "onGettingBucketScript"
