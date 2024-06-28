@@ -242,6 +242,14 @@ class ActivateBatch {
                 result.append(newElem)
             }
         }
+        // Do map realy nicer
+        self.listActivate.forEach { item in
+            if let aItem = item as? Activate {
+                if let newItem = aItem.getExposedInfo() {
+                    result.append(newItem)
+                }
+            }
+        }
 
         // Add the activate info in the loop
         return result
