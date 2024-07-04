@@ -28,8 +28,6 @@ class FSConsentStrategyTest: XCTestCase {
         v3.strategy?.getStrategy().sendHit(FSPage("pageNC"))
         // Send consent
         v3.strategy?.getStrategy().sendHit(FSConsent(eventCategory: .User_Engagement, eventAction: "NC"))
-        // Activate
-        v3.strategy?.getStrategy().activate("NC")
         // cache + lookup*
         v3.strategy?.getStrategy().cacheVisitor()
         v3.strategy?.getStrategy().lookupHits()

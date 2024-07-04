@@ -59,20 +59,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
         self.visitor = pVisitor
     }
     
-    /// Activate
-    func activate(_ key: String) {
-        if let aModification = visitor.currentFlags[key] {
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, _ in
-                
-                if error == nil {}
-            })
-            
-            // Troubleshooitng activate
-            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
-        }
-    }
-    
     /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
         if let aModification = visitor.currentFlags[flag.key] {
@@ -306,7 +292,7 @@ protocol FSDelegateStrategy {
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
  
     /// Activate
-    func activate(_ key: String)
+   // func activate(_ key: String)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos

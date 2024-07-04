@@ -15,11 +15,6 @@ class FSPanicStrategy: FSDefaultStrategy {
     override func sendHit(_ hit: FSTrackingProtocol) {
         FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_PANIC)
     }
-    
-    override func activate(_ key: String) {
-        FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_PANIC)
-    }
-    
     override func activateFlag(_ flag: FSFlag) {
         FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_PANIC)
     }

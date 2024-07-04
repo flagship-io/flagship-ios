@@ -33,10 +33,6 @@ class FSNotReadyStrategy: FSDefaultStrategy {
         return nil
     }
     
-    override func activate(_ key: String) {
-        FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_NOT_READY)
-    }
-    
     override func activateFlag(_ flag: FSFlag) {
         FlagshipLogManager.Log(level: .INFO, tag: .ACTIVATE, messageToDisplay: FSLogMessage.ACTIVATE_NOT_READY)
     }

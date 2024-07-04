@@ -35,8 +35,6 @@ final class FSNotReadyStrategyTest: XCTestCase {
         XCTAssertNil(userNR.strategy?.getStrategy().getFlagModification("keyNR"))
         // Get Modification inofs
         XCTAssertNil(userNR.strategy?.getStrategy().getFlagModification("keyNR"))
-        // Activate
-        userNR.strategy?.getStrategy().activate("")
         // Send Hit
         userNR.strategy?.getStrategy().sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "eventNR"))
 

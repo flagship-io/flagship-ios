@@ -9,10 +9,6 @@ import Foundation
 
 class FSNoConsentStrategy: FSDefaultStrategy {
     /// The activate is not allowed
-    override func activate(_ key: String) {
-        FlagshipLogManager.Log(level: .ALL, tag: .CONSENT, messageToDisplay: FSLogMessage.ACTIVATE_NO_CONSENT)
-    }
-    
     override func activateFlag(_ flag: FSFlag) {
         FlagshipLogManager.Log(level: .ALL, tag: .CONSENT, messageToDisplay: FSLogMessage.ACTIVATE_NO_CONSENT)
     }
