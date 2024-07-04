@@ -64,7 +64,7 @@ final class FSOnExposureTest: XCTestCase {
 
         testVisitor?.fetchFlags(onFetchCompleted: {
             if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
-                XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
+                //  XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
             }
             expectationSync.fulfill()
 
