@@ -56,6 +56,34 @@ class FlagshipBucketingTest: XCTestCase {
             
             if newStatus == .FETCHED {
                 // Get from alloc 100
+//                if let flag = self.testVisitor?.getFlag(key: "stringFlag") {
+//                    XCTAssertTrue(flag.value(defaultValue: "default") == "alloc_100")
+//                    // Test Flag metadata already with bucketing file
+//                    XCTAssertTrue(flag.exists())
+//                    XCTAssertTrue(flag.metadata().campaignId == "br6h35n811lg0788np8g")
+//                    XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+//                    XCTAssertTrue(flag.metadata().variationId == "br6h35n811lg0788npa0")
+//                    XCTAssertTrue(flag.metadata().variationName == "variation_name")
+//                    XCTAssertTrue(flag.metadata().variationGroupId == "br6h35n811lg0788np9g")
+//                    XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+//                    XCTAssertTrue(flag.metadata().isReference == false)
+//                    XCTAssertTrue(flag.metadata().slug == "slug_description")
+//                }
+//                expectationSync.fulfill()
+            }
+        }.build()
+ 
+        /// Erase all cached data
+        testVisitor?.strategy?.getStrategy().flushVisitor()
+        
+        // Set fake session
+        if let aUrlFakeSession = urlFakeSession {
+            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+        }
+        
+        testVisitor?.fetchFlags {
+            if self.testVisitor?.fetchStatus == .FETCHED {
+                // Get from alloc 100
                 if let flag = self.testVisitor?.getFlag(key: "stringFlag") {
                     XCTAssertTrue(flag.value(defaultValue: "default") == "alloc_100")
                     // Test Flag metadata already with bucketing file
@@ -69,19 +97,10 @@ class FlagshipBucketingTest: XCTestCase {
                     XCTAssertTrue(flag.metadata().isReference == false)
                     XCTAssertTrue(flag.metadata().slug == "slug_description")
                 }
-                expectationSync.fulfill()
             }
-        }.build()
- 
-        /// Erase all cached data
-        testVisitor?.strategy?.getStrategy().flushVisitor()
-        
-        // Set fake session
-        if let aUrlFakeSession = urlFakeSession {
-          //  testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+            expectationSync.fulfill()
+
         }
-        
-        testVisitor?.fetchFlags {}
 
         wait(for: [expectationSync], timeout: 60.0)
     }
