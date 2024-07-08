@@ -46,7 +46,7 @@ public enum FSFetchReasons: String {
     case AUTHENTICATE
     case UNAUTHENTICATE
     case FETCH_ERROR
-    case READ_FROM_CACHE
+    case FETCHED_FROM_CACHE
     case NONE
 }
 
