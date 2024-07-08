@@ -83,7 +83,7 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(flagTest.toDictionary()["value"] as? String == "flagVlaue")
         XCTAssertTrue(flagTest.toDictionary()["key"] as? String == "keyFlag")
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
-        XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(flagTest.toJson()?.count ?? 0 > 0)
     }
 
     // Test Visitor Object
@@ -92,6 +92,6 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["id"] as? String == "testId")
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
-        XCTAssertTrue(visitorObject.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(visitorObject.toJson()?.count ?? 0 > 0)
     }
 }

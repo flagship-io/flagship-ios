@@ -11,7 +11,7 @@ import Foundation
 protocol ITrackingManager {
     func sendHit(_ hitToSend: FSTrackingProtocol)
 
-    func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?) -> Void)
+    func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?, [FSExposedInfo]?) -> Void)
 
     func stopBatchingProcess()
 

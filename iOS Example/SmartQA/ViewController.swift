@@ -22,8 +22,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBAction func startQA() {
         // Create visitor
+        
+        var cpt = 0
+        
+        let config = FSConfigBuilder().withOnVisitorExposed { visitorExposed, fromFlag in
+            
+            print(visitorExposed.id)
+            print(fromFlag.key)
+            
+            cpt = cpt + 1
+            
+            print(" the cpt represent the callback number \(cpt)")
+        }.build()
  
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: config)
  
         let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user2705", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { newStatus, reason in
             
@@ -33,15 +45,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         v1.fetchFlags {
             let flag = v1.getFlag(key: "btnColor")
-            
             let r: String? = flag.value(defaultValue: "ezez", visitorExposed: false)
-            
-            
         }
     }
  
     /// Add one more activate
-    @IBAction func activate() {}
+    @IBAction func activate() {
+        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
+            flag.visitorExposed()
+        }
+    }
 
     @IBAction func sendHits() {
         Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
@@ -60,7 +73,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn") {
             Flagship.sharedInstance.sharedVisitor?.clearContext()
             Flagship.sharedInstance.sharedVisitor?.updateContext("test", "stress")
-            flag.visitorExposed()
         }
         return cell
     }

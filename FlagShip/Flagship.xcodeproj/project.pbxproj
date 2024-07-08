@@ -262,10 +262,6 @@
 		F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
 		F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
 		F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */; };
-		F53970A429DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A529DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
-		F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */; };
 		F53970BD29ED495B00D650E4 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F53970BC29ED493D00D650E4 /* libsqlite3.tbd */; };
 		F53A689C2B5ECB0D00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
@@ -459,7 +455,6 @@
 		F539709429DB2F3F00D650E4 /* FSDefaultCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDefaultCache.swift; sourceTree = "<group>"; };
 		F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSTracking+Codable.swift"; sourceTree = "<group>"; };
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		F53970BE29ED495B00D650E4 /* libBasebandCommandDriversQMI.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libBasebandCommandDriversQMI.tbd; path = usr/lib/libBasebandCommandDriversQMI.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
@@ -834,7 +829,6 @@
 		8BF02D6223C394F5006D154E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F53970BE29ED495B00D650E4 /* libBasebandCommandDriversQMI.tbd */,
 				F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */,
 				F53970BC29ED493D00D650E4 /* libsqlite3.tbd */,
 			);
@@ -1153,7 +1147,6 @@
 				F55CC59F2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B2D513A2805D43C00866D61 /* decode-json-swift.swift in Sources */,
 				8B2D513B2805D43C00866D61 /* FSGenerator.swift in Sources */,
-				F53970A529DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B2D513C2805D43C00866D61 /* FlagShipVersion.swift in Sources */,
 				8B2D513D2805D43C00866D61 /* Flagship.swift in Sources */,
 				8B2D513E2805D43C00866D61 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1265,7 +1258,6 @@
 				F55CC5A02C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B9F2A892809B8E600323094 /* decode-json-swift.swift in Sources */,
 				8B9F2A8A2809B8E600323094 /* FSGenerator.swift in Sources */,
-				F53970A629DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B9F2A8B2809B8E600323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2A8C2809B8E600323094 /* Flagship.swift in Sources */,
 				8B9F2A8D2809B8E600323094 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1348,7 +1340,6 @@
 				F55CC5A12C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B9F2AC82809BA8200323094 /* decode-json-swift.swift in Sources */,
 				8B9F2AC92809BA8200323094 /* FSGenerator.swift in Sources */,
-				F53970A729DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B9F2ACA2809BA8200323094 /* FlagShipVersion.swift in Sources */,
 				8B9F2ACB2809BA8200323094 /* Flagship.swift in Sources */,
 				8B9F2ACC2809BA8200323094 /* FSVisitor+Reconcilliation.swift in Sources */,
@@ -1431,7 +1422,6 @@
 				F55CC59E2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */,
 				8B6736A227FED3E5003EC960 /* decode-json-swift.swift in Sources */,
 				8B6736A327FED3E5003EC960 /* FSGenerator.swift in Sources */,
-				F53970A429DF083C00D650E4 /* FSTracking+Codable.swift in Sources */,
 				8B6736A427FED3E5003EC960 /* FlagShipVersion.swift in Sources */,
 				8B6736A527FED3E5003EC960 /* Flagship.swift in Sources */,
 				8B6736A627FED3E5003EC960 /* FSVisitor+Reconcilliation.swift in Sources */,

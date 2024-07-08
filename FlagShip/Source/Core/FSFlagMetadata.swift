@@ -31,6 +31,18 @@ import Foundation
         variationName = modification?.variationName ?? ""
     }
 
+    public init(metadataDico: [String: Any]) {
+        campaignId = metadataDico["campaignId"] as? String ?? ""
+        variationGroupId = metadataDico["variationGroupId"] as? String ?? ""
+        variationId = metadataDico["variationId"] as? String ?? ""
+        isReference = false
+        campaignType = metadataDico["campaignType"] as? String ?? ""
+        slug = metadataDico["slug"] as? String ?? ""
+        campaignName = metadataDico["campaignName"] as? String ?? ""
+        variationGroupName = metadataDico["variationGroupName"] as? String ?? ""
+        variationName = metadataDico["variationName"] as? String ?? ""
+    }
+
     @objc public func toJson()->[String: Any] {
         return ["campaignId": campaignId,
                 "campaignName": campaignName,

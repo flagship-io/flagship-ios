@@ -102,7 +102,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withLogLevel(.ALL)
+        }.withLogLevel(.ALL).withOnVisitorExposed { visitorExposed, fromFlag in
+
+            print("------- On visitor exposed callback ----------")
+            print(visitorExposed.toJson())
+            print(fromFlag.toJson())
+            print("------- On visitor exposed callback ----------")
+        }
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()

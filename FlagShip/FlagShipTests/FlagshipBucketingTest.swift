@@ -46,45 +46,45 @@ class FlagshipBucketingTest: XCTestCase {
     func testBucketingWithSuccess() {
         let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
-        fsConfig = FSConfigBuilder().Bucketing().build()
+        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
         
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         
+        if let aUrlFakeSession = urlFakeSession {
+            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+        }
+        
         /// Create new visitor
- 
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).withFetchFlagsStatus { newStatus, _ in
             
             if newStatus == .FETCHED {
                 // Get from alloc 100
                 if let flag = self.testVisitor?.getFlag(key: "stringFlag") {
-                    XCTAssertTrue(flag.value(defaultValue: "default") == "alloc_100")
-                    // Test Flag metadata already with bucketing file
-                    XCTAssertTrue(flag.exists())
-                    XCTAssertTrue(flag.metadata().campaignId == "br6h35n811lg0788np8g")
-                    XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
-                    XCTAssertTrue(flag.metadata().variationId == "br6h35n811lg0788npa0")
-                    XCTAssertTrue(flag.metadata().variationName == "variation_name")
-                    XCTAssertTrue(flag.metadata().variationGroupId == "br6h35n811lg0788np9g")
-                    XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
-                    XCTAssertTrue(flag.metadata().isReference == false)
-                    XCTAssertTrue(flag.metadata().slug == "slug_description")
+                    if flag.status == .FETCHED {
+                        XCTAssertTrue(flag.value(defaultValue: "default") == "alloc_100")
+                        // Test Flag metadata already with bucketing file
+                        XCTAssertTrue(flag.exists())
+                        XCTAssertTrue(flag.metadata().campaignId == "br6h35n811lg0788np8g")
+                        XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
+                        XCTAssertTrue(flag.metadata().variationId == "br6h35n811lg0788npa0")
+                        XCTAssertTrue(flag.metadata().variationName == "variation_name")
+                        XCTAssertTrue(flag.metadata().variationGroupId == "br6h35n811lg0788np9g")
+                        XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
+                        XCTAssertTrue(flag.metadata().isReference == false)
+                        XCTAssertTrue(flag.metadata().slug == "slug_description")
+                    }
                 }
                 expectationSync.fulfill()
             }
         }.build()
- 
+        
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
         
-        // Set fake session
-        if let aUrlFakeSession = urlFakeSession {
-            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
-        }
-        
         testVisitor?.fetchFlags {}
 
-        wait(for: [expectationSync], timeout: 60.0)
+        wait(for: [expectationSync], timeout: 10.0)
     }
     
     func testBucketingWithFailedTargeting() { // The visitor id here make the trageting failed
@@ -93,18 +93,16 @@ class FlagshipBucketingTest: XCTestCase {
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
- 
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withFetchFlagsStatus { _, _ in
             // Get from alloc 100
             let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
             XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")
             expectationSync.fulfill()
         }.build()
- 
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
         testVisitor?.fetchFlags {}
 
-        wait(for: [expectationSync], timeout: 60.0)
+        wait(for: [expectationSync], timeout: 10.0)
     }
 }

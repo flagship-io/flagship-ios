@@ -119,7 +119,6 @@ class FSExtraMetadata: FSFlagMetadata {
 
     override func toJson() -> [String: Any] {
         var ret = super.toJson()
-
         // Add key
         ret.merge(["key": self.key]) { _, new in new }
         // Add hex value

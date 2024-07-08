@@ -67,4 +67,4 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 
 // Local Notification
 
-let FSBucketingScriptNotification =  "onGettingBucketScript"
+let FSBucketingScriptNotification = "onGettingBucketScript"
