@@ -1,5 +1,5 @@
 //
-//  FlagBis.swift
+//  Flagship.swift
 //  Flagship
 //
 //  Created by Adel Ferguen on 23/04/2024.
@@ -64,8 +64,7 @@ public class FSFlag: NSObject {
         
         return defaultValue
     }
-
-    #warning("Impact with TRoubleshooting, Need to adapt ")
+    
     @objc public func visitorExposed() {
         /// check if the value function is called before
         if strategy?.getStrategy().getFlagModification(key) != nil {

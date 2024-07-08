@@ -49,7 +49,7 @@ class FlagViewCell: UITableViewCell {
             varGId?.text = metedata.variationGroupId
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
-            flagValue?.text = String(format: "\(aFlag.value(defaultValue: "ss", visitorExposed: false) ?? "None")")
+            flagValue?.text = String(format: "\(aFlag.value(defaultValue: aFlag.defaultValue, visitorExposed: false) ?? "None")")
             isReferenceSwitch?.isOn = metedata.isReference
             slug?.text = metedata.slug
             typeCampaign?.text = metedata.campaignType

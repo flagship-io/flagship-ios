@@ -8,7 +8,6 @@
 
 import Foundation
 
-/// Solution 1 -
 public extension FSVisitor {
     /// Get FSFlag object
     /// - Parameter key: key represent key modification

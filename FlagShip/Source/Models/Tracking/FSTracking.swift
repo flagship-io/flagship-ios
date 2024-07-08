@@ -129,7 +129,7 @@ import Foundation
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
         // Set TimeInterval
-        self.currentSessionTimeStamp = 1674575397 // Date().timeIntervalSince1970
+        self.currentSessionTimeStamp = Date().timeIntervalSince1970
         // Created date
         self.createdAt = Date().timeIntervalSince1970
     }

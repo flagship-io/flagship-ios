@@ -283,16 +283,7 @@ protocol FSDelegateStrategy {
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize
-    // func synchronize(onSyncCompleted: @escaping (FStatus) -> Void)
-    
-    /// Synchronize Bis
- 
-    // func synchronize(onSyncCompleted: @escaping (FSSdkStatus) -> Void)
-    
     func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
- 
-    /// Activate
-   // func activate(_ key: String)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos
