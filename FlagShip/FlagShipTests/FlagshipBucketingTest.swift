@@ -52,19 +52,9 @@ class FlagshipBucketingTest: XCTestCase {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).withFetchFlagsStatus { _, _ in
-        }.build()
- 
-        /// Erase all cached data
-        testVisitor?.strategy?.getStrategy().flushVisitor()
-        
-        // Set fake session
-        if let aUrlFakeSession = urlFakeSession {
-            //    testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
-        }
-        
-        testVisitor?.fetchFlags {
-            if self.testVisitor?.fetchStatus == .FETCHED {
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).withFetchFlagsStatus { newStatus, _ in
+            
+            if newStatus == .FETCHED {
                 // Get from alloc 100
                 if let flag = self.testVisitor?.getFlag(key: "stringFlag") {
                     XCTAssertTrue(flag.value(defaultValue: "default") == "alloc_100")
@@ -79,9 +69,14 @@ class FlagshipBucketingTest: XCTestCase {
                     XCTAssertTrue(flag.metadata().isReference == false)
                     XCTAssertTrue(flag.metadata().slug == "slug_description")
                 }
+                expectationSync.fulfill()
             }
-            expectationSync.fulfill()
-        }
+        }.build()
+        
+        /// Erase all cached data
+        testVisitor?.strategy?.getStrategy().flushVisitor()
+        
+        testVisitor?.fetchFlags {}
 
         wait(for: [expectationSync], timeout: 60.0)
     }
@@ -92,14 +87,12 @@ class FlagshipBucketingTest: XCTestCase {
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
- 
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withFetchFlagsStatus { _, _ in
             // Get from alloc 100
             let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
             XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")
             expectationSync.fulfill()
         }.build()
- 
         /// Erase all cached data
         testVisitor?.strategy?.getStrategy().flushVisitor()
         testVisitor?.fetchFlags {}
