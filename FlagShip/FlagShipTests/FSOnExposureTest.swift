@@ -52,7 +52,7 @@ final class FSOnExposureTest: XCTestCase {
         }
 
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("onVisitorCallBackTest").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "onVisitorCallBackTest", hasConsented: true).build()
         /// Set fake session
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
@@ -63,8 +63,8 @@ final class FSOnExposureTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "Service-OnExposure")
 
         testVisitor?.fetchFlags(onFetchCompleted: {
-            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "dfl") {
-                XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
             }
             expectationSync.fulfill()
 
@@ -74,17 +74,16 @@ final class FSOnExposureTest: XCTestCase {
 
     /// Test Flag object
     func testFlagObject() {
-        
-        let camp =  FSCampaign("campId", "campName", "grpId", "groupName", "AB", "slugg")
+        let camp = FSCampaign("campId", "campName", "grpId", "groupName", "AB", "slugg")
         let variation = FSVariation(idVariation: "varId", variationName: "varName", nil, isReference: false)
         let modif = FSModification(aCampaign: camp, aVariation: variation, valueForFlag: "flagVlaue")
         let mettdata = FSFlagMetadata(modif)
-        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata:mettdata , value: "flagVlaue")
-        
+        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata: mettdata, value: "flagVlaue")
+
         XCTAssertTrue(flagTest.toDictionary()["value"] as? String == "flagVlaue")
         XCTAssertTrue(flagTest.toDictionary()["key"] as? String == "keyFlag")
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
-        XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(flagTest.toJson()?.count ?? 0 > 0)
     }
 
     // Test Visitor Object
@@ -93,6 +92,6 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["id"] as? String == "testId")
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
-        XCTAssertTrue(visitorObject.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(visitorObject.toJson()?.count ?? 0 > 0)
     }
 }

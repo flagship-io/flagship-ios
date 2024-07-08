@@ -32,15 +32,22 @@ protocol IFlag {
     // Value for flag
     public private(set) var value: Any?
 
-    internal init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?) {
+    init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?) {
         self.key = key
         self.defaultValue = defaultValue
         self.metadata = metadata
         self.value = value
     }
 
-    /// Dictionary that represent the Exposed Flag
-    /// - Return: [String: Any]
+    init(expoedInfo: [String: Any]) {
+        self.key = expoedInfo["key"] as? String ?? ""
+        self.value = expoedInfo["value"]
+        self.defaultValue = expoedInfo["defaultValue"]
+        self.metadata = FSFlagMetadata(metadataDico: expoedInfo["metadata"] as? [String: Any] ?? [:])
+    }
+
+    ///   Dictionary that represent the Exposed Flag
+    /// - return: [String: Any]
     @objc public func toDictionary() -> [String: Any] {
         var result: [String: Any] = [
             "key": key,
@@ -58,9 +65,9 @@ protocol IFlag {
         return result
     }
 
-    /// String that represent a json for the Exposed Flag
-    /// - Return: NSString ?
-    @objc public func toJson() -> NSString? {
+    ///   String that represent a json for the Exposed Flag
+    /// - Return: String?
+    @objc public func toJson() -> String? {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -77,6 +84,6 @@ protocol IFlag {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
             return nil
         }
-        return jsonData.prettyPrintedJSONString
+        return jsonData.jsonString
     }
 }

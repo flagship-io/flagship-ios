@@ -12,23 +12,40 @@ class FSStrategy {
     
     var delegate: FSDelegateStrategy?
     
+//    func getStrategy() -> FSDelegateStrategy {
+//        switch Flagship.sharedInstance.currentStatus {
+//        case .READY:
+//            if visitor.hasConsented == true {
+//                return FSDefaultStrategy(visitor)
+//            } else {
+//                return FSNoConsentStrategy(visitor)
+//            }
+//        case .NOT_INITIALIZED:
+//            return FSNotReadyStrategy(visitor)
+//        case .PANIC_ON:
+//            return FSPanicStrategy(visitor)
+//        default:
+//            return FSDefaultStrategy(visitor)
+//        }
+//    }
+    
     func getStrategy() -> FSDelegateStrategy {
         switch Flagship.sharedInstance.currentStatus {
-        case .READY:
+        case .SDK_INITIALIZED:
             if visitor.hasConsented == true {
                 return FSDefaultStrategy(visitor)
             } else {
                 return FSNoConsentStrategy(visitor)
             }
-        case .NOT_INITIALIZED:
+        case .SDK_NOT_INITIALIZED:
             return FSNotReadyStrategy(visitor)
-        case .PANIC_ON:
+        case .SDK_PANIC:
             return FSPanicStrategy(visitor)
         default:
             return FSDefaultStrategy(visitor)
         }
     }
-    
+
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
     }
@@ -42,32 +59,30 @@ class FSDefaultStrategy: FSDelegateStrategy {
         self.visitor = pVisitor
     }
     
-    /// Activate
-    func activate(_ key: String) {
-        if let aModification = visitor.currentFlags[key] {
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
-                
-                if error == nil {}
-            })
-            
-            // Troubleshooitng activate
-            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
-        }
-    }
-    
     /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
         if let aModification = visitor.currentFlags[flag.key] {
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error in
+            // Define Exposed flag and exposed visitor
+            var exposedFlag, exposedVisitor: String?
+            if visitor.configManager.flagshipConfig.onVisitorExposed != nil {
+                // Create flag exposed object
+                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)).toJson()
+                // Create visitor expose object
+                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()).toJson()
+            }
+            
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag, exposedVisitor)
+            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
                 
                 if error == nil {
-                    /// if the callback defined then trigger
+                    /// Is callback is defined ===> Trigger it
                     if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
-                        aOnVisitorExposed(FSVisitorExposed(id: self.visitor.visitorId, anonymousId: self.visitor.anonymousId, context: self.visitor.context.getCurrentContext()),
-                                          FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(visitorExposed: false)))
+                        exposedInfosArray?.forEach { item in
+                            aOnVisitorExposed(item.visitorExposed, item.exposedFlag)
+                        }
                     }
+                } else {
+                    // The flag error
                 }
             })
             // Troubleshooitng activate
@@ -75,36 +90,45 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
-    func synchronize(onSyncCompleted: @escaping (FStatus) -> Void) {
+    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+        let startFetchingDate = Date() // To comunicate for TR
+ 
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
         visitor.configManager.decisionManager?.getCampaigns(visitor.context.getCurrentContext(), withConsent: visitor.hasConsented, visitor.assignedVariationHistory, completion: { campaigns, error in
             
             /// Create the dictionary for all flags
             if error == nil {
                 if campaigns?.panic == true {
-                    Flagship.sharedInstance.currentStatus = .PANIC_ON
+                    Flagship.sharedInstance.currentStatus = .SDK_PANIC
+ 
                     self.visitor.currentFlags.removeAll()
                     // Stop the process batching when the panic mode is ON
                     self.visitor.configManager.trackingManager?.stopBatchingProcess()
-                    onSyncCompleted(.PANIC_ON)
-                    
+ 
+                    onSyncCompleted(.PANIC, .NONE)
+ 
                 } else {
                     /// Update new flags
-                    self.visitor.updateFlags(campaigns?.getAllModification())
-                    Flagship.sharedInstance.currentStatus = .READY
+ 
+                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
+ 
+                    Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
+ 
+                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
+                
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
                     self.visitor.flagSyncStatus = .FLAGS_FETCHED
-                    onSyncCompleted(.READY)
+ 
+                    onSyncCompleted(.FETCHED, .NONE)
                 }
                 // Update Data usage
                 FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: campaigns?.extras?.accountSettings?.troubleshooting)
                 // Send TR
-                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns)
+                FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
-                FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: .MESSAGE(error.debugDescription))
-                onSyncCompleted(.READY) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+                onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })
     }
@@ -136,6 +160,23 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     "campaignType": flagObject.type]
         }
         return nil
+    }
+    
+    func getFlagStatus(_ key: String) -> FSFlagStatus {
+        switch visitor.fetchStatus {
+        case .FETCHED:
+            if visitor.currentFlags.keys.contains(key) {
+                return .FETCHED
+            }
+  
+        case .FETCHING, .FETCH_REQUIRED:
+            if visitor.currentFlags.keys.contains(key) {
+                return .FETCH_REQUIRED
+            }
+        case .PANIC:
+            return .PANIC
+        }
+        return .NOT_FOUND
     }
     
     func sendHit(_ hit: FSTrackingProtocol) {
@@ -242,9 +283,7 @@ protocol FSDelegateStrategy {
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize
-    func synchronize(onSyncCompleted: @escaping (FStatus) -> Void)
-    /// Activate
-    func activate(_ key: String)
+    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos
@@ -272,4 +311,7 @@ protocol FSDelegateStrategy {
     
     /// _ Flush hits
     func flushHits()
+    
+    /// _ Get flag status
+    func getFlagStatus(_ key: String) -> FSFlagStatus
 }

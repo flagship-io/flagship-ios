@@ -73,7 +73,7 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
 
     // Send Activate
 
-    func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?) -> Void) {
+    func sendActivate(_ currentActivate: Activate, onCompletion: @escaping (Error?, [FSExposedInfo]?) -> Void) {
         service.activate(currentActivate.bodyTrack) { error in
 
             if error == nil {
@@ -85,7 +85,7 @@ class FSTrackingManager: ITrackingManager, FSBatchingManagerDelegate {
                 self.onCacheHit(currentActivate)
             }
 
-            onCompletion(error)
+            onCompletion(error, nil)
         }
     }
 

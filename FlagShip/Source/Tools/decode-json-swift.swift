@@ -17,9 +17,8 @@ struct JSONCodingKeys: CodingKey {
 }
 
 extension KeyedDecodingContainer {
-
     func decode(_ type: [String: Any].Type, forKey key: K) throws -> [String: Any] {
-        let container = try self.nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
+        let container = try nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         return try container.decode(type)
     }
 
@@ -31,12 +30,12 @@ extension KeyedDecodingContainer {
     }
 
     func decode(_ type: [Any].Type, forKey key: K) throws -> [Any] {
-        var container = try self.nestedUnkeyedContainer(forKey: key)
+        var container = try nestedUnkeyedContainer(forKey: key)
         return try container.decode(type)
     }
 
     func decode(_ type: [[String: Any]].Type, forKey key: K) throws -> [[String: Any]] {
-        var container = try self.nestedUnkeyedContainer(forKey: key)
+        var container = try nestedUnkeyedContainer(forKey: key)
         return try container.decode(type)
     }
 
@@ -73,41 +72,39 @@ extension KeyedDecodingContainer {
                 dictionary[key.stringValue] = intValue
             } else if let intValue = try? decode(UInt64.self, forKey: key) {
                 dictionary[key.stringValue] = intValue
-            } else if let doubleValue = try? decode(Float.self, forKey: key) {
-                dictionary[key.stringValue] = doubleValue
             } else if let doubleValue = try? decode(Double.self, forKey: key) {
+                dictionary[key.stringValue] = doubleValue
+            } else if let doubleValue = try? decode(Float.self, forKey: key) {
                 dictionary[key.stringValue] = doubleValue
             } else if let stringValue = try? decode(String.self, forKey: key) {
                 dictionary[key.stringValue] = stringValue
-            } else if let nestedDictionary = try? decode(Dictionary<String, Any>.self, forKey: key) {
+            } else if let nestedDictionary = try? decode([String: Any].self, forKey: key) {
                 dictionary[key.stringValue] = nestedDictionary
-            } else if let nestedArray = try? decode(Array<Any>.self, forKey: key) {
+            } else if let nestedArray = try? decode([Any].self, forKey: key) {
                 dictionary[key.stringValue] = nestedArray
             } else if let value = try? decodeNil(forKey: key), value {
-                //saving NSNull values in a dictionary will produce unexpected results for users, just skip
+                // saving NSNull values in a dictionary will produce unexpected results for users, just skip
                 dictionary[key.stringValue] = NSNull()
             }
         }
         return dictionary
     }
-    
+
     func decodeIfPresent<T: Decodable>(forKey key: K, defaultValue: T) -> T {
         do {
-            //below will throw
-            return try self.decodeIfPresent(T.self, forKey: key) ?? defaultValue
+            // below will throw
+            return try decodeIfPresent(T.self, forKey: key) ?? defaultValue
         } catch {
             return defaultValue
         }
     }
-
 }
 
 extension UnkeyedDecodingContainer {
-
     mutating func decode(_ type: [[String: Any]].Type) throws -> [[String: Any]] {
         var array: [[String: Any]] = []
         while isAtEnd == false {
-            if let nestedDictionary = try? decode(Dictionary<String, Any>.self) {
+            if let nestedDictionary = try? decode([String: Any].self) {
                 array.append(nestedDictionary)
             }
         }
@@ -137,31 +134,31 @@ extension UnkeyedDecodingContainer {
                 array.append(value)
             } else if let value = try? decode(UInt64.self) {
                 array.append(value)
-            } else if let value = try? decode(Float.self) {
-                array.append(value)
             } else if let value = try? decode(Double.self) {
+                array.append(value)
+            } else if let value = try? decode(Float.self) {
                 array.append(value)
             } else if let value = try? decode(String.self) {
                 array.append(value)
-            } else if let nestedDictionary = try? decode(Dictionary<String, Any>.self) {
+            } else if let nestedDictionary = try? decode([String: Any].self) {
                 array.append(nestedDictionary)
-            } else if let nestedArray = try? decodeNestedArray(Array<Any>.self) {
+            } else if let nestedArray = try? decodeNestedArray([Any].self) {
                 array.append(nestedArray)
             } else if let value = try? decodeNil(), value {
-                array.append(NSNull()) //unavoidable, but should be fine. We return [Any]. An overload to return homegenous array would be nice.
+                array.append(NSNull()) // unavoidable, but should be fine. We return [Any]. An overload to return homegenous array would be nice.
             } else {
-                //if the right type is not found, it will get stuck in an infinite loop, throw, we can't handle it
+                // if the right type is not found, it will get stuck in an infinite loop, throw, we can't handle it
                 throw EncodingError.invalidValue("<UNKNOWN TYPE>", EncodingError.Context(codingPath: codingPath, debugDescription: "<UNKNOWN TYPE>"))
             }
         }
-        
+
         return array
     }
-    
+
     mutating func decodeNestedArray(_ type: [Any].Type) throws -> [Any] {
         // throws: `CocoaError.coderTypeMismatch` if the encountered stored value is not an unkeyed container.
-        var nestedContainer = try self.nestedUnkeyedContainer()
-        return try nestedContainer.decode(Array<Any>.self)
+        var nestedContainer = try nestedUnkeyedContainer()
+        return try nestedContainer.decode([Any].self)
     }
 
     mutating func decode(_ type: [String: Any].Type) throws -> [String: Any] {
@@ -172,7 +169,6 @@ extension UnkeyedDecodingContainer {
 }
 
 extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
-    
     mutating func encode(_ value: [String: Any]) throws {
         for (key, value) in value {
             let key = JSONCodingKeys(stringValue: key)
@@ -223,21 +219,20 @@ extension KeyedEncodingContainerProtocol where Key == JSONCodingKeys {
 extension KeyedEncodingContainerProtocol {
     mutating func encode(_ value: [String: Any]?, forKey key: Key) throws {
         guard let value = value else { return }
-        
+
         var container = nestedContainer(keyedBy: JSONCodingKeys.self, forKey: key)
         try container.encode(value)
     }
-    
+
     mutating func encode(_ value: [Any]?, forKey key: Key) throws {
         guard let value = value else { return }
-        
+
         var container = nestedUnkeyedContainer(forKey: key)
         try container.encode(value)
     }
 }
 
 extension UnkeyedEncodingContainer {
-    
     mutating func encode(_ value: [Any]) throws {
         for (index, value) in value.enumerated() {
             switch value {
@@ -278,17 +273,17 @@ extension UnkeyedEncodingContainer {
             case Optional<Any>.none:
                 try encodeNil()
             default:
-                let keys = JSONCodingKeys(intValue: index).map({ [ $0 ] }) ?? []
+                let keys = JSONCodingKeys(intValue: index).map { [$0] } ?? []
                 throw EncodingError.invalidValue(value, EncodingError.Context(codingPath: codingPath + keys, debugDescription: "Invalid JSON value"))
             }
         }
     }
-    
+
     mutating func encode(_ value: [String: Any]) throws {
         var container = nestedContainer(keyedBy: JSONCodingKeys.self)
         try container.encode(value)
     }
-    
+
     mutating func encodeNestedArray(_ value: [Any]) throws {
         var container = nestedUnkeyedContainer()
         try container.encode(value)

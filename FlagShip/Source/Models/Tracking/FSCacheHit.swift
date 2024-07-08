@@ -33,10 +33,6 @@ public class FSCacheHit: Codable {
         try container.encode(self.data, forKey: .data)
     }
     
-//    init(visitorId: String, anonymousId: String?, type: String, bodyTrack: [String: Any]) {
-//        self.version = 1 /// Review here
-//        self.data = FSHitData(visitorId: visitorId, anonymousId: anonymousId, type: type, createdAt: 0,  bodyTrack: bodyTrack)
-//    }
     
     init(_ hitToConvert: FSTrackingProtocol) {
         self.version = 1

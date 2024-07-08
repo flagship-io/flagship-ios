@@ -89,9 +89,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         // Create config object
         let fsConfig: FlagshipConfig
 
-        let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withStatusListener { newState in
+        let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withOnSdkStatusChanged { newState in
 
-            if newState == .READY || newState == .PANIC_ON || newState == .POLLING {
+            if newState == .SDK_INITIALIZED || newState == .SDK_PANIC || newState == .SDK_INITIALIZING {
                 DispatchQueue.main.async {
                     self.createBtn?.isEnabled = true
                 }
@@ -102,11 +102,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }
-        }.withTrackingManagerConfig(FSTrackingManagerConfig(poolMaxSize: 8, batchIntervalTimer: 10, strategy: .CONTINUOUS_CACHING)).withOnVisitorExposed { fromFlag, visitorExposed in
+        }.withLogLevel(.ALL).withOnVisitorExposed { visitorExposed, fromFlag in
 
-            print(fromFlag.toJson() ?? "")
-            print(visitorExposed.toJson() ?? "")
-        }.withCacheManager(FSCacheManager(CustomVisitorCache(), CustomHitCache())).withLogLevel(FSLevel.ALL)
+            print("------- On visitor exposed callback ----------")
+            print(visitorExposed.toJson())
+            print(fromFlag.toJson())
+            print("------- On visitor exposed callback ----------")
+        }
 
         if mode == .DECISION_API {
             fsConfig = fsConfigBuilder.DecisionApi().build()
@@ -121,17 +123,19 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBAction func onClickCreateVisitor() {
         fetchBtn?.isEnabled = true
         _ = createVisitor()
+
+        delegate?.onGetSdkReady()
     }
 
     @IBAction func fetchFlags() {
         Flagship.sharedInstance.sharedVisitor?.fetchFlags(onFetchCompleted: {
             let st = Flagship.sharedInstance.getStatus()
-            if st == .READY {
+            if st == .SDK_INITIALIZED {
                 self.delegate?.onGetSdkReady()
                 DispatchQueue.main.async {
                     self.createBtn?.isEnabled = true
                 }
-            } else if st == .PANIC_ON {
+            } else if st == .SDK_PANIC {
                 self.delegate?.onGetSdkReady()
                 DispatchQueue.main.async {
                     self.createBtn?.isEnabled = true
@@ -146,7 +150,14 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        return Flagship.sharedInstance.newVisitor(userIdToSet).hasConsented(hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "QA": "ios", "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).build()
+        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
+
+            print("######### ON CALLBACK FETCH STATE IS CALLED ###############")
+
+            print("-------------- \(newStatus)------------------")
+
+            print("-------------- \(reason)---------------------")
+        }.build()
     }
 
     func showErrorMessage(_ msg: String) {
@@ -263,5 +274,3 @@ public class CustomHitCache: FSHitCacheDelegate {
     // Remove all hits in database
     public func flushAllHits() {}
 }
-
- 

@@ -6,30 +6,28 @@
 //  Copyright © 2023 FlagShip. All rights reserved.
 //
 
-import UIKit
 import Flagship
+import UIKit
 
 class FlagViewCell: UITableViewCell {
-    
     @IBOutlet var typePicker: UIPickerView?
 
-    
-    @IBOutlet var campName:UITextField?
-    @IBOutlet var campId:UITextField?
+    @IBOutlet var campName: UITextField?
+    @IBOutlet var campId: UITextField?
  
-
-    @IBOutlet var varGName:UITextField?
-    @IBOutlet var varGId:UITextField?
+    @IBOutlet var varGName: UITextField?
+    @IBOutlet var varGId: UITextField?
     
-    @IBOutlet var varName:UITextField?
-    @IBOutlet var varId:UITextField?
+    @IBOutlet var varName: UITextField?
+    @IBOutlet var varId: UITextField?
     
+    @IBOutlet var isReferenceSwitch: UISwitch?
+    @IBOutlet var flagValue: UITextField?
     
-    @IBOutlet var isReferenceSwitch:UISwitch?
-    @IBOutlet var flagValue:UITextField?
+    @IBOutlet var typeCampaign: UITextField?
+    @IBOutlet var slug: UITextField?
     
-    @IBOutlet var typeCampaign:UITextField?
-    @IBOutlet var slug:UITextField?
+    @IBOutlet var statusFlag: UITextField?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,9 +40,8 @@ class FlagViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configCell(_ flag:FSFlag?){
-        if let aFlag = flag{
-            
+    func configCell(_ flag: FSFlag?) {
+        if let aFlag = flag {
             let metedata = aFlag.metadata()
             campName?.text = metedata.campaignName
             campId?.text = metedata.campaignId
@@ -52,13 +49,13 @@ class FlagViewCell: UITableViewCell {
             varGId?.text = metedata.variationGroupId
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
-            flagValue?.text = String(format: "\( aFlag.value(visitorExposed: false) ?? "None")")
+            flagValue?.text = String(format: "\(aFlag.value(defaultValue: aFlag.defaultValue, visitorExposed: false) ?? "None")")
             isReferenceSwitch?.isOn = metedata.isReference
             slug?.text = metedata.slug
             typeCampaign?.text = metedata.campaignType
+            statusFlag?.text = flag?.status.rawValue
         }
     }
-    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.tag == 100 {
@@ -73,11 +70,10 @@ class FlagViewCell: UITableViewCell {
         } else if typePicker?.selectedRow(inComponent: 0) == 2 || typePicker?.selectedRow(inComponent: 0) == 1 {
             let invalidCharacters = CharacterSet(charactersIn: "0123456789.").inverted
         
-            return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+            return string.rangeOfCharacter(from: invalidCharacters) == nil
         }
         return true
     }
-    
     
     private func getTypeValue() -> FSValueType {
         switch typePicker?.selectedRow(inComponent: 0) {
@@ -94,5 +90,4 @@ class FlagViewCell: UITableViewCell {
             return .StringType
         }
     }
-
 }

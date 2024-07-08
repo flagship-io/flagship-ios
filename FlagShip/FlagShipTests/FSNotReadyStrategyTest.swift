@@ -21,7 +21,7 @@ final class FSNotReadyStrategyTest: XCTestCase {
     func testNotReadySdk() {
         Flagship.sharedInstance.start(envId: "notReady", apiKey: "apikey")
 
-        let userNR = Flagship.sharedInstance.newVisitor("userNR").build()
+        let userNR = Flagship.sharedInstance.newVisitor(visitorId: "userNR", hasConsented: true).build()
 
         userNR.updateContext(["a": "b"])
         userNR.fetchFlags {}
@@ -35,8 +35,6 @@ final class FSNotReadyStrategyTest: XCTestCase {
         XCTAssertNil(userNR.strategy?.getStrategy().getFlagModification("keyNR"))
         // Get Modification inofs
         XCTAssertNil(userNR.strategy?.getStrategy().getFlagModification("keyNR"))
-        // Activate
-        userNR.strategy?.getStrategy().activate("")
         // Send Hit
         userNR.strategy?.getStrategy().sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "eventNR"))
 

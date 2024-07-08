@@ -81,7 +81,7 @@ class TroubleshootingHit: FSTracking {
         _communCustomFields = [
             "version": troubleShootingVersion,
             "envId": Flagship.sharedInstance.envId ?? "",
-            "timestamp": "\(Date().timeIntervalSince1970)",
+            "timestamp": FSTools.getUtcTimestamp(),
             "timeZone": TimeZone.current.abbreviation() ?? "",
             "label": label,
             "stack.type": stackType,
@@ -135,6 +135,8 @@ enum CriticalPoints: String {
     case VISITOR_EXPOSED_FLAG_NOT_FOUND
     // Trigger when the Flag.visitorExposed method is called and the flag value has a different type with default value
     case GET_FLAG_VALUE_TYPE_WARNING
+    // When a visitor attempts to expose a flag without calling the the getValue
+    case FLAG_EXPOSED_BEFORE_CALLING_VALUE_METHOD
     // Trigger when the SDK catches any other error but those listed here.
     case ERROR_CATCHED
 }

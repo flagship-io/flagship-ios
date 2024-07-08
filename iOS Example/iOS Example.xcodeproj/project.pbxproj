@@ -191,6 +191,8 @@
 		8BF2DE02256BEDD9005FF664 /* Flagship.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Flagship.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSUserViewCtrl.swift; sourceTree = "<group>"; };
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
+		F514F7D02B6178EC00DB8340 /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
+		F514F7D12B6178EC00DB8340 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagViewCtrl.swift; sourceTree = "<group>"; };
 		F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagViewCell.swift; sourceTree = "<group>"; };
 		F5DAF6822A176BA500C0B140 /* SmartQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -448,6 +450,7 @@
 				8B493A6B27FF365000DDAAB5 /* FSLoggerCtrl.swift */,
 				8B4939F027FF35B600DDAAB5 /* XNLogger */,
 				8BF2DDE025681A97005FF664 /* AppDelegate.swift */,
+				F514F7D22B6178EC00DB8340 /* Flagship */,
 				8BF2DDE225681A97005FF664 /* SceneDelegate.swift */,
 				8BF2DDE425681A97005FF664 /* ViewController.swift */,
 				8BF2DDE625681A97005FF664 /* Main.storyboard */,
@@ -465,6 +468,15 @@
 				F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */,
 			);
 			path = QApp;
+			sourceTree = "<group>";
+		};
+		F514F7D22B6178EC00DB8340 /* Flagship */ = {
+			isa = PBXGroup;
+			children = (
+				F514F7D02B6178EC00DB8340 /* Flagship.h */,
+				F514F7D12B6178EC00DB8340 /* Info.plist */,
+			);
+			path = Flagship;
 			sourceTree = "<group>";
 		};
 		F5DAF6832A176BA500C0B140 /* SmartQA */ = {
@@ -846,12 +858,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = QApp/QApp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				INFOPLIST_FILE = QApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -878,7 +890,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = Z9ZWZ96927;
 				INFOPLIST_FILE = QApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -910,13 +922,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = smartQA.SmartQA;
+				PRODUCT_BUNDLE_IDENTIFIER = fs.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -941,13 +953,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = smartQA.SmartQA;
+				PRODUCT_BUNDLE_IDENTIFIER = fs.qa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

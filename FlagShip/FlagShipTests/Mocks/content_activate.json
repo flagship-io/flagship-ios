@@ -1,19 +1,21 @@
 [
-   {
-        "data": {
-            "anonymousId": null,
-            "content": {
-                "caid": "chsrcv6e4nsic4ug2p0g",
-                "cid": "bkk9glocmjcg0vtmdlng",
-                "qt": 2,
-                "vaid": "chsrcv6e4nsic4ug2p10",
-                "vid": "alias"
-            },
-            "numberOfBytes": 137,
-            "time": 1686305187.4595509,
-            "type": "ACTIVATE",
-            "visitorId": "alias"
-        },
-        "version": 1
-    }
+  {
+    "data": {
+      "anonymousId": null,
+      "content": {
+        "caid": "chsrcv6e4nsic4ug2p0g",
+        "cid": "bkk9glocmjcg0vtmdlng",
+        "qt": 2,
+        "vaid": "chsrcv6e4nsic4ug2p10",
+        "vid": "alias",
+        "internal_exposure_flag": "{\n  \"metadata\" : {\n    \"slug\" : \"\",\n    \"campaignType\" : \"ab\",\n    \"campaignName\" : \"onExposureTest\",\n    \"variationName\" : \"Variation\",\n    \"variationGroupName\" : \"variation group\",\n    \"isReference\" : false,\n    \"campaignId\" : \"cpo5sn19shpii8jp25s0\",\n    \"variationGroupId\" : \"cpo5sn19shpii8jp25t0\",\n    \"variationId\" : \"cpo5sn19shpii8jp25u0\"\n  },\n  \"defaultValue\" : \"ss\",\n  \"value\" : \"Beta\",\n  \"key\" : \"my_flag\"\n}",
+        "internal_exposure_visitor": "{\n  \"context\" : {\n    \"test\" : 12,\n    \"fs_all_users\" : \"\",\n    \"sdk_fsVersion\" : \"4.0.0\",\n    \"sdk_deviceModel\" : \"iPhone\",\n    \"sdk_osVersionCode\" : \"17.0.1\",\n    \"testing_tracking_manager\" : true,\n    \"sdk_deviceLanguage\" : \"en\",\n    \"sdk_firstTimeInit\" : false,\n    \"sdk_osVersionName\" : \"iOS\",\n    \"sdk_osName\" : \"iOS\",\n    \"isPreRelease\" : true,\n    \"OS_VERSION_CODE\" : \"17.0.1\",\n    \"isQA\" : true,\n    \"sdk_deviceType\" : \"Mobile\",\n    \"segment\" : \"coffee\"\n  },\n  \"id\" : \"user1912\"\n}"
+      },
+      "numberOfBytes": 137,
+      "time": 1686305187.4595509,
+      "type": "ACTIVATE",
+      "visitorId": "alias"
+    },
+    "version": 1
+  }
 ]

@@ -41,11 +41,9 @@ import Foundation
     }
 
     /// Modifications
-    public var currentFlags: [String: FSModification] = [:] /// Empty
+    public internal(set) var currentFlags: [String: FSModification] = [:] /// Empty
     /// Context
     var context: FSContext
-    /// Configuration manager
-    var configManager: FSConfigManager
     /// Strategy
     var strategy: FSStrategy?
     /// Has consented
@@ -57,25 +55,37 @@ import Foundation
     var assignedVariationHistory: [String: String] = [:]
     
     // Initial value for the status .CREATED
-    var flagSyncStatus: FlagSynchStatus = .CREATED
+    var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
+    
+    // The fetch reason
+    public internal(set) var requiredFetchReason: FSFetchReasons = .VISITOR_CREATE
+    
+    /// Configuration manager
+    var configManager: FSConfigManager
+ 
+    // Refonte status
+    public internal(set) var fetchStatus: FSFetchStatus = .FETCH_REQUIRED {
+        didSet {
+            // Trigger the callback
+            self._onFetchStatusChanged?(self.fetchStatus, self.requiredFetchReason)
+        }
+    }
 
-    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool) {
-        // super.init()
-        /// Set authenticated
+    var _onFetchStatusChanged: OnFetchFlagsStatusChanged = nil
+
+    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFetchFlagsStatusChanged) {
+        // Set authenticated
         self.isAuthenticated = aIsAuthenticated
-        /// Before calling service manage the tuple (vid,aid)
+        // Before calling service manage the tuple (vid,aid)
         if self.isAuthenticated {
             self.visitorId = aVisitorId /// When the authenticated is true , the visitor id should not be nil
             self.anonymousId = FSTools.manageVisitorId(nil)
-            /// When authenticated is true --> update the anonymousId given by the sdk
+            // When authenticated is true --> update the anonymousId given by the sdk
             aConfigManager.updateAid(self.anonymousId)
         } else {
             self.visitorId = FSTools.manageVisitorId(aVisitorId)
             self.anonymousId = nil
         }
-        
-        // If the sdk is on the buckting mode ==> we are on polling mode
-        // Flagship.sharedInstance.currentStatus = (aConfigManager.flagshipConfig.mode == .DECISION_API) ? .READY : .POLLING
         
         /// Set the user context
         self.context = FSContext(aContext)
@@ -91,36 +101,39 @@ import Foundation
         
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
+        
+        /// Set Callback
+        self._onFetchStatusChanged = pOnFlagStatusChanged
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
-        self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
-            onFetchCompleted()
+        // Go to ING state while the fetch is ongoing
+        self.fetchStatus = .FETCHING
+        self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
+ 
             // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
             
             // If bucketing mode and no consent and no panic mode
-            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .PANIC_ON {
+            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .SDK_PANIC {
                 self.sendHit(FSSegment(self.getContext()))
             }
+            // Update the reason status
+            self.requiredFetchReason = reason
+            // Update the fetch status
+            self.fetchStatus = state
+            onFetchCompleted()
         })
     }
     
-    @available(*, deprecated, message: "Use fetchFlags")
-    public func synchronize(onSyncCompleted: @escaping () -> Void) {
-        self.strategy?.getStrategy().synchronize(onSyncCompleted: { _ in
-            onSyncCompleted()
-            // After the synchronize completion we cache the visitor
-            self.strategy?.getStrategy().cacheVisitor()
-        })
-    }
+    //////////////////////
+    //        CONTEXT   //
+    //////////////////////
     
     // Update Context
     // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
-        self.strategy?.getStrategy().updateContext(context)
-        // Update the flagSyncStatus
-        self.flagSyncStatus = .CONTEXT_UPDATED
+        self._updateContext(context)
     }
     
     // Update context with one
@@ -128,7 +141,7 @@ import Foundation
     //   - key: key for the given value
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
-        self.strategy?.getStrategy().updateContext([key: newValue])
+        self._updateContext([key: newValue])
     }
     
     // Update presetContext
@@ -143,7 +156,16 @@ import Foundation
         
         FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_SUCCESS(flagshipContext.rawValue))
         
-        self.strategy?.getStrategy().updateContext([flagshipContext.rawValue: value])
+        self._updateContext([flagshipContext.rawValue: value])
+    }
+    
+    private func _updateContext(_ newContext: [String: Any]) {
+        self.strategy?.getStrategy().updateContext(newContext)
+        
+        // Update the flagSyncStatus
+        self.flagSyncStatus = .CONTEXT_UPDATED
+        self.requiredFetchReason = .UPDATE_CONTEXT
+        self.fetchStatus = .FETCH_REQUIRED
     }
     
     // Get the current context
@@ -155,35 +177,6 @@ import Foundation
     // Clear the current context
     @objc public func clearContext() {
         self.context.clearContext()
-    }
-    
-    // Get Modification infos
-    // - Parameter key: key that represent the flag's name
-    // - Returns: the informations relative to this flag, if the key does not exist then return nil instead
-    @available(*, deprecated, message: "Use getFlag(\"my_flag\").metadata")
-    public func getModificationInfo(_ key: String) -> [String: Any]? {
-        return self.strategy?.getStrategy().getModificationInfo(key)
-    }
-    
-    // Get the flag's value
-    // - Parameter key : key that represent the flag's name
-    // - parameter defaultValue : the value to return if the key does not exist
-    // - Parameter activate: if activate is true then send activate hit , no otherwise
-    // - Returns: The value for flag, if the key don't exist or the flag's type is different than default value then return default value
-    @available(*, deprecated, message: "Use getFlag(\"my_flag\").value")
-    public func getModification<T>(_ key: String, defaultValue: T, activate: Bool = false) -> T {
-        if activate {
-            self.activate(key)
-        }
-        
-        return self.strategy?.getStrategy().getModification(key, defaultValue: defaultValue) ?? defaultValue
-    }
-    
-    // Activate tell to report that a visitor has seen a campaign
-    // - Parameter key: Modification identifier, represent flag's name
-    @available(*, deprecated, message: "Use getFlag(\"my_flag\").visitorExposed()")
-    public func activate(_ key: String) {
-        self.strategy?.getStrategy().activate(key)
     }
     
     // Send Hits
@@ -208,23 +201,6 @@ import Foundation
         
         // Update the value for the data usage tracking
         FSDataUsageTracking.sharedInstance.updateConsent(newValue: hasConsented)
-    }
-    
-    //  Retrieve Flag by its key.
-    //  - Parameter key:key associated to the flag
-    //  - Parameter defaultValue:flag default value
-    //  - Returns: FSFlag object, If no flag match the given key, an empty flag will be returned
-    public func getFlag<T>(key: String, defaultValue: T?) -> FSFlag {
-        // We dispaly a warning if the flag's status is not fetched
-        if self.flagSyncStatus != .FLAGS_FETCHED {
-            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
-        }
-        // Check the key if exist
-        guard let modification = self.currentFlags[key] else {
-            return FSFlag(key, nil, defaultValue, self.strategy)
-        }
-
-        return FSFlag(key, modification, defaultValue, self.strategy)
     }
     
     // ///////////////

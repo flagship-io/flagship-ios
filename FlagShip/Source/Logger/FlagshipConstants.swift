@@ -36,7 +36,7 @@ enum FSLogMessage: CustomStringConvertible {
     case ACTIVATE_NOT_READY
     case ACTIVATE_SUCCESS(_ key: String)
     case ACTIVATE_FAILED
-    
+ 
     /// Synchronize
     case SYNCHRONIZE_NOT_READY
     
@@ -102,9 +102,9 @@ enum FSLogMessage: CustomStringConvertible {
         case .UPDATE_PRE_CONTEXT_SUCCESS(let key):
             ret = "Update context with pre configured key: \(key)"
         case .ACTIVATE_NO_CONSENT:
-            ret = "Flagship, the user is not consented to send the actiavte hit"
+            ret = "The user is not consented to send the exposure hit"
         case .HIT_NO_CONSENT:
-            ret = "Flagship, the user is not consented to send hit"
+            ret = "The user is not consented to send hit"
         case .UPDATE_CONTEXT_PANIC:
             ret = "Panic mode, the context is not updated"
         case .HIT_PANIC:

@@ -41,9 +41,13 @@ class FSFlagTest: XCTestCase {
         }
         
         // Create Visitor
-        testVisitor = Flagship.sharedInstance.newVisitor("alias").build()
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).build()
         // Check if the flagsync is Created
         XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
+        // Chekc the fetch status / reason
+        XCTAssertTrue(testVisitor?.fetchStatus == .FETCH_REQUIRED)
+        XCTAssertTrue(testVisitor?.requiredFetchReason == .VISITOR_CREATE || testVisitor?.requiredFetchReason == .FETCHED_FROM_CACHE)
+
         // Set fake session
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
@@ -57,8 +61,12 @@ class FSFlagTest: XCTestCase {
             /// Check if flagSync is fetched
             XCTAssertTrue(self.testVisitor?.flagSyncStatus == .FLAGS_FETCHED)
             
-            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "dfl") {
-                XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
+            // Chekc the fetch status // reason
+            XCTAssertTrue(self.testVisitor?.fetchStatus == .FETCHED)
+            XCTAssertTrue(self.testVisitor?.requiredFetchReason == .NONE)
+
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
                 XCTAssertTrue(flag.exists())
                 XCTAssertTrue(flag.metadata().campaignId == "bvcdqksmicqghldq9agg")
                 XCTAssertTrue(flag.metadata().variationId == "bvcdqksmicqghldq9aig")
@@ -68,28 +76,29 @@ class FSFlagTest: XCTestCase {
                 XCTAssertTrue(flag.metadata().campaignName == "campaign_name")
                 XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
                 XCTAssertTrue(flag.metadata().variationName == "variation_name")
+                XCTAssertTrue(flag.status == .FETCHED)
             }
             
-            if let flagBis = self.testVisitor?.getFlag(key: "---", defaultValue: "dfl") {
+            if let flagBis = self.testVisitor?.getFlag(key: "---") {
                 XCTAssertFalse(flagBis.exists())
                 XCTAssertTrue(flagBis.metadata().campaignId == "")
             }
             
             /// Test with bad type
-            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: 111) {
-                XCTAssertTrue(flag.value() as? Int == 111)
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: 111) == 111)
                 XCTAssertTrue(flag.exists())
-                XCTAssertTrue(flag.metadata().campaignId == "")
-                XCTAssertTrue(flag.metadata().variationId == "")
-                XCTAssertTrue(flag.metadata().variationGroupId == "")
+                XCTAssertTrue(flag.metadata().campaignId == "bvcdqksmicqghldq9agg")
+                XCTAssertTrue(flag.metadata().variationId == "bvcdqksmicqghldq9aig")
+                XCTAssertTrue(flag.metadata().variationGroupId == "bvcdqksmicqghldq9ahg")
                 XCTAssertTrue(flag.metadata().isReference == false)
-                XCTAssertTrue(flag.metadata().slug == "")
+                XCTAssertTrue(flag.metadata().slug == "cmapForTest")
             }
             
             /// Test with nil default value
             var nilValue: String?
-            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: nilValue) {
-                XCTAssertTrue(flag.value() as! String == "Alpha_demoApp")
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: "nilValue") == "Alpha_demoApp")
                 XCTAssertTrue(flag.exists())
                 XCTAssertTrue(flag.metadata().variationName == "variation_name")
                 XCTAssertTrue(flag.metadata().isReference == false)
@@ -101,6 +110,16 @@ class FSFlagTest: XCTestCase {
                 XCTAssertTrue(flag.metadata().variationGroupName == "varGroup_name")
             }
             
+            // Change the context and chekc the status
+            self.testVisitor?.updateContext("newKey", "val") // the state should be changed
+            
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.status == .FETCH_REQUIRED)
+            }
+            // check wwith not foud one
+            if let flagNotfound = self.testVisitor?.getFlag(key: "notFound") {
+                XCTAssertTrue(flagNotfound.status == .NOT_FOUND)
+            }
             expectationSync.fulfill()
         })
         
@@ -116,7 +135,7 @@ class FSFlagTest: XCTestCase {
     }
     
     func testFlagSyncStatus() {
-        let syncUser = Flagship.sharedInstance.newVisitor("userSync", instanceType: .NEW_INSTANCE).build()
+        let syncUser = Flagship.sharedInstance.newVisitor(visitorId: "userSync", hasConsented: true, instanceType: .NEW_INSTANCE).build()
         XCTAssertTrue(syncUser.flagSyncStatus == .CREATED)
         // Update context
         syncUser.updateContext(["keySync": "valSync"])
@@ -149,17 +168,18 @@ class FSFlagTest: XCTestCase {
         }
         
         testVisitor?.fetchFlags {
-            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .PANIC_ON)
+            XCTAssertTrue(Flagship.sharedInstance.currentStatus == .SDK_PANIC)
             
-            if let flag = self.testVisitor?.getFlag(key: "btnTitle", defaultValue: "defaultValue") {
-                XCTAssertTrue(flag.value() as? String == "defaultValue")
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: "defaultValue") == "defaultValue")
                 XCTAssertFalse(flag.exists())
                 XCTAssertTrue(flag.metadata().campaignId == "")
                 XCTAssertTrue(flag.metadata().variationId == "")
                 XCTAssertTrue(flag.metadata().variationGroupId == "")
                 XCTAssertTrue(flag.metadata().isReference == false)
                 XCTAssertTrue(flag.metadata().slug == "")
-                
+                XCTAssertTrue(flag.status == .PANIC)
+
                 // Test
                 self.testVisitor?.updateContext(["k1": "V1"])
                 if let ctx = self.testVisitor?.getContext() {
@@ -176,7 +196,6 @@ class FSFlagTest: XCTestCase {
                 XCTAssertNil(self.testVisitor?.strategy?.getStrategy().getFlagModification("key"))
                 XCTAssertTrue(self.testVisitor?.strategy?.getStrategy().getModification("key", defaultValue: "dflt") == "dflt")
                 XCTAssertNil(self.testVisitor?.strategy?.getStrategy().getFlagModification("key"))
-                self.testVisitor?.strategy?.getStrategy().activate("key")
             }
             expectationSync.fulfill()
         }

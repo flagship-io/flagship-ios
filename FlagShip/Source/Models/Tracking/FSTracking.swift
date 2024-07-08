@@ -70,6 +70,9 @@ import Foundation
 
 /// :nodoc:
 @objc public protocol FSTrackingProtocol {
+    /// Required
+    var envId: String? { get }
+
     var id: String { get set }
 
     var anonymousId: String? { get set }
@@ -80,15 +83,6 @@ import Foundation
 
     var bodyTrack: [String: Any] { get }
 
-    /// Required
-    var envId: String? { get }
-
-    /// Queue Time
-    //  var queueTimeBis: NSNumber? { get }
-
-    /// Get cst
-    // func getCst() -> NSNumber?
-
     func isValid() -> Bool
 
     // Created time
@@ -97,14 +91,10 @@ import Foundation
 
 @objcMembers public class FSTracking: NSObject, FSTrackingProtocol, Codable {
     public var createdAt: TimeInterval
-
     public var visitorId: String?
-
     public var id: String
-
     // Anonymous ID
     public var anonymousId: String?
-
     public var fileName: String! {
         let formatDate = DateFormatter()
         formatDate.dateFormat = "MMddyyyyHHmmssSSSS"
@@ -147,7 +137,6 @@ import Foundation
     public var bodyTrack: [String: Any] {
         return [:]
     }
-
     public var communBodyTrack: [String: Any] {
         var communParams = [String: Any]()
 
@@ -184,6 +173,7 @@ import Foundation
         /// Time difference between when the hit was created and when it was sent
         let qt = Date().timeIntervalSince1970 - self.createdAt
         communParams.updateValue(qt.rounded(), forKey: "qt")
+
         return communParams
     }
 

@@ -15,21 +15,19 @@ class FSConsentStrategyTest: XCTestCase {
     func testVisitorWithConsent() {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
                 
-        let v1 = Flagship.sharedInstance.newVisitor("newUser").withContext(context: [:]).build()
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "newUser", hasConsented: true).withContext(context: [:]).build()
         XCTAssertTrue(v1.hasConsented)
         
-        let v2 = Flagship.sharedInstance.newVisitor("newUser").withContext(context: [:]).hasConsented(hasConsented: false).build()
+        let v2 = Flagship.sharedInstance.newVisitor(visitorId: "newUser", hasConsented: false).withContext(context: [:]).build()
         
         
-        let v3 = Flagship.sharedInstance.newVisitor("nc").withContext(context: [:]).hasConsented(hasConsented: false).build()
+        let v3 = Flagship.sharedInstance.newVisitor(visitorId: "nc", hasConsented: false).withContext(context: [:]).build()
 
         
         // Send hit
         v3.strategy?.getStrategy().sendHit(FSPage("pageNC"))
         // Send consent
         v3.strategy?.getStrategy().sendHit(FSConsent(eventCategory: .User_Engagement, eventAction: "NC"))
-        // Activate
-        v3.strategy?.getStrategy().activate("NC")
         // cache + lookup*
         v3.strategy?.getStrategy().cacheVisitor()
         v3.strategy?.getStrategy().lookupHits()
