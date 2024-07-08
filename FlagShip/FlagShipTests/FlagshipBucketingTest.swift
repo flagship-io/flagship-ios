@@ -60,7 +60,7 @@ class FlagshipBucketingTest: XCTestCase {
         
         // Set fake session
         if let aUrlFakeSession = urlFakeSession {
-            testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
+            //    testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
         }
         
         testVisitor?.fetchFlags {
