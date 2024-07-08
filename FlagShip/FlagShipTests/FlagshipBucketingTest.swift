@@ -46,7 +46,7 @@ class FlagshipBucketingTest: XCTestCase {
     func testBucketingWithSuccess() {
         let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
-        fsConfig = FSConfigBuilder().Bucketing().build()
+        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
         
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
