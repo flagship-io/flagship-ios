@@ -1,0 +1,2073 @@
+# `Flagship` class
+
+The SDK is represented by the `Flagship` class. It simplifies the process of creating new visitors and configuration
+
+## `Start` method
+
+To run experiments with Flagship, you will need to start the SDK. 
+
+Flagship uses a `sharedInstance` then create a visitor to **activate** experiments and **track** events.
+
+- **`func start(envId:String, apiKey:String, config:FSConfig)`**
+
+| Parameter | Type     | Required | Description                                                          |
+| :-------- | :------- | :------- | :------------------------------------------------------------------- |
+| envId     | String   | Yes      | Identifies your Flagship account and environment (pre-prod or prod). |
+| apiKey    | String   | Yes      | Identifies your Flagship api key (pre-prod or prod)                  |
+| config    | FSConfig | No       | Object that represent configuration client                           |
+
+> 📘 API Key & Environment ID required
+> 
+> You can find your apiKey and your environmentId on your Flagship account, in Parameters > Environment & Security.
+
+```swift
+import Flagship
+
+//Start the Flagship SDK in Api mode and 5 seconds for timeout.
+Flagship.sharedInstance.start(envId:"_ENV_ID_", apiKey: "_API_KEY_",
+                                      config: FSConfigBuilder().DecisionApi()
+                                        .withTimeout(5000)
+                                        .withLogLevel(.ALL).build())
+        
+       
+//Start the Flagship SDK in Bucketing mode with custom cache manager  
+Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: FSConfigBuilder().Bucketing()
+                                        .withTimeout(5000)
+                                        .withLogLevel(.INFO)
+                                        .withCacheManager(FSCacheManager(customCacheManager))
+                                        .build())
+```
+```objectivec
+@import Flagship;
+
+/// Create config object
+FlagshipConfig *config = [[[[[FSConfigBuilder alloc] init] withTimeout:5000]withLogLevel:FSLevelALL] build];
+
+/// Start Flagship sdk
+[[ Flagship sharedInstance] startWithEnvId:@"_ENV_ID_" apiKey:@"_API_KEY_" config:config];
+```
+
+### Configuration
+
+   **FlagshipConfig** class help you to configure the SDK via the following two available config implementations: DecisionApi and Bucketing. See [Decision Mode section](doc:ios-v30x#decision-mode).
+
+#### Timeout
+
+   This delay only concerns the request on fetching campaigns under the api mode. If the API didn't answer during this interval of time, the SDK will not wait longer for it and will use the flag values already present on device's cache.  
+If there is no cache yet, the default values will be returned from the getFlag function.
+
+- ** `func withTimeout(_ timeout:TimeInterval)->FSConfigBuilder`** 
+
+| Parameter | Type         | Description                                    |
+| :-------- | :----------- | :--------------------------------------------- |
+| timeout   | TimeInterval | **Milliseconds**, default value is **2000 ms** |
+
+> 📘 The unit of measure for the timeout is **Millisecond**.
+
+#### Log Level
+
+- **`func withLogLevel(_ logLevel:FSLevel)->FSConfigBuilder`**   
+
+Specifies a log level to filter logs emitted by the SDK.
+
+| Parameter | Type    | Description                                                                                                  |
+| :-------- | :------ | :----------------------------------------------------------------------------------------------------------- |
+| level     | FSLevel | The levels in ascending order are : NONE(0), EXCEPTIONS(1), ERROR(2), WARNING(3), DEBUG(4), INFO(5), ALL(6). |
+
+#### Decision Mode
+
+**`DecisionApi`**
+
+   When the SDK is running in DecisionApi mode, the campaign assignments and targeting validation take place on server-side. In this mode, each call to the fetchFlags method to refresh the flags will create an HTTP request.
+
+**`Bucketing`**
+
+   When the SDK is running in **BUCKETING** mode, the SDK downloads all the campaigns configurations at once in a single bucketing file so that variation assignment can be computed on client-side by the SDK. This bucketing file is stored in cache and will only be downloaded again when campaign configurations are modified in the Flagship interface.  **[Learn more](doc:bucketing)**
+
+> 📘 
+> 
+> The default value is **DECISION API**
+
+#### OnSdkStatusChanged
+
+This listener is called when SDK status has changed.
+
+**`func withOnSdkStatusChanged(_ onSdkStatusChanged: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder`**
+
+`onSdkStatusChanged` is a callback with one parameter FSSdkStatus
+
+| Parameter | Type        | Description                                                                                           |
+| :-------- | :---------- | :---------------------------------------------------------------------------------------------------- |
+| newStatus | FSSdkStatus | Represent new value for the SDK state SDK .  See [SDK Status](#getstatus-method) for more information |
+
+#### Polling Interval Time
+
+**_Only available for Bucketing Mode:_**
+
+- **`func withBucketingPollingIntervals(_ pollingTime:TimeInterval)->FSConfigBuilder`**
+
+Define time interval between two bucketing updates. Default is 60 seconds. 
+
+| Parameter   | Type         | Description                           |
+| :---------- | :----------- | :------------------------------------ |
+| pollingTime | TimeInterval | interval time, default is 60 seconds. |
+
+#### Tracking Config Manager
+
+ **`func withTrackingManagerConfig(_ trackingMgrConfig: FSTrackingManagerConfig)->FSConfigBuilder`**
+
+The SDK through the TrackingManager class report analytics event using batching process, each time a visitor emits a hit, the tracking manager will stack it in the event pool.
+
+When the time interval batchIntervals is over or pool Maximum Size poolMaxSize is reached, the batch process is triggered and the pool emptied. In the meantime, the caching process depends on the cache strategy adopted.
+
+The advantages:
+
+- **Use less network traffic**
+- **Avoid data loss**
+- **Catch all hits that would fail**
+
+The TrackingManager stand on three options to setup :
+
+1. Time Interval  
+   Time interval to process and send event through batch.
+
+> 📘 
+> 
+> The batchIntervals parameter is an integer, default value is 5 seconds
+
+2. Pool Max Size  
+   Specifies the maximum number of hits in the pool.
+
+> 📘 
+> 
+> The poolMaxSize parameter is an integer, default value is 10
+
+3. Cache Strategy  
+   Define a strategy to adopt, there are two strategies represented by an **enum**  BatchCachingStrategy.
+
+1 - **CONTINUOUS_CACHING**
+
+> 📘 
+> 
+> Recommended for **client-side applications**
+
+Each time a visitor emits an event, this strategy duplicates events in cache using cacheHit (see InterfaceCache), on completion batching process the saved hits are removed from the cache.
+
+Note: The SDK has a default cache implementation using a local database.
+
+2 - **PERIODIC_CACHING**
+
+> 📘 
+> 
+> Recommended for **server-side applications**
+
+This strategy periodically makes a copy in the cache of the existing event in the pool, those events will be removed once the batching process completed and succeed
+
+```swift Start SDK - TrackingManagerConfig
+// Create FSTrackingManagerConfig
+// - Time Intreval : 20
+// - Maximum size pool : 20
+// - Strategy : BATCH_CONTINUOUS_CACHING
+        
+let trackingConfig = FSTrackingManagerConfig(poolMaxSize: 20, batchIntervalTimer: 20, strategy: .CONTINUOUS_CACHING)
+
+// Create FlagshipConfig
+let conf: FlagshipConfig = FSConfigBuilder().withTrackingConfig(trackingConfig).build()
+        
+// Start the SDK Flagship
+Flagship.sharedInstance.start(envId: "your_env_id", apiKey: "your_api_key", config: conf)
+```
+
+#### Cache Management
+
+   Use a default cache Management provided by the SDK or create your own [custom cache manager](#custom-cache-manager) .
+
+- **`func withCacheManager(_  customCacheManager:FSCacheManager)->FSConfigBuilder`**
+
+| Parameter          | Type           | Description        |
+| :----------------- | :------------- | :----------------- |
+| customCacheManager | FSCacheManager | Managing the cache |
+
+##### FSCacheManager
+
+This class affords two protocols to handle the cache management.
+
+- ** init(_ visitorCacheImp: FSVisitorCacheDelegate? = nil, _ hitCacheImp: FSHitCacheDelegate? = nil, visitorLookupTimeOut: TimeInterval = 0.2, hitCacheLookupTimeout: TimeInterval = 0.2)**
+
+| Parameter             | Type                                         | Default Value | Description                                                                                        |
+| :-------------------- | :------------------------------------------- | :------------ | :------------------------------------------------------------------------------------------------- |
+| visitorCacheImp       | [Protocol](#protocol-fsvisitorcachedelegate) | nil           | class  implementing visitor protocol , use _FSDefaultCacheVisitor_ if nil                          |
+| hitCacheImp           | [Protocol](#protocol-fshitcachedelegate)     | nil           | class implementing hit protocol, use _FSDefaultCacheHit_ if nil                                    |
+| visitorLookupTimeOut  | TimeInterval                                 | 200  ms       | The time duration _milliseconds_ given to lookup visitor, over this delay the operation is stopped |
+| hitCacheLookupTimeout | TimeInterval                                 | 200 ms        | The time duration _milliseconds_ given to lookup hits, over this delay the operation is stopped    |
+
+#### Developer Usage Tracking
+
+- **`func withDisableDeveloperUsageTracking(_ disableDeveloperUsageTracking: Bool)->FSConfigBuilder`**
+
+| Parameter                     | Description                                                                                                                          | Type |
+| :---------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :--- |
+| disableDeveloperUsageTracking | Collects information about the usage of SDK. By default the value is set to **false** otherwise set to true to disable this feature. | Bool |
+
+```swift Disabled Developer Usage Tracking
+// Create config and disabled usage tracking
+let customConfig: FlagshipConfig = FSConfigBuilder().withDisableDeveloperUsageTracking(false).build()
+
+// Start SDK
+Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: customConfig)
+```
+
+<br />
+
+#### onVisitorExposed
+
+In some cases, you'll need to send informations about the exposition (When a flag has been seen by your visitor), like sending visitor and flag data to party tools.
+
+To centralize it, the sdk provides a callback in the configuration option of the SDK.
+
+- ** `func withOnVisitorExposed(_ onVisitorExposed: OnVisitorExposed)->FSConfigBuilder `**
+
+This callback is triggered each time: 
+
+- The [ visitorExposed()](#report-a-flag-exposition) method is successfully called through the flag instance.
+- The [value()](#report-a-flag-exposition) method is called through the flag instance with "true" as parameter (default).
+
+The OnVisitorExposed callback is a function with two parameters
+
+```swift OnVisitorExposed - CallBack
+typealias OnVisitorExposed = ((_ visitorExposed: VisitorExposed, _ fromFlag: ExposedFlag)-> Void)?
+```
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Parameter",
+    "h-1": "Type",
+    "h-2": "Description",
+    "0-0": "visitorExposed",
+    "0-1": "**FSVisitorExposed**",
+    "0-2": "This class represent the visitor exposed",
+    "1-0": "fromFlag",
+    "1-1": "**FSExposedFlag**",
+    "1-2": "This class represent the flag exposed.  \n(The flag that has triggered the exposition)"
+  },
+  "cols": 3,
+  "rows": 2,
+  "align": [
+    "left",
+    "left",
+    "left"
+  ]
+}
+[/block]
+
+
+- **FSVisitorExposed**
+
+The class FSVisitorExposed give us the visitor's information
+
+| Parameter   | Type       | Description                                                                                                     |
+| :---------- | :--------- | :-------------------------------------------------------------------------------------------------------------- |
+| id          | String     | VisitorId                                                                                                       |
+| anonymousId | String     | anonymous id, used with [Experience Continuity](https://docs.developers.flagship.io/docs/experience-continuity) |
+| context     | Dictionary | The current visitor’s context                                                                                   |
+
+- **FSExposedFlag**
+
+The class FSExposedFlag give us the flag's information
+
+| Parameter    | Type                                                 | Description                                               |
+| :----------- | :--------------------------------------------------- | :-------------------------------------------------------- |
+| key          | String                                               | key for flag                                              |
+| value        | Any                                                  | value for flag                                            |
+| defaultValue | Any                                                  | default value                                             |
+| metadata     | [FSFlagMetadata]\(#Getting flags campaigns metadata) | Campaign information metadata, this class already existed |
+
+For both class FSVisitorExposed & FSVisitorExposed use **toJson()** method to get the Json string representation and **toDictionary()** method to get a dictionary representation.
+
+<br />
+
+```swift Swift - Representation of VisitorExposed & ExposedFlag
+// Inside the callBack we use toJson() method to get the json String representation.
+// This block is a part of confuguration builder, for more information 
+// go to #flagship-configuration-options section
+.withOnVisitorExposed { fromFlag, visitorExposed in
+
+            print(fromFlag.toJson() ?? "")
+            print(visitorExposed.toJson() ?? "")
+        }
+
+// Representation of VisitorExposed  
+{
+  "id": "visitor_1",
+  "anonymousId": null,
+  "context": {
+    "sdk_firstTimeInit": false,
+    "sdk_deviceLanguage": "fr_US",
+    "sdk_deviceType": "Mobile",
+    "sdk_deviceModel": "iPhone",
+    "sdk_osName": "ios",
+    "sdk_osVersionName": "ios",
+    "sdk_fsVersion": "2.1.0,",
+    "customer": "QA",
+    "country": "FR"
+  }
+}
+
+// Representation of ExposedFlag 
+{
+  "key": "btnColor",
+  "value": "Green",
+  "metadata": {
+    "campaignId": "cfv24sokqu3h6tka0sv0",
+    "variationGroupId": "cfv24sokqu3h6tka0t00",
+    "variationId": "cfv24sokqu3h6tka0t10",
+    "isReference": false,
+    "campaignType": "ab",
+    "slug": null
+  }
+}
+
+```
+```objectivec Objective-C - Representation of VisitorExposed & ExposedFlag
+// Inside the callBack we use toJson() method to get the json String representation.
+// This block is a part of confuguration builder, for more information 
+// go to #flagship-configuration-options section  
+
+FlagshipConfig * conf =  [[[[FSConfigBuilder alloc] init] withOnVisitorExposed:^(FSVisitorExposed * expoVisitor, FSExposedFlag * expoFlag) {
+       NSLog(@"%@", [expoVisitor toJson]);
+       NSLog(@"%@", [expoFlag toJson]);
+        }] build];
+
+// Representation of VisitorExposed  
+{
+  "id": "visitor_1",
+  "anonymousId": null,
+  "context": {
+    "sdk_firstTimeInit": false,
+    "sdk_deviceLanguage": "fr_US",
+    "sdk_deviceType": "Mobile",
+    "sdk_deviceModel": "iPhone",
+    "sdk_osName": "ios",
+    "sdk_osVersionName": "ios",
+    "sdk_fsVersion": "2.1.0,",
+    "customer": "QA",
+    "country": "FR"
+  }
+}
+
+// Representation of ExposedFlag 
+{
+  "key": "btnColor",
+  "value": "Green",
+  "metadata": {
+    "campaignId": "cfv24sokqu3h6tka0sv0",
+    "variationGroupId": "cfv24sokqu3h6tka0t00",
+    "variationId": "cfv24sokqu3h6tka0t10",
+    "isReference": false,
+    "campaignType": "ab",
+    "slug": null
+  }
+}
+```
+
+> 📘 
+> 
+> The onVisitorExposed callback is triggered ONLY when the visitorExpose() method is called successfully.
+
+Here is an example on how to use this callback:
+
+- [Example with Mixpanel integration](https://docs.developers.flagship.io/docs/integrate-with-mixpanel)
+- [Example with Segment integration](https://docs.developers.flagship.io/docs/integrate-with-segmentcom)
+
+## `newVisitor` method
+
+The `visitor` instance is an object that lets you manage the context,  **activate** experiments and **track** events.
+
+The visitor context is a property dataset that defines the current visitor of your app. 
+
+This dataset is sent and used by the Flagship Decision API as targeting criteria for campaign assignment.
+
+For example, if you wanted to enable or disable a specific feature based on VIP status, you would pass that attribute as a key-value pair in the visitor context so that the Decision API can enable or disable the corresponding feature flag for the visitor.
+
+```swift
+import Flagship
+
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"userId", hasConsented:true)
+                        .withContext(context: ["isVip":true])
+                        .isAuthenticated(true)
+                        .build()
+
+```
+```objectivec
+@import Flagship; 
+
+/// Create visitor with context isVip :YES
+[[[[Flagship sharedInstance] newVisitorWithVisitorId:@"userId" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] 
+		withContextWithContext:@{@"isVip":@YES}]build];
+```
+
+- **`public func newVisitor(visitorId: String, hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder`**
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Parameter",
+    "h-1": "Type",
+    "h-2": "Description",
+    "0-0": "visitorId",
+    "0-1": "String",
+    "0-2": "Unique visitor identifier.",
+    "1-0": "hasConsented",
+    "1-1": "Bool",
+    "1-2": "**_true_** when visitor has given consent, **_false_** otherwise.",
+    "2-0": "instanceType",
+    "2-1": "Instance",
+    "2-2": "How Flagship SDK should handle the newly created visitor instance. (Default is SINGLE_INSTANCE)  \n  \nSINGLE_INSTANCE :  \nThe newly created visitor instance will be returned and saved into the Flagship singleton. Call Flagship.getVisitor() to retrieve the instance.  \n  \nNEW_INSTANCE:  \nThe newly created visitor instance wont be saved and will simply be returned."
+  },
+  "cols": 3,
+  "rows": 3,
+  "align": [
+    "left",
+    "left",
+    "left"
+  ]
+}
+[/block]
+
+
+### Visitor Builder methods
+
+#### Context
+
+- **`func withContext(context:[String:Any])->FSVisitorBuilder`**
+
+Represent the visitor's initial context key/values used for targeting.  
+Context keys must be String, and values types must be one of the following: Number, Boolean, String.
+
+| Parameter | Type         | Description     |
+| :-------- | :----------- | :-------------- |
+| context   | [String:Any] | initial context |
+
+#### Consent
+
+- **`func hasConsented(hasConsented:Bool)->FSVisitorBuilder`**
+
+<br />
+
+Specify if the visitor has consented to personal data usage. When `false` some features will be deactivated; the cache will be deactivated and cleared. The default value is `true`.
+
+| Parameter    | Type | Description                                              |
+| :----------- | :--- | :------------------------------------------------------- |
+| hasConsented | Bool | `true` when visitor has given consent, `false` otherwise |
+
+<br />
+
+> 📘 The default value is `true`
+
+#### Authenticate
+
+- **`func isAuthenticated(_ autenticated:Bool)->FSVisitorBuilder`**
+
+The visitorId will be considered as authenticated if `true` otherwise is anonymous.
+
+| Parameter    | Type | Description                                              |
+| :----------- | :--- | :------------------------------------------------------- |
+| autenticated | Bool | `true` for authenticated visitor, `false` for anonymous. |
+
+> 📘 
+> 
+> The default value is `false`
+
+#### Visitor flags status callback
+
+- **`func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder `**
+
+<br />
+
+Define a callback to be informed about _fetchStatus_ changes.
+
+<br />
+
+_**OnFetchFlagsStatusChanged**_ is an alias 
+
+| Parameter | Type                                  | Description                                                                   |
+| :-------- | :------------------------------------ | :---------------------------------------------------------------------------- |
+| pCallback | OnFetchFlagsStatusChanged (typealias) | this callback will be triggered each time the **`fetchStatus` ** has changed. |
+
+<br />
+
+**`typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?`**
+
+| Parameter | Type                             | Description                                               |
+| :-------- | :------------------------------- | :-------------------------------------------------------- |
+| newStatus | [FSFetchStatus](#fetch-status)   | Represent the new value of FSFetchStatus                  |
+| reason    | [FSFetchReasons](#fetch-reasons) | Give the reason for why the fetchState is FETCH_REQUIRED. |
+
+<br />
+
+OnFetchFlagsStatusChanged is an alias and the signature contain the fetchStatus ans the reason
+
+```groovy Visitor Builder - Define a callback status
+// 1 - Create visitor
+let visitor = Flagship.sharedInstance.newVisitor(visitorId: "visitorId", hasConsented:true).withFetchFlagsStatus { newStatus, reason in
+            
+  // 2 - In this bloc will have the new fetchState and the reason 
+
+}.build()
+```
+
+<br />
+
+## `getStatus` method
+
+It is possible to get the current status via the method getStatus() from the Flagship class.
+
+- **`func getStatus() -> FSSdkStatus`**
+
+    Return the current SDK status
+
+List of the possible SDK status :
+
+| Status                    | Description                                                                                                                                                            |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **_SDK_NOT_INITIALIZED_** | The SDK has not been started.                                                                                                                                          |
+| **_SDK_INITIALIZING_**    | The SDK still starting, in_ bucketing mode_ the sdk needs to download the ressources  (bucketing file) before start. if the file exist already this status is skipped. |
+| **_SDK_INITIALIZED_**     | The SDK is ready to use.                                                                                                                                               |
+| **_SDK_PANIC_**           | The SDK is ready but is running in Panic mode: All visitor's features are disabled except 'fetchFlags' which refreshes this status.                                    |
+
+<br />
+
+## `close` method
+
+When your application is about to terminate, you can call the close method of Flagship class, by doing this, the batch process one last time before stop. 
+
+But don't worry if the close function is not invoked the data is stored in cache and will be processed on the next start
+
+- **func close()**
+
+```swift Close - Swift
+// Process one last time the batch process then stop.
+Flagship.sharedInstance.close()
+```
+```objectivec Close - Objc
+// Close function to stop batch after processing one last time 
+[[Flagship sharedInstance] close];
+```
+
+# `Visitor` class
+
+## `fetchStatus` property
+
+ **`public internal(set) var fetchStatus: FetchStatus`**
+
+This _Enum_ parameter belongs to the visitor instance, and it reflects the status of the visitor's fetching workflow.
+
+All possible value are listed below
+
+- **FETCHED**  
+  _Flags have been successfully fetched from the API or re-evaluated in bucketing mode and are up-to-date.._
+- **FETCHING**  
+  _Flags are currently being fetched from the API or re-evaluated in bucketing mode._
+- **FETCH_REQUIRED**  
+  _Flags need to be re-fetched due to a change in the visitor context, visitor authentication or because the flags were loaded from cache._
+- **PANIC**  
+  _The SDK is in PANIC mode: All features are disabled except for the one to fetch flags_.  _Flags default value will be returned._
+
+```groovy Swift
+
+// The parameter that reflect the status user's workflow
+public internal(set) var fetchStatus: FSFetchStatus
+
+// Enum of possible value
+public enum FSFetchStatus: String {
+    // The flags have been successfully fetched from the API or re-evaluated in bucketing mode.
+    case FETCHED
+    // The flags are currently being fetched from the API or re-evaluated in bucketing mode.
+    case FETCHING
+    // The flags need to be re-fetched due to a change in context, or because the flags were loaded from cache or XPC.
+    case FETCH_REQUIRED
+    // The SDK is in PANIC mode: All features are disabled except for the one to fetch flags
+    case PANIC
+}
+```
+```groovy Code snippet - Read fetching status
+// Create a user 
+let user = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented: true).build()
+        
+// Get status before fetching
+user.fetchStatus // The value should be FETCH_REQUIRED
+// Fetching flags
+user.fetchFlags {
+     // Fetching completed successfully 
+     // Get status after fetching
+         user.fetchStatus // the value should be FETCHED
+     }
+```
+
+## `requiredFetchReason` property
+
+**`public internal(set) var requiredFetchReason: FSFetchReasons`**
+
+Speaking of _FetchStatus_ values related to workflow, we noticed that **_FETCH_REQUIRED_** is confusing sometimes because it may come from different scenarios.
+
+The SDK provides a new smart indicator that gives you the main reason why visitors flags need to be re-evaluated.
+
+This Enum parameter belongs to the visitor instance  with these possible values:
+
+- **VISITOR_CREATE**  
+  _Indicate that the visitor is created for the first time or without cache._
+- **UPDATE_CONTEXT**  
+  _Indicates that a context has been updated or changed._
+- **AUTHENTICATE**G  
+  _Indicates that the XPC method 'authenticate' has been called._
+- **UNAUTHENTICATE**  
+  _Indicates that the XPC method 'unauthenticate' has been called._
+- **FETCH_ERROR**  
+  _Indicates that fetching flags has failed._
+- **FETCHED_FROM_CACHE**  
+  _Indicates that flags have been fetched from the cache._
+- **NONE**  
+  _No Reason, the state should be  FETCHED,  FETCHING, PANIC_
+
+```groovy Fetch Reasons
+
+enum FSFetchReasons: String {
+  // Indicate that the visitor is created for the first time or without cache
+  case VISITOR_CREATE
+  // Indicates that a context has been updated or changed.
+  case UPDATE_CONTEXT
+  // Indicates that the XPC method 'authenticate' has been called.
+  case AUTHENTICATE
+  // Indicates that the XPC method 'unauthenticate' has been called.
+  case UNAUTHENTICATE
+  // Indicates that fetching flags has failed.
+  case FETCH_ERROR
+  // Indicates that flags have been fetched from the cache.
+  case FETCHED_FROM_CACHE
+  // No Reason, the state should be  FETCHED,  FETCHING, PANIC
+  case NONE
+}
+```
+```groovy Code snippet - Read fetching Reasons Status
+        
+// Create user
+let user = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented:true)
+.build()
+// Get status after fetching
+user.fetchStatus // The value should be FETCH_REQUIRED
+// Get reason status before fetching
+user.requiredFetchReason // The value should be READ_FROM_CACHE 
+// Fetching flags
+		user.fetchFlags {
+            // Fetch completed
+            user.fetchStatus // The value should FETCHED
+            user.requiredFetchReason // The value should be NONE
+    }    
+```
+
+The fetchStatus & fetchReason are also used by a [callback](#visitor-builder-methods) described before
+
+#### Scenarios when a fetch is required:
+
+| Trigger points                                               | FetchReasons       | FetchStatus    |
+| :----------------------------------------------------------- | :----------------- | :------------- |
+| updateContext                                                | UPDATE_CONTEXT     | FETCH_REQUIRED |
+| authenticate                                                 | AUTHENTICATE       | FETCH_REQUIRED |
+| unAuthenticate                                               | UNAUTHENTICATE     | FETCH_REQUIRED |
+| on failed to fetch                                           | FETCH_ERROR        | FETCH_REQUIRED |
+| On create visitor instance and load flags from cache         | FETCHED_FROM_CACHE | FETCH_REQUIRED |
+| On create visitor for the first time or without cached flags | NONE               | FETCH_REQUIRED |
+| on panic mode is detected                                    | NONE               | PANIC          |
+| while fetching                                               | NONE               | FETCHING       |
+| on fetched with success                                      | NONE               | FETCHED        |
+
+<br />
+
+## `fetchFlags` method
+
+The fetchFlags() method of the visitor instance automatically updates the campaign assignments according to the current visitor context and retrieves applicable flags.
+
+- **`func fetchFlags(onFetchCompleted: @escaping ()-> Void)`**
+
+This function will call the decision api and update all the campaigns flags from the server according to the visitor context.
+
+| Parameter        | Type | Description                                 |
+| :--------------- | :--- | :------------------------------------------ |
+| onFetchCompleted | Code | Block to execute once the sync is completed |
+
+```swift
+import Flagship
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "visitor_1", hasConsented:true).build()
+
+// Update context
+visitor1.updateContext("isVip", true)
+
+// Fetch flags
+visitor1.fetchFlags {
+   // Fetch completed , you can retreive your flags 
+}
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  // Fetch completed , you can retreive your flags 
+}];
+```
+
+## `getFlag` method
+
+Once the campaign has been assigned and fetched, all the flags are stored in the SDK. 
+
+You can retrieve flags using the following functions from the Visitor instance:
+
+- **`func getFlag(key:String)->FSFlag`**
+
+Retrieve a **FSFlag** object by its key. If no flag match the given key an empty flag will be returned. Call exists() to check if the flag has been found.
+
+| Parameter | Type   | Description                |
+| :-------- | :----- | :------------------------- |
+| key       | String | key associated to the flag |
+
+```swift
+import Flagship
+
+// Create the visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented:true).build()
+
+// Fetch flags
+visitor1.fetchFlags {
+    // Ex: get flag for vip feature
+    let flag = visitor1.getFlag(key: "displayVipFeature")
+    // Use this flag to display the vip feature
+}
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  // Ex: get flag for vip feature 
+  FSFlag * flag = [visitor1 getFlagWithKey:@"displayVipFeature" defaultValue:FALSE];
+  // Use this flag to enable displaying the vip feature
+}];
+```
+
+## `getFlags` method
+
+Return a collection which is containing all current flags on the SDK.  Go to [FSFlagCollection](#FSFlagCollection) for more information
+
+- `func getFlags() -> FSFlagCollection`
+
+```
+import Flagship
+
+// Create the visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented:true).build()
+// Return the collection of the available flags in the sdk
+let collectionFlag = visitor1.getFlags()
+// Retreive flag, assume we have a flag with "btnColor" as key
+let flag = collectionFlag["btnColor"]
+
+```
+
+<br />
+
+## `updateContext` method
+
+The visitor context is a property dataset that defines the current visitor of your app. 
+
+This dataset is sent and used by the Flagship Decision API as targeting criteria for campaign assignment.
+
+The following method from the Visitor instance allows you to set new context values matching the given keys.
+
+```swift
+import Flagship
+
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"userId", hasConsented:true)
+                .withContext(context: ["age" : 32, "isVip":true])
+                .build()
+// Update the visitor context with lastPurchaseDate key and the value is 1615384464 
+ visitor1.updateContext("lastPurchaseDate", 1615384464)
+```
+```objectivec
+@import Flagship;
+
+/// Create visitor
+
+/// Create visitor with context isVip :YES
+[[[[Flagship sharedInstance] newVisitorWithVisitorId:@"userId" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] 
+		withContextWithContext:@{@"isVip":@YES}]build];
+
+// Update context
+// - isVip with true value
+// - lastPurchaseDate with value 1615384464 in the user context
+[visitor1 updateContext:@{@"lastPurchaseDate":@1615384464, @"isVip":@YES}];
+```
+
+- **`func updateContext(_ key:String, _ newValue:Any)`**
+
+Upsert the visitor context values, matching the given keys, used for targeting. Only Integer, String, Boolean, Double typed values are accepted.
+
+| Parameter | Type   | Description   |
+| :-------- | :----- | :------------ |
+| key       | String | Context key   |
+| newValue  | Any    | Context value |
+
+- **`func updateContext(_ context:[String:Any])`**
+
+Update visitor context using dictionary which contain several keys/values 
+
+| Parameter | Type         | Description                                                      |
+| :-------- | :----------- | :--------------------------------------------------------------- |
+| context   | [String:Any] | Only Integer, String, Boolean, Double typed values are accepted. |
+
+> ❗️ 
+> 
+> Visitor context values **must have** a type of Integer, String, Boolean, Double.
+
+- **`func updateContext(_ flagshipContext:FlagshipContext, _ value:Any)`**
+
+|                 |                 |                                        |
+| :-------------- | :-------------- | :------------------------------------- |
+| flagshipContext | FlagshipContext | Predefined context key                 |
+| value           | Any             | value of the associated Predefined key |
+
+```swift
+import Flagship
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented:true")
+                .withContext(context: ["age" : 32, "isVip":true])
+                .build()
+
+// Update the visitor context with predefined key 
+visitor1.updateContext(.CARRIER_NAME, "SFR")
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Update the visitor context with predefined key 
+[visitor1 updateContext:@{@"sdk_carrierName":@SFR];
+```
+
+## `clearContext` method
+
+- **`func clearContext()`**  
+  Clear all the visitor context values used for targeting.
+
+```swift
+import Flagship
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented: true)
+                .withContext(context: ["age" : 32, "isVip":true])
+                .isAuthenticated(true)
+                .build()
+
+// Clear the context 
+visitor1.clearContext()
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+///Clear context
+[visitor1 clearContext];
+```
+
+## `getContext` method
+
+- **`func getContext()->[String:Any]`**  
+  Get visitor current context key / values.
+
+```swift
+import Flagship
+
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented:true)
+                .withContext(context: ["age" : 32, "isVip":true])
+                .build()
+
+// Get the current context for the visitor1
+let currentContexct = visitor1.getCurrentContext()
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES  instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+///Get context
+NSDictionary * context = [visitor1 getContext];
+```
+
+## `setConsent` method
+
+The `Visitor` class provides a method to let you manage visitor consent for data privacy usage. When `false`, campaign activation and hits will be disabled and cache cleared.
+
+- **`func setConsent(hasConsented:Bool)`**
+
+| Parameter    | Type | Default value | Description                                                                                                                        |
+| :----------- | :--- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------- |
+| hasConsented | Bool | `true`        | Set visitor consent for private data usage. When `false` some features will be deactivated, cache will be deactivated and cleared. |
+
+```swift
+import Flagship
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1",hasConsented:true).build()
+ visitor1.setConsent(hasConsented: false)
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES  instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+/// set the consent to NO 
+[visitor1 setConsentWithHasConsented:NO];
+```
+
+> 🚧 
+> 
+> When consent is not given: 
+> 
+> - Hits and Activations will be deactivated 
+> - All the cached visitor data will be cleared until consent is given again
+> - Only consent tracking requests will be sent in order to clear server-side cached dat
+
+## `authenticate` method
+
+Dealing with anonymous and logged-in visitor, experience continuity allows you to maintain consistency between sessions and devices.
+
+> 🚧 
+> 
+> Make sure that the experience continuity option is enabled on the flagship platform before using those methods.
+
+There are 2 ways to authenticate a visitor:
+
+1. Set key isAuthenticated to true when creating a new visitor
+2. Use authenticate method of Visitor instance
+
+Authenticate anonymous visitor 
+
+**`func authenticate(visitorId:String)`**
+
+| Parameter | Type   | Description                          |
+| :-------- | :----- | :----------------------------------- |
+| visitorId | String | id of the new authenticated visitor. |
+
+> 🚧 
+> 
+> Because visitor data data has been updated, `fetchFlag` method need to be called afterward to update the decision from Flagship.
+> 
+> The targeting / Flags could be different for the visitor.
+
+<br />
+
+## `unauthenticate` method
+
+This function change authenticated Visitor to anonymous visitor.
+
+**`func unauthenticate()`**
+
+> 🚧 
+> 
+> Because visitor data data has been updated, `fetchFlag` method need to be called afterward to update the decision from Flagship.
+> 
+> The targeting / Flags could be different for the visitor.
+
+### Experience continuity - Code example
+
+Let's assume basic scenario to understand how things work:
+
+1. Your visitor arrives on your app for the first time.
+
+We need to initialize the visitor but as we don't know anything about this visitor, we'll create a random_Id. You can also specify some visitor context if necessary.
+
+```swift
+// Create visitor with random_Id 
+ let visitor = Flagship.sharedInstance.newVisitor(visitorId: "random_Id", hasConsented:true).withContext(context: ["key":
+                "value"]).build()
+```
+```objectivec
+// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+// Once the visitor log-in and is authenticated on your app.
+[visitor1 authenticateWithVisitorId:@"visitor_id"];
+
+// Once the visitor log-out and is unauthenticed on your app.
+[visitor1 unauthenticate];
+```
+
+The actual random_Id will be what we call the \_anonymous id_.
+
+2. Your visitor is signing in.
+
+To tell the SDK about this status modification, you'll have to call the authenticate function which takes the required visitor id as argument.
+
+```swift
+// Example
+// You fetch the visitor_id from your DB
+// let visitorId = db.getUserId();
+
+// Authenticate
+visitor.authenticate(visitorId: "visitorId")
+
+// Since your visitor has changed (is now logged-in)
+// You have to check if the proper targeting and flags are set
+
+visitor.fetchFlags {
+
+    // ... Do things ....
+}
+```
+
+The visitor is updated as authenticated, keeping the previous variations from campaigns that are still matched and thus gives you same flags as before being logged in.
+
+> 📘 
+> 
+> Keep in mind that if the visitor also has its context changed, you might still have changes on flags as your visitor might target new campaigns.
+
+3. Your visitor decides to sign out.
+
+If you want to keep the same visitor experience, then you should do:
+
+```swift
+// Unauthenticate
+visitor.unauthenticate()
+
+// Since your visitor has changed (is now logged-out)
+// You have to check if the proper targeting and flags are set
+
+visitor.fetchFlags{
+  
+   // ... Do things ....
+}
+```
+
+### Final implementation example
+
+```swift
+// Create a visitor
+
+let visitor = Flagship.sharedInstance.newVisitor(visitorId:"randomId", hasConsented:true).withContext(context: ["key": "value"]).build()
+
+// Call the authenticate function
+
+visitor.authenticate(visitorId: "visitorId");
+
+// Fetch the flags to update the visitor decision
+
+visitor.fetchFlags(){
+    
+    // ... Do things ....
+}
+
+// If you want to unauthenticate the visitor
+
+visitor.unauthenticate()
+
+// Fetch the flags to update the visitor decision
+
+visitor.fetchFlags{
+
+    // ... Do things ....
+}
+```
+
+<br />
+
+## `SendHit` method
+
+**`func sendHit<T: FSTrackingProtocol>(_ event:T)`**
+
+This function send hit to Flagship servers for reporting, go to [hit](#hit-tracking) section for more informations
+
+| Parameter | Type               | Description                                                                     |
+| :-------- | :----------------- | :------------------------------------------------------------------------------ |
+| event     | FSTrackingProtocol | event can be Screen, Transaction, Item, Event See [Hit Tracking](#hit-tracking) |
+
+# `Flag` class
+
+## `metadata` property
+
+You may need to send campaign's informations to a third-party for reporting and/or analytics purposes. The `metadata` method returns a dictionary with values you can use.
+
+- **` func metadata()->FSFlagMetadata`**  
+  Return the campaign metadata or an empty object if the Flag doesn't exist or if the default value type does not correspond to the Flag type in Flagship.
+
+```swift
+import Flagship
+
+// Create visitor "visitor1" and fetch flags
+// Get flag for vip feature
+
+// Ex: get flag for vip feature
+let flag = visitor1.getFlag(key: "displayVipFeature")
+
+// Use this flag to get the metadata
+let metadata = flag.metadata()
+    
+// Get the dictionary for metadata
+let campaign_info = metadata.toJson()
+```
+```objectivec
+// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  
+  // Ex: get flag for vip feature 
+  FSFlag * flag = [visitor1 getFlagWithKey:@"displayVipFeature" defaultValue:FALSE];
+  
+  // Use this flag to get the metadata
+  FSFlagMetadata *metadata = [flag metadata];
+  
+  // Get the dictionary for metadata
+  NSDictionary * campaign_info  = [metadata toJson]
+
+}];
+```
+
+The `metadata` you can access to are the following one:
+
+| FSFlagMetadata     | Type   | Default value | Description                                                                       |
+| :----------------- | :----- | :------------ | :-------------------------------------------------------------------------------- |
+| campaignId         | String | ""            | id of the campaign                                                                |
+| campaignName       | String | ""            | Campaign name                                                                     |
+| variationGroupId   | String | ""            | Id of the variation group                                                         |
+| variationGroupName | String | ""            | Variation group name                                                              |
+| variationId        | String | ""            | id of the variation assigned                                                      |
+| variationName      | String | ""            | Variation name                                                                    |
+| isReference        | Bool   | false         | if `true` that means the assigned variation is the reference, otherwise it's not. |
+| campaignType       | String | ""            | Type of the campaign. Ex: AB                                                      |
+| slug               | String | ""            | campaign slug or empty string if not configured in the platform                   |
+
+> 📘 To get the dictionary of metadata use the **_toJson_** method through the **FSFlagMetadata** instance.
+
+## `Flag status` property
+
+- **`public var status: FSFlagStatus`**
+
+The flag status represents the state of FLAG and is basically the same as [fetchStatus](#fetch-status); it is a kind of shortcut to get the status information from the flag instance.
+
+This Enum parameter belongs to the Flag instance and can have one of these possible values:
+
+- **FETCHED**  
+  _The flags are fetched from the API or re-evaluated in bucketing mode and up to date._
+- **FETCH_REQUIRED**  
+  _Visitor context, visitor authentication have been updated while flags have not been re-evaluated_
+- **NOT_FOUND**  
+  _The flag was not found when creating the flag instance._
+- **PANIC**  
+  _The SDK is in PANIC mode, default flags values will be returned._
+
+```groovy Read Flag's status
+// Get Flag for "flag_key"
+let flag = user.getFlag(key: "flag_key", defaultValue: "default_value")
+        
+// Get Status
+let state = flag.status //Return the actual status for this flag
+```
+```groovy Enum - Flag's status
+// This state represent the flag entity  
+public enum FSFlagStatus: String {  
+// The flags are fetched from the API or re-evaluated in bucketing mode.
+case FETCHED
+// The visitor updated the context but never retrieved or re-evaluated
+ case FETCH_REQUIRED
+// The flag was not found when creating the flag instance.
+ case NOT_FOUND
+// The SDK is in PANIC mode
+ case PANIC  
+}
+```
+
+> 📘 The status is READ ONLY
+
+## `getValue` method
+
+To retrieve flag current value, simply call value() method of the Flag object.
+
+- **`func value<T>(defaultValue:T?,visitorExposed: Bool = true)->T?`**
+
+Return the value from the assigned campaign variation or the Flag default value if the Flag does not exist, or if types are different.
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Parameter",
+    "h-1": "Type",
+    "h-2": "Default value",
+    "h-3": "Description",
+    "0-0": "defaultValue",
+    "0-1": "T ",
+    "0-2": "Generic",
+    "0-3": "Represent a fallback value if something goes wrong. ",
+    "1-0": "visitorExposed",
+    "1-1": "Bool",
+    "1-2": "true",
+    "1-3": "Tells Flagship the visitor have been exposed and have seen this flag. This will increment the visits for the current variation on your campaign reporting.  \nIf needed it is possible to set this param to false and call visitorExposed() afterward when the visitor has really been exposed to it.",
+    "2-0": "Return",
+    "2-1": "T ",
+    "2-2": "Generic",
+    "2-3": "Return the flag value or the fallback."
+  },
+  "cols": 4,
+  "rows": 3,
+  "align": [
+    "left",
+    "left",
+    "left",
+    "left"
+  ]
+}
+[/block]
+
+
+```swift
+import Flagship
+// Create visitor "visitor1" and fetch flags
+
+//Get flag for vip feature
+let flag = visitor1.getFlag(key: "displayVipFeature")
+  
+// Get value for the flag
+let shouldDisplayVipFeature = flag.value(defaultValue: false)
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitorWithVisitorId:@"visitor_1" hasConsented:@YES  instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  // Ex: get flag for vip feature 
+  FSFlag * flag = [visitor1 getFlagWithKey:@"displayVipFeature" defaultValue:FALSE];
+  // Use this flag value to enable displaying the vip feature
+   BOOL shouldDisplayVipFeature = [flag valueWithUserExposed:YES];
+}];
+```
+
+<br />
+
+> 🚧 
+> 
+> Default value must be one of the following type : String, Boolean, Integer,Double Array, Dictionary.
+
+## `visitorExposed` method
+
+By default when the method `value()` is called, the SDK considers that the visitor has seen your Flag unless you pass `false` to `value()`. In this last case, you will have to call the `visitorExposed()` method.
+
+There are two options for exposing a visitor to a flag:
+
+- Pass  `visitorExposed = true` parameter to the` value()` method.
+- Use the following `visitorExposed() `method from the Flag instance.
+- **`func visitorExposed()`**
+
+```swift
+import Flagship
+
+// Create visitor "visitor1" and fetch flags
+// Get flag for vip feature
+
+// Ex: get flag for vip feature
+let flag = visitor1.getFlag(key: "displayVipFeature")
+
+// Read the value without exposing it
+let shouldDisplayVipFeature = flag.value(defaultValue: false, visitorExposed: false)
+
+// Expose this flag later in the code
+flag.visitorExposed()
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  // Ex: get flag for vip feature 
+  FSFlag * flag = [visitor1 getFlagWithKey:@"displayVipFeature" defaultValue:FALSE];
+  // Use this flag value to enable displaying the vip feature
+   BOOL shouldDisplayVipFeature = [flag valueWithUserExposed:NO];
+  
+  
+  // Expose this flag later in the code
+   [flag userExposed];
+}];
+```
+
+<br />
+
+## `exists` method
+
+- **`func exists()->Bool`**  
+  This method will return `true` if a Flag has been returned by Flagship.
+
+```swift
+// Get Flag for "flag_key"
+let flag = user.getFlag(key: "flag_key")
+
+// Ex:Check if flag exists
+ flag.exists() // Return a boolean - true if the flag exist
+```
+```objectivec
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+
+/// Fetch flags
+[visitor1 fetchFlagsOnFetchCompleted:^{
+  // Ex: get flag for vip feature and check if exist 
+  BOOL isDisplayVipFeatureExists =  [[visitor1 getFlagWithKey:@"displayVipFeature" defaultValue:FALSE] exists];
+}];
+```
+
+<br />
+
+# FSFlagCollection
+
+This class  represent a collection of`<String:FSFlag>`
+
+## Instance Subscript
+
+- `subscript(key: Key) -> FSFlag { get set }`
+
+| Parameter | Type   | Description                                                                                            |
+| :-------- | :----- | :----------------------------------------------------------------------------------------------------- |
+| key       | String | The key representing the flag in dictionary                                                            |
+| Return    | FSFlag | The value associated with key if key is in the dictionary; otherwise, Return an empty `FSFlag` object. |
+
+> 📘 
+> 
+> If the key doesn’t exist in FSFlagCollection an empty object Flag containing the default value as current value will be returned.
+
+## Getting keys
+
+Return all keys present and available in the SDK
+
+- `func keys()->[String]`
+
+| Parameter | Type  | Description                             |
+| :-------- | :---- | :-------------------------------------- |
+| Return    | Array | array of string keys associated to flag |
+
+> 📘 
+> 
+> If keys not found ===> Return an **EMPTY ARRAY**
+
+## Getting metadata
+
+Return array of metadata 
+
+- `func metadatas()->[FSFlagMetadata]`
+
+| Parameter | Type  | Description               |
+| :-------- | :---- | :------------------------ |
+| Return    | Array | Array of `FSFlagMetadata` |
+
+<br />
+
+> 📘 
+> 
+> If flags not found ===> Return an EMPTY ARRAY
+
+## toJson
+
+Provide a json object that represent all metadata
+
+- `func toJson()->String`
+
+| Parameter | Type   | Description                                                            |
+| :-------- | :----- | :--------------------------------------------------------------------- |
+| Return    | String | JSON Representation. _Return an empty string if no metadata available_ |
+
+> 📘 If metadata not found ===> Return an EMPTY STRING
+
+Assume we have two flags `btnColor` , `btnColor` the returned string from this call toJson()
+
+```json JSON
+{
+   {
+    "key":"btnColor",
+    "campaignId": "xxxxxxxxxx",
+    "campaignName": "xxxxxxx",
+    "variationGroupdId": "xxxxxxxxxx",
+    "variationGroupName": "xxxxxxxxx",
+    "variationId": "xxxxxxxxxx",
+    "isReference": false,
+    "campaignType": "ab",
+    "slug": "xxxx",
+   },
+  {
+    "key":"btnTitle",
+    "campaignId": "xxxxxxxxxx",
+    "campaignName": "xxxxxxx",
+    "variationGroupdId": "xxxxxxxxxx",
+    "variationGroupName": "xxxxxxxxx",
+    "variationId": "xxxxxxxxxx",
+    "isReference": false,
+    "campaignType": "ab",
+    "slug": "xxxx",
+   }
+}
+```
+
+## Filtering
+
+Returns a new dictionary containing the key-value pairs of the dictionary that satisfy the given predicate.
+
+- `func filter(_ isIncluded: (String, FSFlag) throws -> Bool) rethrows -> FSFlagCollection`
+
+| Parameter  | Type             | Description                                                                                                                                                  |
+| :--------- | :--------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| isIncluded | Bool             | A closure that takes a key-value pair as its argument and returns a Boolean value indicating whether the pair should be included in the returned dictionary. |
+| Return     | FSFlagCollection | The key-FSFlag pairs that isIncluded allows.                                                                                                                 |
+
+```swift
+// User get all flag
+let allFlag = user.getFlags()
+// Apply filter
+let result = allFlag.filter { (key: String, value: FSFlag) in  
+  return value.metadata().variationName == "Original"
+}
+// result will contain a flag that correspond to the condition : variationName == "Original"
+ 
+```
+
+<br />
+
+## Iterator
+
+Returns an iterator over the dictionary’s key-value pairs.
+
+- `func makeIterator() -> DictionaryIterator<String, FSFlag>`
+
+| Parameter | Type     | Description                                                                      |
+| :-------- | :------- | :------------------------------------------------------------------------------- |
+| Return    | iterator | An iterator over the dictionary with elements of type (key: Key, value: FSFlag). |
+
+```swift
+// User get all flag
+let allFlag = user.getFlags()
+// Apply forEach
+// Expose flags associated with the variationName == "Original"
+allFlag.forEach { (key: String, value: FSFlag) in
+  if value.metadata().variationName == "Original"{
+      value.visitorExposed()
+    }
+  }
+```
+
+<br />
+
+## isEmpty
+
+A Boolean value that indicates whether the dictionary is empty.
+
+- `var isEmpty: Bool {get}`
+
+## count
+
+The number of key-value pairs in the dictionary.
+
+- `var count: Int { get }`
+
+## Expose ALL
+
+Form the collection instance we are able to expose all flags in one call
+
+- `func exposeAll()`
+
+# Hit Tracking
+
+This section helps you track your visitors in your application and learn how to build hits in order to feed campaign goals. For more information about our measurement protocol, read our [Universal Collect documentation](doc:universal-collect-documentation).
+
+There are four different types of Hits available:
+
+- Screen
+- Transaction
+- Item
+- Event
+
+**They must all be sent with the following function through the visitor instance**
+
+**`func sendHit<T: FSTrackingProtocol>(_ event:T)`**
+
+### Common Parameters
+
+These parameters can be sent with any type of hit.
+
+| Parameter               | Type   | Required | Description               |
+| ----------------------- | ------ | -------- | ------------------------- |
+| userIp                  | String | **No**   | Current user IP address   |
+| screenResolution        | String | **No**   | Screen Resolution         |
+| userLanguage            | String | **No**   | User Language             |
+| currentSessionTimeStamp | Int64  | **No**   | Current Session Timestamp |
+| sessionNumber           | Int    | **No**   | Session Number            |
+
+```swift
+///////////////////////////////////////////////////
+/////// Create event with common parameters ///////
+///////////////////////////////////////////////////
+
+let eventScreen = FSScreen("loginScreen")
+// Fill data for event screen
+eventScreen.userIp             = "168.192.1.0"
+eventScreen.sessionNumber 	   = 12
+eventScreen.screenResolution   = "750 x 1334"
+eventScreen.screenColorDepth   = "#fd0027"
+eventScreen.sessionNumber      = 1
+eventScreen.userLanguage       = "fr"
+eventScreen.sessionEventNumber = 2
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+
+// Send Event
+visitor1.sendHit(eventScreen)
+```
+```objectivec
+////////////////////////////////////////////////////
+/////// Create event with common parameters ///////
+///////////////////////////////////////////////////
+
+FSScreen* eventScreen =  [[FSScreen alloc] init:@"loginScreen"];
+/// Fill data for event screen
+eventScreen.userIp             = @"168.192.1.0";
+eventScreen.sessionNumber      = @12;
+eventScreen.screenResolution   = @"750 x 1334";
+eventScreen.screenColorDepth   = @"#fd0027";
+eventScreen.sessionNumber      = @1;
+eventScreen.userLanguage       = @"fr";
+eventScreen.sessionEventNumber = @2;
+
+/// Create visitor
+FSVisitor * visitor1 = [[[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] withContextWithContext:@{@"age":@18} ] build];
+/// Send event screen
+[visitor1 sendScreenEvent:eventScreen];
+```
+
+### Screen
+
+This hit should be sent each time a visitor arrives on a new interface.
+
+The **FSScreen** class represents this hit and it requires `location` as a string parameter.
+
+**`init(_ location:String)`**
+
+| Parameter | Type   | Required | Description   |
+| --------- | ------ | -------- | ------------- |
+| location  | String | Yes      | location name |
+
+```swift
+///////////////////////////////////
+/////// Create Screen Hit   ///////
+///////////////////////////////////
+
+// Usage: this hit is usually sent when changing screens in the app
+let eventScreen = FSScreen("loginScreen")
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+// Send screenhit
+visitor1.sendHit(eventScreen)
+```
+```objectivec
+///////////////////////////////////
+/////// Create Screen Event ///////
+///////////////////////////////////
+
+// Usage: this hit is usually sent when changing screens in the app
+// Create screen event
+ FSScreen * eventScreen =  [[FSScreen alloc] init:@"loginScreen"];
+
+/// Create visitor
+FSVisitor * visitor1 = [[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] build]
+// Send Event
+[visitor1 sendScreenEvent:eventScreen];
+```
+
+### Page
+
+This hit should be sent each time a visitor visits a new local or web page in an embedded web view.
+
+The **FSPage** class represent Page hit and requires `location` as a string parameter. 
+
+| Parameter | Type   | Required | Description |
+| --------- | ------ | -------- | ----------- |
+| location  | String | Yes      | Valid url   |
+
+```swift
+///////////////////////////////////
+/////// Create Page Hit     ///////
+///////////////////////////////////
+        
+// Usage: This hit should be sent each time a visitor arrives on a new url page
+   let eventPage = FSPage("https://www.my_domain_com/my_page")
+// Create visitor
+   let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+// Send screenhit
+   visitor1.sendHit(eventPage)
+```
+```objectivec
+///////////////////////////////////
+/////// Create Page Event ///////
+///////////////////////////////////
+
+// Usage: This hit should be sent each time a visitor arrives on a new url page
+// Create Page event
+   FSPage * eventPage =  [[FSPage alloc] init:@"loginScreen"];
+/// Create visitor
+    FSVisitor * visitor1 = [[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] build];
+// Send Event
+    [visitor1 sendPageEvent:eventPage];
+```
+
+### Transaction
+
+Hit to send when a visitor completes a Transaction.
+
+**FSTransaction** represents it and requires a unique `transactionId` and `affiliation` name.
+
+> 📘 
+> 
+> The affiliation is the name of Transaction that should appear in the report
+
+**`init(transactionId:String, affiliation:String)`**
+
+| Parameter      | Type   | Required | Description                                                                                                      |
+| -------------- | ------ | -------- | ---------------------------------------------------------------------------------------------------------------- |
+| transactionId  | String | **Yes**  | Transaction unique identifier.                                                                                   |
+| affiliation    | String | **Yes**  | Transaction name. Name of the goal in the reporting.                                                             |
+| revenue        | Float  | **No**   | Total revenue associated with the transaction. This value should include any shipping or tax costs.              |
+| shipping       | Float  | **No**   | Specifies the total shipping cost of the transaction.                                                            |
+| tax            | Float  | **No**   | Specifies the total taxes of the transaction.                                                                    |
+| currency       | String | **No**   | Specifies the currency used for all transaction currency values. Value should be a valid ISO 4217 currency code. |
+| paymentMethod  | String | **No**   | Specifies the payment method for the transaction.                                                                |
+| shippingMethod | String | **No**   | Specifies the shipping method of the transaction.                                                                |
+| itemCount      | Int    | **No**   | Specifies the number of items for the transaction.                                                               |
+| couponCode     | String | **No**   | Specifies the coupon code used by the customer for the transaction.                                              |
+
+```swift
+//////////////////////////////////////
+/////// Create Transaction Hit ///////
+//////////////////////////////////////
+
+// The affiliation is the name of transaction that should appear in the report
+let transacEvent:FSTransaction = FSTransaction(transactionId:"transacId", affiliation:"BasketTransac")
+transacEvent.currency 			 = "EUR"
+transacEvent.itemCount       = 0
+transacEvent.paymentMethod   = "PayPal"
+transacEvent.shippingMethod  = "Fedex"
+transacEvent.tax             = 2.6
+transacEvent.revenue         = 15
+transacEvent.shipping        = 3.5
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+// Send Transaction hit
+visitor1.sendHit(transacEvent)
+```
+```objectivec
+//////////////////////////////////////
+/////// Create Transaction Hit ///////
+//////////////////////////////////////
+
+/// The affiliation is the name of transaction that should appear in the report
+FSTransaction * transacEvent =  [[FSTransaction alloc] initWithTransactionId:@"transacId" affiliation:@"BasketTransac"];
+transacEvent.currency        = @"EUR";
+transacEvent.itemCount       = 0;
+transacEvent.paymentMethod   = @"PayPal";
+transacEvent.shippingMethod  = @"Fedex";
+transacEvent.tax             = @2.6;
+transacEvent.revenue         = @15;
+transacEvent.shipping        = @3.5;
+
+/// Create visitor
+FSVisitor * visitor1 = [[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] build]
+// Send the transaction event
+[visitor1 sendTransactionEvent:transacEvent];
+```
+
+### Item
+
+Hit to send an item with a transaction. It must be sent after the corresponding transaction.
+
+**FSItem** represents this hit and requires `transactionId` and product name.
+
+**`init(transactionId:String, name:String, code:String)`**
+
+| Parameter     | Type   | Required | Description                    |
+| ------------- | ------ | -------- | ------------------------------ |
+| transactionId | String | **Yes**  | Transaction unique identifier  |
+| name          | String | **Yes**  | Product name                   |
+| price         | Float  | **No**   | Specifies the item price       |
+| code          | String | **Yes**  | Specifies the item code or SKU |
+| category      | String | **No**   | Specifies the item category    |
+| quantity      | Int    | **No**   | Specifies the item quantity    |
+
+```swift
+//////////////////////////////////////
+/////// Create Item Hit //////////////
+//////////////////////////////////////
+
+// Item usually represents a product. An item must be associated with a transaction event.
+
+// Create item hit
+let itemHit = FSItem(transactionId: "idTransaction", name: "itemName", code: "codeSku")
+// Set price
+itemHit.price 		= 20
+// Set category
+itemHit.category 	= "shoes"
+// Set quantity
+itemHit.quantity 	= 2
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+
+// Send Item
+visitor1.sendHit(itemHit)
+```
+```objectivec
+//////////////////////////////////////
+/////// Create Item Hit //////////////
+//////////////////////////////////////
+
+/// Item usually represents a product. An item must be associated with a transaction event.
+
+FSItem * itemhit 	= [[FSItem alloc] initWithTransactionId:@"transacId" name:@"MicroTransac" code:@"codeSku"];
+/// Set Price
+itemhit.price 		= @20;
+/// Set category
+itemhit.category 	= @"category";
+/// Set quantity
+itemhit.quantity 	= @1;
+
+/// Create visitor
+FSVisitor * visitor1 = [[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] build]
+/// Send item event
+[visitor1 sendItemEvent:itemhit];
+```
+
+### Event
+
+Hit which represents an event. It can be anything you want: for example a click on an Add to Cart button or a newsletter subscription.
+
+**FSEvent** represents this hit and requires a category event and action name string.
+
+**FSCategoryEvent** can be `Action_Tracking` or `User_Engagement`.
+
+`init(eventCategory:FSCategoryEvent, eventAction:String)`
+
+| Parameter  | Type            | Required | Description                                                     |
+| ---------- | --------------- | -------- | --------------------------------------------------------------- |
+| category   | FSCategoryEvent | **Yes**  | Category of the event (`Action_Tracking` or `User_Engagement`). |
+| action     | String          | **yes**  | Name of the event.                                              |
+| label      | String          | **No**   | Description of the event.                                       |
+| eventValue | UInt            | **No**   | Value of the event, must be an unsigned integer value           |
+
+> 📘 
+> 
+> The event action is the name of Event that should appear in the report
+
+```swift
+//////////////////////////////////////
+/////// Create Event Hit /////////////
+//////////////////////////////////////
+
+/// Create action tracking category event 
+let actionEvent:FSEvent = FSEvent(eventCategory: FSCategoryEvent.Action_Tracking, eventAction: "cta_Shop")
+actionEvent.label 			= "cta_Shop_label"
+actionEvent.eventValue  = 1
+
+// Create visitor
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"visitor_1", hasConsented:true).build()
+
+// Send Event Tracking
+visitor1.sendHit(actionEvent)
+```
+```objectivec
+//////////////////////////////////////
+/////// Create Event Hit /////////////
+//////////////////////////////////////
+
+/// Create action tracking category event 
+FSEvent * actionEvent  = [[FSEvent alloc] initWithEventCategory:FSCategoryEventAction_Tracking eventAction:@"cta_Shop"];
+actionEvent.label 		 = @"cta_Shop_label";
+[actionEvent setEventValue:1];
+
+/// Create visitor
+FSVisitor * visitor1 = [[[Flagship sharedInstance] newVisitor:@"visitor_1" instanceType:InstanceSHARED_INSTANCE] build];
+
+/// Send Event Tracking
+[visitor1 sendEventTrack:actionEvent];
+```
+
+<br />
+
+# Managing visitor cache
+
+By default, the Flagship iOS SDK provides a default cache manager implementation. 
+
+This feature helps to cache visitors' data, to cache non-sent hits due to internet failures or server errors, to cache campaign assignations for offline mode and to prevent reallocation in Bucketing mode. 
+
+Indeed as the assignation is made on a local device in bucketing mode, changing campaign allocation in the platform would make visitors see different variations if there's no cache.
+
+The default cache manager uses a local database.
+
+#### Custom Cache Manager
+
+It's possible to provide a custom cache implementation using the following protocols
+
+##### **`protocol FSVisitorCacheDelegate`**
+
+This protocol specifies the methods to implement in order to cache visitors' information.
+
+- **func cacheVisitor(visitorId: String,  \_ visitorData: Data)**
+
+This method is called when the SDK needs to cache visitor information in your database.
+
+| Parameter   | Type   | Description                                                  |
+| ----------- | ------ | ------------------------------------------------------------ |
+| visitorId   | String | Visitor unique identifier from which data need to be cached. |
+| visitorData | Data   | Visitor data to cache                                        |
+
+- **func lookupVisitor(visitorId: String) -> Data?**
+
+This method is invoked when the SDK needs to get visitor information from database. This method must to respect a time delay which is [configurable](#fscachemanager).
+
+| Parameter | Type   | Description                                                  |
+| --------- | ------ | ------------------------------------------------------------ |
+| visitorId | String | Visitor unique identifier from which data need to be loaded. |
+
+Return visitor data respecting the expected format.
+
+- **func flushVisitor(visitorId: String)**
+
+This method is called when the SDK needs to flush visitor information in your database. For example, when the visitor hasn't given his consent this method will be called.
+
+| Parameter | Type   | Description                                                   |
+| --------- | ------ | ------------------------------------------------------------- |
+| visitorId | String | Visitor unique identifier from which data need to be cleared. |
+
+##### **`protocol FSHitCacheDelegate `**
+
+This interface specifies the methods to implement in order to cache visitors' hits when they failed to be sent.
+
+- **func cacheHits(hits: \[String: [String: Any]])**
+
+This method will be called to cache hits depending on the cache [strategy](#trackingconfig) used.
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Parameter",
+    "h-1": "Type",
+    "h-2": "Description",
+    "0-0": "hits",
+    "0-1": "Dictionary",
+    "0-2": "\\- key is a unique Id for each hit  \n  \n- value is an Dictionary that represent hit"
+  },
+  "cols": 3,
+  "rows": 1,
+  "align": [
+    null,
+    null,
+    null
+  ]
+}
+[/block]
+
+
+- **func lookupHits() -> \[String: [String: Any]]**
+
+This method will be called to load all hits present in  database. This method have to respect a [time duration](#fscachemanager), over this delay the operation is cancelled. 
+
+[block:parameters]
+{
+  "data": {
+    "h-0": "Parameter",
+    "h-1": "Type",
+    "h-2": "Description",
+    "0-0": "return",
+    "0-1": "Dictionary",
+    "0-2": "\\- key is a unique Id for each hit  \n  \n- value is an Dictionary that represent hit"
+  },
+  "cols": 3,
+  "rows": 1,
+  "align": [
+    null,
+    null,
+    null
+  ]
+}
+[/block]
+
+
+- ** func flushHits(hitIds: [String])**
+
+This method is called when the SDK needs to flush tracking hits in your database except the consent ones. For example when the visitor hasn't given his consent this method will be invoked.
+
+| Parameter | Type  | Description                              |
+| --------- | ----- | ---------------------------------------- |
+| hitIds    | Array | list of hit's id to remove from database |
+
+- **func flushAllHits()**
+
+This method will be called to erase all hits in your database without exception.
+
+```swift Swift - Custom - CacheManager
+// Implement the protocol FSVisitorCacheDelegate
+public class CustomVisitorCache: FSVisitorCacheDelegate {
+    public func cacheVisitor(visitorId: String, _ visitorData: Data) {
+        // Save the Data that represent the information for visitorId
+    }
+
+    public func lookupVisitor(visitorId: String) -> Data? {
+        // Return the saved data of visitorId
+        return Data()
+    }
+
+    public func flushVisitor(visitorId: String) {
+        // Remove the data for visitorId
+    }
+}
+
+// Implement the protocol FSHitCacheDelegate
+public class CustomHitCache: FSHitCacheDelegate {
+    // Save the dictionary that represent hits
+    public func cacheHits(hits: [String: [String: Any]]) {}
+
+    // Return the saved hit in your database
+    public func lookupHits() -> [String: [String: Any]] {
+        return [:]
+    }
+
+    // Remove the hit's id given with List
+    public func flushHits(hitIds: [String]) {}
+
+    // Remove all hits in database
+    public func flushAllHits() {}
+}
+
+
+
+// Instanciate Custom cache manager
+let customCacheManager = FSCacheManager(CustomVisitorCache(), CustomHitCache())
+
+// Start the Flagship sdk
+Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: FSConfigBuilder()
+            .DecisionApi()
+            .withCacheManager(customCacheManager)
+            .build())
+```
+```objectivec Objc - Custom - CacheManager
+@import Flagship;
+
+
+/// Implement the protocol FSVisitorCacheDelegate
+@interface CustomVisitorCache:NSObject <FSVisitorCacheDelegate>
+
+@end
+
+@implementation CustomVisitorCache
+
+
+- (void)cacheVisitorWithVisitorId:(NSString * _Nonnull)visitorId :(NSData * _Nonnull)visitorData {
+    
+    /// Upsert in your database
+}
+
+- (void)flushVisitorWithVisitorId:(NSString * _Nonnull)visitorId {
+    
+    /// Clear from your database
+}
+
+- (NSData * _Nullable)lookupVisitorWithVisitorId:(NSString * _Nonnull)visitorId {
+    
+    /// Load & delete from your database
+    return nil;
+}
+@end
+
+/// Implement the protocol FSHitCacheDelegate
+@interface CustomHitCache:NSObject<FSHitCacheDelegate>
+
+@end
+ 
+
+@implementation CustomHitCache
+
+
+- (void)cacheHitsWithHits:(NSDictionary<NSString *,NSDictionary<NSString *,id> *> * _Nonnull)hits {
+    
+    // Save the hits into your database
+}
+
+- (void)flushAllHits {
+    
+    // Erase all hits
+}
+
+- (void)flushHitsWithHitIds:(NSArray<NSString *> * _Nonnull)hitIds {
+    
+    // erase hits with a given list ids
+}
+
+- (NSDictionary<NSString *,NSDictionary<NSString *,id> *> * _Nonnull)lookupHits {
+    
+    // Read hits already present in your database
+    return nil;
+}
+
+@end
+
+// Create the custom cache
+FSCacheManager * customCache = [[FSCacheManager alloc] init: [[CustomVisitorCache alloc]init] : [[CustomHitCache alloc] init] visitorLookupTimeOut:200 hitCacheLookupTimeout:200];
+
+// Create config
+FlagshipConfig *config =[[[[[[FSConfigBuilder alloc] init] withTimeout:5000]withLogLevel:FSLevelALL] withCacheManager:customCache] build];
+
+// Start Flagship sdk
+[[ Flagship sharedInstance] startWithEnvId:@"_ENV_ID_" apiKey:@"_API_KEY_" config:config];
+```
+
+## Appendix
+
+### Predefined visitor context keys
+
+The Flagship SDK contains predefined visitor context keys.
+
+The keys marked as **Yes** in the **Auto-set by SDK** column will be automatically set, while the ones marked as **No** need to be set by the client.
+
+They are nevertheless overridable at anytime. Then these predefined context keys-value pairs will be sent to the server and be editable in the Persona section of the Flagship platform.
+
+| SDK Variable name   |  Description                             | Context Variable name  | Type         | Auto-set by SDK | Example                                      |    |
+| :------------------ | :--------------------------------------- | :--------------------- | :----------- | :-------------- | :------------------------------------------- | :- |
+| FIRST_TIME_INIT     | First init of the app                    | sdk_firstTimeInit      | Boolean      | Yes             | true (false if the init isn’t the first one) |    |
+| LOCALE              |  Language of the device                  | sdk_deviceLanguage     | String       | Yes             | fr_FR                                        |    |
+| DEVICE_TYPE         | Type of the device (Tablet/Mobile/Watch) |  sdk_deviceType        | String       | Yes             |  mobile                                      |    |
+| DEVICE_MODEL        | Model of the device                      |  sdk_deviceModel       | String       | Yes             |  iPhone12,8                                  |    |
+| LOCATION_CITY       | City geolocation                         | sdk_city               | String       | No              | toulouse                                     |    |
+|  LOCATION_REGION    | Region geolocation                       | sdk_region             | String       | No              | occitanie                                    |    |
+| LOCATION_COUNTRY    | Country geolocation                      | sdk_country            | String  No   | France          |                                              |    |
+| LOCATION_LAT        | Current Latitude                         | sdk_lat                | Double       | No              | 43.623647                                    |    |
+| LOCATION_LONG       | Current Longitude                        | sdk_long               | Double       | No              | 1.445397                                     |    |
+| OS_NAME             | Name of the OS                           | sdk_osName             | String       | Yes             | iOS / macOS                                  |    |
+| OS_VERSION_CODE     | Version of OS                            | sdk_osVersionCode      | String       | Yes             | 9.0                                          |    |
+| OS_VERSION_NAME     | Name of OS                               | sdk_osVersionName      | String       | Yes             | iOS / tvOS                                   |    |
+| MVNO / carrierName  | (Mobile virtual network operator)"       | sdk_carrierName        | String       | No              | orange                                       |    |
+| DEV_MODE            | Is the app in debug mode?                | sdk_devMode            | Boolean      | No              | true                                         |    |
+| INTERNET_CONNECTION | What is the internet connection          | sdk_internetConnection | String       | No              | 3g                                           |    |
+| APP_VERSION_NAME    | Version name of the app                  | sdk_versionName        | String       | No              | 1.1.2-beta                                   |    |
+| APP_VERSION_CODE    | Version code of the app                  | sdk_versionCode        | Number (int) | No              | 40                                           |    |
+| FLAGSHIP_VERSION    | Version of the Flagship SDK              | sdk_fsVersion          | String       | Yes             | 1.1.2                                        |    |
+| INTERFACE_NAME      | Name of the interface                    | sdk_interfaceName      | String       | No              | ProductPage                                  |    |
+
+Here you can see how a predefined key is used to filter a report in the Flagship interface:
+
+![](https://files.readme.io/94fb73c-preDefineKey.png "preDefineKey.png")
+
+> 📘 
+> 
+> To overwrite the keys, use the [`updateContext`](#predefined-user-context-keys) method

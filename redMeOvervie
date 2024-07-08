@@ -1,0 +1,119 @@
+# Overview
+
+This guide will assist developers to move from Flagship 3.X to Flagship 4.X. 
+
+The main breaking changes are:
+
+- Consent Management
+- Visitor Status
+
+See the full change log on  [Github](https://docs.developers.flagship.io/docs/ios-sdk). 
+
+## Consent Management
+
+The version 4.X introduces a required consent parameter when creating a Visitor `instance`:
+
+**`public func newVisitor(visitorId: String, hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) -> FSVisitorBuilder`**
+
+```swift iOS v4.X
+
+// 1-  In the version 4.X we added a label for visitorId parameter and introduce required consent parameter.
+// 2-  Remove from the builder .hasConsented function.
+let visitor1 = Flagship.sharedInstance.newVisitor(visitorId:"userId", hasConsented:true)
+                        .withContext(context: ["isVip":true])
+                        .isAuthenticated(true)
+                        .build()
+```
+```swift iOS v3.X
+import Flagship
+
+// When omitted default consent value was true.
+let visitor1 = Flagship.sharedInstance.newVisitor("visitor_1")
+                .withContext(context: ["age" : 32, "isVip":true])
+                .isAuthenticated(true)
+                .hasConsented(hasConsented: true)
+                .build()
+```
+
+## Flagship SDK Status
+
+### Status Listener
+
+The `withStatusListener` renamed to [withOnSdkStatusChanged](reference#onsdkstatuschanged)_ and the type of parameter from _**FStatus**_ to  _**FSSdkStatus**\_
+
+- **`func withOnSdkStatusChanged(_ onSdkStatusChanged: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder`**
+
+```swift iOS 4.X
+func withOnSdkStatusChanged(_ onSdkStatusChanged: @escaping (_ newStatus: FSSdkStatus)->Void)->FSConfigBuilder
+```
+```swift iOS 3.X
+public func withStatusListener(_ onStatusChanged: @escaping (_ newStatus: FStatus)->Void)->FSConfigBuilder
+```
+
+### Get Status
+
+```swift iOS 4.X
+// Get the current flagship sdk
+public func getStatus() -> FSSdkStatus
+```
+```swift iOS 3.X
+// Get the current flagship sdk
+public func getStatus() -> FStatus 
+```
+
+### Status Values
+
+| Status                    | Description                                                                                                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **_SDK_NOT_INITIALIZED_** | The SDK has not been started                                                                                                                                          |
+| **_SDK_INITIALIZING_**    | The SDK still starting, in_ bucketing mode_ the sdk needs to download the ressources  (bucketing file) before start. if the file exist already this status is skipped |
+| **_SDK_INITIALIZED_**     | The SDK is ready to use.                                                                                                                                              |
+| **_SDK_PANIC_**           | The SDK is ready but is running in Panic mode: All visitor's features are disabled except 'fetchFlags' which refreshes this status.                                   |
+
+## Flag
+
+The `defaultValue` in 4.X is provided at the reading [value](https://docs.developers.flagship.io/docs/reference#getvalue-method) method through the flag instance and not as 3.X which is provided at `getFlag` method.
+
+### Get Flag
+
+You can retrieve [Flag](https://docs.developers.flagship.io/docs/reference#flag-class) by using the following functions from the Visitor instance:
+
+- **`func getFlag(key:String)->FSFlag`**
+
+```swift iOS 4.X
+import Flagship
+// Create visitor "visitor1" and fetch flags
+//Get flag for vip feature
+let flag = visitor1.getFlag(key:"displayVipFeature")
+```
+```swift iOS 3.X
+import Flagship
+// Create visitor "visitor1" and fetch flags
+// Get flag for vip feature and providing a default value at the flag creation
+let flag = visitor1.getFlag(key:"displayVipFeature",defaultValue: false)
+```
+
+### Reading Flag Value
+
+To read the current flag's value, simply call `value()` method of the [Flag](https://docs.developers.flagship.io/docs/reference#flag-class) object.
+
+- **`func value<T>(defaultValue:T?,visitorExposed: Bool = true)->T?`**
+
+```swift iOS 4.X
+import Flagship
+// Create visitor "visitor1" and fetch flags
+//Get flag for vip feature
+let flag = visitor1.getFlag(key:"displayVipFeature")
+  
+// Get value for the flag and provide a default value
+let shouldDisplayVipFeature = flag.value(defaultValue: false)
+```
+```swift iOS 3.X
+import Flagship
+// Create visitor "visitor1" and fetch flags
+// Get flag for vip feature and providing a default value at the flag creation
+let flag = visitor1.getFlag(key:"displayVipFeature",defaultValue: false)
+  
+// Get value for the flag
+let shouldDisplayVipFeature = flag.value()
+```
