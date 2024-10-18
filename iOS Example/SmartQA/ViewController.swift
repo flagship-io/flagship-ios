@@ -21,6 +21,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     @IBAction func startQA() {
+
         // Create visitor
         
         var cpt = 0
@@ -33,11 +34,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cpt = cpt + 1
             
             print(" the cpt represent the callback number \(cpt)")
-        }.build()
+        }.Bucketing().build()
  
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: config)
  
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "user2705", hasConsented: true).withContext(context: ["isQA": true]).withFetchFlagsStatus { newStatus, reason in
+        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key":"val"]).withFetchFlagsStatus { newStatus, reason in
             if reason == .FETCHED_FROM_CACHE {}
             print(newStatus.rawValue)
             print(reason.rawValue)
@@ -46,11 +47,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         v1.fetchFlags {
             let flag = v1.getFlag(key: "btnColor")
             let r: String? = flag.value(defaultValue: "ezez", visitorExposed: false)
+            
+            
+            
+        
         }
     }
  
     /// Add one more activate
     @IBAction func activate() {
+        
+        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print("seond fetch is done")
+        }
+        
+        
         if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
             flag.visitorExposed()
         }

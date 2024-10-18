@@ -72,6 +72,7 @@ import Foundation
     }
 
     var _onFetchStatusChanged: OnFetchFlagsStatusChanged = nil
+    
 
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFetchFlagsStatusChanged) {
         // Set authenticated
@@ -89,6 +90,7 @@ import Foundation
         
         /// Set the user context
         self.context = FSContext(aContext)
+        
         
         /// Set the presetContext
         self.context.loadPreSetContext()
@@ -114,9 +116,13 @@ import Foundation
             // After the synchronize completion we cache the visitor
             self.strategy?.getStrategy().cacheVisitor()
             
-            // If bucketing mode and no consent and no panic mode
+            // If bucketing mode & no consent & no panic mode
             if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .SDK_PANIC {
-                self.sendHit(FSSegment(self.getContext()))
+                
+                if self.context.needToUpload && self.hasConsented{ // If the context is changed and consent then => send segment hit
+                        self.sendHit(FSSegment(self.getContext()))
+                    self.context.needToUpload = false
+                    }
             }
             // Update the reason status
             self.requiredFetchReason = reason
@@ -160,6 +166,7 @@ import Foundation
     }
     
     private func _updateContext(_ newContext: [String: Any]) {
+
         self.strategy?.getStrategy().updateContext(newContext)
         
         // Update the flagSyncStatus

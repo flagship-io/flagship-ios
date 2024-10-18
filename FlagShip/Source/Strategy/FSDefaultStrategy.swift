@@ -134,7 +134,17 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func updateContext(_ newContext: [String: Any]) {
+        print("---------------- Check point for all update context methods -------------------")
+        // get the old one
+        let oldContext = visitor.context.getCurrentContext()
         visitor.context.updateContext(newContext)
+
+        if visitor.configManager.flagshipConfig.mode == .BUCKETING {
+            if !visitor.context.isContextUnchanged(oldContext){
+                // The context changed .. need to uploar at the next fetch
+                visitor.context.needToUpload = true
+            }
+        }
     }
     
     func getModification<T>(_ key: String, defaultValue: T) -> T {
