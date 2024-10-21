@@ -134,7 +134,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func updateContext(_ newContext: [String: Any]) {
-        print("---------------- Check point for all update context methods -------------------")
         // get the old one
         let oldContext = visitor.context.getCurrentContext()
         visitor.context.updateContext(newContext)

@@ -26,7 +26,7 @@ class FSContext {
     //
     private var _currentContext: [String: Any] = [:]
     
-    // This boolean is used to mark is the context had changed
+    // This boolean is used to mark if the context had changed
     private var _needToUpload:Bool = false
     var needToUpload:Bool {
         get {

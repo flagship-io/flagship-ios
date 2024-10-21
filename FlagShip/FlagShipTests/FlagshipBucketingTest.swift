@@ -39,7 +39,7 @@ class FlagshipBucketingTest: XCTestCase {
             }
             
         } catch {
-            print("---------------- Failed to load the buckeMock file ----------")
+            private func _updateContext(_ newContext: [String: Any])("---------------- Failed to load the buckeMock file ----------")
         }
     }
     

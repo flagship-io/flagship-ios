@@ -166,9 +166,7 @@ import Foundation
     }
     
     private func _updateContext(_ newContext: [String: Any]) {
-
         self.strategy?.getStrategy().updateContext(newContext)
-        
         // Update the flagSyncStatus
         self.flagSyncStatus = .CONTEXT_UPDATED
         self.requiredFetchReason = .UPDATE_CONTEXT
