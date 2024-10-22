@@ -46,7 +46,7 @@ class FSFlagTest: XCTestCase {
         XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
         // Chekc the fetch status / reason
         XCTAssertTrue(testVisitor?.fetchStatus == .FETCH_REQUIRED)
-        XCTAssertTrue(testVisitor?.requiredFetchReason == .VISITOR_CREATE || testVisitor?.requiredFetchReason == .FETCHED_FROM_CACHE)
+        XCTAssertTrue(testVisitor?.requiredFetchReason == .FLAGS_NEVER_FETCHED || testVisitor?.requiredFetchReason == .FLAGS_FETCHED_FROM_CACHE)
 
         // Set fake session
         if let aUrlFakeSession = urlFakeSession {

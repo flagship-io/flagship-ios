@@ -36,7 +36,7 @@ class FSVisitorBuilderTest: XCTestCase {
         XCTAssertNil(Flagship.sharedInstance.sharedVisitor)
         XCTAssertNil(visitorToTestBis._onFetchStatusChanged)
 
-        visitorToTestBis._onFetchStatusChanged?(.FETCHED, .AUTHENTICATE)
+        visitorToTestBis._onFetchStatusChanged?(.FETCHED, .VISITOR_AUTHENTICATED)
     }
 
     func testBuilderWithCallBack() {
@@ -44,9 +44,9 @@ class FSVisitorBuilderTest: XCTestCase {
         let visitorCallback = Flagship.sharedInstance.newVisitor(visitorId: "vistorTestCallback", hasConsented: true).withFetchFlagsStatus { f, r in
 
             XCTAssertTrue(f == .FETCHING)
-            XCTAssertTrue(r == .AUTHENTICATE)
+            XCTAssertTrue(r == .VISITOR_AUTHENTICATED)
         }.build()
 
-        visitorCallback._onFetchStatusChanged?(.FETCHING, .AUTHENTICATE)
+        visitorCallback._onFetchStatusChanged?(.FETCHING, .VISITOR_AUTHENTICATED)
     }
 }

@@ -31,33 +31,30 @@ import Foundation
     }
 }
 
-/// This instance shoud be in the visitor instance
-public enum FSFetchStatus: String {
-    case FETCHED
-    case FETCHING
-    case FETCH_REQUIRED
-    case PANIC
-}
 
 // The reason to fetch
-public enum FSFetchReasons: String {
-    case VISITOR_CREATE
-    case UPDATE_CONTEXT
-    case AUTHENTICATE
-    case UNAUTHENTICATE
-    case FETCH_ERROR
-    case FETCHED_FROM_CACHE
+public enum FetchFlagsRequiredStatusReason: String {
+    // Indicate that the visitor is created for the first time or without cache
+    case FLAGS_NEVER_FETCHED
+    // Indicates that a context has been updated or changed.
+    case VISITOR_CONTEXT_UPDATED
+    // Indicates that the XPC method 'authenticate' has been called.
+    case VISITOR_AUTHENTICATED
+    // Indicates that the XPC method 'unauthenticate' has been called.
+    case VISITOR_UNAUTHENTICATED
+    // Indicates that fetching flags has failed.
+    case FLAGS_FETCHING_ERROR
+    // Indicates that flags have been fetched from the cache.
+    case FLAGS_FETCHED_FROM_CACHE
+    // No Reason, the state should be  FETCHED,  FETCHING, PANIC
     case NONE
 }
 
 /// This state represent the flag entity
 public enum FSFlagStatus: String {
     case FETCHED // Flags up to date
+    case FETCHING
     case FETCH_REQUIRED
     case NOT_FOUND
     case PANIC
 }
-
-/// Notification center for status
-
-public let FlagsStatusNotification = "FlagStatusNotification"

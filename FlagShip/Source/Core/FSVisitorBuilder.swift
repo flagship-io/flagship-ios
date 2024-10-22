@@ -7,7 +7,15 @@
 
 import Foundation
 
-public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?
+public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagStatus, _ reason: FetchFlagsRequiredStatusReason)-> Void)?
+
+// Called every time the Flag status changes.
+public typealias OnFlagStatusChanged = ((_ newStatus: FSFlagStatus)-> Void)?
+// Called every time when the FlagStatus is equals to FETCH_REQUIRED
+public typealias OnFlagStatusFetchRequired = ((_ reason: FetchFlagsRequiredStatusReason)->Void)?
+// Called every time when the FlagStatus is equals to FETCHED.
+public typealias OnFlagStatusFetched = (()->Void)?
+
 
 /// Visitor builder
 @objc public class FSVisitorBuilder: NSObject {
@@ -22,8 +30,18 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ rea
     /// instance
     private var _instanceType: Instance = .SHARED_INSTANCE
     
+    
     // Callbak for status
     private var _onFetchFlagsStatusChanged: OnFetchFlagsStatusChanged = nil
+    
+    // NEW --
+    // Called every time the Flag status changes.
+    private var _onFlagStatusChanged: OnFlagStatusChanged = nil
+    // Called every time when the FlagStatus is equals to FETCH_REQUIRED
+    private var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
+    // Called every time when the FlagStatus is equals to FETCHED.
+    private var _onFlagStatusFetched: OnFlagStatusFetched = nil
+    
     
     public init(_ visitorId: String, _ hasConsented: Bool, instanceType: Instance = .SHARED_INSTANCE) {
         if visitorId.isEmpty {
@@ -48,13 +66,34 @@ public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ rea
         return self
     }
     
-    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
-        _onFetchFlagsStatusChanged = pCallback
+    // Removed
+//    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
+//        _onFetchFlagsStatusChanged = pCallback
+//        return self
+//    }
+    
+    ///_  NEW
+    // onFlagStatusChanged
+    public func withOnFlagStatusChanged(_ onFlagStatusChanged: OnFlagStatusChanged)->FSVisitorBuilder {
+        _onFlagStatusChanged = onFlagStatusChanged
+        return self
+    }
+    // OnFlagStatusFetchRequired
+    public func withOnFlagStatusFetchRequired(_ onFlagStatusFetchRequired: OnFlagStatusFetchRequired)->FSVisitorBuilder {
+        _onFlagStatusFetchRequired = onFlagStatusFetchRequired
+        return self
+    }
+    // withOnFlagStatusFetched
+    public func withOnFlagStatusFetched (_ onFlagStatusFetched: OnFlagStatusFetched)->FSVisitorBuilder {
+        _onFlagStatusFetched = onFlagStatusFetched
         return self
     }
     
+    
     @objc public func build()->FSVisitor {
-        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFetchFlagStatusChanged: _onFetchFlagsStatusChanged)
+        let newVisitor = Flagship.sharedInstance.newVisitor(_visitorId, context: _context, hasConsented: _hasConsented, isAuthenticated: _isAuthenticated, pOnFlagStatusChanged: _onFlagStatusChanged, pOnFlagStatusFetchRequired: _onFlagStatusFetchRequired, pOnFlagStatusFetched: _onFlagStatusFetched
+        
+        )
         
         if _instanceType == .SHARED_INSTANCE {
             /// Set this visitor as shared instance

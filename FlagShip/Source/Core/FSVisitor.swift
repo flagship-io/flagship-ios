@@ -58,23 +58,38 @@ import Foundation
     var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
     
     // The fetch reason
-    public internal(set) var requiredFetchReason: FSFetchReasons = .VISITOR_CREATE
+    public internal(set) var requiredFetchReason: FetchFlagsRequiredStatusReason = .FLAGS_NEVER_FETCHED
     
     /// Configuration manager
     var configManager: FSConfigManager
  
     // Refonte status
-    public internal(set) var fetchStatus: FSFetchStatus = .FETCH_REQUIRED {
+    public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
         didSet {
-            // Trigger the callback
-            self._onFetchStatusChanged?(self.fetchStatus, self.requiredFetchReason)
+            // Trigger the changed callback
+            self._onFlagStatusChanged?(self.fetchStatus)
+            // Trigger the required callback
+            if self.fetchStatus == .FETCH_REQUIRED {
+                self._onFlagStatusFetchRequired?(self.requiredFetchReason)
+            }
+            // Trigger the fetched callback
+            if self.fetchStatus == .FETCHED {
+                self._onFlagStatusFetched?()
+            }
         }
     }
-
-    var _onFetchStatusChanged: OnFetchFlagsStatusChanged = nil
+    
+    // Called every time the Flag status changes.
+     var _onFlagStatusChanged: OnFlagStatusChanged = nil
+    // Called every time when the FlagStatus is equals to FETCH_REQUIRED
+     var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
+    // Called every time when the FlagStatus is equals to FETCHED.
+     var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
 
-    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFetchFlagsStatusChanged) {
+    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged,
+         pOnFlagStatusFetchRequired:OnFlagStatusFetchRequired
+    , pOnFlagStatusFetched: OnFlagStatusFetched) {
         // Set authenticated
         self.isAuthenticated = aIsAuthenticated
         // Before calling service manage the tuple (vid,aid)
@@ -104,8 +119,10 @@ import Foundation
         /// Set authenticated
         self.isAuthenticated = aIsAuthenticated
         
-        /// Set Callback
-        self._onFetchStatusChanged = pOnFlagStatusChanged
+        /// Set Callback(s)
+        self._onFlagStatusChanged = pOnFlagStatusChanged
+        self._onFlagStatusFetchRequired = pOnFlagStatusFetchRequired
+        self._onFlagStatusFetched = pOnFlagStatusFetched
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
@@ -169,7 +186,7 @@ import Foundation
         self.strategy?.getStrategy().updateContext(newContext)
         // Update the flagSyncStatus
         self.flagSyncStatus = .CONTEXT_UPDATED
-        self.requiredFetchReason = .UPDATE_CONTEXT
+        self.requiredFetchReason = .VISITOR_CONTEXT_UPDATED
         self.fetchStatus = .FETCH_REQUIRED
     }
     

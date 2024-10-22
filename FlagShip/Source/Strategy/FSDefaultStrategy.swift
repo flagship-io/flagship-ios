@@ -90,7 +90,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void) {
         let startFetchingDate = Date() // To comunicate for TR
  
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
@@ -109,7 +109,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
  
                 } else {
                     /// Update new flags
- 
                     self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
  
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
@@ -128,7 +127,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Send TR
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
-                onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+                onSyncCompleted(.FETCH_REQUIRED, .FLAGS_FETCHING_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })
     }
@@ -184,6 +183,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         case .PANIC:
             return .PANIC
+        default :
+            return .NOT_FOUND
         }
         return .NOT_FOUND
     }
@@ -292,7 +293,7 @@ protocol FSDelegateStrategy {
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos

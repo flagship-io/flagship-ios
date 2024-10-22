@@ -35,7 +35,7 @@ public extension FSVisitor {
         self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
 
         // Set the reason
-        self.requiredFetchReason = isAuthenticate ? .AUTHENTICATE : .UNAUTHENTICATE
+        self.requiredFetchReason = isAuthenticate ? .VISITOR_AUTHENTICATED : .VISITOR_UNAUTHENTICATED
         // Set the fetch state to required state
         self.fetchStatus = .FETCH_REQUIRED
     }
