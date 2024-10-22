@@ -39,31 +39,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
  
 
-//class FlagshipManager {
-//    static let shared = FlagshipManager()
-//    var visitor: FSVisitor?
-//
-//    func start() {
-//        Flagship.sharedInstance.start(
-//            envId: "bkk9glocmjcg0vtmdlng",
-//            apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23",
-//            config: FSConfigBuilder()
-//                .DecisionApi()
-//                .withLogLevel(.ALL)
-//                .build()
-//        )
-//
-//        visitor = Flagship.sharedInstance.newVisitor("foo")
-//            .isAuthenticated(true)
-//            .hasConsented(hasConsented: true)
-//            .build()
-//
-//        visitor?.fetchFlags {
-//            print("xox fetch finished")
-//            for i in 0 ... 3 {
-//                _ = FlagshipManager.shared.visitor?.getFlag(key: "btnTitle", defaultValue: "dfl").visitorExposed()
-//            }
-//        }
-//    }
-//}
+ 
  

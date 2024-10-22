@@ -122,7 +122,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
     @IBAction func onClickCreateVisitor() {
         fetchBtn?.isEnabled = true
-        _ = createVisitor()
+        let visitorTest = createVisitor()
+
+        visitorTest.updateContext(["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12])
 
         delegate?.onGetSdkReady()
     }
@@ -158,6 +160,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
             print("-------------- \(reason)---------------------")
         }.build()
+
+        // test les update
     }
 
     func showErrorMessage(_ msg: String) {
