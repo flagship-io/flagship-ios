@@ -56,7 +56,7 @@ class FlagshipBucketingTest: XCTestCase {
         }
         
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).withFetchFlagsStatus { newStatus, _ in
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).withOnFlagStatusChanged { newStatus in
             
             if newStatus == .FETCHED {
                 // Get from alloc 100
@@ -93,7 +93,7 @@ class FlagshipBucketingTest: XCTestCase {
         /// Start sdk
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
         /// Create new visitor
-        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withFetchFlagsStatus { _, _ in
+        testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withOnFlagStatusChanged { _ in
             // Get from alloc 100
             let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
             XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")

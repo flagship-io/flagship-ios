@@ -20,13 +20,13 @@ class FSVisitorBuilderTest: XCTestCase {
 
     func testBuilder() {
         Flagship.sharedInstance.reset()
-        let visitorToTest = Flagship.sharedInstance.newVisitor(visitorId: "vistorTest", hasConsented: true).withFetchFlagsStatus { _, _ in
+        let visitorToTest = Flagship.sharedInstance.newVisitor(visitorId: "vistorTest", hasConsented: true).withOnFlagStatusChanged { _ in
 
         }.build()
         /// Check the consent if true by default
         XCTAssertTrue(visitorToTest.hasConsented == true)
         XCTAssertTrue(visitorToTest.visitorId == "vistorTest")
-        XCTAssertTrue(visitorToTest._onFetchStatusChanged != nil)
+        XCTAssertTrue(visitorToTest._onFlagStatusChanged != nil)
 
         /// create another visitor
         Flagship.sharedInstance.reset()
@@ -34,19 +34,18 @@ class FSVisitorBuilderTest: XCTestCase {
         XCTAssertTrue(visitorToTestBis.hasConsented == false)
         XCTAssertTrue(visitorToTestBis.visitorId == "vistorTestBis")
         XCTAssertNil(Flagship.sharedInstance.sharedVisitor)
-        XCTAssertNil(visitorToTestBis._onFetchStatusChanged)
+        XCTAssertNil(visitorToTestBis._onFlagStatusChanged)
 
-        visitorToTestBis._onFetchStatusChanged?(.FETCHED, .VISITOR_AUTHENTICATED)
+        visitorToTestBis._onFlagStatusChanged?(.FETCHED)
     }
 
     func testBuilderWithCallBack() {
         Flagship.sharedInstance.reset()
-        let visitorCallback = Flagship.sharedInstance.newVisitor(visitorId: "vistorTestCallback", hasConsented: true).withFetchFlagsStatus { f, r in
+        let visitorCallback = Flagship.sharedInstance.newVisitor(visitorId: "vistorTestCallback", hasConsented: true).withOnFlagStatusChanged { f in
 
             XCTAssertTrue(f == .FETCHING)
-            XCTAssertTrue(r == .VISITOR_AUTHENTICATED)
         }.build()
 
-        visitorCallback._onFetchStatusChanged?(.FETCHING, .VISITOR_AUTHENTICATED)
+        visitorCallback._onFlagStatusChanged?(.FETCHING)
     }
 }
