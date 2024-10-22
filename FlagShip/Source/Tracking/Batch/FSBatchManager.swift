@@ -8,7 +8,7 @@
 
 import Foundation
 
-// We added a limit to batch in order to avoid network overload
+// To prevent network overload, we set a batch limit.
 let Activate_Limit_Batch_Size: Int = 100
 
 class FSBatchManager {
