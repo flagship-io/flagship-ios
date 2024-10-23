@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFlagStatus, _ reason: FetchFlagsRequiredStatusReason)-> Void)?
+public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?
 
 // Called every time the Flag status changes.
 public typealias OnFlagStatusChanged = ((_ newStatus: FSFlagStatus)-> Void)?
@@ -66,14 +66,14 @@ public typealias OnFlagStatusFetched = (()->Void)?
         return self
     }
     
-    // Removed
-//    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
-//        _onFetchFlagsStatusChanged = pCallback
-//        return self
-//    }
+    // Deprecated ..
+    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
+        _onFetchFlagsStatusChanged = pCallback
+        return self
+    }
     
     ///_  NEW
-    // onFlagStatusChanged
+    // OnFlagStatusChanged
     public func withOnFlagStatusChanged(_ onFlagStatusChanged: OnFlagStatusChanged)->FSVisitorBuilder {
         _onFlagStatusChanged = onFlagStatusChanged
         return self

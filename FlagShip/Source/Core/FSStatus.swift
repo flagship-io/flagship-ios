@@ -48,6 +48,24 @@ public enum FetchFlagsRequiredStatusReason: String {
     case FLAGS_FETCHED_FROM_CACHE
     // No Reason, the state should be  FETCHED,  FETCHING, PANIC
     case NONE
+    
+    
+    func warningMessage(_ flagKey: String, _ visitorId: String)->String {
+        var ret = ""
+        switch self {
+        case .FLAGS_NEVER_FETCHED, .FLAGS_FETCHED_FROM_CACHE :
+            ret = "Visitor `\(visitorId)` has been created without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .VISITOR_CONTEXT_UPDATED:
+            ret = "Visitor context for visitor `\(visitorId)` has been updated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .VISITOR_AUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been authenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        case .VISITOR_UNAUTHENTICATED:
+            ret = "Visitor `\(visitorId)` has been unauthenticated without calling `fetchFlags` method afterwards, the value of the flag `\(flagKey)` may be outdated."
+        default:
+            break
+        }
+        return ret
+    }
 }
 
 /// This state represent the flag entity
@@ -57,4 +75,25 @@ public enum FSFlagStatus: String {
     case FETCH_REQUIRED
     case NOT_FOUND
     case PANIC
+}
+
+
+/// This instance shoud be in the visitor instance
+public enum FSFetchStatus: String {
+    case FETCHED
+    case FETCHING
+    case FETCH_REQUIRED
+    case PANIC
+}
+
+
+// The reason to fetch
+public enum FSFetchReasons: String {
+    case VISITOR_CREATE
+    case UPDATE_CONTEXT
+    case AUTHENTICATE
+    case UNAUTHENTICATE
+    case FETCH_ERROR
+    case FETCHED_FROM_CACHE
+    case NONE
 }

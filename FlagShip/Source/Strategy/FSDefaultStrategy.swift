@@ -118,7 +118,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
                     // Update the flagSyncStatus
-                    self.visitor.flagSyncStatus = .FLAGS_FETCHED
+                  //  self.visitor.flagSyncStatus = .FLAGS_FETCHED
  
                     onSyncCompleted(.FETCHED, .NONE)
                 }

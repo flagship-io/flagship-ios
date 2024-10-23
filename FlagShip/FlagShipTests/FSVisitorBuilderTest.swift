@@ -35,8 +35,13 @@ class FSVisitorBuilderTest: XCTestCase {
         XCTAssertTrue(visitorToTestBis.visitorId == "vistorTestBis")
         XCTAssertNil(Flagship.sharedInstance.sharedVisitor)
         XCTAssertNil(visitorToTestBis._onFlagStatusChanged)
-
+        XCTAssertNil(visitorToTestBis._onFlagStatusFetchRequired)
+        XCTAssertNil(visitorToTestBis._onFlagStatusFetched)
+        
         visitorToTestBis._onFlagStatusChanged?(.FETCHED)
+        visitorToTestBis._onFlagStatusFetchRequired?(.VISITOR_UNAUTHENTICATED)
+        visitorToTestBis._onFlagStatusFetched?()
+
     }
 
     func testBuilderWithCallBack() {
@@ -44,8 +49,21 @@ class FSVisitorBuilderTest: XCTestCase {
         let visitorCallback = Flagship.sharedInstance.newVisitor(visitorId: "vistorTestCallback", hasConsented: true).withOnFlagStatusChanged { f in
 
             XCTAssertTrue(f == .FETCHING)
+        }.withOnFlagStatusFetchRequired { reason in
+            
+            XCTAssertTrue(reason == .VISITOR_CONTEXT_UPDATED)
+        }.withOnFlagStatusFetched {
+            
+            print("_onFlagStatusFetched is called")
         }.build()
-
+    
+        
+        XCTAssertNotNil(visitorCallback._onFlagStatusChanged)
+        XCTAssertNotNil(visitorCallback._onFlagStatusFetchRequired)
+        XCTAssertNotNil(visitorCallback._onFlagStatusFetched)
+        
+        // calls
         visitorCallback._onFlagStatusChanged?(.FETCHING)
+        visitorCallback._onFlagStatusFetchRequired?(.VISITOR_CONTEXT_UPDATED)
     }
 }

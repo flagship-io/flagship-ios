@@ -32,7 +32,7 @@ public extension FSVisitor {
 
     private func updateStateAndTriggerCallback(_ isAuthenticate: Bool) {
         // Update flagSyncStatus
-        self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
+       // self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
 
         // Set the reason
         self.requiredFetchReason = isAuthenticate ? .VISITOR_AUTHENTICATED : .VISITOR_UNAUTHENTICATED
