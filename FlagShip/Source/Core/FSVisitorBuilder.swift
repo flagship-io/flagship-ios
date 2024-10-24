@@ -72,7 +72,6 @@ public typealias OnFlagStatusFetched = (()->Void)?
         return self
     }
     
-    ///_  NEW
     // OnFlagStatusChanged
     public func withOnFlagStatusChanged(_ onFlagStatusChanged: OnFlagStatusChanged)->FSVisitorBuilder {
         _onFlagStatusChanged = onFlagStatusChanged
