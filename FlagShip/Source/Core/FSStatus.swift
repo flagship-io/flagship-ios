@@ -19,7 +19,8 @@ import Foundation
     case SDK_PANIC
 
     public var name: String {
-        switch self { case .SDK_NOT_INITIALIZED:
+        switch self {
+        case .SDK_NOT_INITIALIZED:
             return "SDK_NOT_INITIALIZED"
         case .SDK_INITIALIZING:
             return "SDK_INITIALIZING"

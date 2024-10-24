@@ -290,6 +290,7 @@
 		F5A908E82A3095070075DA82 /* FSTrackingManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A908E72A3095070075DA82 /* FSTrackingManagerTest.swift */; };
 		F5B2F6422A320CC80021C0C3 /* FSHitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B2F6412A320CC80021C0C3 /* FSHitTest.swift */; };
 		F5B2F6442A32322F0021C0C3 /* content_hit.json in Resources */ = {isa = PBXBuildFile; fileRef = F5B2F6432A32322F0021C0C3 /* content_hit.json */; };
+		F5B4A8CB2CCA9A290081A31D /* FSFetchTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B4A8CA2CCA9A290081A31D /* FSFetchTest.swift */; };
 		F5BC97BE2A8CCB9200CE11C3 /* FSOnExposureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BC97BD2A8CCB9200CE11C3 /* FSOnExposureTest.swift */; };
 		F5BC97C12A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BC97BF2A8E1BC400CE11C3 /* FSVisitorExposed.swift */; };
 		F5BC97C22A8E1BC400CE11C3 /* FSVisitorExposed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BC97BF2A8E1BC400CE11C3 /* FSVisitorExposed.swift */; };
@@ -470,6 +471,7 @@
 		F5A908E72A3095070075DA82 /* FSTrackingManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingManagerTest.swift; sourceTree = "<group>"; };
 		F5B2F6412A320CC80021C0C3 /* FSHitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSHitTest.swift; sourceTree = "<group>"; };
 		F5B2F6432A32322F0021C0C3 /* content_hit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_hit.json; sourceTree = "<group>"; };
+		F5B4A8CA2CCA9A290081A31D /* FSFetchTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFetchTest.swift; sourceTree = "<group>"; };
 		F5BC97BD2A8CCB9200CE11C3 /* FSOnExposureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSOnExposureTest.swift; sourceTree = "<group>"; };
 		F5BC97BF2A8E1BC400CE11C3 /* FSVisitorExposed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVisitorExposed.swift; sourceTree = "<group>"; };
 		F5BC97C02A8E1BC400CE11C3 /* FSExposedFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSExposedFlag.swift; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				F5BC97BD2A8CCB9200CE11C3 /* FSOnExposureTest.swift */,
 				F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */,
 				F5F7AEB22C0DC0370044E7B2 /* FSAllFlagTest.swift */,
+				F5B4A8CA2CCA9A290081A31D /* FSFetchTest.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -1227,6 +1230,7 @@
 				F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */,
 				F5BC97BE2A8CCB9200CE11C3 /* FSOnExposureTest.swift in Sources */,
 				F5A908E42A30824C0075DA82 /* FSStorageTest.swift in Sources */,
+				F5B4A8CB2CCA9A290081A31D /* FSFetchTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
 				8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */,
 				8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */,

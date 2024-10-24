@@ -176,7 +176,6 @@ class FSFlagTest: XCTestCase {
                 self.testVisitor?.strategy?.getStrategy().lookupHits()
                 self.testVisitor?.strategy?.getStrategy().lookupVisitor()
                 XCTAssertNil(self.testVisitor?.strategy?.getStrategy().getFlagModification("key"))
-                XCTAssertTrue(self.testVisitor?.strategy?.getStrategy().getModification("key", defaultValue: "dflt") == "dflt")
                 XCTAssertNil(self.testVisitor?.strategy?.getStrategy().getFlagModification("key"))
             }
             expectationSync.fulfill()

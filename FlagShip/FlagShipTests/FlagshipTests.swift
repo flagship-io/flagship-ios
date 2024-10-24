@@ -11,14 +11,13 @@ import XCTest
 
 class FlagshipTests: XCTestCase {
     
-    override func setUpWithError() throws {
-        
-    }
-    
     
     func testStart(){
-        
+        Flagship.sharedInstance.reset()
+        XCTAssert(Flagship.sharedInstance.currentStatus.name == "SDK_NOT_INITIALIZED")
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
+        XCTAssert(Flagship.sharedInstance.currentStatus.name == "SDK_INITIALIZED")
+
         XCTAssert(Flagship.sharedInstance.envId == "gk87t3jggr10c6l6sdob")
         XCTAssert(Flagship.sharedInstance.apiKey == "apiKey")
         XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
@@ -43,6 +42,7 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12/1000)
         
     }
+    
     
     func testLogManager(){
         let customLoger = FSLogManager()

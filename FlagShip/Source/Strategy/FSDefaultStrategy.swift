@@ -142,16 +142,16 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         }
     }
-    
-    func getModification<T>(_ key: String, defaultValue: T) -> T {
-        if let flagObject = visitor.currentFlags[key] {
-            if flagObject.value is T {
-                return flagObject.value as? T ?? defaultValue
-            }
-        }
-        return defaultValue
-    }
-    
+//    
+//    func getModification<T>(_ key: String, defaultValue: T) -> T {
+//        if let flagObject = visitor.currentFlags[key] {
+//            if flagObject.value is T {
+//                return flagObject.value as? T ?? defaultValue
+//            }
+//        }
+//        return defaultValue
+//    }
+//    
     /// Get Flag Modification value
     func getFlagModification(_ key: String) -> FSModification? {
         return visitor.currentFlags[key]
@@ -287,7 +287,7 @@ protocol FSDelegateStrategy {
     /// update context
     func updateContext(_ newContext: [String: Any])
     //// Get generique
-    func getModification<T>(_ key: String, defaultValue: T) -> T
+   // func getModification<T>(_ key: String, defaultValue: T) -> T
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize

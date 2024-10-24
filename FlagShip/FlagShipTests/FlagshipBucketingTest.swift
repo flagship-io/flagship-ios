@@ -83,8 +83,13 @@ class FlagshipBucketingTest: XCTestCase {
         testVisitor?.strategy?.getStrategy().flushVisitor()
         
         testVisitor?.fetchFlags {}
+        
+        testVisitor?.authenticate(visitorId: "ignoredShoudlNotBeCalled")
+        testVisitor?.unauthenticate()
 
         wait(for: [expectationSync], timeout: 10.0)
+        
+        
     }
     
     func testBucketingWithFailedTargeting() { // The visitor id here make the trageting failed
