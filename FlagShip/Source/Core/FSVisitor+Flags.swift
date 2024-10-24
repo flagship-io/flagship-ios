@@ -14,8 +14,8 @@ public extension FSVisitor {
     /// - Returns: FSFLag object
     func getFlag(key: String) -> FSFlag {
         // We dispaly a warning if the flag's status is not fetched
-        if self.flagSyncStatus != .FLAGS_FETCHED {
-            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.flagSyncStatus.warningMessage(key, self.visitorId)))
+        if self.fetchStatus != .FETCHED {
+            FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.requiredFetchReason.warningMessage(key, self.visitorId)))
         }
         return FSFlag(key, self.strategy)
     }

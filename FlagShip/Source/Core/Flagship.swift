@@ -80,8 +80,14 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
-        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool,pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
+        
+        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented,
+            aIsAuthenticated: isAuthenticated,
+            pOnFlagStatusChanged: pOnFlagStatusChanged,
+            pOnFlagStatusFetchRequired: pOnFlagStatusFetchRequired,
+            pOnFlagStatusFetched: pOnFlagStatusFetched
+        )
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)

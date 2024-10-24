@@ -39,6 +39,10 @@ class ReconcileTest: XCTestCase {
         XCTAssert(v1.visitorId         == "Alex")
         XCTAssert(v1.anonymousId       == "ABCD-EFGH")
         
+        let flag = v1.getFlag(key: "keyFalg")
+        XCTAssert(v1.requiredFetchReason == .VISITOR_AUTHENTICATED)
+        XCTAssert(flag.status == .NOT_FOUND)
+        
         /// Check the service
         XCTAssert(v1.configManager.decisionManager?.networkService.visitorId == "Alex")
         XCTAssert(v1.configManager.decisionManager?.networkService.anonymousId == "ABCD-EFGH")
@@ -47,6 +51,10 @@ class ReconcileTest: XCTestCase {
         v1.unauthenticate()
         XCTAssert(v1.visitorId == "ABCD-EFGH")
         XCTAssert(v1.anonymousId == nil)
+        
+        let flagBis = v1.getFlag(key: "keyFalg")
+        XCTAssert(v1.requiredFetchReason == .VISITOR_UNAUTHENTICATED)
+        XCTAssert(flagBis.status == .NOT_FOUND)
         
         /// Check the service
         XCTAssert(v1.configManager.decisionManager?.networkService.visitorId == "ABCD-EFGH")

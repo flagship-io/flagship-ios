@@ -90,7 +90,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void) {
         let startFetchingDate = Date() // To comunicate for TR
  
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
@@ -109,7 +109,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
  
                 } else {
                     /// Update new flags
- 
                     self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
  
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
@@ -118,9 +117,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
-                    // Update the flagSyncStatus
-                    self.visitor.flagSyncStatus = .FLAGS_FETCHED
- 
+                    
                     onSyncCompleted(.FETCHED, .NONE)
                 }
                 // Update Data usage
@@ -128,7 +125,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Send TR
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
-                onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+                onSyncCompleted(.FETCH_REQUIRED, .FLAGS_FETCHING_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })
     }
@@ -145,16 +142,16 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         }
     }
-    
-    func getModification<T>(_ key: String, defaultValue: T) -> T {
-        if let flagObject = visitor.currentFlags[key] {
-            if flagObject.value is T {
-                return flagObject.value as? T ?? defaultValue
-            }
-        }
-        return defaultValue
-    }
-    
+//    
+//    func getModification<T>(_ key: String, defaultValue: T) -> T {
+//        if let flagObject = visitor.currentFlags[key] {
+//            if flagObject.value is T {
+//                return flagObject.value as? T ?? defaultValue
+//            }
+//        }
+//        return defaultValue
+//    }
+//    
     /// Get Flag Modification value
     func getFlagModification(_ key: String) -> FSModification? {
         return visitor.currentFlags[key]
@@ -184,6 +181,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         case .PANIC:
             return .PANIC
+        default :
+            return .NOT_FOUND
         }
         return .NOT_FOUND
     }
@@ -288,11 +287,11 @@ protocol FSDelegateStrategy {
     /// update context
     func updateContext(_ newContext: [String: Any])
     //// Get generique
-    func getModification<T>(_ key: String, defaultValue: T) -> T
+   // func getModification<T>(_ key: String, defaultValue: T) -> T
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos
