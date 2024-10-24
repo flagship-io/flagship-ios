@@ -42,9 +42,7 @@ class FSFlagTest: XCTestCase {
         
         // Create Visitor
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "alias", hasConsented: true).build()
-        // Check if the flagsync is Created
-       // XCTAssertTrue(testVisitor?.flagSyncStatus == .CREATED)
-        // Chekc the fetch status / reason
+        // Check the fetch status / reason
         XCTAssertTrue(testVisitor?.fetchStatus == .FETCH_REQUIRED)
         XCTAssertTrue(testVisitor?.requiredFetchReason == .FLAGS_NEVER_FETCHED || testVisitor?.requiredFetchReason == .FLAGS_FETCHED_FROM_CACHE)
 
@@ -58,9 +56,6 @@ class FSFlagTest: XCTestCase {
         let expectationSync = XCTestExpectation(description: "Service-GetScript")
 
         testVisitor?.fetchFlags(onFetchCompleted: {
-            /// Check if flagSync is fetched
-         //   XCTAssertTrue(self.testVisitor?.flagSyncStatus == .FLAGS_FETCHED)
-            
             // Chekc the fetch status // reason
             XCTAssertTrue(self.testVisitor?.fetchStatus == .FETCHED)
             XCTAssertTrue(self.testVisitor?.requiredFetchReason == .NONE)
@@ -134,19 +129,6 @@ class FSFlagTest: XCTestCase {
         XCTAssertTrue(FSFlagMetadata(nil).slug == "")
     }
     
-//    func testFlagSyncStatus() {
-//        let syncUser = Flagship.sharedInstance.newVisitor(visitorId: "userSync", hasConsented: true, instanceType: .NEW_INSTANCE).build()
-//        XCTAssertTrue(syncUser.flagSyncStatus == .CREATED)
-//        // Update context
-//        syncUser.updateContext(["keySync": "valSync"])
-//        XCTAssertTrue(syncUser.flagSyncStatus == .CONTEXT_UPDATED)
-//        // Autenticate
-//        syncUser.authenticate(visitorId: "syncUser")
-//        XCTAssertTrue(syncUser.flagSyncStatus == .AUTHENTICATED)
-//        // Unauthenticate
-//        syncUser.unauthenticate()
-//        XCTAssertTrue(syncUser.flagSyncStatus == .UNAUTHENTICATED)
-//    }
     
     func testGetFlagOnPanic() {
         let expectationSync = XCTestExpectation(description: "Service-GetScript")

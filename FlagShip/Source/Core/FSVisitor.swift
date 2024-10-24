@@ -54,9 +54,6 @@ import Foundation
     /// Assigned hsitory
     var assignedVariationHistory: [String: String] = [:]
     
-    // Initial value for the status .CREATED
-  //  var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
-    
     // The fetch reason
     public internal(set) var requiredFetchReason: FetchFlagsRequiredStatusReason = .FLAGS_NEVER_FETCHED
     
@@ -184,8 +181,6 @@ import Foundation
     
     private func _updateContext(_ newContext: [String: Any]) {
         self.strategy?.getStrategy().updateContext(newContext)
-        // Update the flagSyncStatus
-       // self.flagSyncStatus = .CONTEXT_UPDATED
         self.requiredFetchReason = .VISITOR_CONTEXT_UPDATED
         self.fetchStatus = .FETCH_REQUIRED
     }
