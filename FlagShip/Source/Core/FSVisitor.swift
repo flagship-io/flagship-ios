@@ -41,7 +41,7 @@ import Foundation
     }
 
     /// Modifications
-    public internal(set) var currentFlags: [String: FSModification] = [:] /// Empty
+    internal var currentFlags: [String: FSModification] = [:]
     /// Context
     var context: FSContext
     /// Strategy
@@ -54,28 +54,40 @@ import Foundation
     /// Assigned hsitory
     var assignedVariationHistory: [String: String] = [:]
     
-    // Initial value for the status .CREATED
-    var flagSyncStatus: FlagSynchStatus = .CREATED // To de later connect this logic with the new refonte
-    
     // The fetch reason
-    public internal(set) var requiredFetchReason: FSFetchReasons = .VISITOR_CREATE
+    public internal(set) var requiredFetchReason: FetchFlagsRequiredStatusReason = .FLAGS_NEVER_FETCHED
     
     /// Configuration manager
     var configManager: FSConfigManager
  
     // Refonte status
-    public internal(set) var fetchStatus: FSFetchStatus = .FETCH_REQUIRED {
+    public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
         didSet {
-            // Trigger the callback
-            self._onFetchStatusChanged?(self.fetchStatus, self.requiredFetchReason)
+            // Trigger the changed callback
+            self._onFlagStatusChanged?(self.fetchStatus)
+            // Trigger the required callback
+            if self.fetchStatus == .FETCH_REQUIRED {
+                self._onFlagStatusFetchRequired?(self.requiredFetchReason)
+            }
+            // Trigger the fetched callback
+            if self.fetchStatus == .FETCHED {
+                self._onFlagStatusFetched?()
+            }
         }
     }
-
-    var _onFetchStatusChanged: OnFetchFlagsStatusChanged = nil
+    
+    // Called every time the Flag status changes.
+     var _onFlagStatusChanged: OnFlagStatusChanged = nil
+    // Called every time when the FlagStatus is equals to FETCH_REQUIRED
+     var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
+    // Called every time when the FlagStatus is equals to FETCHED.
+     var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
 
-    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFetchFlagsStatusChanged) {
-        // Set authenticated
+    init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged,
+        pOnFlagStatusFetchRequired:OnFlagStatusFetchRequired,
+        pOnFlagStatusFetched: OnFlagStatusFetched) {
+        // Set Authenticated
         self.isAuthenticated = aIsAuthenticated
         // Before calling service manage the tuple (vid,aid)
         if self.isAuthenticated {
@@ -88,24 +100,26 @@ import Foundation
             self.anonymousId = nil
         }
         
-        /// Set the user context
+        // Set the user context
         self.context = FSContext(aContext)
         
         
-        /// Set the presetContext
+        // Set the presetContext
         self.context.loadPreSetContext()
-
-        /// Set config
+        
+        // Set config
         self.configManager = aConfigManager
         
-        /// Set consent
+        // Set consent
         self.hasConsented = aHasConsented
         
-        /// Set authenticated
+        // Set authenticated
         self.isAuthenticated = aIsAuthenticated
         
-        /// Set Callback
-        self._onFetchStatusChanged = pOnFlagStatusChanged
+        // Set Callback(s)
+        self._onFlagStatusChanged = pOnFlagStatusChanged
+        self._onFlagStatusFetchRequired = pOnFlagStatusFetchRequired
+        self._onFlagStatusFetched = pOnFlagStatusFetched
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
@@ -167,9 +181,7 @@ import Foundation
     
     private func _updateContext(_ newContext: [String: Any]) {
         self.strategy?.getStrategy().updateContext(newContext)
-        // Update the flagSyncStatus
-        self.flagSyncStatus = .CONTEXT_UPDATED
-        self.requiredFetchReason = .UPDATE_CONTEXT
+        self.requiredFetchReason = .VISITOR_CONTEXT_UPDATED
         self.fetchStatus = .FETCH_REQUIRED
     }
     

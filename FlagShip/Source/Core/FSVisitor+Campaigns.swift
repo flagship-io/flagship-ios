@@ -48,7 +48,7 @@ extension FSVisitor {
         }
 
         // Update the reason
-        self.requiredFetchReason = .FETCHED_FROM_CACHE
+        self.requiredFetchReason = .FLAGS_FETCHED_FROM_CACHE
         // Update the state
         self.fetchStatus = .FETCH_REQUIRED
     }

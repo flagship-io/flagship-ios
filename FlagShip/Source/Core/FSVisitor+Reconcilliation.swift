@@ -30,12 +30,9 @@ public extension FSVisitor {
         FSDataUsageTracking.sharedInstance.processTSXPC(label: CriticalPoints.VISITOR_UNAUTHENTICATE.rawValue, visitor: self)
     }
 
-    private func updateStateAndTriggerCallback(_ isAuthenticate: Bool) {
-        // Update flagSyncStatus
-        self.flagSyncStatus = isAuthenticate ? .AUTHENTICATED : .UNAUTHENTICATED
-
+    private func updateStateAndTriggerCallback(_ isAuthenticate: Bool) { 
         // Set the reason
-        self.requiredFetchReason = isAuthenticate ? .AUTHENTICATE : .UNAUTHENTICATE
+        self.requiredFetchReason = isAuthenticate ? .VISITOR_AUTHENTICATED : .VISITOR_UNAUTHENTICATED
         // Set the fetch state to required state
         self.fetchStatus = .FETCH_REQUIRED
     }

@@ -39,7 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: config)
  
         let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key":"val"]).withFetchFlagsStatus { newStatus, reason in
-            if reason == .FETCHED_FROM_CACHE {}
+            if reason == .FLAGS_FETCHED_FROM_CACHE {}
             print(newStatus.rawValue)
             print(reason.rawValue)
         }.build()
