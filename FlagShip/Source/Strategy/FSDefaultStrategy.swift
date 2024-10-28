@@ -136,22 +136,13 @@ class FSDefaultStrategy: FSDelegateStrategy {
         visitor.context.updateContext(newContext)
 
         if visitor.configManager.flagshipConfig.mode == .BUCKETING {
-            if !visitor.context.isContextUnchanged(oldContext){
+            if !visitor.context.isContextUnchanged(oldContext) {
                 // The context changed .. need to uploar at the next fetch
                 visitor.context.needToUpload = true
             }
         }
     }
-//    
-//    func getModification<T>(_ key: String, defaultValue: T) -> T {
-//        if let flagObject = visitor.currentFlags[key] {
-//            if flagObject.value is T {
-//                return flagObject.value as? T ?? defaultValue
-//            }
-//        }
-//        return defaultValue
-//    }
-//    
+    
     /// Get Flag Modification value
     func getFlagModification(_ key: String) -> FSModification? {
         return visitor.currentFlags[key]
@@ -181,7 +172,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         case .PANIC:
             return .PANIC
-        default :
+        default:
             return .NOT_FOUND
         }
         return .NOT_FOUND
@@ -286,8 +277,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
 protocol FSDelegateStrategy {
     /// update context
     func updateContext(_ newContext: [String: Any])
-    //// Get generique
-   // func getModification<T>(_ key: String, defaultValue: T) -> T
+    
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize

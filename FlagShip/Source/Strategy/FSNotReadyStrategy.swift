@@ -17,12 +17,6 @@ class FSNotReadyStrategy: FSDefaultStrategy {
         onSyncCompleted(.FETCH_REQUIRED, .NONE)
     }
     
-//    override func getModification<T>(_ key: String, defaultValue: T) -> T {
-//        FlagshipLogManager.Log(level: .INFO, tag: .GET_MODIFICATION, messageToDisplay: FSLogMessage.GET_MODIFICATION_NOT_READY)
-//
-//        return defaultValue
-//    }
-    
     /// Get Flag Modification value
     override func getFlagModification(_ key: String) -> FSModification? {
         return nil
