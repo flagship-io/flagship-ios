@@ -33,12 +33,12 @@ class TroubleshootingHit: FSTracking {
     // Level by default is INFO
     var hitLevelUsage: HitUsageLevel = .INFO
 
-    init(pVisitorId: String, pAnnouncementId: String?, pLabel: String, pSpeceficCustomFields: [String: String]) {
+    init(pVisitorId: String, pAnonymousId: String?, pLabel: String, pSpeceficCustomFields: [String: String]) {
         super.init()
         // Set the vid
         visitorId = pVisitorId
         // Set the annonymous id
-        anonymousId = pAnnouncementId
+        anonymousId = pAnonymousId
 
         // Set the Type
         type = .TROUBLESHOOTING
@@ -98,8 +98,8 @@ class TroubleshootingHit: FSTracking {
 }
 
 class FSDataUsageHit: TroubleshootingHit {
-    override init(pVisitorId: String, pAnnouncementId: String?, pLabel: String, pSpeceficCustomFields: [String: String]) {
-        super.init(pVisitorId: pVisitorId,pAnnouncementId:pAnnouncementId, pLabel: pLabel, pSpeceficCustomFields: pSpeceficCustomFields)
+    override init(pVisitorId: String, pAnonymousId: String?, pLabel: String, pSpeceficCustomFields: [String: String]) {
+        super.init(pVisitorId: pVisitorId,pAnonymousId:pAnonymousId, pLabel: pLabel, pSpeceficCustomFields: pSpeceficCustomFields)
         type = .USAGE
     }
 
