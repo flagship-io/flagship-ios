@@ -9,10 +9,10 @@
 import Foundation
 
 // Allocation threshold for data usage tracking
-let FSDataUsageAllocationThreshold = 1
+let FSDataUsageAllocationThreshold = 1000 // redo later to 1
 
 class FSDataUsageTracking {
-    let serialDataReportQueue = DispatchQueue(label: "datareport.serial.queue")
+    let serialDataReportQueue = DispatchQueue(label: "data.report.serial.queue")
 
     var visitorSessionId: String = FSTools.generateUuidv4()
 
@@ -20,6 +20,8 @@ class FSDataUsageTracking {
     var _troubleshooting: FSTroubleshooting?
     // Visitor Id
     var _visitorId: String = ""
+    // Anonymous id
+   // var _anonymousId: String?
     // Has the visitor consented
     var _hasConsented: Bool = true
     // Config SDK
@@ -58,6 +60,7 @@ class FSDataUsageTracking {
     // Configure with visitor instance
     func configureWithVisitor(pVisitor: FSVisitor) {
         _visitorId = pVisitor.visitorId
+      //  _anonymousId = pVisitor.anonymousId
         _hasConsented = pVisitor.hasConsented
         _sdkConfig = pVisitor.configManager.flagshipConfig
         _service?.visitorId = pVisitor.visitorId

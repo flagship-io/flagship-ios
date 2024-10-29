@@ -15,6 +15,7 @@ extension FSDataUsageTracking {
     func processTSCatchedError(v: FSVisitor?, error: FlagshipError) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v?.visitorId ?? "",
+                                              "visitor.anonymousId": v?.anonymousId ?? "",
                                               "error.message": error.message]
 
         // Add context
@@ -24,24 +25,24 @@ extension FSDataUsageTracking {
 
         // Send TS on error catched
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.ERROR_CATCHED.rawValue, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: _visitorId, pAnnouncementId: nil, pLabel: CriticalPoints.ERROR_CATCHED.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     // Troubleshooting for Flag
     func proceesTSFlag(crticalPointLabel: CriticalPoints, f: FSFlag, v: FSVisitor?) {
         var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
                                               "visitor.visitorId": v?.visitorId ?? "",
+                                              "visitor.anonymousId": v?.anonymousId ?? "",
                                               "flag.key": f.key,
                                               "flag.defaultValue": "\(f.defaultValue ?? "nil")"]
 
         // Add context
         if let aV = v {
             criticalJson.merge(_createTRContext(aV)) { _, new in new }
+            // Send TS on Flag warninig
+            sendTroubleshootingReport(_trHit:
+                TroubleshootingHit(pVisitorId: aV.visitorId, pAnnouncementId: aV.anonymousId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
         }
-
-        // Send TS on Flag warninig
-        sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     // Troubleshooting on any request error
@@ -71,7 +72,7 @@ extension FSDataUsageTracking {
 
         // Send Troubleshooting report on http error
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: _visitorId, pLabel: criticalLabel, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: _visitorId, pAnnouncementId: nil, pLabel: criticalLabel, pSpeceficCustomFields: criticalJson))
     }
 
     // Process http on bucketing error
@@ -89,7 +90,7 @@ extension FSDataUsageTracking {
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: _visitorId, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: _visitorId, pAnnouncementId: nil, pLabel: crticalPointLabel.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     // Process on download bucketing file
@@ -107,7 +108,7 @@ extension FSDataUsageTracking {
         criticalJson.merge(httpFields) { _, new in new }
         // Send TS report
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: _visitorId, pLabel: CriticalPoints.SDK_BUCKETING_FILE.rawValue, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: _visitorId, pAnnouncementId: nil, pLabel: CriticalPoints.SDK_BUCKETING_FILE.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     // Troubleshooting on send hits
@@ -121,7 +122,7 @@ extension FSDataUsageTracking {
 
         // Send Troubleshooting
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: visitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: visitor.visitorId, pAnnouncementId: visitor.anonymousId, pLabel: label, pSpeceficCustomFields: criticalJson))
     }
 
     // Troubleshooting on Fetching
@@ -150,7 +151,7 @@ extension FSDataUsageTracking {
 
         // Send TS Report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
-            pVisitorId: v.visitorId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
+            pVisitorId: v.visitorId, pAnnouncementId: v.anonymousId, pLabel: CriticalPoints.VISITOR_FETCH_CAMPAIGNS.rawValue, pSpeceficCustomFields: criticalJson))
     }
 
     // Process on authenticate
@@ -170,7 +171,7 @@ extension FSDataUsageTracking {
 
         // Send TS report
         sendTroubleshootingReport(_trHit: TroubleshootingHit(
-            pVisitorId: visitor.visitorId, pLabel: label, pSpeceficCustomFields: criticalJson))
+            pVisitorId: visitor.visitorId, pAnnouncementId: visitor.anonymousId, pLabel: label, pSpeceficCustomFields: criticalJson))
     }
 
     //////////////////////////////////
@@ -289,6 +290,6 @@ extension FSDataUsageTracking {
 
         // Send Data usage report
         sendDataUsageReport(_duHit: FSDataUsageHit(
-            pVisitorId: _visitorSessionId, pLabel: DataUsageLabel, pSpeceficCustomFields: dataUsageJson))
+            pVisitorId: _visitorSessionId, pAnnouncementId: nil, pLabel: DataUsageLabel, pSpeceficCustomFields: dataUsageJson))
     }
 }

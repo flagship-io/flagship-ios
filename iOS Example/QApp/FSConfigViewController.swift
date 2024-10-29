@@ -151,13 +151,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
-        
-        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
-            
+
+        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged{ newStatus in
+
             print("######################### The withOnFlagStatusChanged callback is called with status is \(newStatus) ######################")
-            
+
         }.withOnFlagStatusFetchRequired { reason in
-            
+
             print(" ######################### The callback withOnFlagStatusFetchRequired is called reason status is \(reason) ######################")
 
         }.withOnFlagStatusFetched {
