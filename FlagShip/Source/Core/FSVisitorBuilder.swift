@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias OnFetchFlagsStatusChanged = ((_ newStatus: FSFetchStatus, _ reason: FSFetchReasons)-> Void)?
-
 // Called every time the Flag status changes.
 public typealias OnFlagStatusChanged = ((_ newStatus: FSFlagStatus)-> Void)?
 // Called every time when the FlagStatus is equals to FETCH_REQUIRED
@@ -30,11 +28,6 @@ public typealias OnFlagStatusFetched = (()->Void)?
     /// instance
     private var _instanceType: Instance = .SHARED_INSTANCE
     
-    
-    // Callbak for status
-    private var _onFetchFlagsStatusChanged: OnFetchFlagsStatusChanged = nil
-    
-    // NEW --
     // Called every time the Flag status changes.
     private var _onFlagStatusChanged: OnFlagStatusChanged = nil
     // Called every time when the FlagStatus is equals to FETCH_REQUIRED
@@ -63,12 +56,6 @@ public typealias OnFlagStatusFetched = (()->Void)?
     
     @objc public func isAuthenticated(_ autenticated: Bool)->FSVisitorBuilder {
         _isAuthenticated = autenticated
-        return self
-    }
-    
-    // Deprecated ..
-    public func withFetchFlagsStatus(_ pCallback: OnFetchFlagsStatusChanged)->FSVisitorBuilder {
-        _onFetchFlagsStatusChanged = pCallback
         return self
     }
     

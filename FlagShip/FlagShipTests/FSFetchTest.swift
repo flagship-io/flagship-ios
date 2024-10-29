@@ -56,6 +56,4 @@ final class FSFetchTest: XCTestCase {
         }
         wait(for: [expecAllFlag], timeout: 5.0)
     }
-    
-
 }
