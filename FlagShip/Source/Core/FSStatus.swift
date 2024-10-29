@@ -77,24 +77,3 @@ public enum FSFlagStatus: String {
     case NOT_FOUND
     case PANIC
 }
-
-
-/// This instance shoud be in the visitor instance
-public enum FSFetchStatus: String {
-    case FETCHED
-    case FETCHING
-    case FETCH_REQUIRED
-    case PANIC
-}
-
-
-// The reason to fetch
-public enum FSFetchReasons: String {
-    case VISITOR_CREATE
-    case UPDATE_CONTEXT
-    case AUTHENTICATE
-    case UNAUTHENTICATE
-    case FETCH_ERROR
-    case FETCHED_FROM_CACHE
-    case NONE
-}
