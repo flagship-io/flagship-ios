@@ -267,6 +267,10 @@
 		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689E2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689F2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
+		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
+		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
+		F551BF5C2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
 		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
 		F55CC59E2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */; };
@@ -457,6 +461,7 @@
 		F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSTracking+Codable.swift"; sourceTree = "<group>"; };
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
 		F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagMetadata.swift; sourceTree = "<group>"; };
@@ -685,6 +690,7 @@
 				8B67368A27FEBE4C003EC960 /* FSService+Request.swift */,
 				8B67368B27FEBE4C003EC960 /* FSService+Bucketing.swift */,
 				8B67368C27FEBE4C003EC960 /* FSService.swift */,
+				F551BF582CDE77FF007C5493 /* FSSettings.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1161,6 +1167,7 @@
 				F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
+				F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
 				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
 				F5F1AD652B1E1DC40052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1273,6 +1280,7 @@
 				F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
+				F551BF5C2CDE77FF007C5493 /* FSSettings.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
 				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
 				F5F1AD632B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1355,6 +1363,7 @@
 				F50E959229CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
+				F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
 				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
 				F5F1AD622B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1437,6 +1446,7 @@
 				F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B6736AB27FED3E5003EC960 /* FSVisitor.swift in Sources */,
 				8B6736AC27FED3E5003EC960 /* FlagshipLogManager.swift in Sources */,
+				F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */,
 				8B6736AD27FED3E5003EC960 /* FSError.swift in Sources */,
 				8B6736AE27FED3E5003EC960 /* FSLogManager.swift in Sources */,
 				F5F1AD522B1631ED0052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1791,7 +1801,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1824,7 +1834,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
