@@ -79,24 +79,24 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         Task { @MainActor in
             // Get the mode
             let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
-            
+
             // Retreive the timeout value
             var timeOut = 2.0 /// Default value is 2 seconds
-            
+
             if let timeOutInputValue = Double(timeOutFiled?.text ?? "2") {
                 timeOut = timeOutInputValue
             }
-            
+
             // Create config object
             let fsConfig: FlagshipConfig
-            
+
             let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withOnSdkStatusChanged { newState in
-                
+
                 if newState == .SDK_INITIALIZED || newState == .SDK_PANIC || newState == .SDK_INITIALIZING {
                     DispatchQueue.main.async {
                         self.createBtn?.isEnabled = true
                     }
-                    
+
                     if mode == .BUCKETING {
                         Flagship.sharedInstance.sharedVisitor?.fetchFlags {
                             self.delegate?.onGetSdkReady()
@@ -104,25 +104,25 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                     }
                 }
             }.withLogLevel(.ALL).withOnVisitorExposed { visitorExposed, fromFlag in
-                
+
                 print("------- On visitor exposed callback ----------")
                 print(visitorExposed.toJson())
                 print(fromFlag.toJson())
                 print("------- On visitor exposed callback ----------")
             }
-            
+
             if mode == .DECISION_API {
                 fsConfig = fsConfigBuilder.DecisionApi().build()
             } else {
                 fsConfig = fsConfigBuilder.Bucketing().build()
             }
-            
+
             // Start the sdk
             //  Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
-            
+
             print("This is on the main actor.")
             try await Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
-            
+
             print("END OF START SDK CALL")
         }
     }
@@ -154,10 +154,14 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
         })
+
+        Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI()
     }
 
     func createVisitor() -> FSVisitor {
-        let userIdToSet: String = visitorIdTextField?.text ?? ""
+        //  let userIdToSet: String = visitorIdTextField?.text ?? ""
+
+        let userIdToSet = "userAlias"
 
         return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
 

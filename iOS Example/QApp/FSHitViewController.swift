@@ -188,7 +188,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         if textField.tag > 400 {
             let allowedChar = CharacterSet(charactersIn: "0123456789").inverted
             
-            return (string.rangeOfCharacter(from: allowedChar) == nil)
+            return string.rangeOfCharacter(from: allowedChar) == nil
         }
         
         return true

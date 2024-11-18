@@ -41,7 +41,7 @@ import Foundation
     }
 
     /// Modifications
-    internal var currentFlags: [String: FSModification] = [:]
+    var currentFlags: [String: FSModification] = [:]
     /// Context
     var context: FSContext
     /// Strategy
@@ -59,7 +59,13 @@ import Foundation
     
     /// Configuration manager
     var configManager: FSConfigManager
- 
+    
+    // Scored visitor
+    public internal(set) var isScoredVisitor: Bool = false
+    
+    // Score value
+    public internal(set) var scoreValue: String?
+
     // Refonte status
     public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
         didSet {
@@ -77,16 +83,16 @@ import Foundation
     }
     
     // Called every time the Flag status changes.
-     var _onFlagStatusChanged: OnFlagStatusChanged = nil
+    var _onFlagStatusChanged: OnFlagStatusChanged = nil
     // Called every time when the FlagStatus is equals to FETCH_REQUIRED
-     var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
+    var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
     // Called every time when the FlagStatus is equals to FETCHED.
-     var _onFlagStatusFetched: OnFlagStatusFetched = nil
+    var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
-
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged,
-        pOnFlagStatusFetchRequired:OnFlagStatusFetchRequired,
-        pOnFlagStatusFetched: OnFlagStatusFetched) {
+         pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired,
+         pOnFlagStatusFetched: OnFlagStatusFetched)
+    {
         // Set Authenticated
         self.isAuthenticated = aIsAuthenticated
         // Before calling service manage the tuple (vid,aid)
@@ -102,7 +108,6 @@ import Foundation
         
         // Set the user context
         self.context = FSContext(aContext)
-        
         
         // Set the presetContext
         self.context.loadPreSetContext()
@@ -123,29 +128,71 @@ import Foundation
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
-        // Go to ING state while the fetch is ongoing
-        self.fetchStatus = .FETCHING
-        self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
- 
-            // After the synchronize completion we cache the visitor
-            self.strategy?.getStrategy().cacheVisitor()
+        self.prepareEmotionAI(onCompleted: { score in
+            // Set the score
+            self.scoreValue = score
+            // if score is null ==> false
+            self.isScoredVisitor = (score == nil) ? false : true
             
-            // If bucketing mode & no consent & no panic mode
-            if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .SDK_PANIC {
-                
-                if self.context.needToUpload && self.hasConsented{ // If the context is changed and consent then => send segment hit
-                        self.sendHit(FSSegment(self.getContext()))
-                    self.context.needToUpload = false
-                    }
+            // Update the context
+            if let aScore = score {
+                self.context.updateContext("eas", aScore)
             }
-            // Update the reason status
-            self.requiredFetchReason = reason
-            // Update the fetch status
-            self.fetchStatus = state
-            onFetchCompleted()
+            
+            // Go to ING state while the fetch is ongoing
+            self.fetchStatus = .FETCHING
+            self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
+     
+                // After the synchronize completion we cache the visitor
+                self.strategy?.getStrategy().cacheVisitor()
+                
+                // If bucketing mode & no consent & no panic mode
+                if self.configManager.flagshipConfig.mode == .BUCKETING, Flagship.sharedInstance.currentStatus != .SDK_PANIC {
+                    if self.context.needToUpload && self.hasConsented { // If the context is changed and consent then => send segment hit
+                        self.sendHit(FSSegment(self.getContext()))
+                        self.context.needToUpload = false
+                    }
+                }
+                // Update the reason status
+                self.requiredFetchReason = reason
+                // Update the fetch status
+                self.fetchStatus = state
+                onFetchCompleted()
+            })
         })
     }
+
+    private func prepareEmotionAI(onCompleted: @escaping (String?) -> Void) {
+        // Check the enabled and activation
+        if Flagship.sharedInstance.eaiActivationEnabled && Flagship.sharedInstance.eaiCollectEnabled {
+            FSSettings.fetchScore(visitorId: self.visitorId, completion: { score in
+                onCompleted(score)
+            })
+        } else {
+            onCompleted(nil)
+        }
+    }
     
+    public func startCollectingEmotionAI() {
+        Task { @MainActor in
+            try await withCheckedThrowingContinuation { continuation in
+                let nillableContinuation: CheckedContinuation<Void, Error>? = continuation
+                self.prepareEmotionAI { score in
+                    if let score {
+                        // Score already done
+                    } else {
+                        self.startEmotionCapture()
+                    }
+                    nillableContinuation?.resume()
+                }
+            }
+        }
+    }
+    
+    private func startEmotionCapture() {
+        FSEmotionAI().recoordUIActions()
+    }
+
     //////////////////////
     //        CONTEXT   //
     //////////////////////

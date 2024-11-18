@@ -106,9 +106,9 @@ public class Flagship: NSObject {
             
             FSSettings.fetchRessources { settingsDico in
                 // Set the collected
-                self.eaiCollectEnabled = settingsDico["eaiCollectEnabled"] as? Bool ?? false
+                Flagship.sharedInstance.eaiCollectEnabled = settingsDico["eaiCollectEnabled"] as? Bool ?? false
                 // Set the Activation
-                self.eaiActivationEnabled = settingsDico["eaiActivationEnabled"] as? Bool ?? false
+                Flagship.sharedInstance.eaiActivationEnabled = settingsDico["eaiActivationEnabled"] as? Bool ?? false
                 
                 nillableContinuation?.resume()
             }
@@ -142,7 +142,7 @@ public class Flagship: NSObject {
         
         // Config data usage tracking
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: newVisitor)
-        
+    
         return newVisitor
     }
     

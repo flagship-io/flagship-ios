@@ -267,6 +267,10 @@
 		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689E2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689F2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F543E4052CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
+		F543E4062CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
+		F543E4072CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
+		F543E4082CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
 		F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
@@ -461,6 +465,7 @@
 		F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSTracking+Codable.swift"; sourceTree = "<group>"; };
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		F543E4042CE7A68900293F6F /* FSEmotionAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionAI.swift; sourceTree = "<group>"; };
 		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
@@ -559,6 +564,7 @@
 		8B67365C27FEBE4C003EC960 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F543E4032CE7A65E00293F6F /* FSEmotionAI */,
 				F5C453902B025D6900FFCC2F /* Troubleshooting */,
 				8B67365D27FEBE4C003EC960 /* Tools */,
 				8B67366427FEBE4C003EC960 /* Core */,
@@ -860,6 +866,14 @@
 				F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */,
 			);
 			path = Batch;
+			sourceTree = "<group>";
+		};
+		F543E4032CE7A65E00293F6F /* FSEmotionAI */ = {
+			isa = PBXGroup;
+			children = (
+				F543E4042CE7A68900293F6F /* FSEmotionAI.swift */,
+			);
+			path = FSEmotionAI;
 			sourceTree = "<group>";
 		};
 		F5C453902B025D6900FFCC2F /* Troubleshooting */ = {
@@ -1226,6 +1240,7 @@
 				8B2D51682805D43C00866D61 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5722C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B2D51692805D43C00866D61 /* FSNoConsentStrategy.swift in Sources */,
+				F543E4082CE7A68900293F6F /* FSEmotionAI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1339,6 +1354,7 @@
 				8B9F2AB72809B8E700323094 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5732C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B9F2AB82809B8E700323094 /* FSNoConsentStrategy.swift in Sources */,
+				F543E4062CE7A68900293F6F /* FSEmotionAI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,6 +1438,7 @@
 				8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5742C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */,
+				F543E4072CE7A68900293F6F /* FSEmotionAI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,6 +1522,7 @@
 				8B6736D127FED3E5003EC960 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5712C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B6736D227FED3E5003EC960 /* FSNoConsentStrategy.swift in Sources */,
+				F543E4052CE7A68900293F6F /* FSEmotionAI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
