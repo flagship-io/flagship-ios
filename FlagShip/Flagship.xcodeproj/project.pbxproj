@@ -279,6 +279,14 @@
 		F543E4122CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
 		F543E4132CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
 		F543E4142CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
+		F543E4162CF4E7B800293F6F /* FSPageViewAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */; };
+		F543E4172CF4E7B800293F6F /* FSPageViewAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */; };
+		F543E4182CF4E7B800293F6F /* FSPageViewAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */; };
+		F543E4192CF4E7B800293F6F /* FSPageViewAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */; };
+		F543E41B2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
+		F543E41C2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
+		F543E41D2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
+		F543E41E2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
 		F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
@@ -476,6 +484,8 @@
 		F543E4042CE7A68900293F6F /* FSEmotionAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionAI.swift; sourceTree = "<group>"; };
 		F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPollingScore.swift; sourceTree = "<group>"; };
 		F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionEvent.swift; sourceTree = "<group>"; };
+		F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPageViewAI.swift; sourceTree = "<group>"; };
+		F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionPageView.swift; sourceTree = "<group>"; };
 		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
@@ -881,9 +891,11 @@
 		F543E4032CE7A65E00293F6F /* FSEmotionAI */ = {
 			isa = PBXGroup;
 			children = (
+				F543E4152CF4E7B800293F6F /* FSPageViewAI.swift */,
 				F543E4042CE7A68900293F6F /* FSEmotionAI.swift */,
 				F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */,
 				F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */,
+				F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */,
 			);
 			path = FSEmotionAI;
 			sourceTree = "<group>";
@@ -1248,9 +1260,11 @@
 				8B2D51652805D43C00866D61 /* FSDevice.swift in Sources */,
 				8B2D51662805D43C00866D61 /* FSPanicStrategy.swift in Sources */,
 				8B2D51672805D43C00866D61 /* FSDefaultStrategy.swift in Sources */,
+				F543E4182CF4E7B800293F6F /* FSPageViewAI.swift in Sources */,
 				F52029F02A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
 				F5F1AD5E2B1E1DBA0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952629C4BADD00686BC6 /* FSBatch.swift in Sources */,
+				F543E41E2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */,
 				8B2D51682805D43C00866D61 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5722C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B2D51692805D43C00866D61 /* FSNoConsentStrategy.swift in Sources */,
@@ -1364,9 +1378,11 @@
 				8B9F2AB42809B8E600323094 /* FSDevice.swift in Sources */,
 				8B9F2AB52809B8E600323094 /* FSPanicStrategy.swift in Sources */,
 				8B9F2AB62809B8E700323094 /* FSDefaultStrategy.swift in Sources */,
+				F543E4162CF4E7B800293F6F /* FSPageViewAI.swift in Sources */,
 				F52029F12A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
 				F5F1AD5D2B1E1DB90052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952729C4BADD00686BC6 /* FSBatch.swift in Sources */,
+				F543E41D2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */,
 				8B9F2AB72809B8E700323094 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5732C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B9F2AB82809B8E700323094 /* FSNoConsentStrategy.swift in Sources */,
@@ -1450,9 +1466,11 @@
 				8B9F2AF32809BA8300323094 /* FSDevice.swift in Sources */,
 				8B9F2AF42809BA8300323094 /* FSPanicStrategy.swift in Sources */,
 				8B9F2AF52809BA8300323094 /* FSDefaultStrategy.swift in Sources */,
+				F543E4172CF4E7B800293F6F /* FSPageViewAI.swift in Sources */,
 				F52029F22A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
 				F5F1AD5C2B1E1DB80052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				F5FC952829C4BADD00686BC6 /* FSBatch.swift in Sources */,
+				F543E41B2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */,
 				8B9F2AF62809BA8300323094 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5742C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B9F2AF72809BA8300323094 /* FSNoConsentStrategy.swift in Sources */,
@@ -1536,9 +1554,11 @@
 				8B6736CE27FED3E5003EC960 /* FSDevice.swift in Sources */,
 				F5F1AD532B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */,
 				8B6736CF27FED3E5003EC960 /* FSPanicStrategy.swift in Sources */,
+				F543E4192CF4E7B800293F6F /* FSPageViewAI.swift in Sources */,
 				8B6736D027FED3E5003EC960 /* FSDefaultStrategy.swift in Sources */,
 				F52029EF2A136AC500F7FFF7 /* FSVisitorDbMgt.swift in Sources */,
 				F5FC952529C4BADD00686BC6 /* FSBatch.swift in Sources */,
+				F543E41C2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */,
 				8B6736D127FED3E5003EC960 /* FSNotReadyStrategy.swift in Sources */,
 				F5F2B5712C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */,
 				8B6736D227FED3E5003EC960 /* FSNoConsentStrategy.swift in Sources */,
