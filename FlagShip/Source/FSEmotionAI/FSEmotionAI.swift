@@ -50,8 +50,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             // visitor not scored
         }
     }
-    
-    
 
     private func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         if isLastEvent {
@@ -65,12 +63,20 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
+    private func sendEmotionPageView() -> FSTracking {
+        print(" @@@@@@@@@@@@ Send Emotion Page View @@@@@@@@@@@@@@@")
+        return FSEmotionPageView("testcreen")
+    }
+
     private func stopCollecting() {
         tapGesture?.isEnabled = false
     }
 
     /// Building events
     private func buildEvent(_ gesture: UITapGestureRecognizer) -> FSTracking {
-        return FSEmotionPageView("testcreen")
+        let location = gesture.location(in: gesture.view)
+        let point = CGPoint(x: location.x, y: location.y)
+
+        return FSEmotionEvent()
     }
 }

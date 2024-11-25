@@ -17,3 +17,14 @@ class FSEmotionPageView: FSPage {
         fatalError("init(from:) has not been implemented")
     }
 }
+
+// Represent click en move scroll
+class FSEmotionEvent: FSTracking {
+    override init() {
+        super.init()
+    }
+
+    public required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+}
