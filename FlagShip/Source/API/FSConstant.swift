@@ -68,3 +68,10 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 // Local Notification
 
 let FSBucketingScriptNotification = "onGettingBucketScript"
+
+
+// EmotionAI
+
+let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/accounts/%@/visitors/%@?partner=eai"
+
+

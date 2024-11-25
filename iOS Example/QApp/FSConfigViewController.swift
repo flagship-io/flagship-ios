@@ -155,7 +155,6 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             }
         })
 
-        Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI()
     }
 
     func createVisitor() -> FSVisitor {

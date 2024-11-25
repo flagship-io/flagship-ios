@@ -14,62 +14,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet var activateQABtn: UIButton?
     
     @IBOutlet var tableView: UITableView?
+    var tapGesture: UITapGestureRecognizer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    
     @IBAction func startQA() {
-
-        // Create visitor
-        
-        var cpt = 0
-        
-        let config = FSConfigBuilder().withOnVisitorExposed { visitorExposed, fromFlag in
-            
-            print(visitorExposed.id)
-            print(fromFlag.key)
-            
-            cpt = cpt + 1
-            
-            print(" the cpt represent the callback number \(cpt)")
-        }.Bucketing().build()
+        Task { @MainActor in
  
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: config)
- 
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key":"val"]).withFetchFlagsStatus { newStatus, reason in
-            if reason == .FLAGS_FETCHED_FROM_CACHE {}
-            print(newStatus.rawValue)
-            print(reason.rawValue)
-        }.build()
-        
-        v1.fetchFlags {
-            let flag = v1.getFlag(key: "btnColor")
-            let r: String? = flag.value(defaultValue: "ezez", visitorExposed: false)
+            try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
             
+            let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key": "val"]).withOnFlagStatusChanged { newStatus in
+                if newStatus == .FETCH_REQUIRED {}
+            }.build()
             
+            v1.startCollectingEmotionAI(view: self.view)
             
-        
+            v1.fetchFlags {}
         }
     }
  
     /// Add one more activate
     @IBAction func activate() {
-        
-        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            print("seond fetch is done")
-        }
-        
-        
-        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
-            flag.visitorExposed()
-        }
+//        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
+//        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+//            print("seond fetch is done")
+//        }
+//
+//        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
+//            flag.visitorExposed()
+//        }
     }
 
     @IBAction func sendHits() {
-        Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
+//        Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
     }
  
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

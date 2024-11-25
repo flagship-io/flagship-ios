@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  * Specify if how Flagship SDK should handle the newly create visitor instance.
@@ -64,7 +65,7 @@ import Foundation
     public internal(set) var isScoredVisitor: Bool = false
     
     // Score value
-    public internal(set) var scoreValue: String?
+    public internal(set) var emotionSocreAI: String? = nil
 
     // Refonte status
     public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
@@ -88,6 +89,8 @@ import Foundation
     var _onFlagStatusFetchRequired: OnFlagStatusFetchRequired = nil
     // Called every time when the FlagStatus is equals to FETCHED.
     var _onFlagStatusFetched: OnFlagStatusFetched = nil
+    
+    var emotionCollect: FSEmotionAI?
     
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged,
          pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired,
@@ -130,7 +133,7 @@ import Foundation
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         self.prepareEmotionAI(onCompleted: { score in
             // Set the score
-            self.scoreValue = score
+            self.emotionSocreAI = score
             // if score is null ==> false
             self.isScoredVisitor = (score == nil) ? false : true
             
@@ -165,32 +168,34 @@ import Foundation
     private func prepareEmotionAI(onCompleted: @escaping (String?) -> Void) {
         // Check the enabled and activation
         if Flagship.sharedInstance.eaiActivationEnabled && Flagship.sharedInstance.eaiCollectEnabled {
-            FSSettings.fetchScore(visitorId: self.visitorId, completion: { score in
-                onCompleted(score)
-            })
+            // Get score initialy loaded from cache
+            if let aScore = self.emotionSocreAI {
+                onCompleted(aScore)
+            } else {
+                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score in
+                    onCompleted(score)
+                })
+            }
         } else {
+            // Not allowed to emotionAI
             onCompleted(nil)
         }
     }
     
-    public func startCollectingEmotionAI() {
-        Task { @MainActor in
-            try await withCheckedThrowingContinuation { continuation in
-                let nillableContinuation: CheckedContinuation<Void, Error>? = continuation
-                self.prepareEmotionAI { score in
-                    if let score {
-                        // Score already done
-                    } else {
-                        self.startEmotionCapture()
-                    }
-                    nillableContinuation?.resume()
-                }
+    public func startCollectingEmotionAI(view: UIView) {
+        self.prepareEmotionAI { score in
+            if let score {
+                // Score already done
+            } else {
+                // Init the emotion collect
+                self.emotionCollect = FSEmotionAI(visitorId: self.visitorId)
+                self.startEmotionCapture(view: view)
             }
         }
     }
     
-    private func startEmotionCapture() {
-        FSEmotionAI().recoordUIActions()
+    private func startEmotionCapture(view: UIView) {
+        self.emotionCollect?.startEAICollectForView(view: view)
     }
 
     //////////////////////

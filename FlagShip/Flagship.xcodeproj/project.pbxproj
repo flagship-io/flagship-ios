@@ -271,6 +271,14 @@
 		F543E4062CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
 		F543E4072CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
 		F543E4082CE7A68900293F6F /* FSEmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4042CE7A68900293F6F /* FSEmotionAI.swift */; };
+		F543E40A2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */; };
+		F543E40B2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */; };
+		F543E40C2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */; };
+		F543E40D2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */; };
+		F543E4112CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
+		F543E4122CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
+		F543E4132CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
+		F543E4142CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */; };
 		F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
@@ -466,6 +474,8 @@
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		F543E4042CE7A68900293F6F /* FSEmotionAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionAI.swift; sourceTree = "<group>"; };
+		F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPollingScore.swift; sourceTree = "<group>"; };
+		F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionEvent.swift; sourceTree = "<group>"; };
 		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
@@ -872,6 +882,8 @@
 			isa = PBXGroup;
 			children = (
 				F543E4042CE7A68900293F6F /* FSEmotionAI.swift */,
+				F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */,
+				F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */,
 			);
 			path = FSEmotionAI;
 			sourceTree = "<group>";
@@ -1177,6 +1189,7 @@
 				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
 				8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */,
 				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
+				F543E4132CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A42C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
@@ -1191,6 +1204,7 @@
 				F5BC97C62A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
 				F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6712A14264B00C0B140 /* FSSegment.swift in Sources */,
+				F543E40D2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
 				F50E959A29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B2D51492805D43C00866D61 /* FSCacheManager.swift in Sources */,
 				8B2D514A2805D43C00866D61 /* FSBucket.swift in Sources */,
@@ -1291,6 +1305,7 @@
 				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
+				F543E4142CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A52C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
@@ -1305,6 +1320,7 @@
 				F5BC97C72A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
 				F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6722A14264B00C0B140 /* FSSegment.swift in Sources */,
+				F543E40A2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
 				F50E959B29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2A982809B8E600323094 /* FSCacheManager.swift in Sources */,
 				8B9F2A992809B8E600323094 /* FSBucket.swift in Sources */,
@@ -1375,6 +1391,7 @@
 				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
+				F543E4122CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A62C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959229CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
@@ -1389,6 +1406,7 @@
 				F5BC97C82A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
 				F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6732A14264B00C0B140 /* FSSegment.swift in Sources */,
+				F543E40B2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
 				F50E959C29D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B9F2AD72809BA8200323094 /* FSCacheManager.swift in Sources */,
 				8B9F2AD82809BA8200323094 /* FSBucket.swift in Sources */,
@@ -1459,6 +1477,7 @@
 				8B6736A827FED3E5003EC960 /* FSVisitorBuilder.swift in Sources */,
 				8B6736A927FED3E5003EC960 /* FSVisitor+Campaigns.swift in Sources */,
 				8B6736AA27FED3E5003EC960 /* FSVisitor+objc.swift in Sources */,
+				F543E4112CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A32C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
 				8B6736AB27FED3E5003EC960 /* FSVisitor.swift in Sources */,
@@ -1473,6 +1492,7 @@
 				F5BC97C52A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
 				F539709529DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6702A14264B00C0B140 /* FSSegment.swift in Sources */,
+				F543E40C2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
 				F50E959929D19EEB000B333F /* FSITrackingManager.swift in Sources */,
 				8B6736B127FED3E5003EC960 /* FSCacheManager.swift in Sources */,
 				8B6736B227FED3E5003EC960 /* FSBucket.swift in Sources */,

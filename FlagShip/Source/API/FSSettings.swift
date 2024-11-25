@@ -34,37 +34,49 @@ class FSSettings {
 
     // Fetch the score locally or remotely
     class func fetchScore(visitorId: String, completion: @escaping (String?) -> Void) {
-        if let score = getSocreFromLocal() {
-            completion(score)
-        } else {
-            // Replace the url later
-            let url = URL(string: "https://my.api.mockaroo.com/score.json?key=d67200a0")!
-            URLSession.shared.dataTask(with: url) { data, _, _ in
-                do {
-                    if let aData = data {
-                        let scoreObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
-                        let score = scoreObject["eas"] as? String
-
-                        print(" @@@@@@@@@@@@@ Your current score is: \(score ?? "NO score found in remote API") @@@@@@@@@@@@@@@@@@@@")
-
-                        // Set score to local
-                        if let aScore = score {
-                            // Uncomment later
-                            // FSSettings.setSocreFromLocal(score: aScore)
-                        }
-                        completion(score)
-                    }
-                } catch {
-                    print("Errro on fetching score: \(error.localizedDescription)")
-                    completion(nil)
-                }
-            }.resume()
+        guard let getScoreUrl = URL(string: String(format: fetchEmotionAIScoreURL, Flagship.sharedInstance.envId ?? "", visitorId)) else {
+            /// The Url creation failed
+            print("No Score found for this vsitor - in server API")
+            completion(nil)
+            return
         }
+        URLSession.shared.dataTask(with: getScoreUrl) { data, response, _ in
+            if let response {
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 204 {
+                        print("Empty Content - Status Code:\(httpResponse.statusCode)")
+                        completion(nil)
+                    } else if httpResponse.statusCode == 200 {
+                        do {
+                            if let aData = data {
+                                let scoreObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
+                                if let segmentDico = scoreObject["eai"] as? [String: String] {
+                                    if let score = segmentDico["eas"] {
+                                        print(" @@@@@@@@@@@@@ Your current score is: \(score ?? "NO score found in remote API") @@@@@@@@@@@@@@@@@@@@")
+                                        completion(score)
+                                        return
+                                    }
+                                }
+                            }
+                            print("No Score found for this vsitor - in server API")
+                            completion(nil)
+                        } catch {
+                            print("Errro on fetching score: \(error.localizedDescription)")
+                            completion(nil)
+                        }
+
+                    } else {
+                        // Unknown error
+                        print("Unknown error: \(httpResponse.statusCode)")
+                        completion(nil)
+                    }
+                }
+            }
+        }.resume()
     }
 
     // Save the score locally
     private class func getSocreFromLocal() -> String? {
-         
         UserDefaults.standard.string(forKey: FSEmmotionAIScoreKey)
     }
 
