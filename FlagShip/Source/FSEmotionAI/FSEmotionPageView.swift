@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 
 class FSEmotionPageView: FSPage {
-    var userAgent: String = "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"
-
     override init(_ location: String) {
         super.init(location)
     }
@@ -23,38 +21,49 @@ class FSEmotionPageView: FSPage {
     override var bodyTrack: [String: Any] {
         var customParams = [String: Any]()
 
-        // Set the resolution
+        // Size of the window browser
         let srValue = "\(UIScreen.main.bounds.width),\(UIScreen.main.bounds.height);"
         customParams.updateValue(srValue, forKey: "sr")
-        // Set the user agent
-        customParams.updateValue(self.userAgent, forKey: "ua")
-        // Set the language
-        customParams.updateValue("fr-FR", forKey: "ul")
+
         // Set the vp
         customParams.updateValue("[\(UIScreen.main.nativeBounds.size.width),\(UIScreen.main.nativeBounds.size.height)]", forKey: "vp")
-
-        /// Add static infos
+        // Does user has adblock?
         customParams.updateValue(false, forKey: "adb")
-        customParams.updateValue(true, forKey: "hlb")
+        // Number of bits per pixel of users machine
+        customParams.updateValue("\(FSTools.getBitsPerPixel())", forKey: "sd")
+        // Browser configuration on user tracking preference
+        customParams.updateValue("unspecified", forKey: "dnt")
+        // List of installed fonts (Stringified array)
+        customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
+        // Fake browser infos
+        customParams.updateValue(false, forKey: "hlb")
+        // Fake os infos
+        customParams.updateValue(false, forKey: "hlo")
+        // Fake resolution infos
+        customParams.updateValue(false, forKey: "hlr")
+        // Fake language infos
         customParams.updateValue(true, forKey: "hll")
-        customParams.updateValue(true, forKey: "hlo")
-        customParams.updateValue(true, forKey: "hlr")
-        customParams.updateValue(120, forKey: "tof")
-        customParams.updateValue("24", forKey: "sd")
-        customParams.updateValue("[\"Andale Mono\", \"Arial\"]", forKey: "fnt")
-        customParams.updateValue("[0,false,false]", forKey: "tsp")
-        customParams.updateValue("iphone", forKey: "dc")
-        customParams.updateValue("Unknown", forKey: "dnt")
-        customParams.updateValue("click tunnel auto", forKey: "ec")
-        customParams.updateValue("[\"PDF Viewer::Portable Document Format::application/pdf~pdf,text/pdf~pdf\", \"WebKit built-in PDF::Portable Document Format::application/pdf~pdf,text/pdf~pdf\"]", forKey: "plu")
-        customParams.updateValue(1.2, forKey: "pxr")
-        customParams.updateValue("https://www.google.com?search=toto", forKey: "dr")
-        customParams.updateValue(1.2, forKey: "pxr")
+        // Browser language
+        customParams.updateValue(FSDevice.getDeviceLanguage() ?? "", forKey: "ul")
+        // Machine type of the user
+        customParams.updateValue(FSDevice.getDeviceType(), forKey: "dc")
+        // Ratio between physical pixels and device-independent pixels (dips) on the device
+        customParams.updateValue(UIScreen.main.scale, forKey: "pxr")
+        // Amount of time subtracted from or added to Coordinated Universal Time (UTC) time to get the curre
+        customParams.updateValue(FSTools.getAmountTimeInMinute(), forKey: "tof")
+
+        // tsp See later for this value if okay
+         customParams.updateValue("[0,false,false]", forKey: "tsp")
+        // Send an empty list
+        customParams.updateValue("[]", forKey: "plu")
+        // Send empty string
+        customParams.updateValue("", forKey: "ua")
+        // Send empty string
+        customParams.updateValue("", forKey: "dr")
 
         customParams.merge(super.bodyTrack) { _, new in new }
         // Remove qt
         customParams.removeValue(forKey: "qt")
-
         return customParams
     }
 }

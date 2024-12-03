@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // Represent click en move scroll
 class FSEmotionEvent: FSTracking {
@@ -21,7 +22,7 @@ class FSEmotionEvent: FSTracking {
 
     var cursorPosition: String
 
-    public var currentScreen: String = ""
+    public var currentScreen: String = "abcdef"
 
     init(_ pX: String, _ pY: String, _ pClickDuration: String, _ pCursorPosition: String = "") {
         let formatter = NumberFormatter()

@@ -19,7 +19,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             print(" -- The url path : \(url.absoluteString)")
         } catch {}
- 
+
+        Task { @MainActor in
+
+            try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+
+            //  let vid = "adel0212F"
+            let vid = "iosUser\(Int.random(in: 100 ... 1000))"
+
+            let v1 = Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isQA": true, "key": "val"]).withOnFlagStatusChanged { newStatus in
+                if newStatus == .FETCH_REQUIRED {}
+            }.build()
+
+            v1.fetchFlags {}
+        }
+
         return true
     }
 
@@ -37,7 +51,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
- 
-
- 
- 

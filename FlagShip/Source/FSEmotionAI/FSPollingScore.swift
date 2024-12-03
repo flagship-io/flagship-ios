@@ -31,11 +31,16 @@ class FSPollingScore: NSObject {
                 self.retryCount += 1
                 self.pollingScore?.suspend()
                 print("GET MY SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)")
-                self.pollingScore?.suspend()
-                FSSettings.fetchScore(visitorId: self.visitorId, completion: { _ in
+                FSSettings.fetchScore(visitorId: self.visitorId, completion: { _, statusCode in
 
-                    print("RESPONSE FROM THE SERVER")
-                     self.pollingScore?.resume()
+                    if statusCode == 204 {
+                        print("RESPONSE FROM THE SERVER")
+                        self.pollingScore?.resume()
+                    } else if statusCode == 200 {
+                        print("RESPONSE FROM THE SERVER - score successfully received")
+                    } else {
+                        print("RESPONSE FROM THE SERVER - score not received - status code: \(statusCode)")
+                    }
                 })
             }
         }

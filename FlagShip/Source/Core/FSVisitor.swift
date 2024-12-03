@@ -172,7 +172,7 @@ import UIKit
             if let aScore = self.emotionSocreAI {
                 onCompleted(aScore)
             } else {
-                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score in
+                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, _ in
                     onCompleted(score)
                 })
             }
@@ -182,20 +182,20 @@ import UIKit
         }
     }
     
-    public func startCollectingEmotionAI(view: UIView) {
+    public func startCollectingEmotionAI(viewCtrl: UIViewController) {
         self.prepareEmotionAI { score in
             if let score {
                 // Score already done
             } else {
                 // Init the emotion collect
                 self.emotionCollect = FSEmotionAI(visitorId: self.visitorId)
-                self.startEmotionCapture(view: view)
+                self.startEmotionCapture(viewCtrl: viewCtrl)
             }
         }
     }
     
-    private func startEmotionCapture(view: UIView) {
-        self.emotionCollect?.startEAICollectForView(view: view)
+    private func startEmotionCapture(viewCtrl: UIViewController) {
+        self.emotionCollect?.startEAICollectForView(viewCtrl: viewCtrl)
     }
 
     //////////////////////

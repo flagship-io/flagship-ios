@@ -8,6 +8,7 @@
 
 import Flagship
 import UIKit
+import WebKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet var startQABtn: UIButton?
 
@@ -18,26 +19,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let webView = WKWebView()
     }
     
     @IBAction func startQA() {
-        Task { @MainActor in
- 
-            try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
-            
-            let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key": "val"]).withOnFlagStatusChanged { newStatus in
-                if newStatus == .FETCH_REQUIRED {}
-            }.build()
-            
-            v1.startCollectingEmotionAI(view: self.view)
-            
-            v1.fetchFlags {}
-        }
+        // Do any additional setup after loading the view.
+        Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(viewCtrl: self)
     }
  
     /// Add one more activate
     @IBAction func activate() {
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print("--------Fetch done --------")
+        }
+        
 //        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
 //        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
 //            print("seond fetch is done")
