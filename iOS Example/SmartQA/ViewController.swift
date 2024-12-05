@@ -24,24 +24,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func startQA() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first
+        {
+            print("Found window: \(window) ===> Start collecting emotion AI")
+            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window)
+        }
+        
         // Do any additional setup after loading the view.
-        Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(viewCtrl: self)
     }
  
     /// Add one more activate
     @IBAction func activate() {
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            print("--------Fetch done --------")
-        }
-        
-//        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
-//        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-//            print("seond fetch is done")
-//        }
-//
-//        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
-//            flag.visitorExposed()
-//        }
+        self.performSegue(withIdentifier: "onActivate", sender: self)
     }
 
     @IBAction func sendHits() {

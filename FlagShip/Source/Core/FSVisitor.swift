@@ -182,20 +182,20 @@ import UIKit
         }
     }
     
-    public func startCollectingEmotionAI(viewCtrl: UIViewController) {
+    public func startCollectingEmotionAI(window: UIWindow?) {
         self.prepareEmotionAI { score in
             if let score {
                 // Score already done
             } else {
                 // Init the emotion collect
                 self.emotionCollect = FSEmotionAI(visitorId: self.visitorId)
-                self.startEmotionCapture(viewCtrl: viewCtrl)
+                self.startEmotionCapture(window)
             }
         }
     }
     
-    private func startEmotionCapture(viewCtrl: UIViewController) {
-        self.emotionCollect?.startEAICollectForView(viewCtrl: viewCtrl)
+    private func startEmotionCapture(_ window: UIWindow?) {
+        self.emotionCollect?.startEAICollectForView(window)
     }
 
     //////////////////////

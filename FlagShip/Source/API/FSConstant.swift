@@ -71,7 +71,6 @@ let FSBucketingScriptNotification = "onGettingBucketScript"
 
 
 // EmotionAI
-
-let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/accounts/%@/visitors/%@?partner=eai"
+let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/clients/%@/visitors/%@?partner=eai"
 
 

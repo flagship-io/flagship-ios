@@ -22,9 +22,9 @@ class FSEmotionEvent: FSTracking {
 
     var cursorPosition: String
 
-    public var currentScreen: String = "abcdef"
+    public var currentScreen: String = "./"
 
-    init(_ pX: String, _ pY: String, _ pClickDuration: String, _ pCursorPosition: String = "") {
+    init(_ pX: String, _ pY: String, pClickDuration: String = "", pCursorPosition: String = "") {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
         formatter.maximumIntegerDigits = 0
@@ -56,24 +56,15 @@ class FSEmotionEvent: FSTracking {
 
         if self.posX.count != 0 && self.posY.count != 0 {
             // Set the Click Position
-            customParams.updateValue("\(self.posY),\(self.posX),\(self.last5digitTimeStmap),\(self.clickDuration)", forKey: "cpo") // "1016,978,98575,134"
+            customParams.updateValue("\(self.posY),\(self.posX),\(self.last5digitTimeStmap),\(self.clickDuration)", forKey: "cpo")
         }
-
         // Set the current screen
         customParams.updateValue(self.currentScreen, forKey: "dl")
-
         // Set the resolution
         let srValue = "\(UIScreen.main.bounds.width),\(UIScreen.main.bounds.height);"
         customParams.updateValue(srValue, forKey: "sr")
-        //
-        //        let lastDigitForScroll_1 = "\((Int(self.last5digitTimeStmap) ?? 0) - 10)"
-        //        let lastDigitForScroll_2 = "\((Int(self.last5digitTimeStmap) ?? 0) - 11)"
-        //        let lastDigitForScroll_3 = "\((Int(self.last5digitTimeStmap) ?? 0) - 12)"
-        //        let lastDigitForScroll_4 = "\((Int(self.last5digitTimeStmap) ?? 0) - 13)"
-
         customParams.updateValue(self.cursorPosition, forKey: "cp")
-
-        // customParams.updateValue("230,215,\(lastDigitForScroll_1);231,216,\(lastDigitForScroll_2);233,217,\(lastDigitForScroll_3);235,219,\(lastDigitForScroll_4)", forKey: "spo")
+        customParams.updateValue(self.cursorPosition, forKey: "spo")
 
         customParams.merge(self.communBodyTrack) { _, new in new }
 
