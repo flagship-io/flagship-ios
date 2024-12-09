@@ -8,9 +8,9 @@
 import Foundation
 
 /// Universaal End Point
-let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
+// let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 
-// internal let FlagshipUniversalEndPoint =  "https://decision-staging.flagship.io/v2/"
+let FlagshipUniversalEndPoint = "https://staging-decision.flagship.io/v2/"
 
 /// XApi key
 let FSX_Api_Key = "x-api-key"
@@ -69,8 +69,5 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 
 let FSBucketingScriptNotification = "onGettingBucketScript"
 
-
 // EmotionAI
 let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/clients/%@/visitors/%@?partner=eai"
-
-

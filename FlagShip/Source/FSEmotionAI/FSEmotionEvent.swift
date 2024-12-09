@@ -21,10 +21,11 @@ class FSEmotionEvent: FSTracking {
     var clickDuration: String
 
     var cursorPosition: String
+    var scrollPosition: String
 
     public var currentScreen: String = "./"
 
-    init(_ pX: String, _ pY: String, pClickDuration: String = "", pCursorPosition: String = "") {
+    init(_ pX: String, _ pY: String, pClickDuration: String = "", pCursorPosition: String = "", pScrollPosition: String = "") {
         let formatter = NumberFormatter()
         formatter.numberStyle = .none
         formatter.maximumIntegerDigits = 0
@@ -42,6 +43,7 @@ class FSEmotionEvent: FSTracking {
         self.posY = pY
         self.clickDuration = pClickDuration
         self.cursorPosition = pCursorPosition
+        self.scrollPosition = pScrollPosition
         super.init()
         self.type = .EMOTION_AI
     }
@@ -64,7 +66,7 @@ class FSEmotionEvent: FSTracking {
         let srValue = "\(UIScreen.main.bounds.width),\(UIScreen.main.bounds.height);"
         customParams.updateValue(srValue, forKey: "sr")
         customParams.updateValue(self.cursorPosition, forKey: "cp")
-        customParams.updateValue(self.cursorPosition, forKey: "spo")
+        customParams.updateValue(self.scrollPosition, forKey: "spo")
 
         customParams.merge(self.communBodyTrack) { _, new in new }
 

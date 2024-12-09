@@ -32,7 +32,7 @@ class FSEmotionPageView: FSPage {
         // Number of bits per pixel of users machine
         customParams.updateValue("\(FSTools.getBitsPerPixel())", forKey: "sd")
         // Browser configuration on user tracking preference
-        customParams.updateValue("unspecified", forKey: "dnt")
+        customParams.updateValue("unknown", forKey: "dnt")
         // List of installed fonts (Stringified array)
         customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
         // Fake browser infos

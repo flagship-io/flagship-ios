@@ -26,6 +26,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     var service: FSService?
 
     var cursorPosition = ""
+    var scrollPosition = ""
 
     // See later how to do better
     var window: UIWindow?
@@ -45,16 +46,22 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         timeStartingCollect = Date().timeIntervalSince1970
 
         // Add tap gesture recognizer
-      //  tapGesture = UITapGestureRecognizer(target: self, action: nil)
-        //tapGesture?.delegate = self
+        //  tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        // tapGesture?.delegate = self
         // Add pan gesture recognizer
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesture?.cancelsTouchesInView = false
         panGesture?.delegate = self
+        
+        if let aGesture = panGesture {
+            longPressGesture?.require(toFail: aGesture)
+        }
+
 
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGesture?.cancelsTouchesInView = false
         longPressGesture?.minimumPressDuration = 0
+ 
 
         // Create a pageview
         // Send the pageView at the start
@@ -67,75 +74,13 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 print("######## Start Collecting Emotional AI ##########")
                 // Start collect AI
                 DispatchQueue.main.async {
-                    if let pan = self.panGesture, /* let tap = self.tapGesture, */let longPress = self.longPressGesture {
+                    if let pan = self.panGesture, /* let tap = self.tapGesture, */ let longPress = self.longPressGesture {
                         self.window?.addGestureRecognizer(pan)
                         // self.window?.addGestureRecognizer(tap)
                         self.window?.addGestureRecognizer(longPress)
                     }
                 }
             }
-        }
-    }
-
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == tapGesture {
-            print("The tap event happen")
-        }
-        return true
-    }
-
-    // tap / click  gesture
-    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    
-    // Handle pan gesture
-    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-        let location = gesture.location(in: gesture.view)
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
-        formatter.maximumIntegerDigits = 0
-        formatter.maximumFractionDigits = 5
-        let number = NSNumber(value: NSDate().timeIntervalSince1970)
-        let formattedValue = formatter.string(from: number)!
-        var last5digitTimeStmap = formattedValue.replacingOccurrences(of: ",", with: "")
-
-        switch gesture.state {
-        case .began:
-            var cursorPosition = ""
-            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
-        case .changed:
-            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
-        case .ended:
-            print("-------- Move cursor gesture -----------")
-            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
-            if let topController = window?.visibleViewController() {
-                // Create the visitor event
-                let visitorEvent = FSEmotionEvent("", "", pCursorPosition: cursorPosition)
-                // Set the name for screen event
-                visitorEvent.currentScreen = NSStringFromClass(topController.classForCoder)
-
-                let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
-                let deltaSecond = Int(deltaTime.rounded())
-                print("@@@@@@@@@@@@ The event happen after \(deltaSecond)@@@@@@@@@@@@@@@@@@@@")
-
-                if deltaSecond < FSAIDuration_30 {
-                    sendEvent(visitorEvent, isLastEvent: false)
-                } else if deltaSecond <= 120 {
-                    sendEvent(visitorEvent, isLastEvent: true)
-                } else {
-                    // Visitor Not Scored
-                }
-            }
-
-        default:
-            break
         }
     }
 
@@ -150,7 +95,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     private func stopCollecting() {
-         panGesture?.isEnabled = false
+        panGesture?.isEnabled = false
         longPressGesture?.isEnabled = false
     }
 
@@ -193,28 +138,95 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         case .began:
             touchStartTime = Date() // Start timing
         case .ended:
+            let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
+            let deltaSecond = Int(deltaTime.rounded())
+
+            print("@@@@@@@@@@@@ Handle Long Press after \(deltaSecond) @@@@@@@@@@@@@@@@@@@@")
+
             if let startTime = touchStartTime {
                 let duration = Date().timeIntervalSince(startTime) * 1000 // Convert to milliseconds
                 print("Press duration: \(duration) ms")
 
                 let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
                 let deltaSecond = Int(deltaTime.rounded())
-                
-                        if let topController = window?.visibleViewController() {
-                            let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "")
-                            eventClikc.currentScreen = NSStringFromClass(topController.classForCoder)
-                            if deltaSecond < FSAIDuration_30 {
-                                sendEvent(eventClikc, isLastEvent: false)
-                            } else if deltaSecond <= 120 {
-                                sendEvent(eventClikc, isLastEvent: true)
-                            } else {
-                                // visitor not scored
-                            }
-                        }
+
+                if let topController = window?.visibleViewController() {
+                    let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "")
+                    eventClikc.currentScreen = NSStringFromClass(topController.classForCoder)
+                    if deltaSecond < FSAIDuration_30 {
+                        sendEvent(eventClikc, isLastEvent: false)
+                    } else if deltaSecond <= 120 {
+                        sendEvent(eventClikc, isLastEvent: true)
+                    } else {
+                        // visitor not scored
+                    }
+                }
             }
             touchStartTime = nil
         default:
             break
         }
+    }
+
+    // Handle pan gesture
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+        let location = gesture.location(in: gesture.view)
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .none
+        formatter.maximumIntegerDigits = 0
+        formatter.maximumFractionDigits = 5
+        let number = NSNumber(value: NSDate().timeIntervalSince1970)
+        let formattedValue = formatter.string(from: number)!
+        let last5digitTimeStmap = formattedValue.replacingOccurrences(of: ",", with: "")
+
+        switch gesture.state {
+        case .began:
+            cursorPosition = ""
+            scrollPosition = ""
+            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
+            scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
+
+        case .changed:
+            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
+            scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
+
+        case .ended:
+            print("-------- Move cursor gesture -----------")
+            cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
+            scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
+
+            if let topController = window?.visibleViewController() {
+                // Create the visitor event
+                let visitorEvent = FSEmotionEvent("", "", pCursorPosition: cursorPosition, pScrollPosition: scrollPosition)
+                // Set the name for screen event
+                visitorEvent.currentScreen = NSStringFromClass(topController.classForCoder)
+
+                let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
+                let deltaSecond = Int(deltaTime.rounded())
+
+                if deltaSecond < FSAIDuration_30 {
+                    sendEvent(visitorEvent, isLastEvent: false)
+                } else if deltaSecond <= 120 {
+                    sendEvent(visitorEvent, isLastEvent: true)
+                } else {
+                    // Visitor Not Scored
+                }
+            }
+
+        default:
+            break
+        }
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == tapGesture {
+            print("The tap event happen")
+        }
+        return true
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

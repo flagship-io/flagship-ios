@@ -31,69 +31,65 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WEj-ma-NnX">
-                                <rect key="frame" x="40" y="154" width="150" height="35"/>
+                                <rect key="frame" x="40" y="154" width="150" height="157.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="ajL-Sw-LeK"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Activate "/>
+                                <buttonConfiguration key="configuration" style="plain" title="Acrion"/>
                                 <connections>
                                     <action selector="activate" destination="BYZ-38-t0r" eventType="touchUpInside" id="Luk-63-1Vf"/>
                                     <segue destination="jeN-d0-bs0" kind="presentation" identifier="onActivate" id="8fF-b8-974"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRV-aE-ZnG">
-                                <rect key="frame" x="40" y="209" width="150" height="35"/>
+                                <rect key="frame" x="40" y="331.66666666666669" width="150" height="35"/>
                                 <color key="backgroundColor" systemColor="systemTealColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="DDi-T2-w3i"/>
                                     <constraint firstAttribute="width" constant="150" id="g8l-nJ-AhF"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Hits"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Actions"/>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QfB-bD-JK3">
-                                <rect key="frame" x="5" y="249" width="383" height="564"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idCell" id="dBN-7S-x68">
-                                        <rect key="frame" x="0.0" y="50" width="383" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dBN-7S-x68" id="mys-3L-ola">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="vtk-n2-raE"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wyh-bl-Y3W"/>
-                                </connections>
-                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Fg-un-lUE">
+                                <rect key="frame" x="46.666666666666657" y="403.66666666666669" width="300" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="iiL-p0-kKU"/>
+                                    <constraint firstAttribute="height" constant="45" id="ska-bX-peN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="house.and.flag" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="unC-Kh-ljA">
+                                <rect key="frame" x="76.666666666666686" y="468.66666666666674" width="240" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="LEq-fz-PDs"/>
+                                    <constraint firstAttribute="height" constant="150" id="scJ-PU-dbm"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="65j-IY-7ad" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1ab-M3-mLn"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QfB-bD-JK3" secondAttribute="bottom" constant="5" id="5rx-1h-4pA"/>
-                            <constraint firstItem="QfB-bD-JK3" firstAttribute="top" secondItem="kRV-aE-ZnG" secondAttribute="bottom" constant="5" id="76b-YS-eWJ"/>
+                            <constraint firstItem="1Fg-un-lUE" firstAttribute="top" secondItem="kRV-aE-ZnG" secondAttribute="bottom" constant="37" id="2Rp-rL-327"/>
+                            <constraint firstItem="1Fg-un-lUE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6j8-L8-8R6"/>
                             <constraint firstItem="65j-IY-7ad" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Dhw-rt-F3d"/>
-                            <constraint firstItem="QfB-bD-JK3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="LIx-qc-Xy4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QfB-bD-JK3" secondAttribute="trailing" constant="5" id="RWa-x5-u0Y"/>
+                            <constraint firstItem="unC-Kh-ljA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FG0-Fy-dhd"/>
+                            <constraint firstItem="1Fg-un-lUE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OTA-4K-Iy0"/>
                             <constraint firstItem="WEj-ma-NnX" firstAttribute="top" secondItem="65j-IY-7ad" secondAttribute="bottom" constant="50" id="aIz-PC-mag"/>
                             <constraint firstItem="WEj-ma-NnX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="oo5-Uw-DGX"/>
                             <constraint firstItem="kRV-aE-ZnG" firstAttribute="top" secondItem="WEj-ma-NnX" secondAttribute="bottom" constant="20" id="oqH-qy-eXX"/>
+                            <constraint firstItem="unC-Kh-ljA" firstAttribute="top" secondItem="1Fg-un-lUE" secondAttribute="bottom" constant="20" id="qPR-hC-lS6"/>
                             <constraint firstItem="kRV-aE-ZnG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="sL4-L1-e3X"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="tableView" destination="QfB-bD-JK3" id="v45-li-Ims"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-204" y="-11"/>
+            <point key="canvasLocation" x="-205.34351145038167" y="-11.267605633802818"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2KD-aX-gvT">
@@ -142,6 +138,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="house.and.flag" catalog="system" width="128" height="84"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -20,13 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(" -- The url path : \(url.absoluteString)")
         } catch {}
 
-        Task { @MainActor in
-
+        Task {
             try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
 
-            //  let vid = "adel0212F"
             let vid = "iosUser\(Int.random(in: 100 ... 1000))"
-
             let v1 = Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isQA": true, "key": "val"]).withOnFlagStatusChanged { newStatus in
                 if newStatus == .FETCH_REQUIRED {}
             }.build()
