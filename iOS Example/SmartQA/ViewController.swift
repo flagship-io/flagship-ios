@@ -9,7 +9,7 @@
 import Flagship
 import UIKit
 import WebKit
-class ViewController: UIViewController  {
+class ViewController: UIViewController {
     @IBOutlet var startQABtn: UIButton?
     @IBOutlet var activateQABtn: UIButton?
     var tapGesture: UITapGestureRecognizer?
@@ -21,7 +21,7 @@ class ViewController: UIViewController  {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first
         {
-            print("Found window: \(window) ===> Start collecting emotion AI")
+            print("Start collecting emotion AI")
             Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window)
         }
         
@@ -30,7 +30,11 @@ class ViewController: UIViewController  {
  
     /// Add one more activate
     @IBAction func activate() {
-        self.performSegue(withIdentifier: "onActivate", sender: self)
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print("Fetch flags done successfully")
+            
+            self.performSegue(withIdentifier: "onActivate", sender: self)
+        }
     }
 
     @IBAction func sendHits() {

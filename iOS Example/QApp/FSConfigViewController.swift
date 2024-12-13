@@ -154,13 +154,12 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
         })
-
     }
 
     func createVisitor() -> FSVisitor {
         //  let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        let userIdToSet = "userAlias"
+        let userIdToSet = "iosUser_\(UUID().uuidString)"
 
         return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
 

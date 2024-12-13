@@ -104,11 +104,11 @@ public class Flagship: NSObject {
         return try await withCheckedThrowingContinuation { continuation in
             let nillableContinuation: CheckedContinuation<Void, Error>? = continuation
             
-            FSSettings.fetchRessources { settingsDico in
+            FSSettings.fetchRessources { extras, _ in
                 // Set the collected
-                Flagship.sharedInstance.eaiCollectEnabled = settingsDico["eaiCollectEnabled"] as? Bool ?? false
+                Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
                 // Set the Activation
-                Flagship.sharedInstance.eaiActivationEnabled = settingsDico["eaiActivationEnabled"] as? Bool ?? false
+                Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
                 
                 nillableContinuation?.resume()
             }

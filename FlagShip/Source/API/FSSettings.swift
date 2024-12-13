@@ -12,22 +12,26 @@ let FSEmmotionAIScoreKey = "EmmotionAIScoreKey"
 
 class FSSettings {
     // Get source on start the sdk
-    class func fetchRessources(completion: @escaping ([String: Any]) -> Void) {
+    class func fetchRessources(completion: @escaping (FSExtras?, Error?) -> Void) {
         /// Replace the url later
-        let url = URL(string: "https://my.api.mockaroo.com/settings.json?key=d67200a0")!
-
+        /// FSSettingsURL // Refractor later for prod env
+        guard let url = URL(string: String(format: FSSettingsURL, "bkk9glocmjcg0vtmdlo0" /* Flagship.sharedInstance.envId ?? "" */ )) else {
+            return completion(nil, FlagshipError(message: "Invalid URL", type: .badRequest, code: 500))
+        }
         URLSession.shared.dataTask(with: url) { data, _, _ in
 
             do {
                 if let aData = data {
                     let scriptObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
 
-                    completion(scriptObject)
+                    let accountSettingsObject = try JSONDecoder().decode(FSExtras.self, from: aData)
+
+                    completion(accountSettingsObject, nil)
                 }
 
             } catch {
                 print("Error on fetchRessources: \(error)")
-                completion([:])
+                completion(nil, FlagshipError(message: error.localizedDescription, type: .internalError, code: 500))
             }
         }.resume()
     }

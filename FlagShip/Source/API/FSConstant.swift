@@ -35,7 +35,9 @@ var FlagShipEndPoint: String {
 /// internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&sendContextEvent=false"
 
 /// remove "sendContextEvent=false" with in refractoring
-let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
+// let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
+
+let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
 
 /// Add this part when the user don't consent
 let VISITOR_CONSENT = "visitor_consent"
@@ -71,3 +73,6 @@ let FSBucketingScriptNotification = "onGettingBucketScript"
 
 // EmotionAI
 let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/clients/%@/visitors/%@?partner=eai"
+
+// https://fs-decision-staging-bucket.s3.amazonaws.com/bkk9glocmjcg0vtmdlo0/accountSettings.json
+let FSSettingsURL = "https://fs-decision-staging-bucket.s3.amazonaws.com/%@/accountSettings.json"

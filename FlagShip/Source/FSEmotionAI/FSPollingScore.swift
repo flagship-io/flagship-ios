@@ -17,8 +17,11 @@ class FSPollingScore: NSObject {
 
     var visitorId: String
 
-    init(visitorId: String) {
+    var delegate: FSEmotionAiDelegate?
+
+    init(visitorId: String, delegate: FSEmotionAiDelegate?) {
         self.visitorId = visitorId
+        self.delegate = delegate
         super.init()
         self.pollingScore = FSRepeatingTimer(timeInterval: 0.5)
         self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(self.stopPollingScore), userInfo: nil, repeats: false)
@@ -31,13 +34,16 @@ class FSPollingScore: NSObject {
                 self.retryCount += 1
                 self.pollingScore?.suspend()
                 print("GET MY SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)")
-                FSSettings.fetchScore(visitorId: self.visitorId, completion: { _, statusCode in
+                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, statusCode in
 
                     if statusCode == 204 {
                         print("RESPONSE FROM THE SERVER")
+                        self.delegate?.emotionAiCaptureCompleted(nil)
                         self.pollingScore?.resume()
                     } else if statusCode == 200 {
                         print("RESPONSE FROM THE SERVER - score successfully received")
+                        self.delegate?.emotionAiCaptureCompleted(score)
+
                     } else {
                         print("RESPONSE FROM THE SERVER - score not received - status code: \(statusCode)")
                     }

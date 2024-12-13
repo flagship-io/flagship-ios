@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FSStrategy {
     let visitor: FSVisitor
@@ -108,11 +109,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     onSyncCompleted(.PANIC, .NONE)
  
                 } else {
-                    /// Update new flags
-                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
- 
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
- 
+
+                    /// Update new flags
                     self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
                 
                     // Resume the process batching when the panic mode is OFF
@@ -271,6 +270,19 @@ class FSDefaultStrategy: FSDelegateStrategy {
             self.visitor.configManager.trackingManager?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
+    
+    func startCollectingEmotionAI(window: UIWindow?) {
+        visitor.prepareEmotionAI { _, eaiVisitorScored in
+            if !eaiVisitorScored {
+                // Init the emotion collect
+                self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId)
+                self.visitor.emotionCollect?.delegate = self.visitor
+                self.visitor.emotionCollect?.startEAICollectForView(window)
+            } else {
+                print("The used is already scored - no need to process the collection again")
+            }
+        }
+    }
 }
 
 /// _ DELEGATE ///
@@ -312,4 +324,7 @@ protocol FSDelegateStrategy {
     
     /// _ Get flag status
     func getFlagStatus(_ key: String) -> FSFlagStatus
+    
+    /// _ Start collection emotion AI
+    func startCollectingEmotionAI(window: UIWindow?)
 }

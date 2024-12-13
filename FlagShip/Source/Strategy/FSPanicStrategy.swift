@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FSPanicStrategy: FSDefaultStrategy {
     override func updateContext(_ newContext: [String: Any]) {
@@ -49,4 +50,9 @@ class FSPanicStrategy: FSDefaultStrategy {
     
     /// _ Cache Hits
     //   override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {}
+    
+    /// _ Start collection
+    override func startCollectingEmotionAI(window: UIWindow?) {
+        print("Collection for emotion AI not allowed in panic mode")
+    }
 }

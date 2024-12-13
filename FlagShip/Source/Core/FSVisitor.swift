@@ -26,7 +26,26 @@ import UIKit
 }
 
 /// Visitor class
-@objc public class FSVisitor: NSObject {
+@objc public class FSVisitor: NSObject, FSEmotionAiDelegate {
+    /// Move this code to another file
+
+    func emotionAiCaptureCompleted(_ score: String?) {
+        print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
+        self.eaiVisitorScored = (score == nil) ? false : true
+        
+        if Flagship.sharedInstance.eaiActivationEnabled {
+            self.emotionSocreAI = score
+            // Update the context
+            if let aScore = score {
+                self.context.updateContext("eas", aScore)
+            }
+        } else {
+            print(" @@@@@@@@@@@@@ eaiActivationEnabled is false will not communicate the score value @@@@@@@@@@@@@")
+        }
+        
+        self.strategy?.getStrategy().cacheVisitor()
+    }
+    
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
     /// visitor id
     public internal(set) var visitorId: String {
@@ -62,8 +81,8 @@ import UIKit
     var configManager: FSConfigManager
     
     // Scored visitor
-    public internal(set) var isScoredVisitor: Bool = false
-    
+    public internal(set) var eaiVisitorScored: Bool = false
+        
     // Score value
     public internal(set) var emotionSocreAI: String? = nil
 
@@ -131,15 +150,13 @@ import UIKit
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
-        self.prepareEmotionAI(onCompleted: { score in
+        self.prepareEmotionAI(onCompleted: { score, eaiVisitorScored in
             // Set the score
             self.emotionSocreAI = score
-            // if score is null ==> false
-            self.isScoredVisitor = (score == nil) ? false : true
             
             // Update the context
             if let aScore = score {
-                self.context.updateContext("eas", aScore)
+                self.context.updateContext("eai::eas", aScore)
             }
             
             // Go to ING state while the fetch is ongoing
@@ -165,39 +182,39 @@ import UIKit
         })
     }
 
-    private func prepareEmotionAI(onCompleted: @escaping (String?) -> Void) {
+    func prepareEmotionAI(onCompleted: @escaping (_ score: String?, _ isAlreadyScored: Bool) -> Void) {
         // Check the enabled and activation
-        if Flagship.sharedInstance.eaiActivationEnabled && Flagship.sharedInstance.eaiCollectEnabled {
+        if Flagship.sharedInstance.eaiCollectEnabled {
             // Get score initialy loaded from cache
-            if let aScore = self.emotionSocreAI {
-                onCompleted(aScore)
-            } else {
-                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, _ in
-                    onCompleted(score)
-                })
+            if Flagship.sharedInstance.eaiActivationEnabled { /// using the score is enabled
+                if self.eaiVisitorScored { // If the user is already scored
+                    if let aScore = self.emotionSocreAI { // check the score form local
+                        onCompleted(aScore, self.eaiVisitorScored)
+                    } else { // Otherwise lookk for the score from the server
+                        FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, _ in
+                            onCompleted(score, self.eaiVisitorScored)
+                        })
+                    }
+                } else {
+                    print("Scored but not yet enabled to use emotionAI score -- exit with nil")
+                    onCompleted(nil, self.eaiVisitorScored)
+                }
+                
+            } else { /// Not able to use the score
+                // The eaiActivationEnabled not enabled -- go for the score anyway
+                onCompleted(nil, self.eaiVisitorScored)
             }
         } else {
             // Not allowed to emotionAI
-            onCompleted(nil)
+            // On fait comme aujourd'hui et on log une erreur si le mec fait appel à collectEAI()
+            onCompleted(nil, self.eaiVisitorScored)
         }
     }
     
     public func startCollectingEmotionAI(window: UIWindow?) {
-        self.prepareEmotionAI { score in
-            if let score {
-                // Score already done
-            } else {
-                // Init the emotion collect
-                self.emotionCollect = FSEmotionAI(visitorId: self.visitorId)
-                self.startEmotionCapture(window)
-            }
-        }
+        self.strategy?.getStrategy().startCollectingEmotionAI(window: window)
     }
     
-    private func startEmotionCapture(_ window: UIWindow?) {
-        self.emotionCollect?.startEAICollectForView(window)
-    }
-
     //////////////////////
     //        CONTEXT   //
     //////////////////////
@@ -288,3 +305,18 @@ import UIKit
         self.strategy?.getStrategy().sendHit(consentHit)
     }
 }
+
+//
+// Si EAICollectEnabled=true && EAIActivation=false
+// Si on va au bout alors on enregistre un bool eaiVisitorScored dans le cache visiteur comme quoi on a déjà fait la collecte.
+// On donne pas la main au client pour récupérer le segment (ni depuis le cache, ni depuis instance visiteur, ni dans le contexte)
+// On peut donner accès à la variable eaiVisitorScored
+
+// Si EAICollectEnabled=true && EAIActivation=true
+// Alors après avoir collecté en plus on enregistre le segment après le polling dans l'instance visiteur / cache visiteur / visiteur context
+
+// Si EAICollectEnabled=false && EAIActivation=true
+// On se contente de regarder si le visiteur a été scoré dans l'instance / cache / uc info => si oui alors on rajoute le segment au contexte
+
+// Si EAICollectEnabled=false && EAIActivation=false
+// On fait comme aujourd'hui et on log une erreur si le mec fait appel à collectEAI()

@@ -13,7 +13,13 @@ let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
 let FSAIDuration_30 = 30 + 5 // I added 5 seconds as marge
 let FSAIDuration_120 = 120 // Duration for waiting the last event
 
+/// Delegate to check if the capture is completed
+protocol FSEmotionAiDelegate {
+    func emotionAiCaptureCompleted(_ score: String?)
+}
+
 class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
+    var delegate: FSEmotionAiDelegate?
     var timeStartingCollect: TimeInterval = 0
     var tapGesture: UITapGestureRecognizer? // UILongPressGestureRecognizer?
     var panGesture: UIPanGestureRecognizer?
@@ -52,16 +58,14 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesture?.cancelsTouchesInView = false
         panGesture?.delegate = self
-        
+
         if let aGesture = panGesture {
             longPressGesture?.require(toFail: aGesture)
         }
 
-
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGesture?.cancelsTouchesInView = false
         longPressGesture?.minimumPressDuration = 0
- 
 
         // Create a pageview
         // Send the pageView at the start
@@ -90,7 +94,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             print(" @@@@@@@@@@@@ Send Last Event and STOP COLLECTING @@@@@@@@@@@@@@@")
             stopCollecting()
             // Start get scoring from remote
-            pollingScore = FSPollingScore(visitorId: visitorId)
+            pollingScore = FSPollingScore(visitorId: visitorId, delegate: delegate)
         }
     }
 

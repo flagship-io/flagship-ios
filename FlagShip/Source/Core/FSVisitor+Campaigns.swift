@@ -50,5 +50,8 @@ extension FSVisitor {
         
         // Set the socre already saved
         self.emotionSocreAI = cachedVisitor.data?.emotionScoreAI
+        
+        // Set the boolean is "eaiVisitorScored"
+        self.eaiVisitorScored = cachedVisitor.data?.eaiVisitorScored ?? false
     }
 }

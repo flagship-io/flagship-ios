@@ -56,6 +56,7 @@ class FSCacheDataVistor: Codable {
     var campaigns: [FSCacheCampaign] = [] /// Used on offline Mode  (utilisable en mode offline)
     var assignationHistory: [String: String] = [:] /// variationGroupId:variationId il garde tout l'historique pour éviter la realloc
     var emotionScoreAI: String?
+    var eaiVisitorScored: Bool = false
 
     private enum CodingKeys: String, CodingKey {
         case visitorId
@@ -65,6 +66,7 @@ class FSCacheDataVistor: Codable {
         case campaigns
         case assignationHistory
         case emotionScoreAI
+        case eaiVisitorScored
     }
     
     required init(from decoder: Decoder) throws {
@@ -88,6 +90,7 @@ class FSCacheDataVistor: Codable {
         } catch {
             self.emotionScoreAI = nil
         }
+        do { self.eaiVisitorScored = try values.decode(Bool.self, forKey: .eaiVisitorScored) } catch { self.eaiVisitorScored = false }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -100,6 +103,7 @@ class FSCacheDataVistor: Codable {
         try container.encode(self.campaigns, forKey: .campaigns)
         try container.encode(self.assignationHistory, forKey: .assignationHistory)
         try container.encode(self.emotionScoreAI, forKey: .emotionScoreAI)
+        try container.encode(self.eaiVisitorScored, forKey: .eaiVisitorScored)
     }
     
     /// Wrapper from visitor to visitorCache
@@ -141,10 +145,13 @@ class FSCacheDataVistor: Codable {
             
             //// In the same time create asssigned history
             self.assignationHistory[newCacheCampaign.variationGroupId] = newCacheCampaign.variationId
-            
-            // Set the emotionSocreAI
-            self.emotionScoreAI = visitor.emotionSocreAI
         }
+        
+        
+        // Set the emotionSocreAI
+        self.emotionScoreAI = visitor.emotionSocreAI
+        // Set emotionScored
+        self.eaiVisitorScored = visitor.eaiVisitorScored
     }
 }
 
