@@ -22,7 +22,7 @@ class ViewController: UIViewController {
            let window = windowScene.windows.first
         {
             print("Start collecting emotion AI")
-            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window)
+            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window, usingSwizzling: true)
         }
         
         // Do any additional setup after loading the view.
@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func sendHits() {
-//        Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
+        Flagship.sharedInstance.sharedVisitor?.getFlag(key: "eai-var").visitorExposed()
+        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: FSCategoryEvent.User_Engagement, eventAction: "eai-segment"))
     }
 }

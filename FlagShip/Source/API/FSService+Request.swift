@@ -28,6 +28,11 @@ extension FSService {
         /// SDK Version
         request.addValue(FlagShipVersion, forHTTPHeaderField: FSX_SDK_Version)
 
+        /// Tempo
+        ///
+        request.setValue("CustomUserAgentString", forHTTPHeaderField: "User-Agent")
+        /// End Tempo
+
         switch type {
         case .Campaign:
             /// Add x-api-key

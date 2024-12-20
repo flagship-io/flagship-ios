@@ -52,6 +52,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Actions"/>
+                                <connections>
+                                    <action selector="sendHits" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kpc-sH-gbN"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Fg-un-lUE">
                                 <rect key="frame" x="46.666666666666657" y="403.66666666666669" width="300" height="45"/>

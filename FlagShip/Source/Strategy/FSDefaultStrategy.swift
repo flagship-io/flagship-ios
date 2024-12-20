@@ -271,13 +271,16 @@ class FSDefaultStrategy: FSDelegateStrategy {
         })
     }
     
-    func startCollectingEmotionAI(window: UIWindow?) {
+    func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool = false) {
+        self.visitor.emotionCollect?.status == .progress {
+            print("The emotion collect is already running")
+        }
         visitor.prepareEmotionAI { _, eaiVisitorScored in
             if !eaiVisitorScored {
                 // Init the emotion collect
-                self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId)
+                self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
                 self.visitor.emotionCollect?.delegate = self.visitor
-                self.visitor.emotionCollect?.startEAICollectForView(window)
+                self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: "LoginScreen")
             } else {
                 print("The used is already scored - no need to process the collection again")
             }
@@ -326,5 +329,5 @@ protocol FSDelegateStrategy {
     func getFlagStatus(_ key: String) -> FSFlagStatus
     
     /// _ Start collection emotion AI
-    func startCollectingEmotionAI(window: UIWindow?)
+    func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool)
 }

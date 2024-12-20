@@ -42,4 +42,11 @@ extension UIWindow {
             }
         }
     }
+    
+    func getNameForVisibleViewController() -> String? {
+        if let topController = visibleViewController() {
+            return NSStringFromClass(topController.classForCoder)
+        }
+        return nil
+    }
 }

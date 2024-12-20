@@ -37,7 +37,8 @@ import UIKit
             self.emotionSocreAI = score
             // Update the context
             if let aScore = score {
-                self.context.updateContext("eas", aScore)
+                self.context.updateContext("eai", self.eaiVisitorScored)
+                self.context.updateContext("eai::eas", aScore)
             }
         } else {
             print(" @@@@@@@@@@@@@ eaiActivationEnabled is false will not communicate the score value @@@@@@@@@@@@@")
@@ -150,12 +151,13 @@ import UIKit
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
-        self.prepareEmotionAI(onCompleted: { score, eaiVisitorScored in
+        self.prepareEmotionAI(onCompleted: { score, _ in
             // Set the score
             self.emotionSocreAI = score
             
             // Update the context
             if let aScore = score {
+                self.context.updateContext("eai", self.eaiVisitorScored)
                 self.context.updateContext("eai::eas", aScore)
             }
             
@@ -211,8 +213,8 @@ import UIKit
         }
     }
     
-    public func startCollectingEmotionAI(window: UIWindow?) {
-        self.strategy?.getStrategy().startCollectingEmotionAI(window: window)
+    public func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool = false) {
+        self.strategy?.getStrategy().startCollectingEmotionAI(window: window, usingSwizzling: usingSwizzling)
     }
     
     //////////////////////

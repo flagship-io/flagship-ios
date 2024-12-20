@@ -52,7 +52,7 @@ class FSPanicStrategy: FSDefaultStrategy {
     //   override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {}
     
     /// _ Start collection
-    override func startCollectingEmotionAI(window: UIWindow?) {
+    override func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool) {
         print("Collection for emotion AI not allowed in panic mode")
     }
 }

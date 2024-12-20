@@ -36,7 +36,7 @@ class FSNoConsentStrategy: FSDefaultStrategy {
     override func lookupHits() {}
     
     /// _ Start collection
-    override func startCollectingEmotionAI(window: UIWindow?) {
+    override func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool) {
         FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
 
     }
