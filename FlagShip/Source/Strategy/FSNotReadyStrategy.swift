@@ -37,7 +37,11 @@ class FSNotReadyStrategy: FSDefaultStrategy {
     }
     
     /// _ Start collection
-    override func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool) {
+    override func startCollectingEmotionAI(window: UIWindow?,screenName: String?, usingSwizzling: Bool) {
+        print("Collection for emotion AI not ready")
+    }
+    
+    override func onAppScreenChange(_ screenName: String) {
         print("Collection for emotion AI not ready")
     }
     

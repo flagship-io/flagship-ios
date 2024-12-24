@@ -18,12 +18,13 @@ protocol FSEmotionAiDelegate {
     func emotionAiCaptureCompleted(_ score: String?)
 }
 
-enum FSEmotionCollectStatus {
-    case progress
-    case stoped
+enum FSEmotionCollectStatus: Int {
+    case PROGRESS = 0
+    case STOPED = 1
 }
 
 class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
+    var currentScreenName: String?
     var delegate: FSEmotionAiDelegate?
     var timeStartingCollect: TimeInterval = 0
     var tapGesture: UITapGestureRecognizer? // UILongPressGestureRecognizer?
@@ -41,7 +42,15 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
     private var touchStartTime: Date?
 
-    var status: FSEmotionCollectStatus = .stoped
+    var status: FSEmotionCollectStatus = .STOPED
+
+    var swizzlingEnabled: Bool = false {
+        didSet {
+            if swizzlingEnabled {
+                UIViewController.swizzleViewDidAppear
+            }
+        }
+    }
 
     // Init with visitor id
     init(visitorId: String, usingSwizzling: Bool = false) {
@@ -49,18 +58,22 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         // Create service componont to send send event
         service = FSService(Flagship.sharedInstance.envId ?? "", "", self.visitorId)
 
+        swizzlingEnabled = usingSwizzling
+
         if usingSwizzling {
             UIViewController.swizzleViewDidAppear
         }
     }
 
     func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil) {
-        if status == .progress {
+        if status == .PROGRESS {
             print("The collection is already running")
             return
         }
-        status = .progress
+        status = .PROGRESS
         self.window = window
+        // Set current screen name
+        currentScreenName = nameScreen
         // Init the time
         timeStartingCollect = Date().timeIntervalSince1970
 
@@ -83,7 +96,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         // Create a pageview
         // Send the pageView at the start WITH THE NAME PROVIDED OR FORMAT THE DEFAULT ONE
 
-        var pNameScreen: String = nameScreen ?? window?.getNameForVisibleViewController() ?? ""
+        let pNameScreen: String = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
 
         sendEmotionEvent(FSEmotionPageView(pNameScreen)) { error in
 
@@ -122,8 +135,11 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     private func stopCollecting() {
         panGesture?.isEnabled = false
         longPressGesture?.isEnabled = false
-        status = .stoped
+        status = .STOPED
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("FSViewDidAppear"), object: nil)
+        if swizzlingEnabled {
+            UIViewController.revertSwizzleViewDidAppear()
+        }
     }
 
     /// Building events
@@ -179,7 +195,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
                 // Create event
                 let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "")
-                eventClikc.currentScreen = window?.getNameForVisibleViewController() ?? ""
+
+                eventClikc.currentScreen = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
                 if deltaSecond < FSAIDuration_30 {
                     sendEvent(eventClikc, isLastEvent: false)
                 } else if deltaSecond <= 120 {
@@ -224,7 +241,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
             let visitorEvent = FSEmotionEvent("", "", pCursorPosition: cursorPosition, pScrollPosition: scrollPosition)
             // Set the name for screen event
-            visitorEvent.currentScreen = window?.getNameForVisibleViewController() ?? ""
+            visitorEvent.currentScreen = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
 
             let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
             let deltaSecond = Int(deltaTime.rounded())
@@ -258,6 +275,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         if let userInfo = notification.userInfo {
             print("Received notification with userInfo: \(userInfo)")
             if let screenName = userInfo["dl"] as? String {
+                // Update current name for screen name
+                currentScreenName = screenName
                 let pageView = FSEmotionPageView(screenName)
                 sendEmotionEvent(pageView)
             }
@@ -268,7 +287,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     // Notify the application when the screen changes
-    public func onAppScreenChange(_ screenName: String) {
+    func onAppScreenChange(_ screenName: String) {
         NotificationCenter.default.post(name: NSNotification.Name("FSViewDidAppear"),
                                         object: nil,
                                         userInfo: ["dl": screenName])
@@ -285,6 +304,16 @@ extension UIViewController {
 
         method_exchangeImplementations(originalMethod, swizzledMethod)
     }()
+
+    static func revertSwizzleViewDidAppear() {
+        let originalSelector = #selector(viewWillAppear(_:))
+        let swizzledSelector = #selector(swizzled_viewDidAppear(_:))
+
+        guard let originalMethod = class_getInstanceMethod(UIViewController.self, originalSelector),
+              let swizzledMethod = class_getInstanceMethod(UIViewController.self, swizzledSelector) else { return }
+
+        method_exchangeImplementations(swizzledMethod, originalMethod)
+    }
 
     @objc func swizzled_viewDidAppear(_ animated: Bool) {
         // Call the original method

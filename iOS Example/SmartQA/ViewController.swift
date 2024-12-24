@@ -22,7 +22,7 @@ class ViewController: UIViewController {
            let window = windowScene.windows.first
         {
             print("Start collecting emotion AI")
-            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window, usingSwizzling: true)
+            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window, screenName: "LoginScreen")
         }
         
         // Do any additional setup after loading the view.

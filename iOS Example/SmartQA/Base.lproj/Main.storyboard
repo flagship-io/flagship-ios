@@ -94,10 +94,10 @@
             </objects>
             <point key="canvasLocation" x="-205.34351145038167" y="-11.267605633802818"/>
         </scene>
-        <!--View Controller-->
+        <!--Shop Controller-->
         <scene sceneID="2KD-aX-gvT">
             <objects>
-                <viewController id="jeN-d0-bs0" sceneMemberID="viewController">
+                <viewController id="jeN-d0-bs0" customClass="ShopController" customModule="SmartQA" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HPg-Vy-0gx">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,14 +121,42 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIy-S0-xsI">
+                                <rect key="frame" x="46.666666666666657" y="210" width="300" height="33.666666666666657"/>
+                                <color key="backgroundColor" red="0.58268854560000005" green="0.96611279250000004" blue="0.96103036399999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="d8C-vq-pqv"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemPurpleColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="go">
+                                    <fontDescription key="titleFontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNY-I3-ZSb">
+                                <rect key="frame" x="46.666666666666657" y="263.66666666666669" width="300" height="33.666666666666686"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="k4v-7x-NfM"/>
+                                </constraints>
+                                <color key="tintColor" red="0.15347581803181087" green="0.25578102934963398" blue="0.86078912019729614" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="undo">
+                                    <fontDescription key="titleFontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="07x-ua-YsD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="NNY-I3-ZSb" firstAttribute="centerX" secondItem="HPg-Vy-0gx" secondAttribute="centerX" id="E3q-bS-Y2D"/>
                             <constraint firstItem="rxn-iX-Xpc" firstAttribute="top" secondItem="07x-ua-YsD" secondAttribute="top" constant="50" id="LLc-og-8G8"/>
                             <constraint firstItem="07x-ua-YsD" firstAttribute="trailing" secondItem="rxn-iX-Xpc" secondAttribute="trailing" constant="50" id="M0l-dA-MBl"/>
+                            <constraint firstItem="cIy-S0-xsI" firstAttribute="centerX" secondItem="HPg-Vy-0gx" secondAttribute="centerX" id="OAs-9a-erg"/>
                             <constraint firstItem="rxn-iX-Xpc" firstAttribute="leading" secondItem="07x-ua-YsD" secondAttribute="leading" constant="50" id="QcV-5B-Veh"/>
                             <constraint firstItem="OiY-9R-EuN" firstAttribute="centerX" secondItem="HPg-Vy-0gx" secondAttribute="centerX" id="R81-Ph-KIL"/>
+                            <constraint firstItem="cIy-S0-xsI" firstAttribute="top" secondItem="OiY-9R-EuN" secondAttribute="bottom" constant="40" id="cFU-Sl-ZEL"/>
+                            <constraint firstItem="NNY-I3-ZSb" firstAttribute="top" secondItem="cIy-S0-xsI" secondAttribute="bottom" constant="20" id="gUd-Ps-nby"/>
                             <constraint firstItem="OiY-9R-EuN" firstAttribute="top" secondItem="rxn-iX-Xpc" secondAttribute="bottom" constant="20" id="gcd-0C-BdP"/>
                             <constraint firstItem="rxn-iX-Xpc" firstAttribute="centerX" secondItem="HPg-Vy-0gx" secondAttribute="centerX" id="qve-2K-NLY"/>
                         </constraints>
@@ -150,6 +178,9 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

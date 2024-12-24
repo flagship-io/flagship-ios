@@ -213,10 +213,14 @@ import UIKit
         }
     }
     
-    public func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool = false) {
-        self.strategy?.getStrategy().startCollectingEmotionAI(window: window, usingSwizzling: usingSwizzling)
+    public func startCollectingEmotionAI(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+        self.strategy?.getStrategy().startCollectingEmotionAI(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
     }
     
+    public func onAppScreenChange(_ screenName: String) {
+        self.strategy?.getStrategy().onAppScreenChange(screenName)
+    }
+
     //////////////////////
     //        CONTEXT   //
     //////////////////////

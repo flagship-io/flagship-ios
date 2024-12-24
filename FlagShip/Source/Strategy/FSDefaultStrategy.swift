@@ -13,23 +13,6 @@ class FSStrategy {
     
     var delegate: FSDelegateStrategy?
     
-//    func getStrategy() -> FSDelegateStrategy {
-//        switch Flagship.sharedInstance.currentStatus {
-//        case .READY:
-//            if visitor.hasConsented == true {
-//                return FSDefaultStrategy(visitor)
-//            } else {
-//                return FSNoConsentStrategy(visitor)
-//            }
-//        case .NOT_INITIALIZED:
-//            return FSNotReadyStrategy(visitor)
-//        case .PANIC_ON:
-//            return FSPanicStrategy(visitor)
-//        default:
-//            return FSDefaultStrategy(visitor)
-//        }
-//    }
-    
     func getStrategy() -> FSDelegateStrategy {
         switch Flagship.sharedInstance.currentStatus {
         case .SDK_INITIALIZED:
@@ -271,20 +254,25 @@ class FSDefaultStrategy: FSDelegateStrategy {
         })
     }
     
-    func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool = false) {
-        self.visitor.emotionCollect?.status == .progress {
+    func startCollectingEmotionAI(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+        if visitor.emotionCollect != nil && visitor.emotionCollect?.status == .PROGRESS {
             print("The emotion collect is already running")
+            return
         }
         visitor.prepareEmotionAI { _, eaiVisitorScored in
             if !eaiVisitorScored {
                 // Init the emotion collect
                 self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
                 self.visitor.emotionCollect?.delegate = self.visitor
-                self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: "LoginScreen")
+                self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
             } else {
-                print("The used is already scored - no need to process the collection again")
+                print("The user is already scored - No need to process the collection again----")
             }
         }
+    }
+    
+    func onAppScreenChange(_ screenName: String) {
+        visitor.emotionCollect?.onAppScreenChange(screenName)
     }
 }
 
@@ -329,5 +317,8 @@ protocol FSDelegateStrategy {
     func getFlagStatus(_ key: String) -> FSFlagStatus
     
     /// _ Start collection emotion AI
-    func startCollectingEmotionAI(window: UIWindow?, usingSwizzling: Bool)
+    func startCollectingEmotionAI(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
+    
+    /// _ onAppScreenChange
+    func onAppScreenChange(_ screenName: String)
 }
