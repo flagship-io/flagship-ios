@@ -287,6 +287,9 @@
 		F543E41C2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
 		F543E41D2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
 		F543E41E2CF4E84B00293F6F /* FSEmotionPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */; };
+		F54CDFD72D1AEAB400AA5AB0 /* FSEmotionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CDFD62D1AEAB400AA5AB0 /* FSEmotionTest.swift */; };
+		F54CDFD92D1AEC7A00AA5AB0 /* settings.json in Resources */ = {isa = PBXBuildFile; fileRef = F54CDFD82D1AEC6A00AA5AB0 /* settings.json */; };
+		F54CDFDC2D1AEE1B00AA5AB0 /* FSettingsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CDFDB2D1AEE1B00AA5AB0 /* FSettingsTest.swift */; };
 		F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
@@ -342,6 +345,7 @@
 		F5E44CC72B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
 		F5E44CC82B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
 		F5E44CC92B2769A900A8C8F1 /* FSStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */; };
+		F5F050062D1DA4D800018BD8 /* score.json in Resources */ = {isa = PBXBuildFile; fileRef = F5F050052D1DA4D800018BD8 /* score.json */; };
 		F5F1AD512B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */; };
 		F5F1AD522B1631ED0052E6E3 /* FSDataUsageTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */; };
 		F5F1AD532B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */; };
@@ -486,6 +490,9 @@
 		F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSPollingScore.swift; sourceTree = "<group>"; };
 		F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionEvent.swift; sourceTree = "<group>"; };
 		F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionPageView.swift; sourceTree = "<group>"; };
+		F54CDFD62D1AEAB400AA5AB0 /* FSEmotionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSEmotionTest.swift; sourceTree = "<group>"; };
+		F54CDFD82D1AEC6A00AA5AB0 /* settings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
+		F54CDFDB2D1AEE1B00AA5AB0 /* FSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSettingsTest.swift; sourceTree = "<group>"; };
 		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
@@ -511,6 +518,7 @@
 		F5DAF6742A152F1600C0B140 /* FSTrackingDbMgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingDbMgt.swift; sourceTree = "<group>"; };
 		F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSQLiteWrapper.swift; sourceTree = "<group>"; };
 		F5E44CC52B2769A900A8C8F1 /* FSStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSStatus.swift; sourceTree = "<group>"; };
+		F5F050052D1DA4D800018BD8 /* score.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = score.json; sourceTree = "<group>"; };
 		F5F1AD4E2B1631ED0052E6E3 /* FSDataUsageTracking+Criticals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+Criticals.swift"; sourceTree = "<group>"; };
 		F5F1AD4F2B1631ED0052E6E3 /* FSDataUsageTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSDataUsageTracking.swift; sourceTree = "<group>"; };
 		F5F1AD502B1631ED0052E6E3 /* FSDataUsageTracking+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+Tools.swift"; sourceTree = "<group>"; };
@@ -775,6 +783,7 @@
 		8B6736D427FED75A003EC960 /* FlagShipTests */ = {
 			isa = PBXGroup;
 			children = (
+				F54CDFDA2D1AEDDF00AA5AB0 /* FSEmotion */,
 				8B67370927FED7F3003EC960 /* FlagshipBucketingTest.swift */,
 				8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */,
 				8B67370127FED7F2003EC960 /* FlagshipTests.swift */,
@@ -808,6 +817,8 @@
 		8B67370A27FED7F3003EC960 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				F5F050052D1DA4D800018BD8 /* score.json */,
+				F54CDFD82D1AEC6A00AA5AB0 /* settings.json */,
 				F55751382A3332150082D83E /* content_activate.json */,
 				F5B2F6432A32322F0021C0C3 /* content_hit.json */,
 				8B67370C27FED7F3003EC960 /* visitorCache.json */,
@@ -898,6 +909,15 @@
 				F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */,
 			);
 			path = FSEmotionAI;
+			sourceTree = "<group>";
+		};
+		F54CDFDA2D1AEDDF00AA5AB0 /* FSEmotion */ = {
+			isa = PBXGroup;
+			children = (
+				F54CDFD62D1AEAB400AA5AB0 /* FSEmotionTest.swift */,
+				F54CDFDB2D1AEE1B00AA5AB0 /* FSettingsTest.swift */,
+			);
+			path = FSEmotion;
 			sourceTree = "<group>";
 		};
 		F5C453902B025D6900FFCC2F /* Troubleshooting */ = {
@@ -1117,7 +1137,9 @@
 				F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */,
 				F55751392A3332150082D83E /* content_activate.json in Resources */,
 				8B5438B427FF98A500299654 /* visitorCache.json in Resources */,
+				F5F050062D1DA4D800018BD8 /* score.json in Resources */,
 				8B5438B227FF988F00299654 /* bucketMock.json in Resources */,
+				F54CDFD92D1AEC7A00AA5AB0 /* settings.json in Resources */,
 				8B5438B127FF988B00299654 /* decisionApi.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1278,6 +1300,8 @@
 			files = (
 				8B67372127FEDA50003EC960 /* murmurTest.swift in Sources */,
 				F560B8D529D71368009BFA11 /* FlagshipPoolQueueTest.swift in Sources */,
+				F54CDFD72D1AEAB400AA5AB0 /* FSEmotionTest.swift in Sources */,
+				F54CDFDC2D1AEE1B00AA5AB0 /* FSettingsTest.swift in Sources */,
 				F5BC97BE2A8CCB9200CE11C3 /* FSOnExposureTest.swift in Sources */,
 				F5A908E42A30824C0075DA82 /* FSStorageTest.swift in Sources */,
 				F5B4A8CB2CCA9A290081A31D /* FSFetchTest.swift in Sources */,
@@ -1874,6 +1898,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "UNIT_TESTING DEBUG";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

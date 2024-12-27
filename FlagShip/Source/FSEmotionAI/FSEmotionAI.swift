@@ -10,8 +10,15 @@ import UIKit
 
 let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
 
+#if UNIT_TESTING
+
+let FSAIDuration_30 = 3 + 5 // I added 5 seconds as marge
+let FSAIDuration_120 = 12 // Duration for waiting the last event
+#else
+
 let FSAIDuration_30 = 30 + 5 // I added 5 seconds as marge
 let FSAIDuration_120 = 120 // Duration for waiting the last event
+#endif
 
 /// Delegate to check if the capture is completed
 protocol FSEmotionAiDelegate {
@@ -65,7 +72,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
-    func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil) {
+    func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil, completion: (( Bool) -> Void)? = nil) {
         if status == .PROGRESS {
             print("The collection is already running")
             return
@@ -101,9 +108,11 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         sendEmotionEvent(FSEmotionPageView(pNameScreen)) { error in
 
             if error != nil {
+                completion?(false)
                 // Send page view with error
                 print(error.debugDescription)
             } else {
+                completion?(true)
                 print("######## Start Collecting Emotional AI ##########")
                 // Start collect AI
                 DispatchQueue.main.async {
@@ -122,7 +131,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
-    private func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
+    func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         sendEmotionEvent(event)
         if isLastEvent {
             print(" @@@@@@@@@@@@ Send Last Event and STOP COLLECTING @@@@@@@@@@@@@@@")

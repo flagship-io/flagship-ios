@@ -21,14 +21,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {}
 
         Task {
+            print("----A-------")
+
             //  bkk9glocmjcg0vtmdlng // DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23
             try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+            print("----B-------")
 
             let vid = "iosUser\(Int.random(in: 100 ... 1000))"
+
+            print("----C-------")
 
             let v1 = Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isQA": true]).withOnFlagStatusChanged { newStatus in
                 if newStatus == .FETCH_REQUIRED {}
             }.build()
+
+            print("----D-------")
 
             v1.fetchFlags {}
         }

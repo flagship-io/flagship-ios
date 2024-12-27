@@ -34,7 +34,7 @@ class FSPollingScore: NSObject {
                 self.retryCount += 1
                 self.pollingScore?.suspend()
                 print("GET MY SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)")
-                FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, statusCode in
+                FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, statusCode in
 
                     if statusCode == 204 {
                         print("RESPONSE FROM THE SERVER")

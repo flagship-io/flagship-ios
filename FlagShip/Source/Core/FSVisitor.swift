@@ -193,7 +193,7 @@ import UIKit
                     if let aScore = self.emotionSocreAI { // check the score form local
                         onCompleted(aScore, self.eaiVisitorScored)
                     } else { // Otherwise lookk for the score from the server
-                        FSSettings.fetchScore(visitorId: self.visitorId, completion: { score, _ in
+                        FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, _ in
                             onCompleted(score, self.eaiVisitorScored)
                         })
                     }

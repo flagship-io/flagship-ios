@@ -9,35 +9,33 @@
 import Foundation
 
 let FSEmmotionAIScoreKey = "EmmotionAIScoreKey"
-
+// TODO: remove static envid value
 class FSSettings {
+    var session: URLSession = .init(configuration: URLSessionConfiguration.default)
+
+    init() {}
     // Get source on start the sdk
-    class func fetchRessources(completion: @escaping (FSExtras?, Error?) -> Void) {
+    func fetchRessources(completion: @escaping (FSExtras?, Error?) -> Void) {
         /// Replace the url later
         /// FSSettingsURL // Refractor later for prod env
         guard let url = URL(string: String(format: FSSettingsURL, "bkk9glocmjcg0vtmdlo0" /* Flagship.sharedInstance.envId ?? "" */ )) else {
             return completion(nil, FlagshipError(message: "Invalid URL", type: .badRequest, code: 500))
         }
-        URLSession.shared.dataTask(with: url) { data, _, _ in
+        self.session.dataTask(with: url) { data, _, _ in
 
             do {
                 if let aData = data {
-                    let scriptObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
-
                     let accountSettingsObject = try JSONDecoder().decode(FSExtras.self, from: aData)
-
                     completion(accountSettingsObject, nil)
                 }
-
             } catch {
-                print("Error on fetchRessources: \(error)")
                 completion(nil, FlagshipError(message: error.localizedDescription, type: .internalError, code: 500))
             }
         }.resume()
     }
 
     // Fetch the score locally or remotely
-    class func fetchScore(visitorId: String, completion: @escaping (String?, Int) -> Void) {
+    func fetchScore(visitorId: String, completion: @escaping (String?, Int) -> Void) {
         guard let getScoreUrl = URL(string: String(format: fetchEmotionAIScoreURL, Flagship.sharedInstance.envId ?? "", visitorId)) else {
             /// The Url creation failed
             print("No Score found for this vsitor - in server API")
@@ -46,7 +44,7 @@ class FSSettings {
         }
 
         print("Will ask for Score in server API :  \(getScoreUrl)")
-        URLSession.shared.dataTask(with: getScoreUrl) { data, response, _ in
+        self.session.dataTask(with: getScoreUrl) { data, response, _ in
             if let response {
                 if let httpResponse = response as? HTTPURLResponse {
                     if httpResponse.statusCode == 204 {

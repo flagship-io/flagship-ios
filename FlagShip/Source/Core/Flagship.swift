@@ -99,18 +99,15 @@ public class Flagship: NSObject {
             completion([])
         }.resume()
     }
-
+    
     public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async throws {
         return try await withCheckedThrowingContinuation { continuation in
-            let nillableContinuation: CheckedContinuation<Void, Error>? = continuation
-            
-            FSSettings.fetchRessources { extras, _ in
+            FSSettings().fetchRessources { extras, _ in
                 // Set the collected
                 Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
                 // Set the Activation
                 Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
-                
-                nillableContinuation?.resume()
+                continuation.resume()
             }
             Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
         }
