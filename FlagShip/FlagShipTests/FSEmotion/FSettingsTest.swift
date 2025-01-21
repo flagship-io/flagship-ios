@@ -49,7 +49,7 @@ final class FSettingsTest: XCTestCase {
         setting.session = urlFakeSession ?? URLSession(configuration: .ephemeral)
 
         let expectationSync = XCTestExpectation(description: "fetch ressource")
-        setting.fetchRessources(completion: { extra, error in
+        setting.fetchRessources(envId: "envId", completion: { extra, error in
             if extra != nil {
                 XCTAssertTrue(extra?.accountSettings?.eaiActivationEnabled ?? false)
                 XCTAssertTrue(extra?.accountSettings?.eaiCollectEnabled ?? false)
