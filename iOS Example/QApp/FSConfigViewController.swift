@@ -120,8 +120,8 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             // Start the sdk
             //  Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
 
-            print("This is on the main actor.")
-            try await Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
+            print("This is on the main actor.") // envIdTextField?.text ??
+            try await Flagship.sharedInstance.start(envId:  "18H18Adelou", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
 
             print("END OF START SDK CALL")
         }
@@ -154,6 +154,15 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                 self.showErrorMessage("Sorry, something went wrong, please check your envId and apiKey")
             }
         })
+    }
+
+    @IBAction func onStartCollecting() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first
+        {
+            print("Start collecting emotion AI")
+            Flagship.sharedInstance.sharedVisitor?.collectEmotionsAIEvents(window: window, screenName: "LoginScreen")
+        }
     }
 
     func createVisitor() -> FSVisitor {

@@ -10,15 +10,8 @@ import UIKit
 
 let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
 
-#if UNIT_TESTING
-
-let FSAIDuration_30 = 3 + 5 // I added 5 seconds as marge
-let FSAIDuration_120 = 12 // Duration for waiting the last event
-#else
-
-let FSAIDuration_30 = 30 + 5 // I added 5 seconds as marge
+let FSAIDuration_30 = 30 + 2 // I added 2 seconds as marge
 let FSAIDuration_120 = 120 // Duration for waiting the last event
-#endif
 
 /// Delegate to check if the capture is completed
 protocol FSEmotionAiDelegate {
@@ -34,7 +27,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     var currentScreenName: String?
     var delegate: FSEmotionAiDelegate?
     var timeStartingCollect: TimeInterval = 0
-    var tapGesture: UITapGestureRecognizer? // UILongPressGestureRecognizer?
     var panGesture: UIPanGestureRecognizer?
     var longPressGesture: UILongPressGestureRecognizer?
 
@@ -50,7 +42,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     private var touchStartTime: Date?
 
     var status: FSEmotionCollectStatus = .STOPED
-
     var swizzlingEnabled: Bool = false {
         didSet {
             if swizzlingEnabled {
@@ -72,9 +63,10 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
-    func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil, completion: (( Bool) -> Void)? = nil) {
+    func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil, completion: ((Bool) -> Void)? = nil) {
         if status == .PROGRESS {
-            print("The collection is already running")
+            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Emotion collection is already in progress"))
+
             return
         }
         status = .PROGRESS
@@ -84,17 +76,9 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         // Init the time
         timeStartingCollect = Date().timeIntervalSince1970
 
-        // Add tap gesture recognizer
-        //  tapGesture = UITapGestureRecognizer(target: self, action: nil)
-        // tapGesture?.delegate = self
-        // Add pan gesture recognizer
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesture?.cancelsTouchesInView = false
         panGesture?.delegate = self
-
-        if let aGesture = panGesture {
-            longPressGesture?.require(toFail: aGesture)
-        }
 
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGesture?.cancelsTouchesInView = false
@@ -113,13 +97,16 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 print(error.debugDescription)
             } else {
                 completion?(true)
-                print("######## Start Collecting Emotional AI ##########")
+                FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Collecting EmotionAI"))
                 // Start collect AI
                 DispatchQueue.main.async {
-                    if let pan = self.panGesture, /* let tap = self.tapGesture, */ let longPress = self.longPressGesture {
+                    if let pan = self.panGesture, let longPress = self.longPressGesture {
                         self.window?.addGestureRecognizer(pan)
                         // self.window?.addGestureRecognizer(tap)
                         self.window?.addGestureRecognizer(longPress)
+                        // Manage the gestures
+                        longPress.require(toFail: pan)
+
                         // Add an observer for a specific notification
                         NotificationCenter.default.addObserver(self,
                                                                selector: #selector(self.handleNotification(_:)),
@@ -134,7 +121,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         sendEmotionEvent(event)
         if isLastEvent {
-            print(" @@@@@@@@@@@@ Send Last Event and STOP COLLECTING @@@@@@@@@@@@@@@")
+            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
             stopCollecting()
             // Start get scoring from remote
             pollingScore = FSPollingScore(visitorId: visitorId, delegate: delegate)
@@ -162,26 +149,28 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     private func sendEmotionEvent(_ aiHit: FSTracking, completion: ((Error?) -> Void)? = nil) {
-        print(" @@@@@@@@@@@@ Send Emotion Page View @@@@@@@@@@@@@@@")
+        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Send Emotion ScreenView"))
+
         // Set the visitor id
         aiHit.visitorId = visitorId
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: aiHit.bodyTrack as Any, options: .prettyPrinted)
 
+            // TODO: Comment later
             print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
             if let urlAI = URL(string: FSEmotionAiUrl) {
                 service?.sendRequest(urlAI, type: .Tracking, data: dataToSend) { _, error in
                     if error != nil {
-                        print("Failed to send EmotionAI : " + aiHit.type.typeString)
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send EmotionAI : " + aiHit.type.typeString))
                     } else {
-                        print("Success to send EmotionAI : " + aiHit.type.typeString)
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Success to send EmotionAI : " + aiHit.type.typeString))
                     }
                     completion?(error)
                 }
             }
 
         } catch {
-            print("Error on sending AI hit \(error.localizedDescription)")
+            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Error on sending AI hit \(error.localizedDescription)"))
         }
     }
 
@@ -193,11 +182,11 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
             let deltaSecond = Int(deltaTime.rounded())
 
+            // TODO: remove later
             print("@@@@@@@@@@@@ Handle Long Press after \(deltaSecond) @@@@@@@@@@@@@@@@@@@@")
 
             if let startTime = touchStartTime {
                 let duration = Date().timeIntervalSince(startTime) * 1000 // Convert to milliseconds
-                print("Press duration: \(duration) ms")
 
                 let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
                 let deltaSecond = Int(deltaTime.rounded())
@@ -208,7 +197,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 eventClikc.currentScreen = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
                 if deltaSecond < FSAIDuration_30 {
                     sendEvent(eventClikc, isLastEvent: false)
-                } else if deltaSecond <= 120 {
+                } else if deltaSecond <= FSAIDuration_120 {
                     sendEvent(eventClikc, isLastEvent: true)
                 } else {
                     // visitor not scored
@@ -244,6 +233,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
 
         case .ended:
+            // TODO: remove later
             print("-------- Move cursor gesture -----------")
             cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
             scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
@@ -257,7 +247,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
             if deltaSecond < FSAIDuration_30 {
                 sendEvent(visitorEvent, isLastEvent: false)
-            } else if deltaSecond <= 120 {
+            } else if deltaSecond <= FSAIDuration_120 {
                 sendEvent(visitorEvent, isLastEvent: true)
             } else {
                 // Visitor Not Scored
@@ -268,21 +258,10 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         }
     }
 
-    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer == tapGesture {
-            print("The tap event happen")
-        }
-        return true
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-
     // Handle the notification
     @objc func handleNotification(_ notification: Notification) {
         if let userInfo = notification.userInfo {
-            print("Received notification with userInfo: \(userInfo)")
+            // print("Received notification with userInfo: \(userInfo)")
             if let screenName = userInfo["dl"] as? String {
                 // Update current name for screen name
                 currentScreenName = screenName
@@ -291,7 +270,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             }
 
         } else {
-            print("Received notification")
+            // user info nil
+            FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("userInfo is nil on handleNotification"))
         }
     }
 

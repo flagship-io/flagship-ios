@@ -25,9 +25,9 @@ public class Flagship: NSObject {
     var lastInitializationTimestamp: String
     
     // Emotion AI collect is enabled
-    var eaiCollectEnabled: Bool = true
+    var eaiCollectEnabled: Bool = false
     
-    var eaiActivationEnabled: Bool = true
+    var eaiActivationEnabled: Bool = false
     
     var currentStatus: FSSdkStatus {
         get {
@@ -100,16 +100,30 @@ public class Flagship: NSObject {
         }.resume()
     }
     
-    public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async throws {
-        return try await withCheckedThrowingContinuation { continuation in
-            FSSettings().fetchRessources { extras, _ in
-                // Set the collected
-                Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
-                // Set the Activation
-                Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
+    // Start SDK (async-await)
+    public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
+        let startTime = CFAbsoluteTimeGetCurrent() // Record start time
+        await withCheckedContinuation { continuation in
+            FSSettings().fetchRessources(envId: envId) { extras, error in
+                if error == nil {
+                    // Set the collected
+                    Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
+                    // Set the Activation
+                    Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
+                    
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
+                } else {
+                    // Error on get ressource
+                    // The default value is applied to EAI
+                    // NO Collect
+                }
+                Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
+                let endTime = CFAbsoluteTimeGetCurrent() // Record end time
+                let elapsedTime = endTime - startTime // Calculate elapsed time
+                print("start async execution time: \(elapsedTime) seconds")
                 continuation.resume()
             }
-            Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
         }
     }
     

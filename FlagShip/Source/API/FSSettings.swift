@@ -14,11 +14,10 @@ class FSSettings {
     var session: URLSession = .init(configuration: URLSessionConfiguration.default)
 
     init() {}
-    // Get source on start the sdk
-    func fetchRessources(completion: @escaping (FSExtras?, Error?) -> Void) {
-        /// Replace the url later
-        /// FSSettingsURL // Refractor later for prod env
-        guard let url = URL(string: String(format: FSSettingsURL, "bkk9glocmjcg0vtmdlo0" /* Flagship.sharedInstance.envId ?? "" */ )) else {
+    /// Get source on start the sdk
+    /// - Parameter completion: block completion
+    func fetchRessources(envId: String, completion: @escaping (FSExtras?, Error?) -> Void) {
+        guard let url = URL(string: String(format: FSSettingsURL, envId)) else {
             return completion(nil, FlagshipError(message: "Invalid URL", type: .badRequest, code: 500))
         }
         self.session.dataTask(with: url) { data, _, _ in
@@ -34,7 +33,10 @@ class FSSettings {
         }.resume()
     }
 
-    // Fetch the score locally or remotely
+    /// Get Score from uc-info.flagship.io
+    /// - Parameters:
+    ///   - visitorId: String visitorId
+    ///   - completion: block completion
     func fetchScore(visitorId: String, completion: @escaping (String?, Int) -> Void) {
         guard let getScoreUrl = URL(string: String(format: fetchEmotionAIScoreURL, Flagship.sharedInstance.envId ?? "", visitorId)) else {
             /// The Url creation failed
@@ -79,12 +81,12 @@ class FSSettings {
         }.resume()
     }
 
-    // Save the score locally
-    private class func getSocreFromLocal() -> String? {
-        UserDefaults.standard.string(forKey: FSEmmotionAIScoreKey)
-    }
-
-    private class func setSocreFromLocal(score: String) {
-        UserDefaults.standard.set(score, forKey: FSEmmotionAIScoreKey)
-    }
+//    // Save the score locally
+//    private class func getSocreFromLocal() -> String? {
+//        UserDefaults.standard.string(forKey: FSEmmotionAIScoreKey)
+//    }
+//
+//    private class func setSocreFromLocal(score: String) {
+//        UserDefaults.standard.set(score, forKey: FSEmmotionAIScoreKey)
+//    }
 }

@@ -37,7 +37,7 @@
                                     <constraint firstAttribute="width" constant="150" id="ajL-Sw-LeK"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Acrion"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Change Page"/>
                                 <connections>
                                     <action selector="activate" destination="BYZ-38-t0r" eventType="touchUpInside" id="Luk-63-1Vf"/>
                                     <segue destination="jeN-d0-bs0" kind="presentation" identifier="onActivate" id="8fF-b8-974"/>
@@ -51,7 +51,7 @@
                                     <constraint firstAttribute="width" constant="150" id="g8l-nJ-AhF"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Actions"/>
+                                <buttonConfiguration key="configuration" style="plain" title="fetchFlags"/>
                                 <connections>
                                     <action selector="sendHits" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kpc-sH-gbN"/>
                                 </connections>

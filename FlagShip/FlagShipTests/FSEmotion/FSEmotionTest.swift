@@ -62,7 +62,7 @@ final class FSEmotionTest: XCTestCase {
                 XCTAssertTrue(emotionAi.currentScreenName == "testScreen")
                 XCTAssertTrue(emotionAi.panGesture?.delegate != nil)
 
-                for _ in 0 ..< 15 {
+                for _ in 0 ..< 35 {
                     Thread.sleep(forTimeInterval: 1)
                     let panGesture = UIPanGestureRecognizer()
                     panGesture.setTranslation(CGPoint(x: 100, y: 100), in: windo)

@@ -254,7 +254,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         })
     }
     
-    func startCollectingEmotionAI(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+    func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
         if visitor.emotionCollect != nil && visitor.emotionCollect?.status == .PROGRESS {
             print("The emotion collect is already running")
             return
@@ -317,7 +317,7 @@ protocol FSDelegateStrategy {
     func getFlagStatus(_ key: String) -> FSFlagStatus
     
     /// _ Start collection emotion AI
-    func startCollectingEmotionAI(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
+    func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
     
     /// _ onAppScreenChange
     func onAppScreenChange(_ screenName: String)

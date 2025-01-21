@@ -16,30 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         do {
-            var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             print(" -- The url path : \(url.absoluteString)")
         } catch {}
 
         Task {
-            print("----A-------")
+            print("start sdk")
+            await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+            let vid = "adel\(Int.random(in: 100 ... 1000))"
+            // let vid = "azazazaz"
 
-            //  bkk9glocmjcg0vtmdlng // DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23
-            try await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
-            print("----B-------")
-
-            let vid = "iosUser\(Int.random(in: 100 ... 1000))"
-
-            print("----C-------")
-
-            let v1 = Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isQA": true]).withOnFlagStatusChanged { newStatus in
-                if newStatus == .FETCH_REQUIRED {}
-            }.build()
-
-            print("----D-------")
-
-            v1.fetchFlags {}
+            print("create visitor ")
+            Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isVip": true]).build()
         }
-
         return true
     }
 
@@ -55,5 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+
+    func doc() {
+        Task {
+            try await Flagship.sharedInstance.start(envId: "envId", apiKey: "apiKey")
+
+            let visitor = Flagship.sharedInstance.newVisitor(visitorId: "visitorId", hasConsented: true).withContext(context: ["isVip": true]).build()
+        }
     }
 }

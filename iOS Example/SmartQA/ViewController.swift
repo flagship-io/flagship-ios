@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     var tapGesture: UITapGestureRecognizer?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
     
     @IBAction func startQA() {
@@ -22,7 +24,7 @@ class ViewController: UIViewController {
            let window = windowScene.windows.first
         {
             print("Start collecting emotion AI")
-            Flagship.sharedInstance.sharedVisitor?.startCollectingEmotionAI(window: window, screenName: "LoginScreen")
+            Flagship.sharedInstance.sharedVisitor?.collectEmotionsAIEvents(window: window, screenName: "LoginScreen")
         }
         
         // Do any additional setup after loading the view.
@@ -30,15 +32,16 @@ class ViewController: UIViewController {
  
     /// Add one more activate
     @IBAction func activate() {
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            print("Fetch flags done successfully")
-            
-            self.performSegue(withIdentifier: "onActivate", sender: self)
-        }
+        self.performSegue(withIdentifier: "onActivate", sender: self)
     }
 
     @IBAction func sendHits() {
-        Flagship.sharedInstance.sharedVisitor?.getFlag(key: "eai-var").visitorExposed()
-        Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: FSCategoryEvent.User_Engagement, eventAction: "eai-segment"))
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print("Fetch flags done successfully")
+            let value = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "adelFlag").value(defaultValue: "dflt")
+            print("Value \(value)")
+            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "adelFlag").visitorExposed()
+            Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: FSCategoryEvent.User_Engagement, eventAction: "eai-segment "))
+        }
     }
 }

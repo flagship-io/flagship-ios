@@ -33,19 +33,19 @@ class FSPollingScore: NSObject {
             if let self {
                 self.retryCount += 1
                 self.pollingScore?.suspend()
-                print("GET MY SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)")
+                FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("GET THE SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)"))
+
                 FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, statusCode in
 
                     if statusCode == 204 {
-                        print("RESPONSE FROM THE SERVER")
                         self.delegate?.emotionAiCaptureCompleted(nil)
                         self.pollingScore?.resume()
                     } else if statusCode == 200 {
-                        print("RESPONSE FROM THE SERVER - score successfully received")
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Score Successfully Received"))
                         self.delegate?.emotionAiCaptureCompleted(score)
 
                     } else {
-                        print("RESPONSE FROM THE SERVER - score not received - status code: \(statusCode)")
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("RESPONSE FROM THE SERVER - score not received - status code: \(statusCode)"))
                     }
                 })
             }
@@ -55,7 +55,7 @@ class FSPollingScore: NSObject {
     }
 
     @objc func stopPollingScore() {
-        print("Stop Polling Score and suspend the timer - End of Session EmotionAI")
+        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Stop Polling Score-EmotionAI, Session Ended"))
         self.pollingScore?.suspend()
     }
 }

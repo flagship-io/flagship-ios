@@ -8,9 +8,9 @@
 import Foundation
 
 /// Universaal End Point
- let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
+let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 
-//let FlagshipUniversalEndPoint = "https://staging-decision.flagship.io/v2/"
+// let FlagshipUniversalEndPoint = "https://staging-decision.flagship.io/v2/"
 
 /// XApi key
 let FSX_Api_Key = "x-api-key"
@@ -35,9 +35,9 @@ var FlagShipEndPoint: String {
 /// internal let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&sendContextEvent=false"
 
 /// remove "sendContextEvent=false" with in refractoring
- let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
+let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
 
-//let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
+// let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
 
 /// Add this part when the user don't consent
 let VISITOR_CONSENT = "visitor_consent"
@@ -72,7 +72,8 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 let FSBucketingScriptNotification = "onGettingBucketScript"
 
 // EmotionAI
-let fetchEmotionAIScoreURL = "https://uc-info.abtasty.com/v1/segments/clients/%@/visitors/%@?partner=eai"
 
-// https://fs-decision-staging-bucket.s3.amazonaws.com/bkk9glocmjcg0vtmdlo0/accountSettings.json
-let FSSettingsURL = "https://fs-decision-staging-bucket.s3.amazonaws.com/%@/accountSettings.json"
+let fetchEmotionAIScoreURL = "https://uc-info.flagship.io/v1/segments/clients/%@/visitors/%@?partner=eai"
+
+// let FSSettingsURL =  "https://fs-decision-staging-bucket.s3.amazonaws.com/%@/accountSettings.json"
+let FSSettingsURL = "https://cdn.flagship.io/%@/accountSettings.json"

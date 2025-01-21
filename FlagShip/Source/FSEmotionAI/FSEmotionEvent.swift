@@ -11,8 +11,6 @@ import UIKit
 
 // Represent click en move scroll
 class FSEmotionEvent: FSTracking {
-    // Position of the clic : y,x, last 5 digits from timestamp, clic duration in ms
-
     var posX: String
     var posY: String
     var last5digitTimeStmap: String

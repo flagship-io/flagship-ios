@@ -37,7 +37,6 @@ import UIKit
             self.emotionSocreAI = score
             // Update the context
             if let aScore = score {
-                self.context.updateContext("eai", self.eaiVisitorScored)
                 self.context.updateContext("eai::eas", aScore)
             }
         } else {
@@ -157,7 +156,6 @@ import UIKit
             
             // Update the context
             if let aScore = score {
-                self.context.updateContext("eai", self.eaiVisitorScored)
                 self.context.updateContext("eai::eas", aScore)
             }
             
@@ -198,7 +196,7 @@ import UIKit
                         })
                     }
                 } else {
-                    print("Scored but not yet enabled to use emotionAI score -- exit with nil")
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is never scored --- exit with nil"))
                     onCompleted(nil, self.eaiVisitorScored)
                 }
                 
@@ -208,13 +206,12 @@ import UIKit
             }
         } else {
             // Not allowed to emotionAI
-            // On fait comme aujourd'hui et on log une erreur si le mec fait appel à collectEAI()
             onCompleted(nil, self.eaiVisitorScored)
         }
     }
     
-    public func startCollectingEmotionAI(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
-        self.strategy?.getStrategy().startCollectingEmotionAI(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
+    public func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+        self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
     }
     
     public func onAppScreenChange(_ screenName: String) {
@@ -312,17 +309,3 @@ import UIKit
     }
 }
 
-//
-// Si EAICollectEnabled=true && EAIActivation=false
-// Si on va au bout alors on enregistre un bool eaiVisitorScored dans le cache visiteur comme quoi on a déjà fait la collecte.
-// On donne pas la main au client pour récupérer le segment (ni depuis le cache, ni depuis instance visiteur, ni dans le contexte)
-// On peut donner accès à la variable eaiVisitorScored
-
-// Si EAICollectEnabled=true && EAIActivation=true
-// Alors après avoir collecté en plus on enregistre le segment après le polling dans l'instance visiteur / cache visiteur / visiteur context
-
-// Si EAICollectEnabled=false && EAIActivation=true
-// On se contente de regarder si le visiteur a été scoré dans l'instance / cache / uc info => si oui alors on rajoute le segment au contexte
-
-// Si EAICollectEnabled=false && EAIActivation=false
-// On fait comme aujourd'hui et on log une erreur si le mec fait appel à collectEAI()
