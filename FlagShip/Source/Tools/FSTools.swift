@@ -11,7 +11,6 @@ import UIKit
 import Network
 #else
 import SystemConfiguration
-import WebKit
 #endif
 
 let FSLengthId = 20
