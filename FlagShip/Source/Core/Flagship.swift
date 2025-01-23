@@ -85,20 +85,6 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    func fetchMessages(completion: @escaping ([Message]) -> Void) {
-        let url = URL(string: "https://hws.dev/user-messages.json")!
-
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            if let data = data {
-                if let messages = try? JSONDecoder().decode([Message].self, from: data) {
-                    completion(messages)
-                    return
-                }
-            }
-
-            completion([])
-        }.resume()
-    }
     
     // Start SDK (async-await)
     public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
@@ -197,10 +183,4 @@ public class Flagship: NSObject {
     @objc public func close() {
         Flagship.sharedInstance.sharedVisitor?.configManager.trackingManager?.batchManager.batchFromQueue()
     }
-}
-
-struct Message: Decodable, Identifiable {
-    let id: Int
-    let from: String
-    let message: String
 }

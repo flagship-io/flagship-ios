@@ -76,7 +76,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     @IBAction func onClikcStart() {
-        Task { @MainActor in
+        Task {
             // Get the mode
             let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
 
@@ -121,7 +121,7 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
             //  Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
 
             print("This is on the main actor.") // envIdTextField?.text ??
-            try await Flagship.sharedInstance.start(envId:  "18H18Adelou", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
+            try await Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
 
             print("END OF START SDK CALL")
         }
