@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 #if os(watchOS)
 import Network
 #else
@@ -91,4 +91,31 @@ class FSTools: NSObject {
         formatDate.timeZone = TimeZone(abbreviation: "UTC")
         return formatDate.string(from: Date())
     }
+
+    class func getUserAgent() {}
+
+    class func getBitsPerPixel() -> Int {
+        let screen = UIScreen.main
+
+        // Use the display gamut to infer bits per pixel
+        switch screen.traitCollection.displayGamut {
+        case .P3:
+            return 30 // Approx. 10 bits per channel (HDR support)
+        case .SRGB:
+            return 24 // 8 bits per channel
+        default:
+            return 24 // Default fallback
+        }
+    }
+
+    class func getAmountTimeInMinute() -> Int {
+        // Get the current time zone
+        let timeZone = TimeZone.current
+        // Get the offset in seconds
+        let utcOffsetInSeconds = timeZone.secondsFromGMT()
+        // Convert seconds to hours and minutes
+        return utcOffsetInSeconds / 60
+    }
+
+ 
 }

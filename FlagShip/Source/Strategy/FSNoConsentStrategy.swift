@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FSNoConsentStrategy: FSDefaultStrategy {
     /// The activate is not allowed
@@ -33,4 +34,13 @@ class FSNoConsentStrategy: FSDefaultStrategy {
     
     /// _ Lookup Hits
     override func lookupHits() {}
+    
+    /// _ Start collection
+    override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+        FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
+    }
+
+    override func onAppScreenChange(_ screenName: String) {
+        FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
+    }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FSPanicStrategy: FSDefaultStrategy {
     override func updateContext(_ newContext: [String: Any]) {
@@ -49,4 +50,13 @@ class FSPanicStrategy: FSDefaultStrategy {
     
     /// _ Cache Hits
     //   override func saveHit(_ hitToSave: [String : Any], isActivateTracking: Bool) {}
+    
+    /// _ Start collection
+    override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_PANIC)
+    }
+    
+    override func onAppScreenChange(_ screenName: String) {
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_PANIC)
+    }
 }

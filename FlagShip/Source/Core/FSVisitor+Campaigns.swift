@@ -8,9 +8,7 @@
 import Foundation
 
 extension FSVisitor {
- 
     func updateFlagsAndAssignedHistory(_ newFlags: [String: FSModification]?) {
- 
         if let aNewFlag = newFlags {
             /// Clean the current flag
             currentFlags.removeAll()
@@ -21,7 +19,6 @@ extension FSVisitor {
         }
     }
  
-    
     func updateAssignedHistory(_ newFlags: [String: FSModification]) {
         let groupIdkeys = assignedVariationHistory.keys
         newFlags.forEach { (_: String, value: FSModification) in
@@ -31,7 +28,6 @@ extension FSVisitor {
         }
     }
     
- 
     func mergeCachedVisitor(_ cachedVisitor: FSCacheVisitor) {
         // Retreive cached flags and Merge in the visitor instance
         var cachedFlgs: [String: FSModification] = [:]
@@ -44,12 +40,18 @@ extension FSVisitor {
         }
         /// Retreive the context and Merge it
         if let cachedContext = cachedVisitor.data?.context {
-           // self.context.mergeContext(cachedContext) /// To do later
+            // self.context.mergeContext(cachedContext) /// To do later
         }
 
         // Update the reason
         self.requiredFetchReason = .FLAGS_FETCHED_FROM_CACHE
         // Update the state
         self.fetchStatus = .FETCH_REQUIRED
+        
+        // Set the socre already saved
+        self.emotionSocreAI = cachedVisitor.data?.emotionScoreAI
+        
+        // Set the boolean is "eaiVisitorScored"
+        self.eaiVisitorScored = cachedVisitor.data?.eaiVisitorScored ?? false
     }
 }

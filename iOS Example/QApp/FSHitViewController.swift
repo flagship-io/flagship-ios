@@ -93,6 +93,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
             let type: FSCategoryEvent = typeEventSwitch.isOn ? .Action_Tracking : .User_Engagement
             let eventToSend = FSEvent(eventCategory: type, eventAction: input)
             eventToSend.eventValue = UInt(eventValueField.text ?? "0")
+            // Set screen name
             Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
             showPopUpMessage("Event name: \(input)")
             // }
@@ -188,7 +189,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         if textField.tag > 400 {
             let allowedChar = CharacterSet(charactersIn: "0123456789").inverted
             
-            return (string.rangeOfCharacter(from: allowedChar) == nil)
+            return string.rangeOfCharacter(from: allowedChar) == nil
         }
         
         return true

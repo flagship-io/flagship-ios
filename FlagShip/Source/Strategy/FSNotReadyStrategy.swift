@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FSNotReadyStrategy: FSDefaultStrategy {
     override func updateContext(_ newContext: [String: Any]) {
@@ -32,6 +33,15 @@ class FSNotReadyStrategy: FSDefaultStrategy {
     }
     
     override func sendHit(_ hit: FSTrackingProtocol) {
+        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
+    }
+    
+    /// _ Start collection
+    override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
+    }
+    
+    override func onAppScreenChange(_ screenName: String) {
         FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
     }
     

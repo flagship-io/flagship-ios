@@ -20,6 +20,7 @@ import Foundation
     case TROUBLESHOOTING
     case USAGE
     case None
+    case EMOTION_AI
 
     public var typeString: String {
         switch self {
@@ -43,6 +44,8 @@ import Foundation
             return "TROUBLESHOOTING"
         case .USAGE:
             return "USAGE"
+        case .EMOTION_AI:
+            return "VISITOREVENT"
         case .None:
             return "None"
         }
@@ -137,6 +140,7 @@ import Foundation
     public var bodyTrack: [String: Any] {
         return [:]
     }
+
     public var communBodyTrack: [String: Any] {
         var communParams = [String: Any]()
 

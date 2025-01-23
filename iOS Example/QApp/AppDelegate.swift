@@ -22,12 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithReqst = false
         XNUIManager.shared.uiLogHandler.logFormatter.showCurlWithResp = false
         registerSettingsBundle()
-        
-        
- 
- 
- 
-      
+
 
         do {
             var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)

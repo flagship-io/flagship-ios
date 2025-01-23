@@ -10,7 +10,7 @@ import Foundation
 /// Universaal End Point
 let FlagshipUniversalEndPoint = "https://decision.flagship.io/v2/"
 
-// internal let FlagshipUniversalEndPoint =  "https://decision-staging.flagship.io/v2/"
+// let FlagshipUniversalEndPoint = "https://staging-decision.flagship.io/v2/"
 
 /// XApi key
 let FSX_Api_Key = "x-api-key"
@@ -36,6 +36,8 @@ var FlagShipEndPoint: String {
 
 /// remove "sendContextEvent=false" with in refractoring
 let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true&extras[]=accountSettings"
+
+// let FSGetCampaigns = FlagShipEndPoint + "%@/campaigns?exposeAllKeys=true"
 
 /// Add this part when the user don't consent
 let VISITOR_CONSENT = "visitor_consent"
@@ -68,3 +70,10 @@ let FSDeveloperUsageUrlString = EVENT_TRACKING + "/analytics"
 // Local Notification
 
 let FSBucketingScriptNotification = "onGettingBucketScript"
+
+// EmotionAI
+
+let fetchEmotionAIScoreURL = "https://uc-info.flagship.io/v1/segments/clients/%@/visitors/%@?partner=eai"
+
+// let FSSettingsURL =  "https://fs-decision-staging-bucket.s3.amazonaws.com/%@/accountSettings.json"
+let FSSettingsURL = "https://cdn.flagship.io/%@/accountSettings.json"

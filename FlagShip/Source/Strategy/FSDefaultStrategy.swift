@@ -6,28 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 class FSStrategy {
     let visitor: FSVisitor
     
     var delegate: FSDelegateStrategy?
-    
-//    func getStrategy() -> FSDelegateStrategy {
-//        switch Flagship.sharedInstance.currentStatus {
-//        case .READY:
-//            if visitor.hasConsented == true {
-//                return FSDefaultStrategy(visitor)
-//            } else {
-//                return FSNoConsentStrategy(visitor)
-//            }
-//        case .NOT_INITIALIZED:
-//            return FSNotReadyStrategy(visitor)
-//        case .PANIC_ON:
-//            return FSPanicStrategy(visitor)
-//        default:
-//            return FSDefaultStrategy(visitor)
-//        }
-//    }
     
     func getStrategy() -> FSDelegateStrategy {
         switch Flagship.sharedInstance.currentStatus {
@@ -108,11 +92,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     onSyncCompleted(.PANIC, .NONE)
  
                 } else {
-                    /// Update new flags
-                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
- 
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
- 
+
+                    /// Update new flags
                     self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
                 
                     // Resume the process batching when the panic mode is OFF
@@ -271,6 +253,27 @@ class FSDefaultStrategy: FSDelegateStrategy {
             self.visitor.configManager.trackingManager?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
+    
+    func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+        if visitor.emotionCollect != nil && visitor.emotionCollect?.status == .PROGRESS {
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
+            return
+        }
+        visitor.prepareEmotionAI { _, eaiVisitorScored in
+            if !eaiVisitorScored {
+                // Init the emotion collect
+                self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
+                self.visitor.emotionCollect?.delegate = self.visitor
+                self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored - No need to process the collection again----"))
+            }
+        }
+    }
+    
+    func onAppScreenChange(_ screenName: String) {
+        visitor.emotionCollect?.onAppScreenChange(screenName)
+    }
 }
 
 /// _ DELEGATE ///
@@ -312,4 +315,10 @@ protocol FSDelegateStrategy {
     
     /// _ Get flag status
     func getFlagStatus(_ key: String) -> FSFlagStatus
+    
+    /// _ Start collection emotion AI
+    func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
+    
+    /// _ onAppScreenChange
+    func onAppScreenChange(_ screenName: String)
 }

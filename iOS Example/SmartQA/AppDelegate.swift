@@ -16,10 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         do {
-            var url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let url = try FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             print(" -- The url path : \(url.absoluteString)")
         } catch {}
- 
+
+        Task {
+            print("start sdk")
+            await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
+            let vid = "adel\(Int.random(in: 100 ... 1000))"
+           //  let vid = "adel538"
+
+            print("create visitor ")
+            Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isVip": true]).build()
+        }
         return true
     }
 
@@ -36,8 +45,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-}
- 
 
- 
- 
+    func doc() {
+        Task {
+            try await Flagship.sharedInstance.start(envId: "envId", apiKey: "apiKey")
+
+            let visitor = Flagship.sharedInstance.newVisitor(visitorId: "visitorId", hasConsented: true).withContext(context: ["isVip": true]).build()
+        }
+    }
+}

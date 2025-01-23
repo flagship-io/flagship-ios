@@ -8,118 +8,62 @@
 
 import Flagship
 import UIKit
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+import WebKit
+class ViewController: UIViewController {
     @IBOutlet var startQABtn: UIButton?
-
     @IBOutlet var activateQABtn: UIButton?
-    
-    @IBOutlet var tableView: UITableView?
+    var tapGesture: UITapGestureRecognizer?
+
+    @IBOutlet var flagButton: UIButton?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func startQA() {
-
-        // Create visitor
-        
-        var cpt = 0
-        
-        let config = FSConfigBuilder().withOnVisitorExposed { visitorExposed, fromFlag in
-            
-            print(visitorExposed.id)
-            print(fromFlag.key)
-            
-            cpt = cpt + 1
-            
-            print(" the cpt represent the callback number \(cpt)")
-        }.Bucketing().build()
- 
-        Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23", config: config)
- 
-        let v1 = Flagship.sharedInstance.newVisitor(visitorId: "updateCtx", hasConsented: true).withContext(context: ["isQA": true, "key":"val"]).withFetchFlagsStatus { newStatus, reason in
-            if reason == .FLAGS_FETCHED_FROM_CACHE {}
-            print(newStatus.rawValue)
-            print(reason.rawValue)
-        }.build()
-        
-        v1.fetchFlags {
-            let flag = v1.getFlag(key: "btnColor")
-            let r: String? = flag.value(defaultValue: "ezez", visitorExposed: false)
-            
-            
-            
-        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first
+        {
+            print("Start collecting emotion AI")
+            Flagship.sharedInstance.sharedVisitor?.collectEmotionsAIEvents(window: window, screenName: "LoginScreen")
         }
     }
- 
+
     /// Add one more activate
     @IBAction func activate() {
         
-        Flagship.sharedInstance.sharedVisitor?.updateContext(["key1": "val1"])
-        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-            print("seond fetch is done")
-        }
         
-        
-        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "my_flag") {
-            flag.visitorExposed()
-        }
+         self.performSegue(withIdentifier: "onActivate", sender: self)
     }
 
     @IBAction func sendHits() {
-        Flagship.sharedInstance.sharedVisitor?.updateContext(["key": "val"])
-    }
- 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
-        cell.textLabel?.text = "cell"
-        let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor")
-        
-        cell.detailTextLabel?.text = flag?.value(defaultValue: "dflt") as? String ?? ""
-        if let flag = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "add_payment_btn") {
-            Flagship.sharedInstance.sharedVisitor?.clearContext()
-            Flagship.sharedInstance.sharedVisitor?.updateContext("test", "stress")
-        }
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let flagBis = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "ads_bannerA").value(defaultValue: false)
-        // Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
-        
-        for i in 0 ... 3 {
-            Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
-        }
-    }
-    
-    func todoc() {
-        let visitor1r = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented: true)
-            .withContext(context: ["age": 32, "isVip": true])
-            .isAuthenticated(true)
-            .build()
-        
-        let visitor1 = Flagship.sharedInstance.newVisitor(visitorId: "userId", hasConsented: true)
-            .withContext(context: ["age": 32, "isVip": true])
-            .isAuthenticated(true)
-            .build()
+        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+            print("Fetch flags done successfully")
+            let value = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btn-title").value(defaultValue: "Buy")
 
-        // To check if Flagship have to make a decision with the data you are providing at the SDK init you should fetch the flags
-        visitor1.fetchFlags {
-            // Fetch completed , you can retreive your flags
-        }
+            let btnColor = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor").value(defaultValue: "none")
 
-        // Update the visitor context with lastPurchaseDate key and the value is 1615384464
-        visitor1.updateContext("lastPurchaseDate", 1615384464)
+            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btn-title").visitorExposed()
 
-        // Your visitor context has changed (you have updated it) you should fetch the flags to check if the decision has changed
-        visitor1.fetchFlags {
-            // Fetch completed , you can retreive your flags
+            DispatchQueue.main.async {
+                switch btnColor {
+                    case "red":
+                        self.flagButton?.backgroundColor = .red
+                        self.flagButton?.titleLabel?.textColor = .blue
+
+                    case "blue":
+                        self.flagButton?.backgroundColor = .blue
+                        self.flagButton?.titleLabel?.textColor = .red
+
+                    case "green":
+                        self.flagButton?.backgroundColor = .green
+                        self.flagButton?.titleLabel?.textColor = .blue
+                    default:
+                        self.flagButton?.backgroundColor = .orange
+                        self.flagButton?.titleLabel?.textColor = .red
+                }
+                self.flagButton?.setTitle(value, for: .normal)
+            }
         }
     }
 }

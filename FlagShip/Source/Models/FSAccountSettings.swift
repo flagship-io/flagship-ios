@@ -28,6 +28,8 @@ class FSExtras: Decodable {
 class FSAccountSettings: Decodable {
     var enabledXPC: Bool = false
     var enabled1V1T: Bool = false
+    var eaiCollectEnabled: Bool = false
+    var eaiActivationEnabled: Bool = false
     
     var troubleshooting: FSTroubleshooting?
     
@@ -35,6 +37,8 @@ class FSAccountSettings: Decodable {
         case enabledXPC
         case enabled1V1T
         case troubleshooting
+        case eaiCollectEnabled
+        case eaiActivationEnabled
     }
     
     required init(from decoder: Decoder) throws {
@@ -44,6 +48,9 @@ class FSAccountSettings: Decodable {
         do { self.enabled1V1T = try container.decode(Bool.self, forKey: .enabled1V1T) } catch { self.enabled1V1T = false }
         do { self.troubleshooting = try container.decode(FSTroubleshooting.self, forKey: .troubleshooting) } catch {
             self.troubleshooting = nil
+        }
+        do { self.eaiCollectEnabled = try container.decode(Bool.self, forKey: .eaiCollectEnabled) } catch { self.eaiCollectEnabled = false }
+        do { self.eaiActivationEnabled = try container.decode(Bool.self, forKey: .eaiActivationEnabled) } catch { self.eaiActivationEnabled = false
         }
     }
     

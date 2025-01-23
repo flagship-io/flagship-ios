@@ -24,6 +24,11 @@ public class Flagship: NSObject {
     // Last init timestamps
     var lastInitializationTimestamp: String
     
+    // Emotion AI collect is enabled
+    var eaiCollectEnabled: Bool = false
+    
+    var eaiActivationEnabled: Bool = false
+    
     var currentStatus: FSSdkStatus {
         get {
             return fsQueue.sync {
@@ -80,14 +85,55 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool,pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
-        
+    func fetchMessages(completion: @escaping ([Message]) -> Void) {
+        let url = URL(string: "https://hws.dev/user-messages.json")!
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            if let data = data {
+                if let messages = try? JSONDecoder().decode([Message].self, from: data) {
+                    completion(messages)
+                    return
+                }
+            }
+
+            completion([])
+        }.resume()
+    }
+    
+    // Start SDK (async-await)
+    public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
+        let startTime = CFAbsoluteTimeGetCurrent() // Record start time
+        await withCheckedContinuation { continuation in
+            FSSettings().fetchRessources(envId: envId) { extras, error in
+                if error == nil {
+                    // Set the collected
+                    Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
+                    // Set the Activation
+                    Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
+                    
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
+                } else {
+                    // Error on get ressource
+                    // The default value is applied to EAI
+                    // NO Collect
+                }
+                Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
+                let endTime = CFAbsoluteTimeGetCurrent() // Record end time
+                let elapsedTime = endTime - startTime // Calculate elapsed time
+                // TODO : Remove later
+                print("start async execution time: \(elapsedTime) seconds")
+                continuation.resume()
+            }
+        }
+    }
+    
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented,
-            aIsAuthenticated: isAuthenticated,
-            pOnFlagStatusChanged: pOnFlagStatusChanged,
-            pOnFlagStatusFetchRequired: pOnFlagStatusFetchRequired,
-            pOnFlagStatusFetched: pOnFlagStatusFetched
-        )
+                                   aIsAuthenticated: isAuthenticated,
+                                   pOnFlagStatusChanged: pOnFlagStatusChanged,
+                                   pOnFlagStatusFetchRequired: pOnFlagStatusFetchRequired,
+                                   pOnFlagStatusFetched: pOnFlagStatusFetched)
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
@@ -108,7 +154,7 @@ public class Flagship: NSObject {
         
         // Config data usage tracking
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: newVisitor)
-        
+    
         return newVisitor
     }
     
@@ -151,4 +197,10 @@ public class Flagship: NSObject {
     @objc public func close() {
         Flagship.sharedInstance.sharedVisitor?.configManager.trackingManager?.batchManager.batchFromQueue()
     }
+}
+
+struct Message: Decodable, Identifiable {
+    let id: Int
+    let from: String
+    let message: String
 }

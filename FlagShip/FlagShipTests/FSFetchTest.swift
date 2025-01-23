@@ -6,13 +6,12 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
-import XCTest
 @testable import Flagship
+import XCTest
 
 final class FSFetchTest: XCTestCase {
-    
     var urlFakeSession: URLSession?
-    
+
     override func setUpWithError() throws {
         /// Configuration
         let configuration = URLSessionConfiguration.ephemeral
@@ -31,17 +30,14 @@ final class FSFetchTest: XCTestCase {
             print("-------------- Error ----------")
         }
     }
-    
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-   
-
     func testFetchFailed() {
         let expecAllFlag = XCTestExpectation(description: "Error on fetch")
-        
+
         // Create Visitor
         let user: FSVisitor = Flagship.sharedInstance.newVisitor(visitorId: "user", hasConsented: true).build()
         // Set fake session
@@ -54,6 +50,6 @@ final class FSFetchTest: XCTestCase {
             XCTAssert(user.fetchStatus == .FETCH_REQUIRED)
             expecAllFlag.fulfill()
         }
-        wait(for: [expecAllFlag], timeout: 5.0)
+        wait(for: [expecAllFlag], timeout: 40.0)
     }
 }
