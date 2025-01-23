@@ -37,12 +37,12 @@ class FSNotReadyStrategy: FSDefaultStrategy {
     }
     
     /// _ Start collection
-    override func collectEmotionsAIEvents(window: UIWindow?,screenName: String?, usingSwizzling: Bool) {
-        print("Collection for emotion AI not ready")
+    override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
     }
     
     override func onAppScreenChange(_ screenName: String) {
-        print("Collection for emotion AI not ready")
+        FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
     }
     
     /// _ Cache Visitor

@@ -40,12 +40,12 @@ class FSSettings {
     func fetchScore(visitorId: String, completion: @escaping (String?, Int) -> Void) {
         guard let getScoreUrl = URL(string: String(format: fetchEmotionAIScoreURL, Flagship.sharedInstance.envId ?? "", visitorId)) else {
             /// The Url creation failed
-            print("No Score found for this vsitor - in server API")
+            ///
+            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("No Score found for this vsitor - in EAI server"))
             completion(nil, -1)
             return
         }
 
-        print("Will ask for Score in server API :  \(getScoreUrl)")
         self.session.dataTask(with: getScoreUrl) { data, response, _ in
             if let response {
                 if let httpResponse = response as? HTTPURLResponse {
@@ -58,35 +58,26 @@ class FSSettings {
                                 let scoreObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
                                 if let segmentDico = scoreObject["eai"] as? [String: String] {
                                     if let score = segmentDico["eas"] {
-                                        print(" @@@@@@@@@@@@@ Your current score is: \(score ?? "NO score found in remote API") @@@@@@@@@@@@@@@@@@@@")
+                                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Your current EAI score is: \(score)"))
+
                                         completion(score, httpResponse.statusCode)
                                         return
                                     }
                                 }
                             }
-                            print("No Score found for this vsitor - in server API")
+                            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("No Score found for this vsitor - in server API"))
                             completion(nil, httpResponse.statusCode)
                         } catch {
-                            print("Errro on fetching score: \(error.localizedDescription)")
+                            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Errro on fetching score: \(error.localizedDescription)"))
                             completion(nil, httpResponse.statusCode)
                         }
 
                     } else {
-                        // Unknown error
-                        print("Unknown error: \(httpResponse.statusCode)")
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Errro on fetching score: \(httpResponse.statusCode)"))
                         completion(nil, httpResponse.statusCode)
                     }
                 }
             }
         }.resume()
     }
-
-//    // Save the score locally
-//    private class func getSocreFromLocal() -> String? {
-//        UserDefaults.standard.string(forKey: FSEmmotionAIScoreKey)
-//    }
-//
-//    private class func setSocreFromLocal(score: String) {
-//        UserDefaults.standard.set(score, forKey: FSEmmotionAIScoreKey)
-//    }
 }

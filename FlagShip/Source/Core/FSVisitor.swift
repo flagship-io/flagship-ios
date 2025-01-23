@@ -30,6 +30,7 @@ import UIKit
     /// Move this code to another file
 
     func emotionAiCaptureCompleted(_ score: String?) {
+        // TODO : remove later
         print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
         self.eaiVisitorScored = (score == nil) ? false : true
         

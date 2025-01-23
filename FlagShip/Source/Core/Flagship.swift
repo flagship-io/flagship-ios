@@ -121,6 +121,7 @@ public class Flagship: NSObject {
                 Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
                 let endTime = CFAbsoluteTimeGetCurrent() // Record end time
                 let elapsedTime = endTime - startTime // Calculate elapsed time
+                // TODO : Remove later
                 print("start async execution time: \(elapsedTime) seconds")
                 continuation.resume()
             }

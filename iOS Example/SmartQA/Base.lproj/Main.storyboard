@@ -40,7 +40,7 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Change Page"/>
                                 <connections>
                                     <action selector="activate" destination="BYZ-38-t0r" eventType="touchUpInside" id="Luk-63-1Vf"/>
-                                    <segue destination="jeN-d0-bs0" kind="presentation" identifier="onActivate" id="8fF-b8-974"/>
+                                    <segue destination="jeN-d0-bs0" kind="show" identifier="onActivate" id="8fF-b8-974"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kRV-aE-ZnG">
@@ -72,6 +72,17 @@
                                     <constraint firstAttribute="height" constant="150" id="scJ-PU-dbm"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0k-zD-Pyb">
+                                <rect key="frame" x="10" y="708.66666666666663" width="373" height="40"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="NsJ-M3-beW"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Buy">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -80,15 +91,21 @@
                             <constraint firstItem="1Fg-un-lUE" firstAttribute="top" secondItem="kRV-aE-ZnG" secondAttribute="bottom" constant="37" id="2Rp-rL-327"/>
                             <constraint firstItem="1Fg-un-lUE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="6j8-L8-8R6"/>
                             <constraint firstItem="65j-IY-7ad" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Dhw-rt-F3d"/>
+                            <constraint firstItem="y0k-zD-Pyb" firstAttribute="top" secondItem="unC-Kh-ljA" secondAttribute="bottom" constant="90" id="EFg-oI-adK"/>
                             <constraint firstItem="unC-Kh-ljA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FG0-Fy-dhd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="y0k-zD-Pyb" secondAttribute="trailing" constant="10" id="LxX-EY-KQy"/>
                             <constraint firstItem="1Fg-un-lUE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OTA-4K-Iy0"/>
                             <constraint firstItem="WEj-ma-NnX" firstAttribute="top" secondItem="65j-IY-7ad" secondAttribute="bottom" constant="50" id="aIz-PC-mag"/>
+                            <constraint firstItem="y0k-zD-Pyb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="gl6-Eq-yv7"/>
                             <constraint firstItem="WEj-ma-NnX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="oo5-Uw-DGX"/>
                             <constraint firstItem="kRV-aE-ZnG" firstAttribute="top" secondItem="WEj-ma-NnX" secondAttribute="bottom" constant="20" id="oqH-qy-eXX"/>
                             <constraint firstItem="unC-Kh-ljA" firstAttribute="top" secondItem="1Fg-un-lUE" secondAttribute="bottom" constant="20" id="qPR-hC-lS6"/>
                             <constraint firstItem="kRV-aE-ZnG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="sL4-L1-e3X"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="flagButton" destination="y0k-zD-Pyb" id="byq-HT-PFb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -110,6 +127,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Select"/>
+                                <connections>
+                                    <action selector="onclick" destination="jeN-d0-bs0" eventType="touchUpInside" id="hgO-mN-AuN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OiY-9R-EuN">
                                 <rect key="frame" x="96.666666666666686" y="120" width="200" height="50"/>
@@ -120,6 +140,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show"/>
+                                <connections>
+                                    <action selector="onclick" destination="jeN-d0-bs0" eventType="touchUpInside" id="YzV-TJ-OLB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIy-S0-xsI">
                                 <rect key="frame" x="46.666666666666657" y="210" width="300" height="33.666666666666657"/>
@@ -132,6 +155,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="go">
                                     <fontDescription key="titleFontDescription" name="Verdana" family="Verdana" pointSize="16"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="onclick" destination="jeN-d0-bs0" eventType="touchUpInside" id="ODi-aZ-je1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNY-I3-ZSb">
                                 <rect key="frame" x="46.666666666666657" y="263.66666666666669" width="300" height="33.666666666666686"/>
@@ -144,6 +170,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="undo">
                                     <fontDescription key="titleFontDescription" name="Verdana" family="Verdana" pointSize="16"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="onclick" destination="jeN-d0-bs0" eventType="touchUpInside" id="xyr-xu-JZ0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="07x-ua-YsD"/>

@@ -10,8 +10,8 @@ import UIKit
 
 let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
 
-let FSAIDuration_30 = 30 + 2 // I added 2 seconds as marge
-let FSAIDuration_120 = 120 // Duration for waiting the last event
+let FSAIDuration_30 = 30.0 + 5 // I added x seconds as marge
+let FSAIDuration_120 = 120.0 // Duration for waiting the last event
 
 /// Delegate to check if the capture is completed
 protocol FSEmotionAiDelegate {
@@ -26,7 +26,7 @@ enum FSEmotionCollectStatus: Int {
 class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     var currentScreenName: String?
     var delegate: FSEmotionAiDelegate?
-    var timeStartingCollect: TimeInterval = 0
+    var timeStartCollecting: TimeInterval = 0
     var panGesture: UIPanGestureRecognizer?
     var longPressGesture: UILongPressGestureRecognizer?
 
@@ -74,7 +74,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         // Set current screen name
         currentScreenName = nameScreen
         // Init the time
-        timeStartingCollect = Date().timeIntervalSince1970
+        timeStartCollecting = Date().timeIntervalSince1970
 
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         panGesture?.cancelsTouchesInView = false
@@ -83,6 +83,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         longPressGesture?.cancelsTouchesInView = false
         longPressGesture?.minimumPressDuration = 0
+        longPressGesture?.delegate = self
 
         // Create a pageview
         // Send the pageView at the start WITH THE NAME PROVIDED OR FORMAT THE DEFAULT ONE
@@ -94,7 +95,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             if error != nil {
                 completion?(false)
                 // Send page view with error
-                print(error.debugDescription)
+                //  print(error.debugDescription)
             } else {
                 completion?(true)
                 FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Collecting EmotionAI"))
@@ -179,25 +180,21 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         case .began:
             touchStartTime = Date() // Start timing
         case .ended:
-            let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
-            let deltaSecond = Int(deltaTime.rounded())
-
-            // TODO: remove later
-            print("@@@@@@@@@@@@ Handle Long Press after \(deltaSecond) @@@@@@@@@@@@@@@@@@@@")
-
             if let startTime = touchStartTime {
                 let duration = Date().timeIntervalSince(startTime) * 1000 // Convert to milliseconds
 
-                let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
-                let deltaSecond = Int(deltaTime.rounded())
+                // Delta from start collecting
+                let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
+                // TODO: remove later
+                print("@@@@@@@@@@@@ Handling the tap after \(deltaTime) seconds of beginning collection @@@@@@@@@@@@@@@@@@@@@")
 
                 // Create event
-                let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "")
+                let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "\(duration)")
 
                 eventClikc.currentScreen = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
-                if deltaSecond < FSAIDuration_30 {
+                if deltaTime < FSAIDuration_30 {
                     sendEvent(eventClikc, isLastEvent: false)
-                } else if deltaSecond <= FSAIDuration_120 {
+                } else if deltaTime <= FSAIDuration_120 {
                     sendEvent(eventClikc, isLastEvent: true)
                 } else {
                     // visitor not scored
@@ -233,8 +230,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
 
         case .ended:
-            // TODO: remove later
-            print("-------- Move cursor gesture -----------")
             cursorPosition.append("\(location.y),\(location.x),\(last5digitTimeStmap);")
             scrollPosition.append("\(location.x),\(location.y),\(last5digitTimeStmap);")
 
@@ -242,12 +237,13 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
             // Set the name for screen event
             visitorEvent.currentScreen = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
 
-            let deltaTime = Date().timeIntervalSince1970 - timeStartingCollect
-            let deltaSecond = Int(deltaTime.rounded())
+            let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
 
-            if deltaSecond < FSAIDuration_30 {
+            print("&&&&&&&&& handlePan at \(deltaTime) from start collecting &&&&&&&&&&&")
+
+            if deltaTime < FSAIDuration_30 {
                 sendEvent(visitorEvent, isLastEvent: false)
-            } else if deltaSecond <= FSAIDuration_120 {
+            } else if deltaTime <= FSAIDuration_120 {
                 sendEvent(visitorEvent, isLastEvent: true)
             } else {
                 // Visitor Not Scored
@@ -280,6 +276,19 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         NotificationCenter.default.post(name: NSNotification.Name("FSViewDidAppear"),
                                         object: nil,
                                         userInfo: ["dl": screenName])
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
+    // tap / click  gesture
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return true
     }
 }
 

@@ -53,10 +53,10 @@ class FSPanicStrategy: FSDefaultStrategy {
     
     /// _ Start collection
     override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
-        print("Collection for emotion AI not allowed in panic mode")
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_PANIC)
     }
     
     override func onAppScreenChange(_ screenName: String) {
-        print("Collection for emotion AI not allowed in panic mode")
+        FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_PANIC)
     }
 }

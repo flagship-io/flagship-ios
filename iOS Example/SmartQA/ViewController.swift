@@ -13,12 +13,13 @@ class ViewController: UIViewController {
     @IBOutlet var startQABtn: UIButton?
     @IBOutlet var activateQABtn: UIButton?
     var tapGesture: UITapGestureRecognizer?
+
+    @IBOutlet var flagButton: UIButton?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
-    
+
     @IBAction func startQA() {
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let window = windowScene.windows.first
@@ -26,22 +27,43 @@ class ViewController: UIViewController {
             print("Start collecting emotion AI")
             Flagship.sharedInstance.sharedVisitor?.collectEmotionsAIEvents(window: window, screenName: "LoginScreen")
         }
-        
-        // Do any additional setup after loading the view.
     }
- 
+
     /// Add one more activate
     @IBAction func activate() {
-        self.performSegue(withIdentifier: "onActivate", sender: self)
+        
+        
+         self.performSegue(withIdentifier: "onActivate", sender: self)
     }
 
     @IBAction func sendHits() {
         Flagship.sharedInstance.sharedVisitor?.fetchFlags {
             print("Fetch flags done successfully")
-            let value = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "adelFlag").value(defaultValue: "dflt")
-            print("Value \(value)")
-            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "adelFlag").visitorExposed()
-            Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: FSCategoryEvent.User_Engagement, eventAction: "eai-segment "))
+            let value = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btn-title").value(defaultValue: "Buy")
+
+            let btnColor = Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btnColor").value(defaultValue: "none")
+
+            Flagship.sharedInstance.sharedVisitor?.getFlag(key: "btn-title").visitorExposed()
+
+            DispatchQueue.main.async {
+                switch btnColor {
+                    case "red":
+                        self.flagButton?.backgroundColor = .red
+                        self.flagButton?.titleLabel?.textColor = .blue
+
+                    case "blue":
+                        self.flagButton?.backgroundColor = .blue
+                        self.flagButton?.titleLabel?.textColor = .red
+
+                    case "green":
+                        self.flagButton?.backgroundColor = .green
+                        self.flagButton?.titleLabel?.textColor = .blue
+                    default:
+                        self.flagButton?.backgroundColor = .orange
+                        self.flagButton?.titleLabel?.textColor = .red
+                }
+                self.flagButton?.setTitle(value, for: .normal)
+            }
         }
     }
 }
