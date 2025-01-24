@@ -259,13 +259,17 @@ class FSDefaultStrategy: FSDelegateStrategy {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
             return
         }
-        visitor.prepareEmotionAI { _, eaiVisitorScored in
+        visitor.prepareEmotionAI { score, eaiVisitorScored in
             if !eaiVisitorScored {
                 // Init the emotion collect
                 self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
                 self.visitor.emotionCollect?.delegate = self.visitor
                 self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
             } else {
+                self.visitor.eaiVisitorScored = true
+                self.visitor.emotionScoreAI = score
+                // cache the visitor infos
+                self.visitor.strategy?.getStrategy().cacheVisitor()
                 FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored - No need to process the collection again----"))
             }
         }

@@ -49,6 +49,7 @@ class FSAccountSettings: Decodable {
         do { self.troubleshooting = try container.decode(FSTroubleshooting.self, forKey: .troubleshooting) } catch {
             self.troubleshooting = nil
         }
+         
         do { self.eaiCollectEnabled = try container.decode(Bool.self, forKey: .eaiCollectEnabled) } catch { self.eaiCollectEnabled = false }
         do { self.eaiActivationEnabled = try container.decode(Bool.self, forKey: .eaiActivationEnabled) } catch { self.eaiActivationEnabled = false
         }

@@ -149,7 +149,7 @@ class FSCacheDataVistor: Codable {
         
         
         // Set the emotionSocreAI
-        self.emotionScoreAI = visitor.emotionSocreAI
+        self.emotionScoreAI = visitor.emotionScoreAI
         // Set emotionScored
         self.eaiVisitorScored = visitor.eaiVisitorScored
     }

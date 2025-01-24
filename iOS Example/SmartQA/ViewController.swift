@@ -31,9 +31,7 @@ class ViewController: UIViewController {
 
     /// Add one more activate
     @IBAction func activate() {
-        
-        
-         self.performSegue(withIdentifier: "onActivate", sender: self)
+        performSegue(withIdentifier: "onActivate", sender: self)
     }
 
     @IBAction func sendHits() {
@@ -65,5 +63,13 @@ class ViewController: UIViewController {
                 self.flagButton?.setTitle(value, for: .normal)
             }
         }
+    }
+
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+        print("handle pan gesture from app level view controller")
+    }
+
+    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+        print("handle long press gesture from app level view controller")
     }
 }

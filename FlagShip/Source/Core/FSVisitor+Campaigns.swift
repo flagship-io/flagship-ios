@@ -49,7 +49,7 @@ extension FSVisitor {
         self.fetchStatus = .FETCH_REQUIRED
         
         // Set the socre already saved
-        self.emotionSocreAI = cachedVisitor.data?.emotionScoreAI
+        self.emotionScoreAI = cachedVisitor.data?.emotionScoreAI
         
         // Set the boolean is "eaiVisitorScored"
         self.eaiVisitorScored = cachedVisitor.data?.eaiVisitorScored ?? false

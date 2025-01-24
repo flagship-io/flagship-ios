@@ -85,7 +85,6 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    
     // Start SDK (async-await)
     public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
         let startTime = CFAbsoluteTimeGetCurrent() // Record start time
@@ -101,14 +100,10 @@ public class Flagship: NSObject {
                     FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
                 } else {
                     // Error on get ressource
-                    // The default value is applied to EAI
+                    // The false default value is applied to EAI
                     // NO Collect
                 }
                 Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
-                let endTime = CFAbsoluteTimeGetCurrent() // Record end time
-                let elapsedTime = endTime - startTime // Calculate elapsed time
-                // TODO : Remove later
-                print("start async execution time: \(elapsedTime) seconds")
                 continuation.resume()
             }
         }

@@ -30,12 +30,12 @@ import UIKit
     /// Move this code to another file
 
     func emotionAiCaptureCompleted(_ score: String?) {
-        // TODO : remove later
+        // TODO: remove later
         print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
         self.eaiVisitorScored = (score == nil) ? false : true
         
         if Flagship.sharedInstance.eaiActivationEnabled {
-            self.emotionSocreAI = score
+            self.emotionScoreAI = score
             // Update the context
             if let aScore = score {
                 self.context.updateContext("eai::eas", aScore)
@@ -85,7 +85,7 @@ import UIKit
     public internal(set) var eaiVisitorScored: Bool = false
         
     // Score value
-    public internal(set) var emotionSocreAI: String? = nil
+    public internal(set) var emotionScoreAI: String? = nil
 
     // Refonte status
     public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
@@ -153,9 +153,9 @@ import UIKit
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         self.prepareEmotionAI(onCompleted: { score, _ in
             // Set the score
-            self.emotionSocreAI = score
+            self.emotionScoreAI = score
             
-            // Update the context
+            // Update the context only if the score is not nil
             if let aScore = score {
                 self.context.updateContext("eai::eas", aScore)
             }
@@ -184,35 +184,38 @@ import UIKit
     }
 
     func prepareEmotionAI(onCompleted: @escaping (_ score: String?, _ isAlreadyScored: Bool) -> Void) {
-        // Check the enabled and activation
-        if Flagship.sharedInstance.eaiCollectEnabled {
-            // Get score initialy loaded from cache
-            if Flagship.sharedInstance.eaiActivationEnabled { /// using the score is enabled
-                if self.eaiVisitorScored { // If the user is already scored
-                    if let aScore = self.emotionSocreAI { // check the score form local
-                        onCompleted(aScore, self.eaiVisitorScored)
-                    } else { // Otherwise lookk for the score from the server
-                        FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, _ in
-                            onCompleted(score, self.eaiVisitorScored)
-                        })
-                    }
-                } else {
-                    FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is never scored --- exit with nil"))
-                    onCompleted(nil, self.eaiVisitorScored)
+        // EAIActivation is enabled
+        if Flagship.sharedInstance.eaiActivationEnabled {
+            if self.eaiVisitorScored { // If the user is already scored go look for the score in local first
+                // The visitor score should be updated with the value stored in cache
+                if let aScore = self.emotionScoreAI {
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \(aScore) in local cache"))
+                    // Complete block with score
+                    onCompleted(aScore, true)
                 }
-                
-            } else { /// Not able to use the score
-                // The eaiActivationEnabled not enabled -- go for the score anyway
-                onCompleted(nil, self.eaiVisitorScored)
+            } else { // Not scored, but w'll check in remote if we have already a score for this user
+                FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, _ in
+                    if let aScore = score {
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \(aScore) in eai server "))
+                        onCompleted(aScore, true)
+                    } else {
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is never scored --- exit with nil"))
+                        onCompleted(nil, false)
+                    }
+                })
             }
         } else {
-            // Not allowed to emotionAI
-            onCompleted(nil, self.eaiVisitorScored)
+            // The eaiActivationEnabled not enabled -- Go for the collection anyway
+            onCompleted(nil, false)
         }
     }
     
     public func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
-        self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
+        if Flagship.sharedInstance.eaiCollectEnabled == true {
+            self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
+        } else {
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI feature is not activated"))
+        }
     }
     
     public func onAppScreenChange(_ screenName: String) {
@@ -309,4 +312,3 @@ import UIKit
         self.strategy?.getStrategy().sendHit(consentHit)
     }
 }
-
