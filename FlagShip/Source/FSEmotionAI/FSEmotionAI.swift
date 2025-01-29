@@ -10,7 +10,7 @@ import UIKit
 
 let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
 
-let FSAIDuration_30 = 30.0 + 5 // I added x seconds as marge
+let FSAIDuration_30 = 30.0 + 2 // I added x seconds as marge
 let FSAIDuration_120 = 120.0 // Duration for waiting the last event
 
 /// Delegate to check if the capture is completed
@@ -185,7 +185,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 // Delta from start collecting
                 let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
                 
-                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle tap at \(deltaTime) from start collecting emotionAI"))
+                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle tap at \(deltaTime) seconds from start collecting emotionAI"))
 
 
                 // Create event
@@ -239,7 +239,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
             let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
 
-            FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle Pan at \(deltaTime) from start collecting emotionAI"))
+            FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle Pan at \(deltaTime) seconds from start collecting emotionAI"))
 
             if deltaTime < FSAIDuration_30 {
                 sendEvent(visitorEvent, isLastEvent: false)

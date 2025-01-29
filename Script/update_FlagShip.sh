@@ -12,7 +12,7 @@ fi
 
 varComps=( ${releaseSDKVersion//./ } )
 
-if (( ${#varComps[@]} != 3 )); then
+if (( ${#varComps[@]} != 4 )); then
     printf "\n Ouups .... Invalid target version : ${releaseSDKVersion} \n"
     exit 1
 fi
