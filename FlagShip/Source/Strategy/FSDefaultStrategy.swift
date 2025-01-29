@@ -256,7 +256,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
         if visitor.emotionCollect != nil && visitor.emotionCollect?.status == .PROGRESS {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
+            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
             return
         }
         visitor.prepareEmotionAI { score, eaiVisitorScored in
@@ -270,7 +270,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 self.visitor.emotionScoreAI = score
                 // cache the visitor infos
                 self.visitor.strategy?.getStrategy().cacheVisitor()
-                FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored - No need to process the collection again----"))
+                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored - No need to process the collection again----"))
             }
         }
     }

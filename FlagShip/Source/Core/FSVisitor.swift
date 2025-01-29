@@ -30,8 +30,7 @@ import UIKit
     /// Move this code to another file
 
     func emotionAiCaptureCompleted(_ score: String?) {
-        // TODO: remove later
-        print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
+      //  print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
         self.eaiVisitorScored = (score == nil) ? false : true
         
         if Flagship.sharedInstance.eaiActivationEnabled {
@@ -214,7 +213,7 @@ import UIKit
         if Flagship.sharedInstance.eaiCollectEnabled == true {
             self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
         } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI feature is not activated"))
+            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI feature is not activated"))
         }
     }
     

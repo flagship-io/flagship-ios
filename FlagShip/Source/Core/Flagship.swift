@@ -87,7 +87,6 @@ public class Flagship: NSObject {
     
     // Start SDK (async-await)
     public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
-        let startTime = CFAbsoluteTimeGetCurrent() // Record start time
         await withCheckedContinuation { continuation in
             FSSettings().fetchRessources(envId: envId) { extras, error in
                 if error == nil {

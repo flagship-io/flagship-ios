@@ -65,7 +65,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
     func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil, completion: ((Bool) -> Void)? = nil) {
         if status == .PROGRESS {
-            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The Emotion collection is already in progress"))
+            FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The Emotions AI collection is already in progress"))
 
             return
         }
@@ -98,7 +98,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 //  print(error.debugDescription)
             } else {
                 completion?(true)
-                FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Start Collecting EmotionAI"))
+                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Start Collecting EmotionAI"))
                 // Start collect AI
                 DispatchQueue.main.async {
                     if let pan = self.panGesture, let longPress = self.longPressGesture {
@@ -122,7 +122,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         sendEmotionEvent(event)
         if isLastEvent {
-            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
+            FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
             stopCollecting()
             // Start get scoring from remote
             pollingScore = FSPollingScore(visitorId: visitorId, delegate: delegate)
@@ -150,28 +150,27 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     private func sendEmotionEvent(_ aiHit: FSTracking, completion: ((Error?) -> Void)? = nil) {
-        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Send Emotion ScreenView"))
+        FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Send EmotionAI : " + aiHit.type.typeString))
 
         // Set the visitor id
         aiHit.visitorId = visitorId
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: aiHit.bodyTrack as Any, options: .prettyPrinted)
 
-            // TODO: Comment later
-            print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
+            //print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
             if let urlAI = URL(string: FSEmotionAiUrl) {
                 service?.sendRequest(urlAI, type: .Tracking, data: dataToSend) { _, error in
                     if error != nil {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Failed to send EmotionAI : " + aiHit.type.typeString))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Failed to send EmotionAI : " + aiHit.type.typeString))
                     } else {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Success to send EmotionAI : " + aiHit.type.typeString))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Success to send EmotionAI : " + aiHit.type.typeString))
                     }
                     completion?(error)
                 }
             }
 
         } catch {
-            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Error on sending AI hit \(error.localizedDescription)"))
+            FlagshipLogManager.Log(level: .EXCEPTIONS, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Error on sending AI hit \(error.localizedDescription)"))
         }
     }
 
@@ -185,8 +184,9 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
                 // Delta from start collecting
                 let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
-                // TODO: remove later
-                print("@@@@@@@@@@@@ Handling the tap after \(deltaTime) seconds of beginning collection @@@@@@@@@@@@@@@@@@@@@")
+                
+                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle tap at \(deltaTime) from start collecting emotionAI"))
+
 
                 // Create event
                 let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "\(duration)")
@@ -239,7 +239,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
             let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
 
-            print("&&&&&&&&& handlePan at \(deltaTime) from start collecting &&&&&&&&&&&")
+            FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle Pan at \(deltaTime) from start collecting emotionAI"))
 
             if deltaTime < FSAIDuration_30 {
                 sendEvent(visitorEvent, isLastEvent: false)
@@ -267,7 +267,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
         } else {
             // user info nil
-            FlagshipLogManager.Log(level: .ERROR, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("userInfo is nil on handleNotification"))
+            FlagshipLogManager.Log(level: .ERROR, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("userInfo is nil on handleNotification"))
         }
     }
 

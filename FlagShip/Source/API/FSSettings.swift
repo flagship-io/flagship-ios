@@ -9,7 +9,6 @@
 import Foundation
 
 let FSEmmotionAIScoreKey = "EmmotionAIScoreKey"
-// TODO: remove static envid value
 class FSSettings {
     var session: URLSession = .init(configuration: URLSessionConfiguration.default)
 

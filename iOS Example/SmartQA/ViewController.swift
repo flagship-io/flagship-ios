@@ -62,6 +62,15 @@ class ViewController: UIViewController {
                 }
                 self.flagButton?.setTitle(value, for: .normal)
             }
+            
+            
+            /// Send hits
+            ///
+            Flagship.sharedInstance.sharedVisitor?.sendHit(FSScreen("screen"))
+            Flagship.sharedInstance.sharedVisitor?.sendHit(FSEvent(eventCategory: .Action_Tracking, eventAction: "ios_event"))
+            Flagship.sharedInstance.sharedVisitor?.sendHit(FSTransaction(transactionId: "id12121", affiliation: "ios_transaction"))
+
+
         }
     }
 
