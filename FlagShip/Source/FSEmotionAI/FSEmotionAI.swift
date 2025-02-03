@@ -32,6 +32,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
     var pollingScore: FSPollingScore?
     var visitorId: String
+    var anonymousId: String?
     var service: FSService?
     var cursorPosition = ""
     var scrollPosition = ""
@@ -61,6 +62,11 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         if usingSwizzling {
             UIViewController.swizzleViewDidAppear
         }
+    }
+
+    func updateTupleId(visitorId: String, anonymousId: String?) {
+        self.visitorId = visitorId
+        self.anonymousId = anonymousId
     }
 
     func startEAICollectForView(_ window: UIWindow?, nameScreen: String? = nil, completion: ((Bool) -> Void)? = nil) {
@@ -120,6 +126,9 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
+        // Send Hits TR
+        FSDataUsageTracking.sharedInstance.processTSEmotionHits(visitorId: "", anonymousId: "", hit: event)
+
         sendEmotionEvent(event)
         if isLastEvent {
             FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
@@ -157,7 +166,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: aiHit.bodyTrack as Any, options: .prettyPrinted)
 
-            //print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
+            // print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
             if let urlAI = URL(string: FSEmotionAiUrl) {
                 service?.sendRequest(urlAI, type: .Tracking, data: dataToSend) { _, error in
                     if error != nil {
@@ -184,9 +193,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
                 // Delta from start collecting
                 let deltaTime = Date().timeIntervalSince1970 - timeStartCollecting
-                
-                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle tap at \(deltaTime) seconds from start collecting emotionAI"))
 
+                FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("handle tap at \(deltaTime) seconds from start collecting emotionAI"))
 
                 // Create event
                 let eventClikc = FSEmotionEvent("\(gesture.location(in: window).x)", "\(gesture.location(in: window).y)", pClickDuration: "\(duration)")

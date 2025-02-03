@@ -294,6 +294,10 @@
 		F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5B2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
 		F551BF5C2CDE77FF007C5493 /* FSSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F551BF582CDE77FF007C5493 /* FSSettings.swift */; };
+		F5574A182D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */; };
+		F5574A192D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */; };
+		F5574A1A2D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */; };
+		F5574A1B2D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */; };
 		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
 		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
 		F55CC59E2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */; };
@@ -494,6 +498,7 @@
 		F54CDFD82D1AEC6A00AA5AB0 /* settings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = settings.json; sourceTree = "<group>"; };
 		F54CDFDB2D1AEE1B00AA5AB0 /* FSettingsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSettingsTest.swift; sourceTree = "<group>"; };
 		F551BF582CDE77FF007C5493 /* FSSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSettings.swift; sourceTree = "<group>"; };
+		F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSDataUsageTracking+EmotionAI.swift"; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
 		F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagMetadata.swift; sourceTree = "<group>"; };
@@ -907,6 +912,7 @@
 				F543E4092CEE3E7F00293F6F /* FSPollingScore.swift */,
 				F543E4102CF0BCC800293F6F /* FSEmotionEvent.swift */,
 				F543E41A2CF4E84B00293F6F /* FSEmotionPageView.swift */,
+				F5574A172D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift */,
 			);
 			path = FSEmotionAI;
 			sourceTree = "<group>";
@@ -1223,6 +1229,7 @@
 				8B2D51402805D43C00866D61 /* FSVisitorBuilder.swift in Sources */,
 				8B2D51412805D43C00866D61 /* FSVisitor+Campaigns.swift in Sources */,
 				8B2D51422805D43C00866D61 /* FSVisitor+objc.swift in Sources */,
+				F5574A1A2D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */,
 				F543E4132CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A42C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959029CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
@@ -1343,6 +1350,7 @@
 				8B9F2A8F2809B8E600323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2A902809B8E600323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2A912809B8E600323094 /* FSVisitor+objc.swift in Sources */,
+				F5574A182D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */,
 				F543E4142CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A52C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959129CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
@@ -1431,6 +1439,7 @@
 				8B9F2ACE2809BA8200323094 /* FSVisitorBuilder.swift in Sources */,
 				8B9F2ACF2809BA8200323094 /* FSVisitor+Campaigns.swift in Sources */,
 				8B9F2AD02809BA8200323094 /* FSVisitor+objc.swift in Sources */,
+				F5574A192D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */,
 				F543E4122CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A62C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E959229CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
@@ -1519,6 +1528,7 @@
 				8B6736A827FED3E5003EC960 /* FSVisitorBuilder.swift in Sources */,
 				8B6736A927FED3E5003EC960 /* FSVisitor+Campaigns.swift in Sources */,
 				8B6736AA27FED3E5003EC960 /* FSVisitor+objc.swift in Sources */,
+				F5574A1B2D51236600ABEB6C /* FSDataUsageTracking+EmotionAI.swift in Sources */,
 				F543E4112CF0BCC800293F6F /* FSEmotionEvent.swift in Sources */,
 				F55CC5A32C077DBA000A21CF /* FSFlag.swift in Sources */,
 				F50E958F29CDD977000B333F /* FSTrackingManagerConfig.swift in Sources */,
@@ -1890,7 +1900,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "5.0.0-beta.1";
+				MARKETING_VERSION = "5.0.0-beta.3";
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1924,7 +1934,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "5.0.0-beta.1";
+				MARKETING_VERSION = "5.0.0-beta.3";
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;

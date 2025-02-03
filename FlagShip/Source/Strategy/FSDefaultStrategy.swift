@@ -187,6 +187,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
         
         visitor.visitorId = visitorId
+        
+        /// Update the xpc info for the emotion AI
+        visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
     }
     
     func unAuthenticateVisitor() {
@@ -200,6 +203,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
         }
+        
+        /// Update the xpc info for the emotion AI
+        visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
     }
     
     /// _ Cache Managment

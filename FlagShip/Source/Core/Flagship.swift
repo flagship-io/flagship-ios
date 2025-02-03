@@ -97,6 +97,9 @@ public class Flagship: NSObject {
                     
                     FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
                     FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
+                    // Update TroubleShooting 
+                    FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: extras?.accountSettings?.troubleshooting)
+
                 } else {
                     // Error on get ressource
                     // The false default value is applied to EAI

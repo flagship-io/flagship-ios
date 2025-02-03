@@ -141,4 +141,8 @@ enum CriticalPoints: String {
     case FLAG_EXPOSED_BEFORE_CALLING_VALUE_METHOD
     // Trigger when the SDK catches any other error but those listed here.
     case ERROR_CATCHED
+    
+    // Emotion AI
+    case EMOTION_AI_VISITOR_EVENT
+    case EMOTION_AI_PAGE_VIEW
 }

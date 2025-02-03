@@ -75,5 +75,5 @@ let FSBucketingScriptNotification = "onGettingBucketScript"
 
 let fetchEmotionAIScoreURL = "https://uc-info.flagship.io/v1/segments/clients/%@/visitors/%@?partner=eai"
 
-// let FSSettingsURL =  "https://fs-decision-staging-bucket.s3.amazonaws.com/%@/accountSettings.json"
+// Account settings
 let FSSettingsURL = "https://cdn.flagship.io/%@/accountSettings.json"
