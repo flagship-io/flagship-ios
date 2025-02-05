@@ -109,51 +109,64 @@ class FSDataUsageHit: TroubleshootingHit {
 }
 
 enum CriticalPoints: String {
-    // Trigger on fetch flags
+    // Trigger on fetch flags.
     case VISITOR_FETCH_CAMPAIGNS
-    // Trigger on authenticate
+    // Trigger on authenticate.
     case VISITOR_AUTHENTICATE
-    // Trigger on unAuthenticate
+    // Trigger on unAuthenticate.
     case VISITOR_UNAUTHENTICATE
-    // Trigger on sending Hit
+    // Trigger on sending Hit.
     case VISITOR_SEND_HIT
-    // Trigger on sending activate
+    // Trigger on sending activate.
     case VISITOR_SEND_ACTIVATE
-    // Http call
+    // Http call.
     case HTTP_CALL
-    // Trigger when the bucketing route responds with code 200
+    // Trigger when the bucketing route responds with code 200.
     case SDK_BUCKETING_FILE
-    // Trigger when the bucketing route responds with error
+    // Trigger when the bucketing route responds with error.
     case SDK_BUCKETING_FILE_ERROR
-    // Trigger when the campaigns route responds with an error
+    // Trigger when the campaigns route responds with an error.
     case GET_CAMPAIGNS_ROUTE_RESPONSE_ERROR
-    // Trigger when a batch request failed
+    // Trigger when a batch request failed.
     case SEND_BATCH_HIT_ROUTE_RESPONSE_ERROR
-    // Trigger when a activate request failed
+    // Trigger when a activate request failed.
     case SEND_ACTIVATE_HIT_ROUTE_ERROR
-    // Trigger when the Flag.getValue method is called and no flag is found
+    // Trigger when the Flag.getValue method is called and no flag is found.
     case GET_FLAG_VALUE_FLAG_NOT_FOUND
-    // Trigger when the Flag.visitorExposed method is called and no flag is found
+    // Trigger when the Flag.visitorExposed method is called and no flag is found.
     case VISITOR_EXPOSED_FLAG_NOT_FOUND
-    // Trigger when the Flag.visitorExposed method is called and the flag value has a different type with default value
+    // Trigger when the Flag.visitorExposed method is called and the flag value has a different type with default value.
     case GET_FLAG_VALUE_TYPE_WARNING
-    // When a visitor attempts to expose a flag without calling the the getValue
+    // When a visitor attempts to expose a flag without calling the the getValue.
     case FLAG_EXPOSED_BEFORE_CALLING_VALUE_METHOD
     // Trigger when the SDK catches any other error but those listed here.
     case ERROR_CATCHED
 
-    // Emotion AI
-    case EMOTIONS_AI_VISITOR_EVENT
-    case EMOTIONS_AI_PAGE_VIEW
-    case EMOTIONS_AI_PAGE_VIEW_ERROR
-    case EMOTIONS_AI_VISITOR_EVENT_ERROR
+    /// Emotions AI
+    // It will be triggered when the route \accountSettings.json  has succeeded.
     case ACCOUNT_SETTINGS
+    // It will be triggered when the route https://uc-info.flagship.io/
     case EMOTIONS_AI_SCORE
+    // It will be triggered when EAI score is fetched from local storage.
     case EMOTIONS_AI_SCORE_FROM_LOCAL_CACHE
+    // It will be triggered when the route https://uc-info.flagship.io/v1/ has failed.
     case EMOTIONS_AI_SCORE_ERROR
+    // It will be triggered when a visitor event (Click, move) event is sent.
+    case EMOTIONS_AI_VISITOR_EVENT
+    // It will be triggered when a page view event is sent.
+    case EMOTIONS_AI_PAGE_VIEW
+    // It will be triggered when the sending of a visitor event (Click, scroll or move) event has failed.
+    case EMOTIONS_AI_VISITOR_EVENT_ERROR
+    // It will be triggered when the sending of page view event has failed.
+    case EMOTIONS_AI_PAGE_VIEW_ERROR
+    // It will be triggered when the collection of emotion AI events (Click, scroll or move) has begun.
     case EMOTIONS_AI_START_COLLECTING
+    // It will be triggered when the collection of emotion AI events (Click, scroll or move) has stopped.
     case EMOTIONS_AI_STOP_COLLECTING
+    // It will be triggered when the pulling of score has begun.
     case EMOTIONS_AI_START_SCORING
+    // It will be triggered when no score has been calculated after the pulling max time is over.
     case EMOTIONS_AI_SCORING_FAILED
+    // It will be triggered when  a score has been calculated during the pulling process.
     case EMOTIONS_AI_SCORING_SUCCESS
 }

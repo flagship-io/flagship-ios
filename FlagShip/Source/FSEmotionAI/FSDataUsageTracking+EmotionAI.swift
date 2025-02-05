@@ -12,16 +12,16 @@ extension FSDataUsageTracking {
     func processTSEmotionsHits(visitorId: String, anonymousId: String?, hit: FSTrackingProtocol) {
         let label = (hit.type == .EMOTION_AI) ? CriticalPoints.EMOTIONS_AI_PAGE_VIEW.rawValue : CriticalPoints.EMOTIONS_AI_PAGE_VIEW.rawValue
 
-        var criticalJson: [String: String] = ["visitor.sessionId": _visitorSessionId,
-                                              "visitor.visitorId": visitorId,
-                                              "visitor.anonymousId": anonymousId ?? "null"]
+        var json: [String: String] = ["visitor.sessionId": _visitorSessionId,
+                                      "visitor.visitorId": visitorId,
+                                      "visitor.anonymousId": anonymousId ?? "null"]
 
         // Add hits fields
-        criticalJson.merge(createCriticalFieldsHits(hit: hit)) { _, new in new }
+        json.merge(createCriticalFieldsHits(hit: hit)) { _, new in new }
 
         // Send Troubleshooting
         sendTroubleshootingReport(_trHit:
-            TroubleshootingHit(pVisitorId: visitorId, pAnonymousId: anonymousId, pLabel: label, pSpeceficCustomFields: criticalJson))
+            TroubleshootingHit(pVisitorId: visitorId, pAnonymousId: anonymousId, pLabel: label, pSpeceficCustomFields: json))
     }
 
     // Troubleshooting on any request error

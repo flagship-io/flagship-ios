@@ -188,7 +188,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
         
         visitor.visitorId = visitorId
         
-        /// Update the xpc info for the emotion AI
+        // Update the xpc info for the emotion AI
         visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
     }
     
@@ -204,7 +204,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
         }
         
-        /// Update the xpc info for the emotion AI
+        // Update the xpc info for the emotion AI
         visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
     }
     

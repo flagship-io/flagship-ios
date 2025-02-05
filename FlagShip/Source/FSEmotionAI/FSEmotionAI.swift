@@ -128,7 +128,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         // Send Hits TR
-        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: "", anonymousId: "", hit: event)
+        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: visitorId, anonymousId: anonymousId, hit: event)
 
         sendEmotionEvent(event)
         if isLastEvent {
