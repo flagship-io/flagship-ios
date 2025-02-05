@@ -30,7 +30,7 @@ import UIKit
     /// Move this code to another file
 
     func emotionAiCaptureCompleted(_ score: String?) {
-      //  print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
+        //  print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
         self.eaiVisitorScored = (score == nil) ? false : true
         
         if Flagship.sharedInstance.eaiActivationEnabled {
@@ -44,6 +44,8 @@ import UIKit
         }
         
         self.strategy?.getStrategy().cacheVisitor()
+        // TR for emotion AI
+        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint:.EMOTIONS_AI_SCORING_SUCCESS, visitorId: self.visitorId, anonymousId: self.anonymousId, score: score)
     }
     
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
@@ -190,6 +192,7 @@ import UIKit
                 if let aScore = self.emotionScoreAI {
                     FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \(aScore) in local cache"))
                     // Complete block with score
+                    FSDataUsageTracking.sharedInstance.processTSEmotionsCachedScore(visitorId: self.visitorId, anonymousId: self.anonymousId, score: aScore)
                     onCompleted(aScore, true)
                 }
             } else { // Not scored, but w'll check in remote if we have already a score for this user

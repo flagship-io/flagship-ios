@@ -93,7 +93,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
         // Create a pageview
         // Send the pageView at the start WITH THE NAME PROVIDED OR FORMAT THE DEFAULT ONE
-
         let pNameScreen: String = currentScreenName ?? window?.getNameForVisibleViewController() ?? ""
 
         sendEmotionEvent(FSEmotionPageView(pNameScreen)) { error in
@@ -123,18 +122,20 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                 }
             }
         }
+        // TS on start Collecting
+        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint: .EMOTIONS_AI_START_COLLECTING, visitorId: visitorId, anonymousId: anonymousId)
     }
 
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
         // Send Hits TR
-        FSDataUsageTracking.sharedInstance.processTSEmotionHits(visitorId: "", anonymousId: "", hit: event)
+        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: "", anonymousId: "", hit: event)
 
         sendEmotionEvent(event)
         if isLastEvent {
             FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
             stopCollecting()
             // Start get scoring from remote
-            pollingScore = FSPollingScore(visitorId: visitorId, delegate: delegate)
+            pollingScore = FSPollingScore(visitorId: visitorId, anonymousId: anonymousId, delegate: delegate)
         }
     }
 
@@ -146,6 +147,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         if swizzlingEnabled {
             UIViewController.revertSwizzleViewDidAppear()
         }
+        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint: .EMOTIONS_AI_STOP_COLLECTING, visitorId: visitorId, anonymousId: anonymousId)
     }
 
     /// Building events
@@ -168,7 +170,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
 
             // print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
             if let urlAI = URL(string: FSEmotionAiUrl) {
-                service?.sendRequest(urlAI, type: .Tracking, data: dataToSend) { _, error in
+                let requestType: FSRequestType = (aiHit.type == .PAGE) ? .EmotionsView : .EmotionsVisitor
+                service?.sendRequest(urlAI, type: requestType, data: dataToSend) { _, error in
                     if error != nil {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Failed to send EmotionAI : " + aiHit.type.typeString))
                     } else {

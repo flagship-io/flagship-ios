@@ -91,6 +91,8 @@ extension FSDataUsageTracking {
                     if error != nil {
                         FlagshipLogManager.Log(level: .ERROR, tag: .DATA_TR_USAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to send \(subMsg) report : \(error.debugDescription)"))
                     } else {
+                        // TODO: remove later
+                        print(" TR USAGE REPORT SENT: \(dataToSend.prettyPrintedJSONString)")
                         FlagshipLogManager.Log(level: .DEBUG, tag: .DATA_TR_USAGE, messageToDisplay: FSLogMessage.MESSAGE("\(subMsg) report sent successfully."))
                     }
                 }

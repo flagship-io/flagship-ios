@@ -99,7 +99,7 @@ class TroubleshootingHit: FSTracking {
 
 class FSDataUsageHit: TroubleshootingHit {
     override init(pVisitorId: String, pAnonymousId: String?, pLabel: String, pSpeceficCustomFields: [String: String]) {
-        super.init(pVisitorId: pVisitorId,pAnonymousId:pAnonymousId, pLabel: pLabel, pSpeceficCustomFields: pSpeceficCustomFields)
+        super.init(pVisitorId: pVisitorId, pAnonymousId: pAnonymousId, pLabel: pLabel, pSpeceficCustomFields: pSpeceficCustomFields)
         type = .USAGE
     }
 
@@ -141,8 +141,19 @@ enum CriticalPoints: String {
     case FLAG_EXPOSED_BEFORE_CALLING_VALUE_METHOD
     // Trigger when the SDK catches any other error but those listed here.
     case ERROR_CATCHED
-    
+
     // Emotion AI
-    case EMOTION_AI_VISITOR_EVENT
-    case EMOTION_AI_PAGE_VIEW
+    case EMOTIONS_AI_VISITOR_EVENT
+    case EMOTIONS_AI_PAGE_VIEW
+    case EMOTIONS_AI_PAGE_VIEW_ERROR
+    case EMOTIONS_AI_VISITOR_EVENT_ERROR
+    case ACCOUNT_SETTINGS
+    case EMOTIONS_AI_SCORE
+    case EMOTIONS_AI_SCORE_FROM_LOCAL_CACHE
+    case EMOTIONS_AI_SCORE_ERROR
+    case EMOTIONS_AI_START_COLLECTING
+    case EMOTIONS_AI_STOP_COLLECTING
+    case EMOTIONS_AI_START_SCORING
+    case EMOTIONS_AI_SCORING_FAILED
+    case EMOTIONS_AI_SCORING_SUCCESS
 }

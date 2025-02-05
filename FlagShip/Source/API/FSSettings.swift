@@ -19,15 +19,22 @@ class FSSettings {
         guard let url = URL(string: String(format: FSSettingsURL, envId)) else {
             return completion(nil, FlagshipError(message: "Invalid URL", type: .badRequest, code: 500))
         }
-        self.session.dataTask(with: url) { data, _, _ in
+        self.session.dataTask(with: url) { data, response, _ in
 
             do {
                 if let aData = data {
                     let accountSettingsObject = try JSONDecoder().decode(FSExtras.self, from: aData)
                     completion(accountSettingsObject, nil)
+
+                    // Update TroubleShooting
+                    FSDataUsageTracking.sharedInstance.updateTroubleshooting(trblShooting: accountSettingsObject.accountSettings?.troubleshooting)
+
+                    // TR on success
+                    FSDataUsageTracking.sharedInstance.processTSHttp(crticalPointLabel: CriticalPoints.ACCOUNT_SETTINGS, response as? HTTPURLResponse, URLRequest(url: url), aData)
                 }
             } catch {
                 completion(nil, FlagshipError(message: error.localizedDescription, type: .internalError, code: 500))
+                FSDataUsageTracking.sharedInstance.processTSEmotionsSettingsError(label: CriticalPoints.ACCOUNT_SETTINGS, response as? HTTPURLResponse, URLRequest(url: url))
             }
         }.resume()
     }
@@ -49,10 +56,11 @@ class FSSettings {
             if let response {
                 if let httpResponse = response as? HTTPURLResponse {
                     if httpResponse.statusCode == 204 {
+                        // Clean code later
                         print("Empty Content - Status Code:\(httpResponse.statusCode)")
                         completion(nil, httpResponse.statusCode)
                     } else if httpResponse.statusCode == 200 {
-                        do {
+                        do { // TO DO secure this part
                             if let aData = data {
                                 let scoreObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
                                 if let segmentDico = scoreObject["eai"] as? [String: String] {
@@ -60,6 +68,8 @@ class FSSettings {
                                         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Your current EAI score is: \(score)"))
 
                                         completion(score, httpResponse.statusCode)
+
+                                        FSDataUsageTracking.sharedInstance.processTSEmotionsScoreSuccess(visitorId: visitorId, anonymousId: nil, response: httpResponse, URLRequest(url: getScoreUrl), score)
                                         return
                                     }
                                 }
@@ -72,6 +82,8 @@ class FSSettings {
                         }
 
                     } else {
+                        FSDataUsageTracking.sharedInstance.processTSEmotionsSettingsError(label: CriticalPoints.EMOTIONS_AI_SCORE_ERROR, httpResponse, URLRequest(url: getScoreUrl), data)
+
                         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Errro on fetching score: \(httpResponse.statusCode)"))
                         completion(nil, httpResponse.statusCode)
                     }

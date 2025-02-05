@@ -14,6 +14,8 @@ enum FSRequestType: Int {
     case Tracking
     case KeyContext
     case DataUsage // used for DataReport or Troubleshooting
+    case EmotionsView
+    case EmotionsVisitor
 }
 
 extension FSService {
