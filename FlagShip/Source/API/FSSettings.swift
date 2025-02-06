@@ -57,10 +57,9 @@ class FSSettings {
                 if let httpResponse = response as? HTTPURLResponse {
                     if httpResponse.statusCode == 204 {
                         // Clean code later
-                        print("Empty Content - Status Code:\(httpResponse.statusCode)")
                         completion(nil, httpResponse.statusCode)
                     } else if httpResponse.statusCode == 200 {
-                        do { // TO DO secure this part
+                        do {
                             if let aData = data {
                                 let scoreObject = try JSONSerialization.jsonObject(with: aData, options: []) as! [String: Any]
                                 if let segmentDico = scoreObject["eai"] as? [String: String] {
@@ -74,7 +73,7 @@ class FSSettings {
                                     }
                                 }
                             }
-                            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("No Score found for this vsitor - in server API"))
+                            FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("No Score found in the response from server"))
                             completion(nil, httpResponse.statusCode)
                         } catch {
                             FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Errro on fetching score: \(error.localizedDescription)"))
@@ -84,7 +83,7 @@ class FSSettings {
                     } else {
                         FSDataUsageTracking.sharedInstance.processTSEmotionsSettingsError(label: CriticalPoints.EMOTIONS_AI_SCORE_ERROR, httpResponse, URLRequest(url: getScoreUrl), data)
 
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Errro on fetching score: \(httpResponse.statusCode)"))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Error on fetching score: \(httpResponse.statusCode)"))
                         completion(nil, httpResponse.statusCode)
                     }
                 }
