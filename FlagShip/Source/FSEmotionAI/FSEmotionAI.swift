@@ -127,9 +127,6 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
     }
 
     func sendEvent(_ event: FSTracking, isLastEvent: Bool) {
-        // Send Hits TR
-        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: visitorId, anonymousId: anonymousId, hit: event)
-
         sendEmotionEvent(event)
         if isLastEvent {
             FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Send last EAI event and STOP COLLECTING"))
@@ -176,6 +173,8 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Failed to send EmotionAI : " + aiHit.type.typeString))
                     } else {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("Success to send EmotionAI : " + aiHit.type.typeString))
+
+                        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: self.visitorId, anonymousId: self.anonymousId, hit: aiHit)
                     }
                     completion?(error)
                 }
