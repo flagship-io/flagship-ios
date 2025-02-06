@@ -13,7 +13,7 @@ import Foundation
 let visitorSessionIdKey: String = "visitor.sessionId"
 let visitorIdKey: String = "visitor.visitorId"
 let visitorAnonymousIdKey: String = "visitor.anonymousId"
-let visitorEaiAas:String = "visitor.eai.eas"
+let visitorEaiAas: String = "visitor.eai.eas"
 
 extension FSDataUsageTracking {
     func processTSEmotionsHits(visitorId: String, anonymousId: String?, hit: FSTrackingProtocol) {
@@ -34,15 +34,10 @@ extension FSDataUsageTracking {
     // Troubleshooting on any request error
     func processTSEmotionsSettingsError(label: CriticalPoints, _ response: HTTPURLResponse?, _ request: URLRequest, _ data: Data? = nil) {
         var criticalJson: [String: String] = [visitorSessionIdKey: _visitorSessionId,
-                                              visitorIdKey: _visitorId]
-        let httpFields: [String: String] = [
-            "http.request.headers": request.allHTTPHeaderFields?.description ?? "",
-            "http.request.method": request.httpMethod ?? "",
-            "http.request.url": request.url?.absoluteString ?? "",
-            "http.response.body": String(data?.prettyPrintedJSONString ?? ""),
-            "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode ?? 0)
-        ]
+                                              visitorIdKey: _visitorId,
+                                              "http.response.body": String(data?.prettyPrintedJSONString ?? "")]
+        let httpFields = createHttpField(request: request, response: response)
+
         criticalJson.merge(httpFields) { _, new in new }
 
         // Send Troubleshooting report on http error
@@ -54,14 +49,8 @@ extension FSDataUsageTracking {
     func processTSEmotionsScoreSuccess(visitorId: String, anonymousId: String?, response: HTTPURLResponse?, _ request: URLRequest, _ score: String?) {
         var criticalJson: [String: String] = [visitorSessionIdKey: _visitorSessionId,
                                               visitorIdKey: _visitorId,
-                                                    visitorEaiAas: score ?? ""]
-        let httpFields: [String: String] = [
-            "http.request.headers": request.allHTTPHeaderFields?.description ?? "",
-            "http.request.method": request.httpMethod ?? "",
-            "http.request.url": request.url?.absoluteString ?? "",
-            "http.response.headers": response?.allHeaderFields.description ?? "",
-            "http.response.code": String(describing: response?.statusCode ?? 0)
-        ]
+                                              visitorEaiAas: score ?? ""]
+        let httpFields = createHttpField(request: request, response: response)
         criticalJson.merge(httpFields) { _, new in new }
 
         // Send Troubleshooting report on http error
@@ -74,7 +63,7 @@ extension FSDataUsageTracking {
         let criticalJson: [String: String] = [visitorSessionIdKey: _visitorSessionId,
                                               visitorIdKey: _visitorId,
                                               visitorAnonymousIdKey: anonymousId ?? "",
-                                                    visitorEaiAas: score ?? ""]
+                                              visitorEaiAas: score ?? ""]
 
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pAnonymousId: nil, pLabel: CriticalPoints.EMOTIONS_AI_SCORE_FROM_LOCAL_CACHE.rawValue, pSpeceficCustomFields: criticalJson))
@@ -92,5 +81,15 @@ extension FSDataUsageTracking {
 
         sendTroubleshootingReport(_trHit:
             TroubleshootingHit(pVisitorId: _visitorId, pAnonymousId: anonymousId, pLabel: criticalPoint.rawValue, pSpeceficCustomFields: criticalJson))
+    }
+
+    private func createHttpField(request: URLRequest, response: HTTPURLResponse?) -> [String: String] {
+        return [
+            "http.request.headers": request.allHTTPHeaderFields?.description ?? "",
+            "http.request.method": request.httpMethod ?? "",
+            "http.request.url": request.url?.absoluteString ?? "",
+            "http.response.headers": response?.allHeaderFields.description ?? "",
+            "http.response.code": String(describing: response?.statusCode ?? 0)
+        ]
     }
 }
