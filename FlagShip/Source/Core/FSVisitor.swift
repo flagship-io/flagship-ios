@@ -45,7 +45,7 @@ import UIKit
         
         self.strategy?.getStrategy().cacheVisitor()
         // TR for emotion AI
-        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint:.EMOTIONS_AI_SCORING_SUCCESS, visitorId: self.visitorId, anonymousId: self.anonymousId, score: score)
+        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint: .EMOTIONS_AI_SCORING_SUCCESS, visitorId: self.visitorId, anonymousId: self.anonymousId, score: score)
     }
     
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
@@ -190,7 +190,7 @@ import UIKit
             if self.eaiVisitorScored { // If the user is already scored go look for the score in local first
                 // The visitor score should be updated with the value stored in cache
                 if let aScore = self.emotionScoreAI {
-                    FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \(aScore) in local cache"))
+                    FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \"\(aScore)\" in local cache"))
                     // Complete block with score
                     FSDataUsageTracking.sharedInstance.processTSEmotionsCachedScore(visitorId: self.visitorId, anonymousId: self.anonymousId, score: aScore)
                     onCompleted(aScore, true)
@@ -198,7 +198,7 @@ import UIKit
             } else { // Not scored, but w'll check in remote if we have already a score for this user
                 FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, _ in
                     if let aScore = score {
-                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \(aScore) in eai server "))
+                        FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("This user have an existing score: \"\(aScore)\" in eai server "))
                         onCompleted(aScore, true)
                     } else {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The user is never scored --- exit with nil"))
