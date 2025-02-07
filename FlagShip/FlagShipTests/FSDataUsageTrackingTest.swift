@@ -125,7 +125,7 @@ final class FSDataUsageTrackingTest: XCTestCase {
     func testTroubleshootingHit() {
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "trApiKey")
         Flagship.sharedInstance.newVisitor(visitorId: "truser", hasConsented: true).build()
-        let trHit = TroubleshootingHit(pVisitorId: "trId",pAnonymousId: nil, pLabel: "trLabel", pSpeceficCustomFields: ["key1": "val1"])
+        let trHit = TroubleshootingHit(pVisitorId: "trId", pAnonymousId: nil, pLabel: "trLabel", pSpeceficCustomFields: ["key1": "val1"])
         let bodyTr: [String: Any] = trHit.bodyTrack
         XCTAssertTrue(bodyTr["vid"] as? String == "trId")
         XCTAssertTrue(bodyTr["t"] as? String == "TROUBLESHOOTING")
@@ -139,5 +139,12 @@ final class FSDataUsageTrackingTest: XCTestCase {
         let duHit = FSDataUsageHit(pVisitorId: "duId", pAnonymousId: nil, pLabel: "duLabel", pSpeceficCustomFields: ["key1": "val1"])
         let bodyDu: [String: Any] = duHit.bodyTrack
         XCTAssertTrue(bodyDu["t"] as? String == "USAGE")
+    }
+    
+    func testProcessTSEmotionsHits() {
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "trApiKey")
+        Flagship.sharedInstance.newVisitor(visitorId: "trEmotionsUser", hasConsented: true).build()
+        let trHit = TroubleshootingHit(pVisitorId: "trId", pAnonymousId: nil, pLabel: "trLabel", pSpeceficCustomFields: ["key1": "val1"])
+        FSDataUsageTracking.sharedInstance.processTSEmotionsHits(visitorId: "trEmotionsUser", anonymousId: nil, hit: trHit)
     }
 }

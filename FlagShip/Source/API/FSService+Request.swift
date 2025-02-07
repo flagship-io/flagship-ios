@@ -9,11 +9,20 @@ import Foundation
 
 //////// private
 enum FSRequestType: Int {
+    // Fetch Camapign
     case Campaign = 1
+    // On send Activate
     case Activate
+    // On send hits for goal
     case Tracking
+    // On sending context segment
     case KeyContext
-    case DataUsage // used for DataReport or Troubleshooting
+    // Used for DataReport or Troubleshooting
+    case DataUsage
+    // Used for emotions view event
+    case EmotionsView
+    // Used For emotions visitor event
+    case EmotionsVisitor
 }
 
 extension FSService {
