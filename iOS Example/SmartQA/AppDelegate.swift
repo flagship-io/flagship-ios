@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Task {
             print("start sdk")
             await Flagship.sharedInstance.start(envId: "bkk9glocmjcg0vtmdlng", apiKey: "DxAcxlnRB9yFBZYtLDue1q01dcXZCw6aM49CQB23")
-           // let vid = "adel\(Int.random(in: 100 ... 1000))"
-            let vid = "adel923"
+            let vid = "adel\(Int.random(in: 100 ... 1000))"
+            // let vid = "adel923"
 
             print("create visitor ")
             Flagship.sharedInstance.newVisitor(visitorId: vid, hasConsented: true).withContext(context: ["isVip": true]).build()

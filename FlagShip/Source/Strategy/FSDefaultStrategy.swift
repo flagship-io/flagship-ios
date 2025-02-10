@@ -276,7 +276,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 self.visitor.emotionScoreAI = score
                 // cache the visitor infos
                 self.visitor.strategy?.getStrategy().cacheVisitor()
-                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored - No need to process emotionAI collect again----"))
+                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored, no need to process EmotionAI collect again."))
             }
         }
     }
