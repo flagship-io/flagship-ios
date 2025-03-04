@@ -51,9 +51,8 @@ class FSEmotionPageView: FSPage {
         customParams.updateValue(UIScreen.main.scale, forKey: "pxr")
         // Amount of time subtracted from or added to Coordinated Universal Time (UTC) time to get the curre
         customParams.updateValue(FSTools.getAmountTimeInMinute(), forKey: "tof")
-
-        // tsp See later for this value if okay
-         customParams.updateValue("[0,false,false]", forKey: "tsp")
+        // tsp
+        customParams.updateValue("[0,false,false]", forKey: "tsp")
         // Send an empty list
         customParams.updateValue("[]", forKey: "plu")
         // Send empty string

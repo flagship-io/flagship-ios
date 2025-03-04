@@ -11,7 +11,23 @@ import UIKit
 class FSPollingScore: NSObject {
     var timer: Timer?
 
-    var pollingScore: FSRepeatingTimer?
+    let fsQueue = DispatchQueue(label: "pollingScore.queue", attributes: .concurrent)
+
+    var _pollingScore: FSRepeatingTimer?
+
+    var pollingScore: FSRepeatingTimer? {
+        get {
+            return self.fsQueue.sync {
+                self._pollingScore
+            }
+        }
+        set {
+            self.fsQueue.async(flags: .barrier) {
+                self._pollingScore = newValue
+            }
+        }
+    }
+
     var retryCount: Int = 0
     var visitorId: String
     var anonymousId: String?
@@ -34,6 +50,7 @@ class FSPollingScore: NSObject {
             if let self {
                 self.retryCount += 1
                 self.pollingScore?.suspend()
+
                 FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("GET THE SCORE FROM THE SERVER - RETRY COUNT: \(self.retryCount)"))
 
                 FSSettings().fetchScore(visitorId: self.visitorId, completion: { score, statusCode in
@@ -45,7 +62,7 @@ class FSPollingScore: NSObject {
                     } else if statusCode == 200 {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Score Successfully Received"))
                         self.delegate?.emotionAiCaptureCompleted(score)
-                        self.timer?.invalidate() // Invalidate no need since we got the score 
+                        self.timer?.invalidate() // Invalidate no need since we got the score
                     } else {
                         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("RESPONSE FROM THE SERVER - score not received - status code: \(statusCode)"))
                     }
