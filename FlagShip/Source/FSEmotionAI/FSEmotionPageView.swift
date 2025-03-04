@@ -34,7 +34,10 @@ class FSEmotionPageView: FSPage {
         // Browser configuration on user tracking preference
         customParams.updateValue("unknown", forKey: "dnt")
         // List of installed fonts (Stringified array)
-        customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
+        // customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
+
+        customParams.updateValue("", forKey: "fnt")
+
         // Fake browser infos
         customParams.updateValue(false, forKey: "hlb")
         // Fake os infos
@@ -53,7 +56,7 @@ class FSEmotionPageView: FSPage {
         customParams.updateValue(FSTools.getAmountTimeInMinute(), forKey: "tof")
 
         // tsp See later for this value if okay
-         customParams.updateValue("[0,false,false]", forKey: "tsp")
+        customParams.updateValue("[0,false,false]", forKey: "tsp")
         // Send an empty list
         customParams.updateValue("[]", forKey: "plu")
         // Send empty string
