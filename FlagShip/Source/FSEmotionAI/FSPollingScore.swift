@@ -77,8 +77,6 @@ class FSPollingScore: NSObject {
         // if reach this part ==> no score found
         FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint: .EMOTIONS_AI_SCORING_FAILED, visitorId: self.visitorId, anonymousId: self.anonymousId)
         FlagshipLogManager.Log(level: .DEBUG, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("Stop Polling Score-EmotionAI, Session Ended"))
-
-        self.timer?.invalidate()
         self.pollingScore?.suspend()
     }
 }

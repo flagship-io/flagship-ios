@@ -34,10 +34,7 @@ class FSEmotionPageView: FSPage {
         // Browser configuration on user tracking preference
         customParams.updateValue("unknown", forKey: "dnt")
         // List of installed fonts (Stringified array)
-        // customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
-
-        customParams.updateValue("", forKey: "fnt")
-
+        customParams.updateValue("\(UIFont.familyNames)", forKey: "fnt")
         // Fake browser infos
         customParams.updateValue(false, forKey: "hlb")
         // Fake os infos
