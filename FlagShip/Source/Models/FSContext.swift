@@ -26,12 +26,14 @@ class FSContext {
     //
     private var _currentContext: [String: Any] = [:]
     
-    init(_ contextValues: [String: Any]) {
+    init(_ contextValues: [String: Any], visitorId: String) {
         // Clean context with none valide type
         self.currentContext = contextValues.filter { $0.value is Int || $0.value is Double || $0.value is String || $0.value is Bool }
         self.currentContext = contextValues
         // Set all_users key
         currentContext.updateValue("", forKey: ALL_USERS)
+        // Set fs_users
+        currentContext.updateValue(visitorId, forKey: FS_USERS)
     }
     
     public func updateContext(_ newValues: [String: Any]) {
