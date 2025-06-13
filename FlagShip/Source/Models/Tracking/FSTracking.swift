@@ -125,6 +125,9 @@ import Foundation
     // Session Event Number
     public var sessionEventNumber: NSNumber?
 
+    /// Location Name where the event occurs
+    public var location: String?
+
     override init() {
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
@@ -137,6 +140,7 @@ import Foundation
     public var bodyTrack: [String: Any] {
         return [:]
     }
+
     public var communBodyTrack: [String: Any] {
         var communParams = [String: Any]()
 
@@ -166,6 +170,10 @@ import Foundation
         if self.sessionNumber != nil {
             communParams.updateValue(self.sessionNumber ?? 0, forKey: "sn")
         }
+
+        // Location name
+        if self.location != nil { communParams.updateValue(self.location ?? "", forKey: "dl") }
+
         // Merge the visitorId and AnonymousId
         communParams.merge(self.createTupleId()) { _, new in new }
 

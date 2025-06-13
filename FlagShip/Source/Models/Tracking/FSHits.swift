@@ -13,7 +13,7 @@ import Foundation
  */
 @objcMembers public class FSPage: FSTracking {
     /// Location Name where the event occurs
-    private var location: String?
+  //  private var location: String?
 
     /**
      Init Page hit
@@ -52,9 +52,9 @@ import Foundation
         customParams.updateValue(self.type.typeString, forKey: "t")
 
         // Location name
-        if self.location != nil {
-            customParams.updateValue(self.location ?? "", forKey: "dl")
-        }
+//        if self.location != nil {
+//            customParams.updateValue(self.location ?? "", forKey: "dl")
+//        }
 
         customParams.merge(self.communBodyTrack) { _, new in new }
         return customParams
@@ -66,7 +66,7 @@ import Foundation
  */
 @objcMembers public class FSScreen: FSTracking {
     /// Location Name where the event occurs
-    private var location: String?
+  //  private var location: String?
     /**
      Init Screen hit
 
@@ -102,7 +102,7 @@ import Foundation
         // Set Type
         customParams.updateValue(self.type.typeString, forKey: "t")
         // Location name
-        if self.location != nil { customParams.updateValue(self.location ?? "", forKey: "dl") }
+       // if self.location != nil { customParams.updateValue(self.location ?? "", forKey: "dl") }
         customParams.merge(self.communBodyTrack) { _, new in new }
         return customParams
     }

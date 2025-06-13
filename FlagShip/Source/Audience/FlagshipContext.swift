@@ -91,8 +91,13 @@ public enum FlagshipContext: String, CaseIterable {
     /// Name of the interface
     case INTERFACE_NAME = "sdk_interfaceName"
 
+    /// name of stack, ex : iOS
     case FS_Client = "fs_client"
+
+    /// Version FlagShip
     case FS_VERSION = "fs_version"
+
+    /// VisitorId
     case FS_USERS = "fs_users"
 
     /// Get the targeting value
@@ -144,18 +149,15 @@ public enum FlagshipContext: String, CaseIterable {
             return FlagshipContextManager.readValueFromPreDefinedContext(self)
 
         /// Automatically set by the sdk
-        case .FLAGSHIP_VERSION:
-
+        case .FLAGSHIP_VERSION, .FS_VERSION:
             return FlagShipVersion
 
         /// Set by the client
         case .INTERFACE_NAME:
             return FlagshipContextManager.readValueFromPreDefinedContext(self)
-
+        /// Automatically set by the sdk
         case .FS_Client:
             return FSDevice.getSystemVersionName()
-        case .FS_VERSION:
-            return FlagShipVersion
         case .FS_USERS:
             return FlagshipContextManager.readValueFromPreDefinedContext(self)
         }
