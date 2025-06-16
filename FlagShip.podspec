@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "FlagShip"
-  s.version          = "5.0.0-beta.4"
+  s.version          = "5.0.0-beta.5"
   s.summary          = "Flagship SDK"
   
 # This description is used to generate tags and improve search results.
