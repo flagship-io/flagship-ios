@@ -13,9 +13,11 @@ protocol FSPollingScriptDelegate {
 
 // This class responsible of fetching the bucketing file
 class FSPollingScript {
-    var pollingIntervalTime: TimeInterval
+    let fsQueue = DispatchQueue(label: "flagship.polling.queue", attributes: .concurrent)
 
     var pollingTimer: FSRepeatingTimer?
+
+    var pollingIntervalTime: TimeInterval
 
     var service: FSService
 
@@ -66,13 +68,15 @@ class FSPollingScript {
 
 // Inspsired from : https://medium.com/over-engineering/a-background-repeating-timer-in-swift-412cecfd2ef9
 class FSRepeatingTimer {
+    let fsQueue = DispatchQueue(label: "flagship.polling.queue", attributes: .concurrent)
+
     let timeInterval: TimeInterval
 
     init(timeInterval: TimeInterval) {
         self.timeInterval = timeInterval
     }
 
-    private lazy var timer: DispatchSourceTimer = {
+    private lazy var _timer: DispatchSourceTimer = {
         let t = DispatchSource.makeTimerSource(queue: .main)
         t.schedule(deadline: .now(), repeating: self.timeInterval)
         t.setEventHandler(handler: { [weak self] in
@@ -83,6 +87,19 @@ class FSRepeatingTimer {
         })
         return t
     }()
+
+    var timer: DispatchSourceTimer {
+        get {
+            return fsQueue.sync {
+                _timer
+            }
+        }
+        set {
+            fsQueue.async(flags: .barrier) {
+                self._timer = newValue
+            }
+        }
+    }
 
     var eventHandler: (() -> Void)?
 
@@ -113,6 +130,9 @@ class FSRepeatingTimer {
     }
 
     func suspend() {
+        // print("suspended \n")
+
+        // print(eventHandler.debugDescription)
         if state == .suspended {
             return
         }

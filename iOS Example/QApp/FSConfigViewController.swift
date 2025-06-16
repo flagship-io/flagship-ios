@@ -166,9 +166,9 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     func createVisitor() -> FSVisitor {
-        //  let userIdToSet: String = visitorIdTextField?.text ?? ""
+          let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        let userIdToSet = "iosUser_\(UUID().uuidString)"
+        //let userIdToSet = "iosUser_\(UUID().uuidString)"
 
         return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
 
