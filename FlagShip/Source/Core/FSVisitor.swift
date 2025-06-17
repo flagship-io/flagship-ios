@@ -88,7 +88,7 @@ import Foundation
         }
         
         /// Set the user context
-        self.context = FSContext(aContext)
+        self.context = FSContext(aContext, visitorId: aVisitorId)
         
         /// Set the presetContext
         self.context.loadPreSetContext()

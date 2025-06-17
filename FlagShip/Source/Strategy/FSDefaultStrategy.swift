@@ -201,17 +201,21 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 visitor.anonymousId = visitor.visitorId
             }
             
+            // Update fs_users for context
+            visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
+            visitor.visitorId = visitorId
+            
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
         }
-        
-        visitor.visitorId = visitorId
     }
     
     func unAuthenticateVisitor() {
         if visitor.configManager.flagshipConfig.mode == .DECISION_API {
             if let anonymId = visitor.anonymousId {
                 visitor.visitorId = anonymId
+                // Update fs_users for context
+                visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
             }
             
             visitor.anonymousId = nil
