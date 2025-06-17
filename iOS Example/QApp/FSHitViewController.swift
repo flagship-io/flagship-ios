@@ -94,6 +94,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
             let eventToSend = FSEvent(eventCategory: type, eventAction: input)
             eventToSend.eventValue = UInt(eventValueField.text ?? "0")
             // Set screen name
+            eventToSend.location = "screen_event"
             Flagship.sharedInstance.sharedVisitor?.sendHit(eventToSend)
             showPopUpMessage("Event name: \(input)")
             // }
@@ -138,6 +139,8 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
                 //// items
                 
                 hitTransac.itemCount = 0
+                /// Hit transaction
+                hitTransac.location = "screen_transaction"
                 
                 /// Send hit transaction
                 Flagship.sharedInstance.sharedVisitor?.sendHit(hitTransac)
@@ -151,6 +154,7 @@ class FSHitViewController: UIViewController, UITextFieldDelegate {
         
         t.price = 12
         t.quantity = 2
+        t.location = "screen_transaction"
         
         Flagship.sharedInstance.sharedVisitor?.sendHit(t)
         Flagship.sharedInstance.sharedVisitor?.sendHit(FSPage("pageView"))

@@ -12,9 +12,6 @@ import Foundation
  This hit should be sent each time a visitor arrives on a new url page.
  */
 @objcMembers public class FSPage: FSTracking {
-    /// Location Name where the event occurs
-    private var location: String?
-
     /**
      Init Page hit
 
@@ -50,12 +47,6 @@ import Foundation
 
         // Set Type
         customParams.updateValue(self.type.typeString, forKey: "t")
-
-        // Location name
-        if self.location != nil {
-            customParams.updateValue(self.location ?? "", forKey: "dl")
-        }
-
         customParams.merge(self.communBodyTrack) { _, new in new }
         return customParams
     }
@@ -65,8 +56,6 @@ import Foundation
  This hit should be sent each time a visitor arrives on a new screen.
  */
 @objcMembers public class FSScreen: FSTracking {
-    /// Location Name where the event occurs
-    private var location: String?
     /**
      Init Screen hit
 
@@ -101,8 +90,6 @@ import Foundation
         var customParams = [String: Any]()
         // Set Type
         customParams.updateValue(self.type.typeString, forKey: "t")
-        // Location name
-        if self.location != nil { customParams.updateValue(self.location ?? "", forKey: "dl") }
         customParams.merge(self.communBodyTrack) { _, new in new }
         return customParams
     }
@@ -462,7 +449,7 @@ import Foundation
     }
 }
 
-internal class FSConsent: FSEvent {
+class FSConsent: FSEvent {
     override init(eventCategory: FSCategoryEvent, eventAction: String) {
         super.init(eventCategory: eventCategory, eventAction: eventAction)
         self.type = .CONSENT
