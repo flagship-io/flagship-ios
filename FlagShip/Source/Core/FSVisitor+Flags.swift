@@ -8,11 +8,15 @@
 
 import Foundation
 
+let FS_SESSION_VISITOR: TimeInterval = 30.0 //    30 * 60 /// 30 mn
+
 public extension FSVisitor {
     /// Get FSFlag object
     /// - Parameter key: key represent key modification
     /// - Returns: FSFLag object
     func getFlag(key: String) -> FSFlag {
+        /// Init the session
+        self.sessionStartDate = Date()
         // We dispaly a warning if the flag's status is not fetched
         if self.fetchStatus != .FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.requiredFetchReason.warningMessage(key, self.visitorId)))
@@ -23,12 +27,52 @@ public extension FSVisitor {
     /// Getting FSFlagCollection
     /// - Returns: an instance of FSFlagCollection with flags
     func getFlags() -> FSFlagCollection {
+        /// Init the session
+        self.sessionStartDate = Date()
         var ret: [String: FSFlag] = [:]
         self.currentFlags.forEach { (key: String, _: FSModification) in
 
             ret.updateValue(FSFlag(key, self.strategy), forKey: key)
         }
         return FSFlagCollection(flags: ret)
+    }
+
+    internal func isDeduplicatedFlag(campId: String, varGrpId: String) -> Bool {
+        var ret = true
+        let duration = Date().timeIntervalSince(self.sessionStartDate)
+
+        print("the timeinterval duration is \(round(duration))")
+
+        if round(duration) > FS_SESSION_VISITOR {
+            print("La session a duré plus de  30 minutes ----------")
+            print("vider les saves et envoyer les activates quant meeme")
+
+            // Clear all saved ids for flags
+            self.activatedVariations.removeAll()
+
+            /// Register et ordonner l envoie
+            self.activatedVariations.merge([campId: varGrpId]) { _, new in new }
+
+            ret = false
+        } else {
+            print("la session a moins que 30 minutes ===> alors on check avant d envoyer activate")
+
+            if self.activatedVariations.keys.contains(campId) {
+                if varGrpId == self.activatedVariations[campId] {
+                    /// The activation is already done
+                    print("========== Already activated ============")
+                    ret = true
+                }
+            } else {
+                /// Register et ordonner l envoie
+                self.activatedVariations.merge([campId: varGrpId]) { _, new in new }
+                print("========== GO for activation ============")
+                ret = false
+            }
+        }
+        /// reset the timestamps
+        self.sessionStartDate = Date()
+        return ret
     }
 }
 

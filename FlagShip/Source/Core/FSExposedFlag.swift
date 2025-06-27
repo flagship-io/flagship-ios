@@ -17,6 +17,10 @@ protocol IFlag {
 
     // Get metadata
     var metadata: FSFlagMetadata { get set }
+
+    // Already activated campaign
+
+    var alreadyActivatedCampaign: Bool? { get }
 }
 
 @objc public class FSExposedFlag: NSObject, IFlag {
@@ -32,11 +36,15 @@ protocol IFlag {
     // Value for flag
     public private(set) var value: Any?
 
-    init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?) {
+    // Already activated campaign
+    public var alreadyActivatedCampaign: Bool? = true
+
+    init(key: String, defaultValue: Any? = nil, metadata: FSFlagMetadata, value: Any?, alreadyActivatedCampaign: Bool = false) {
         self.key = key
         self.defaultValue = defaultValue
         self.metadata = metadata
         self.value = value
+        self.alreadyActivatedCampaign = alreadyActivatedCampaign
     }
 
     init(expoedInfo: [String: Any]) {
@@ -44,6 +52,7 @@ protocol IFlag {
         self.value = expoedInfo["value"]
         self.defaultValue = expoedInfo["defaultValue"]
         self.metadata = FSFlagMetadata(metadataDico: expoedInfo["metadata"] as? [String: Any] ?? [:])
+        self.alreadyActivatedCampaign = expoedInfo["alreadyActivatedCampaign"] as? Bool ?? false // TODO: Review & test later
     }
 
     ///   Dictionary that represent the Exposed Flag
@@ -60,6 +69,10 @@ protocol IFlag {
 
         if let aValue = value {
             result.updateValue(aValue, forKey: "value")
+        }
+
+        if let aAlreadyActivatedCampaign = alreadyActivatedCampaign {
+            result.updateValue(aAlreadyActivatedCampaign, forKey: "alreadyActivatedCampaign")
         }
 
         return result
@@ -81,9 +94,13 @@ protocol IFlag {
             result.updateValue(aValue, forKey: "value")
         }
 
+        if let aAlreadyActivated = alreadyActivatedCampaign {
+            result.updateValue(aAlreadyActivated, forKey: "alreadyActivatedCampaign")
+        }
+
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
             return nil
         }
-        return jsonData.jsonString
+        return jsonData.prettyPrintedJSONString as String?
     }
 }
