@@ -45,32 +45,37 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
-//        if visitor.isDeduplicatedFlag(campId: flag.metadata().campaignId, varGrpId: flag.metadata().variationGroupId) {
-//            // Skip the activate
-//            print("Skip the activation ..... the variation is already activated")
-//            return
-//        }
         if let aModification = visitor.currentFlags[flag.key] {
             // Define Exposed flag and exposed visitor
-            var exposedFlag, exposedVisitor: String?
+            //  var exposedFlag, exposedVisitor: String?
+            
+            var exposedFlag: FSExposedFlag?
+            var exposedVisitor: FSVisitorExposed?
+            
             if visitor.configManager.flagshipConfig.onVisitorExposed != nil {
                 // Create flag exposed object
-                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)).toJson()
+                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false))
                 // Create visitor expose object
-                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()).toJson()
+                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext())
             }
             
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag, exposedVisitor)
+            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag?.toJson(), exposedVisitor?.toJson())
             
             /// If dediplicate
             if visitor.isDeduplicatedFlag(campId: flag.metadata().campaignId, varGrpId: flag.metadata().variationGroupId) {
                 // Skip the activate
                 print("Skip the activation ..... the variation is already activated")
-                /// Is callback is defined ===> Trigger it
-                if let aOnVisitorExposed = visitor.configManager.flagshipConfig.onVisitorExposed {
-                    aOnVisitorExposed(FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()), FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false), alreadyActivatedCampaign: true))
+                if let aExposedVisitor = exposedVisitor {
+                    if let aExposedFlag = exposedFlag {
+                        // Update exposed flag
+                        aExposedFlag.alreadyActivatedCampaign = true
+                        /// Is callback is defined ===> Trigger it
+                        if let aOnVisitorExposed = visitor.configManager.flagshipConfig.onVisitorExposed {
+                            aOnVisitorExposed(aExposedVisitor, aExposedFlag)
+                        }
+                    }
                 }
-                
+              
             } else {
                 visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
                     

@@ -78,11 +78,13 @@ final class FSOnExposureTest: XCTestCase {
         let variation = FSVariation(idVariation: "varId", variationName: "varName", nil, isReference: false)
         let modif = FSModification(aCampaign: camp, aVariation: variation, valueForFlag: "flagVlaue")
         let mettdata = FSFlagMetadata(modif)
-        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata: mettdata, value: "flagVlaue")
+        let flagTest = FSExposedFlag(key: "keyFlag", defaultValue: "dfl", metadata: mettdata, value: "flagVlaue", alreadyActivatedCampaign: true)
 
         XCTAssertTrue(flagTest.toDictionary()["value"] as? String == "flagVlaue")
         XCTAssertTrue(flagTest.toDictionary()["key"] as? String == "keyFlag")
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
+        XCTAssertTrue(flagTest.toDictionary()["alreadyActivatedCampaign"] as? Bool == true)
+
         XCTAssertTrue(flagTest.toJson()?.count ?? 0 > 0)
     }
 
@@ -93,5 +95,26 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
         XCTAssertTrue(visitorObject.toJson()?.count ?? 0 > 0)
+    }
+
+    func testDeduplication() {
+        let expectationSync = XCTestExpectation(description: "Service-deduplication")
+
+        testVisitor?.fetchFlags(onFetchCompleted: {
+            if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
+                XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
+                // Activate again
+                XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
+
+                // Check deduplication
+                XCTAssertTrue(self.testVisitor?.isDeduplicatedFlag(campId: "bvcdqksmicqghldq9agg", varGrpId: "bvcdqksmicqghldq9ahg") ?? false)
+                // Send hit to reset timer
+                self.testVisitor?.sendHit(FSScreen("testLocatoin"))
+                XCTAssertTrue(self.testVisitor?.isDeduplicatedFlag(campId: "bvcdqksmicqghldq9agg", varGrpId: "bvcdqksmicqghldq9ahg") ?? false)
+            }
+            expectationSync.fulfill()
+
+        })
+        wait(for: [expectationSync], timeout: 5.0)
     }
 }
