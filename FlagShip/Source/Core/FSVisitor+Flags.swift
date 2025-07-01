@@ -16,7 +16,7 @@ public extension FSVisitor {
     /// - Returns: FSFLag object
     func getFlag(key: String) -> FSFlag {
         /// Init the session
-        self.sessionStartDate = Date()
+        //   self.sessionDuration = Date()
         // We dispaly a warning if the flag's status is not fetched
         if self.fetchStatus != .FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.requiredFetchReason.warningMessage(key, self.visitorId)))
@@ -28,7 +28,7 @@ public extension FSVisitor {
     /// - Returns: an instance of FSFlagCollection with flags
     func getFlags() -> FSFlagCollection {
         /// Init the session
-        self.sessionStartDate = Date()
+        //   self.sessionDuration = Date()
         var ret: [String: FSFlag] = [:]
         self.currentFlags.forEach { (key: String, _: FSModification) in
 
@@ -38,41 +38,26 @@ public extension FSVisitor {
     }
 
     internal func isDeduplicatedFlag(campId: String, varGrpId: String) -> Bool {
-        var ret = true
-        let duration = Date().timeIntervalSince(self.sessionStartDate)
+        let elapsed = Date().timeIntervalSince(self.sessionDuration)
 
-        print("the timeinterval duration is \(round(duration))")
+        print("⏱️  Temps écoulé : \(Int(elapsed)) s")
 
-        if round(duration) > FS_SESSION_VISITOR {
-            print("La session a duré plus de  30 minutes ----------")
-            print("vider les saves et envoyer les activates quant meeme")
+        // Reset the timestamp at the end of function
+         defer { sessionDuration = Date() }
 
-            // Clear all saved ids for flags
-            self.activatedVariations.removeAll()
-
-            /// Register et ordonner l envoie
-            self.activatedVariations.merge([campId: varGrpId]) { _, new in new }
-
-            ret = false
-        } else {
-            print("la session a moins que 30 minutes ===> alors on check avant d envoyer activate")
-
-            if self.activatedVariations.keys.contains(campId) {
-                if varGrpId == self.activatedVariations[campId] {
-                    /// The activation is already done
-                    print("========== Already activated ============")
-                    ret = true
-                }
-            } else {
-                /// Register et ordonner l envoie
-                self.activatedVariations.merge([campId: varGrpId]) { _, new in new }
-                print("========== GO for activation ============")
-                ret = false
-            }
+        // Session expired ==> reset the dico and return false
+        guard elapsed <= FS_SESSION_VISITOR else {
+            activatedVariations = [campId: varGrpId]
+            return false
         }
-        /// reset the timestamps
-        self.sessionStartDate = Date()
-        return ret
+        // Session still valide
+        if activatedVariations[campId] == varGrpId {
+            // The ids already exist ==> is deduplicated flag
+            return true
+        }
+        // We have a new flag ==> save it and return false
+        activatedVariations[campId] = varGrpId
+        return false
     }
 }
 

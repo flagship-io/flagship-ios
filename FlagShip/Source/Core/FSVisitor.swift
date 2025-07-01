@@ -88,8 +88,8 @@ import UIKit
     // Score value
     public internal(set) var emotionScoreAI: String? = nil
     
-    // sesstion timestamps
-    var sessionStartDate: Date
+    // Session duration in MS 
+    var sessionDuration: Date
     
     // List of activated variations
     var activatedVariations: [String: String] = [:] ///  campId:varGrpId
@@ -157,12 +157,12 @@ import UIKit
         self._onFlagStatusFetched = pOnFlagStatusFetched
         
         // init sessionStartTimestamp
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         self.prepareEmotionAI(onCompleted: { score, _ in
             // Set the score
             self.emotionScoreAI = score
@@ -225,7 +225,7 @@ import UIKit
     
     public func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         if Flagship.sharedInstance.eaiCollectEnabled == true {
             self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
         } else {
@@ -245,7 +245,7 @@ import UIKit
     // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         self._updateContext(context)
     }
     
@@ -255,7 +255,7 @@ import UIKit
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         self._updateContext([key: newValue])
     }
     
@@ -265,7 +265,7 @@ import UIKit
     //   - newValue: the value for the given key
     public func updateContext(_ flagshipContext: FlagshipContext, _ value: Any) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         /// Check the validity value
         if !flagshipContext.chekcValidity(value) {
             FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_FAILED(flagshipContext.rawValue))
@@ -286,14 +286,14 @@ import UIKit
     // - Returns: Dictionary that represent a user context
     @objc public func getContext() -> [String: Any] {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         return self.context.getCurrentContext()
     }
     
     // Clear the current context
     @objc public func clearContext() {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         self.context.clearContext()
     }
     
@@ -301,7 +301,7 @@ import UIKit
     // - Parameter T: Hit object
     public func sendHit<T: FSTrackingProtocol>(_ event: T) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         
         self.strategy?.getStrategy().sendHit(event)
     }
@@ -312,7 +312,7 @@ import UIKit
     // - Parameter newValue: if true, then flush all stored visitor data
     @objc public func setConsent(hasConsented: Bool) {
         /// Init the session
-        self.sessionStartDate = Date()
+        self.sessionDuration = Date()
         
         self.hasConsented = hasConsented
         self.strategy?.getStrategy().setConsent(newValue: hasConsented)

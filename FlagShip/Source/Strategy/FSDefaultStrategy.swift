@@ -56,7 +56,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Create flag exposed object
                 exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false))
                 // Create visitor expose object
-                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext())
+                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.context.currentContext)
             }
             
             let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag?.toJson(), exposedVisitor?.toJson())
@@ -64,7 +64,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             /// If dediplicate
             if visitor.isDeduplicatedFlag(campId: flag.metadata().campaignId, varGrpId: flag.metadata().variationGroupId) {
                 // Skip the activate
-                print("Skip the activation ..... the variation is already activated")
+                print("Skip the activation ..... The flag's variation is already activated")
                 if let aExposedVisitor = exposedVisitor {
                     if let aExposedFlag = exposedFlag {
                         // Update exposed flag
