@@ -40,7 +40,7 @@ public extension FSVisitor {
     internal func isDeduplicatedFlag(campId: String, varGrpId: String) -> Bool {
         let elapsed = Date().timeIntervalSince(self.sessionDuration)
 
-        print("⏱️  Temps écoulé : \(Int(elapsed)) s")
+       // print("⏱️  Time session since last activity is : \(Int(elapsed)) s")
 
         // Reset the timestamp at the end of function
          defer { sessionDuration = Date() }

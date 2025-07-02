@@ -85,7 +85,7 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
         XCTAssertTrue(flagTest.toDictionary()["alreadyActivatedCampaign"] as? Bool == true)
 
-        XCTAssertTrue(flagTest.toJson()?.count ?? 0 > 0)
+        XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
     }
 
     // Test Visitor Object
@@ -94,18 +94,16 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["id"] as? String == "testId")
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
-        XCTAssertTrue(visitorObject.toJson()?.count ?? 0 > 0)
+        XCTAssertTrue(visitorObject.toJson()?.length ?? 0 > 0)
     }
 
     func testDeduplication() {
         let expectationSync = XCTestExpectation(description: "Service-deduplication")
-
         testVisitor?.fetchFlags(onFetchCompleted: {
             if let flag = self.testVisitor?.getFlag(key: "btnTitle") {
                 XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
                 // Activate again
                 XCTAssertTrue(flag.value(defaultValue: "dfl") == "Alpha_demoApp")
-
                 // Check deduplication
                 XCTAssertTrue(self.testVisitor?.isDeduplicatedFlag(campId: "bvcdqksmicqghldq9agg", varGrpId: "bvcdqksmicqghldq9ahg") ?? false)
                 // Send hit to reset timer
@@ -113,7 +111,6 @@ final class FSOnExposureTest: XCTestCase {
                 XCTAssertTrue(self.testVisitor?.isDeduplicatedFlag(campId: "bvcdqksmicqghldq9agg", varGrpId: "bvcdqksmicqghldq9ahg") ?? false)
             }
             expectationSync.fulfill()
-
         })
         wait(for: [expectationSync], timeout: 5.0)
     }
