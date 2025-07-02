@@ -88,7 +88,7 @@ import UIKit
     // Score value
     public internal(set) var emotionScoreAI: String? = nil
     
-    // Session duration in MS 
+    // Session duration
     var sessionDuration: Date
     
     // List of activated variations

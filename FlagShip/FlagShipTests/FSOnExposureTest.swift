@@ -86,6 +86,21 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(flagTest.toDictionary()["alreadyActivatedCampaign"] as? Bool == true)
 
         XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
+
+        var dicoFlag = flagTest.toDictionary()
+
+        // create FSExposedFlag obj
+        let obj = FSExposedFlag(exposedInfo: dicoFlag)
+
+        // Modify the dico flag
+        dicoFlag.removeValue(forKey: "alreadyActivatedCampaign")
+        let objBis = FSExposedFlag(exposedInfo: dicoFlag)
+        XCTAssertFalse(objBis.alreadyActivatedCampaign ?? true) // true to rise error
+
+        // Modify the entire object
+        dicoFlag.removeAll()
+        let objTer = FSExposedFlag(exposedInfo: dicoFlag)
+        XCTAssertTrue(objTer.metadata.campaignId.count == 0)
     }
 
     // Test Visitor Object
@@ -95,6 +110,18 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
         XCTAssertTrue(visitorObject.toJson()?.length ?? 0 > 0)
+
+        var dico = visitorObject.toDictionary()
+
+        // Modify dico
+        dico.removeValue(forKey: "context")
+        let obj = FSVisitorExposed(dico: dico)
+        XCTAssertTrue(obj.context.isEmpty)
+
+        // Modify dico
+        dico.removeAll()
+        let objBis = FSVisitorExposed(dico: dico)
+        XCTAssertNil(objBis.anonymousId)
     }
 
     func testDeduplication() {

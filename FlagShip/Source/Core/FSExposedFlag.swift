@@ -19,7 +19,6 @@ protocol IFlag {
     var metadata: FSFlagMetadata { get set }
 
     // Already activated campaign
-
     var alreadyActivatedCampaign: Bool? { get }
 }
 
@@ -47,12 +46,12 @@ protocol IFlag {
         self.alreadyActivatedCampaign = alreadyActivatedCampaign
     }
 
-    init(expoedInfo: [String: Any]) {
-        self.key = expoedInfo["key"] as? String ?? ""
-        self.value = expoedInfo["value"]
-        self.defaultValue = expoedInfo["defaultValue"]
-        self.metadata = FSFlagMetadata(metadataDico: expoedInfo["metadata"] as? [String: Any] ?? [:])
-        self.alreadyActivatedCampaign = expoedInfo["alreadyActivatedCampaign"] as? Bool ?? false // TODO: Review & test later
+    init(exposedInfo: [String: Any]) {
+        self.key = exposedInfo["key"] as? String ?? ""
+        self.value = exposedInfo["value"]
+        self.defaultValue = exposedInfo["defaultValue"]
+        self.metadata = FSFlagMetadata(metadataDico: exposedInfo["metadata"] as? [String: Any] ?? [:])
+        self.alreadyActivatedCampaign = exposedInfo["alreadyActivatedCampaign"] as? Bool ?? false // TODO: Review & test later
     }
 
     ///   Dictionary that represent the Exposed Flag

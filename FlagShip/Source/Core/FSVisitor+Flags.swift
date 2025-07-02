@@ -8,7 +8,7 @@
 
 import Foundation
 
-let FS_SESSION_VISITOR: TimeInterval = 30.0 //    30 * 60 /// 30 mn
+let FS_SESSION_VISITOR: TimeInterval = 30 * 60 /// 30 mn
 
 public extension FSVisitor {
     /// Get FSFlag object
@@ -40,10 +40,10 @@ public extension FSVisitor {
     internal func isDeduplicatedFlag(campId: String, varGrpId: String) -> Bool {
         let elapsed = Date().timeIntervalSince(self.sessionDuration)
 
-       // print("⏱️  Time session since last activity is : \(Int(elapsed)) s")
+        // print("⏱️  Time session since last activity is : \(Int(elapsed)) s")
 
         // Reset the timestamp at the end of function
-         defer { sessionDuration = Date() }
+        defer { sessionDuration = Date() }
 
         // Session expired ==> reset the dico and return false
         guard elapsed <= FS_SESSION_VISITOR else {
