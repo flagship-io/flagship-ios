@@ -8,11 +8,15 @@
 
 import Foundation
 
+let FS_SESSION_VISITOR: TimeInterval = 30 * 60 /// 30 mn
+
 public extension FSVisitor {
     /// Get FSFlag object
     /// - Parameter key: key represent key modification
     /// - Returns: FSFLag object
     func getFlag(key: String) -> FSFlag {
+        /// Init the session
+        //   self.sessionDuration = Date()
         // We dispaly a warning if the flag's status is not fetched
         if self.fetchStatus != .FETCHED {
             FlagshipLogManager.Log(level: .ALL, tag: .FLAG, messageToDisplay: FSLogMessage.MESSAGE(self.requiredFetchReason.warningMessage(key, self.visitorId)))
@@ -23,12 +27,37 @@ public extension FSVisitor {
     /// Getting FSFlagCollection
     /// - Returns: an instance of FSFlagCollection with flags
     func getFlags() -> FSFlagCollection {
+        /// Init the session
+        //   self.sessionDuration = Date()
         var ret: [String: FSFlag] = [:]
         self.currentFlags.forEach { (key: String, _: FSModification) in
 
             ret.updateValue(FSFlag(key, self.strategy), forKey: key)
         }
         return FSFlagCollection(flags: ret)
+    }
+
+    internal func isDeduplicatedFlag(campId: String, varGrpId: String) -> Bool {
+        let elapsed = Date().timeIntervalSince(self.sessionDuration)
+
+        // print("⏱️  Time session since last activity is : \(Int(elapsed)) s")
+
+        // Reset the timestamp at the end of function
+        defer { sessionDuration = Date() }
+
+        // Session expired ==> reset the dico and return false
+        guard elapsed <= FS_SESSION_VISITOR else {
+            activatedVariations = [campId: varGrpId]
+            return false
+        }
+        // Session still valide
+        if activatedVariations[campId] == varGrpId {
+            // The ids already exist ==> is deduplicated flag
+            return true
+        }
+        // We have a new flag ==> save it and return false
+        activatedVariations[campId] = varGrpId
+        return false
     }
 }
 

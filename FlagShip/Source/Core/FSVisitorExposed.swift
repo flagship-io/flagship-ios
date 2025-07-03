@@ -58,7 +58,7 @@ import Foundation
         }
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
-            return nil
+            return ""
         }
         return jsonData.jsonString
     }

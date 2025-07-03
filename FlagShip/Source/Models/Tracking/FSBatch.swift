@@ -176,7 +176,7 @@ class Activate: FSTrackingProtocol, Codable {
         if let dataExposedFalg = self.exposure_flag?.data(using: .utf8), let dataExposedVisitor = self.exposure_visitor?.data(using: .utf8) {
             do {
                 if let dicoExposedFalg = (try? JSONSerialization.jsonObject(with: dataExposedFalg, options: [])) as? [String: Any] {
-                    let expoFlag = FSExposedFlag(expoedInfo: dicoExposedFalg)
+                    let expoFlag = FSExposedFlag(exposedInfo: dicoExposedFalg)
 
                     if let dicoExposedVisitor = (try? JSONSerialization.jsonObject(with: dataExposedVisitor, options: [])) as? [String: Any] {
                         let expoVisitor = FSVisitorExposed(dico: dicoExposedVisitor)

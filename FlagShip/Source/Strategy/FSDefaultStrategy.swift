@@ -43,37 +43,74 @@ class FSDefaultStrategy: FSDelegateStrategy {
         self.visitor = pVisitor
     }
     
-    /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
-        if let aModification = visitor.currentFlags[flag.key] {
-            // Define Exposed flag and exposed visitor
-            var exposedFlag, exposedVisitor: String?
-            if visitor.configManager.flagshipConfig.onVisitorExposed != nil {
-                // Create flag exposed object
-                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)).toJson()
-                // Create visitor expose object
-                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()).toJson()
-            }
-            
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag, exposedVisitor)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
-                
-                if error == nil {
-                    /// Is callback is defined ===> Trigger it
-                    if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
-                        exposedInfosArray?.forEach { item in
-                            aOnVisitorExposed(item.visitorExposed, item.exposedFlag)
-                        }
-                    }
-                } else {
-                    // The flag error
-                }
-            })
-            // Troubleshooitng activate
-            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
+        // Exit if we don’t have a modification present in current flag
+        guard let modification = visitor.currentFlags[flag.key] else { return }
+
+        // Get the informations
+        let flagshipConfig = visitor.configManager.flagshipConfig
+        let callback = flagshipConfig.onVisitorExposed
+        let metadata = flag.metadata()
+        let value = flag.value(defaultValue: flag.defaultValue, visitorExposed: false)
+
+        // Prepare objetcs when callback exist
+        var exposedFlag: FSExposedFlag?
+        var exposedVisitor: FSVisitorExposed?
+        if callback != nil {
+            exposedFlag = FSExposedFlag(
+                key: flag.key,
+                defaultValue: flag.defaultValue,
+                metadata: metadata,
+                value: value
+            )
+            exposedVisitor = FSVisitorExposed(
+                id: visitor.visitorId,
+                anonymousId: visitor.anonymousId,
+                context: visitor.context.currentContext
+            )
         }
+
+        // Build the activation hit
+        let activateToSend = Activate(
+            visitor.visitorId,
+            visitor.anonymousId,
+            modification: modification, exposedFlag?.toJson(),
+            exposedVisitor?.toJson()
+        )
+        
+        // Handle deduplication before sending hit
+        let isDuplicate = visitor.isDeduplicatedFlag(
+            campId: metadata.campaignId,
+            varGrpId: metadata.variationGroupId
+        )
+        if isDuplicate {
+            FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Skip sending activation… variation already activated in this current session."))
+            // if we have an exposedFlag, mark it and fire callback once
+            if let ef = exposedFlag, let ev = exposedVisitor {
+                ef.alreadyActivatedCampaign = true
+                callback?(ev, ef)
+            }
+            return
+        }
+
+        // Send activation
+        visitor.configManager.trackingManager?.sendActivate(
+            activateToSend
+        ) { error, exposedInfosArray in
+            guard error == nil, let infos = exposedInfosArray else { return }
+            infos.forEach { info in
+                callback?(info.visitorExposed, info.exposedFlag)
+            }
+        }
+
+        // Troubleshooting / TS hit
+        FSDataUsageTracking.sharedInstance.processTSHits(
+            label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue,
+            visitor: visitor,
+            hit: activateToSend
+        )
     }
-    
+ 
     func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void) {
         let startFetchingDate = Date() // To comunicate for TR
  
