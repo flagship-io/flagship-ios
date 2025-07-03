@@ -61,9 +61,22 @@ import UIKit
             self.configManager.updateAid(newValue)
         }
     }
+    
+    var currentFlags: [String: FSModification] {
+        get {
+            return self.fsQueue.sync {
+                self._currentFlags
+            }
+        }
+        set {
+            self.fsQueue.async(flags: .barrier) {
+                self._currentFlags = newValue
+            }
+        }
+    }
 
     /// Modifications
-    var currentFlags: [String: FSModification] = [:]
+    private var _currentFlags: [String: FSModification] = [:]
     /// Context
     var context: FSContext
     /// Strategy

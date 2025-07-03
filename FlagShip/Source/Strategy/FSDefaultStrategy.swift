@@ -74,10 +74,10 @@ class FSDefaultStrategy: FSDelegateStrategy {
         let activateToSend = Activate(
             visitor.visitorId,
             visitor.anonymousId,
-            modification: modification, String(exposedFlag?.toJson() ?? "null"),
-            String(exposedVisitor?.toJson() ?? "null"),
+            modification: modification, exposedFlag?.toJson(),
+            exposedVisitor?.toJson()
         )
-
+        
         // Handle deduplication before sending hit
         let isDuplicate = visitor.isDeduplicatedFlag(
             campId: metadata.campaignId,

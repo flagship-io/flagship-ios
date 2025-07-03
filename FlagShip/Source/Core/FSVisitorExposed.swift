@@ -47,7 +47,7 @@ import Foundation
 
     /// String that represent a json for the Visitor Exposed
     /// - Return: NSString ?
-    @objc public func toJson() -> NSString {
+    @objc public func toJson() -> String? {
         var result: [String: Any] = [
             "id": id,
             "context": context
@@ -60,7 +60,7 @@ import Foundation
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
             return ""
         }
-        return jsonData.prettyPrintedJSONString ?? ""
+        return jsonData.jsonString
     }
 }
 
