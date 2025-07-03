@@ -79,7 +79,7 @@ protocol IFlag {
 
     ///   String that represent a json for the Exposed Flag
     /// - Return: String?
-    @objc public func toJson() -> NSString? {
+    @objc public func toJson() -> NSString {
         var result: [String: Any] = [
             "key": key,
             "metadata": metadata.toJson()
@@ -98,8 +98,8 @@ protocol IFlag {
         }
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: result, options: .prettyPrinted) else {
-            return nil
+            return ""
         }
-        return jsonData.prettyPrintedJSONString
+        return jsonData.prettyPrintedJSONString ?? ""
     }
 }
