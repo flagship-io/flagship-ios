@@ -90,4 +90,28 @@ class FSSettings {
             }
         }.resume()
     }
+
+ 
+
+    /// Read features configuration from local json file
+    /// - Parameter completion: Completion handler with optional FSFeaturesConfiguration and error
+    func readFeaturesConfiguration(completion: @escaping (FSFeatureConfiguration?, Error?) -> Void) {
+        guard let featuresPath = Bundle.main.path(forResource: "features", ofType: "json") else {
+            completion(nil, FlagshipError(message: "features.json file not found", type: .internalError, code: 404))
+            return
+        }
+
+        do {
+            let fileUrl = URL(fileURLWithPath: featuresPath)
+            let data = try Data(contentsOf: fileUrl)
+            let decoder = JSONDecoder()
+            let features = try decoder.decode(FSFeatureConfiguration.self, from: data)
+            completion(features, nil)
+        } catch {
+            completion(nil, FlagshipError(message: error.localizedDescription, type: .internalError, code: 500))
+            FlagshipLogManager.Log(level: .ERROR,
+                                   tag: .CONFIGURATION,
+                                   messageToDisplay: FSLogMessage.MESSAGE("Error reading features configuration: \(error.localizedDescription)"))
+        }
+    }
 }

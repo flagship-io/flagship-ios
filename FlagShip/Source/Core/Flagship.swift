@@ -88,6 +88,20 @@ public class Flagship: NSObject {
     // Start SDK (async-await)
     public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) async {
         await withCheckedContinuation { continuation in
+            // Fetch the ressources first
+            FSSettings().readFeaturesConfiguration { configFeature, _ in
+                // get keys from features
+                configFeature?.features.forEach { key, _ in
+                    // check other creteria
+                    if configFeature?.meetsSystemCriteria(key, device: FSDevice.getDeviceType(), os: "ios", appVersion: FSDevice.getAppVersion(), language: "fr") ?? false {
+                        print("The plugin \(key) meets the criteria")
+                    } else {
+                        print("The plugin \(key) does not meet the criteria")
+                    }
+                }
+                // Enable the plugin
+            }
+            
             FSSettings().fetchRessources(envId: envId) { extras, error in
                 if error == nil {
                     // Set the collected

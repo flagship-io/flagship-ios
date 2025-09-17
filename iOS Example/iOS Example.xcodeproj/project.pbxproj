@@ -88,6 +88,7 @@
 		F5DAF6912A176BA600C0B140 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */; };
 		F5E5539B2BA99B26004ED340 /* Flagship.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; };
 		F5E5539C2BA99B26004ED340 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCAD4023FAD12C00126600 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F5F9A2E42E79BCA600FF55C3 /* features.json in Resources */ = {isa = PBXBuildFile; fileRef = F5F9A2E32E79BCA600FF55C3 /* features.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -210,6 +211,7 @@
 		F5DAF69B2A176BA700C0B140 /* SmartQATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQATests.swift; sourceTree = "<group>"; };
 		F5DAF6A52A176BA700C0B140 /* SmartQAUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQAUITests.swift; sourceTree = "<group>"; };
 		F5DAF6A72A176BA700C0B140 /* SmartQAUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartQAUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F5F9A2E32E79BCA600FF55C3 /* features.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = features.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -449,6 +451,7 @@
 		8BF2DDDF25681A97005FF664 /* QApp */ = {
 			isa = PBXGroup;
 			children = (
+				F5F9A2E32E79BCA600FF55C3 /* features.json */,
 				8BB885B7280FC2ED0092F921 /* QApp.entitlements */,
 				8B493A6C27FF365000DDAAB5 /* FSJsonEditorCtrl.swift */,
 				8B493A6B27FF365000DDAAB5 /* FSLoggerCtrl.swift */,
@@ -607,6 +610,7 @@
 				8B493A3D27FF35B600DDAAB5 /* XNUILogDetailCell.xib in Resources */,
 				8B493A3F27FF35B600DDAAB5 /* XNUILogDetailView.xib in Resources */,
 				8B493A4427FF35B600DDAAB5 /* Media.xcassets in Resources */,
+				F5F9A2E42E79BCA600FF55C3 /* features.json in Resources */,
 				8B90016A2580D25800703DDB /* Settings.bundle in Resources */,
 				8B493A3C27FF35B600DDAAB5 /* XNUILogDetailVC.xib in Resources */,
 				8BF2DDED25681A9C005FF664 /* LaunchScreen.storyboard in Resources */,

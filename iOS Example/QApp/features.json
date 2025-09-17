@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-09-11T14:00:00Z",
+  "features": {
+    "emotionAI": {
+      "criteria": {
+        "devices": ["desktop", "Mobile"],
+        "os": ["windows", "macos", "android", "ios"],
+        "minAppVersion": "3.2",
+        "languages": ["en", "fr", "es", "de", "it"]
+      }
+    },
+    "tracking": {
+      "criteria": {
+        "devices": ["Mobile", "desktop"],
+        "os": ["windows", "linux"],
+        "minAppVersion": "3.2",
+        "languages": ["en", "fr", "de"]
+      }
+    },
+    "data_usage": {
+      "criteria": {
+        "devices": ["Mobile"],
+        "os": ["android", "ios"],
+        "minAppVersion": "2.1.0",
+        "languages": ["en", "fr", "es", "ja", "zh"]
+      }
+    }
+  }
+}

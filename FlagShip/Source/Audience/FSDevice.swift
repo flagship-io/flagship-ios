@@ -14,11 +14,8 @@ import IOKit
 #endif
 import Foundation
 
-
-internal class FSDevice: NSObject {
-    
+class FSDevice: NSObject {
     class func getDeviceLanguage() -> String? {
-        
         return NSLocale.current.languageCode
     }
     
@@ -44,13 +41,10 @@ internal class FSDevice: NSObject {
 #endif
     }
     
-    
-    
-    
     /// Get the Model
     class func getDeviceModel() -> String {
 #if os(iOS)
-        ///in simulaor  the system info machine return armv
+/// in simulaor  the system info machine return armv
 #if targetEnvironment(simulator)
         return UIDevice.current.model
 #else
@@ -64,20 +58,18 @@ internal class FSDevice: NSObject {
 #endif
 #elseif os(tvOS)
         return UIDevice.current.model
-#elseif os (macOS)
+#elseif os(macOS)
         return FSDevice.getModelIdentifier() ?? "Mac"
 #elseif os(watchOS)
-        return  WKInterfaceDevice.current().model
+        return WKInterfaceDevice.current().model
 #else
         return ""
 #endif
     }
     
     class func isFirstTimeUser() -> Bool {
-        
         let startedBefore = UserDefaults.standard.bool(forKey: "sdk_firstTimeUser")
         if startedBefore {
-            
         } else {
             UserDefaults.standard.set(true, forKey: "sdk_firstTimeUser")
         }
@@ -86,7 +78,6 @@ internal class FSDevice: NSObject {
     }
     
     class func validateIpAddress(ipToValidate: String) -> Bool {
-        
         var sin = sockaddr_in()
         var sin6 = sockaddr_in6()
         
@@ -101,8 +92,7 @@ internal class FSDevice: NSObject {
         return false
     }
     
-    
-    class func getSystemVersion()->String{
+    class func getSystemVersion() -> String {
 #if os(iOS) || os(tvOS)
         return UIDevice.current.systemVersion
 #elseif os(macOS)
@@ -114,7 +104,7 @@ internal class FSDevice: NSObject {
 #endif
     }
     
-    class func getSystemVersionName()->String{
+    class func getSystemVersionName() -> String {
 #if os(iOS) || os(tvOS)
         return UIDevice.current.systemName
 #elseif os(macOS)
@@ -126,19 +116,18 @@ internal class FSDevice: NSObject {
 #endif
     }
     
-    
     /// Get the system version
     /// Ex: "11.6" for macOS
-    class func getOSversion()->String{
+    class func getOSversion() -> String {
         /// Get OperatingSystemVersion
         let version = ProcessInfo().operatingSystemVersion
         /// Return the verison string
-        return  String(format:"%d.%d", version.majorVersion, version.minorVersion)
+        return String(format: "%d.%d", version.majorVersion, version.minorVersion)
     }
     
     /// Get the system Name
     /// Ex: "IOS" for iphone
-    class func getOSversionName()->String{
+    class func getOSversionName() -> String {
         /// Get operatingSystemVersionString
         return ProcessInfo().operatingSystemVersionString
     }
@@ -157,5 +146,15 @@ internal class FSDevice: NSObject {
         return modelIdentifier
     }
 #endif
+    
+    static func getAppVersion() -> String {
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        }
+        // Fallback to build number if version string not available
+        if let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return build
+        }
+        return "1.0" // Default fallback
+    }
 }
-

@@ -377,6 +377,12 @@
 		F5F2B5732C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2B5702C0F71D500EFB022 /* FSFlag+Additions.swift */; };
 		F5F2B5742C0F71D500EFB022 /* FSFlag+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2B5702C0F71D500EFB022 /* FSFlag+Additions.swift */; };
 		F5F7AEB32C0DC0370044E7B2 /* FSAllFlagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F7AEB22C0DC0370044E7B2 /* FSAllFlagTest.swift */; };
+		F5F9A2DC2E79A6D000FF55C3 /* features.json in Resources */ = {isa = PBXBuildFile; fileRef = F5F9A2DB2E79A6D000FF55C3 /* features.json */; };
+		F5F9A2DD2E79A6D000FF55C3 /* features.json in Resources */ = {isa = PBXBuildFile; fileRef = F5F9A2DB2E79A6D000FF55C3 /* features.json */; };
+		F5F9A2F52E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */; };
+		F5F9A2F62E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */; };
+		F5F9A2F72E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */; };
+		F5F9A2F82E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */; };
 		F5FC951C29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951D29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
 		F5FC951E29C4B87D00686BC6 /* FSPoolQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */; };
@@ -530,6 +536,8 @@
 		F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDataUsageTrackingTest.swift; sourceTree = "<group>"; };
 		F5F2B5702C0F71D500EFB022 /* FSFlag+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FSFlag+Additions.swift"; sourceTree = "<group>"; };
 		F5F7AEB22C0DC0370044E7B2 /* FSAllFlagTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAllFlagTest.swift; sourceTree = "<group>"; };
+		F5F9A2DB2E79A6D000FF55C3 /* features.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = features.json; sourceTree = "<group>"; };
+		F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFeatureConfiguration.swift; sourceTree = "<group>"; };
 		F5FC951A29C4B87D00686BC6 /* FSPoolQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSPoolQueue.swift; sourceTree = "<group>"; };
 		F5FC951B29C4B87D00686BC6 /* FSBatchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSBatchManager.swift; sourceTree = "<group>"; };
 		F5FC952429C4BADD00686BC6 /* FSBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatch.swift; sourceTree = "<group>"; };
@@ -671,6 +679,7 @@
 		8B67367427FEBE4C003EC960 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F5F9A2F42E7AF96A00FF55C3 /* FSFeatureConfiguration.swift */,
 				8B67367527FEBE4C003EC960 /* FSBucket.swift */,
 				8B67367627FEBE4C003EC960 /* FSCampaigns.swift */,
 				8B67367727FEBE4C003EC960 /* FSModification.swift */,
@@ -822,6 +831,7 @@
 		8B67370A27FED7F3003EC960 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				F5F9A2DB2E79A6D000FF55C3 /* features.json */,
 				F5F050052D1DA4D800018BD8 /* score.json */,
 				F54CDFD82D1AEC6A00AA5AB0 /* settings.json */,
 				F55751382A3332150082D83E /* content_activate.json */,
@@ -1144,6 +1154,7 @@
 				F55751392A3332150082D83E /* content_activate.json in Resources */,
 				8B5438B427FF98A500299654 /* visitorCache.json in Resources */,
 				F5F050062D1DA4D800018BD8 /* score.json in Resources */,
+				F5F9A2DD2E79A6D000FF55C3 /* features.json in Resources */,
 				8B5438B227FF988F00299654 /* bucketMock.json in Resources */,
 				F54CDFD92D1AEC7A00AA5AB0 /* settings.json in Resources */,
 				8B5438B127FF988B00299654 /* decisionApi.json in Resources */,
@@ -1168,6 +1179,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5F9A2DC2E79A6D000FF55C3 /* features.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,6 +1255,7 @@
 				8B2D51482805D43C00866D61 /* FSCacheDelegate.swift in Sources */,
 				F5A4392C2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */,
 				F5BC97C62A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
+				F5F9A2F62E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */,
 				F539709629DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6712A14264B00C0B140 /* FSSegment.swift in Sources */,
 				F543E40D2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
@@ -1364,6 +1377,7 @@
 				8B9F2A972809B8E600323094 /* FSCacheDelegate.swift in Sources */,
 				F5A4392D2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */,
 				F5BC97C72A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
+				F5F9A2F52E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */,
 				F539709729DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6722A14264B00C0B140 /* FSSegment.swift in Sources */,
 				F543E40A2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
@@ -1453,6 +1467,7 @@
 				8B9F2AD62809BA8200323094 /* FSCacheDelegate.swift in Sources */,
 				F5A4392E2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */,
 				F5BC97C82A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
+				F5F9A2F72E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */,
 				F539709829DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6732A14264B00C0B140 /* FSSegment.swift in Sources */,
 				F543E40B2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
@@ -1542,6 +1557,7 @@
 				8B6736B027FED3E5003EC960 /* FSCacheDelegate.swift in Sources */,
 				F5A4392B2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */,
 				F5BC97C52A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
+				F5F9A2F82E7AF96A00FF55C3 /* FSFeatureConfiguration.swift in Sources */,
 				F539709529DB2F3F00D650E4 /* FSDefaultCache.swift in Sources */,
 				F5DAF6702A14264B00C0B140 /* FSSegment.swift in Sources */,
 				F543E40C2CEE3E7F00293F6F /* FSPollingScore.swift in Sources */,
