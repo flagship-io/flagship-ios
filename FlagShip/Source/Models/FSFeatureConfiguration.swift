@@ -6,7 +6,7 @@ public struct FSFeatureConfiguration: Codable {
     let features: [String: Feature]
     
     struct Feature: Codable {
-        let criteria: Criteria
+        let target: Criteria
     }
     
     struct Criteria: Codable {
@@ -43,7 +43,7 @@ public struct FSFeatureConfiguration: Codable {
             return false
         }
         
-        let criteria = feature.criteria
+        let criteria = feature.target
         print("\n📋 Required Criteria:")
         print("- Allowed devices: \(criteria.devices)")
         print("- Allowed OS: \(criteria.os)")

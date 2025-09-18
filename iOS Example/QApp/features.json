@@ -3,7 +3,7 @@
   "lastUpdated": "2025-09-11T14:00:00Z",
   "features": {
     "emotionAI": {
-      "criteria": {
+      "target": {
         "devices": ["desktop", "Mobile"],
         "os": ["windows", "macos", "android", "ios"],
         "minAppVersion": "3.2",
@@ -11,7 +11,7 @@
       }
     },
     "tracking": {
-      "criteria": {
+      "target": {
         "devices": ["Mobile", "desktop"],
         "os": ["windows", "linux"],
         "minAppVersion": "3.2",
@@ -19,7 +19,7 @@
       }
     },
     "data_usage": {
-      "criteria": {
+      "target": {
         "devices": ["Mobile"],
         "os": ["android", "ios"],
         "minAppVersion": "2.1.0",
