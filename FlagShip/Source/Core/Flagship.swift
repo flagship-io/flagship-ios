@@ -91,23 +91,32 @@ public class Flagship: NSObject {
             // Fetch the ressources first
             FSSettings().readFeaturesConfiguration { configFeature, _ in
                 // get keys from features
-                configFeature?.features.forEach { key, _ in
+                configFeature?.features.forEach { key, feature in
                     // check other creteria
-                    if configFeature?.meetsSystemCriteria(key, device: FSDevice.getDeviceType(), os: "ios", appVersion: FSDevice.getAppVersion(), language: "fr") ?? false {
+                    if configFeature?.isFeatureEnabled(key, device: FSDevice.getDeviceType(), os: "ios", appVersion: FSDevice.getAppVersion(), language: "fr") ?? false {
                         print("The plugin \(key) meets the criteria")
+                        
+                        if key == "emotion-ai" {
+                            // Enable the EAI
+                            print("Emotion AI is enabled")
+                            Flagship.sharedInstance.eaiCollectEnabled = feature.config?["eaiCollectEnabled"] as? Bool ?? false
+                            // Set the Activation
+                            Flagship.sharedInstance.eaiActivationEnabled = feature.config?["eaiActivationEnabled"] as? Bool ?? false
                     } else {
                         print("The plugin \(key) does not meet the criteria")
                     }
                 }
-                // Enable the plugin
+                // Configure the troubleshouting
+                
+           
             }
             
             FSSettings().fetchRessources(envId: envId) { extras, error in
                 if error == nil {
                     // Set the collected
-                    Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
+                   // Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
                     // Set the Activation
-                    Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
+                   // Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
                     
                     FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
                     FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))

@@ -3,13 +3,83 @@ import Foundation
 public struct FSFeatureConfiguration: Codable {
     let version: String
     let lastUpdated: String
+    let accountSettings: AccountSettings?
     let features: [String: Feature]
     
-    struct Feature: Codable {
-        let target: Criteria
+    struct AccountSettings: Codable {
+        let enabledXPC: Bool
+        let troubleshooting: Troubleshooting?
     }
     
-    struct Criteria: Codable {
+    struct Troubleshooting: Codable {
+        let startDate: String
+        let endDate: String
+        let timezone: String
+        let traffic: Int
+    }
+
+    struct Feature: Codable {
+        let target: Target?
+        let config: [String: Any]?
+        
+        // Custom coding keys for handling Any type
+        private enum CodingKeys: String, CodingKey {
+            case target, config
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            target = try container.decodeIfPresent(Target.self, forKey: .target)
+            
+            // Decode config as [String: Any]
+            if container.contains(.config) {
+                let configContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self, forKey: .config)
+                var configDict: [String: Any] = [:]
+                
+                for key in configContainer.allKeys {
+                    if let stringValue = try? configContainer.decode(String.self, forKey: key) {
+                        configDict[key.stringValue] = stringValue
+                    } else if let intValue = try? configContainer.decode(Int.self, forKey: key) {
+                        configDict[key.stringValue] = intValue
+                    } else if let doubleValue = try? configContainer.decode(Double.self, forKey: key) {
+                        configDict[key.stringValue] = doubleValue
+                    } else if let boolValue = try? configContainer.decode(Bool.self, forKey: key) {
+                        configDict[key.stringValue] = boolValue
+                    } else if let arrayValue = try? configContainer.decode([String].self, forKey: key) {
+                        configDict[key.stringValue] = arrayValue
+                    }
+                }
+                config = configDict.isEmpty ? nil : configDict
+            } else {
+                config = nil
+            }
+        }
+        
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encodeIfPresent(target, forKey: .target)
+            
+            if let config = config {
+                var configContainer = container.nestedContainer(keyedBy: AnyCodingKey.self, forKey: .config)
+                for (key, value) in config {
+                    let codingKey = AnyCodingKey(stringValue: key)!
+                    if let stringValue = value as? String {
+                        try configContainer.encode(stringValue, forKey: codingKey)
+                    } else if let intValue = value as? Int {
+                        try configContainer.encode(intValue, forKey: codingKey)
+                    } else if let doubleValue = value as? Double {
+                        try configContainer.encode(doubleValue, forKey: codingKey)
+                    } else if let boolValue = value as? Bool {
+                        try configContainer.encode(boolValue, forKey: codingKey)
+                    } else if let arrayValue = value as? [String] {
+                        try configContainer.encode(arrayValue, forKey: codingKey)
+                    }
+                }
+            }
+        }
+    }
+    
+    struct Target: Codable {
         let devices: [String]
         let os: [String]
         let minAppVersion: String
@@ -30,7 +100,7 @@ public struct FSFeatureConfiguration: Codable {
         return try decode(from: jsonData)
     }
     
-    func meetsSystemCriteria(_ featureKey: String, device: String, os: String, appVersion: String, language: String) -> Bool {
+    func isFeatureEnabled(_ featureKey: String, device: String, os: String, appVersion: String, language: String) -> Bool {
         print("\n=== Feature Check: \(featureKey) ===")
         print("📱 Current System:")
         print("- Device: \(device)")
@@ -39,48 +109,93 @@ public struct FSFeatureConfiguration: Codable {
         print("- Language: \(language)")
         
         guard let feature = features[featureKey] else {
-            print("❌ Feature not found in configuration")
+            print("❌ Feature '\(featureKey)' not found in configuration")
             return false
         }
         
-        let criteria = feature.target
-        print("\n📋 Required Criteria:")
-        print("- Allowed devices: \(criteria.devices)")
-        print("- Allowed OS: \(criteria.os)")
-        print("- Min version: \(criteria.minAppVersion)")
-        print("- Supported languages: \(criteria.languages)")
+        // If target is missing, feature is enabled with no restrictions
+        guard let target = feature.target else {
+            print("✅ Feature '\(featureKey)' enabled (no targeting restrictions)")
+            return true
+        }
+        
+        print("\n📋 Target Requirements:")
+        print("- Allowed devices: \(target.devices)")
+        print("- Allowed OS: \(target.os)")
+        print("- Min version: \(target.minAppVersion)")
+        print("- Supported languages: \(target.languages)")
         
         // Check device compatibility
-        guard criteria.devices.contains(device) else {
-            print("❌ Device check failed: \(device) not in \(criteria.devices)")
+        guard target.devices.contains(device) else {
+            print("❌ Device check failed: \(device) not in \(target.devices)")
             return false
         }
         print("✅ Device check passed")
         
         // Check OS compatibility
-        guard criteria.os.contains(os) else {
-            print("❌ OS check failed: \(os) not in \(criteria.os)")
+        guard target.os.contains(os) else {
+            print("❌ OS check failed: \(os) not in \(target.os)")
             return false
         }
         print("✅ OS check passed")
         
         // Check minimum app version
-        let versionComparison = compareVersions(appVersion, criteria.minAppVersion)
+        let versionComparison = compareVersions(appVersion, target.minAppVersion)
         guard versionComparison >= 0 else {
-            print("❌ Version check failed: \(appVersion) < \(criteria.minAppVersion)")
+            print("❌ Version check failed: \(appVersion) < \(target.minAppVersion)")
             return false
         }
         print("✅ Version check passed")
         
         // Check language support
-        guard criteria.languages.contains(language) else {
-            print("❌ Language check failed: \(language) not in \(criteria.languages)")
+        guard target.languages.contains(language) else {
+            print("❌ Language check failed: \(language) not in \(target.languages)")
             return false
         }
         print("✅ Language check passed")
         
         print("✅ All criteria met for \(featureKey)")
         return true
+    }
+    
+    // Method to get feature configuration after feature is enabled
+    func getFeatureConfig(_ featureKey: String) -> [String: Any]? {
+        guard let feature = features[featureKey] else { return nil }
+        return feature.config
+    }
+    
+    // Method to get account settings
+    func getAccountSettings() -> AccountSettings? {
+        return accountSettings
+    }
+    
+    // Method to check if troubleshooting is active
+    func isTroubleshootingActive() -> Bool {
+        guard let accountSettings = accountSettings,
+              let troubleshooting = accountSettings.troubleshooting
+        else {
+            return false
+        }
+        
+        let dateFormatter = ISO8601DateFormatter()
+        guard let startDate = dateFormatter.date(from: troubleshooting.startDate),
+              let endDate = dateFormatter.date(from: troubleshooting.endDate)
+        else {
+            return false
+        }
+        
+        let now = Date()
+        return now >= startDate && now <= endDate && troubleshooting.traffic > 0
+    }
+    
+    // Method to get troubleshooting traffic percentage
+    func getTroubleshootingTraffic() -> Int {
+        return accountSettings?.troubleshooting?.traffic ?? 0
+    }
+    
+    // Method to check if XPC is enabled
+    func isXPCEnabled() -> Bool {
+        return accountSettings?.enabledXPC ?? false
     }
     
     private func compareVersions(_ version1: String, _ version2: String) -> Int {
@@ -93,5 +208,58 @@ public struct FSFeatureConfiguration: Codable {
             }
         }
         return components1.count == components2.count ? 0 : (components1.count < components2.count ? -1 : 1)
+    }
+    
+    private func compareAnyValues(_ value1: Any, _ value2: Any) -> Bool {
+        // String comparison
+        if let str1 = value1 as? String, let str2 = value2 as? String {
+            return str1 == str2
+        }
+        
+        // Int comparison
+        if let int1 = value1 as? Int, let int2 = value2 as? Int {
+            return int1 == int2
+        }
+        
+        // Double comparison
+        if let double1 = value1 as? Double, let double2 = value2 as? Double {
+            return double1 == double2
+        }
+        
+        // Bool comparison
+        if let bool1 = value1 as? Bool, let bool2 = value2 as? Bool {
+            return bool1 == bool2
+        }
+        
+        // Array comparison
+        if let array1 = value1 as? [String], let array2 = value2 as? [String] {
+            return array1 == array2
+        }
+        
+        // Cross-type numeric comparison (Int vs Double)
+        if let int1 = value1 as? Int, let double2 = value2 as? Double {
+            return Double(int1) == double2
+        }
+        if let double1 = value1 as? Double, let int2 = value2 as? Int {
+            return double1 == Double(int2)
+        }
+        
+        // String representation fallback
+        return "\(value1)" == "\(value2)"
+    }
+}
+
+// Helper struct for dynamic coding keys
+struct AnyCodingKey: CodingKey {
+    var stringValue: String
+    var intValue: Int?
+    
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+    }
+    
+    init?(intValue: Int) {
+        stringValue = "\(intValue)"
+        self.intValue = intValue
     }
 }

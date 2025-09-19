@@ -72,6 +72,13 @@ class FSDataUsageTracking {
         evaluateTroubleShootingConditions()
     }
 
+    // Update Troubleshootings settings
+    func updateTroubleshootingBis(trblShooting: Troubleshooting?) {
+        _troubleshooting = trblShooting
+        // Re evaluate the conditions of data usage tracking
+        evaluateTroubleShootingConditions()
+    }
+
     func isVisitorHasConsented() -> Bool {
         return _hasConsented
     }

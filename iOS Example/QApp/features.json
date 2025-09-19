@@ -1,6 +1,15 @@
 {
   "version": "1.0",
   "lastUpdated": "2025-09-11T14:00:00Z",
+  "accountSettings": {
+    "enabledXPC": true,
+    "troubleshooting": {
+      "startDate": "2025-09-18T10:18:36.489Z",
+      "endDate": "2025-09-18T11:18:36.489Z",
+      "timezone": "America/New_York",
+      "traffic": 100
+    }
+  },
   "features": {
     "emotionAI": {
       "target": {
@@ -8,14 +17,10 @@
         "os": ["windows", "macos", "android", "ios"],
         "minAppVersion": "3.2",
         "languages": ["en", "fr", "es", "de", "it"]
-      }
-    },
-    "tracking": {
-      "target": {
-        "devices": ["Mobile", "desktop"],
-        "os": ["windows", "linux"],
-        "minAppVersion": "3.2",
-        "languages": ["en", "fr", "de"]
+      },
+      "config": {
+        "eaiCollectEnabled": true,
+        "eaiActivationEnabled": true
       }
     },
     "data_usage": {
