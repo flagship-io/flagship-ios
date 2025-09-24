@@ -319,6 +319,10 @@
 		F5BC97C82A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BC97C02A8E1BC400CE11C3 /* FSExposedFlag.swift */; };
 		F5C453962B02928400FFCC2F /* FSAccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453952B02928400FFCC2F /* FSAccountSettings.swift */; };
 		F5C453982B0292A200FFCC2F /* FSTroubleshooting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */; };
+		F5DAE9C82E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */; };
+		F5DAE9C92E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */; };
+		F5DAE9CA2E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */; };
+		F5DAE9CB2E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */; };
 		F5DAF6702A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
 		F5DAF6712A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
 		F5DAF6722A14264B00C0B140 /* FSSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF66F2A14264B00C0B140 /* FSSegment.swift */; };
@@ -506,6 +510,7 @@
 		F5BC97C02A8E1BC400CE11C3 /* FSExposedFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSExposedFlag.swift; sourceTree = "<group>"; };
 		F5C453952B02928400FFCC2F /* FSAccountSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSAccountSettings.swift; sourceTree = "<group>"; };
 		F5C453972B0292A200FFCC2F /* FSTroubleshooting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTroubleshooting.swift; sourceTree = "<group>"; };
+		F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Flagship+EmotionAI.swift"; sourceTree = "<group>"; };
 		F5DAF66F2A14264B00C0B140 /* FSSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSSegment.swift; sourceTree = "<group>"; };
 		F5DAF6742A152F1600C0B140 /* FSTrackingDbMgt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSTrackingDbMgt.swift; sourceTree = "<group>"; };
 		F5DAF6792A152F6500C0B140 /* FSQLiteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSQLiteWrapper.swift; sourceTree = "<group>"; };
@@ -618,6 +623,7 @@
 		8B67366427FEBE4C003EC960 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				F5DAE9C72E83E5A70035B799 /* Flagship+EmotionAI.swift */,
 				F5B080A12E81609F009FB6E6 /* FSVisitor+EmotionAI.swift */,
 				F5F2B5752C0F721500EFB022 /* Flag */,
 				F5A4392A2C00BF72002E9012 /* FSVisitor+Flags.swift */,
@@ -1223,6 +1229,7 @@
 				8B2D51432805D43C00866D61 /* FSVisitor.swift in Sources */,
 				8B2D51442805D43C00866D61 /* FlagshipLogManager.swift in Sources */,
 				F551BF592CDE77FF007C5493 /* FSSettings.swift in Sources */,
+				F5DAE9C82E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */,
 				8B2D51452805D43C00866D61 /* FSError.swift in Sources */,
 				8B2D51462805D43C00866D61 /* FSLogManager.swift in Sources */,
 				F5F1AD652B1E1DC40052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1339,6 +1346,7 @@
 				8B9F2A922809B8E600323094 /* FSVisitor.swift in Sources */,
 				8B9F2A932809B8E600323094 /* FlagshipLogManager.swift in Sources */,
 				F551BF5C2CDE77FF007C5493 /* FSSettings.swift in Sources */,
+				F5DAE9C92E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */,
 				8B9F2A942809B8E600323094 /* FSError.swift in Sources */,
 				8B9F2A952809B8E600323094 /* FSLogManager.swift in Sources */,
 				F5F1AD632B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1423,6 +1431,7 @@
 				8B9F2AD12809BA8200323094 /* FSVisitor.swift in Sources */,
 				8B9F2AD22809BA8200323094 /* FlagshipLogManager.swift in Sources */,
 				F551BF5A2CDE77FF007C5493 /* FSSettings.swift in Sources */,
+				F5DAE9CA2E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */,
 				8B9F2AD32809BA8200323094 /* FSError.swift in Sources */,
 				8B9F2AD42809BA8200323094 /* FSLogManager.swift in Sources */,
 				F5F1AD622B1E1DC20052E6E3 /* FSDataUsageTracking.swift in Sources */,
@@ -1513,6 +1522,7 @@
 				8B6736AE27FED3E5003EC960 /* FSLogManager.swift in Sources */,
 				F5F1AD522B1631ED0052E6E3 /* FSDataUsageTracking.swift in Sources */,
 				8B6736AF27FED3E5003EC960 /* FlagshipConstants.swift in Sources */,
+				F5DAE9CB2E83E5C00035B799 /* Flagship+EmotionAI.swift in Sources */,
 				8B6736B027FED3E5003EC960 /* FSCacheDelegate.swift in Sources */,
 				F5A4392B2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */,
 				F5BC97C52A8E1BC400CE11C3 /* FSExposedFlag.swift in Sources */,
@@ -1874,7 +1884,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "5.0.0-beta.5";
+				MARKETING_VERSION = "5.0.0-beta.6";
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1908,7 +1918,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "5.0.0-beta.5";
+				MARKETING_VERSION = "5.0.0-beta.6";
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
