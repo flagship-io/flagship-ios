@@ -129,7 +129,6 @@
 		8B6736D227FED3E5003EC960 /* FSNoConsentStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369E27FEBE4C003EC960 /* FSNoConsentStrategy.swift */; };
 		8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370927FED7F3003EC960 /* FlagshipBucketingTest.swift */; };
 		8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */; };
-		8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370127FED7F2003EC960 /* FlagshipTests.swift */; };
 		8B67371527FEDA3E003EC960 /* FSConsentStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370027FED7F2003EC960 /* FSConsentStrategyTest.swift */; };
 		8B67371627FEDA3E003EC960 /* FSFlagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6736FA27FED7F2003EC960 /* FSFlagTest.swift */; };
 		8B67371727FEDA3E003EC960 /* FSGeneratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67370627FED7F3003EC960 /* FSGeneratorTest.swift */; };
@@ -453,7 +452,6 @@
 		8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagshipContextTest.swift; sourceTree = "<group>"; };
 		8B6736FF27FED7F2003EC960 /* FSVisitorBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSVisitorBuilderTest.swift; sourceTree = "<group>"; };
 		8B67370027FED7F2003EC960 /* FSConsentStrategyTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FSConsentStrategyTest.swift; sourceTree = "<group>"; };
-		8B67370127FED7F2003EC960 /* FlagshipTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlagshipTests.swift; sourceTree = "<group>"; };
 		8B67370227FED7F2003EC960 /* MockURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockURLProtocol.swift; path = Mocks/MockURLProtocol.swift; sourceTree = "<group>"; };
 		8B67370327FED7F2003EC960 /* murmurTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = murmurTest.swift; sourceTree = "<group>"; };
 		8B67370427FED7F3003EC960 /* QAReportTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QAReportTest.swift; sourceTree = "<group>"; };
@@ -785,7 +783,6 @@
 				F54CDFDA2D1AEDDF00AA5AB0 /* FSEmotion */,
 				8B67370927FED7F3003EC960 /* FlagshipBucketingTest.swift */,
 				8B6736FC27FED7F2003EC960 /* FlagshipContextTest.swift */,
-				8B67370127FED7F2003EC960 /* FlagshipTests.swift */,
 				8B67370027FED7F2003EC960 /* FSConsentStrategyTest.swift */,
 				8B6736FA27FED7F2003EC960 /* FSFlagTest.swift */,
 				8B67370627FED7F3003EC960 /* FSGeneratorTest.swift */,
@@ -1304,7 +1301,6 @@
 				F5B4A8CB2CCA9A290081A31D /* FSFetchTest.swift in Sources */,
 				8B67371227FEDA3E003EC960 /* FlagshipBucketingTest.swift in Sources */,
 				8B67371327FEDA3E003EC960 /* FlagshipContextTest.swift in Sources */,
-				8B67371427FEDA3E003EC960 /* FlagshipTests.swift in Sources */,
 				8B67371527FEDA3E003EC960 /* FSConsentStrategyTest.swift in Sources */,
 				8B67371627FEDA3E003EC960 /* FSFlagTest.swift in Sources */,
 				F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */,
