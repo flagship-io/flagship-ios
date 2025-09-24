@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import UIKit
-
+#if os(iOS)
+    import UIKit
+#endif
 class FSStrategy {
     let visitor: FSVisitor
     
@@ -187,10 +188,10 @@ class FSDefaultStrategy: FSDelegateStrategy {
             
             // Update fs_users for context
             visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
-            
-            // Update the xpc info for the emotion AI
-            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
-            
+            #if os(iOS)
+                // Update the xpc info for the emotion AI
+                visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+            #endif
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
         }
@@ -209,9 +210,10 @@ class FSDefaultStrategy: FSDelegateStrategy {
         } else {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
         }
-        
-        // Update the xpc info for the emotion AI
-        visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #if os(iOS)
+            // Update the xpc info for the emotion AI
+            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #endif
     }
     
     /// _ Cache Managment
@@ -265,31 +267,34 @@ class FSDefaultStrategy: FSDelegateStrategy {
             self.visitor.configManager.trackingManager?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
-    
-    func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
-        if visitor.emotionCollect != nil && visitor.emotionCollect?.status == .PROGRESS {
-            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
-            return
-        }
-        visitor.prepareEmotionAI { score, eaiVisitorScored in
-            if !eaiVisitorScored {
-                // Init the emotion collect
-                self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
-                self.visitor.emotionCollect?.delegate = self.visitor
-                self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
-            } else {
-                self.visitor.eaiVisitorScored = true
-                self.visitor.emotionScoreAI = score
-                // cache the visitor infos
-                self.visitor.strategy?.getStrategy().cacheVisitor()
-                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored, no need to process EmotionAI collect again."))
+
+    #if os(iOS)
+
+        func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+            if visitor.emotionCollect != nil, visitor.emotionCollect?.status == .PROGRESS {
+                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
+                return
+            }
+            visitor.prepareEmotionAI { score, eaiVisitorScored in
+                if !eaiVisitorScored {
+                    // Init the emotion collect
+                    self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
+                    self.visitor.emotionCollect?.delegate = self.visitor
+                    self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
+                } else {
+                    self.visitor.eaiVisitorScored = true
+                    self.visitor.emotionScoreAI = score
+                    // cache the visitor infos
+                    self.visitor.strategy?.getStrategy().cacheVisitor()
+                    FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored, no need to process EmotionAI collect again."))
+                }
             }
         }
-    }
     
-    func onAppScreenChange(_ screenName: String) {
-        visitor.emotionCollect?.onAppScreenChange(screenName)
-    }
+        func onAppScreenChange(_ screenName: String) {
+            visitor.emotionCollect?.onAppScreenChange(screenName)
+        }
+    #endif
 }
 
 /// _ DELEGATE ///
@@ -332,9 +337,12 @@ protocol FSDelegateStrategy {
     /// _ Get flag status
     func getFlagStatus(_ key: String) -> FSFlagStatus
     
-    /// _ Start collection emotion AI
-    func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
+    #if os(iOS)
+
+        /// _ Start collection emotion AI
+        func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
     
-    /// _ onAppScreenChange
-    func onAppScreenChange(_ screenName: String)
+        /// _ onAppScreenChange
+        func onAppScreenChange(_ screenName: String)
+    #endif
 }

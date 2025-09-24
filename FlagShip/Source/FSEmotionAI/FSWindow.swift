@@ -6,6 +6,8 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
+
 import Foundation
 import UIKit
 
@@ -16,17 +18,17 @@ extension UIWindow {
         }
         return nil
     }
-    
+
     class func getVisibleViewControllerFrom(vc: UIViewController) -> UIViewController {
         switch vc {
         case is UINavigationController:
             let navigationController = vc as! UINavigationController
             return UIWindow.getVisibleViewControllerFrom(vc: navigationController.visibleViewController!)
-            
+
         case is UITabBarController:
             let tabBarController = vc as! UITabBarController
             return UIWindow.getVisibleViewControllerFrom(vc: tabBarController.selectedViewController!)
-            
+
         default:
             if let presentedViewController = vc.presentedViewController {
                 // print(presentedViewController)
@@ -42,7 +44,7 @@ extension UIWindow {
             }
         }
     }
-    
+
     func getNameForVisibleViewController() -> String? {
         if let topController = visibleViewController() {
             return NSStringFromClass(topController.classForCoder)
@@ -50,3 +52,4 @@ extension UIWindow {
         return nil
     }
 }
+#endif

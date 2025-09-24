@@ -6,7 +6,7 @@
 //  Copyright © 2025 FlagShip. All rights reserved.
 //
 
-import Foundation
+ import Foundation
 
 // Define
 

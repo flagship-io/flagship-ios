@@ -38,11 +38,6 @@ extension FSVisitor {
         if !cachedFlgs.isEmpty {
             self.currentFlags.merge(cachedFlgs) { _, new in new }
         }
-        /// Retreive the context and Merge it
-        if let cachedContext = cachedVisitor.data?.context {
-            // self.context.mergeContext(cachedContext) /// To do later
-        }
-
         // Update the reason
         self.requiredFetchReason = .FLAGS_FETCHED_FROM_CACHE
         // Update the state
