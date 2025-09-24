@@ -34,7 +34,7 @@ extension FSVisitor: FSEmotionAiDelegate {
                 self.context.updateContext("eai::eas", aScore)
             }
         } else {
-            print(" @@@@@@@@@@@@@ eaiActivationEnabled is false will not communicate the score value @@@@@@@@@@@@@")
+            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("eaiActivationEnabled is false, will not communicate the score value"))
         }
 
         self.strategy?.getStrategy().cacheVisitor()
