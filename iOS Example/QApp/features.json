@@ -4,8 +4,8 @@
   "accountSettings": {
     "enabledXPC": true,
     "troubleshooting": {
-      "startDate": "2025-09-18T10:18:36.489Z",
-      "endDate": "2025-09-18T11:18:36.489Z",
+      "startDate": "2025-10-06T10:10:36.489Z",
+      "endDate": "2025-10-18T11:18:36.489Z",
       "timezone": "America/New_York",
       "traffic": 100
     }
@@ -30,6 +30,20 @@
         "minAppVersion": "2.1.0",
         "languages": ["en", "fr", "es", "ja", "zh"]
       }
+    },
+    
+    "featureTest": {
+      "target": {
+        "devices": ["Mobile"],
+        "os": ["android", "ios"],
+        "minAppVersion": "2.1.0",
+        "languages": ["en", "fr", "es", "ja", "zh"]
+      },
+      "config": {
+        "configA": true,
+        "configB": true
+      }
     }
+
   }
 }

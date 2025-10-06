@@ -1,24 +1,17 @@
 import Foundation
 
-public struct FSFeatureConfiguration: Codable {
+public class FSFeatureConfiguration: Decodable {
     let version: String
     let lastUpdated: String
     let accountSettings: AccountSettings?
     let features: [String: Feature]
     
-    struct AccountSettings: Codable {
+    public class AccountSettings: Decodable {
         let enabledXPC: Bool
-        let troubleshooting: Troubleshooting?
+        let troubleshooting: FSTroubleshooting?
     }
     
-    struct Troubleshooting: Codable {
-        let startDate: String
-        let endDate: String
-        let timezone: String
-        let traffic: Int
-    }
-
-    struct Feature: Codable {
+    class Feature: Codable {
         let target: Target?
         let config: [String: Any]?
         
@@ -27,7 +20,7 @@ public struct FSFeatureConfiguration: Codable {
             case target, config
         }
         
-        init(from decoder: Decoder) throws {
+        required init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             target = try container.decodeIfPresent(Target.self, forKey: .target)
             
@@ -79,7 +72,7 @@ public struct FSFeatureConfiguration: Codable {
         }
     }
     
-    struct Target: Codable {
+    class Target: Codable {
         let devices: [String]
         let os: [String]
         let minAppVersion: String
@@ -169,25 +162,6 @@ public struct FSFeatureConfiguration: Codable {
         return accountSettings
     }
     
-    // Method to check if troubleshooting is active
-    func isTroubleshootingActive() -> Bool {
-        guard let accountSettings = accountSettings,
-              let troubleshooting = accountSettings.troubleshooting
-        else {
-            return false
-        }
-        
-        let dateFormatter = ISO8601DateFormatter()
-        guard let startDate = dateFormatter.date(from: troubleshooting.startDate),
-              let endDate = dateFormatter.date(from: troubleshooting.endDate)
-        else {
-            return false
-        }
-        
-        let now = Date()
-        return now >= startDate && now <= endDate && troubleshooting.traffic > 0
-    }
-    
     // Method to get troubleshooting traffic percentage
     func getTroubleshootingTraffic() -> Int {
         return accountSettings?.troubleshooting?.traffic ?? 0
@@ -250,15 +224,15 @@ public struct FSFeatureConfiguration: Codable {
 }
 
 // Helper struct for dynamic coding keys
-struct AnyCodingKey: CodingKey {
+class AnyCodingKey: CodingKey {
     var stringValue: String
     var intValue: Int?
     
-    init?(stringValue: String) {
+    required init?(stringValue: String) {
         self.stringValue = stringValue
     }
     
-    init?(intValue: Int) {
+    required init?(intValue: Int) {
         stringValue = "\(intValue)"
         self.intValue = intValue
     }

@@ -102,36 +102,41 @@ public class Flagship: NSObject {
                             Flagship.sharedInstance.eaiCollectEnabled = feature.config?["eaiCollectEnabled"] as? Bool ?? false
                             // Set the Activation
                             Flagship.sharedInstance.eaiActivationEnabled = feature.config?["eaiActivationEnabled"] as? Bool ?? false
-                    } else {
-                        print("The plugin \(key) does not meet the criteria")
+                        } else {
+                            print("The plugin \(key) does not meet the criteria")
+                        }
                     }
+                    // Configure the troubleshouting
                 }
+                
+//                FSSettings().fetchRessources(envId: envId) { _, error in
+//                    if error == nil {
+//                        // Set the collected
+//                        // Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
+//                        // Set the Activation
+//                        // Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
+//
+//                        FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
+//                        FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
+//
+//                    } else {
+//                        // Error on get ressource
+//                        // The false default value is applied to EAI
+//                        // NO Collect
+//                    }
+//                    Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
+//                    continuation.resume()
+//                }
+                
                 // Configure the troubleshouting
                 
-           
-            }
-            
-            FSSettings().fetchRessources(envId: envId) { extras, error in
-                if error == nil {
-                    // Set the collected
-                   // Flagship.sharedInstance.eaiCollectEnabled = extras?.accountSettings?.eaiCollectEnabled ?? false
-                    // Set the Activation
-                   // Flagship.sharedInstance.eaiActivationEnabled = extras?.accountSettings?.eaiActivationEnabled ?? false
-                    
-                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI collection is \(Flagship.sharedInstance.eaiCollectEnabled)"))
-                    FlagshipLogManager.Log(level: .DEBUG, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI activation is \(Flagship.sharedInstance.eaiActivationEnabled)"))
-                    
-                } else {
-                    // Error on get ressource
-                    // The false default value is applied to EAI
-                    // NO Collect
-                }
+                FSDataUsageTracking.sharedInstance.updateTroubleshootingBis(featureConfiguration: configFeature)
                 Flagship.sharedInstance.start(envId: envId, apiKey: apiKey, config: config)
                 continuation.resume()
             }
         }
     }
-    
+        
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented,
                                    aIsAuthenticated: isAuthenticated,

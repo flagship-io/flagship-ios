@@ -72,9 +72,8 @@ class FSDataUsageTracking {
         evaluateTroubleShootingConditions()
     }
 
-    // Update Troubleshootings settings
-    func updateTroubleshootingBis(trblShooting: Troubleshooting?) {
-        _troubleshooting = trblShooting
+    func updateTroubleshootingBis(featureConfiguration: FSFeatureConfiguration?) {
+        _troubleshooting = featureConfiguration?.accountSettings?.troubleshooting
         // Re evaluate the conditions of data usage tracking
         evaluateTroubleShootingConditions()
     }
