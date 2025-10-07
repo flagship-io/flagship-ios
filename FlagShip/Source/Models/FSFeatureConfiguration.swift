@@ -157,21 +157,7 @@ public class FSFeatureConfiguration: Decodable {
         return feature.config
     }
     
-    // Method to get account settings
-    func getAccountSettings() -> AccountSettings? {
-        return accountSettings
-    }
-    
-    // Method to get troubleshooting traffic percentage
-    func getTroubleshootingTraffic() -> Int {
-        return accountSettings?.troubleshooting?.traffic ?? 0
-    }
-    
-    // Method to check if XPC is enabled
-    func isXPCEnabled() -> Bool {
-        return accountSettings?.enabledXPC ?? false
-    }
-    
+ 
     private func compareVersions(_ version1: String, _ version2: String) -> Int {
         let components1 = version1.split(separator: ".").compactMap { Int($0) }
         let components2 = version2.split(separator: ".").compactMap { Int($0) }
