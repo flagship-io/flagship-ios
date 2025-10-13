@@ -58,7 +58,7 @@ import Foundation
     /// - Parameters:
     ///   - visitoId: id of the visitor
     ///   - onCompletion: callback ob finishing the job
-    public func lookupVisitorCache(visitoId: String, onCompletion: @escaping (Error?, FSCacheVisitor?)->Void) {
+    public func lookupVisitorCache(visitoId: String, onCompletion: @escaping (FlagshipError?, FSCacheVisitor?)->Void) {
         /// Create a thread
         let fsCacheQueue = DispatchQueue(label: "com.flagshipCache.queue", attributes: .concurrent)
         /// Init the semaphore
@@ -72,10 +72,10 @@ import Foundation
                     let result = try JSONDecoder().decode(FSCacheVisitor.self, from: dataJson)
                     onCompletion(nil, result)
                 } catch {
-                    onCompletion(error, nil)
+                    onCompletion(FlagshipError(message: "Error on decode visitor data from cache", type: .internalError, code: 404), nil)
                 }
             } else {
-                onCompletion(FlagshipError(type: .internalError, code: 400), nil)
+                onCompletion(FlagshipError(message: "The visitorId \(visitoId) not found in cache", type: .internalError, code: 400), nil)
             }
             semaphore.signal()
         }

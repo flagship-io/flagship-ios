@@ -143,6 +143,11 @@ import Foundation
             
             // Go to ING state while the fetch is ongoing
             self.fetchStatus = .FETCHING
+            
+            /// Look for the visitor in local storage
+            self.strategy?.getStrategy().lookupVisitor()
+            
+            // Synchronize the visitor
             self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
      
                 // After the synchronize completion we cache the visitor

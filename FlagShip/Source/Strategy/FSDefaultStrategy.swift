@@ -177,39 +177,39 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func authenticateVisitor(visitorId: String) {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            /// Update the visitor an anonymous id
-            if visitor.anonymousId == nil {
-                visitor.anonymousId = visitor.visitorId
-            }
-            
-            // Set the authenticated visitorId
-            visitor.visitorId = visitorId
-            
-            // Update fs_users for context
-            visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
-            #if os(iOS)
-                // Update the xpc info for the emotion AI
-                visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
-            #endif
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
+        // if visitor.configManager.flagshipConfig.mode == .DECISION_API {
+        /// Update the visitor an anonymous id
+        if visitor.anonymousId == nil {
+            visitor.anonymousId = visitor.visitorId
         }
+            
+        // Set the authenticated visitorId
+        visitor.visitorId = visitorId
+            
+        // Update fs_users for context
+        visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
+        #if os(iOS)
+            // Update the xpc info for the emotion AI
+            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #endif
+        //   } else {
+        //    FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
+        //   }
     }
     
     func unAuthenticateVisitor() {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            if let anonymId = visitor.anonymousId {
-                visitor.visitorId = anonymId
-                // Update fs_users for context
-                visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
-            }
-            
-            visitor.anonymousId = nil
-            
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
+        // if visitor.configManager.flagshipConfig.mode == .DECISION_API {
+        if let anonymId = visitor.anonymousId {
+            visitor.visitorId = anonymId
+            // Update fs_users for context
+            visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
         }
+            
+        visitor.anonymousId = nil
+            
+        //  } else {
+        //    FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
+        //  }
         #if os(iOS)
             // Update the xpc info for the emotion AI
             visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
@@ -226,19 +226,69 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// _ Lookup visitor
     func lookupVisitor() {
-        /// Read the visitor cache from storage
-        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitor.visitorId) { error, cachedVisitor in
+        lookupVisitorWithId(visitor.visitorId)
+    }
+    
+    // MARK: - Private Helper Methods
+    
+    private func lookupVisitorWithId(_ visitorId: String) {
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
             
-            if error == nil {
-                if let aCachedVisitor = cachedVisitor {
-                    self.visitor.mergeCachedVisitor(aCachedVisitor)
-                    /// Get the oldest assignation history before saving and loose the information
-                    self.visitor.assignedVariationHistory.merge(aCachedVisitor.data?.assignationHistory ?? [:]) { _, new in new }
-                }
-            } else {
-                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
+            guard let strongSelf = self else { return }
+            
+            if let cachedVisitor = cachedVisitor {
+                strongSelf.processCachedVisitor(cachedVisitor)
+            } else if let error = error {
+                strongSelf.handleLookupError(error, for: visitorId)
             }
         }
+    }
+    
+    private func processCachedVisitor(_ cachedVisitor: FSCacheVisitor?) {
+        // Ensure thread safety for visitor property modifications
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            // Cast to the appropriate cached visitor type
+            if let aCachedVisitor = cachedVisitor  {
+                strongSelf.visitor.mergeCachedVisitor(aCachedVisitor)
+                
+                // Safely merge assignation history
+                let newHistory = aCachedVisitor.data?.assignationHistory ?? [:]
+                strongSelf.visitor.assignedVariationHistory.merge(newHistory) { _, new in new }
+            }
+        }
+    }
+    
+    private func handleLookupError(_ error: FlagshipError?, for visitorId: String) {
+        // Only attempt anonymous lookup for 404 errors and when anonymous ID exists
+        guard let fsError = error as FlagshipError?,
+              fsError.codeError == 404,
+              let anonymousId = visitor.anonymousId,
+              anonymousId != visitorId else { // Prevent infinite recursion
+            logLookupError()
+            return
+        }
+        
+        // Lookup anonymous visitor without nesting
+        lookupAnonymousVisitor(anonymousId)
+    }
+    
+    private func lookupAnonymousVisitor(_ anonymousId: String) {
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: anonymousId) { [weak self] error, cachedAnonymous in
+            
+            guard let strongSelf = self else { return }
+            
+            if let cachedAnonymous = cachedAnonymous {
+                strongSelf.processCachedVisitor(cachedAnonymous)
+            } else {
+                strongSelf.logLookupError()
+            }
+        }
+    }
+    
+    private func logLookupError() {
+        FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
     }
     
     /// _ Flush visitor

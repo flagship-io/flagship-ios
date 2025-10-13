@@ -99,7 +99,7 @@ public class Flagship: NSObject {
         
         if hasConsented {
             // Read the cached visitor
-            newVisitor.strategy?.getStrategy().lookupVisitor()
+         //   newVisitor.strategy?.getStrategy().lookupVisitor() // Déplace la fonction dans le fetch flags
             // Read the cacheed hits from data base
             newVisitor.strategy?.getStrategy().lookupHits()
  
