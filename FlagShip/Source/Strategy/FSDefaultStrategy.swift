@@ -177,7 +177,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func authenticateVisitor(visitorId: String) {
-        // if visitor.configManager.flagshipConfig.mode == .DECISION_API {
         /// Update the visitor an anonymous id
         if visitor.anonymousId == nil {
             visitor.anonymousId = visitor.visitorId
@@ -192,13 +191,9 @@ class FSDefaultStrategy: FSDelegateStrategy {
             // Update the xpc info for the emotion AI
             visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
         #endif
-        //   } else {
-        //    FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
-        //   }
     }
     
     func unAuthenticateVisitor() {
-        // if visitor.configManager.flagshipConfig.mode == .DECISION_API {
         if let anonymId = visitor.anonymousId {
             visitor.visitorId = anonymId
             // Update fs_users for context
@@ -206,10 +201,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
             
         visitor.anonymousId = nil
-            
-        //  } else {
-        //    FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
-        //  }
         #if os(iOS)
             // Update the xpc info for the emotion AI
             visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
@@ -217,6 +208,11 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     /// _ Cache Managment
+    
+    func isVistorCacheExist() -> Bool {
+        return  visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId)
+    }
+    
     func cacheVisitor() {
         DispatchQueue.main.async {
             /// Before replacing the oldest visitor cache we should keep the oldest variation
@@ -233,9 +229,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     private func lookupVisitorWithId(_ visitorId: String) {
         visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
-            
             guard let strongSelf = self else { return }
-            
             if let cachedVisitor = cachedVisitor {
                 strongSelf.processCachedVisitor(cachedVisitor)
             } else if let error = error {
@@ -250,7 +244,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             guard let strongSelf = self else { return }
             
             // Cast to the appropriate cached visitor type
-            if let aCachedVisitor = cachedVisitor  {
+            if let aCachedVisitor = cachedVisitor {
                 strongSelf.visitor.mergeCachedVisitor(aCachedVisitor)
                 
                 // Safely merge assignation history
@@ -265,7 +259,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
         guard let fsError = error as FlagshipError?,
               fsError.codeError == 404,
               let anonymousId = visitor.anonymousId,
-              anonymousId != visitorId else { // Prevent infinite recursion
+              anonymousId != visitorId
+        else { // Prevent infinite recursion
             logLookupError()
             return
         }
@@ -275,7 +270,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     private func lookupAnonymousVisitor(_ anonymousId: String) {
-        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: anonymousId) { [weak self] error, cachedAnonymous in
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: anonymousId) { [weak self] _, cachedAnonymous in
             
             guard let strongSelf = self else { return }
             
@@ -371,6 +366,9 @@ protocol FSDelegateStrategy {
     
     /// _Cache Managment
     func cacheVisitor()
+    
+    /// _ Is Visitor cache Exist
+    func isVistorCacheExist() -> Bool
     
     /// _ Lookup Visitor
     func lookupVisitor()

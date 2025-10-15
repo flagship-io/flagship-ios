@@ -18,6 +18,9 @@ import Foundation
     /// Id from the database.
     func flushVisitor(visitorId: String)
     
+    /// Called to check if the visitor data is already in the database
+    @objc optional
+    func isVisitorCacheExist(visitorId: String) -> Bool
 }
 
 @objc public protocol FSHitCacheDelegate {

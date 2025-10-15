@@ -159,6 +159,16 @@ import Foundation
                         self.sendHit(FSSegment(self.getContext()))
                         self.context.needToUpload = false
                     }
+                    
+                    // Another task for bucketin fin xcp mode is to save the anonymous when hase no cache
+                    
+                    if let ano = self.anonymousId {
+                        if !self.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(ano) {
+                            let anoVisitor: FSVisitor = self.copy()
+                            anoVisitor.visitorId = ano
+                            self.configManager.flagshipConfig.cacheManager.cacheVisitor(anoVisitor)
+                        }
+                    }
                 }
                 // Update the reason status
                 self.requiredFetchReason = reason

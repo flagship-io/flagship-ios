@@ -41,6 +41,10 @@ public class FSDefaultCacheVisitor: FSVisitorCacheDelegate {
     public func flushVisitor(visitorId: String) {
         dbMgt_visitor.delete(idItemToDelete: visitorId)
     }
+
+    public func isVisitorCacheExist(visitorId: String) -> Bool {
+        return dbMgt_visitor.isVisitorExist(visitorId)
+    }
 }
 
 ////////////////////////////||
