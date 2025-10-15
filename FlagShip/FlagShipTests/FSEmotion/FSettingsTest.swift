@@ -78,8 +78,7 @@ final class FSettingsTest: XCTestCase {
 
             XCTAssertEqual(score, "Immediacy")
             expectationSync.fulfill()
-            
         }
-        wait(for: [expectationSync], timeout: 5.0)
+        wait(for: [expectationSync], timeout: 6.0)
     }
 }

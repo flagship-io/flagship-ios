@@ -92,10 +92,10 @@ import Foundation
                     let result = try JSONDecoder().decode(FSCacheVisitor.self, from: dataJson)
                     onCompletion(nil, result)
                 } catch {
-                    onCompletion(FlagshipError(message: "Error on decode visitor data from cache", type: .internalError, code: 404), nil)
+                    onCompletion(FlagshipError(message: "Error on decode visitor data from cache", type: .internalError, code: 400), nil)
                 }
             } else {
-                onCompletion(FlagshipError(message: "The visitorId \(visitoId) not found in cache", type: .internalError, code: 400), nil)
+                onCompletion(FlagshipError(message: "The visitorId \(visitoId) not found in cache", type: .internalError, code: 404), nil)
             }
             semaphore.signal()
         }
