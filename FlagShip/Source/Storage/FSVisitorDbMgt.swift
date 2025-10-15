@@ -10,6 +10,9 @@ import Foundation
 import SQLite3
 
 class FSVisitorDbMgt: FSQLiteWrapper {
+    // Add this constant at the class level
+    private let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+    
     public init() {
         super.init(.DatabaseVisitor)
     }
@@ -72,7 +75,7 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         }
         
         // Bind the visitor ID parameter (safer than string interpolation)
-        guard sqlite3_bind_text(queryPointer, 1, (visitorId as NSString).utf8String, -1, nil) == SQLITE_OK else {
+        guard sqlite3_bind_text(queryPointer, 1, (visitorId as NSString).utf8String, -1, SQLITE_TRANSIENT) == SQLITE_OK else {
             FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 binding error"))
             return false
         }
@@ -85,6 +88,4 @@ class FSVisitorDbMgt: FSQLiteWrapper {
         
         return false
     }
-    
-    
 }

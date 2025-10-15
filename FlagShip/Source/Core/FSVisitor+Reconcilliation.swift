@@ -35,8 +35,8 @@ public extension FSVisitor {
         // Set the fetch state to required state
         self.fetchStatus = .FETCH_REQUIRED
     }
-    
-    // Cpy method actually used only in bucketin mode - that expalin why we put here in this extension
+
+    // Copy method actually used only in bucketing mode - that explain why we put here in this extension
     func copy() -> FSVisitor {
         let copiedVisitor = FSVisitor(
             aVisitorId: self.visitorId,
@@ -48,7 +48,7 @@ public extension FSVisitor {
             pOnFlagStatusFetchRequired: self._onFlagStatusFetchRequired,
             pOnFlagStatusFetched: self._onFlagStatusFetched
         )
-        
+
         // Copy additional properties
         copiedVisitor.anonymousId = self.anonymousId
         copiedVisitor.currentFlags = self.currentFlags
@@ -57,13 +57,11 @@ public extension FSVisitor {
         copiedVisitor.eaiVisitorScored = self.eaiVisitorScored
         copiedVisitor.emotionScoreAI = self.emotionScoreAI
         copiedVisitor.fetchStatus = self.fetchStatus
-        
+
         // Copy strategy if needed
         if let strategy = self.strategy {
             copiedVisitor.strategy = FSStrategy(copiedVisitor)
         }
         return copiedVisitor
     }
-    
-    
 }

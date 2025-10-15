@@ -210,7 +210,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     /// _ Cache Managment
     
     func isVistorCacheExist() -> Bool {
-        return  visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId)
+        return visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId)
     }
     
     func cacheVisitor() {
@@ -222,18 +222,24 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// _ Lookup visitor
     func lookupVisitor() {
-        lookupVisitorWithId(visitor.visitorId)
+        var userId = visitor.visitorId
+        if visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId) == false, let anId = visitor.anonymousId, anId != visitor.visitorId {
+            userId = anId
+        }
+        lookupVisitorWithId(userId)
     }
     
     // MARK: - Private Helper Methods
-    
     private func lookupVisitorWithId(_ visitorId: String) {
         visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
             guard let strongSelf = self else { return }
             if let cachedVisitor = cachedVisitor {
                 strongSelf.processCachedVisitor(cachedVisitor)
             } else if let error = error {
-                strongSelf.handleLookupError(error, for: visitorId)
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to lookup visitor with id \(visitorId): \(error.localizedDescription)"))
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("No cached visitor found with id \(visitorId)"))
             }
         }
     }
@@ -253,39 +259,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         }
     }
-    
-    private func handleLookupError(_ error: FlagshipError?, for visitorId: String) {
-        // Only attempt anonymous lookup for 404 errors and when anonymous ID exists
-        guard let fsError = error as FlagshipError?,
-              fsError.codeError == 404,
-              let anonymousId = visitor.anonymousId,
-              anonymousId != visitorId
-        else { // Prevent infinite recursion
-            logLookupError()
-            return
-        }
-        
-        // Lookup anonymous visitor without nesting
-        lookupAnonymousVisitor(anonymousId)
-    }
-    
-    private func lookupAnonymousVisitor(_ anonymousId: String) {
-        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: anonymousId) { [weak self] _, cachedAnonymous in
-            
-            guard let strongSelf = self else { return }
-            
-            if let cachedAnonymous = cachedAnonymous {
-                strongSelf.processCachedVisitor(cachedAnonymous)
-            } else {
-                strongSelf.logLookupError()
-            }
-        }
-    }
-    
-    private func logLookupError() {
-        FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
-    }
-    
+ 
     /// _ Flush visitor
     func flushVisitor() {
         /// Flush the visitor

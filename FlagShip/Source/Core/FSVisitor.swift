@@ -160,7 +160,7 @@ import Foundation
                         self.context.needToUpload = false
                     }
                     
-                    // Another task for bucketin fin xcp mode is to save the anonymous when hase no cache
+                    // Another task for bucketing in xpc mode is to save the anonymous when has no cache
                     
                     if let ano = self.anonymousId {
                         if !self.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(ano) {
