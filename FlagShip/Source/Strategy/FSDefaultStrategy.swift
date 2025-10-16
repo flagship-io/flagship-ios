@@ -230,6 +230,7 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     // MARK: - Private Helper Methods
+
     private func lookupVisitorWithId(_ visitorId: String) {
         visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
             guard let strongSelf = self else { return }
@@ -244,19 +245,14 @@ class FSDefaultStrategy: FSDelegateStrategy {
         }
     }
     
-    private func processCachedVisitor(_ cachedVisitor: FSCacheVisitor?) {
+    private func processCachedVisitor(_ cachedVisitor: FSCacheVisitor) {
         // Ensure thread safety for visitor property modifications
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
-            
-            // Cast to the appropriate cached visitor type
-            if let aCachedVisitor = cachedVisitor {
-                strongSelf.visitor.mergeCachedVisitor(aCachedVisitor)
-                
-                // Safely merge assignation history
-                let newHistory = aCachedVisitor.data?.assignationHistory ?? [:]
-                strongSelf.visitor.assignedVariationHistory.merge(newHistory) { _, new in new }
-            }
+            strongSelf.visitor.mergeCachedVisitor(cachedVisitor)
+            // Safely merge assignation history
+            let newHistory = cachedVisitor.data?.assignationHistory ?? [:]
+            strongSelf.visitor.assignedVariationHistory.merge(newHistory) { _, new in new }
         }
     }
  
