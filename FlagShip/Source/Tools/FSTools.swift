@@ -71,18 +71,6 @@ class FSTools: NSObject {
         return newVisitor
     }
 
-    // Is Connexion Available
-    class func isConnexionAvailable() -> Bool {
-#if os(watchOS)
-        return FSTools.available
-#else
-        let reachability = SCNetworkReachabilityCreateWithName(nil, FlagshipUniversalEndPoint)
-        var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(reachability!, &flags)
-        return flags.contains(.reachable)
-#endif
-    }
-
     class func generateUuidv4() -> String {
         return UUID().uuidString
     }

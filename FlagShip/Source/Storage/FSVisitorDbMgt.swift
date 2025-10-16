@@ -10,6 +10,9 @@ import Foundation
 import SQLite3
 
 class FSVisitorDbMgt: FSQLiteWrapper {
+    // Add this constant at the class level
+    private let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+    
     public init() {
         super.init(.DatabaseVisitor)
     }
@@ -53,5 +56,36 @@ class FSVisitorDbMgt: FSQLiteWrapper {
             sqlite3_finalize(readPointer)
         }
         return nil
+    }
+    
+    // Add this function to FSVisitorDbMgt class
+    public func isVisitorExist(_ visitorId: String) -> Bool {
+        var queryPointer: OpaquePointer?
+        let queryStatementString = "SELECT COUNT(*) FROM table_visitors WHERE id = ?;"
+        
+        // Prepare the query with parameter binding for safety
+        guard sqlite3_prepare_v2(db_opaquePointer, queryStatementString, -1, &queryPointer, nil) == SQLITE_OK else {
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 prepare error"))
+            return false
+        }
+        
+        defer {
+            // Always cleanup the prepared statement
+            sqlite3_finalize(queryPointer)
+        }
+        
+        // Bind the visitor ID parameter (safer than string interpolation)
+        guard sqlite3_bind_text(queryPointer, 1, (visitorId as NSString).utf8String, -1, SQLITE_TRANSIENT) == SQLITE_OK else {
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("sqlite3 binding error"))
+            return false
+        }
+        
+        // Execute the query and get the count
+        if sqlite3_step(queryPointer) == SQLITE_ROW {
+            let count = sqlite3_column_int(queryPointer, 0)
+            return count > 0
+        }
+        
+        return false
     }
 }

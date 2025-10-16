@@ -143,6 +143,11 @@ import Foundation
             
             // Go to ING state while the fetch is ongoing
             self.fetchStatus = .FETCHING
+            
+            /// Look for the visitor in local storage
+            self.strategy?.getStrategy().lookupVisitor()
+            
+            // Synchronize the visitor
             self.strategy?.getStrategy().synchronize(onSyncCompleted: { state, reason in
      
                 // After the synchronize completion we cache the visitor
@@ -153,6 +158,16 @@ import Foundation
                     if self.context.needToUpload && self.hasConsented { // If the context is changed and consent then => send segment hit
                         self.sendHit(FSSegment(self.getContext()))
                         self.context.needToUpload = false
+                    }
+                    
+                    // Another task for bucketing in xpc mode is to save the anonymous when has no cache
+                    
+                    if let ano = self.anonymousId {
+                        if !self.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(ano) {
+                            let anoVisitor: FSVisitor = self.copy()
+                            anoVisitor.visitorId = ano
+                            self.configManager.flagshipConfig.cacheManager.cacheVisitor(anoVisitor)
+                        }
                     }
                 }
                 // Update the reason status

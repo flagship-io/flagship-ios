@@ -38,6 +38,26 @@ import Foundation
     }
     
     /// Cache the visitor
+    ///
+    ///
+    
+    /// Check if visitor cache exists for the given visitor ID
+    /// - Parameter visitorId: The visitor identifier to check
+    /// - Returns: `true` if cache exists, `false` otherwise (including if delegate is not set)
+    func isVisitorCacheExist(_ visitorId: String) -> Bool {
+        guard let visitorDelegate = cacheVisitorDelegate else {
+            FlagshipLogManager.Log(
+                level: .WARNING,
+                tag: .STORAGE,
+                messageToDisplay: FSLogMessage.MESSAGE("Cache delegate is not set")
+            )
+            return false
+        }
+        
+        // Call optional protocol method with safe unwrapping
+        return visitorDelegate.isVisitorCacheExist?(visitorId: visitorId) ?? false
+    }
+    
     /// - Parameter visitor: visitor instance
     func cacheVisitor(_ visitor: FSVisitor) {
         /// Create visitor cache object
@@ -58,7 +78,7 @@ import Foundation
     /// - Parameters:
     ///   - visitoId: id of the visitor
     ///   - onCompletion: callback ob finishing the job
-    public func lookupVisitorCache(visitoId: String, onCompletion: @escaping (Error?, FSCacheVisitor?)->Void) {
+    public func lookupVisitorCache(visitoId: String, onCompletion: @escaping (FlagshipError?, FSCacheVisitor?) -> Void) {
         /// Create a thread
         let fsCacheQueue = DispatchQueue(label: "com.flagshipCache.queue", attributes: .concurrent)
         /// Init the semaphore
@@ -72,10 +92,10 @@ import Foundation
                     let result = try JSONDecoder().decode(FSCacheVisitor.self, from: dataJson)
                     onCompletion(nil, result)
                 } catch {
-                    onCompletion(error, nil)
+                    onCompletion(FlagshipError(message: "Error on decode visitor data from cache", type: .internalError, code: 400), nil)
                 }
             } else {
-                onCompletion(FlagshipError(type: .internalError, code: 400), nil)
+                onCompletion(FlagshipError(message: "The visitorId \(visitoId) not found in cache", type: .internalError, code: 404), nil)
             }
             semaphore.signal()
         }
@@ -102,7 +122,7 @@ import Foundation
         hitCacheDelegate?.cacheHits(hits: hits)
     }
     
-    func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?)->Void) {
+    func lookupHits(onCompletion: @escaping (Error?, [FSTrackingProtocol]?) -> Void) {
         /// Create a Thread
         let fsHitCacheQueue = DispatchQueue(label: "com.flagshipLookupHitCache.queue", attributes: .concurrent)
         /// Init the semaphore

@@ -177,39 +177,30 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func authenticateVisitor(visitorId: String) {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            /// Update the visitor an anonymous id
-            if visitor.anonymousId == nil {
-                visitor.anonymousId = visitor.visitorId
-            }
-            
-            // Set the authenticated visitorId
-            visitor.visitorId = visitorId
-            
-            // Update fs_users for context
-            visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
-            #if os(iOS)
-                // Update the xpc info for the emotion AI
-                visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
-            #endif
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
+        /// Update the visitor an anonymous id
+        if visitor.anonymousId == nil {
+            visitor.anonymousId = visitor.visitorId
         }
+            
+        // Set the authenticated visitorId
+        visitor.visitorId = visitorId
+            
+        // Update fs_users for context
+        visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
+        #if os(iOS)
+            // Update the xpc info for the emotion AI
+            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #endif
     }
     
     func unAuthenticateVisitor() {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            if let anonymId = visitor.anonymousId {
-                visitor.visitorId = anonymId
-                // Update fs_users for context
-                visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
-            }
-            
-            visitor.anonymousId = nil
-            
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
+        if let anonymId = visitor.anonymousId {
+            visitor.visitorId = anonymId
+            // Update fs_users for context
+            visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
         }
+            
+        visitor.anonymousId = nil
         #if os(iOS)
             // Update the xpc info for the emotion AI
             visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
@@ -217,6 +208,11 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     /// _ Cache Managment
+    
+    func isVistorCacheExist() -> Bool {
+        return visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId)
+    }
+    
     func cacheVisitor() {
         DispatchQueue.main.async {
             /// Before replacing the oldest visitor cache we should keep the oldest variation
@@ -226,21 +222,40 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// _ Lookup visitor
     func lookupVisitor() {
-        /// Read the visitor cache from storage
-        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitor.visitorId) { error, cachedVisitor in
-            
-            if error == nil {
-                if let aCachedVisitor = cachedVisitor {
-                    self.visitor.mergeCachedVisitor(aCachedVisitor)
-                    /// Get the oldest assignation history before saving and loose the information
-                    self.visitor.assignedVariationHistory.merge(aCachedVisitor.data?.assignationHistory ?? [:]) { _, new in new }
-                }
-            } else {
+        var userId = visitor.visitorId
+        if visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId) == false, let anId = visitor.anonymousId, anId != visitor.visitorId {
+            userId = anId
+        }
+        lookupVisitorWithId(userId)
+    }
+    
+    // MARK: - Private Helper Methods
+
+    private func lookupVisitorWithId(_ visitorId: String) {
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
+            guard let strongSelf = self else { return }
+            if let cachedVisitor = cachedVisitor {
+                strongSelf.processCachedVisitor(cachedVisitor)
+            } else if let error = error {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to lookup visitor with id \(visitorId): \(error.localizedDescription)"))
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("No cached visitor found with id \(visitorId)"))
             }
         }
     }
     
+    private func processCachedVisitor(_ cachedVisitor: FSCacheVisitor) {
+        // Ensure thread safety for visitor property modifications
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.visitor.mergeCachedVisitor(cachedVisitor)
+            // Safely merge assignation history
+            let newHistory = cachedVisitor.data?.assignationHistory ?? [:]
+            strongSelf.visitor.assignedVariationHistory.merge(newHistory) { _, new in new }
+        }
+    }
+ 
     /// _ Flush visitor
     func flushVisitor() {
         /// Flush the visitor
@@ -321,6 +336,9 @@ protocol FSDelegateStrategy {
     
     /// _Cache Managment
     func cacheVisitor()
+    
+    /// _ Is Visitor cache Exist
+    func isVistorCacheExist() -> Bool
     
     /// _ Lookup Visitor
     func lookupVisitor()
