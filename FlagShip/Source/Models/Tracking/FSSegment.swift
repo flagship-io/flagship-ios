@@ -41,7 +41,7 @@ class FSSegment: FSTracking {
         // Set Data source
         contextParam.updateValue(self.dataSource, forKey: "ds")
         // Set the context
-        contextParam.updateValue(self.context.compactMapValues { "\($0)" }, forKey: "s")
+        contextParam.updateValue(self.context.mapValues { "\($0)" }, forKey: "s")
         // Merge the visitorId and AnonymousId
         contextParam.merge(self.createTupleId()) { _, new in new }
         /// Add qt entries
