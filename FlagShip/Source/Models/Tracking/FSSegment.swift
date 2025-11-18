@@ -53,7 +53,7 @@ class FSSegment: FSTracking {
     }
     
     override func isValid() -> Bool {
-        // check the the filed "s"
+        // check the field "s"
         return super.isValid() && (bodyTrack["s"] is [String: String])
     }
 }
