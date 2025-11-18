@@ -149,8 +149,10 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
 
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
+        
+        let context:[String:Any] = ["segment": "coffee", "isQA": true , "testing_tracking_manager": true, "isPreRelease": true, "test": 12, "keyReleaseBucket": 12, "keyReleaseBucketMardi": "mardi", "keyBucketTer": "test", "keyBucket": true, "abcdef": 12.0, "condition1": "segment"]
 
-        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12, "keyReleaseBucket": 12, "keyReleaseBucketBis": nil, "keyBucketTer": "test", "keyBucket": true, "abcdef": 12.0, "condition1": "segment"]).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
+        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context:context ).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
 
             print("######### ON CALLBACK FETCH STATE IS CALLED ###############")
 

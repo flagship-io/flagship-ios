@@ -41,6 +41,7 @@ class FSSegment: FSTracking {
         // Set Data source
         contextParam.updateValue(self.dataSource, forKey: "ds")
         // Set the context
+        // Convert value for all keys into string
         contextParam.updateValue(self.context.mapValues { "\($0)" }, forKey: "s")
         // Merge the visitorId and AnonymousId
         contextParam.merge(self.createTupleId()) { _, new in new }
@@ -49,5 +50,10 @@ class FSSegment: FSTracking {
         let qt = Date().timeIntervalSince1970 - self.createdAt
         contextParam.updateValue(qt.rounded(), forKey: "qt")
         return contextParam
+    }
+
+    override func isValid() -> Bool {
+        // check the the filed "s"
+        return super.isValid() && (bodyTrack["s"] is [String: String])
     }
 }
