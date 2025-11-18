@@ -30,6 +30,6 @@ jobs:
      - name: Test SDK Flagship
        run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,name=iPhone 17" -enableCodeCoverage YES
      - name: Upload coverage to Codecov
-       uses: codecov/codecov-action@v1.2.1   
+       uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24
        with:
           token: ${{ secrets.CODECOV_TOKEN }}

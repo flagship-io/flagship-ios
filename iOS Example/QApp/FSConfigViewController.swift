@@ -166,11 +166,13 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     func createVisitor() -> FSVisitor {
-          let userIdToSet: String = visitorIdTextField?.text ?? ""
+        let userIdToSet: String = visitorIdTextField?.text ?? ""
 
-        //let userIdToSet = "iosUser_\(UUID().uuidString)"
+        // let userIdToSet = "iosUser_\(UUID().uuidString)"
 
-        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12]).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
+        let context: [String: Any] = ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12, "keyReleaseBucket": 12, "keyReleaseBeta": "mardi", "keyBucketBetaTer": "test", "keyBucket": true, "abcdef": 12.0, "condition1": "segment"]
+
+        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: context).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
 
             print("######################### The withOnFlagStatusChanged callback is called with status is \(newStatus) ######################")
 
