@@ -30,6 +30,6 @@ jobs:
      - name: Test SDK Flagship
        run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,name=iPhone SE (3rd generation)" -enableCodeCoverage YES
      - name: Upload coverage to Codecov
-       uses: codecov/codecov-action@c9e8e0cb3fb5bf1c09a7048bff2bbf20c87c03d2
+       uses: codecov/codecov-action@v4
        with:
           token: ${{ secrets.CODECOV_TOKEN }}
