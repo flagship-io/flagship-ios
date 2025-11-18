@@ -34,7 +34,7 @@ final class FSHitTest: XCTestCase {
             listOfActivate = try JSONSerialization.jsonObject(with: dataActivate) as? [[String: Any]] ?? []
 
         } catch {
-            print("---------------- Failed to load the buckeMock file ----------")
+            print("---------------- Failed to load the content hit file ----------")
         }
     }
 
@@ -105,6 +105,9 @@ final class FSHitTest: XCTestCase {
                         case "ACTIVATE":
                             newHit = try decoder.decode(Activate.self, from: jsonData)
                             XCTAssertTrue(newHit.bodyTrack["caid"] as? String == "chsrcv6e4nsic4ug2p0g")
+                        case "SEGMENT":
+                            newHit = try decoder.decode(FSSegment.self, from: jsonData)
+                            XCTAssertTrue(newHit.bodyTrack["s"] is [String: String])
 
                         default:
                             break
