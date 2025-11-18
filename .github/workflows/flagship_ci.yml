@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         run-config:
-          - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone 15', label: 'iOS'}
+          - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone SE (3rd generation)', label: 'iOS'}
           - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS Simulator,name=Apple TV', label: 'tvOS' }
           - { scheme: 'Flagship-macOS', destination: 'platform=macOS', label: 'macOS'}
           - { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)', label: 'watchOS'}
@@ -28,8 +28,8 @@ jobs:
      - name: Checkout Project
        uses: actions/checkout@v4
      - name: Test SDK Flagship
-       run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,name=iPhone 15" -enableCodeCoverage YES
+       run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,name=iPhone SE (3rd generation)" -enableCodeCoverage YES
      - name: Upload coverage to Codecov
-       uses: codecov/codecov-action@v1.2.1   
+       uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24
        with:
           token: ${{ secrets.CODECOV_TOKEN }}

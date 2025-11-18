@@ -20,12 +20,10 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
             batchManager.addTrackElement(hitToSend)
 
         } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The format of the \(hitToSend.type.typeString) hit is invalid."))
         }
     }
-
-    override internal func onSuccessToSendHits(_ batchToSend: FSBatch) {
-
+    override func onSuccessToSendHits(_ batchToSend: FSBatch) {
         // Clear all hits in database
         cacheManager?.flushAllHits()
         // Get the merged hit from pool
@@ -39,7 +37,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         }
     }
 
-    override internal func onFailedToSendHits(_ batchToSend: FSBatch) {
+    override func onFailedToSendHits(_ batchToSend: FSBatch) {
         // Reinject the failed hits into the queue
         batchManager.reInjectElements(listToReInject: batchToSend.items)
 
@@ -58,8 +56,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
         }
     }
 
-    override internal func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {
-    }
+    override func onSuccessToSendActivate(_ activateBatch: ActivateBatch) {}
 
     // Remove hits for visitorId and keep the consent hits
     override func flushTrackAndKeepConsent(_ visitorId: String) {
