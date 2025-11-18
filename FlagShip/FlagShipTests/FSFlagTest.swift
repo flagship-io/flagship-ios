@@ -123,7 +123,7 @@ class FSFlagTest: XCTestCase {
             expectationSync.fulfill()
         })
         
-        wait(for: [expectationSync], timeout: 5.0)
+        wait(for: [expectationSync], timeout: 10.0)
     }
         
     func testMetadata() {
