@@ -281,6 +281,7 @@
 		F560B8D729D726BC009BFA11 /* FSBatchManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */; };
 		F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */; };
 		F567A44128D32BB2008E9FC0 /* hitCache.json in Resources */ = {isa = PBXBuildFile; fileRef = F567A44028D32BB2008E9FC0 /* hitCache.json */; };
+		F57A4C0B2F5EECC600CE4F76 /* FSThreadSafeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A4C0A2F5EECC600CE4F76 /* FSThreadSafeTest.swift */; };
 		F59840B62B052C9B0062F0C7 /* FSDataReportUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59840B52B052C9B0062F0C7 /* FSDataReportUsage.swift */; };
 		F5A4392B2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A4392A2C00BF72002E9012 /* FSVisitor+Flags.swift */; };
 		F5A4392C2C00BF72002E9012 /* FSVisitor+Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A4392A2C00BF72002E9012 /* FSVisitor+Flags.swift */; };
@@ -464,6 +465,7 @@
 		F560B8D629D726BC009BFA11 /* FSBatchManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSBatchManagerTest.swift; sourceTree = "<group>"; };
 		F567A43E28D3263E008E9FC0 /* FSCacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FSCacheTest.swift; path = ../../Flagship/FlagShipTests/FSCacheTest.swift; sourceTree = "<group>"; };
 		F567A44028D32BB2008E9FC0 /* hitCache.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = hitCache.json; path = ../../../Flagship/FlagShipTests/Mocks/hitCache.json; sourceTree = "<group>"; };
+		F57A4C0A2F5EECC600CE4F76 /* FSThreadSafeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSThreadSafeTest.swift; sourceTree = "<group>"; };
 		F59840B52B052C9B0062F0C7 /* FSDataReportUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSDataReportUsage.swift; sourceTree = "<group>"; };
 		F5A4392A2C00BF72002E9012 /* FSVisitor+Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSVisitor+Flags.swift"; sourceTree = "<group>"; };
 		F5A908E32A30824C0075DA82 /* FSStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSStorageTest.swift; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				F5BC97BD2A8CCB9200CE11C3 /* FSOnExposureTest.swift */,
 				F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */,
 				F5F7AEB22C0DC0370044E7B2 /* FSAllFlagTest.swift */,
+				F57A4C0A2F5EECC600CE4F76 /* FSThreadSafeTest.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -1245,6 +1248,7 @@
 				F5F1AD552B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift in Sources */,
 				8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */,
 				F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */,
+				F57A4C0B2F5EECC600CE4F76 /* FSThreadSafeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1793,7 +1797,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1826,7 +1830,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;

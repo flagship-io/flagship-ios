@@ -14,7 +14,7 @@ public class Flagship: NSObject {
     // apiKey
     var apiKey: String?
     // Configuration
-    var currentConfig: FlagshipConfig = FSConfigBuilder().build()
+    var currentConfig: FlagshipConfig
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Enabale Log
@@ -48,9 +48,12 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
+        currentConfig = FSConfigBuilder().build()
     }
     
-    @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
+    @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
+        let resolvedConfig = config ?? currentConfig
+
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
             Flagship.sharedInstance.envId = envId
@@ -66,13 +69,13 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        Flagship.sharedInstance.currentConfig = config
+        Flagship.sharedInstance.currentConfig = resolvedConfig
         
-        switch config.mode { case .DECISION_API:
+        switch resolvedConfig.mode { case .DECISION_API:
             Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
         case .BUCKETING:
             // Init the polling script
-            pollingScript = FSPollingScript(pollingTime: config.pollingTime)
+            pollingScript = FSPollingScript(pollingTime: resolvedConfig.pollingTime)
             // Update status depend on the buckeitng file
             Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
         }

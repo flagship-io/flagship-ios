@@ -21,39 +21,18 @@ enum FSDatabaseType: String {
 class FSQLiteWrapper {
     // Get the URL to db store file
     var flagship_db_URL: URL
-    // The database pointer.
+    
+    // The database pointer — accessible aux sous-classes via la queue
     var _db_opaquePointer: OpaquePointer?
-    var _readPointer: OpaquePointer?
-    var recordPointer: OpaquePointer?
-    var deletePointer: OpaquePointer?
     
-    let fs_db_queue = DispatchQueue(label: "com.flagship.db_queue", attributes: .concurrent)
+    // Prepared statements — chacun a son propre pointeur pour éviter tout conflit
+    private var _recordPointer: OpaquePointer?
+    private var _deletePointer: OpaquePointer?
+    private var _deleteAllPointer: OpaquePointer? // séparé de _deletePointer
+    private var _readPointer: OpaquePointer?
     
-    var db_opaquePointer: OpaquePointer? {
-        get {
-            return fs_db_queue.sync {
-                _db_opaquePointer
-            }
-        }
-        set {
-            fs_db_queue.async(flags: .barrier) {
-                self._db_opaquePointer = newValue
-            }
-        }
-    }
-    
-    var readPointer: OpaquePointer? {
-        get {
-            return fs_db_queue.sync {
-                _readPointer
-            }
-        }
-        set {
-            fs_db_queue.async(flags: .barrier) {
-                self._readPointer = newValue
-            }
-        }
-    }
+    // Serial queue : accessible aux sous-classes pour protéger leurs propres statements
+    let fs_db_queue = DispatchQueue(label: "com.flagship.db_queue")
     
     public init(_ dataBaseType: FSDatabaseType) {
         if let rootPath = FSQLiteWrapper.createUrlForDatabaseCache() {
@@ -73,129 +52,135 @@ class FSQLiteWrapper {
     
     // Open the DB at the given path. If file does not exists, it will create one for you
     private func openDB() throws {
-        if sqlite3_open_v2(flagship_db_URL.path, &db_opaquePointer, SQLITE_OPEN_CREATE|SQLITE_OPEN_READWRITE|SQLITE_OPEN_FULLMUTEX, nil) != SQLITE_OK {
+        if sqlite3_open_v2(flagship_db_URL.path, &_db_opaquePointer, SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX, nil) != SQLITE_OK {
             throw FlagshipError(message: "Error when opening database \(flagship_db_URL.absoluteString)")
         }
     }
     
     private func createTables(_ dataBaseType: FSDatabaseType) throws {
-        // create the tables
         let sqlRequestString = (dataBaseType == .DatabaseVisitor) ?
-            "CREATE TABLE IF NOT EXISTS table_visitors(id TEXT PRIMARY KEY, data_visitor TEXT)" : /// Request to create visitor table
-            "CREATE TABLE IF NOT EXISTS table_hits(id TEXT PRIMARY KEY, data_hit TEXT)" /// Request to create hit table
+            "CREATE TABLE IF NOT EXISTS table_visitors(id TEXT PRIMARY KEY, data_visitor TEXT)" :
+            "CREATE TABLE IF NOT EXISTS table_hits(id TEXT PRIMARY KEY, data_hit TEXT)"
         
-        let ret = sqlite3_exec(db_opaquePointer, sqlRequestString, nil, nil, nil)
-        if ret != SQLITE_OK {
+        if sqlite3_exec(_db_opaquePointer, sqlRequestString, nil, nil, nil) != SQLITE_OK {
             FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error occurred on create database"))
             throw FlagshipError(message: "Error on creating table_visitors")
         }
     }
     
-    // INSERT/CREATE operation prepared statement
-    func prepareInsertEntryStmt() -> Int32 {
-        guard recordPointer == nil else { return SQLITE_OK }
-        let sql = "INSERT INTO table_hits (id, data_hit) VALUES (?,?)"
-        // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &recordPointer, nil)
+    // MARK: - Prepared statements (appelés UNIQUEMENT depuis fs_db_queue)
+    
+    /// Prépare INSERT OR REPLACE une seule fois
+    private func prepareInsertStmtIfNeeded() -> Int32 {
+        guard _recordPointer == nil else { return SQLITE_OK }
+        let sql = "INSERT OR REPLACE INTO table_hits (id, data_hit) VALUES (?,?)"
+        let r = sqlite3_prepare_v2(_db_opaquePointer, sql, -1, &_recordPointer, nil)
         if r != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error on sqlite insert"))
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error on sqlite insert prepare"))
         }
         return r
     }
+    
+    /// Prépare DELETE by id une seule fois
+    private func prepareDeleteStmtIfNeeded() -> Int32 {
+        guard _deletePointer == nil else { return SQLITE_OK }
+        let sql = "DELETE FROM table_hits WHERE id = ?"
+        let r = sqlite3_prepare_v2(_db_opaquePointer, sql, -1, &_deletePointer, nil)
+        if r != SQLITE_OK {
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite delete prepare"))
+        }
+        return r
+    }
+    
+    /// Prépare DELETE ALL — statement DISTINCT de _deletePointer
+    private func prepareDeleteAllStmtIfNeeded() -> Int32 {
+        guard _deleteAllPointer == nil else { return SQLITE_OK }
+        let sql = "DELETE FROM table_hits"
+        let r = sqlite3_prepare_v2(_db_opaquePointer, sql, -1, &_deleteAllPointer, nil)
+        if r != SQLITE_OK {
+            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite deleteAll prepare"))
+        }
+        return r
+    }
+    
+    // MARK: - Public API (thread-safe via fs_db_queue)
     
     /////////////////////
     /// INSERT        ///
     /////////////////////
-
-    // RECORD
+    
     public func record_data(_ id: String, data_content: String) {
-        // Ensure statements are created
-        guard prepareInsertEntryStmt() == SQLITE_OK else { return }
-        
-        defer {
-            // Reset the prepared statement on exit.
-            sqlite3_reset(self.recordPointer)
-        }
-        
-        // Inserting Id
-        if sqlite3_bind_text(recordPointer, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error occurred on record Id"))
-            return
-        }
-        
-        // Inserting Content
-        if sqlite3_bind_text(recordPointer, 2, (data_content as NSString).utf8String, -1, nil) != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error occurred on data content Id"))
-            return
-        }
-
-        // Executing the query
-        let r = sqlite3_step(recordPointer)
-        if r != SQLITE_DONE {
-            return
+        fs_db_queue.async { [weak self] in
+            guard let self else { return }
+            guard self.prepareInsertStmtIfNeeded() == SQLITE_OK else { return }
+            defer { sqlite3_reset(self._recordPointer) }
+            
+            if sqlite3_bind_text(self._recordPointer, 1, (id as NSString).utf8String, -1, nil) != SQLITE_OK {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error occurred on record Id"))
+                return
+            }
+            if sqlite3_bind_text(self._recordPointer, 2, (data_content as NSString).utf8String, -1, nil) != SQLITE_OK {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error occurred on data content"))
+                return
+            }
+            if sqlite3_step(self._recordPointer) != SQLITE_DONE {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error on step record"))
+            }
         }
     }
     
-    // DELETE operation
-    func prepareDeleteEntryStmt() -> Int32 {
-        guard deletePointer == nil else { return SQLITE_OK }
-        let sql = "DELETE FROM table_hits WHERE id = ?"
-        // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
-        if r != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite delete"))
-        }
-        
-        return r
-    }
+    /////////////////////
+    /// DELETE        ///
+    /////////////////////
     
     public func delete(idItemToDelete: String) {
-        // Ensure statements are created on first usage if nil
-        guard prepareDeleteEntryStmt() == SQLITE_OK else { return }
-        
-        defer {
-            // Reset the prepared statement on exit.
-            sqlite3_reset(self.deletePointer)
-        }
-        
-        // Inserting Id item to delete
-        if sqlite3_bind_text(deletePointer, 1, (idItemToDelete as NSString).utf8String, -1, nil) != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite on delete"))
-            return
-        }
-        
-        // Executing the query to delete row
-        let r = sqlite3_step(deletePointer)
-        if r != SQLITE_DONE {
-            return
+        fs_db_queue.async { [weak self] in
+            guard let self else { return }
+            guard self.prepareDeleteStmtIfNeeded() == SQLITE_OK else { return }
+            defer { sqlite3_reset(self._deletePointer) }
+            
+            if sqlite3_bind_text(self._deletePointer, 1, (idItemToDelete as NSString).utf8String, -1, nil) != SQLITE_OK {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite on delete"))
+                return
+            }
+            if sqlite3_step(self._deletePointer) != SQLITE_DONE {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error on step delete"))
+            }
         }
     }
     
-    // DELETE operation prepared statement
-    func prepareDeleteAllStmt() -> Int32 {
-        guard deletePointer == nil else { return SQLITE_OK }
-        let sql = "DELETE FROM table_hits"
-        // preparing the query
-        let r = sqlite3_prepare(db_opaquePointer, sql, -1, &deletePointer, nil)
-        if r != SQLITE_OK {
-            FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error sqlite delete"))
-        }
-        return r
-    }
+    /////////////////////
+    /// FLUSH         ///
+    /////////////////////
     
     public func flushTable() {
-        // Ensure statements are created
-        guard prepareDeleteAllStmt() == SQLITE_OK else { return }
-        
-        defer {
-            // Reset the prepared statement on exit.
-            sqlite3_reset(self.deletePointer)
+        fs_db_queue.async { [weak self] in
+            guard let self else { return }
+            guard self.prepareDeleteAllStmtIfNeeded() == SQLITE_OK else { return }
+            defer { sqlite3_reset(self._deleteAllPointer) }
+            
+            if sqlite3_step(self._deleteAllPointer) != SQLITE_DONE {
+                FlagshipLogManager.Log(level: .ERROR, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Some error on step flushTable"))
+            }
         }
-        
-        // Executing the query
-        let r = sqlite3_step(deletePointer)
-        if r != SQLITE_DONE {
-            return
+    }
+    
+    // MARK: - Test helper : attend que toutes les opérations async en cours soient terminées
+    
+    /// Utilisé uniquement dans les tests unitaires pour synchroniser après un record/delete/flush async
+    func waitForPendingOperations() {
+        fs_db_queue.sync { }
+    }
+    
+    // MARK: - Deinit (évite les leaks de prepared statements et de connexion DB)
+    
+    deinit {
+        fs_db_queue.sync {
+            sqlite3_finalize(_recordPointer)
+            sqlite3_finalize(_deletePointer)
+            sqlite3_finalize(_deleteAllPointer)
+            sqlite3_finalize(_readPointer)
+            sqlite3_close(_db_opaquePointer)
         }
     }
     
