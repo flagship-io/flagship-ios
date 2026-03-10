@@ -37,16 +37,25 @@ class FSThreadSafeTest: XCTestCase {
     /// Reproduit le flow exact du crash :
     /// Un background thread → FlagshipManager.alreadyStarted → sharedInstance → init → FSQLiteWrapper.init
     func testStartFromBackgroundThread() {
-        let expectation = self.expectation(description: "start() depuis background thread sans crash")
+        let startExpectation = self.expectation(description: "start() depuis background thread sans crash")
 
         DispatchQueue.global(qos: .default).async {
             // Ne doit PAS crasher même si appelé depuis un thread background
             Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
-            XCTAssertEqual(Flagship.sharedInstance.currentStatus, .SDK_INITIALIZED)
-            expectation.fulfill()
+            startExpectation.fulfill()
         }
 
-        waitForExpectations(timeout: 5)
+        // Wait for start() to complete on the background thread
+        wait(for: [startExpectation], timeout: 5)
+
+        // currentStatus is set via an async barrier — wait for the transition to complete
+        let statusExpectation = XCTNSPredicateExpectation(
+            predicate: NSPredicate(block: { _, _ in
+                Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED
+            }),
+            object: nil
+        )
+        wait(for: [statusExpectation], timeout: 5)
     }
 
     // MARK: - 3. Accès concurrent depuis plusieurs threads simultanés
@@ -87,7 +96,15 @@ class FSThreadSafeTest: XCTestCase {
         // On démarre sans fournir de config → doit utiliser currentConfig existant
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
         XCTAssertNotNil(Flagship.sharedInstance.currentConfig)
-        XCTAssertEqual(Flagship.sharedInstance.currentStatus, .SDK_INITIALIZED)
+
+        // currentStatus is set via an async barrier — wait for the transition to complete
+        let statusExpectation = XCTNSPredicateExpectation(
+            predicate: NSPredicate(block: { _, _ in
+                Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED
+            }),
+            object: nil
+        )
+        wait(for: [statusExpectation], timeout: 5)
     }
 
     // MARK: - 6. SQLiteWrapper — record concurrent (race condition sur _recordPointer)
