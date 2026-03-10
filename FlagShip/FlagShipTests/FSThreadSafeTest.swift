@@ -37,16 +37,26 @@ class FSThreadSafeTest: XCTestCase {
     /// Reproduit le flow exact du crash :
     /// Un background thread → FlagshipManager.alreadyStarted → sharedInstance → init → FSQLiteWrapper.init
     func testStartFromBackgroundThread() {
-        let expectation = self.expectation(description: "start() depuis background thread sans crash")
+        // Ensure a non-initialized state so that onSdkStatusChanged fires when start() completes
+        Flagship.sharedInstance.reset()
+
+        let statusExpectation = expectation(description: "SDK initialized from background thread")
+        let config = FSConfigBuilder()
+            .withOnSdkStatusChanged { newStatus in
+                if newStatus == .SDK_INITIALIZED {
+                    statusExpectation.fulfill()
+                }
+            }
+            .build()
 
         DispatchQueue.global(qos: .default).async {
             // Ne doit PAS crasher même si appelé depuis un thread background
-            Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
-            XCTAssertEqual(Flagship.sharedInstance.currentStatus, .SDK_INITIALIZED)
-            expectation.fulfill()
+            Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: config)
         }
 
+        // Wait for onSdkStatusChanged to confirm the async barrier write on fsQueue has settled
         waitForExpectations(timeout: 5)
+        XCTAssertEqual(Flagship.sharedInstance.currentStatus, .SDK_INITIALIZED)
     }
 
     // MARK: - 3. Accès concurrent depuis plusieurs threads simultanés
