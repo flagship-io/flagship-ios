@@ -14,6 +14,16 @@
 import XCTest
 
 class FSThreadSafeTest: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        Flagship.sharedInstance.reset()
+    }
+
+    override func tearDown() {
+        Flagship.sharedInstance.reset()
+        super.tearDown()
+    }
+
     // MARK: - 1. sharedInstance accédé depuis un background thread (reproduction du crash)
 
     /// Reproduit exactement le crash :
