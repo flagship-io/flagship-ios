@@ -13,7 +13,7 @@ jobs:
           - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone SE (3rd generation)', label: 'iOS'}
           - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS Simulator,name=Apple TV', label: 'tvOS' }
           - { scheme: 'Flagship-macOS', destination: 'platform=macOS', label: 'macOS'}
-          - { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator', label: 'watchOS'}
+          - { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator, name=Apple Watch Ultra 3 (49mm),OS=26.2', label: 'watchOS'}
 
 
     steps:
