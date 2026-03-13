@@ -14,7 +14,7 @@ public class Flagship: NSObject {
     // apiKey
     var apiKey: String?
     // Configuration
-    var currentConfig: FlagshipConfig
+    var currentConfig: FlagshipConfig?
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Enabale Log
@@ -48,11 +48,11 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-        currentConfig = FSConfigBuilder().build()
+        // currentConfig = FSConfigBuilder().build()
     }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
-        let resolvedConfig = config ?? currentConfig
+        let resolvedConfig = config ?? FSConfigBuilder().build()
 
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
@@ -71,20 +71,22 @@ public class Flagship: NSObject {
         // Set configuration
         Flagship.sharedInstance.currentConfig = resolvedConfig
         
-        switch resolvedConfig.mode { case .DECISION_API:
+        switch resolvedConfig.mode {
+        case .DECISION_API:
             Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
         case .BUCKETING:
             // Init the polling script
             pollingScript = FSPollingScript(pollingTime: resolvedConfig.pollingTime)
             // Update status depend on the buckeitng file
             Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
+ 
         }
         
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
-        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
+        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig ?? FSConfigBuilder().build()), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
@@ -139,7 +141,7 @@ public class Flagship: NSObject {
         // Update the status
         currentStatus = newStatus
         // Trigger the callback
-        if let callbackListener = currentConfig.onSdkStatusChanged {
+        if let callbackListener = currentConfig?.onSdkStatusChanged {
             callbackListener(newStatus)
         }
     }

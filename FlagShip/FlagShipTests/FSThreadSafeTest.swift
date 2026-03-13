@@ -78,7 +78,7 @@ class FSThreadSafeTest: XCTestCase {
         let instance = Flagship.sharedInstance
         // currentConfig ne doit jamais être nil — initialisé dans init()
         XCTAssertNotNil(instance.currentConfig, "currentConfig doit être initialisé dans init()")
-        XCTAssertEqual(instance.currentConfig.mode, .DECISION_API, "mode par défaut doit être DECISION_API")
+        XCTAssertEqual(instance.currentConfig?.mode, .DECISION_API, "mode par défaut doit être DECISION_API")
     }
 
     // MARK: - 5. start() sans config utilise currentConfig (pas de double build)

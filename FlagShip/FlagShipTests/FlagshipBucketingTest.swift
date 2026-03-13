@@ -105,4 +105,9 @@ class FlagshipBucketingTest: XCTestCase {
 
         wait(for: [expectationSync], timeout: 10.0)
     }
+    
+    override func tearDownWithError() throws {
+        Flagship.sharedInstance.reset()
+       
+    }
 }
