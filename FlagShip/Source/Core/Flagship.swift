@@ -14,7 +14,16 @@ public class Flagship: NSObject {
     // apiKey
     var apiKey: String?
     // Configuration
-    var currentConfig: FlagshipConfig?
+    var currentConfig: FlagshipConfig? {
+        get {
+            return fsQueue.sync { _currentConfig }
+        }
+        set {
+            fsQueue.async(flags: .barrier) { self._currentConfig = newValue }
+        }
+    }
+
+    private var _currentConfig: FlagshipConfig?
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Enabale Log
@@ -120,6 +129,7 @@ public class Flagship: NSObject {
     func reset() {
         sharedVisitor = nil
         currentStatus = .SDK_NOT_INITIALIZED
+        currentConfig = nil
     }
     
     // Create new visitor

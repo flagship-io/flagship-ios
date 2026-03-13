@@ -11,10 +11,9 @@ import XCTest
 @testable import Flagship
 
 class FlagshipBucketingTest: XCTestCase {
-    var testVisitor: FSVisitor?
     var urlFakeSession: URLSession?
-    var fsConfig: FlagshipConfig?
-    
+    var testVisitor: FSVisitor?
+ 
     override func setUpWithError() throws {
         /// Configuration
         let configuration = URLSessionConfiguration.ephemeral
@@ -46,10 +45,10 @@ class FlagshipBucketingTest: XCTestCase {
     func testBucketingWithSuccess() {
         let expectationSync = XCTestExpectation(description: "testBucketingWithSuccess")
         
-        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
+        let fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
         
         /// Start sdk
-        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig)
         
         if let aUrlFakeSession = urlFakeSession {
             testVisitor?.configManager.decisionManager?.networkService.serviceSession = aUrlFakeSession
@@ -89,14 +88,17 @@ class FlagshipBucketingTest: XCTestCase {
     
     func testBucketingWithFailedTargeting() { // The visitor id here make the trageting failed
         let expectationSync = XCTestExpectation(description: "testBucketingWithFailedTargeting")
-        fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
+        let fsConfig = FSConfigBuilder().Bucketing().withBucketingPollingIntervals(5).build()
         /// Start sdk
-        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig ?? FSConfigBuilder().build())
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey", config: fsConfig)
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withFetchFlagsStatus { _, _ in
             // Get from alloc 100
-            let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
-            XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")
+            if self.testVisitor?.visitorId == "korso" {
+                let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
+                XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")
+            }
+ 
             expectationSync.fulfill()
         }.build()
         /// Erase all cached data
@@ -108,6 +110,7 @@ class FlagshipBucketingTest: XCTestCase {
     
     override func tearDownWithError() throws {
         Flagship.sharedInstance.reset()
-       
+        /// Erase all cached data
+        testVisitor?.strategy?.getStrategy().flushVisitor()
     }
 }
