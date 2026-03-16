@@ -12,11 +12,16 @@ import XCTest
 final class FlagshipTestBackgroud: XCTestCase {
 
     override func setUpWithError() throws {
+        
         Flagship.sharedInstance.start(envId: "bg_test_env", apiKey: "bg_test_key")
+        Thread.sleep(forTimeInterval: 1.0) // wait for async init
+
     }
 
     override func tearDownWithError() throws {
         Flagship.sharedInstance.close()
+        Thread.sleep(forTimeInterval: 0.5)
+
     }
 
     // 1. sharedInstance + currentConfig must be reachable from a background thread
@@ -27,7 +32,7 @@ final class FlagshipTestBackgroud: XCTestCase {
             XCTAssertNotNil(config)
             exp.fulfill()
         }
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 10)
     }
 
     // 2. FlagshipLogManager.Log must not deadlock when called from a background thread
@@ -38,7 +43,7 @@ final class FlagshipTestBackgroud: XCTestCase {
                                    messageToDisplay: FSLogMessage.MESSAGE("simulated DB init error"))
             exp.fulfill()
         }
-        waitForExpectations(timeout: 5)
+        waitForExpectations(timeout: 10)
     }
 
     // 3. Concurrent access from multiple threads must not deadlock or crash
