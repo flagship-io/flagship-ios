@@ -57,7 +57,7 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-        // currentConfig = FSConfigBuilder().build()
+        _currentConfig = FSConfigBuilder().build()
     }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
@@ -88,7 +88,6 @@ public class Flagship: NSObject {
             pollingScript = FSPollingScript(pollingTime: resolvedConfig.pollingTime)
             // Update status depend on the buckeitng file
             Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
- 
         }
         
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
@@ -127,9 +126,10 @@ public class Flagship: NSObject {
     
     // Reset the sdk
     func reset() {
-        sharedVisitor = nil
-        currentStatus = .SDK_NOT_INITIALIZED
-        currentConfig = nil
+        fsQueue.async(flags: .barrier) {
+            self.sharedVisitor = nil
+            self._currentStatus = .SDK_NOT_INITIALIZED
+        }
     }
     
     // Create new visitor
