@@ -23,9 +23,9 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.apiKey == "apiKey")
         XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
         
-        XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
-        XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
-        XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 2)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.logLevel == .ALL)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.mode == .DECISION_API)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.timeout == 2)
         
     }
     
@@ -38,9 +38,9 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.apiKey == "apiKey")
         XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
         
-        XCTAssert(Flagship.sharedInstance.currentConfig.logLevel == .ALL)
-        XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
-        XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12/1000)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.logLevel == .ALL)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.mode == .DECISION_API)
+        XCTAssert(Flagship.sharedInstance.currentConfig?.timeout == 12/1000)
         
     }
     

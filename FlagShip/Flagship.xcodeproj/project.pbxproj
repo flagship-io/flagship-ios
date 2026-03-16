@@ -267,6 +267,7 @@
 		F53A689D2B5ECB0E00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689E2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
 		F53A689F2B5ECB0F00D80ACD /* FSPollingScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B67369327FEBE4C003EC960 /* FSPollingScript.swift */; };
+		F53AAC052F68381A003F6971 /* FlagshipTestBackgroud.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53AAC042F68381A003F6971 /* FlagshipTestBackgroud.swift */; };
 		F55751392A3332150082D83E /* content_activate.json in Resources */ = {isa = PBXBuildFile; fileRef = F55751382A3332150082D83E /* content_activate.json */; };
 		F557513B2A3338060082D83E /* FSNotReadyStrategyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */; };
 		F55CC59E2C077D7D000A21CF /* FSFlagMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */; };
@@ -456,6 +457,7 @@
 		F53970A329DF083C00D650E4 /* FSTracking+Codable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FSTracking+Codable.swift"; sourceTree = "<group>"; };
 		F53970BC29ED493D00D650E4 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F53970BF29ED495B00D650E4 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		F53AAC042F68381A003F6971 /* FlagshipTestBackgroud.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagshipTestBackgroud.swift; sourceTree = "<group>"; };
 		F55751382A3332150082D83E /* content_activate.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content_activate.json; sourceTree = "<group>"; };
 		F557513A2A3338060082D83E /* FSNotReadyStrategyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSNotReadyStrategyTest.swift; sourceTree = "<group>"; };
 		F55CC59D2C077D7D000A21CF /* FSFlagMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagMetadata.swift; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				F5BC97BD2A8CCB9200CE11C3 /* FSOnExposureTest.swift */,
 				F5F1AD542B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift */,
 				F5F7AEB22C0DC0370044E7B2 /* FSAllFlagTest.swift */,
+				F53AAC042F68381A003F6971 /* FlagshipTestBackgroud.swift */,
 			);
 			path = FlagShipTests;
 			sourceTree = "<group>";
@@ -1244,6 +1247,7 @@
 				8B67371A27FEDA3E003EC960 /* FSVisitorBuilderTest.swift in Sources */,
 				F5F1AD552B163A0E0052E6E3 /* FSDataUsageTrackingTest.swift in Sources */,
 				8B67371B27FEDA3E003EC960 /* FSVisitorTests.swift in Sources */,
+				F53AAC052F68381A003F6971 /* FlagshipTestBackgroud.swift in Sources */,
 				F567A43F28D3263E008E9FC0 /* FSCacheTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1793,7 +1797,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
@@ -1826,7 +1830,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.2;
+				MARKETING_VERSION = 4.0.3;
 				OTHER_LDFLAGS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ABTasty.FlagShip;
