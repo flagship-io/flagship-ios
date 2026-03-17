@@ -49,7 +49,7 @@ final class FlagshipTestBackgroud: XCTestCase {
         DispatchQueue.global(qos: .default).async {
             let config = Flagship.sharedInstance.currentConfig
             XCTAssertNotNil(config, "currentConfig must not be nil when read from a background thread")
-            XCTAssertEqual(config?.mode, .DECISION_API,
+            XCTAssertEqual(config.mode, .DECISION_API,
                            "testConcurrentStartFromMultipleBackgroundThreads")
             exp.fulfill()
         }

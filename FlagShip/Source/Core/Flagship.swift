@@ -9,10 +9,22 @@ import Foundation
 public class Flagship: NSObject {
     let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
     
-    // envId
-    var envId: String?
-    // apiKey
-    var apiKey: String?
+//    // envId
+//    var envId: String?
+//    // apiKey
+//    var apiKey: String?
+    
+    private var _envId: String?
+    var envId: String? {
+        get { fsQueue.sync { _envId } }
+        set { fsQueue.async(flags: .barrier) { self._envId = newValue } }
+    }
+
+    private var _apiKey: String?
+    var apiKey: String? {
+        get { fsQueue.sync { _apiKey } }
+        set { fsQueue.async(flags: .barrier) { self._apiKey = newValue } }
+    }
     
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
@@ -39,20 +51,11 @@ public class Flagship: NSObject {
     private var _currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
     
     // Configuration
-    private var _currentConfig: FlagshipConfig? = nil
-    
-    var currentConfig: FlagshipConfig? {
-        get {
-            return fsQueue.sync {
-                if _currentConfig == nil {
-                    _currentConfig = FSConfigBuilder().build()
-                }
-                return _currentConfig
-            }
-        }
-        set {
-            fsQueue.async(flags: .barrier) { self._currentConfig = newValue }
-        }
+    private var _currentConfig: FlagshipConfig = FSConfigBuilder().build()
+
+    var currentConfig: FlagshipConfig {
+        get { fsQueue.sync { _currentConfig } }
+        set { fsQueue.async(flags: .barrier) { self._currentConfig = newValue } }
     }
     
     // Shared instace
@@ -85,7 +88,7 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        Flagship.sharedInstance.currentConfig = config
+        Flagship.sharedInstance.currentConfig = resolvedConfig
         
         switch resolvedConfig.mode { case .DECISION_API:
             Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
@@ -100,7 +103,7 @@ public class Flagship: NSObject {
     }
     
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
-        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig ?? FSConfigBuilder().build()), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
+        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
@@ -157,7 +160,7 @@ public class Flagship: NSObject {
         // Update the status
         currentStatus = newStatus
         // Trigger the callback
-        if let callbackListener = currentConfig?.onSdkStatusChanged {
+        if let callbackListener = currentConfig.onSdkStatusChanged {
             callbackListener(newStatus)
         }
     }

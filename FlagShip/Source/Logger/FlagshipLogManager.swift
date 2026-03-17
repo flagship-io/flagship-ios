@@ -45,7 +45,7 @@ class FlagshipLogManager: FSLogManager {
     }
 
     private static func isAllowed(_ newLevel: FSLevel) -> Bool {
-        let currentLevel = Flagship.sharedInstance.currentConfig?.logLevel ?? .ALL
+        let currentLevel = Flagship.sharedInstance.currentConfig.logLevel
 
         return (newLevel.rawValue < currentLevel.rawValue) || (newLevel.rawValue == currentLevel.rawValue)
     }
