@@ -9,17 +9,9 @@ import Foundation
 public class Flagship: NSObject {
     let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
     
-    private var _envId: String?
-    var envId: String? {
-        get { fsQueue.sync { _envId } }
-        set { fsQueue.sync(flags: .barrier) { self._envId = newValue } }
-    }
-
-    private var _apiKey: String?
-    var apiKey: String? {
-        get { fsQueue.sync { _apiKey } }
-        set { fsQueue.sync(flags: .barrier) { self._apiKey = newValue } }
-    }
+    var envId: String?
+    // apiKey
+    var apiKey: String?
     
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
@@ -37,7 +29,7 @@ public class Flagship: NSObject {
             }
         }
         set {
-            fsQueue.sync(flags: .barrier) {
+            fsQueue.async(flags: .barrier) {
                 self._currentStatus = newValue
             }
         }
@@ -50,7 +42,7 @@ public class Flagship: NSObject {
 
     var currentConfig: FlagshipConfig {
         get { fsQueue.sync { _currentConfig } }
-        set { fsQueue.sync(flags: .barrier) { self._currentConfig = newValue } }
+        set { fsQueue.async(flags: .barrier) { self._currentConfig = newValue } }
     }
     
     // Shared instace
@@ -62,8 +54,7 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-        // _currentConfig = FSConfigBuilder().build()
-    }
+     }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
         let resolvedConfig = config ?? FSConfigBuilder().build()
@@ -130,10 +121,6 @@ public class Flagship: NSObject {
     
     // Reset the sdk
     func reset() {
-        // Use sync(flags: .barrier) so that the reset is complete before setUp() returns.
-        // async(flags: .barrier) left a pending barrier on fsQueue which caused subsequent
-        // fsQueue.sync calls (e.g. currentConfig getter) on background threads to wait
-        // indefinitely → XCTest expectation timeout on CI.
         fsQueue.sync(flags: .barrier) {
             self.sharedVisitor = nil
             self._currentStatus = .SDK_NOT_INITIALIZED
@@ -153,10 +140,6 @@ public class Flagship: NSObject {
     
     // Update status
     func updateStatus(_ newStatus: FSSdkStatus) {
-        // Perform the read-check-write atomically inside a single barrier to avoid
-        // reentrancy deadlocks (fsQueue.sync inside fsQueue.sync would deadlock on
-        // a serial queue; using sync(flags:.barrier) on a concurrent queue is safe
-        // as long as we never call updateStatus from within an fsQueue block).
         var callbackListener: ((FSSdkStatus) -> Void)?
         fsQueue.sync(flags: .barrier) {
             guard newStatus != self._currentStatus else { return }
