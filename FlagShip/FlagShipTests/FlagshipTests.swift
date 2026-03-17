@@ -46,10 +46,8 @@ class FlagshipTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Init Flagship from background thread completion handler")
 
         DispatchQueue.global(qos: .userInitiated).async {
-            if Flagship.sharedInstance.currentStatus == .SDK_NOT_INITIALIZED {
-                Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
-                XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
-            }
+            Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
+            XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
             expectation.fulfill()
         }
 
