@@ -45,6 +45,14 @@ public class Flagship: NSObject {
         set { fsQueue.async(flags: .barrier) { self._currentConfig = newValue } }
     }
     
+    /// Synchronously update the current configuration.
+    /// Used during SDK start to ensure the config is visible before updating status.
+    private func setCurrentConfigSync(_ config: FlagshipConfig) {
+        fsQueue.sync(flags: .barrier) {
+            self._currentConfig = config
+        }
+    }
+    
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
         let instance = Flagship()
@@ -74,7 +82,7 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        Flagship.sharedInstance.currentConfig = resolvedConfig
+        Flagship.sharedInstance.setCurrentConfigSync(resolvedConfig)
         
         switch resolvedConfig.mode { case .DECISION_API:
             Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
