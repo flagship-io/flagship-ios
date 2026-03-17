@@ -12,13 +12,13 @@ public class Flagship: NSObject {
     private var _envId: String?
     var envId: String? {
         get { fsQueue.sync { _envId } }
-        set { fsQueue.async(flags: .barrier) { self._envId = newValue } }
+        set { fsQueue.sync(flags: .barrier) { self._envId = newValue } }
     }
 
     private var _apiKey: String?
     var apiKey: String? {
         get { fsQueue.sync { _apiKey } }
-        set { fsQueue.async(flags: .barrier) { self._apiKey = newValue } }
+        set { fsQueue.sync(flags: .barrier) { self._apiKey = newValue } }
     }
     
     // Current visitor
@@ -37,7 +37,7 @@ public class Flagship: NSObject {
             }
         }
         set {
-            fsQueue.async(flags: .barrier) {
+            fsQueue.sync(flags: .barrier) {
                 self._currentStatus = newValue
             }
         }
@@ -50,7 +50,7 @@ public class Flagship: NSObject {
 
     var currentConfig: FlagshipConfig {
         get { fsQueue.sync { _currentConfig } }
-        set { fsQueue.async(flags: .barrier) { self._currentConfig = newValue } }
+        set { fsQueue.sync(flags: .barrier) { self._currentConfig = newValue } }
     }
     
     // Shared instace
@@ -153,16 +153,17 @@ public class Flagship: NSObject {
     
     // Update status
     func updateStatus(_ newStatus: FSSdkStatus) {
-        // _ if the staus has not changed then no need to trigger the callback
-        if newStatus == currentStatus {
-            return
+        // Perform the read-check-write atomically inside a single barrier to avoid
+        // reentrancy deadlocks (fsQueue.sync inside fsQueue.sync would deadlock on
+        // a serial queue; using sync(flags:.barrier) on a concurrent queue is safe
+        // as long as we never call updateStatus from within an fsQueue block).
+        var callbackListener: ((FSSdkStatus) -> Void)?
+        fsQueue.sync(flags: .barrier) {
+            guard newStatus != self._currentStatus else { return }
+            self._currentStatus = newStatus
+            callbackListener = self._currentConfig.onSdkStatusChanged
         }
-        // Update the status
-        currentStatus = newStatus
-        // Trigger the callback
-        if let callbackListener = currentConfig.onSdkStatusChanged {
-            callbackListener(newStatus)
-        }
+        callbackListener?(newStatus)
     }
     
     // When close is called will trigger all hits present in batch
