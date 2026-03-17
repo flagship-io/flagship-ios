@@ -95,11 +95,17 @@ class FlagshipBucketingTest: XCTestCase {
         /// Create new visitor
         testVisitor = Flagship.sharedInstance.newVisitor(visitorId: "korso", hasConsented: true).withFetchFlagsStatus { _, _ in
             
-            if self.testVisitor?.visitorId == "korso" {
-                // Get from alloc 100
-                let flag2 = self.testVisitor?.getFlag(key: "stringFlag")
-                XCTAssertTrue(flag2?.value(defaultValue: "default") == "default")
+            guard let visitor = self.testVisitor else {
+                XCTFail("testVisitor is nil in fetch flags callback")
+                expectationSync.fulfill()
+                return
             }
+            
+            XCTAssertEqual(visitor.visitorId, "korso", "Unexpected visitorId in fetch flags callback")
+            
+            // Get from alloc 100
+            let flag2 = visitor.getFlag(key: "stringFlag")
+            XCTAssertEqual(flag2.value(defaultValue: "default"), "default")
             
             expectationSync.fulfill()
         }.build()
