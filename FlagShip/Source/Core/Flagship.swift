@@ -9,11 +9,6 @@ import Foundation
 public class Flagship: NSObject {
     let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
     
-//    // envId
-//    var envId: String?
-//    // apiKey
-//    var apiKey: String?
-    
     private var _envId: String?
     var envId: String? {
         get { fsQueue.sync { _envId } }
@@ -135,9 +130,14 @@ public class Flagship: NSObject {
     
     // Reset the sdk
     func reset() {
-        fsQueue.async(flags: .barrier) {
+        // Use sync(flags: .barrier) so that the reset is complete before setUp() returns.
+        // async(flags: .barrier) left a pending barrier on fsQueue which caused subsequent
+        // fsQueue.sync calls (e.g. currentConfig getter) on background threads to wait
+        // indefinitely → XCTest expectation timeout on CI.
+        fsQueue.sync(flags: .barrier) {
             self.sharedVisitor = nil
             self._currentStatus = .SDK_NOT_INITIALIZED
+            self._currentConfig = FSConfigBuilder().build()
         }
     }
     
