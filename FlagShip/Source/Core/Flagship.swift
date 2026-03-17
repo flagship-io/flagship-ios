@@ -9,12 +9,10 @@ import Foundation
 public class Flagship: NSObject {
     let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
     
-    // envId
     var envId: String?
     // apiKey
     var apiKey: String?
-    // Configuration
-    var currentConfig: FlagshipConfig = FSConfigBuilder().build()
+    
     // Current visitor
     @objc public private(set) var sharedVisitor: FSVisitor?
     // Enabale Log
@@ -36,8 +34,24 @@ public class Flagship: NSObject {
             }
         }
     }
-    
+
     private var _currentStatus: FSSdkStatus = .SDK_NOT_INITIALIZED
+    
+    // Configuration
+    private var _currentConfig: FlagshipConfig = FSConfigBuilder().build()
+
+    var currentConfig: FlagshipConfig {
+        get { fsQueue.sync { _currentConfig } }
+        set { fsQueue.async(flags: .barrier) { self._currentConfig = newValue } }
+    }
+    
+    /// Synchronously update the current configuration.
+    /// Used during SDK start to ensure the config is visible before updating status.
+    private func setCurrentConfigSync(_ config: FlagshipConfig) {
+        fsQueue.sync(flags: .barrier) {
+            self._currentConfig = config
+        }
+    }
     
     // Shared instace
     @objc public static let sharedInstance: Flagship = {
@@ -48,9 +62,11 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-    }
+     }
     
-    @objc public func start(envId: String, apiKey: String, config: FlagshipConfig = FSConfigBuilder().build()) {
+    @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
+        let resolvedConfig = config ?? FSConfigBuilder().build()
+        
         // Check the environmentId
         if FSTools.chekcXidEnvironment(envId) {
             Flagship.sharedInstance.envId = envId
@@ -66,13 +82,13 @@ public class Flagship: NSObject {
         self.apiKey = apiKey
         
         // Set configuration
-        Flagship.sharedInstance.currentConfig = config
+        Flagship.sharedInstance.setCurrentConfigSync(resolvedConfig)
         
-        switch config.mode { case .DECISION_API:
+        switch resolvedConfig.mode { case .DECISION_API:
             Flagship.sharedInstance.updateStatus(.SDK_INITIALIZED)
         case .BUCKETING:
             // Init the polling script
-            pollingScript = FSPollingScript(pollingTime: config.pollingTime)
+            pollingScript = FSPollingScript(pollingTime: resolvedConfig.pollingTime)
             // Update status depend on the buckeitng file
             Flagship.sharedInstance.updateStatus(FSStorageManager.bucketingScriptAlreadyAvailable() ? .SDK_INITIALIZED : .SDK_INITIALIZING)
         }
@@ -113,8 +129,11 @@ public class Flagship: NSObject {
     
     // Reset the sdk
     func reset() {
-        sharedVisitor = nil
-        currentStatus = .SDK_NOT_INITIALIZED
+        fsQueue.sync(flags: .barrier) {
+            self.sharedVisitor = nil
+            self._currentStatus = .SDK_NOT_INITIALIZED
+            self._currentConfig = FSConfigBuilder().build()
+        }
     }
     
     // Create new visitor
@@ -129,16 +148,13 @@ public class Flagship: NSObject {
     
     // Update status
     func updateStatus(_ newStatus: FSSdkStatus) {
-        // _ if the staus has not changed then no need to trigger the callback
-        if newStatus == currentStatus {
-            return
+        var callbackListener: ((FSSdkStatus) -> Void)?
+        fsQueue.sync(flags: .barrier) {
+            guard newStatus != self._currentStatus else { return }
+            self._currentStatus = newStatus
+            callbackListener = self._currentConfig.onSdkStatusChanged
         }
-        // Update the status
-        currentStatus = newStatus
-        // Trigger the callback
-        if let callbackListener = currentConfig.onSdkStatusChanged {
-            callbackListener(newStatus)
-        }
+        callbackListener?(newStatus)
     }
     
     // When close is called will trigger all hits present in batch
