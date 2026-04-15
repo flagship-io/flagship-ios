@@ -15,6 +15,8 @@ public extension FSVisitor {
     /// - Important: After using this method, you should use Flagship.fetchFlags method to update the visitor informations
     /// - Requires: Make sure that the experience continuity option is enabled on the flagship platform before using this method
     @objc func authenticate(visitorId: String) {
+        /// Init the session
+        self.sessionDuration = Date()
         if configManager.flagshipConfig.mode != .DECISION_API {
             FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
             return
@@ -27,6 +29,8 @@ public extension FSVisitor {
 
     /// Use authenticate methode to go from Logged in  session to logged out session
     @objc func unauthenticate() {
+        /// Init the session
+        self.sessionDuration = Date()
         if configManager.flagshipConfig.mode != .DECISION_API {
             FlagshipLogManager.Log(level: .ALL, tag: .UNAUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
             return

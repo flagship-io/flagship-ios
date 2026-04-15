@@ -39,9 +39,22 @@ import Foundation
             self.configManager.updateAid(newValue)
         }
     }
+    
+    var currentFlags: [String: FSModification] {
+        get {
+            return self.fsQueue.sync {
+                self._currentFlags
+            }
+        }
+        set {
+            self.fsQueue.async(flags: .barrier) {
+                self._currentFlags = newValue
+            }
+        }
+    }
 
     /// Modifications
-    var currentFlags: [String: FSModification] = [:]
+    private var _currentFlags: [String: FSModification] = [:]
     /// Context
     var context: FSContext
     /// Strategy
@@ -65,6 +78,12 @@ import Foundation
         
     // Score value
     public internal(set) var emotionScoreAI: String? = nil
+    
+    // Session duration
+    var sessionDuration: Date
+    
+    // List of activated variations
+    var activatedVariations: [String: String] = [:] ///  campId:varGrpId
 
     // Refonte status
     public internal(set) var fetchStatus: FSFlagStatus = .FETCH_REQUIRED {
@@ -109,7 +128,7 @@ import Foundation
             self.visitorId = FSTools.manageVisitorId(aVisitorId)
             self.anonymousId = nil
         }
-        
+     
         // Set the user context
         self.context = FSContext(aContext, visitorId: aVisitorId)
         
@@ -129,9 +148,14 @@ import Foundation
         self._onFlagStatusChanged = pOnFlagStatusChanged
         self._onFlagStatusFetchRequired = pOnFlagStatusFetchRequired
         self._onFlagStatusFetched = pOnFlagStatusFetched
+        
+        // init sessionStartTimestamp
+        self.sessionDuration = Date()
     }
     
     @objc public func fetchFlags(onFetchCompleted: @escaping () -> Void) {
+        /// Init the session
+        self.sessionDuration = Date()
         self.prepareEmotionAI(onCompleted: { score, _ in
             // Set the score
             self.emotionScoreAI = score
@@ -192,6 +216,20 @@ import Foundation
         }
     }
     
+    public func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+        /// Init the session
+        self.sessionDuration = Date()
+        if Flagship.sharedInstance.eaiCollectEnabled == true {
+            self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
+        } else {
+            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI feature is not activated"))
+        }
+    }
+    
+    public func onAppScreenChange(_ screenName: String) {
+        self.strategy?.getStrategy().onAppScreenChange(screenName)
+    }
+
     //////////////////////
     //        CONTEXT   //
     //////////////////////
@@ -199,6 +237,8 @@ import Foundation
     // Update Context
     // - Parameter newContext: user's context
     @objc public func updateContext(_ context: [String: Any]) {
+        /// Init the session
+        self.sessionDuration = Date()
         self._updateContext(context)
     }
     
@@ -207,6 +247,8 @@ import Foundation
     //   - key: key for the given value
     //   - newValue: value for teh given key
     public func updateContext(_ key: String, _ newValue: Any) {
+        /// Init the session
+        self.sessionDuration = Date()
         self._updateContext([key: newValue])
     }
     
@@ -215,6 +257,8 @@ import Foundation
     //   - presetKey: name of the preset context, see PresetContext
     //   - newValue: the value for the given key
     public func updateContext(_ flagshipContext: FlagshipContext, _ value: Any) {
+        /// Init the session
+        self.sessionDuration = Date()
         /// Check the validity value
         if !flagshipContext.chekcValidity(value) {
             FlagshipLogManager.Log(level: .ALL, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_PRE_CONTEXT_FAILED(flagshipContext.rawValue))
@@ -234,17 +278,24 @@ import Foundation
     // Get the current context
     // - Returns: Dictionary that represent a user context
     @objc public func getContext() -> [String: Any] {
+        /// Init the session
+        self.sessionDuration = Date()
         return self.context.getCurrentContext()
     }
     
     // Clear the current context
     @objc public func clearContext() {
+        /// Init the session
+        self.sessionDuration = Date()
         self.context.clearContext()
     }
     
     // Send Hits
     // - Parameter T: Hit object
     public func sendHit<T: FSTrackingProtocol>(_ event: T) {
+        /// Init the session
+        self.sessionDuration = Date()
+        
         self.strategy?.getStrategy().sendHit(event)
     }
     
@@ -253,6 +304,9 @@ import Foundation
     // Set the conssent
     // - Parameter newValue: if true, then flush all stored visitor data
     @objc public func setConsent(hasConsented: Bool) {
+        /// Init the session
+        self.sessionDuration = Date()
+        
         self.hasConsented = hasConsented
         self.strategy?.getStrategy().setConsent(newValue: hasConsented)
         

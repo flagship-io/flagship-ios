@@ -103,10 +103,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
                         }
                     }
                 }
-            }.withLogLevel(.ALL).withOnVisitorExposed { visitorExposed, fromFlag in
+            }.withLogLevel(.ALL).withOnVisitorExposed { v, fromFlag in
 
                 print("------- On visitor exposed callback ----------")
-                print(visitorExposed.toJson())
+                 print(v.toJson())
+
                 print(fromFlag.toJson())
                 print("------- On visitor exposed callback ----------")
             }
