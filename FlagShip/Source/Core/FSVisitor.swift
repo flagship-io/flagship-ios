@@ -216,20 +216,6 @@ import Foundation
         }
     }
     
-    public func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
-        /// Init the session
-        self.sessionDuration = Date()
-        if Flagship.sharedInstance.eaiCollectEnabled == true {
-            self.strategy?.getStrategy().collectEmotionsAIEvents(window: window, screenName: screenName, usingSwizzling: usingSwizzling)
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The Emotion AI feature is not activated"))
-        }
-    }
-    
-    public func onAppScreenChange(_ screenName: String) {
-        self.strategy?.getStrategy().onAppScreenChange(screenName)
-    }
-
     //////////////////////
     //        CONTEXT   //
     //////////////////////
