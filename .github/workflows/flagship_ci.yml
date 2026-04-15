@@ -11,7 +11,7 @@ jobs:
       matrix:
         run-config:
           - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone 17', label: 'iOS'}
-          - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS ,name=Any tvOS Device', label: 'tvOS' }
+          - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS Simulator,name=Any tvOS Simulator Device', label: 'tvOS' }
           #- { scheme: 'Flagship-macOS', destination: 'platform=macOS', label: 'macOS'}
           #- { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation)', label: 'watchOS'}
 
