@@ -6,6 +6,8 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
+
 import Foundation
 import UIKit
 
@@ -73,3 +75,4 @@ class FSEmotionEvent: FSTracking {
         return customParams
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 let FSEmotionAiUrl = "https://ariane.abtasty.com/emotionsai"
@@ -165,7 +166,7 @@ class FSEmotionAI: NSObject, UIGestureRecognizerDelegate {
         do {
             let dataToSend = try JSONSerialization.data(withJSONObject: aiHit.bodyTrack as Any, options: .prettyPrinted)
 
-             //print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
+            // print("Sending the following payload : + \(dataToSend.prettyPrintedJSONString)")
             if let urlAI = URL(string: FSEmotionAiUrl) {
                 let requestType: FSRequestType = (aiHit.type == .PAGE) ? .EmotionsView : .EmotionsVisitor
                 service?.sendRequest(urlAI, type: requestType, data: dataToSend) { _, error in
@@ -332,3 +333,5 @@ extension UIViewController {
                                         userInfo: ["dl": NSStringFromClass(classForCoder)])
     }
 }
+
+#endif

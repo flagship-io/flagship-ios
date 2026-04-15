@@ -23,7 +23,7 @@ class ContinuousTrackingManager: FSTrackingManager {
             cacheManager?.cacheHits(hits: [hitToSend.id: cacheHit.jsonCacheFormat() ?? [:]])
 
         } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("hit not valide to be sent "))
+            FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The format of the \(hitToSend.type.typeString) hit is invalid."))
         }
     }
 

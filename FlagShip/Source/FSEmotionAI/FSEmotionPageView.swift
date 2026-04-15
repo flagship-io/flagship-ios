@@ -6,6 +6,7 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
 import Foundation
 import UIKit
 
@@ -30,7 +31,7 @@ class FSEmotionPageView: FSPage {
         // Does user has adblock?
         customParams.updateValue(false, forKey: "adb")
         // Number of bits per pixel of users machine
-        customParams.updateValue("\(FSTools.getBitsPerPixel())", forKey: "sd")
+        customParams.updateValue("\(getBitsPerPixel())", forKey: "sd")
         // Browser configuration on user tracking preference
         customParams.updateValue("unknown", forKey: "dnt")
         // List of installed fonts (Stringified array)
@@ -65,4 +66,19 @@ class FSEmotionPageView: FSPage {
         customParams.removeValue(forKey: "qt")
         return customParams
     }
+
+    private func getBitsPerPixel() -> Int {
+        let screen = UIScreen.main
+
+        // Use the display gamut to infer bits per pixel
+        switch screen.traitCollection.displayGamut {
+        case .P3:
+            return 30 // Approx. 10 bits per channel (HDR support)
+        case .SRGB:
+            return 24 // 8 bits per channel
+        default:
+            return 24 // Default fallback
+        }
+    }
 }
+#endif

@@ -102,5 +102,46 @@
             "visitorId": "alias"
         },
         "version": 1
-    }  
+    },
+    {
+        "data":{
+            "anonymousId": null,
+            "content":{
+                  "ds" : "APP",
+                  "t" : "SEGMENT",
+                  "qt" : 2,
+                  "s" : {
+                    "fs_client" : "iOS",
+                    "sdk_osVersionName" : "iOS",
+                    "fs_all_users" : "",
+                    "keyReleaseBucketMardi" : "mardi",
+                    "keyBucket" : "true",
+                    "isPreRelease" : "true",
+                    "segment" : "coffee",
+                    "sdk_deviceType" : "Mobile",
+                    "fs_version" : "4.0.2",
+                    "sdk_fsVersion" : "4.0.2",
+                    "sdk_firstTimeInit" : "false",
+                    "isQA" : "true",
+                    "sdk_deviceModel" : "iPhone",
+                    "keyBucketTer" : "test",
+                    "condition1" : "segment",
+                    "OS_VERSION_CODE" : "26.1",
+                    "sdk_osName" : "iOS",
+                    "abcdef" : "12.0",
+                    "sdk_osVersionCode" : "26.1",
+                    "testing_tracking_manager" : "true",
+                    "sdk_deviceLanguage" : "en",
+                    "fs_users" : "alias",
+                    "keyReleaseBucket" : "12",
+                    "test" : "12"
+                },
+                "numberOfBytes": 186,
+                "time": 1686303148.451227,
+                "type": "SEGMENT",
+                "visitorId": "alias"
+            }
+        },
+        "version": 1
+    }
 ]

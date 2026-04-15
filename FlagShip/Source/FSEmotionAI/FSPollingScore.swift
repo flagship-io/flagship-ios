@@ -6,6 +6,7 @@
 //  Copyright © 2024 FlagShip. All rights reserved.
 //
 
+#if os(iOS)
 import UIKit
 
 class FSPollingScore: NSObject {
@@ -80,3 +81,4 @@ class FSPollingScore: NSObject {
         self.pollingScore?.suspend()
     }
 }
+#endif

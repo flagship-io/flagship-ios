@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 /**
  * Specify if how Flagship SDK should handle the newly create visitor instance.
@@ -26,28 +25,7 @@ import UIKit
 }
 
 /// Visitor class
-@objc public class FSVisitor: NSObject, FSEmotionAiDelegate {
-    /// Move this code to another file
-
-    func emotionAiCaptureCompleted(_ score: String?) {
-        //  print(" @@@@@@@@@@@@@ The delegate with score \(score ?? "nil") has been called @@@@@@@@@@@@@")
-        self.eaiVisitorScored = (score == nil) ? false : true
-        
-        if Flagship.sharedInstance.eaiActivationEnabled {
-            self.emotionScoreAI = score
-            // Update the context
-            if let aScore = score {
-                self.context.updateContext("eai::eas", aScore)
-            }
-        } else {
-            print(" @@@@@@@@@@@@@ eaiActivationEnabled is false will not communicate the score value @@@@@@@@@@@@@")
-        }
-        
-        self.strategy?.getStrategy().cacheVisitor()
-        // TR for emotion AI
-        FSDataUsageTracking.sharedInstance.processTSEmotionsCollect(criticalPoint: .EMOTIONS_AI_SCORING_SUCCESS, visitorId: self.visitorId, anonymousId: self.anonymousId, score: score)
-    }
-    
+@objc public class FSVisitor: NSObject {
     let fsQueue = DispatchQueue(label: "com.flagshipVisitor.queue", attributes: .concurrent)
     /// visitor id
     public internal(set) var visitorId: String {
@@ -130,7 +108,9 @@ import UIKit
     // Called every time when the FlagStatus is equals to FETCHED.
     var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
-    var emotionCollect: FSEmotionAI?
+    #if os(iOS)
+        var emotionCollect: FSEmotionAI?
+    #endif
     
     init(aVisitorId: String, aContext: [String: Any], aConfigManager: FSConfigManager, aHasConsented: Bool, aIsAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged,
          pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired,
