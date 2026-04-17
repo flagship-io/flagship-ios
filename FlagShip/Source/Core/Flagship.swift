@@ -98,11 +98,7 @@ public class Flagship: NSObject {
         newVisitor.strategy = FSStrategy(newVisitor)
         
         if hasConsented {
-            // Read the cached visitor
-            newVisitor.strategy?.getStrategy().lookupVisitor()
-            // Read the cacheed hits from data base
-            newVisitor.strategy?.getStrategy().lookupHits()
- 
+            newVisitor.strategy?.getStrategy().lookupHits() 
         } else {
             // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()

@@ -17,6 +17,10 @@ import Foundation
     /// Called when a visitor set consent to false. Must erase visitor data related to the given visitor
     /// Id from the database.
     func flushVisitor(visitorId: String)
+    
+    /// Called to check if the visitor data is already in the database
+    @objc optional
+    func isVisitorCacheExist(visitorId: String) -> Bool
 }
 
 @objc public protocol FSHitCacheDelegate {

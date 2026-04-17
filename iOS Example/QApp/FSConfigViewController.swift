@@ -78,7 +78,11 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     @IBAction func onClikcStart() {
         Task {
             // Get the mode
-            let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
+            var mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
+
+            // tmp begin
+            mode = .BUCKETING
+            // tmp end
 
             // Retreive the timeout value
             var timeOut = 2.0 /// Default value is 2 seconds

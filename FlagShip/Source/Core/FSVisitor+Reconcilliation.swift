@@ -15,6 +15,7 @@ public extension FSVisitor {
     /// - Important: After using this method, you should use Flagship.fetchFlags method to update the visitor informations
     /// - Requires: Make sure that the experience continuity option is enabled on the flagship platform before using this method
     @objc func authenticate(visitorId: String) {
+ 
         /// Init the session
         self.sessionDuration = Date()
         if configManager.flagshipConfig.mode != .DECISION_API {
@@ -29,6 +30,7 @@ public extension FSVisitor {
 
     /// Use authenticate methode to go from Logged in  session to logged out session
     @objc func unauthenticate() {
+
         /// Init the session
         self.sessionDuration = Date()
         if configManager.flagshipConfig.mode != .DECISION_API {
@@ -46,5 +48,34 @@ public extension FSVisitor {
         self.requiredFetchReason = isAuthenticate ? .VISITOR_AUTHENTICATED : .VISITOR_UNAUTHENTICATED
         // Set the fetch state to required state
         self.fetchStatus = .FETCH_REQUIRED
+    }
+
+    // Copy method actually used only in bucketing mode - that explain why we put here in this extension
+    func copy() -> FSVisitor {
+        let copiedVisitor = FSVisitor(
+            aVisitorId: self.visitorId,
+            aContext: self.context.getCurrentContext(),
+            aConfigManager: self.configManager,
+            aHasConsented: self.hasConsented,
+            aIsAuthenticated: self.isAuthenticated,
+            pOnFlagStatusChanged: self._onFlagStatusChanged,
+            pOnFlagStatusFetchRequired: self._onFlagStatusFetchRequired,
+            pOnFlagStatusFetched: self._onFlagStatusFetched
+        )
+
+        // Copy additional properties
+        copiedVisitor.anonymousId = self.anonymousId
+        copiedVisitor.currentFlags = self.currentFlags
+        copiedVisitor.assignedVariationHistory = self.assignedVariationHistory
+        copiedVisitor.requiredFetchReason = self.requiredFetchReason
+        copiedVisitor.eaiVisitorScored = self.eaiVisitorScored
+        copiedVisitor.emotionScoreAI = self.emotionScoreAI
+        copiedVisitor.fetchStatus = self.fetchStatus
+
+        // Copy strategy if needed
+        if let strategy = self.strategy {
+            copiedVisitor.strategy = FSStrategy(copiedVisitor)
+        }
+        return copiedVisitor
     }
 }
