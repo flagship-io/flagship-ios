@@ -76,6 +76,8 @@
 		8BF2DE04256BEDD9005FF664 /* Flagship.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BF2DE02256BEDD9005FF664 /* Flagship.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BF2DE07256C0B7E005FF664 /* FSUserViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE06256C0B7E005FF664 /* FSUserViewCtrl.swift */; };
 		8BF2DE42256F996A005FF664 /* FSContextViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */; };
+		F543E40F2CF0884A00293F6F /* score.swift in Sources */ = {isa = PBXBuildFile; fileRef = F543E40E2CF0884A00293F6F /* score.swift */; };
+		F54CDFD52D1AAFAB00AA5AB0 /* ShopController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54CDFD42D1AAFAB00AA5AB0 /* ShopController.swift */; };
 		F5AA7D182AB999BA00584D0E /* FSFlagViewCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */; };
 		F5AA7D1A2AB9A36500584D0E /* FlagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */; };
 		F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5DAF6842A176BA500C0B140 /* AppDelegate.swift */; };
@@ -193,6 +195,8 @@
 		8BF2DE41256F996A005FF664 /* FSContextViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSContextViewCtrl.swift; sourceTree = "<group>"; };
 		F514F7D02B6178EC00DB8340 /* Flagship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flagship.h; sourceTree = "<group>"; };
 		F514F7D12B6178EC00DB8340 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F543E40E2CF0884A00293F6F /* score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = score.swift; sourceTree = "<group>"; };
+		F54CDFD42D1AAFAB00AA5AB0 /* ShopController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopController.swift; sourceTree = "<group>"; };
 		F5AA7D172AB999BA00584D0E /* FSFlagViewCtrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSFlagViewCtrl.swift; sourceTree = "<group>"; };
 		F5AA7D192AB9A36500584D0E /* FlagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagViewCell.swift; sourceTree = "<group>"; };
 		F5DAF6822A176BA500C0B140 /* SmartQA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartQA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -482,9 +486,11 @@
 		F5DAF6832A176BA500C0B140 /* SmartQA */ = {
 			isa = PBXGroup;
 			children = (
+				F54CDFD42D1AAFAB00AA5AB0 /* ShopController.swift */,
 				F5DAF6842A176BA500C0B140 /* AppDelegate.swift */,
 				F5DAF6862A176BA500C0B140 /* SceneDelegate.swift */,
 				F5DAF6882A176BA500C0B140 /* ViewController.swift */,
+				F543E40E2CF0884A00293F6F /* score.swift */,
 				F5DAF68A2A176BA500C0B140 /* Main.storyboard */,
 				F5DAF68D2A176BA600C0B140 /* Assets.xcassets */,
 				F5DAF68F2A176BA600C0B140 /* LaunchScreen.storyboard */,
@@ -693,7 +699,9 @@
 			files = (
 				F5DAF6892A176BA500C0B140 /* ViewController.swift in Sources */,
 				F5DAF6852A176BA500C0B140 /* AppDelegate.swift in Sources */,
+				F543E40F2CF0884A00293F6F /* score.swift in Sources */,
 				F5DAF6872A176BA500C0B140 /* SceneDelegate.swift in Sources */,
+				F54CDFD52D1AAFAB00AA5AB0 /* ShopController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

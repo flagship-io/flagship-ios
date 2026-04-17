@@ -11,7 +11,7 @@ import Foundation
 class FSSegment: FSTracking {
     // Init with an empty context
     var context: [String: Any] = [:]
-
+    
     // Init Segment
     public init(_ pContext: [String: Any]) {
         super.init()
@@ -19,7 +19,7 @@ class FSSegment: FSTracking {
         self.dataSource = "APP"
         self.context = pContext
     }
-
+    
     public required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         do { try super.init(from: decoder) }
@@ -27,11 +27,11 @@ class FSSegment: FSTracking {
         do { self.context = try values.decode([String: Any].self, forKey: .context) } catch { self.context = [:] }
         self.type = .SEGMENT
     }
-
+    
     private enum CodingKeys: String, CodingKey {
         case context = "s"
     }
-
+    
     override var bodyTrack: [String: Any] {
         var contextParam = [String: Any]()
         // Set type
@@ -51,9 +51,10 @@ class FSSegment: FSTracking {
         contextParam.updateValue(qt.rounded(), forKey: "qt")
         return contextParam
     }
-
+ 
     override func isValid() -> Bool {
-        // check the the filed "s"
+        // check the field "s"
+ 
         return super.isValid() && (bodyTrack["s"] is [String: String])
     }
 }

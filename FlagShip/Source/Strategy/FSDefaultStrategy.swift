@@ -6,28 +6,13 @@
 //
 
 import Foundation
-
+#if os(iOS)
+    import UIKit
+#endif
 class FSStrategy {
     let visitor: FSVisitor
     
     var delegate: FSDelegateStrategy?
-    
-//    func getStrategy() -> FSDelegateStrategy {
-//        switch Flagship.sharedInstance.currentStatus {
-//        case .READY:
-//            if visitor.hasConsented == true {
-//                return FSDefaultStrategy(visitor)
-//            } else {
-//                return FSNoConsentStrategy(visitor)
-//            }
-//        case .NOT_INITIALIZED:
-//            return FSNotReadyStrategy(visitor)
-//        case .PANIC_ON:
-//            return FSPanicStrategy(visitor)
-//        default:
-//            return FSDefaultStrategy(visitor)
-//        }
-//    }
     
     func getStrategy() -> FSDelegateStrategy {
         switch Flagship.sharedInstance.currentStatus {
@@ -59,38 +44,75 @@ class FSDefaultStrategy: FSDelegateStrategy {
         self.visitor = pVisitor
     }
     
-    /// Activate Flag
     func activateFlag(_ flag: FSFlag) {
-        if let aModification = visitor.currentFlags[flag.key] {
-            // Define Exposed flag and exposed visitor
-            var exposedFlag, exposedVisitor: String?
-            if visitor.configManager.flagshipConfig.onVisitorExposed != nil {
-                // Create flag exposed object
-                exposedFlag = FSExposedFlag(key: flag.key, defaultValue: flag.defaultValue, metadata: flag.metadata(), value: flag.value(defaultValue: flag.defaultValue, visitorExposed: false)).toJson()
-                // Create visitor expose object
-                exposedVisitor = FSVisitorExposed(id: visitor.visitorId, anonymousId: visitor.anonymousId, context: visitor.getContext()).toJson()
-            }
-            
-            let activateToSend = Activate(visitor.visitorId, visitor.anonymousId, modification: aModification, exposedFlag, exposedVisitor)
-            visitor.configManager.trackingManager?.sendActivate(activateToSend, onCompletion: { error, exposedInfosArray in
-                
-                if error == nil {
-                    /// Is callback is defined ===> Trigger it
-                    if let aOnVisitorExposed = self.visitor.configManager.flagshipConfig.onVisitorExposed {
-                        exposedInfosArray?.forEach { item in
-                            aOnVisitorExposed(item.visitorExposed, item.exposedFlag)
-                        }
-                    }
-                } else {
-                    // The flag error
-                }
-            })
-            // Troubleshooitng activate
-            FSDataUsageTracking.sharedInstance.processTSHits(label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue, visitor: visitor, hit: activateToSend)
+        // Exit if we don’t have a modification present in current flag
+        guard let modification = visitor.currentFlags[flag.key] else { return }
+
+        // Get the informations
+        let flagshipConfig = visitor.configManager.flagshipConfig
+        let callback = flagshipConfig.onVisitorExposed
+        let metadata = flag.metadata()
+        let value = flag.value(defaultValue: flag.defaultValue, visitorExposed: false)
+
+        // Prepare objetcs when callback exist
+        var exposedFlag: FSExposedFlag?
+        var exposedVisitor: FSVisitorExposed?
+        if callback != nil {
+            exposedFlag = FSExposedFlag(
+                key: flag.key,
+                defaultValue: flag.defaultValue,
+                metadata: metadata,
+                value: value
+            )
+            exposedVisitor = FSVisitorExposed(
+                id: visitor.visitorId,
+                anonymousId: visitor.anonymousId,
+                context: visitor.context.currentContext
+            )
         }
+
+        // Build the activation hit
+        let activateToSend = Activate(
+            visitor.visitorId,
+            visitor.anonymousId,
+            modification: modification, exposedFlag?.toJson(),
+            exposedVisitor?.toJson()
+        )
+        
+        // Handle deduplication before sending hit
+        let isDuplicate = visitor.isDeduplicatedFlag(
+            campId: metadata.campaignId,
+            varGrpId: metadata.variationGroupId
+        )
+        if isDuplicate {
+            FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("Skip sending activation… variation already activated in this current session."))
+            // if we have an exposedFlag, mark it and fire callback once
+            if let ef = exposedFlag, let ev = exposedVisitor {
+                ef.alreadyActivatedCampaign = true
+                callback?(ev, ef)
+            }
+            return
+        }
+
+        // Send activation
+        visitor.configManager.trackingManager?.sendActivate(
+            activateToSend
+        ) { error, exposedInfosArray in
+            guard error == nil, let infos = exposedInfosArray else { return }
+            infos.forEach { info in
+                callback?(info.visitorExposed, info.exposedFlag)
+            }
+        }
+
+        // Troubleshooting / TS hit
+        FSDataUsageTracking.sharedInstance.processTSHits(
+            label: CriticalPoints.VISITOR_SEND_ACTIVATE.rawValue,
+            visitor: visitor,
+            hit: activateToSend
+        )
     }
-    
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+ 
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void) {
         let startFetchingDate = Date() // To comunicate for TR
  
         FSDataUsageTracking.sharedInstance.processDataUsageTracking(v: visitor)
@@ -108,19 +130,14 @@ class FSDefaultStrategy: FSDelegateStrategy {
                     onSyncCompleted(.PANIC, .NONE)
  
                 } else {
-                    /// Update new flags
- 
-                    self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
- 
                     Flagship.sharedInstance.currentStatus = .SDK_INITIALIZED
- 
+
+                    /// Update new flags
                     self.visitor.updateFlagsAndAssignedHistory(campaigns?.getAllModification())
                 
                     // Resume the process batching when the panic mode is OFF
                     self.visitor.configManager.trackingManager?.resumeBatchingProcess()
-                    // Update the flagSyncStatus
-                    self.visitor.flagSyncStatus = .FLAGS_FETCHED
- 
+                    
                     onSyncCompleted(.FETCHED, .NONE)
                 }
                 // Update Data usage
@@ -128,22 +145,22 @@ class FSDefaultStrategy: FSDelegateStrategy {
                 // Send TR
                 FSDataUsageTracking.sharedInstance.processTSFetching(v: self.visitor, campaigns: campaigns, fetchingDate: startFetchingDate)
             } else {
-                onSyncCompleted(.FETCH_REQUIRED, .FETCH_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
+                onSyncCompleted(.FETCH_REQUIRED, .FLAGS_FETCHING_ERROR) /// Even if we got an error, the sdk is ready to read flags, in this case the flag will be the default vlaue
             }
         })
     }
     
     func updateContext(_ newContext: [String: Any]) {
+        // get the old one
+        let oldContext = visitor.context.getCurrentContext()
         visitor.context.updateContext(newContext)
-    }
-    
-    func getModification<T>(_ key: String, defaultValue: T) -> T {
-        if let flagObject = visitor.currentFlags[key] {
-            if flagObject.value is T {
-                return flagObject.value as? T ?? defaultValue
+
+        if visitor.configManager.flagshipConfig.mode == .BUCKETING {
+            if !visitor.context.isContextUnchanged(oldContext) {
+                // The context changed .. need to uploar at the next fetch
+                visitor.context.needToUpload = true
             }
         }
-        return defaultValue
     }
     
     /// Get Flag Modification value
@@ -175,6 +192,8 @@ class FSDefaultStrategy: FSDelegateStrategy {
             }
         case .PANIC:
             return .PANIC
+        default:
+            return .NOT_FOUND
         }
         return .NOT_FOUND
     }
@@ -195,37 +214,44 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func authenticateVisitor(visitorId: String) {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            /// Update the visitor an anonymous id
-            if visitor.anonymousId == nil {
-                visitor.anonymousId = visitor.visitorId
-            }
-            
-            // Update fs_users for context
-            visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
-            visitor.visitorId = visitorId
-            
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_AUTHENTICATE)
+ 
+        /// Update the visitor an anonymous id
+        if visitor.anonymousId == nil {
+            visitor.anonymousId = visitor.visitorId
         }
+            
+        // Set the authenticated visitorId
+        visitor.visitorId = visitorId
+            
+        // Update fs_users for context
+        visitor.context.currentContext.updateValue(visitorId, forKey: FS_USERS)
+        #if os(iOS)
+            // Update the xpc info for the emotion AI
+            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #endif
     }
     
     func unAuthenticateVisitor() {
-        if visitor.configManager.flagshipConfig.mode == .DECISION_API {
-            if let anonymId = visitor.anonymousId {
-                visitor.visitorId = anonymId
-                // Update fs_users for context
-                visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
-            }
-            
-            visitor.anonymousId = nil
-            
-        } else {
-            FlagshipLogManager.Log(level: .ALL, tag: .AUTHENTICATE, messageToDisplay: FSLogMessage.IGNORE_UNAUTHENTICATE)
+        if let anonymId = visitor.anonymousId {
+            visitor.visitorId = anonymId
+            // Update fs_users for context
+            visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
+ 
         }
+            
+        visitor.anonymousId = nil
+        #if os(iOS)
+            // Update the xpc info for the emotion AI
+            visitor.emotionCollect?.updateTupleId(visitorId: visitor.visitorId, anonymousId: visitor.anonymousId)
+        #endif
     }
     
     /// _ Cache Managment
+    
+    func isVistorCacheExist() -> Bool {
+        return visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId)
+    }
+    
     func cacheVisitor() {
         DispatchQueue.main.async {
             /// Before replacing the oldest visitor cache we should keep the oldest variation
@@ -235,21 +261,40 @@ class FSDefaultStrategy: FSDelegateStrategy {
     
     /// _ Lookup visitor
     func lookupVisitor() {
-        /// Read the visitor cache from storage
-        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitor.visitorId) { error, cachedVisitor in
-            
-            if error == nil {
-                if let aCachedVisitor = cachedVisitor {
-                    self.visitor.mergeCachedVisitor(aCachedVisitor)
-                    /// Get the oldest assignation history before saving and loose the information
-                    self.visitor.assignedVariationHistory.merge(aCachedVisitor.data?.assignationHistory ?? [:]) { _, new in new }
-                }
-            } else {
+        var userId = visitor.visitorId
+        if visitor.configManager.flagshipConfig.cacheManager.isVisitorCacheExist(visitor.visitorId) == false, let anId = visitor.anonymousId, anId != visitor.visitorId {
+            userId = anId
+        }
+        lookupVisitorWithId(userId)
+    }
+    
+    // MARK: - Private Helper Methods
+
+    private func lookupVisitorWithId(_ visitorId: String) {
+        visitor.configManager.flagshipConfig.cacheManager.lookupVisitorCache(visitoId: visitorId) { [weak self] error, cachedVisitor in
+            guard let strongSelf = self else { return }
+            if let cachedVisitor = cachedVisitor {
+                strongSelf.processCachedVisitor(cachedVisitor)
+            } else if let error = error {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("Failed to lookup visitor with id \(visitorId): \(error.localizedDescription)"))
                 FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: .ERROR_ON_READ_FILE)
+            } else {
+                FlagshipLogManager.Log(level: .ALL, tag: .STORAGE, messageToDisplay: FSLogMessage.MESSAGE("No cached visitor found with id \(visitorId)"))
             }
         }
     }
     
+    private func processCachedVisitor(_ cachedVisitor: FSCacheVisitor) {
+        // Ensure thread safety for visitor property modifications
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.visitor.mergeCachedVisitor(cachedVisitor)
+            // Safely merge assignation history
+            let newHistory = cachedVisitor.data?.assignationHistory ?? [:]
+            strongSelf.visitor.assignedVariationHistory.merge(newHistory) { _, new in new }
+        }
+    }
+ 
     /// _ Flush visitor
     func flushVisitor() {
         /// Flush the visitor
@@ -276,18 +321,45 @@ class FSDefaultStrategy: FSDelegateStrategy {
             self.visitor.configManager.trackingManager?.flushTrackAndKeepConsent(self.visitor.visitorId)
         })
     }
+
+    #if os(iOS)
+
+        func collectEmotionsAIEvents(window: UIWindow?, screenName: String? = nil, usingSwizzling: Bool = false) {
+            if visitor.emotionCollect != nil, visitor.emotionCollect?.status == .PROGRESS {
+                FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The emotion collect is already running"))
+                return
+            }
+            visitor.prepareEmotionAI { score, eaiVisitorScored in
+                if !eaiVisitorScored {
+                    // Init the emotion collect
+                    self.visitor.emotionCollect = FSEmotionAI(visitorId: self.visitor.visitorId, usingSwizzling: usingSwizzling)
+                    self.visitor.emotionCollect?.delegate = self.visitor
+                    self.visitor.emotionCollect?.startEAICollectForView(window, nameScreen: screenName)
+                } else {
+                    self.visitor.eaiVisitorScored = true
+                    self.visitor.emotionScoreAI = score
+                    // cache the visitor infos
+                    self.visitor.strategy?.getStrategy().cacheVisitor()
+                    FlagshipLogManager.Log(level: .ALL, tag: .EMOTIONS_AI, messageToDisplay: FSLogMessage.MESSAGE("The user is already scored, no need to process EmotionAI collect again."))
+                }
+            }
+        }
+    
+        func onAppScreenChange(_ screenName: String) {
+            visitor.emotionCollect?.onAppScreenChange(screenName)
+        }
+    #endif
 }
 
 /// _ DELEGATE ///
 protocol FSDelegateStrategy {
     /// update context
     func updateContext(_ newContext: [String: Any])
-    //// Get generique
-    func getModification<T>(_ key: String, defaultValue: T) -> T
+    
     /// Get Flag Modification
     func getFlagModification(_ key: String) -> FSModification?
     /// Synchronize
-    func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void)
+    func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void)
     /// Activate flag
     func activateFlag(_ flag: FSFlag)
     /// Get Modification infos
@@ -304,6 +376,9 @@ protocol FSDelegateStrategy {
     /// _Cache Managment
     func cacheVisitor()
     
+    /// _ Is Visitor cache Exist
+    func isVistorCacheExist() -> Bool
+    
     /// _ Lookup Visitor
     func lookupVisitor()
     
@@ -318,4 +393,13 @@ protocol FSDelegateStrategy {
     
     /// _ Get flag status
     func getFlagStatus(_ key: String) -> FSFlagStatus
+    
+    #if os(iOS)
+
+        /// _ Start collection emotion AI
+        func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool)
+    
+        /// _ onAppScreenChange
+        func onAppScreenChange(_ screenName: String)
+    #endif
 }

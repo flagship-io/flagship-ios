@@ -34,8 +34,6 @@ class APIManager: FSDecisionManager {
             if error == nil {
                 completion(campaigns, nil)
             } else {
-                
-                
                 completion(nil, error)
             }
         }

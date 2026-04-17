@@ -102,6 +102,10 @@ class FSBucketingManager: FSDecisionManager, FSPollingScriptDelegate {
             
             /// Update bucketing
             scriptBucket = aScriptBucket
+            
+            // Update Flagship EAI
+            Flagship.sharedInstance.eaiCollectEnabled = aScriptBucket.accountSettings?.eaiCollectEnabled ?? false
+            Flagship.sharedInstance.eaiActivationEnabled = aScriptBucket.accountSettings?.eaiActivationEnabled ?? false
         }
     }
 

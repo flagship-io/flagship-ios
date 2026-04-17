@@ -6,13 +6,16 @@
 //
 
 import Foundation
+#if os(iOS)
+    import UIKit
+#endif
 
 class FSNoConsentStrategy: FSDefaultStrategy {
     /// The activate is not allowed
     override func activateFlag(_ flag: FSFlag) {
         FlagshipLogManager.Log(level: .ALL, tag: .CONSENT, messageToDisplay: FSLogMessage.ACTIVATE_NO_CONSENT)
     }
-    
+
     /// The send hits in not allowed, excpet the consent event
     override func sendHit(_ hit: FSTrackingProtocol) {
         switch hit.type {
@@ -24,13 +27,25 @@ class FSNoConsentStrategy: FSDefaultStrategy {
             FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
         }
     }
-    
+
     /// _ Cache Visitor
     override func cacheVisitor() {}
-    
+
     /// _ Look up visitor
     override func lookupVisitor() {}
-    
+
     /// _ Lookup Hits
     override func lookupHits() {}
+
+    #if os(iOS)
+
+        /// _ Start collection
+        override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+            FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
+        }
+
+        override func onAppScreenChange(_ screenName: String) {
+            FlagshipLogManager.Log(level: .INFO, tag: .CONSENT, messageToDisplay: FSLogMessage.HIT_NO_CONSENT)
+        }
+    #endif
 }

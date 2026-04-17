@@ -10,10 +10,20 @@ import XCTest
 @testable import Flagship
 
 class FlagshipTests: XCTestCase {
+<<<<<<< HEAD
     override func setUpWithError() throws {}
 
     func testStart() {
+=======
+    
+    
+    func testStart(){
+        Flagship.sharedInstance.reset()
+        XCTAssert(Flagship.sharedInstance.currentStatus.name == "SDK_NOT_INITIALIZED")
+>>>>>>> 5.0.0-beta
         Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "apiKey")
+        XCTAssert(Flagship.sharedInstance.currentStatus.name == "SDK_INITIALIZED")
+
         XCTAssert(Flagship.sharedInstance.envId == "gk87t3jggr10c6l6sdob")
         XCTAssert(Flagship.sharedInstance.apiKey == "apiKey")
         XCTAssert(Flagship.sharedInstance.currentStatus == .SDK_INITIALIZED)
@@ -34,8 +44,14 @@ class FlagshipTests: XCTestCase {
         XCTAssert(Flagship.sharedInstance.currentConfig.mode == .DECISION_API)
         XCTAssert(Flagship.sharedInstance.currentConfig.timeout == 12 / 1000)
     }
+<<<<<<< HEAD
 
     func testLogManager() {
+=======
+    
+    
+    func testLogManager(){
+>>>>>>> 5.0.0-beta
         let customLoger = FSLogManager()
         customLoger.level = .WARNING
         customLoger.onLog(level: .DEBUG, tag: "testTag", message: "testMsg")

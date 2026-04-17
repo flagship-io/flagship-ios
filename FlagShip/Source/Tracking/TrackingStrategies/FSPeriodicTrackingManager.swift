@@ -23,6 +23,7 @@ class PeriodicTrackingManager: ContinuousTrackingManager {
             FlagshipLogManager.Log(level: .ALL, tag: .TRACKING, messageToDisplay: FSLogMessage.MESSAGE("The format of the \(hitToSend.type.typeString) hit is invalid."))
         }
     }
+ 
     override func onSuccessToSendHits(_ batchToSend: FSBatch) {
         // Clear all hits in database
         cacheManager?.flushAllHits()

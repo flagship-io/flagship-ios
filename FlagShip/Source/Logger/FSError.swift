@@ -15,7 +15,7 @@ enum ErrorType {
 }
 
 // Flagship Error
-class FlagshipError: Error {
+public class FlagshipError: Error {
     var message = ""
     var error: ErrorType
     let codeError: Int

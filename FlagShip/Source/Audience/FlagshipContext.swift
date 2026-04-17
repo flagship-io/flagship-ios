@@ -151,7 +151,6 @@ public enum FlagshipContext: String, CaseIterable {
         /// Automatically set by the sdk
         case .FLAGSHIP_VERSION, .FS_VERSION:
             return FlagShipVersion
-
         /// Set by the client
         case .INTERFACE_NAME:
             return FlagshipContextManager.readValueFromPreDefinedContext(self)
