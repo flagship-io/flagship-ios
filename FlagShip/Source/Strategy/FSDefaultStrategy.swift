@@ -13,15 +13,40 @@ class FSStrategy {
     let visitor: FSVisitor
     
     var delegate: FSDelegateStrategy?
+    var _cachedStrategy: FSDelegateStrategy?
     
+    // Tracking last known state to decide when to invalidate the cached strategy
+    private var _lastSdkStatus: FSSdkStatus?
+    private var _lastConsentStatus: Bool?
+    private var _lastQAStatus: Bool?
+
     func getStrategy() -> FSDelegateStrategy {
-        switch Flagship.sharedInstance.currentStatus {
-        case .SDK_INITIALIZED:
-            if visitor.hasConsented == true {
-                return FSDefaultStrategy(visitor)
-            } else {
-                return FSNoConsentStrategy(visitor)
-            }
+        let currentStatus = Flagship.sharedInstance.currentStatus
+        let currentConsent = visitor.hasConsented
+        let currentQAStatus = Flagship.sharedInstance.isQAAssistantConnected
+        
+        // Only recreate strategy when SDK status or consent has changed
+        if _cachedStrategy == nil
+            || _lastSdkStatus != currentStatus
+            || _lastConsentStatus != currentConsent
+            || _lastQAStatus != currentQAStatus
+        {
+            _cachedStrategy = _createStrategy(status: currentStatus, consent: currentConsent, qaConnected: currentQAStatus)
+            _lastSdkStatus = currentStatus
+            _lastConsentStatus = currentConsent
+            _lastQAStatus = currentQAStatus
+        }
+        
+        return _cachedStrategy ?? FSNotReadyStrategy(visitor)
+    }
+    
+    private func _createStrategy(status: FSSdkStatus, consent: Bool, qaConnected: Bool) -> FSDelegateStrategy {
+        // Mirror Flutter: QA Assistant strategy takes priority when connected
+        if qaConnected {
+            FlagshipLogManager.Log(level: .ALL, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("Using QA Assistant strategy"))
+            return FSQAssistantStrategy(visitor)
+        }
+            FSQAMessageService.shared.observe(.start) { [weak self] _ inturn consent ? FSDefaultStrategy(visitor) : FSNoConsentStrategy(visitor)
         case .SDK_NOT_INITIALIZED:
             return FSNotReadyStrategy(visitor)
         case .SDK_PANIC:
@@ -33,6 +58,19 @@ class FSStrategy {
 
     init(_ pVisitor: FSVisitor) {
         self.visitor = pVisitor
+        listenToQAAssistantReady()
+    }
+    
+    private func _listenToQAAssistantReady() {
+        FSQAMessageService.shared.observe(.qaAssistantStarted) { [weak self] _ in
+            guard let self = self else { return }
+            FlagshipLogManager.Log(level: .ALL, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("Received QA Assistant ready notification"))
+            Flagship.sharedInstance.isQAAssistantConnected = true
+            _CacheStrategy = nil // Force strategy refresh to switch to QA Assistant strategy
+            // Create the qa assist strategy immediately to handle any incoming events without delay
+            _cachedStrategy = FSQAssistantStrategy(visitor)
+            _lastQAStatus = true
+        print("🔍 FSStrategy: Listening for QA Assistant ready notifications...")
     }
 }
 
@@ -214,7 +252,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
     }
     
     func authenticateVisitor(visitorId: String) {
- 
         /// Update the visitor an anonymous id
         if visitor.anonymousId == nil {
             visitor.anonymousId = visitor.visitorId
@@ -236,7 +273,6 @@ class FSDefaultStrategy: FSDelegateStrategy {
             visitor.visitorId = anonymId
             // Update fs_users for context
             visitor.context.currentContext.updateValue(anonymId, forKey: FS_USERS)
- 
         }
             
         visitor.anonymousId = nil
