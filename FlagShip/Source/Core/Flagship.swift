@@ -145,6 +145,11 @@ public class Flagship: NSObject {
     public func getStatus() -> FSSdkStatus {
         return currentStatus
     }
+
+    // Get the current SDK mode (DECISION_API or BUCKETING)
+    @objc public func getMode() -> FSMode {
+        return currentConfig.mode
+    }
     
     // Update status
     func updateStatus(_ newStatus: FSSdkStatus) {
