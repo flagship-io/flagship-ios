@@ -170,11 +170,11 @@ public class FSQAMessageService {
     public static let shared = FSQAMessageService()
     private init() {}
 
-    public func broadcastFetchedFlagIds(_ variations: [[String: String]]) {
+    public func broadcastFetchedFlagIds(_ fetchedFlagIds: [[String: String]]) {
         NotificationCenter.default.post(
             name: .fsQABroadcastFetchedFlags,
             object: nil,
-            userInfo: [FSQANotificationKey.variations: variations]
+            userInfo: [FSQANotificationKey.variations: fetchedFlagIds]
         )
     }
 
@@ -195,7 +195,7 @@ public class FSQAMessageService {
     }
 
     public func broadcastStartQAAssistant() {
-        NotificationCenter.default.post(name: .fsQABroadcastStartQAAssistant, object: nil)
+        NotificationCenter.default.post(name: .qaAssistantStarted, object: nil)
     }
 
     public func broadcastStopQAAssistant() {
@@ -209,7 +209,8 @@ public class FSQAMessageService {
     @discardableResult
     public func observe(_ name: Notification.Name,
                         on queue: OperationQueue = .main,
-                        using handler: @escaping (Notification) -> Void) -> NSObjectProtocol {
+                        using handler: @escaping (Notification) -> Void) -> NSObjectProtocol
+    {
         NotificationCenter.default.addObserver(forName: name, object: nil, queue: queue, using: handler)
     }
 
