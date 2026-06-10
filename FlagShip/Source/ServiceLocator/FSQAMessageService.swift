@@ -106,28 +106,43 @@ import Foundation
 
 // MARK: - QA Message Models
 
-struct FSQAVariation {
-    let id: String
-    let name: String
-    let reference: Bool
+public struct FSQAVariation {
+    public let id: String
+    public let name: String
+    public let reference: Bool
     /// Raw modifications dict: { "type": "Flag", "value": { "flagKey": flagValue } }
-    let modifications: [String: Any]
+    public let modifications: [String: Any]
+
+    public init(id: String, name: String, reference: Bool, modifications: [String: Any]) {
+        self.id = id; self.name = name; self.reference = reference; self.modifications = modifications
+    }
 }
 
-struct FSQAModificationMessage {
-    let campaignId: String
-    let campaignName: String
-    let campaignType: String
-    let campaignSlug: String
-    let variationGroupId: String
-    let variationGroupName: String
-    let variation: FSQAVariation
+public struct FSQAModificationMessage {
+    public let campaignId: String
+    public let campaignName: String
+    public let campaignType: String
+    public let campaignSlug: String
+    public let variationGroupId: String
+    public let variationGroupName: String
+    public let variation: FSQAVariation
+
+    public init(campaignId: String, campaignName: String, campaignType: String, campaignSlug: String,
+                variationGroupId: String, variationGroupName: String, variation: FSQAVariation) {
+        self.campaignId = campaignId; self.campaignName = campaignName; self.campaignType = campaignType
+        self.campaignSlug = campaignSlug; self.variationGroupId = variationGroupId
+        self.variationGroupName = variationGroupName; self.variation = variation
+    }
 }
 
-struct FSQACampaignActionMessage {
+public struct FSQACampaignActionMessage {
     /// "hide" or "unhide"
-    let action: String
-    let campaignId: String
+    public let action: String
+    public let campaignId: String
+
+    public init(action: String, campaignId: String) {
+        self.action = action; self.campaignId = campaignId
+    }
 }
 
 // MARK: - QA Message Service
@@ -204,6 +219,22 @@ public class FSQAMessageService {
 
     public func broadcastUserContextRequest() {
         NotificationCenter.default.post(name: .fsQAUserContextRequest, object: nil)
+    }
+
+    // MARK: - QA Actions (QA Assistant → SDK)
+
+    public func hideCampaign(_ campaignId: String) {
+        let msg = FSQACampaignActionMessage(action: "hide", campaignId: campaignId)
+        NotificationCenter.default.post(name: .fsQACampaignAction, object: nil, userInfo: [FSQANotificationKey.message: msg])
+    }
+
+    public func unhideCampaign(_ campaignId: String) {
+        let msg = FSQACampaignActionMessage(action: "unhide", campaignId: campaignId)
+        NotificationCenter.default.post(name: .fsQACampaignAction, object: nil, userInfo: [FSQANotificationKey.message: msg])
+    }
+
+    public func sendModification(_ message: FSQAModificationMessage) {
+        NotificationCenter.default.post(name: .fsQAModificationMessage, object: nil, userInfo: [FSQANotificationKey.message: message])
     }
 
     @discardableResult
