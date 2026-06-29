@@ -34,7 +34,59 @@ The FlagShip SDK is an iOS framework whose goal is to help you run Flagship camp
   
   
 
-  s.source_files = 'FlagShip/Source/**/*.swift'
-  
-  s.swift_version           = "5.0"
+  s.swift_version = "5.0"
+
+  s.subspec 'API' do |ss|
+    ss.source_files = 'FlagShip/Source/API/**/*.swift'
   end
+
+  s.subspec 'Audience' do |ss|
+    ss.source_files = 'FlagShip/Source/Audience/**/*.swift'
+  end
+
+  s.subspec 'Cache' do |ss|
+    ss.source_files = 'FlagShip/Source/Cache/**/*.swift'
+    ss.resources    = 'FlagShip/Source/Cache/**/*.xcdatamodeld'
+  end
+
+  s.subspec 'Configs' do |ss|
+    ss.source_files = 'FlagShip/Source/Configs/**/*.swift'
+  end
+
+  s.subspec 'Core' do |ss|
+    ss.source_files = 'FlagShip/Source/Core/**/*.swift'
+  end
+
+  s.subspec 'Decision' do |ss|
+    ss.source_files = 'FlagShip/Source/Decision/**/*.swift'
+  end
+
+  s.subspec 'Logger' do |ss|
+    ss.source_files = 'FlagShip/Source/Logger/**/*.swift'
+  end
+
+  s.subspec 'Models' do |ss|
+    ss.source_files = 'FlagShip/Source/Models/**/*.swift'
+  end
+
+  s.subspec 'Storage' do |ss|
+    ss.source_files = 'FlagShip/Source/Storage/**/*.swift'
+  end
+
+  s.subspec 'Strategy' do |ss|
+    ss.source_files = 'FlagShip/Source/Strategy/**/*.swift'
+  end
+
+  s.subspec 'Tools' do |ss|
+    ss.source_files = 'FlagShip/Source/Tools/**/*.swift'
+  end
+
+  s.subspec 'Tracking' do |ss|
+    ss.source_files = 'FlagShip/Source/Tracking/**/*.swift'
+  end
+
+  s.subspec 'Troubleshooting' do |ss|
+    ss.source_files = 'FlagShip/Source/Troubleshooting/**/*.swift'
+  end
+
+end
