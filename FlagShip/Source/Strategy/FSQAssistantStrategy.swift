@@ -11,14 +11,11 @@ import Foundation
     import UIKit
 #endif
 
-
-
 // MARK: - QA Assistant Strategy
 
 /// Strategy that intercepts flag resolution and hit tracking for the QA Assistant.
 /// Mirrors the Flutter QassistantStrategy, replacing Dart streams with NotificationCenter.
 class FSQAssistantStrategy: FSDefaultStrategy {
-
     /// QA-forced flag modifications that override production values
     var qaModifications: [String: FSModification] = [:]
 
@@ -101,13 +98,25 @@ class FSQAssistantStrategy: FSDefaultStrategy {
     }
 
     override func sendHit(_ hit: FSTrackingProtocol) {
+        hit.visitorId = visitor.visitorId
+        hit.anonymousId = visitor.anonymousId
+        // Mirror Flutter: hit.qa = true so the qa flag is included in the payload
+        (hit as? FSTracking)?.qa = true
         FSQAMessageService.shared.broadcastHitEvent(payload: hit.bodyTrack)
         FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: intercepted hit — broadcasting to QA Assistant"))
         super.sendHit(hit)
     }
 
     override func activateFlag(_ flag: FSFlag) {
-        FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: activate flag '\(flag.key)' — broadcasting to QA Assistant"))
+        // Mirror Flutter: build the activate hit, mark qa=true, broadcast before calling super
+        if let modification = visitor.currentFlags[flag.key] {
+            let activateHit = Activate(visitor.visitorId, visitor.anonymousId, modification: modification)
+            var payload = activateHit.bodyTrack
+            payload["t"] = FSTypeTrack.ACTIVATE.typeString
+            payload["qa"] = true
+            FSQAMessageService.shared.broadcastHitEvent(payload: payload)
+            FlagshipLogManager.Log(level: .DEBUG, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: activate flag '\(flag.key)' — broadcasted to QA Assistant"))
+        }
         super.activateFlag(flag)
     }
 
@@ -181,11 +190,14 @@ class FSQAssistantStrategy: FSDefaultStrategy {
     }
 
     private func notifyFlagChanges(_ changedFlagKeys: [String]) {
+        // Internal notification (for SDK-level listeners)
         NotificationCenter.default.post(
             name: .fsQAFlagChanges,
             object: nil,
             userInfo: [FSQANotificationKey.changedFlags: changedFlagKeys]
         )
+        // Public callback — mirrors Flutter's visitor.onFlagUpdate
+        visitor.onFlagUpdate?(changedFlagKeys)
         FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: notified \(changedFlagKeys.count) flag change(s)"))
     }
 
