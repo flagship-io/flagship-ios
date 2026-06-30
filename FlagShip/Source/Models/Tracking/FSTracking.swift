@@ -131,7 +131,7 @@ import Foundation
     /// Location Name where the event occurs
     public var location: String?
 
-    /// Set to true when this hit is sent via the QA Assistant strategy (mirrors Flutter hit.qa).
+    /// Set to true when this hit is sent via the QA Assistant strategy
     public var qa: Bool = false
 
     override init() {

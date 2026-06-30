@@ -14,7 +14,7 @@ import Foundation
 // MARK: - QA Assistant Strategy
 
 /// Strategy that intercepts flag resolution and hit tracking for the QA Assistant.
-/// Mirrors the Flutter QassistantStrategy, replacing Dart streams with NotificationCenter.
+/// QassistantStrategy, replacing Dart streams with NotificationCenter.
 class FSQAssistantStrategy: FSDefaultStrategy {
     /// QA-forced flag modifications that override production values
     var qaModifications: [String: FSModification] = [:]
@@ -100,7 +100,7 @@ class FSQAssistantStrategy: FSDefaultStrategy {
     override func sendHit(_ hit: FSTrackingProtocol) {
         hit.visitorId = visitor.visitorId
         hit.anonymousId = visitor.anonymousId
-        // Mirror Flutter: hit.qa = true so the qa flag is included in the payload
+        // hit.qa = true so the qa flag is included in the payload
         (hit as? FSTracking)?.qa = true
         FSQAMessageService.shared.broadcastHitEvent(payload: hit.bodyTrack)
         FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: intercepted hit — broadcasting to QA Assistant"))
@@ -108,7 +108,7 @@ class FSQAssistantStrategy: FSDefaultStrategy {
     }
 
     override func activateFlag(_ flag: FSFlag) {
-        // Mirror Flutter: build the activate hit, mark qa=true, broadcast before calling super
+        // Build the activate hit, mark qa=true, broadcast before calling super
         if let modification = visitor.currentFlags[flag.key] {
             let activateHit = Activate(visitor.visitorId, visitor.anonymousId, modification: modification)
             var payload = activateHit.bodyTrack
@@ -196,7 +196,7 @@ class FSQAssistantStrategy: FSDefaultStrategy {
             object: nil,
             userInfo: [FSQANotificationKey.changedFlags: changedFlagKeys]
         )
-        // Public callback — mirrors Flutter's visitor.onFlagUpdate
+        // Public callback visitor.onFlagUpdate
         visitor.onFlagUpdate?(changedFlagKeys)
         FlagshipLogManager.Log(level: .DEBUG, tag: .VISITOR, messageToDisplay: FSLogMessage.MESSAGE("QA Strategy: notified \(changedFlagKeys.count) flag change(s)"))
     }

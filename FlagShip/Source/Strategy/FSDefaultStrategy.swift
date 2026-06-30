@@ -14,7 +14,7 @@ class FSStrategy {
 
     var delegate: FSDelegateStrategy?
 
-    // MARK: - Smart strategy caching (mirrors Flutter VisitorDelegate pattern)
+    // MARK: - Smart strategy caching
 
     private var _cachedStrategy: FSDelegateStrategy?
     private var _lastSdkStatus: FSSdkStatus?

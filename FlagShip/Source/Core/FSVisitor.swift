@@ -109,7 +109,7 @@ import Foundation
     var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
     /// Called by the QA Assistant strategy whenever flags are overridden or restored.
-    /// Mirrors Flutter's `visitor.onFlagUpdate` — set this callback to refresh your UI
+    /// `visitor.onFlagUpdate` — set this callback to refresh your UI
     /// without calling `fetchFlags` again.
     ///
     /// Example:
