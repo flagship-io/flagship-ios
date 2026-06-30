@@ -47,8 +47,7 @@ class FlagshipContextTest: XCTestCase {
         XCTAssertTrue(currentCtx[FlagshipContext.FIRST_TIME_INIT.rawValue] as? Bool == true)
         XCTAssertTrue(currentCtx[FlagshipContext.APP_VERSION_NAME.rawValue] as? String == "unitTest")
     }
-<<<<<<< HEAD
-=======
+ 
 
     func testUpdateCtxFetch() {
         let expectationSync = XCTestExpectation(description: "update-context")
@@ -81,5 +80,5 @@ class FlagshipContextTest: XCTestCase {
         ctx.clearContext()
         XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true]))
     }
->>>>>>> 5.0.0-beta
+ 
 }

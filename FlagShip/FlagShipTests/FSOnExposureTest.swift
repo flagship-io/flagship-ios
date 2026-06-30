@@ -85,7 +85,7 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(flagTest.metadata.campaignId == "campId")
         XCTAssertTrue(flagTest.toDictionary()["alreadyActivatedCampaign"] as? Bool == true)
 
-        XCTAssertTrue(flagTest.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(flagTest.toJson()?.count ?? 0 > 0)
 
         var dicoFlag = flagTest.toDictionary()
 
@@ -109,7 +109,7 @@ final class FSOnExposureTest: XCTestCase {
         XCTAssertTrue(visitorObject.toDictionary()["id"] as? String == "testId")
         XCTAssertTrue(visitorObject.toDictionary()["anonymousId"] as? String == "ano1")
         XCTAssertTrue((visitorObject.toDictionary()["context"] as? [String: Any])?["key1"] as? String == "val1")
-        XCTAssertTrue(visitorObject.toJson()?.length ?? 0 > 0)
+        XCTAssertTrue(visitorObject.toJson()?.count ?? 0 > 0)
 
         var dico = visitorObject.toDictionary()
 
