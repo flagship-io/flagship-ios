@@ -65,6 +65,20 @@ public class FSModification {
     }
     
     
+    // Init from individual fields (used by QA Assistant)
+    internal init(campaignId: String, campaignName: String, variationGroupId: String, variationGroupName: String, variationId: String, variationName: String, isReference: Bool, campaignType: String, slug: String, value: Any) {
+        self.campaignId = campaignId
+        self.campaignName = campaignName
+        self.variationGroupId = variationGroupId
+        self.variationGroupName = variationGroupName
+        self.variationId = variationId
+        self.variationName = variationName
+        self.isReference = isReference
+        self.type = campaignType
+        self.slug = slug
+        self.value = value
+    }
+
     // Init from cache
     internal init(cacheCamp:FSCacheCampaign, valueForFlag:Any){
         

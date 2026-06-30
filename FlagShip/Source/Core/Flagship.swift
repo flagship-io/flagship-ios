@@ -24,8 +24,10 @@ public class Flagship: NSObject {
     
     // Emotion AI collect is enabled
     var eaiCollectEnabled: Bool = false
-    
     var eaiActivationEnabled: Bool = false
+    
+    // If the qa assistant tool is connected or not
+    var isQAAssistantConnected: Bool = false
     
     var currentStatus: FSSdkStatus {
         get {
@@ -67,7 +69,7 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-     }
+    }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
         let resolvedConfig = config ?? FSConfigBuilder().build()
@@ -101,8 +103,6 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-
-    
     func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
         let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented,
                                    aIsAuthenticated: isAuthenticated,
@@ -114,7 +114,7 @@ public class Flagship: NSObject {
         newVisitor.strategy = FSStrategy(newVisitor)
         
         if hasConsented {
-            newVisitor.strategy?.getStrategy().lookupHits() 
+            newVisitor.strategy?.getStrategy().lookupHits()
         } else {
             // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()

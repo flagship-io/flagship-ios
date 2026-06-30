@@ -108,6 +108,18 @@ import Foundation
     // Called every time when the FlagStatus is equals to FETCHED.
     var _onFlagStatusFetched: OnFlagStatusFetched = nil
     
+    /// Called by the QA Assistant strategy whenever flags are overridden or restored.
+    /// Mirrors Flutter's `visitor.onFlagUpdate` — set this callback to refresh your UI
+    /// without calling `fetchFlags` again.
+    ///
+    /// Example:
+    /// ```swift
+    /// visitor.onFlagUpdate = { changedFlagKeys in
+    ///     self.refreshFlagValues()
+    /// }
+    /// ```
+    public var onFlagUpdate: ((_ changedFlagKeys: [String]) -> Void)?
+
     #if os(iOS)
         var emotionCollect: FSEmotionAI?
     #endif

@@ -131,6 +131,9 @@ import Foundation
     /// Location Name where the event occurs
     public var location: String?
 
+    /// Set to true when this hit is sent via the QA Assistant strategy (mirrors Flutter hit.qa).
+    public var qa: Bool = false
+
     override init() {
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
@@ -184,6 +187,10 @@ import Foundation
         /// Time difference between when the hit was created and when it was sent
         let qt = Date().timeIntervalSince1970 - self.createdAt
         communParams.updateValue(qt.rounded(), forKey: "qt")
+
+        if qa {
+            communParams["qa"] = true
+        }
 
         return communParams
     }
