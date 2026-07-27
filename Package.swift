@@ -7,10 +7,7 @@ let package = Package(
     name: "Flagship",
 
     platforms: [
-        .iOS(.v9),
-        .tvOS(.v10),
-        .macOS(.v10_10),
-        .watchOS(.v5)
+        .iOS(.v13)
     ],
 
     products: [

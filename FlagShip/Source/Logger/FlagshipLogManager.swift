@@ -31,6 +31,7 @@ public enum FSTag: String {
     case STORAGE = "CACHE"
     case FLAG
     case DATA_TR_USAGE
+    case EMOTIONS_AI
 }
 
 class FlagshipLogManager: FSLogManager {

@@ -47,4 +47,38 @@ class FlagshipContextTest: XCTestCase {
         XCTAssertTrue(currentCtx[FlagshipContext.FIRST_TIME_INIT.rawValue] as? Bool == true)
         XCTAssertTrue(currentCtx[FlagshipContext.APP_VERSION_NAME.rawValue] as? String == "unitTest")
     }
+ 
+
+    func testUpdateCtxFetch() {
+        let expectationSync = XCTestExpectation(description: "update-context")
+        Flagship.sharedInstance.start(envId: "gk87t3jggr10c6l6sdob", apiKey: "123", config: FSConfigBuilder().Bucketing().build())
+
+        var u1 = Flagship.sharedInstance.newVisitor(visitorId: "123", hasConsented: true).withContext(context: ["key2": "val2"]).build()
+        // Should be TRUE
+        XCTAssertTrue(u1.context.needToUpload)
+        u1.fetchFlags {
+            XCTAssertFalse(u1.context.needToUpload)
+            expectationSync.fulfill()
+            u1.updateContext(["key2": "val2"])
+            XCTAssertFalse(u1.context.needToUpload)
+            u1.updateContext(["key2": "val2Bis"])
+            XCTAssertTrue(u1.context.needToUpload)
+        }
+        wait(for: [expectationSync], timeout: 5.0)
+    }
+
+    func testEqualContext() {
+        let ctx = FSContext(["key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true], visitorId: "123")
+
+        XCTAssertTrue(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "valBis", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 13, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.54, "keyDouble": 20.0, "keyBool": true, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.01, "keyBool": true, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": false, "fs_users": "123"]))
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true, "otherKey": "otherVal", "fs_users": "123"]))
+        ctx.clearContext()
+        XCTAssertFalse(ctx.isContextUnchanged([ALL_USERS: "", "key": "val", "keyInt": 12, "keyFloat": 12.5, "keyDouble": 20.0, "keyBool": true]))
+    }
+ 
 }

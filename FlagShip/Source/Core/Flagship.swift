@@ -22,6 +22,13 @@ public class Flagship: NSObject {
     // Last init timestamps
     var lastInitializationTimestamp: String
     
+    // Emotion AI collect is enabled
+    var eaiCollectEnabled: Bool = false
+    var eaiActivationEnabled: Bool = false
+    
+    // If the qa assistant tool is connected or not
+    var isQAAssistantConnected: Bool = false
+    
     var currentStatus: FSSdkStatus {
         get {
             return fsQueue.sync {
@@ -62,7 +69,7 @@ public class Flagship: NSObject {
 
     override private init() {
         lastInitializationTimestamp = FSTools.getUtcTimestamp()
-     }
+    }
     
     @objc public func start(envId: String, apiKey: String, config: FlagshipConfig? = nil) {
         let resolvedConfig = config ?? FSConfigBuilder().build()
@@ -96,18 +103,18 @@ public class Flagship: NSObject {
         FlagshipLogManager.Log(level: .ALL, tag: .INITIALIZATION, messageToDisplay: FSLogMessage.INIT_SDK(FlagShipVersion))
     }
     
-    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFetchFlagStatusChanged: OnFetchFlagsStatusChanged) -> FSVisitor {
-        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented, aIsAuthenticated: isAuthenticated, pOnFlagStatusChanged: pOnFetchFlagStatusChanged)
+    func newVisitor(_ visitorId: String, context: [String: Any] = [:], hasConsented: Bool = true, isAuthenticated: Bool, pOnFlagStatusChanged: OnFlagStatusChanged, pOnFlagStatusFetchRequired: OnFlagStatusFetchRequired, pOnFlagStatusFetched: OnFlagStatusFetched) -> FSVisitor {
+        let newVisitor = FSVisitor(aVisitorId: visitorId, aContext: context, aConfigManager: FSConfigManager(visitorId, config: currentConfig), aHasConsented: hasConsented,
+                                   aIsAuthenticated: isAuthenticated,
+                                   pOnFlagStatusChanged: pOnFlagStatusChanged,
+                                   pOnFlagStatusFetchRequired: pOnFlagStatusFetchRequired,
+                                   pOnFlagStatusFetched: pOnFlagStatusFetched)
         
         // Define strategy
         newVisitor.strategy = FSStrategy(newVisitor)
         
         if hasConsented {
-            // Read the cached visitor
-            newVisitor.strategy?.getStrategy().lookupVisitor()
-            // Read the cacheed hits from data base
             newVisitor.strategy?.getStrategy().lookupHits()
- 
         } else {
             // user not consent then flush the cache related
             newVisitor.strategy?.getStrategy().flushVisitor()
@@ -118,7 +125,7 @@ public class Flagship: NSObject {
         
         // Config data usage tracking
         FSDataUsageTracking.sharedInstance.configureWithVisitor(pVisitor: newVisitor)
-        
+    
         return newVisitor
     }
     

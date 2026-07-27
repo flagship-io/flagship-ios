@@ -8,6 +8,9 @@
 
 import Foundation
 
+// To prevent network overload, we set a batch limit.
+let Activate_Limit_Batch_Size: Int = 100
+
 class FSBatchManager {
     // Define the maximum number of tracking hit that each batch can contain.
     var poolMaxSize: Int = 10
@@ -83,7 +86,7 @@ class FSBatchManager {
     /// - Returns: all elements
     func extractAllElements(activatePool: Bool = false) -> [FSTrackingProtocol] {
         if activatePool {
-            return activateQueue.extrcatAllElements()
+            return activateQueue.dequeueElements(Activate_Limit_Batch_Size)
         } else {
             return hitQueue.extrcatAllElements()
         }

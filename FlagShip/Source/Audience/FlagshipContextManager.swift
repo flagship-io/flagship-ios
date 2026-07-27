@@ -29,8 +29,6 @@ class FlagshipContextManager: NSObject {
 
                 if let aVal = val {
                     result.updateValue(aVal /* as Any */, forKey: itemContext.rawValue)
-
-                  //  FlagshipLogManager.Log(level: .INFO, tag: .TARGETING, messageToDisplay: .MESSAGE("---- \(itemContext.rawValue) =  \(val ?? "Not defined") ----"))
                 }
 
             } catch {

@@ -20,6 +20,7 @@ import Foundation
     case TROUBLESHOOTING
     case USAGE
     case None
+    case EMOTION_AI
 
     public var typeString: String {
         switch self {
@@ -43,6 +44,8 @@ import Foundation
             return "TROUBLESHOOTING"
         case .USAGE:
             return "USAGE"
+        case .EMOTION_AI:
+            return "VISITOREVENT"
         case .None:
             return "None"
         }
@@ -128,6 +131,9 @@ import Foundation
     /// Location Name where the event occurs
     public var location: String?
 
+    /// Set to true when this hit is sent via the QA Assistant strategy
+    public var qa: Bool = false
+
     override init() {
         self.id = ""
         self.envId = Flagship.sharedInstance.envId
@@ -181,6 +187,10 @@ import Foundation
         /// Time difference between when the hit was created and when it was sent
         let qt = Date().timeIntervalSince1970 - self.createdAt
         communParams.updateValue(qt.rounded(), forKey: "qt")
+
+        if qa {
+            communParams["qa"] = true
+        }
 
         return communParams
     }

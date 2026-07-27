@@ -29,8 +29,6 @@ final class FSNotReadyStrategyTest: XCTestCase {
         let lengthCtx = userNR.getContext().count
         userNR.strategy?.getStrategy().updateContext(["a": "b"])
         XCTAssertEqual(userNR.getContext().count, lengthCtx)
-        // Get Falg
-        XCTAssertEqual(userNR.strategy?.getStrategy().getModification("keyNR", defaultValue: "dfl_NR"), "dfl_NR")
         // Get Flag Modification
         XCTAssertNil(userNR.strategy?.getStrategy().getFlagModification("keyNR"))
         // Get Modification inofs

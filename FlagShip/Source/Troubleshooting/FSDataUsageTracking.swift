@@ -12,7 +12,7 @@ import Foundation
 let FSDataUsageAllocationThreshold = 1
 
 class FSDataUsageTracking {
-    let serialDataReportQueue = DispatchQueue(label: "datareport.serial.queue")
+    let serialDataReportQueue = DispatchQueue(label: "data.report.serial.queue")
 
     var visitorSessionId: String = FSTools.generateUuidv4()
 
@@ -20,7 +20,8 @@ class FSDataUsageTracking {
     var _troubleshooting: FSTroubleshooting?
     // Visitor Id
     var _visitorId: String = ""
-    // Has the visitor consented
+
+    // Has visitor consented
     var _hasConsented: Bool = true
     // Config SDK
     var _sdkConfig: FlagshipConfig?

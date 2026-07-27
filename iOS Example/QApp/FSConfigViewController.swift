@@ -76,53 +76,63 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
     }
 
     @IBAction func onClikcStart() {
-        // Get the mode
-        let mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
+        Task {
+            // Get the mode
+            var mode: FSMode = modeBtn?.isSelected ?? false ? .BUCKETING : .DECISION_API
 
-        // Retreive the timeout value
-        var timeOut = 2.0 /// Default value is 2 seconds
+            // Retreive the timeout value
+            var timeOut = 2.0 /// Default value is 2 seconds
 
-        if let timeOutInputValue = Double(timeOutFiled?.text ?? "2") {
-            timeOut = timeOutInputValue
-        }
+            if let timeOutInputValue = Double(timeOutFiled?.text ?? "2") {
+                timeOut = timeOutInputValue
+            }
 
-        // Create config object
-        let fsConfig: FlagshipConfig
+            // Create config object
+            let fsConfig: FlagshipConfig
 
-        let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withOnSdkStatusChanged { newState in
+            let fsConfigBuilder = FSConfigBuilder().DecisionApi().withTimeout(timeOut).withOnSdkStatusChanged { newState in
 
-            if newState == .SDK_INITIALIZED || newState == .SDK_PANIC || newState == .SDK_INITIALIZING {
-                DispatchQueue.main.async {
-                    self.createBtn?.isEnabled = true
-                }
+                if newState == .SDK_INITIALIZED || newState == .SDK_PANIC || newState == .SDK_INITIALIZING {
+                    DispatchQueue.main.async {
+                        self.createBtn?.isEnabled = true
+                    }
 
-                if mode == .BUCKETING {
-                    Flagship.sharedInstance.sharedVisitor?.fetchFlags {
-                        self.delegate?.onGetSdkReady()
+                    if mode == .BUCKETING {
+                        Flagship.sharedInstance.sharedVisitor?.fetchFlags {
+                            self.delegate?.onGetSdkReady()
+                        }
                     }
                 }
+            }.withLogLevel(.ALL).withOnVisitorExposed { v, fromFlag in
+
+                print("------- On visitor exposed callback ----------")
+                print(v.toJson())
+
+                print(fromFlag.toJson())
+                print("------- On visitor exposed callback ----------")
             }
-        }.withLogLevel(.ALL).withOnVisitorExposed { visitorExposed, fromFlag in
 
-            print("------- On visitor exposed callback ----------")
-            print(visitorExposed.toJson())
-            print(fromFlag.toJson())
-            print("------- On visitor exposed callback ----------")
+            if mode == .DECISION_API {
+                fsConfig = fsConfigBuilder.DecisionApi().build()
+            } else {
+                fsConfig = fsConfigBuilder.Bucketing().build()
+            }
+
+            // Start the sdk
+            //  Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
+
+            print("This is on the main actor.") // envIdTextField?.text ??
+            try await Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
+
+            print("END OF START SDK CALL")
         }
-
-        if mode == .DECISION_API {
-            fsConfig = fsConfigBuilder.DecisionApi().build()
-        } else {
-            fsConfig = fsConfigBuilder.Bucketing().build()
-        }
-
-        // Start the sdk
-        Flagship.sharedInstance.start(envId: envIdTextField?.text ?? "", apiKey: apiKetTextField?.text ?? "", config: fsConfig)
     }
 
     @IBAction func onClickCreateVisitor() {
         fetchBtn?.isEnabled = true
-        _ = createVisitor()
+        let visitorTest = createVisitor()
+
+        visitorTest.updateContext(["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12])
 
         delegate?.onGetSdkReady()
     }
@@ -147,18 +157,33 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         })
     }
 
+    @IBAction func onStartCollecting() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first
+        {
+            print("Start collecting emotion AI")
+            Flagship.sharedInstance.sharedVisitor?.collectEmotionsAIEvents(window: window, screenName: "LoginScreen")
+        }
+    }
+
     func createVisitor() -> FSVisitor {
         let userIdToSet: String = visitorIdTextField?.text ?? ""
-        
-        let context:[String:Any] = ["segment": "coffee", "isQA": true , "testing_tracking_manager": true, "isPreRelease": true, "test": 12, "keyReleaseBucket": 12, "keyReleaseBucketMardi": "mardi", "keyBucketTer": "test", "keyBucket": true, "abcdef": 12.0, "condition1": "segment"]
 
-        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context:context ).isAuthenticated(authenticateSwitch?.isOn ?? false).withFetchFlagsStatus { newStatus, reason in
+        let context: [String: Any] = ["segment": "coffee", "isQA": true, "testing_tracking_manager": true, "isPreRelease": true, "test": 12, "keyReleaseBucket": 12, "keyReleaseBucketMardi": "mardi", "keyBucketTer": "test", "keyBucket": true, "abcdef": 12.0, "condition1": "segment"]
 
-            print("######### ON CALLBACK FETCH STATE IS CALLED ###############")
+        // let userIdToSet = "iosUser_\(UUID().uuidString)"
 
-            print("-------------- \(newStatus)------------------")
+       
+        return Flagship.sharedInstance.newVisitor(visitorId: userIdToSet, hasConsented: allowTrackingSwitch?.isOn ?? true).withContext(context: context).isAuthenticated(authenticateSwitch?.isOn ?? false).withOnFlagStatusChanged { newStatus in
 
-            print("-------------- \(reason)---------------------")
+            print("######################### The withOnFlagStatusChanged callback is called with status is \(newStatus) ######################")
+
+        }.withOnFlagStatusFetchRequired { reason in
+
+            print(" ######################### The callback withOnFlagStatusFetchRequired is called reason status is \(reason) ######################")
+
+        }.withOnFlagStatusFetched {
+            print(" ########################## The callback withOnFlagStatusFetched is called - now fetched #############################")
         }.build()
     }
 
@@ -225,18 +250,18 @@ class FSConfigViewController: UIViewController, UITextFieldDelegate, FSJsonEdito
         }
     }
 
-    func doc() {
-        // Instanciate Custom cache manager
-        let customCacheManager = FSCacheManager(CustomVisitorCache(), CustomHitCache())
-
-        // Start the Flagship sdk
-        Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: FSConfigBuilder()
-            .DecisionApi()
-            .withCacheManager(customCacheManager)
-            .build())
-
-        Flagship.sharedInstance.close()
-    }
+//    func doc() {
+//        // Instanciate Custom cache manager
+//        let customCacheManager = FSCacheManager(CustomVisitorCache(), CustomHitCache())
+//
+//        // Start the Flagship sdk
+//        Flagship.sharedInstance.start(envId: "_ENV_ID_", apiKey: "_API_KEY_", config: FSConfigBuilder()
+//            .DecisionApi()
+//            .withCacheManager(customCacheManager)
+//            .build())
+//
+//        Flagship.sharedInstance.close()
+//    }
 }
 
 // Delegate

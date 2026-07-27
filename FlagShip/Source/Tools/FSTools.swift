@@ -6,11 +6,14 @@
 //
 
 import Foundation
-
-#if os(watchOS)
-import Network
-#else
+#if os(iOS) || os(macOS) || os(tvOS)
 import SystemConfiguration
+#endif
+
+#if os(iOS) || os(tvOS)
+import UIKit
+#elseif os(watchOS)
+import Network
 #endif
 
 let FSLengthId = 20
@@ -68,18 +71,6 @@ class FSTools: NSObject {
         return newVisitor
     }
 
-    // Is Connexion Available
-    class func isConnexionAvailable() -> Bool {
-#if os(watchOS)
-        return FSTools.available
-#else
-        let reachability = SCNetworkReachabilityCreateWithName(nil, FlagshipUniversalEndPoint)
-        var flags = SCNetworkReachabilityFlags()
-        SCNetworkReachabilityGetFlags(reachability!, &flags)
-        return flags.contains(.reachable)
-#endif
-    }
-
     class func generateUuidv4() -> String {
         return UUID().uuidString
     }
@@ -90,5 +81,16 @@ class FSTools: NSObject {
         formatDate.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         formatDate.timeZone = TimeZone(abbreviation: "UTC")
         return formatDate.string(from: Date())
+    }
+
+    class func getUserAgent() {}
+
+    class func getAmountTimeInMinute() -> Int {
+        // Get the current time zone
+        let timeZone = TimeZone.current
+        // Get the offset in seconds
+        let utcOffsetInSeconds = timeZone.secondsFromGMT()
+        // Convert seconds to hours and minutes
+        return utcOffsetInSeconds / 60
     }
 }

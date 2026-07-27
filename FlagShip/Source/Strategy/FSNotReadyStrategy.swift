@@ -6,21 +6,17 @@
 //
 
 import Foundation
-
+#if os(iOS)
+    import UIKit
+#endif
 class FSNotReadyStrategy: FSDefaultStrategy {
     override func updateContext(_ newContext: [String: Any]) {
         FlagshipLogManager.Log(level: .INFO, tag: .UPDATE_CONTEXT, messageToDisplay: FSLogMessage.UPDATE_CONTEXT_NOT_READY)
     }
     
-    override func synchronize(onSyncCompleted: @escaping (FSFetchStatus, FSFetchReasons) -> Void) {
+    override func synchronize(onSyncCompleted: @escaping (FSFlagStatus, FetchFlagsRequiredStatusReason) -> Void) {
         FlagshipLogManager.Log(level: .INFO, tag: .SYNCHRONIZE, messageToDisplay: FSLogMessage.SYNCHRONIZE_NOT_READY)
         onSyncCompleted(.FETCH_REQUIRED, .NONE)
-    }
-    
-    override func getModification<T>(_ key: String, defaultValue: T) -> T {
-        FlagshipLogManager.Log(level: .INFO, tag: .GET_MODIFICATION, messageToDisplay: FSLogMessage.GET_MODIFICATION_NOT_READY)
-
-        return defaultValue
     }
     
     /// Get Flag Modification value
@@ -40,6 +36,18 @@ class FSNotReadyStrategy: FSDefaultStrategy {
     override func sendHit(_ hit: FSTrackingProtocol) {
         FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
     }
+
+    #if os(iOS)
+
+        /// _ Start collection
+        override func collectEmotionsAIEvents(window: UIWindow?, screenName: String?, usingSwizzling: Bool) {
+            FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
+        }
+    
+        override func onAppScreenChange(_ screenName: String) {
+            FlagshipLogManager.Log(level: .INFO, tag: .TRACKING, messageToDisplay: FSLogMessage.HIT_NOT_READY)
+        }
+    #endif
     
     /// _ Cache Visitor
     override func cacheVisitor() {}
