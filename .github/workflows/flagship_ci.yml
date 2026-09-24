@@ -6,15 +6,16 @@ on:
       - master
 jobs:
   Build_SDK:
-    runs-on: macos-15
+    runs-on: macos-latest
     strategy:
       matrix:
         run-config:
-          - { scheme: 'Flagship', destination: 'platform=iOS Simulator,name=iPhone 16', label: 'iOS'}
-          - { scheme: 'Flagship-tvOS', destination: 'platform=tvOS Simulator,name=Apple TV', label: 'tvOS' }
+          # Generic destinations don't depend on a specific simulator being installed on the runner
+          - { scheme: 'Flagship', destination: 'generic/platform=iOS Simulator', label: 'iOS'}
+          - { scheme: 'Flagship-tvOS', destination: 'generic/platform=tvOS Simulator', label: 'tvOS' }
           - { scheme: 'Flagship-macOS', destination: 'platform=macOS', label: 'macOS'}
-          - { scheme: 'Flagship-watchOS', destination: 'platform=watchOS Simulator,name=Apple Watch Ultra 3 (49mm),OS=26.2', label: 'watchOS'}
- 
+          - { scheme: 'Flagship-watchOS', destination: 'generic/platform=watchOS Simulator', label: 'watchOS'}
+
     steps:
     - name: Checkout Project
       uses: actions/checkout@v4
@@ -22,12 +23,30 @@ jobs:
       run: xcodebuild clean build -project Flagship/Flagship.xcodeproj -scheme '${{ matrix.run-config['scheme'] }}'  -destination '${{ matrix.run-config['destination'] }}'
   Testing:
      needs: Build_SDK
-     runs-on: macos-15
+     runs-on: macos-latest
      steps:
      - name: Checkout Project
        uses: actions/checkout@v4
+     - name: Pick an available iPhone simulator
+       id: sim
+       run: |
+         # Pick the first available iPhone on the newest installed iOS runtime
+         UDID=$(xcrun simctl list devices available -j | jq -r '
+           .devices | to_entries
+           | map(select(.key | test("SimRuntime\\.iOS-")))
+           | sort_by(.key | capture("iOS-(?<v>[0-9-]+)").v | split("-") | map(tonumber))
+           | reverse
+           | map(.value[] | select(.name | startswith("iPhone")))
+           | .[0].udid // empty')
+         if [ -z "$UDID" ]; then
+           echo "No iPhone simulator available on this runner"
+           xcrun simctl list devices available
+           exit 1
+         fi
+         echo "Using simulator: $(xcrun simctl list devices | grep "$UDID")"
+         echo "udid=$UDID" >> "$GITHUB_OUTPUT"
      - name: Test SDK Flagship
-       run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,name=iPhone 16" -enableCodeCoverage YES
+       run:  xcodebuild test -project Flagship/Flagship.xcodeproj -scheme "Flagship" -destination "platform=iOS Simulator,id=${{ steps.sim.outputs.udid }}" -enableCodeCoverage YES
      - name: Upload coverage to Codecov
        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24
        with:
