@@ -6,8 +6,6 @@
 
 import Foundation
 
-/// Comment to test release
-
 public class Flagship: NSObject {
     let fsQueue = DispatchQueue(label: "flagship.queue", attributes: .concurrent)
     
