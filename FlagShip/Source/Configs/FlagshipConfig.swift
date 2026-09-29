@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Updated test release version
 public let FSTimeoutDecisionApi = 2.0
 
 public let FSTimeoutRequest = 60.0 // Timeout for other request
