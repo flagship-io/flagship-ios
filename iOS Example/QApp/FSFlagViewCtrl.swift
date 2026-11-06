@@ -127,20 +127,20 @@ class FlagView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
                     
                     flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: defaultValueSwitch?.isOn ?? false */ )
 
-                    flagObject?.value(defaultValue: defaultValueSwitch?.isOn ?? false, visitorExposed: false)
+                    flagObject?.value(defaultValue: defaultValueSwitch?.isOn ?? false, visitorExposed: true)
                     
                 case .StringType:
                     
                     flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: defaultValueInput */ )
                     
-                    flagObject?.value(defaultValue: defaultValueInput, visitorExposed: false)
+                    flagObject?.value(defaultValue: defaultValueInput, visitorExposed: true)
                     
                 case .IntegerType:
                     
                     let inputInt = Int(String(format: "%@" /* , defaultValueInput */ )) ?? 0
                     
                     flagObject = Flagship.sharedInstance.sharedVisitor?.getFlag(key: keyValueInput /* , defaultValue: inputInt */ )
-                    flagObject?.value(defaultValue: inputInt, visitorExposed: false)
+                    flagObject?.value(defaultValue: inputInt, visitorExposed: true)
                     
                 case .DoubleType:
                     
