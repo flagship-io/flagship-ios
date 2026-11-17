@@ -75,7 +75,7 @@ public extension FSVisitor {
         copiedVisitor.fetchStatus = self.fetchStatus
 
         // Copy strategy if needed
-        if let strategy = self.strategy {
+        if self.strategy != nil {
             copiedVisitor.strategy = FSStrategy(copiedVisitor)
         }
         return copiedVisitor
