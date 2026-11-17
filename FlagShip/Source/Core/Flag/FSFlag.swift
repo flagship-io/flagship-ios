@@ -52,6 +52,8 @@ public class FSFlag: NSObject {
                 result = defaultValue
                 let msg = "For the visitor \(strategy?.visitor.visitorId ?? ""), no flags were found with the key \(key). Therefore, the default value \(String(describing: defaultValue)) has been returned"
                 FlagshipLogManager.Log(level: .ALL, tag: .ACTIVATE, messageToDisplay: FSLogMessage.MESSAGE(msg))
+                // Send TR on flag type mismatch
+                FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_TYPE_WARNING, f: self, v: strategy?.visitor)
             }
             
             /// Activate
@@ -61,7 +63,9 @@ public class FSFlag: NSObject {
             return result
         }
         FlagshipLogManager.Log(level: .ALL, tag: .GET_MODIFICATION, messageToDisplay: .MESSAGE("The key doon't exist ===> return the defaultValue"))
-        
+        // Send TR on flag not found
+        FSDataUsageTracking.sharedInstance.proceesTSFlag(crticalPointLabel: .GET_FLAG_VALUE_FLAG_NOT_FOUND, f: self, v: strategy?.visitor)
+
         return defaultValue
     }
     

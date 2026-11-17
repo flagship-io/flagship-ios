@@ -49,7 +49,9 @@ class FlagViewCell: UITableViewCell {
             varGId?.text = metedata.variationGroupId
             varName?.text = metedata.variationName
             varId?.text = metedata.variationId
-            flagValue?.text = String(format: "\(aFlag.value(defaultValue: aFlag.defaultValue, visitorExposed: false) ?? "None")")
+            // Avoid calling value() on a missing flag, it would send a second troubleshooting hit
+            let displayedValue = aFlag.exists() ? aFlag.value(defaultValue: aFlag.defaultValue, visitorExposed: false) : aFlag.defaultValue
+            flagValue?.text = String(format: "\(displayedValue ?? "None")")
             isReferenceSwitch?.isOn = metedata.isReference
             slug?.text = metedata.slug
             typeCampaign?.text = metedata.campaignType
